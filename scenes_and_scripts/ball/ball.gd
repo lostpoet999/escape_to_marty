@@ -104,12 +104,12 @@ func move_ball(delta: float) -> void: #we need to move x and y coords independen
 			else:
 				handle_pierce(collider)
 
-	if flip_x:
+	if flip_x: #flip in x direction
 		velocity.x *= -1
 		var leftover := absf(move.x) - absf(position.x - old_x)
 		position.x += sign(-move.x) * leftover
 
-	var old_y := position.y #move and chack at y
+	var old_y := position.y #move and check at y
 	position.y += move.y
 	var y_collisions := query_collisions()
 	var flip_y := false
@@ -131,7 +131,7 @@ func move_ball(delta: float) -> void: #we need to move x and y coords independen
 			else:
 				handle_pierce(collider)
 
-	if flip_y:
+	if flip_y: #bounce in y direction
 		velocity.y *= -1
 		var leftover := absf(move.y) - absf(position.y - old_y)
 		position.y += sign(-move.y) * leftover
