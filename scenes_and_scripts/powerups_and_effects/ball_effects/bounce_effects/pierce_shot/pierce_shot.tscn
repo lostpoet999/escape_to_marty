@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dvydyhpxgpy77"]
+
+[ext_resource type="Script" uid="uid://cl4upm251aqd5" path="res://scenes_and_scripts/powerups_and_effects/ball_effects/bounce_effects/pierce_shot/pierce_shot.gd" id="1_tttic"]
+
+[node name="PierceShot" type="Node2D" unique_id=1266604057]
+script = ExtResource("1_tttic")

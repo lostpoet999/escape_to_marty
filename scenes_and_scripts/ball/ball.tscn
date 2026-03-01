@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://ld8u6g3nsn62"]
+
+[ext_resource type="Script" uid="uid://bgoek4tgc32i4" path="res://scenes_and_scripts/ball/ball.gd" id="1_oyq8w"]
+[ext_resource type="Texture2D" uid="uid://mtj7exkdy0ls" path="res://scenes_and_scripts/ball/new_ball.png" id="2_1rrwo"]
+[ext_resource type="PackedScene" uid="uid://dojhm36tklo5w" path="res://scenes_and_scripts/powerups_and_effects/ball_effects/bounce_effects/base_bounce_effect.tscn" id="2_uw8co"]
+[ext_resource type="Resource" uid="uid://ctjeqnpuca6lq" path="res://scenes_and_scripts/powerups_and_effects/ball_powerups/base_ball_power_up.tres" id="3_qrf04"]
+[ext_resource type="Script" uid="uid://bryv4msdad7wu" path="res://scenes_and_scripts/powerups_and_effects/ball_powerups/ball_power_up.gd" id="4_j33xc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_olawr"]
+radius = 11.0454
+
+[node name="Ball" type="Area2D" unique_id=1220836699]
+z_index = 100
+script = ExtResource("1_oyq8w")
+bounce_effect_scene = ExtResource("2_uw8co")
+powerup_array = Array[ExtResource("4_j33xc")]([ExtResource("3_qrf04")])
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1756931055]
+texture = ExtResource("2_1rrwo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=891295799]
+shape = SubResource("CircleShape2D_olawr")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="Effects" type="Node" parent="." unique_id=949634543]

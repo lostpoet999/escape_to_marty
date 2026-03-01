@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://dyl58ch7f3lkt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_022af"]
+size = Vector2(1611, 108)
+
+[node name="DeathWall" type="Area2D" groups=["DeathWalls"]]
+self_modulate = Color(1, 0, 0, 1)
+scale = Vector2(1, 0.25)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(833.5, 53)
+shape = SubResource("RectangleShape2D_022af")
+
+[node name="TextureRect" type="ColorRect" parent="."]
+offset_left = 28.0
+offset_right = 1640.0
+offset_bottom = 108.0
+color = Color(0.45755547, 1.2393668e-06, 2.1658838e-07, 1)

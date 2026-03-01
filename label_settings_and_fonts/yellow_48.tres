@@ -1,0 +1,8 @@
+[gd_resource type="LabelSettings" format=3 uid="uid://dx3lg2g7p81op"]
+
+[ext_resource type="FontFile" uid="uid://c1its5lmhd4kg" path="res://label_settings_and_fonts/fonts/8bitlim.ttf" id="1_lcufs"]
+
+[resource]
+font = ExtResource("1_lcufs")
+font_size = 48
+font_color = Color(1, 1, 0.0784314, 1)

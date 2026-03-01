@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://cm1kspxv86400"]
+
+[ext_resource type="Texture2D" uid="uid://bcywdj7ryfdag" path="res://scenes_and_scripts/bricks/element_blue_rectangle.png" id="1_23tei"]
+[ext_resource type="Script" uid="uid://i403c20dlobl" path="res://scenes_and_scripts/bricks/blue_brick.gd" id="1_hdens"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xcpf8"]
+size = Vector2(64, 32)
+
+[node name="BlueBrick" type="Area2D" unique_id=887021685 groups=["bricks"]]
+script = ExtResource("1_hdens")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1027905382]
+scale = Vector2(1, 2)
+texture = ExtResource("1_23tei")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1283164780]
+scale = Vector2(1, 2)
+shape = SubResource("RectangleShape2D_xcpf8")
+
+[node name="brick_health" type="Label" parent="." unique_id=499738501]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "3"

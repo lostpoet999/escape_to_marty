@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://8ebe0a5nsman"]
+
+[ext_resource type="Script" uid="uid://8w5tld7vnxeu" path="res://scenes_and_scripts/ui_level/main_ui.gd" id="1_op5x6"]
+[ext_resource type="LabelSettings" uid="uid://dnb1y3i4cf2ln" path="res://label_settings_and_fonts/basic_white_38.tres" id="1_utoos"]
+[ext_resource type="FontFile" uid="uid://c1its5lmhd4kg" path="res://label_settings_and_fonts/fonts/8bitlim.ttf" id="2_8r8j7"]
+[ext_resource type="LabelSettings" uid="uid://dx3lg2g7p81op" path="res://label_settings_and_fonts/yellow_48.tres" id="2_c76ar"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_5qwjd"]
+font = ExtResource("2_8r8j7")
+font_size = 48
+font_color = Color(1, 1, 0.0784314, 1)
+
+[node name="Main_UI" type="Control" unique_id=1289514780]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_op5x6")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1789650623]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=864382994]
+layout_mode = 2
+
+[node name="Score_label" type="Label" parent="MarginContainer/HBoxContainer" unique_id=1238751976]
+layout_mode = 2
+text = "Score:"
+label_settings = ExtResource("2_c76ar")
+
+[node name="Score" type="Label" parent="MarginContainer/HBoxContainer" unique_id=812595105]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "100000"
+label_settings = ExtResource("1_utoos")
+
+[node name="spacer" type="Label" parent="MarginContainer/HBoxContainer" unique_id=1266625648]
+layout_mode = 2
+
+[node name="Star_lable" type="Label" parent="MarginContainer/HBoxContainer" unique_id=1425838457]
+layout_mode = 2
+text = "Stars:"
+label_settings = SubResource("LabelSettings_5qwjd")
+
+[node name="Stars" type="Label" parent="MarginContainer/HBoxContainer" unique_id=358128666]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "100"
+label_settings = ExtResource("1_utoos")
+
+[node name="spacer2" type="Label" parent="MarginContainer/HBoxContainer" unique_id=567536115]
+layout_mode = 2
+
+[node name="Player_Health" type="Label" parent="MarginContainer/HBoxContainer" unique_id=1165732847]
+layout_mode = 2
+text = "Health:"
+label_settings = ExtResource("2_c76ar")
+
+[node name="health" type="Label" parent="MarginContainer/HBoxContainer" unique_id=1380871399]
+layout_mode = 2
+text = "10
+"
+label_settings = ExtResource("1_utoos")
