@@ -1,6 +1,6 @@
 extends Control
 
-@onready var exit_button: Button = $MarginContainer/VBoxContainer/"Exit Button"
+@onready var exit_button: Button = $VBoxContainer/ButtonContainer/"Exit Button"
 
 func _ready() -> void:
 	# Hide exit button on web (quit doesn't work in browsers)

@@ -44,9 +44,10 @@ metadata/_edit_lock_ = true
 layout_mode = 3
 anchors_preset = 0
 offset_left = 281.0
-offset_right = 1921.0
+offset_right = 1890.0
 offset_bottom = 1080.0
 mouse_filter = 2
+metadata/_edit_lock_ = true
 
 [node name="Bricks" type="Node2D" parent="PlayArea" unique_id=424513038]
 position = Vector2(-345, -128)
@@ -282,8 +283,8 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 
 [node name="Paddle" parent="." unique_id=146319671 instance=ExtResource("1_sd3qt")]
-position = Vector2(953, 984)
+position = Vector2(1088, 984)
 scale = Vector2(1.3, 1)
 
 [node name="Ball" parent="." unique_id=776217501 instance=ExtResource("2_jgvlq")]
-position = Vector2(952, 955)
+position = Vector2(1088, 955)
