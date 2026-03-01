@@ -74,7 +74,7 @@ func launch_ball() -> void:
 func update_velocity(velocity_ref: Vector2) -> void:
 	velocity = velocity_ref
 
-func move_ball(delta: float) -> void:
+func move_ball(delta: float) -> void: #we need to move x and y coords independently so we can properly handle collisions at seams
 	velocity = velocity.normalized() * initial_speed
 	var move := velocity * delta
 	var hit_this_step: Array[int] = []
@@ -82,8 +82,7 @@ func move_ball(delta: float) -> void:
 	if not _collision_set.is_empty():
 		clean_collision_set()
 
-	# --- X step ---
-	var old_x := position.x
+	var old_x := position.x #move and check at x
 	position.x += move.x
 	var x_collisions := query_collisions()
 	var flip_x := false
@@ -110,8 +109,7 @@ func move_ball(delta: float) -> void:
 		var leftover := absf(move.x) - absf(position.x - old_x)
 		position.x += sign(-move.x) * leftover
 
-	# --- Y step ---
-	var old_y := position.y
+	var old_y := position.y #move and chack at y
 	position.y += move.y
 	var y_collisions := query_collisions()
 	var flip_y := false
