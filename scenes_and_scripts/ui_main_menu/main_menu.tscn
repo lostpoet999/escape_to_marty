@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://djuj72c4lcukn"]
 
-[ext_resource type="Script" uid="uid://cp7hqckie8gkd" path="res://scenes_and_scripts/main_menu/main_menu.gd" id="1_2ax67"]
+[ext_resource type="Script" uid="uid://cp7hqckie8gkd" path="res://scenes_and_scripts/ui_main_menu/main_menu.gd" id="1_2ax67"]
 [ext_resource type="FontFile" uid="uid://c1its5lmhd4kg" path="res://label_settings_and_fonts/fonts/8bitlim.ttf" id="2_font"]
 
 [node name="MainMenu" type="Control" unique_id=243921106]
@@ -21,7 +21,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.27450982, 0.11372549, 0.2509804, 1)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=121057991]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -29,12 +29,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TitleContainer" type="CenterContainer" parent="VBoxContainer"]
+[node name="TitleContainer" type="CenterContainer" parent="VBoxContainer" unique_id=1448660253]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
 
-[node name="Title" type="Label" parent="VBoxContainer/TitleContainer"]
+[node name="Title" type="Label" parent="VBoxContainer/TitleContainer" unique_id=640680555]
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_colors/font_color = Color(1, 1, 0.0784314, 1)
@@ -42,12 +42,12 @@ theme_override_fonts/font = ExtResource("2_font")
 theme_override_font_sizes/font_size = 192
 text = "Escape to Marty"
 
-[node name="ButtonContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="ButtonContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1755409713]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 3.0
-alignment = 1
 theme_override_constants/separation = 40
+alignment = 1
 
 [node name="Start Button" type="Button" parent="VBoxContainer/ButtonContainer" unique_id=761796766]
 custom_minimum_size = Vector2(300, 120)

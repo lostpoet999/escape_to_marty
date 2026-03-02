@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="Escape to Marty"
-run/main_scene="res://scenes_and_scripts/main_menu/main_menu.tscn"
+run/main_scene="res://scenes_and_scripts/ui_main_menu/main_menu.tscn"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 boot_splash/bg_color=Color(0.698039, 0.317647, 0.364706, 1)
 boot_splash/show_image=false
