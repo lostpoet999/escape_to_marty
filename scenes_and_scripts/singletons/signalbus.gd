@@ -1,6 +1,6 @@
 extends Node
 
-## NOTE: One child-down should use direct references.  Otherwise let's just use signabus to make things easy.
+## NOTE: One child-down should use direct references.  Otherwise let's just use signalbus to make things easy.
 
 ## =============================================================================
 ## GAME STATE SIGNALS

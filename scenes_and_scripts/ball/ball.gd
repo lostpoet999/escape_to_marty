@@ -40,6 +40,7 @@ func position_ball_on_paddle() -> void:
 	var offset: float = ball_half_height + get_paddle_half_height() + 1.0
 	position = paddle.global_position + Vector2(0, -offset)
 	on_paddle = true
+	GameManager.change_state(GameManager.GameState.BALL_ON_PADDLE)
 
 func instantiate_all_effects() -> void:
 	for powerup_ref: BallPowerUp in powerup_array:
@@ -67,6 +68,7 @@ func _input(_event: InputEvent) -> void:
 
 func launch_ball() -> void:
 	on_paddle = false
+	GameManager.change_state(GameManager.GameState.PLAYING)
 	set_process(true)
 	velocity = Vector2(float(paddle.current_speed), -initial_speed)
 	velocity = velocity.normalized() * initial_speed

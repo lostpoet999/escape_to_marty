@@ -8,7 +8,7 @@ func _ready() -> void:
 		exit_button.hide()
 
 func _on_start_button_pressed() -> void:
-	GameManager.change_state(GameManager.GameState.PLAYING)
+	GameManager.change_state(GameManager.GameState.BALL_ON_PADDLE)
 	GameManager.load_scene(GameManager.LEVEL_01)
 
 

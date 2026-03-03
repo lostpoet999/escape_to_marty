@@ -4,7 +4,7 @@ extends Node
 const MAIN_MENU = preload("uid://djuj72c4lcukn")
 const LEVEL_01 = preload("uid://bea1h3570swpu")
 
-enum GameState {MAIN_MENU, PLAYING, PAUSED, GAME_OVER, CLICK_MODE}
+enum GameState {MAIN_MENU, BALL_ON_PADDLE, PLAYING, PAUSED, GAME_OVER, CLICK_MODE}
 var current_state: GameState = GameState.MAIN_MENU
 
 #const node group constants
@@ -34,11 +34,13 @@ func is_valid_state_transition(from_state: GameState, to_state: GameState) -> bo
 	if current_state == to_state: return false
 	match from_state:
 		GameState.MAIN_MENU:
-			return to_state in [GameState.PLAYING]
+			return to_state in [GameState.BALL_ON_PADDLE]
+		GameState.BALL_ON_PADDLE:
+			return to_state in [GameState.PLAYING, GameState.PAUSED]
 		GameState.PLAYING:
 			return to_state in [GameState.PAUSED, GameState.GAME_OVER, GameState.MAIN_MENU, GameState.CLICK_MODE]
 		GameState.PAUSED:
-			return to_state in [GameState.PLAYING]
+			return to_state in [GameState.PLAYING, GameState.BALL_ON_PADDLE]
 		GameState.GAME_OVER:
 			return to_state in [GameState.MAIN_MENU, GameState.PLAYING]
 		GameState.CLICK_MODE:
@@ -51,6 +53,8 @@ func enter_state(change_to_state: GameState) -> void:
 		GameState.MAIN_MENU:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			Signalbus.game_state_main_menu.emit()
+		GameState.BALL_ON_PADDLE:
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		GameState.PLAYING:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 			Signalbus.game_state_playing.emit()
