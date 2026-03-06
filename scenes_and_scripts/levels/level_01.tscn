@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://t38808n7kc0c" path="res://scenes_and_scripts/ui_menus/escape_menu.tscn" id="2_cua0y"]
 [ext_resource type="PackedScene" uid="uid://ld8u6g3nsn62" path="res://scenes_and_scripts/ball/ball.tscn" id="2_jgvlq"]
 [ext_resource type="PackedScene" uid="uid://dn7s6lrcudtqn" path="res://scenes_and_scripts/walls/64x64_brownish_wall.tscn" id="5_bmcj7"]
-[ext_resource type="PackedScene" uid="uid://cm1kspxv86400" path="res://scenes_and_scripts/bricks/blue_brick.tscn" id="6_7jbmx"]
+[ext_resource type="PackedScene" uid="uid://nf4lt2j2agem" path="res://scenes_and_scripts/walls/exit_wall.tscn" id="5_wu3fo"]
 [ext_resource type="PackedScene" uid="uid://dyl58ch7f3lkt" path="res://scenes_and_scripts/walls/death_wall.tscn" id="9_8c2x0"]
 [ext_resource type="PackedScene" uid="uid://8ebe0a5nsman" path="res://scenes_and_scripts/ui_level/main_ui.tscn" id="10_uuvtv"]
 
@@ -53,48 +53,6 @@ metadata/_edit_lock_ = true
 position = Vector2(-345, -128)
 metadata/_edit_lock_ = true
 
-[node name="BlueBrick" parent="PlayArea/Bricks" unique_id=887021685 instance=ExtResource("6_7jbmx")]
-position = Vector2(416, 224)
-
-[node name="BlueBrick2" parent="PlayArea/Bricks" unique_id=1467209203 instance=ExtResource("6_7jbmx")]
-position = Vector2(416, 288)
-
-[node name="BlueBrick3" parent="PlayArea/Bricks" unique_id=277885668 instance=ExtResource("6_7jbmx")]
-position = Vector2(416, 352)
-
-[node name="BlueBrick4" parent="PlayArea/Bricks" unique_id=771235592 instance=ExtResource("6_7jbmx")]
-position = Vector2(416, 416)
-
-[node name="BlueBrick5" parent="PlayArea/Bricks" unique_id=223027946 instance=ExtResource("6_7jbmx")]
-position = Vector2(416, 480)
-
-[node name="BlueBrick6" parent="PlayArea/Bricks" unique_id=602918457 instance=ExtResource("6_7jbmx")]
-position = Vector2(416, 544)
-
-[node name="BlueBrick7" parent="PlayArea/Bricks" unique_id=1915143542 instance=ExtResource("6_7jbmx")]
-position = Vector2(416, 608)
-
-[node name="BlueBrick8" parent="PlayArea/Bricks" unique_id=1074371901 instance=ExtResource("6_7jbmx")]
-position = Vector2(416, 672)
-
-[node name="BlueBrick9" parent="PlayArea/Bricks" unique_id=1252558588 instance=ExtResource("6_7jbmx")]
-position = Vector2(416, 736)
-
-[node name="BlueBrick10" parent="PlayArea/Bricks" unique_id=382302425 instance=ExtResource("6_7jbmx")]
-position = Vector2(416, 800)
-
-[node name="BlueBrick12" parent="PlayArea/Bricks" unique_id=939380409 instance=ExtResource("6_7jbmx")]
-position = Vector2(416, 864)
-
-[node name="BlueBrick13" parent="PlayArea/Bricks" unique_id=862084267 instance=ExtResource("6_7jbmx")]
-position = Vector2(416, 928)
-
-[node name="BlueBrick14" parent="PlayArea/Bricks" unique_id=383041487 instance=ExtResource("6_7jbmx")]
-position = Vector2(480, 928)
-
-[node name="BlueBrick15" parent="PlayArea/Bricks" unique_id=1260110761 instance=ExtResource("6_7jbmx")]
-position = Vector2(544, 928)
-
 [node name="Walls" type="Node2D" parent="PlayArea" unique_id=76639453]
 position = Vector2(-249, 32)
 metadata/_edit_lock_ = true
@@ -126,12 +84,6 @@ position = Vector2(1856, 640)
 
 [node name="Border_Wall7" parent="PlayArea/Walls" unique_id=1981716085 instance=ExtResource("5_bmcj7")]
 position = Vector2(1856, 576)
-
-[node name="Border_Wall8" parent="PlayArea/Walls" unique_id=171578644 instance=ExtResource("5_bmcj7")]
-position = Vector2(1856, 512)
-
-[node name="Border_Wall9" parent="PlayArea/Walls" unique_id=1896238149 instance=ExtResource("5_bmcj7")]
-position = Vector2(1856, 448)
 
 [node name="Border_Wall10" parent="PlayArea/Walls" unique_id=6907031 instance=ExtResource("5_bmcj7")]
 position = Vector2(1856, 384)
@@ -187,14 +139,8 @@ position = Vector2(1152, 0)
 [node name="Border_Wall28" parent="PlayArea/Walls" unique_id=1555122744 instance=ExtResource("5_bmcj7")]
 position = Vector2(1216, 0)
 
-[node name="Border_Wall29" parent="PlayArea/Walls" unique_id=594024198 instance=ExtResource("5_bmcj7")]
-position = Vector2(1088, 0)
-
 [node name="Border_Wall30" parent="PlayArea/Walls" unique_id=2082993942 instance=ExtResource("5_bmcj7")]
 position = Vector2(960, 0)
-
-[node name="Border_Wall31" parent="PlayArea/Walls" unique_id=260421644 instance=ExtResource("5_bmcj7")]
-position = Vector2(1024, 0)
 
 [node name="Border_Wall32" parent="PlayArea/Walls" unique_id=1762181187 instance=ExtResource("5_bmcj7")]
 position = Vector2(896, 0)
@@ -249,12 +195,6 @@ position = Vector2(256, 256)
 
 [node name="Border_Wall49" parent="PlayArea/Walls" unique_id=1193581991 instance=ExtResource("5_bmcj7")]
 position = Vector2(256, 576)
-
-[node name="Border_Wall50" parent="PlayArea/Walls" unique_id=185610458 instance=ExtResource("5_bmcj7")]
-position = Vector2(256, 512)
-
-[node name="Border_Wall51" parent="PlayArea/Walls" unique_id=1967678523 instance=ExtResource("5_bmcj7")]
-position = Vector2(256, 448)
 
 [node name="Border_Wall52" parent="PlayArea/Walls" unique_id=1472349403 instance=ExtResource("5_bmcj7")]
 position = Vector2(256, 768)
@@ -318,14 +258,6 @@ metadata/_edit_group_ = true
 position = Vector2(960, 1024)
 metadata/_edit_group_ = true
 
-[node name="Border_Wall70" parent="PlayArea/Walls" unique_id=862521668 instance=ExtResource("5_bmcj7")]
-position = Vector2(1024, 1024)
-metadata/_edit_group_ = true
-
-[node name="Border_Wall71" parent="PlayArea/Walls" unique_id=326725167 instance=ExtResource("5_bmcj7")]
-position = Vector2(1088, 1024)
-metadata/_edit_group_ = true
-
 [node name="Border_Wall72" parent="PlayArea/Walls" unique_id=867235336 instance=ExtResource("5_bmcj7")]
 position = Vector2(1152, 1024)
 metadata/_edit_group_ = true
@@ -373,14 +305,20 @@ metadata/_edit_group_ = true
 [node name="Border_Wall57" parent="PlayArea/Walls" unique_id=285859164 instance=ExtResource("5_bmcj7")]
 position = Vector2(256, 832)
 
+[node name="Exit_wall" parent="PlayArea/Walls" unique_id=1070173642 instance=ExtResource("5_wu3fo")]
+position = Vector2(1856, 448)
+
+[node name="Exit_wall2" parent="PlayArea/Walls" unique_id=1665539111 instance=ExtResource("5_wu3fo")]
+position = Vector2(1856, 512)
+
 [node name="Background" type="ColorRect" parent="PlayArea" unique_id=306947289]
 z_index = -1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 7.0
-offset_right = 7.0
+offset_left = -25.0
+offset_right = 30.0
 offset_bottom = 5.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -402,3 +340,21 @@ scale = Vector2(1.3, 1)
 
 [node name="Ball" parent="." unique_id=776217501 instance=ExtResource("2_jgvlq")]
 position = Vector2(1088, 884)
+
+[node name="Exit_wall" parent="." unique_id=1947111014 instance=ExtResource("5_wu3fo")]
+position = Vector2(1056, 1056)
+
+[node name="Exit_wall2" parent="." unique_id=1461628013 instance=ExtResource("5_wu3fo")]
+position = Vector2(1120, 1056)
+
+[node name="Exit_wall3" parent="." unique_id=460234673 instance=ExtResource("5_wu3fo")]
+position = Vector2(288, 480)
+
+[node name="Exit_wall4" parent="." unique_id=1722992190 instance=ExtResource("5_wu3fo")]
+position = Vector2(288, 544)
+
+[node name="Exit_wall5" parent="." unique_id=793192078 instance=ExtResource("5_wu3fo")]
+position = Vector2(1056, 32)
+
+[node name="Exit_wall6" parent="." unique_id=550108515 instance=ExtResource("5_wu3fo")]
+position = Vector2(1120, 32)

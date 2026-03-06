@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://nf4lt2j2agem"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pk4ev"]
+size = Vector2(64, 64)
+
+[node name="Exit_wall" type="Area2D" unique_id=618575957 groups=["walls"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=363479540]
+shape = SubResource("RectangleShape2D_pk4ev")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1192380132]
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+color = Color(0.18431373, 1, 1, 0.5176471)
