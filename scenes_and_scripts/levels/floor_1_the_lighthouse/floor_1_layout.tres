@@ -6,6 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://bhyu3nftn678w" path="res://scenes_and_scripts/levels/common_rooms/start_1.tscn" id="3_n2un6"]
 [ext_resource type="PackedScene" uid="uid://b3skgrm0cpgc1" path="res://scenes_and_scripts/levels/floor_1_the_lighthouse/combat_1_2.tscn" id="4_n2un6"]
 [ext_resource type="PackedScene" uid="uid://bk4fir2rv0b7w" path="res://scenes_and_scripts/levels/floor_1_the_lighthouse/combat_1_3.tscn" id="5_3m4i2"]
+[ext_resource type="PackedScene" uid="uid://7vttec5plsdk" path="res://scenes_and_scripts/levels/common_rooms/powerup_1.tscn" id="6_1f751"]
+[ext_resource type="PackedScene" uid="uid://cuodqq58w45s5" path="res://scenes_and_scripts/levels/common_rooms/memory_1.tscn" id="7_1xisp"]
+[ext_resource type="PackedScene" uid="uid://c8g1d60jilaq4" path="res://scenes_and_scripts/levels/floor_1_the_lighthouse/combat_1_4.tscn" id="7_87kjy"]
+[ext_resource type="PackedScene" uid="uid://bwuoolbwt8v67" path="res://scenes_and_scripts/levels/common_rooms/shop_1.tscn" id="9_kvvos"]
+[ext_resource type="PackedScene" uid="uid://brr0pi7naait7" path="res://scenes_and_scripts/levels/common_rooms/boss_1.tscn" id="10_smmvo"]
 
 [sub_resource type="Resource" id="Resource_xcoa1"]
 script = ExtResource("1_hqd6g")
@@ -32,6 +37,7 @@ room_name_id = "combat_1_2"
 room_scene = ExtResource("4_n2un6")
 room_coords = Vector2i(2, 2)
 room_type = 1
+north_exit = "powerup_1"
 south_exit = "combat_1_1"
 metadata/_custom_type_script = "uid://pnkwdspwmpwe"
 
@@ -41,13 +47,72 @@ room_name_id = "combat_1_3"
 room_scene = ExtResource("5_3m4i2")
 room_coords = Vector2i(3, 3)
 room_type = 1
+north_exit = "combat_1_4"
+south_exit = "shop_1"
+east_exit = "boss_1"
 west_exit = "combat_1_1"
+metadata/_custom_type_script = "uid://pnkwdspwmpwe"
+
+[sub_resource type="Resource" id="Resource_1xisp"]
+script = ExtResource("1_hqd6g")
+room_name_id = "powerup_1"
+room_scene = ExtResource("6_1f751")
+room_coords = Vector2i(2, 1)
+room_type = 4
+south_exit = "combat_1_2"
+metadata/_custom_type_script = "uid://pnkwdspwmpwe"
+
+[sub_resource type="Resource" id="Resource_1f751"]
+script = ExtResource("1_hqd6g")
+room_name_id = "combat_1_4"
+room_scene = ExtResource("7_87kjy")
+room_coords = Vector2i(3, 2)
+room_type = 1
+north_exit = "memory_1"
+south_exit = "combat_1_3"
+metadata/_custom_type_script = "uid://pnkwdspwmpwe"
+
+[sub_resource type="Resource" id="Resource_87kjy"]
+script = ExtResource("1_hqd6g")
+room_name_id = "memory_1"
+room_scene = ExtResource("7_1xisp")
+room_coords = Vector2i(3, 1)
+room_type = 3
+south_exit = "combat_1_4"
+metadata/_custom_type_script = "uid://pnkwdspwmpwe"
+
+[sub_resource type="Resource" id="Resource_smmvo"]
+script = ExtResource("1_hqd6g")
+room_name_id = "shop_1"
+room_scene = ExtResource("9_kvvos")
+room_coords = Vector2i(3, 4)
+room_type = 2
+north_exit = "combat_1_3"
+south_exit = "memory_2"
+metadata/_custom_type_script = "uid://pnkwdspwmpwe"
+
+[sub_resource type="Resource" id="Resource_2wpod"]
+script = ExtResource("1_hqd6g")
+room_name_id = "memory_2"
+room_scene = ExtResource("7_1xisp")
+room_coords = Vector2i(3, 5)
+room_type = 3
+north_exit = "shop_1"
+metadata/_custom_type_script = "uid://pnkwdspwmpwe"
+
+[sub_resource type="Resource" id="Resource_gmdml"]
+script = ExtResource("1_hqd6g")
+room_name_id = "boss_1"
+room_scene = ExtResource("10_smmvo")
+room_coords = Vector2i(4, 3)
+room_type = 1
+west_exit = "combat_1_3"
 metadata/_custom_type_script = "uid://pnkwdspwmpwe"
 
 [resource]
 script = ExtResource("2_j7weq")
 floor_name_id = "The Lighthouse"
-room_entries = Array[ExtResource("1_hqd6g")]([SubResource("Resource_xcoa1"), SubResource("Resource_uasr3"), SubResource("Resource_ujf72"), SubResource("Resource_leowd")])
+room_entries = Array[ExtResource("1_hqd6g")]([SubResource("Resource_xcoa1"), SubResource("Resource_uasr3"), SubResource("Resource_ujf72"), SubResource("Resource_leowd"), SubResource("Resource_1xisp"), SubResource("Resource_1f751"), SubResource("Resource_87kjy"), SubResource("Resource_smmvo"), SubResource("Resource_2wpod"), SubResource("Resource_gmdml")])
 show_mini_map = true
 starting_room_id = "start_1"
 starting_room_scene = ExtResource("3_n2un6")

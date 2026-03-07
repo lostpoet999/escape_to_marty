@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://brr0pi7naait7"]
+
+[ext_resource type="PackedScene" uid="uid://bea1h3570swpu" path="res://scenes_and_scripts/levels/room_base.tscn" id="1_u1v84"]
+[ext_resource type="FontFile" uid="uid://c1its5lmhd4kg" path="res://label_settings_and_fonts/fonts/8bitlim.ttf" id="2_ndrbk"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_oufug"]
+font = ExtResource("2_ndrbk")
+font_size = 24
+
+[node name="common_room" unique_id=565861230 instance=ExtResource("1_u1v84")]
+
+[node name="Label" type="Label" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="3" unique_id=2097916128]
+layout_mode = 0
+offset_left = 711.0
+offset_top = 480.0
+offset_right = 967.0
+offset_bottom = 512.0
+text = "Place holder BOSS room"
+label_settings = SubResource("LabelSettings_oufug")
+autowrap_mode = 3

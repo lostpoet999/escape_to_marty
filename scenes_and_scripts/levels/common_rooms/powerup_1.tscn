@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://7vttec5plsdk"]
+
+[ext_resource type="PackedScene" uid="uid://bea1h3570swpu" path="res://scenes_and_scripts/levels/room_base.tscn" id="1_edbf6"]
+[ext_resource type="FontFile" uid="uid://c1its5lmhd4kg" path="res://label_settings_and_fonts/fonts/8bitlim.ttf" id="2_emyu8"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_oufug"]
+font = ExtResource("2_emyu8")
+font_size = 24
+
+[node name="common_room" unique_id=565861230 instance=ExtResource("1_edbf6")]
+
+[node name="Label" type="Label" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="3" unique_id=2097916128]
+layout_mode = 0
+offset_left = 647.0
+offset_top = 480.0
+offset_right = 999.0
+offset_bottom = 544.0
+text = "Free Powerup Room Placeholder"
+label_settings = SubResource("LabelSettings_oufug")
+autowrap_mode = 3

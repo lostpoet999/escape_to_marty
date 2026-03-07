@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://c8g1d60jilaq4"]
+
+[ext_resource type="PackedScene" uid="uid://bea1h3570swpu" path="res://scenes_and_scripts/levels/room_base.tscn" id="1_7tba3"]
+[ext_resource type="PackedScene" uid="uid://cm1kspxv86400" path="res://scenes_and_scripts/bricks/blue_brick.tscn" id="2_pu6mi"]
+
+[node name="combat_1_4" unique_id=565861230 instance=ExtResource("1_7tba3")]
+
+[node name="BlueBrick" parent="PlayArea/Walls" parent_id_path=PackedInt32Array(76639453) index="79" unique_id=887021685 instance=ExtResource("2_pu6mi")]
+position = Vector2(992, 544)
+
+[node name="BlueBrick2" parent="PlayArea/Walls" parent_id_path=PackedInt32Array(76639453) index="80" unique_id=1239030522 instance=ExtResource("2_pu6mi")]
+position = Vector2(1056, 544)
+
+[node name="BlueBrick3" parent="PlayArea/Walls" parent_id_path=PackedInt32Array(76639453) index="81" unique_id=1507508303 instance=ExtResource("2_pu6mi")]
+position = Vector2(1056, 480)
+
+[node name="BlueBrick" parent="." index="5" unique_id=1506194311 instance=ExtResource("2_pu6mi")]
+position = Vector2(1152, 576)

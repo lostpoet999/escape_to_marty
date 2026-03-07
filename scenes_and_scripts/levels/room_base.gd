@@ -11,7 +11,7 @@ func _ready() -> void:
 	Signalbus.brick_destroyed.connect(_on_brick_destroyed)
 	Signalbus.star_collected.connect(update_stars_in_level)
 	Signalbus.star_spawned.connect(update_stars_in_level)
-	if self.name == "Start_1":
+	if self.name == "common_room":
 		bricks_cleared = true
 		stars_cleared = true		
 		check_level_cleared()

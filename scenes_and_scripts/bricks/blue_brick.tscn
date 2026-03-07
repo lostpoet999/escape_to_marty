@@ -8,6 +8,7 @@ size = Vector2(64, 32)
 
 [node name="BlueBrick" type="Area2D" unique_id=887021685 groups=["bricks"]]
 script = ExtResource("1_hdens")
+brick_health = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1027905382]
 scale = Vector2(1, 2)
