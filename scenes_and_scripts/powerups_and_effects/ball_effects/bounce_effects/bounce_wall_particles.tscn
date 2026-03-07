@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dkgixai172xy8" path="res://scenes_and_scripts/powerups_and_effects/ball_effects/bounce_effects/bounce_particle_cleanup.gd" id="1_7aenb"]
 
 [sub_resource type="Gradient" id="Gradient_jjk1v"]
-colors = PackedColorArray(0.77, 0, 0, 0.38039216, 1, 1, 1, 0)
+colors = PackedColorArray(1, 0, 0, 0.47058824, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_jm7an"]
 gradient = SubResource("Gradient_jjk1v")
@@ -16,10 +16,26 @@ fill_to = Vector2(0, 0)
 [sub_resource type="Gradient" id="Gradient_k56j3"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
-[node name="BounceBrickParticles" type="Node2D" unique_id=908965456]
+[sub_resource type="Gradient" id="Gradient_jm7an"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7aenb"]
+gradient = SubResource("Gradient_jm7an")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Curve" id="Curve_7770m"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.24932978, 0.79645103), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_qe810"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="BounceWallParticles" type="Node2D" unique_id=908965456]
 script = ExtResource("1_7aenb")
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=126513465]
+[node name="sparks" type="CPUParticles2D" parent="." unique_id=126513465]
 amount = 64
 texture = SubResource("GradientTexture2D_jm7an")
 explosiveness = 1.0
@@ -28,3 +44,13 @@ gravity = Vector2(0, 0)
 initial_velocity_min = 10.0
 initial_velocity_max = 100.0
 color_ramp = SubResource("Gradient_k56j3")
+
+[node name="puff" type="CPUParticles2D" parent="." unique_id=889163796]
+amount = 1
+texture = SubResource("GradientTexture2D_7aenb")
+explosiveness = 1.0
+spread = 180.0
+gravity = Vector2(0, 0)
+scale_amount_curve = SubResource("Curve_7770m")
+color = Color(1, 0, 0, 1)
+color_ramp = SubResource("Gradient_qe810")
