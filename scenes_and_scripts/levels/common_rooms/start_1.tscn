@@ -1,5 +1,26 @@
 [gd_scene format=3 uid="uid://bhyu3nftn678w"]
 
 [ext_resource type="PackedScene" uid="uid://bea1h3570swpu" path="res://scenes_and_scripts/levels/room_base.tscn" id="1_cckqh"]
+[ext_resource type="FontFile" uid="uid://c1its5lmhd4kg" path="res://label_settings_and_fonts/fonts/8bitlim.ttf" id="2_45lsl"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_oufug"]
+font = ExtResource("2_45lsl")
+font_size = 24
 
 [node name="Start_1" unique_id=565861230 instance=ExtResource("1_cckqh")]
+
+[node name="Label" type="Label" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="3" unique_id=2097916128]
+layout_mode = 0
+offset_left = 391.0
+offset_top = 352.0
+offset_right = 1223.0
+offset_bottom = 608.0
+text = "1. Click the the green barrier to move to the first room.
+
+2. In combat rooms you will have to clear seals to unlock the exits.
+
+3. On combat levels click the mouse to launch the ball!
+
+4. Also, try pushing TAB on combat levels to release the mouse and click on things!"
+label_settings = SubResource("LabelSettings_oufug")
+autowrap_mode = 3
