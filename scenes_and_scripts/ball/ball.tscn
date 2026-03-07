@@ -5,6 +5,14 @@
 [ext_resource type="PackedScene" uid="uid://dojhm36tklo5w" path="res://scenes_and_scripts/powerups_and_effects/ball_effects/bounce_effects/base_bounce_effect.tscn" id="2_uw8co"]
 [ext_resource type="Resource" uid="uid://ctjeqnpuca6lq" path="res://scenes_and_scripts/powerups_and_effects/ball_powerups/base_ball_power_up.tres" id="3_qrf04"]
 [ext_resource type="Script" uid="uid://bryv4msdad7wu" path="res://scenes_and_scripts/powerups_and_effects/ball_powerups/ball_power_up.gd" id="4_j33xc"]
+[ext_resource type="Script" uid="uid://cs82vpqerteng" path="res://scenes_and_scripts/ball/trail.gd" id="5_jlcqq"]
+
+[sub_resource type="Curve" id="Curve_jlcqq"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_nxvvx"]
+colors = PackedColorArray(1, 0, 0, 0, 1, 0, 0, 0.15686275)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_olawr"]
 radius = 11.0454
@@ -14,6 +22,17 @@ z_index = 100
 script = ExtResource("1_oyq8w")
 bounce_effect_scene = ExtResource("2_uw8co")
 powerup_array = Array[ExtResource("4_j33xc")]([ExtResource("3_qrf04")])
+
+[node name="Trail" type="Line2D" parent="." unique_id=377429140]
+top_level = true
+width = 22.0
+width_curve = SubResource("Curve_jlcqq")
+gradient = SubResource("Gradient_nxvvx")
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+script = ExtResource("5_jlcqq")
+max_points = 200
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1756931055]
 texture = ExtResource("2_1rrwo")
