@@ -29,3 +29,12 @@ func _on_brick_destroyed() -> void:
 	if bricks_left <= 1:
 		bricks_cleared = true
 		check_level_cleared()
+
+#reconcile north,south, east, west
+	#read level scene file
+	#know what floor i am on
+	#know what room i am in
+	#search room entries for floor i am on
+	#read the directions:
+		#if door north place door scene
+		#else place wall scene

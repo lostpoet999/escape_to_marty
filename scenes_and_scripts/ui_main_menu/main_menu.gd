@@ -9,7 +9,7 @@ func _ready() -> void:
 
 func _on_start_button_pressed() -> void:
 	GameManager.change_state(GameManager.GameState.BALL_ON_PADDLE)
-	GameManager.load_scene(GameManager.LEVEL_01)
+	GameManager.load_current_room()
 
 
 func _on_exit_button_pressed() -> void:

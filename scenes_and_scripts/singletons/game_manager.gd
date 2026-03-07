@@ -4,6 +4,16 @@ extends Node
 const MAIN_MENU = preload("uid://djuj72c4lcukn")
 const LEVEL_01 = preload("uid://bea1h3570swpu")
 
+#floor references
+var current_floor:int = 1
+var floor_data
+var room_data_for_floor: Dictionary = {}
+var scene_ref
+var current_room_id
+var floor_ref: Dictionary = {
+	1: "uid://dr8vct1f7lm5n"
+}
+
 enum GameState {MAIN_MENU, BALL_ON_PADDLE, PLAYING, PAUSED, GAME_OVER, CLICK_MODE}
 var current_state: GameState = GameState.MAIN_MENU
 
@@ -29,6 +39,10 @@ func change_state(to_state: GameState) -> void:
 	if not is_valid_state_transition(current_state, to_state): return
 	exit_state(current_state)
 	enter_state(to_state)
+	
+func get_floor_data():
+	for room in floor_data.room_entries:
+		room_data_for_floor[room.room_name_id] = room
 
 func is_valid_state_transition(from_state: GameState, to_state: GameState) -> bool:
 	if current_state == to_state: return false
@@ -87,13 +101,15 @@ func pause_game() -> void:
 
 #endregion
 
-#scene and gamestate functions
-
 func restart_level() -> void:
 	PlayerData.initialize_player_data()
 	get_tree().reload_current_scene()
 
 func _ready() -> void:
+	floor_data = ResourceLoader.load(floor_ref[current_floor])
+	scene_ref = floor_data.starting_room_scene
+	current_room_id = floor_data.starting_room_id
+	get_floor_data()
 	_configure_frame_rate()
 	PlayerData.initialize_player_data()
 	Signalbus.player_died.connect(_load_level_on_player_death)
@@ -102,24 +118,23 @@ func _ready() -> void:
 
 
 func _configure_frame_rate() -> void:
-	# Disable VSync to avoid frame pacing jitter
-	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
-
-	# Detect monitor refresh rate, fallback to 60 for web or if detection fails
+	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)	
 	var refresh_rate: float = DisplayServer.screen_get_refresh_rate()
 	if refresh_rate <= 0:
 		refresh_rate = 60.0
-
-	# Cap at 2x refresh rate for smooth frame selection, max 300fps
+	
 	Engine.max_fps = int(minf(refresh_rate * 2.0, 300.0))
+	
 
 func init_all_game_stats() -> void:
 	PlayerData.initialize_player_data()
-
-
+	
 
 func load_scene(scene: PackedScene) -> void:
 	get_tree().change_scene_to_packed(scene)
+	
+func load_current_room():
+	get_tree().change_scene_to_packed(scene_ref)
 
 func _load_level_on_player_death() -> void:
 	GameManager.change_state(GameState.GAME_OVER)
