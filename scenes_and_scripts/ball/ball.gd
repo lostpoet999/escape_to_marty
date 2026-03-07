@@ -35,6 +35,11 @@ func _ready() -> void:
 	add_child(bounce_effect)
 	instantiate_all_effects()
 	update_base_dmg()
+	Signalbus.level_cleared.connect(remove_ball)
+
+func remove_ball():
+	on_paddle = false
+	queue_free()
 
 func _process(delta: float) -> void:
 	if on_paddle:

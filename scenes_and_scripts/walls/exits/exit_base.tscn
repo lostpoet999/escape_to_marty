@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://csxt8ng8rhxo"]
+
+[ext_resource type="Script" uid="uid://bwqqfn8j70s1u" path="res://scenes_and_scripts/walls/exits/exits.gd" id="1_gtbbh"]
+[ext_resource type="Texture2D" uid="uid://nhuggym8gsmb" path="res://scenes_and_scripts/walls/1x1_brownish_wall.png" id="2_x23op"]
+
+[node name="exit_base" type="Area2D" unique_id=618575957 groups=["walls"]]
+script = ExtResource("1_gtbbh")
+
+[node name="ExitBarrier_closed" type="ColorRect" parent="." unique_id=902411008]
+visible = false
+offset_left = -64.0
+offset_top = -32.0
+offset_right = 64.0
+offset_bottom = 32.0
+mouse_filter = 2
+color = Color(1, 0.38431373, 0.32156864, 0.5529412)
+
+[node name="ExitBarrier_open" type="ColorRect" parent="." unique_id=1579582079]
+visible = false
+offset_left = -64.0
+offset_top = -32.0
+offset_right = 64.0
+offset_bottom = 32.0
+mouse_filter = 2
+color = Color(0.101960786, 0.76862746, 0.32156864, 0.5529412)
+
+[node name="walls_no_door" type="Node2D" parent="." unique_id=1036666021]
+
+[node name="wall_1" type="Sprite2D" parent="walls_no_door" unique_id=1891735852]
+position = Vector2(-32, 0)
+texture = ExtResource("2_x23op")
+
+[node name="wall_2" type="Sprite2D" parent="walls_no_door" unique_id=408428922]
+position = Vector2(32, 0)
+texture = ExtResource("2_x23op")

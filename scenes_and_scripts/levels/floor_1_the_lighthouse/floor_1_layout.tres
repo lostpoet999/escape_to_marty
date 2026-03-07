@@ -4,6 +4,8 @@
 [ext_resource type="Script" uid="uid://bvs3ugvgbabkc" path="res://scenes_and_scripts/levels/floor_data.gd" id="2_j7weq"]
 [ext_resource type="PackedScene" uid="uid://bordljimg38oq" path="res://scenes_and_scripts/levels/floor_1_the_lighthouse/combat_1_1.tscn" id="3_hqd6g"]
 [ext_resource type="PackedScene" uid="uid://bhyu3nftn678w" path="res://scenes_and_scripts/levels/common_rooms/start_1.tscn" id="3_n2un6"]
+[ext_resource type="PackedScene" uid="uid://b3skgrm0cpgc1" path="res://scenes_and_scripts/levels/floor_1_the_lighthouse/combat_1_2.tscn" id="4_n2un6"]
+[ext_resource type="PackedScene" uid="uid://bk4fir2rv0b7w" path="res://scenes_and_scripts/levels/floor_1_the_lighthouse/combat_1_3.tscn" id="5_3m4i2"]
 
 [sub_resource type="Resource" id="Resource_xcoa1"]
 script = ExtResource("1_hqd6g")
@@ -27,6 +29,7 @@ metadata/_custom_type_script = "uid://pnkwdspwmpwe"
 [sub_resource type="Resource" id="Resource_ujf72"]
 script = ExtResource("1_hqd6g")
 room_name_id = "combat_1_2"
+room_scene = ExtResource("4_n2un6")
 room_coords = Vector2i(2, 2)
 room_type = 1
 south_exit = "combat_1_1"
@@ -35,6 +38,7 @@ metadata/_custom_type_script = "uid://pnkwdspwmpwe"
 [sub_resource type="Resource" id="Resource_leowd"]
 script = ExtResource("1_hqd6g")
 room_name_id = "combat_1_3"
+room_scene = ExtResource("5_3m4i2")
 room_coords = Vector2i(3, 3)
 room_type = 1
 west_exit = "combat_1_1"

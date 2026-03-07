@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dn7s6lrcudtqn" path="res://scenes_and_scripts/walls/64x64_brownish_wall.tscn" id="4_w27iv"]
 [ext_resource type="PackedScene" uid="uid://37ac7xv2kevl" path="res://scenes_and_scripts/walls/exits/east_exit.tscn" id="5_fuowh"]
 [ext_resource type="PackedScene" uid="uid://t38808n7kc0c" path="res://scenes_and_scripts/ui_menus/escape_menu.tscn" id="5_w74c6"]
-[ext_resource type="PackedScene" uid="uid://dmcgahnb2gept" path="res://scenes_and_scripts/walls/exits/north_exit.tscn" id="6_701b8"]
+[ext_resource type="PackedScene" uid="uid://bk0rhi08kvbgx" path="res://scenes_and_scripts/walls/exits/north_exit.tscn" id="6_701b8"]
 [ext_resource type="PackedScene" uid="uid://bvg65uexkq1cm" path="res://scenes_and_scripts/player_paddle/paddle.tscn" id="6_fuowh"]
 [ext_resource type="PackedScene" uid="uid://8f12tc7oq8p5" path="res://scenes_and_scripts/walls/exits/south_exit.tscn" id="7_57n16"]
 [ext_resource type="PackedScene" uid="uid://ld8u6g3nsn62" path="res://scenes_and_scripts/ball/ball.tscn" id="7_701b8"]
@@ -308,6 +308,18 @@ metadata/_edit_group_ = true
 [node name="Border_Wall57" parent="PlayArea/Walls" unique_id=285859164 instance=ExtResource("4_w27iv")]
 position = Vector2(256, 832)
 
+[node name="EastExit" parent="PlayArea/Walls" unique_id=179641907 instance=ExtResource("5_fuowh")]
+position = Vector2(1856, 480)
+
+[node name="SouthExit" parent="PlayArea/Walls" unique_id=741878414 instance=ExtResource("7_57n16")]
+position = Vector2(1056, 1024)
+
+[node name="NorthExit" parent="PlayArea/Walls" unique_id=1940363890 instance=ExtResource("6_701b8")]
+position = Vector2(1056, 0)
+
+[node name="WestExit" parent="PlayArea/Walls" unique_id=1024305235 instance=ExtResource("8_2ndtm")]
+position = Vector2(256, 480)
+
 [node name="Background" type="ColorRect" parent="PlayArea" unique_id=306947289]
 z_index = -1
 layout_mode = 1
@@ -322,18 +334,6 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.09411765, 0.039215688, 0.06666667, 1)
 metadata/_edit_lock_ = true
-
-[node name="EastExit" parent="PlayArea" unique_id=1140514349 instance=ExtResource("5_fuowh")]
-position = Vector2(1607, 512)
-
-[node name="NorthExit" parent="PlayArea" unique_id=1097567357 instance=ExtResource("6_701b8")]
-position = Vector2(807, 32)
-
-[node name="SouthExit" parent="PlayArea" unique_id=976587869 instance=ExtResource("7_57n16")]
-position = Vector2(807, 1056)
-
-[node name="WestExit" parent="PlayArea" unique_id=685310637 instance=ExtResource("8_2ndtm")]
-position = Vector2(7, 512)
 
 [node name="EscapeMenu" parent="." unique_id=1133911884 instance=ExtResource("5_w74c6")]
 visible = false

@@ -11,6 +11,10 @@ func _ready() -> void:
 	Signalbus.brick_destroyed.connect(_on_brick_destroyed)
 	Signalbus.star_collected.connect(update_stars_in_level)
 	Signalbus.star_spawned.connect(update_stars_in_level)
+	if self.name == "Start_1":
+		bricks_cleared = true
+		stars_cleared = true		
+		check_level_cleared()
 
 func check_level_cleared() -> void: #let gamemanager know level is cleared
 	if stars_cleared && bricks_cleared:
@@ -29,12 +33,3 @@ func _on_brick_destroyed() -> void:
 	if bricks_left <= 1:
 		bricks_cleared = true
 		check_level_cleared()
-
-#reconcile north,south, east, west
-	#read level scene file
-	#know what floor i am on
-	#know what room i am in
-	#search room entries for floor i am on
-	#read the directions:
-		#if door north place door scene
-		#else place wall scene

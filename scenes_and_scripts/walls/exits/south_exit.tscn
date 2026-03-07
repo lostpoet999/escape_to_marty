@@ -1,28 +1,11 @@
 [gd_scene format=3 uid="uid://8f12tc7oq8p5"]
 
-[ext_resource type="Script" uid="uid://bwqqfn8j70s1u" path="res://scenes_and_scripts/walls/exits/exits.gd" id="1_ar0u4"]
-[ext_resource type="Texture2D" uid="uid://nhuggym8gsmb" path="res://scenes_and_scripts/walls/1x1_brownish_wall.png" id="1_jt87b"]
+[ext_resource type="PackedScene" uid="uid://csxt8ng8rhxo" path="res://scenes_and_scripts/walls/exits/exit_base.tscn" id="1_jt87b"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_pk4ev"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jt87b"]
 size = Vector2(128, 64)
 
-[node name="SouthExit" type="Area2D" unique_id=618575957 groups=["walls"]]
-script = ExtResource("1_ar0u4")
+[node name="SouthExit" unique_id=618575957 instance=ExtResource("1_jt87b")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=363479540]
-shape = SubResource("RectangleShape2D_pk4ev")
-
-[node name="TextureRect" type="TextureRect" parent="." unique_id=1657223946]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -64.0
-offset_top = -32.0
-offset_right = 64.0
-offset_bottom = 32.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-texture = ExtResource("1_jt87b")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0" unique_id=2121695436]
+shape = SubResource("RectangleShape2D_jt87b")

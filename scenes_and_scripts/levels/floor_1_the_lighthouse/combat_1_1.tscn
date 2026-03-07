@@ -1,15 +1,9 @@
 [gd_scene format=3 uid="uid://bordljimg38oq"]
 
 [ext_resource type="PackedScene" uid="uid://bea1h3570swpu" path="res://scenes_and_scripts/levels/room_base.tscn" id="1_eysly"]
-[ext_resource type="PackedScene" uid="uid://dn7s6lrcudtqn" path="res://scenes_and_scripts/walls/64x64_brownish_wall.tscn" id="2_qcry5"]
+[ext_resource type="PackedScene" uid="uid://cm1kspxv86400" path="res://scenes_and_scripts/bricks/blue_brick.tscn" id="2_qcry5"]
 
 [node name="Level_01" unique_id=565861230 instance=ExtResource("1_eysly")]
 
-[node name="DeathWall" parent="PlayArea/Walls" parent_id_path=PackedInt32Array(76639453) index="0" unique_id=518440941]
-visible = false
-
-[node name="Border_Wall50" parent="PlayArea/Walls" parent_id_path=PackedInt32Array(76639453) index="44" unique_id=618575957 instance=ExtResource("2_qcry5")]
-position = Vector2(256, 512)
-
-[node name="Border_Wall51" parent="PlayArea/Walls" parent_id_path=PackedInt32Array(76639453) index="45" unique_id=1560924048 instance=ExtResource("2_qcry5")]
-position = Vector2(256, 448)
+[node name="BlueBrick" parent="PlayArea/Walls" parent_id_path=PackedInt32Array(76639453) index="79" unique_id=887021685 instance=ExtResource("2_qcry5")]
+position = Vector2(1056, 512)

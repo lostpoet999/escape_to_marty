@@ -14,7 +14,7 @@ var floor_ref: Dictionary = {
 	1: "uid://dr8vct1f7lm5n"
 }
 
-enum GameState {MAIN_MENU, BALL_ON_PADDLE, PLAYING, PAUSED, GAME_OVER, CLICK_MODE}
+enum GameState {MAIN_MENU, BALL_ON_PADDLE, PLAYING, PAUSED, GAME_OVER, CLICK_MODE, LEVEL_CLEARED}
 var current_state: GameState = GameState.MAIN_MENU
 
 #const node group constants
@@ -50,15 +50,17 @@ func is_valid_state_transition(from_state: GameState, to_state: GameState) -> bo
 		GameState.MAIN_MENU:
 			return to_state in [GameState.BALL_ON_PADDLE]
 		GameState.BALL_ON_PADDLE:
-			return to_state in [GameState.PLAYING, GameState.PAUSED]
+			return to_state in [GameState.PLAYING, GameState.PAUSED, GameState.LEVEL_CLEARED]
 		GameState.PLAYING:
-			return to_state in [GameState.PAUSED, GameState.GAME_OVER, GameState.MAIN_MENU, GameState.CLICK_MODE]
+			return to_state in [GameState.PAUSED, GameState.GAME_OVER, GameState.MAIN_MENU, GameState.CLICK_MODE, GameState.LEVEL_CLEARED]
 		GameState.PAUSED:
 			return to_state in [GameState.PLAYING, GameState.BALL_ON_PADDLE]
 		GameState.GAME_OVER:
 			return to_state in [GameState.MAIN_MENU, GameState.PLAYING]
 		GameState.CLICK_MODE:
-			return to_state in [GameState.PLAYING]		
+			return to_state in [GameState.PLAYING, GameState.LEVEL_CLEARED]
+		GameState.LEVEL_CLEARED:
+			return to_state  in [GameState.BALL_ON_PADDLE]
 	return false
 
 func enter_state(change_to_state: GameState) -> void:
@@ -82,6 +84,10 @@ func enter_state(change_to_state: GameState) -> void:
 			GameManager.change_state(GameState.MAIN_MENU)
 			call_deferred("load_scene", MAIN_MENU)
 		GameState.CLICK_MODE:
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+			Signalbus.game_state_click_mode.emit()
+		GameState.LEVEL_CLEARED:
+			print("game state to level cleared")
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			Signalbus.game_state_click_mode.emit()
 
@@ -113,7 +119,7 @@ func _ready() -> void:
 	_configure_frame_rate()
 	PlayerData.initialize_player_data()
 	Signalbus.player_died.connect(_load_level_on_player_death)
-	Signalbus.level_cleared.connect(load_next_level)
+	Signalbus.level_cleared.connect(set_state_to_cleared)
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
 
@@ -139,6 +145,7 @@ func load_current_room():
 func _load_level_on_player_death() -> void:
 	GameManager.change_state(GameState.GAME_OVER)
 
-func load_next_level() -> void:
-	change_state(GameState.MAIN_MENU)
-	call_deferred("load_scene", MAIN_MENU) #will be replaced by maps and portals
+func set_state_to_cleared() -> void:
+	print("level_cleared")
+	change_state(GameState.LEVEL_CLEARED)
+	print("game state: ", current_state)
