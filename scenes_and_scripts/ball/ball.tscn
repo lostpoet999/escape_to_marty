@@ -2,9 +2,12 @@
 
 [ext_resource type="Script" uid="uid://bgoek4tgc32i4" path="res://scenes_and_scripts/ball/ball.gd" id="1_oyq8w"]
 [ext_resource type="Texture2D" uid="uid://mtj7exkdy0ls" path="res://scenes_and_scripts/ball/new_ball.png" id="2_1rrwo"]
+[ext_resource type="PackedScene" uid="uid://rbv1v5vfqunm" path="res://scenes_and_scripts/powerups_and_effects/ball_effects/bounce_effects/bounce_brick_particles.tscn" id="2_nxvvx"]
 [ext_resource type="PackedScene" uid="uid://dojhm36tklo5w" path="res://scenes_and_scripts/powerups_and_effects/ball_effects/bounce_effects/base_bounce_effect.tscn" id="2_uw8co"]
+[ext_resource type="PackedScene" uid="uid://csjala42gonuh" path="res://scenes_and_scripts/powerups_and_effects/ball_effects/bounce_effects/bounce_wall_particles.tscn" id="3_2ucj3"]
 [ext_resource type="Resource" uid="uid://ctjeqnpuca6lq" path="res://scenes_and_scripts/powerups_and_effects/ball_powerups/base_ball_power_up.tres" id="3_qrf04"]
 [ext_resource type="Script" uid="uid://bryv4msdad7wu" path="res://scenes_and_scripts/powerups_and_effects/ball_powerups/ball_power_up.gd" id="4_j33xc"]
+[ext_resource type="PackedScene" uid="uid://cu8odfaqma1aj" path="res://scenes_and_scripts/powerups_and_effects/ball_effects/bounce_effects/bounce_paddle_particles.tscn" id="4_q6nx1"]
 [ext_resource type="Script" uid="uid://cs82vpqerteng" path="res://scenes_and_scripts/ball/trail.gd" id="5_jlcqq"]
 
 [sub_resource type="Curve" id="Curve_jlcqq"]
@@ -20,6 +23,9 @@ radius = 11.0454
 [node name="Ball" type="Area2D" unique_id=1220836699]
 z_index = 100
 script = ExtResource("1_oyq8w")
+brick_bounce_particles = ExtResource("2_nxvvx")
+wall_bounce_particles = ExtResource("3_2ucj3")
+paddle_bounce_particles = ExtResource("4_q6nx1")
 bounce_effect_scene = ExtResource("2_uw8co")
 powerup_array = Array[ExtResource("4_j33xc")]([ExtResource("3_qrf04")])
 

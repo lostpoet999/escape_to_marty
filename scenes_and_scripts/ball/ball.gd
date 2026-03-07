@@ -7,6 +7,12 @@ const DEFAULT_BALL_DMG: int = 1
 @export var ball_dmg: float = DEFAULT_BALL_DMG
 var damage_effects: Array[BaseDamageEffect]
 
+# perhaps these should be emitted by the hit object instead of the ball
+# if so, then put these in each object's own BounceEffect instead
+@export var brick_bounce_particles: PackedScene
+@export var wall_bounce_particles: PackedScene
+@export var paddle_bounce_particles: PackedScene
+
 #power-up and effects references:
 @export var bounce_effect_scene: PackedScene
 var bounce_effect: BaseBounceEffect
@@ -96,6 +102,15 @@ func move_ball(delta: float) -> void: #we need to move x and y coords independen
 		apply_collider_effects(collider)
 		if on_paddle:
 			return
+
+		# spawn a particle effect
+		var fx = null
+		if collider.is_in_group("bricks"): fx = brick_bounce_particles.instantiate()
+		if collider.is_in_group("walls"): fx = wall_bounce_particles.instantiate()
+		if collider.is_in_group("paddle"): fx = paddle_bounce_particles.instantiate()
+		if fx != null:
+			fx.position = global_position
+			get_tree().current_scene.add_child(fx)
 
 		if collider.is_in_group("paddle"):
 			bounce_effect.handle_paddle_collision(self, collider as Paddle)
