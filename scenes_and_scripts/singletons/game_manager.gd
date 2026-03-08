@@ -1,15 +1,15 @@
 extends Node
 
 #scene references
-const MAIN_MENU = preload("uid://djuj72c4lcukn")
-const LEVEL_01 = preload("uid://bea1h3570swpu")
+const MAIN_MENU: PackedScene = preload("uid://djuj72c4lcukn")
+const LEVEL_01: PackedScene = preload("uid://bea1h3570swpu")
 
 #floor references
 var current_floor:int = 1
-var floor_data
+var floor_data: FloorData
 var room_data_for_floor: Dictionary = {}
-var scene_ref
-var current_room_id
+var scene_ref: PackedScene
+var current_room_id: String
 var floor_ref: Dictionary = {
 	1: "uid://dr8vct1f7lm5n"
 }
@@ -33,6 +33,7 @@ func _input(event: InputEvent) -> void:
 			change_state(GameState.CLICK_MODE)
 		elif current_state == GameState.CLICK_MODE:
 			change_state(GameState.PLAYING)
+	floor_data = ResourceLoader.load(str(floor_ref[current_floor])) as FloorData
 
 #region gamestate functions
 func change_state(to_state: GameState) -> void:
@@ -40,8 +41,8 @@ func change_state(to_state: GameState) -> void:
 	exit_state(current_state)
 	enter_state(to_state)
 	
-func get_floor_data():
-	for room in floor_data.room_entries:
+func get_floor_data()->void:
+	for room: RoomEntry in floor_data.room_entries:
 		room_data_for_floor[room.room_name_id] = room
 
 func is_valid_state_transition(from_state: GameState, to_state: GameState) -> bool:
@@ -105,7 +106,7 @@ func exit_state(close_state: GameState) -> void:
 func pause_game() -> void:
 	get_tree().paused = !get_tree().paused
 
-#endregion
+#endregionrent_entr
 
 func restart_level() -> void:
 	PlayerData.initialize_player_data()
@@ -113,7 +114,7 @@ func restart_level() -> void:
 
 func _ready() -> void:
 	MusicPlayer.execute_playlist("test_playlist")
-	floor_data = ResourceLoader.load(floor_ref[current_floor])
+	floor_data = ResourceLoader.load(str(floor_ref[current_floor])) as FloorData
 	scene_ref = floor_data.starting_room_scene
 	current_room_id = floor_data.starting_room_id
 	get_floor_data()
@@ -140,7 +141,7 @@ func init_all_game_stats() -> void:
 func load_scene(scene: PackedScene) -> void:
 	get_tree().change_scene_to_packed(scene)
 	
-func load_current_room():
+func load_current_room()-> void:
 	get_tree().change_scene_to_packed(scene_ref)
 
 func _load_level_on_player_death() -> void:

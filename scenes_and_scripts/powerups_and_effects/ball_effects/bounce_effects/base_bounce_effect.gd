@@ -8,5 +8,5 @@ func handle_paddle_collision(ball: Ball, paddle: Paddle) -> void:
 	new_vel = new_vel.normalized() * ball.initial_speed
 	ball.update_velocity(new_vel)
 
-func should_bounce(collider: Node2D) -> bool:
+func should_bounce(_collider: Node2D) -> bool:
 	return true

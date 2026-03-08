@@ -24,10 +24,10 @@ func _ready() -> void:
 
 func _calculate_bounds() -> void:
 	var half_width: float = _get_scaled_half_width()
-	var walls := get_tree().get_nodes_in_group("walls")
+	var walls: Array = get_tree().get_nodes_in_group("walls")
 	var min_x: float = INF
 	var max_x: float = -INF
-	for wall in walls:
+	for wall: Area2D in walls:
 		min_x = minf(min_x, wall.global_position.x)
 		max_x = maxf(max_x, wall.global_position.x)
 	# Offset by wall collision half-size (32) to get inner edges

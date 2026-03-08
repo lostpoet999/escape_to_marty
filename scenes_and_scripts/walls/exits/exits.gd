@@ -1,17 +1,17 @@
-extends Node2D
+extends Area2D
 
-@onready var room_ref = GameManager.room_data_for_floor #dictionary of room entries
+@onready var room_ref: Dictionary = GameManager.room_data_for_floor #dictionary of room entries
 @onready var walls_no_door: Node2D = $walls_no_door
 @onready var exit_barrier_closed: ColorRect = $ExitBarrier_closed
 @onready var exit_barrier_open: ColorRect = $ExitBarrier_open
 
 var room_cleared: bool = false
 
-func _ready():	
+func _ready() -> void: 
 	Signalbus.level_cleared.connect(enable_exits)	
 	reconcile_exits()
 
-func reconcile_exits():	
+func reconcile_exits()-> void:	
 	match self.name:
 		"NorthExit":
 			if room_ref[GameManager.current_room_id].north_exit != "" and room_cleared:
@@ -42,16 +42,18 @@ func reconcile_exits():
 			elif room_ref[GameManager.current_room_id].west_exit == "":
 				show_walls()
 
-func _input_event(_viewport, event, _shape_idx):
-	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		_on_exit_clicked()
+func _input_event(_viewport: Viewport, event: InputEvent, _shape_idx: int) -> void:
+	if event is InputEventMouseButton:
+		var mouse_event: InputEventMouseButton = event as InputEventMouseButton
+		if mouse_event.pressed and mouse_event.button_index == MOUSE_BUTTON_LEFT:
+			_on_exit_clicked()
 
-func _on_exit_clicked():
+func _on_exit_clicked()-> void:
 	if !room_cleared:
 		return
 	
 	var target_id: String = ""
-	var current_entry = room_ref[GameManager.current_room_id]
+	var current_entry: RoomEntry = room_ref[GameManager.current_room_id]
 	
 	match self.name:
 		"NorthExit":
@@ -66,30 +68,30 @@ func _on_exit_clicked():
 	if target_id == "":
 		return
 	
-	var target_room = room_ref[target_id]
+	var target_room: RoomEntry = room_ref[target_id]
 	GameManager.current_room_id = target_id
 	GameManager.scene_ref = target_room.room_scene
 	GameManager.change_state(GameManager.GameState.BALL_ON_PADDLE)
 	get_tree().change_scene_to_packed(target_room.room_scene)
 
-func show_closed_door():
+func show_closed_door()-> void:
 	walls_no_door.hide()
 	exit_barrier_closed.show()
 	exit_barrier_open.hide()
 	self.input_pickable = false
 	
-func show_open_door():
+func show_open_door()-> void:
 	walls_no_door.hide()
 	exit_barrier_closed.hide()
 	exit_barrier_open.show()
 	self.input_pickable = true
 		
-func show_walls():
+func show_walls()-> void:
 	walls_no_door.show()	
 	exit_barrier_closed.hide()
 	exit_barrier_open.hide()
 	self.input_pickable = false
 
-func enable_exits(): 	
+func enable_exits()-> void: 	
 	room_cleared = true
 	reconcile_exits()

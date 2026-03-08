@@ -1,6 +1,6 @@
 extends Area2D
 
-const STAR_COLLECTIBLE = preload("uid://cfjv2f23gme53")
+const STAR_COLLECTIBLE: PackedScene = preload("uid://cfjv2f23gme53")
 
 @export var brick_score_value: int = 5
 @export var brick_health: int = 3

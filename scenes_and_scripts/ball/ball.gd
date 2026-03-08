@@ -7,13 +7,10 @@ const DEFAULT_BALL_DMG: int = 1
 @export var ball_dmg: float = DEFAULT_BALL_DMG
 var damage_effects: Array[BaseDamageEffect]
 
-# perhaps these should be emitted by the hit object instead of the ball
-# if so, then put these in each object's own BounceEffect instead
 @export var brick_bounce_particles: PackedScene
 @export var wall_bounce_particles: PackedScene
 @export var paddle_bounce_particles: PackedScene
 
-#power-up and effects references:
 @export var bounce_effect_scene: PackedScene
 var bounce_effect: BaseBounceEffect
 @export var powerup_array: Array[BallPowerUp]
@@ -27,18 +24,17 @@ var _collision_set: Array[int] = []
 @onready var ball_collision: CollisionShape2D = $CollisionShape2D
 @onready var ball_half_height: float = (ball_collision.shape as CircleShape2D).radius
 @onready var effects_node: Node = $Effects
-@onready var sfx: Node = $EntitySfx
-
+@onready var sfx: EntitySFX = $EntitySfx
 
 func _ready() -> void:
-	position_ball_on_paddle()	
+	position_ball_on_paddle()
 	bounce_effect = bounce_effect_scene.instantiate() as BaseBounceEffect
 	add_child(bounce_effect)
 	instantiate_all_effects()
 	update_base_dmg()
 	Signalbus.level_cleared.connect(remove_ball)
 
-func remove_ball():
+func remove_ball() -> void:
 	on_paddle = false
 	queue_free()
 
@@ -88,19 +84,19 @@ func launch_ball() -> void:
 func update_velocity(velocity_ref: Vector2) -> void:
 	velocity = velocity_ref
 
-func move_ball(delta: float) -> void: #we need to move x and y coords independently so we can properly handle collisions at seams
+func move_ball(delta: float) -> void:
 	velocity = velocity.normalized() * initial_speed
-	var move := velocity * delta
+	var move: Vector2 = velocity * delta
 	var hit_this_step: Array[int] = []
 
 	if not _collision_set.is_empty():
 		clean_collision_set()
 
-	var old_x := position.x #move and check at x
+	var old_x: float = position.x
 	position.x += move.x
-	var x_collisions := query_collisions()
-	var flip_x := false
-	for collider in x_collisions:
+	var x_collisions: Array[Node2D] = query_collisions()
+	var flip_x: bool = false
+	for collider: Node2D in x_collisions:
 		if collider.get_instance_id() in hit_this_step:
 			continue
 		hit_this_step.append(collider.get_instance_id())
@@ -109,21 +105,20 @@ func move_ball(delta: float) -> void: #we need to move x and y coords independen
 		if on_paddle:
 			return
 
-		# spawn a particle effect
-		var fx = null
+		var fx: Node2D = null
 		if collider.is_in_group("bricks"):
-			fx = brick_bounce_particles.instantiate()			
+			fx = brick_bounce_particles.instantiate()
 		if collider.is_in_group("walls"):
-			fx = wall_bounce_particles.instantiate()			
+			fx = wall_bounce_particles.instantiate()
 		if collider.is_in_group("paddle"):
-			fx = paddle_bounce_particles.instantiate()			
+			fx = paddle_bounce_particles.instantiate()
 		if fx != null:
 			fx.position = global_position
 			get_tree().current_scene.add_child(fx)
 
 		if collider.is_in_group("paddle"):
 			sfx.play_sound("bounce_1")
-			bounce_effect.handle_paddle_collision(self, collider as Paddle)			
+			bounce_effect.handle_paddle_collision(self, collider as Paddle)
 		elif collider.is_in_group("bricks") or collider.is_in_group("walls"):
 			sfx.play_sound("bounce_1")
 			if bounce_effect.should_bounce(collider):
@@ -132,16 +127,16 @@ func move_ball(delta: float) -> void: #we need to move x and y coords independen
 			else:
 				handle_pierce(collider)
 
-	if flip_x: #flip in x direction
+	if flip_x:
 		velocity.x *= -1
-		var leftover := absf(move.x) - absf(position.x - old_x)
+		var leftover: float = absf(move.x) - absf(position.x - old_x)
 		position.x += sign(-move.x) * leftover
 
-	var old_y := position.y #move and check at y
+	var old_y: float = position.y
 	position.y += move.y
-	var y_collisions := query_collisions()
-	var flip_y := false
-	for collider in y_collisions:
+	var y_collisions: Array[Node2D] = query_collisions()
+	var flip_y: bool = false
+	for collider: Node2D in y_collisions:
 		if collider.get_instance_id() in hit_this_step:
 			continue
 		hit_this_step.append(collider.get_instance_id())
@@ -149,13 +144,14 @@ func move_ball(delta: float) -> void: #we need to move x and y coords independen
 		apply_collider_effects(collider)
 		if on_paddle:
 			return
-		var fx = null
+
+		var fx: Node2D = null
 		if collider.is_in_group("bricks"):
-			fx = brick_bounce_particles.instantiate()			
+			fx = brick_bounce_particles.instantiate()
 		if collider.is_in_group("walls"):
-			fx = wall_bounce_particles.instantiate()			
+			fx = wall_bounce_particles.instantiate()
 		if collider.is_in_group("paddle"):
-			fx = paddle_bounce_particles.instantiate()			
+			fx = paddle_bounce_particles.instantiate()
 		if fx != null:
 			fx.position = global_position
 			get_tree().current_scene.add_child(fx)
@@ -171,43 +167,42 @@ func move_ball(delta: float) -> void: #we need to move x and y coords independen
 			else:
 				handle_pierce(collider)
 
-	if flip_y: #bounce in y direction
+	if flip_y:
 		velocity.y *= -1
-		var leftover := absf(move.y) - absf(position.y - old_y)
+		var leftover: float = absf(move.y) - absf(position.y - old_y)
 		position.y += sign(-move.y) * leftover
 
 # --- Collision query ---
 
-func query_collisions() -> Array[Node2D]:	
-	var space := get_world_2d().direct_space_state
-	var query := PhysicsShapeQueryParameters2D.new()
+func query_collisions() -> Array[Node2D]:
+	var space: PhysicsDirectSpaceState2D = get_world_2d().direct_space_state
+	var query: PhysicsShapeQueryParameters2D = PhysicsShapeQueryParameters2D.new()
 	query.shape = ball_collision.shape
 	query.transform = Transform2D(0, global_position)
 	query.collision_mask = collision_mask
 	query.collide_with_areas = true
 	query.collide_with_bodies = true
 	query.exclude = [get_rid()]
-	var results := space.intersect_shape(query)
+	var results: Array[Dictionary] = space.intersect_shape(query)
 	var colliders: Array[Node2D] = []
-	for result in results:
-		var c := result["collider"] as Node2D
-		if c:
-			colliders.append(c)
+	for result: Dictionary in results:
+		if result.has("collider") and result["collider"] is Node2D:
+			colliders.append(result["collider"])
 	return colliders
 
 # --- Push-out helpers ---
 
 func push_out_x(collider: Node2D, move_x: float) -> void:
-	var half := get_collider_half_size(collider)
-	var r := ball_half_height
+	var half: Vector2 = get_collider_half_size(collider)
+	var r: float = ball_half_height
 	if move_x > 0:
 		position.x = collider.global_position.x - half.x - r - 0.5
 	else:
 		position.x = collider.global_position.x + half.x + r + 0.5
 
 func push_out_y(collider: Node2D, move_y: float) -> void:
-	var half := get_collider_half_size(collider)
-	var r := ball_half_height
+	var half: Vector2 = get_collider_half_size(collider)
+	var r: float = ball_half_height
 	if move_y > 0:
 		position.y = collider.global_position.y - half.y - r - 0.5
 	else:
@@ -225,7 +220,7 @@ func handle_pierce(collider: Node2D) -> void:
 
 func clean_collision_set() -> void:
 	var current_ids: Array[int] = []
-	for c in query_collisions():
+	for c: Node2D in query_collisions():
 		current_ids.append(c.get_instance_id())
 	_collision_set = _collision_set.filter(func(id: int) -> bool: return id in current_ids)
 
