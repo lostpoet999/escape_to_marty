@@ -3,8 +3,10 @@ extends Node2D
 var stars_cleared: bool = false
 var bricks_cleared: bool = false
 var stars_in_level: int = 0
+var bricks_in_level: int = 0
 
 func _ready() -> void:
+	bricks_in_level = get_tree().get_nodes_in_group("bricks").size()
 	Signalbus.stars_updated.emit()
 	Signalbus.score_updated.emit()
 	Signalbus.player_health_updated.emit()
@@ -29,7 +31,7 @@ func update_stars_in_level(amount: int) -> void:
 		stars_cleared = false
 
 func _on_brick_destroyed() -> void:
-	var bricks_left: int = get_tree().get_nodes_in_group("bricks").size()
-	if bricks_left <= 1:
+	bricks_in_level -= 1
+	if bricks_in_level <= 0:
 		bricks_cleared = true
 		check_level_cleared()

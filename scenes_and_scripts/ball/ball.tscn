@@ -27,6 +27,7 @@ radius = 11.0454
 script = ExtResource("11_r1ng1")
 name = "bounce_1"
 audio = ExtResource("12_dy6e1")
+volume_db = -50.0
 pitch_scale = 0.8
 pitch_variance = 0.1
 metadata/_custom_type_script = "uid://2fgoca4drc17"

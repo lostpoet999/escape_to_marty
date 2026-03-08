@@ -2,6 +2,7 @@ extends Area2D
 
 @export var fall_speed: float = 120.0
 @export var star_value: int = 1
+var collected: bool = false
 
 func _ready() -> void:
 	var tween: Tween = create_tween()
@@ -19,8 +20,9 @@ func _on_area_entered(area: Area2D) -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group(GameManager.PADDLE):
+		collected = true
+		set_deferred("monitoring", false)
 		Signalbus.star_collected.emit(-1)
-		set_process(false)
 		PlayerData.change_player_stars(star_value)
 		visible = false
-		queue_free()
+		call_deferred("queue_free")
