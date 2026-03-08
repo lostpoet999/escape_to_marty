@@ -149,6 +149,16 @@ func move_ball(delta: float) -> void: #we need to move x and y coords independen
 		apply_collider_effects(collider)
 		if on_paddle:
 			return
+		var fx = null
+		if collider.is_in_group("bricks"):
+			fx = brick_bounce_particles.instantiate()			
+		if collider.is_in_group("walls"):
+			fx = wall_bounce_particles.instantiate()			
+		if collider.is_in_group("paddle"):
+			fx = paddle_bounce_particles.instantiate()			
+		if fx != null:
+			fx.position = global_position
+			get_tree().current_scene.add_child(fx)
 
 		if collider.is_in_group("paddle"):
 			sfx.play_sound("bounce_1")
