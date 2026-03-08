@@ -24,6 +24,7 @@ boot_splash/show_image=false
 
 Signalbus="*uid://dmpotobwyljm1"
 PlayerData="*uid://y4ps6dt0vpeq"
+MusicPlayer="*uid://b5146fvylaic"
 GameManager="*uid://doymnbq1juguj"
 
 [debug]

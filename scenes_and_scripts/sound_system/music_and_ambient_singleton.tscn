@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://b5146fvylaic"]
+
+[ext_resource type="Script" uid="uid://b3aqb23xcbpu6" path="res://scenes_and_scripts/sound_system/music_and_ambient_singleton.gd" id="1_qdxtt"]
+[ext_resource type="Script" uid="uid://p8kt6vwn7h6a" path="res://scenes_and_scripts/sound_system/music_playlist_entry.gd" id="2_2hmt8"]
+[ext_resource type="Script" uid="uid://ci502qqgi27k5" path="res://scenes_and_scripts/sound_system/music_song_entry.gd" id="3_1j6id"]
+[ext_resource type="AudioStream" uid="uid://bdt22asvxdi86" path="res://scenes_and_scripts/sound_system/music/song18.mp3" id="4_r24dt"]
+[ext_resource type="Script" uid="uid://chiygou8blc0v" path="res://scenes_and_scripts/sound_system/ambience_set_entry.gd" id="7_5toyy"]
+[ext_resource type="Script" uid="uid://cgx4nwjmpwn45" path="res://scenes_and_scripts/sound_system/ambient_playlist_entry.gd" id="8_5sb5x"]
+
+[sub_resource type="Resource" id="Resource_5sb5x"]
+script = ExtResource("3_1j6id")
+song_name = "track1"
+audio = ExtResource("4_r24dt")
+volume_db = -10.0
+metadata/_custom_type_script = "uid://ci502qqgi27k5"
+
+[sub_resource type="Resource" id="Resource_fmkea"]
+script = ExtResource("2_2hmt8")
+playlist_name = "test_playlist"
+tracks = Array[ExtResource("3_1j6id")]([SubResource("Resource_5sb5x")])
+interval_between_tracks = 3.0
+metadata/_custom_type_script = "uid://p8kt6vwn7h6a"
+
+[sub_resource type="Resource" id="Resource_un31u"]
+metadata/__load_path__ = "res://Assets/Forest Ambient Sounds/forest-ambience-296528.mp3"
+
+[sub_resource type="Resource" id="Resource_7s478"]
+script = ExtResource("3_1j6id")
+song_name = "forest_ambience"
+audio = SubResource("Resource_un31u")
+volume_db = -15.0
+metadata/_custom_type_script = "uid://ci502qqgi27k5"
+
+[sub_resource type="Resource" id="Resource_5bvl1"]
+metadata/__load_path__ = "res://Assets/Forest Ambient Sounds/birds-song-in-forest.mp3"
+
+[sub_resource type="Resource" id="Resource_5toyy"]
+script = ExtResource("3_1j6id")
+song_name = "birds1"
+audio = SubResource("Resource_5bvl1")
+volume_db = -25.0
+metadata/_custom_type_script = "uid://ci502qqgi27k5"
+
+[sub_resource type="Resource" id="Resource_o54r1"]
+metadata/__load_path__ = "res://Assets/Forest Ambient Sounds/forest-birds-and-insects-sound-effect.mp3"
+
+[sub_resource type="Resource" id="Resource_dff7i"]
+script = ExtResource("3_1j6id")
+song_name = "birds2"
+audio = SubResource("Resource_o54r1")
+volume_db = -15.0
+metadata/_custom_type_script = "uid://ci502qqgi27k5"
+
+[sub_resource type="Resource" id="Resource_h4ghc"]
+script = ExtResource("8_5sb5x")
+playlist_name = "birds"
+tracks = Array[ExtResource("3_1j6id")]([SubResource("Resource_7s478"), SubResource("Resource_5toyy"), SubResource("Resource_dff7i")])
+revisit_timer_min = 20.0
+revisit_timer_max = 46.0
+play_mode = 1
+metadata/_custom_type_script = "uid://cgx4nwjmpwn45"
+
+[sub_resource type="Resource" id="Resource_vuiio"]
+script = ExtResource("7_5toyy")
+playlists = Array[ExtResource("8_5sb5x")]([SubResource("Resource_h4ghc")])
+metadata/_custom_type_script = "uid://chiygou8blc0v"
+
+[node name="MusicAndAmbientSingleton" type="Node" unique_id=1536068685]
+script = ExtResource("1_qdxtt")
+music_playlists = Array[ExtResource("2_2hmt8")]([SubResource("Resource_fmkea")])
+ambient_sets = Array[ExtResource("7_5toyy")]([SubResource("Resource_vuiio")])
+
+[node name="music_player" type="AudioStreamPlayer" parent="." unique_id=1593158861]

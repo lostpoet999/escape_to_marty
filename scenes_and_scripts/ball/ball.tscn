@@ -9,6 +9,9 @@
 [ext_resource type="Script" uid="uid://bryv4msdad7wu" path="res://scenes_and_scripts/powerups_and_effects/ball_powerups/ball_power_up.gd" id="4_j33xc"]
 [ext_resource type="PackedScene" uid="uid://cu8odfaqma1aj" path="res://scenes_and_scripts/powerups_and_effects/ball_effects/bounce_effects/bounce_paddle_particles.tscn" id="4_q6nx1"]
 [ext_resource type="Script" uid="uid://cs82vpqerteng" path="res://scenes_and_scripts/ball/trail.gd" id="5_jlcqq"]
+[ext_resource type="PackedScene" uid="uid://r23jyns7k0m7" path="res://scenes_and_scripts/sound_system/entity_sfx.tscn" id="10_gxp0f"]
+[ext_resource type="Script" uid="uid://2fgoca4drc17" path="res://scenes_and_scripts/sound_system/sounds_entry.gd" id="11_r1ng1"]
+[ext_resource type="AudioStream" uid="uid://buffrr1bs63mc" path="res://scenes_and_scripts/ball/u_57dzwigavg-bounce-492162.mp3" id="12_dy6e1"]
 
 [sub_resource type="Curve" id="Curve_jlcqq"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -19,6 +22,14 @@ colors = PackedColorArray(1, 0, 0, 0, 1, 0, 0, 0.15686275)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_olawr"]
 radius = 11.0454
+
+[sub_resource type="Resource" id="Resource_dni6n"]
+script = ExtResource("11_r1ng1")
+name = "bounce_1"
+audio = ExtResource("12_dy6e1")
+pitch_scale = 0.8
+pitch_variance = 0.1
+metadata/_custom_type_script = "uid://2fgoca4drc17"
 
 [node name="Ball" type="Area2D" unique_id=1220836699]
 z_index = 100
@@ -48,3 +59,6 @@ shape = SubResource("CircleShape2D_olawr")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
 [node name="Effects" type="Node" parent="." unique_id=949634543]
+
+[node name="EntitySfx" parent="." unique_id=529254853 instance=ExtResource("10_gxp0f")]
+sounds = Array[ExtResource("11_r1ng1")]([SubResource("Resource_dni6n")])

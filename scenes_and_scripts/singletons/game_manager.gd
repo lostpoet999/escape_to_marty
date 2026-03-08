@@ -112,6 +112,7 @@ func restart_level() -> void:
 	get_tree().reload_current_scene()
 
 func _ready() -> void:
+	MusicPlayer.execute_playlist("test_playlist")
 	floor_data = ResourceLoader.load(floor_ref[current_floor])
 	scene_ref = floor_data.starting_room_scene
 	current_room_id = floor_data.starting_room_id

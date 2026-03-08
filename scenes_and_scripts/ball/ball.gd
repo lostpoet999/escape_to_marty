@@ -27,10 +27,11 @@ var _collision_set: Array[int] = []
 @onready var ball_collision: CollisionShape2D = $CollisionShape2D
 @onready var ball_half_height: float = (ball_collision.shape as CircleShape2D).radius
 @onready var effects_node: Node = $Effects
+@onready var sfx: Node = $EntitySfx
 
 
 func _ready() -> void:
-	position_ball_on_paddle()
+	position_ball_on_paddle()	
 	bounce_effect = bounce_effect_scene.instantiate() as BaseBounceEffect
 	add_child(bounce_effect)
 	instantiate_all_effects()
@@ -110,16 +111,21 @@ func move_ball(delta: float) -> void: #we need to move x and y coords independen
 
 		# spawn a particle effect
 		var fx = null
-		if collider.is_in_group("bricks"): fx = brick_bounce_particles.instantiate()
-		if collider.is_in_group("walls"): fx = wall_bounce_particles.instantiate()
-		if collider.is_in_group("paddle"): fx = paddle_bounce_particles.instantiate()
+		if collider.is_in_group("bricks"):
+			fx = brick_bounce_particles.instantiate()			
+		if collider.is_in_group("walls"):
+			fx = wall_bounce_particles.instantiate()			
+		if collider.is_in_group("paddle"):
+			fx = paddle_bounce_particles.instantiate()			
 		if fx != null:
 			fx.position = global_position
 			get_tree().current_scene.add_child(fx)
 
 		if collider.is_in_group("paddle"):
-			bounce_effect.handle_paddle_collision(self, collider as Paddle)
+			sfx.play_sound("bounce_1")
+			bounce_effect.handle_paddle_collision(self, collider as Paddle)			
 		elif collider.is_in_group("bricks") or collider.is_in_group("walls"):
+			sfx.play_sound("bounce_1")
 			if bounce_effect.should_bounce(collider):
 				push_out_x(collider, move.x)
 				flip_x = true
@@ -145,8 +151,10 @@ func move_ball(delta: float) -> void: #we need to move x and y coords independen
 			return
 
 		if collider.is_in_group("paddle"):
+			sfx.play_sound("bounce_1")
 			bounce_effect.handle_paddle_collision(self, collider as Paddle)
 		elif collider.is_in_group("bricks") or collider.is_in_group("walls"):
+			sfx.play_sound("bounce_1")
 			if bounce_effect.should_bounce(collider):
 				push_out_y(collider, move.y)
 				flip_y = true
