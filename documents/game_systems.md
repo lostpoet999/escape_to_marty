@@ -6,16 +6,25 @@ Quick reference for how each system works in BreakOut. Each section answers a co
 
 ## How do I... add a new level?
 
-1. Duplicate `scenes_and_scripts/levels/level_01.tscn` and its script `level_01.gd`
-2. Arrange brick instances (from `scenes_and_scripts/bricks/blue_brick.tscn`) in your new scene
-3. Add a preload constant in `scenes_and_scripts/singletons/game_manager.gd`:
-   ```gdscript
-   const LEVEL_02: PackedScene = preload("res://scenes_and_scripts/levels/level_02.tscn")
-   ```
-4. Update `load_next_level()` in GameManager to point to the new level
-5. The level script tracks brick/star clearance automatically via Signalbus connections
+1. You can inherit the "room_base" scene or duplicate a combat scene for a level with bricks
+2. Duplicate a common room scene for things liek start room. The base node should be 'common_room' -- this gives the level cleared signal right away
+4. Name the level with its type_floor_roomid. for example combat_1_1 is a combat room on floor 1 and room id 1.
+4.5 The scene name is not critical for functionality but it will help us to have the scene names the same as the room_ids in the floor graph (see below)
+5. Arrange brick instances (from `scenes_and_scripts/bricks/blue_brick.tscn`) in your new scene (or create new bricks)
+6. The level script tracks brick/star clearance automatically via Signalbus connections
 
 ---
+
+## How do I... use the floor graph?
+1. Double clisk the floor_x_layout.tres file
+2. Look at the inspector to the righ--there is an array of Room Entries
+3. Click an existing room entry:
+	1. Room Name ID: this is important and used to map to exits of other rooms
+	2. Room Scene: this is the scene to load (one you might have made or existing one). We should try and match the scene and room id names
+	3. Room Coors--where in the 5x5 grid the level is. (not used right now)
+	4. Room Type -- the type of room. Not used right now but we likely will
+4. The exits of the room and the room id they map to
+5. Brick Layout --in the future this will override any manual bricks placed. Will use this if/when we make a level editor
 
 ## How do I... create a new brick type?
 
@@ -40,7 +49,7 @@ See `pierce_shot/pierce_shot.gd` for an example that returns `false` for bricks 
 
 ---
 
-## How do I... create a new damage effect?
+## How do I... create a new damage effect? Note: Effects includes VFX possibly attached to the scene but also the overrides for how that effect behaves.
 
 1. Create a new script extending `BaseDamageEffect`
 2. Override `process_targets()` or `apply_damage()` to customize what gets damaged and how
@@ -50,7 +59,7 @@ See `pierce_shot/pierce_shot.gd` for an example that returns `false` for bricks 
 
 ---
 
-## How do I... create a new power-up?
+## How do I... create a new power-up? Note: a powerup has its own stats that stack with other powerups. It can have one or more effects as well.
 
 1. Create a new `BallPowerUp` resource (`.tres`) in `scenes_and_scripts/powerups_and_effects/ball_powerups/`
 2. Set properties in the inspector:
@@ -96,7 +105,7 @@ Use the GameManager state machine:
 GameManager.change_state(GameManager.GameState.PLAYING)
 ```
 
-Valid states: `MAIN_MENU`, `PLAYING`, `PAUSED`, `GAME_OVER`, `CLICK_MODE`
+enum GameState {MAIN_MENU, BALL_ON_PADDLE, PLAYING, PAUSED, GAME_OVER, CLICK_MODE, LEVEL_CLEARED} --Valid states currently
 
 State transitions are validated - not all transitions are allowed. Check `is_valid_state_transition()` in GameManager for the full transition table. Each state change emits a corresponding Signalbus signal and handles mouse mode automatically.
 

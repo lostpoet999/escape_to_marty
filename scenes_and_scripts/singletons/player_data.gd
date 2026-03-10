@@ -2,7 +2,7 @@ extends Node
 
 var score: int = 0
 var stars_collected: int = 0
-var player_current_health: int = 10
+var player_current_health: int = 2
 var player_max_health: int = 25
 
 

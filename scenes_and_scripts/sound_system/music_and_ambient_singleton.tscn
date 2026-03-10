@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://b3aqb23xcbpu6" path="res://scenes_and_scripts/sound_system/music_and_ambient_singleton.gd" id="1_qdxtt"]
 [ext_resource type="Script" uid="uid://p8kt6vwn7h6a" path="res://scenes_and_scripts/sound_system/music_playlist_entry.gd" id="2_2hmt8"]
 [ext_resource type="Script" uid="uid://ci502qqgi27k5" path="res://scenes_and_scripts/sound_system/music_song_entry.gd" id="3_1j6id"]
-[ext_resource type="AudioStream" uid="uid://bdt22asvxdi86" path="res://scenes_and_scripts/sound_system/music/song18.mp3" id="4_r24dt"]
+[ext_resource type="AudioStream" uid="uid://bdt22asvxdi86" path="res://music_and_ambient/song18(replace me).mp3" id="4_r24dt"]
 [ext_resource type="Script" uid="uid://chiygou8blc0v" path="res://scenes_and_scripts/sound_system/ambience_set_entry.gd" id="7_5toyy"]
 [ext_resource type="Script" uid="uid://cgx4nwjmpwn45" path="res://scenes_and_scripts/sound_system/ambient_playlist_entry.gd" id="8_5sb5x"]
 

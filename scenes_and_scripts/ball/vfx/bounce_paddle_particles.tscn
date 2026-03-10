@@ -1,9 +1,9 @@
-[gd_scene format=3 uid="uid://rbv1v5vfqunm"]
+[gd_scene format=3 uid="uid://cu8odfaqma1aj"]
 
-[ext_resource type="Script" uid="uid://dkgixai172xy8" path="res://scenes_and_scripts/powerups_and_effects/ball_effects/bounce_effects/bounce_particle_cleanup.gd" id="1_jm7an"]
+[ext_resource type="Script" uid="uid://dkgixai172xy8" path="res://scenes_and_scripts/ball/vfx/bounce_particle_cleanup.gd" id="1_pv0p5"]
 
 [sub_resource type="Gradient" id="Gradient_jjk1v"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+colors = PackedColorArray(0, 0.6833334, 1, 0.5921569, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_jm7an"]
 gradient = SubResource("Gradient_jjk1v")
@@ -16,21 +16,24 @@ fill_to = Vector2(0, 0)
 [sub_resource type="Gradient" id="Gradient_k56j3"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
-[sub_resource type="Gradient" id="Gradient_jm7an"]
+[sub_resource type="Gradient" id="Gradient_pv0p5"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_k56j3"]
-gradient = SubResource("Gradient_jm7an")
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_unowl"]
+gradient = SubResource("Gradient_pv0p5")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(1, 0.5)
 
-[sub_resource type="Curve" id="Curve_yxxal"]
+[sub_resource type="Curve" id="Curve_ccdkk"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.24932978, 0.79645103), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[node name="BounceBrickParticles" type="Node2D" unique_id=908965456]
-script = ExtResource("1_jm7an")
+[sub_resource type="Gradient" id="Gradient_fqmrq"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="BouncePaddleParticles" type="Node2D" unique_id=908965456]
+script = ExtResource("1_pv0p5")
 
 [node name="sparks" type="CPUParticles2D" parent="." unique_id=126513465]
 amount = 64
@@ -42,11 +45,12 @@ initial_velocity_min = 10.0
 initial_velocity_max = 100.0
 color_ramp = SubResource("Gradient_k56j3")
 
-[node name="puff" type="CPUParticles2D" parent="." unique_id=832937311]
+[node name="puff" type="CPUParticles2D" parent="." unique_id=236103822]
 amount = 1
-texture = SubResource("GradientTexture2D_k56j3")
+texture = SubResource("GradientTexture2D_unowl")
 explosiveness = 1.0
 spread = 180.0
 gravity = Vector2(0, 0)
-scale_amount_curve = SubResource("Curve_yxxal")
-color_ramp = SubResource("Gradient_k56j3")
+scale_amount_curve = SubResource("Curve_ccdkk")
+color = Color(0, 0.7156195, 0.7156193, 1)
+color_ramp = SubResource("Gradient_fqmrq")

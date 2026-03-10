@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://buffrr1bs63mc"
+path="res://.godot/imported/u_57dzwigavg-bounce-492162(replace me).mp3-371c49c178d0d521ece91c3893f8b7b2.mp3str"
+
+[deps]
+
+source_file="res://scenes_and_scripts/ball/u_57dzwigavg-bounce-492162(replace me).mp3"
+dest_files=["res://.godot/imported/u_57dzwigavg-bounce-492162(replace me).mp3-371c49c178d0d521ece91c3893f8b7b2.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -14,6 +14,7 @@ var current_speed: float = 0.0
 
 var accumulated_mouse_movement_x: float = 0
 var mouse_sensitivity: float = 1.0
+@export var active_paddle_powerup: ActivePaddlePowerup
 
 func _ready() -> void:
 	#mouse mode is set by GameManager when entering PLAYING state
@@ -45,12 +46,16 @@ func _on_game_state_playing() -> void:
 func _on_game_state_click_mode() -> void:
 	paddle_frozen = true
 
+
+
 func _input(event: InputEvent) -> void:
 	if !paddle_frozen:
 		var mouse_event: InputEventMouseMotion = event as InputEventMouseMotion
 		if mouse_event:
 			accumulated_mouse_movement_x += mouse_event.relative.x * mouse_sensitivity
 			accumulated_mouse_movement_x = clamp(accumulated_mouse_movement_x, left_bound, right_bound)
+	if Input.is_action_just_pressed("paddle_active_powerup") and GameManager.current_state != GameManager.GameState.BALL_ON_PADDLE:
+		active_paddle_powerup.activate_paddle_shot()
 
 func get_movement_direction() -> float:
 	return current_speed

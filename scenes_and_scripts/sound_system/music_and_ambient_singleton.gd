@@ -41,8 +41,7 @@ func execute_playlist(playlist_name: String) -> void:
 			_play_random()
 
 func play_current_track() -> void:
-	var track: MusicSongEntry = currently_playing_playlist.tracks[current_track_index]
-	print("Playing track: ", track.song_name)
+	var track: MusicSongEntry = currently_playing_playlist.tracks[current_track_index]	
 	music_player.stream = track.audio
 	music_player.volume_db = track.volume_db
 	music_player.bus = "Music"
@@ -86,8 +85,7 @@ func _play_random() -> void:
 	played_tracks_indices.append(current_track_index)
 	play_current_track()
 
-func _on_track_finished() -> void:
-	print("Track finished: ", currently_playing_playlist.tracks[current_track_index].song_name)
+func _on_track_finished() -> void:	
 	if currently_playing_playlist.interval_between_tracks > 0:
 		await get_tree().create_timer(currently_playing_playlist.interval_between_tracks).timeout
 	execute_playlist(current_playlist_name)

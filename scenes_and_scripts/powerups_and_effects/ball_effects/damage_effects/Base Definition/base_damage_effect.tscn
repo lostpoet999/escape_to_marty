@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://31xj2n4icbuy"]
+
+[ext_resource type="Script" uid="uid://cvjoimpjnt5vi" path="res://scenes_and_scripts/powerups_and_effects/ball_effects/damage_effects/Base Definition/base_damage_effect.gd" id="1_d65ql"]
+
+[node name="BaseDamageEffect" type="Node2D" unique_id=173753545]
+script = ExtResource("1_d65ql")

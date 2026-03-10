@@ -1,5 +1,4 @@
-class_name Ball
-extends Area2D
+class_name Ball extends Area2D
 
 const DEFAULT_BALL_DMG: int = 1
 
@@ -21,7 +20,8 @@ var _collision_set: Array[int] = []
 
 @onready var paddle: Paddle = $"../Paddle"
 @onready var paddle_collision: CollisionShape2D = $"../Paddle/CollisionShape2D"
-@onready var ball_collision: CollisionShape2D = $CollisionShape2D
+@onready var ball_collision: CollisionShape2D = $bounce_collision_shape
+
 @onready var ball_half_height: float = (ball_collision.shape as CircleShape2D).radius
 @onready var effects_node: Node = $Effects
 @onready var sfx: EntitySFX = $EntitySfx
@@ -45,7 +45,7 @@ func _process(delta: float) -> void:
 		move_ball(delta)
 
 func position_ball_on_paddle() -> void:
-	var offset: float = ball_half_height + get_paddle_half_height() + 1.0
+	var offset: float = ball_half_height + get_paddle_half_height() + 1	
 	position = paddle.global_position + Vector2(0, -offset)
 	on_paddle = true
 	GameManager.change_state(GameManager.GameState.BALL_ON_PADDLE)
@@ -57,7 +57,7 @@ func instantiate_all_effects() -> void:
 			effects_node.add_child(effect)
 			damage_effects.append(effect)
 
-func update_base_dmg() -> void:
+func update_base_dmg() -> void: #stack the powerup damage
 	ball_dmg = DEFAULT_BALL_DMG
 	for powerup_ref: BallPowerUp in powerup_array:
 		ball_dmg += powerup_ref.global_damage_bonus

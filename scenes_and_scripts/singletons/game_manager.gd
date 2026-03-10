@@ -64,7 +64,9 @@ func is_valid_state_transition(from_state: GameState, to_state: GameState) -> bo
 			return to_state  in [GameState.BALL_ON_PADDLE]
 	return false
 
-func enter_state(change_to_state: GameState) -> void:
+func enter_state(change_to_state: GameState) -> void: 
+	#note that a big part of gamemanager and the game state is managing when mouse if visible or not. 
+	#centralizing that here so its easy to spot/fix where mouse mode is not correct for current gam
 	current_state = change_to_state
 	match current_state:
 		GameState.MAIN_MENU:
@@ -87,8 +89,7 @@ func enter_state(change_to_state: GameState) -> void:
 		GameState.CLICK_MODE:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			Signalbus.game_state_click_mode.emit()
-		GameState.LEVEL_CLEARED:
-			print("game state to level cleared")
+		GameState.LEVEL_CLEARED:			
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			Signalbus.game_state_click_mode.emit()
 
@@ -123,7 +124,7 @@ func _ready() -> void:
 	Signalbus.player_died.connect(_load_level_on_player_death)
 	Signalbus.level_cleared.connect(set_state_to_cleared)
 	process_mode = Node.PROCESS_MODE_ALWAYS
-
+	
 
 func _configure_frame_rate() -> void:
 	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)	
@@ -147,7 +148,5 @@ func load_current_room()-> void:
 func _load_level_on_player_death() -> void:
 	GameManager.change_state(GameState.GAME_OVER)
 
-func set_state_to_cleared() -> void:
-	print("level_cleared")
+func set_state_to_cleared() -> void:	
 	change_state(GameState.LEVEL_CLEARED)
-	print("game state: ", current_state)

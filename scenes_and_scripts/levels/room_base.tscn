@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://ld8u6g3nsn62" path="res://scenes_and_scripts/ball/ball.tscn" id="7_701b8"]
 [ext_resource type="PackedScene" uid="uid://dldewve8r7d7i" path="res://scenes_and_scripts/walls/exits/west_exit.tscn" id="8_2ndtm"]
 
-[node name="Level_01" type="Node2D" unique_id=565861230]
+[node name="room_base" type="Node2D" unique_id=565861230]
 script = ExtResource("1_e48p3")
 
 [node name="UIArea" type="Control" parent="." unique_id=2088925402]
@@ -22,6 +22,7 @@ anchor_bottom = 1.0
 offset_right = 280.0
 offset_bottom = 1080.0
 grow_vertical = 2
+scale = Vector2(0.9200008, 1)
 metadata/_edit_use_anchors_ = true
 
 [node name="ColorRect" type="ColorRect" parent="UIArea" unique_id=1244292917]
@@ -31,6 +32,7 @@ anchor_right = 0.9142857
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1.0869579, 1)
 color = Color(0.0941176, 0.0392157, 0.0666667, 1)
 metadata/_edit_use_anchors_ = true
 

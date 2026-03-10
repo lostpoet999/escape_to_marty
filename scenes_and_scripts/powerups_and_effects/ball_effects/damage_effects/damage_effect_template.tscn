@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dp8vqy8joteun"]
+
+[ext_resource type="Script" uid="uid://s72rq5dli7ou" path="res://scenes_and_scripts/powerups_and_effects/ball_effects/damage_effects/damage_effect_template.gd" id="1_q8fhy"]
+
+[node name="DamageEffectTemplate" type="Node2D" unique_id=1410479409]
+script = ExtResource("1_q8fhy")

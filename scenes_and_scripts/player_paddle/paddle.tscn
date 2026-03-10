@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c14m3ye4ihp6" path="res://scenes_and_scripts/player_paddle/paddle.gd" id="1_ews1h"]
 [ext_resource type="Texture2D" uid="uid://ceqjt876orrnp" path="res://scenes_and_scripts/player_paddle/basic_paddle.png" id="2_qicss"]
+[ext_resource type="Resource" uid="uid://clvf4fkl5a8qt" path="res://scenes_and_scripts/powerups_and_effects/paddle_active_powerups/spirit_shot.tres" id="2_sflau"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8fbbk"]
 size = Vector2(36.0002, 121.99986)
@@ -9,6 +10,7 @@ size = Vector2(36.0002, 121.99986)
 [node name="Paddle" type="CharacterBody2D" unique_id=1681485936 groups=["paddle"]]
 collision_mask = 3
 script = ExtResource("1_ews1h")
+active_paddle_powerup = ExtResource("2_sflau")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=486052735]
 position = Vector2(0.215551, 0.5)
