@@ -4,6 +4,7 @@
 [ext_resource type="LabelSettings" uid="uid://dnb1y3i4cf2ln" path="res://label_settings_and_fonts/basic_white_38.tres" id="1_utoos"]
 [ext_resource type="FontFile" uid="uid://c1its5lmhd4kg" path="res://label_settings_and_fonts/fonts/8bitlim.ttf" id="2_8r8j7"]
 [ext_resource type="LabelSettings" uid="uid://dx3lg2g7p81op" path="res://label_settings_and_fonts/yellow_48.tres" id="2_c76ar"]
+[ext_resource type="PackedScene" uid="uid://do7j0ir4apgbd" path="res://scenes_and_scripts/inventory/inventory_panel.tscn" id="5_h7qrh"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_5qwjd"]
 font = ExtResource("2_8r8j7")
@@ -19,55 +20,64 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_op5x6")
 
-[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1789650623]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1726861431]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer" unique_id=1789650623]
+layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="HBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=864382994]
+[node name="HBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer" unique_id=864382994]
 layout_mode = 2
 
-[node name="Score_label" type="Label" parent="MarginContainer/HBoxContainer" unique_id=1238751976]
+[node name="Score_label" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=1238751976]
 layout_mode = 2
 text = "Score:"
 label_settings = ExtResource("2_c76ar")
 
-[node name="Score" type="Label" parent="MarginContainer/HBoxContainer" unique_id=812595105]
+[node name="Score" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=812595105]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 text = "100000"
 label_settings = ExtResource("1_utoos")
 
-[node name="spacer" type="Label" parent="MarginContainer/HBoxContainer" unique_id=1266625648]
+[node name="spacer" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=1266625648]
 layout_mode = 2
 
-[node name="Star_lable" type="Label" parent="MarginContainer/HBoxContainer" unique_id=1425838457]
+[node name="Star_lable" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=1425838457]
 layout_mode = 2
 text = "Stars:"
 label_settings = SubResource("LabelSettings_5qwjd")
 
-[node name="Stars" type="Label" parent="MarginContainer/HBoxContainer" unique_id=358128666]
+[node name="Stars" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=358128666]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 text = "100"
 label_settings = ExtResource("1_utoos")
 
-[node name="spacer2" type="Label" parent="MarginContainer/HBoxContainer" unique_id=567536115]
+[node name="spacer2" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=567536115]
 layout_mode = 2
 
-[node name="Player_Health" type="Label" parent="MarginContainer/HBoxContainer" unique_id=1165732847]
+[node name="Player_Health" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=1165732847]
 layout_mode = 2
 text = "Health:"
 label_settings = ExtResource("2_c76ar")
 
-[node name="health" type="Label" parent="MarginContainer/HBoxContainer" unique_id=1380871399]
+[node name="health" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=1380871399]
+unique_name_in_owner = true
 layout_mode = 2
 text = "10
 "
 label_settings = ExtResource("1_utoos")
+
+[node name="InventoryPanel" parent="VBoxContainer" unique_id=1905574445 instance=ExtResource("5_h7qrh")]
+layout_mode = 2

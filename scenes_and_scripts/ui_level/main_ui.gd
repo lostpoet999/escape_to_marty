@@ -1,8 +1,8 @@
 extends Control
 
-@onready var stars: Label = $MarginContainer/HBoxContainer/Stars
-@onready var score: Label = $MarginContainer/HBoxContainer/Score
-@onready var health: Label = $MarginContainer/HBoxContainer/health
+@onready var score: Label = %Score
+@onready var stars: Label = %Stars
+@onready var health: Label = %health
 
 func _ready() -> void:
 	Signalbus.stars_updated.connect(update_star_ui)

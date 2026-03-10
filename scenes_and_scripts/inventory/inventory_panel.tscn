@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://do7j0ir4apgbd"]
+
+[ext_resource type="Script" uid="uid://u2qx74begf0" path="res://scenes_and_scripts/inventory/inventory_panel.gd" id="1_0u7gp"]
+[ext_resource type="LabelSettings" uid="uid://dx3lg2g7p81op" path="res://label_settings_and_fonts/yellow_48.tres" id="1_42un2"]
+
+[node name="InventoryPanel" type="MarginContainer" unique_id=1905574445]
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+script = ExtResource("1_0u7gp")
+
+[node name="HBoxContainer" type="VBoxContainer" parent="." unique_id=1246258486]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=880573060]
+layout_mode = 2
+text = "Inventory:"
+label_settings = ExtResource("1_42un2")
+
+[node name="GridContainer" type="GridContainer" parent="HBoxContainer" unique_id=1098704347]
+unique_name_in_owner = true
+layout_mode = 2
+columns = 3

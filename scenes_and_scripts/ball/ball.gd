@@ -30,7 +30,11 @@ func _ready() -> void:
 	position_ball_on_paddle()
 	bounce_effect = bounce_effect_scene.instantiate() as BaseBounceEffect
 	add_child(bounce_effect)
+	
+	PlayerInventory.get_instance().changed.connect(repopulate_effects_from_inventory)
+	repopulate_effects_from_inventory()
 	instantiate_all_effects()
+	
 	update_base_dmg()
 	Signalbus.level_cleared.connect(remove_ball)
 
@@ -49,6 +53,12 @@ func position_ball_on_paddle() -> void:
 	position = paddle.global_position + Vector2(0, -offset)
 	on_paddle = true
 	GameManager.change_state(GameManager.GameState.BALL_ON_PADDLE)
+	
+## Clear and load inventory powerups for Ball.
+func repopulate_effects_from_inventory() -> void:
+	powerup_array.clear()
+	var items: Array = PlayerInventory.get_instance().get_items_for_ball()
+	powerup_array.append_array(items)
 
 func instantiate_all_effects() -> void:
 	for powerup_ref: BallPowerUp in powerup_array:

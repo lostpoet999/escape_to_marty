@@ -5,6 +5,8 @@ var stars_collected: int = 0
 var player_current_health: int = 2
 var player_max_health: int = 25
 
+var inventory: PlayerInventory
+
 
 func update_player_score(amount: int) -> void:
 	score += amount
@@ -18,6 +20,13 @@ func initialize_player_data() -> void:
 	stars_collected = 0
 	player_current_health = 10
 	player_max_health = 25
+	
+	## If this is reset every level, this probably isn't the right spot, as I imagine
+	## inventory should be persistent across levels, but you can make that call.
+	## This deletes any existing inventory instance and makes a new one.
+	if inventory: inventory.free()
+	inventory = PlayerInventory.new()
+	add_child(inventory)
 
 func change_player_stars(star_value: int) -> void:
 	stars_collected += star_value

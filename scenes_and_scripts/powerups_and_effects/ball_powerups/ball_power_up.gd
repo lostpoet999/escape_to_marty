@@ -15,6 +15,7 @@ enum PowerUpTypes {
 
 @export var powerup_name: String
 @export var powerup_id: String
+@export var inventory_icon: Texture2D
 @export_group("Base Stats")
 @export var global_damage_bonus: float
 @export var global_damage_multi: float
@@ -27,3 +28,6 @@ enum PowerUpTypes {
 
 @export_group("Damage Effects")
 @export var attached_effects: Array[DamageEffectRef]
+
+func _to_string() -> String:
+	return powerup_name + powerup_name
