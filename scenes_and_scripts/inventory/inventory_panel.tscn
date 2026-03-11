@@ -21,4 +21,4 @@ label_settings = ExtResource("1_42un2")
 [node name="GridContainer" type="GridContainer" parent="HBoxContainer" unique_id=1098704347]
 unique_name_in_owner = true
 layout_mode = 2
-columns = 3
+columns = 5

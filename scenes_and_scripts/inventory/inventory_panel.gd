@@ -23,6 +23,7 @@ func init_button_for(item: Variant) -> Button:
 	var icon: Texture2D = get_icon_for_item(item)
 	var button: Button = Button.new()
 	button.icon = icon
+	button.tooltip_text = item.powerup_name
 	button.set_meta(&"Item", item) ## store the variant
 	
 	button.flat = true ## change me if you decide to use a theme

@@ -9,7 +9,7 @@ signal changed
 var items: Array ## Powerups, passives or actives for ball, paddle, or click. One active passive for each type.
 const TESTING: Array = [
 	## Add testing inventory items here that will be added in _ready
-	preload("uid://ctjeqnpuca6lq"),
+	preload("uid://ctjeqnpuca6lq"),preload("uid://b1myuckbujeku")
 ]
 
 @warning_ignore_start("untyped_declaration")
@@ -55,7 +55,7 @@ func _ready() -> void:
 func get_items() -> Array:
 	return items
 
-## Use to get a particular item type.
+## Load power-ups from inventory for appropriate object
 func get_items_for_ball() -> Array[BallPowerUp]:
 	var _items: Array[BallPowerUp]
 	for item in items:

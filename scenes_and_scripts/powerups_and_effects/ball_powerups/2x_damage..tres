@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="BallPowerUp" format=3 uid="uid://b1myuckbujeku"]
+
+[ext_resource type="Script" uid="uid://bymj844l5ynju" path="res://scenes_and_scripts/powerups_and_effects/ball_effects/damage_effects/Base Definition/damage_effect_wrapper.gd" id="1_x68hy"]
+[ext_resource type="Texture2D" uid="uid://cuwvvr2wvgr25" path="res://scenes_and_scripts/powerups_and_effects/ball_powerups/2x_powerup_sprite.png" id="2_omxlg"]
+[ext_resource type="Script" uid="uid://bryv4msdad7wu" path="res://scenes_and_scripts/powerups_and_effects/ball_powerups/ball_power_up.gd" id="2_yvhdv"]
+
+[resource]
+script = ExtResource("2_yvhdv")
+powerup_name = "2x Damage"
+powerup_id = "2"
+inventory_icon = ExtResource("2_omxlg")
+global_damage_multi = 3.0
+local_damage_multi = 1.0
+metadata/_custom_type_script = "uid://bryv4msdad7wu"

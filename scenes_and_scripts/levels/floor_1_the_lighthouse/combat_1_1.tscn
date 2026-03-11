@@ -7,3 +7,4 @@
 
 [node name="BlueBrick" parent="PlayArea/Walls" parent_id_path=PackedInt32Array(76639453) index="79" unique_id=887021685 instance=ExtResource("2_qcry5")]
 position = Vector2(1056, 512)
+brick_health = 10

@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bymj844l5ynju" path="res://scenes_and_scripts/powerups_and_effects/ball_effects/damage_effects/Base Definition/damage_effect_wrapper.gd" id="1_3qseh"]
 [ext_resource type="PackedScene" uid="uid://31xj2n4icbuy" path="res://scenes_and_scripts/powerups_and_effects/ball_effects/damage_effects/Base Definition/base_damage_effect.tscn" id="2_e50eh"]
 [ext_resource type="Script" uid="uid://bryv4msdad7wu" path="res://scenes_and_scripts/powerups_and_effects/ball_powerups/ball_power_up.gd" id="2_vk0gd"]
+[ext_resource type="Texture2D" uid="uid://mtj7exkdy0ls" path="res://scenes_and_scripts/ball/new_ball.png" id="3_iutvg"]
 
 [sub_resource type="Resource" id="Resource_wy5ye"]
 script = ExtResource("1_3qseh")
@@ -13,6 +14,7 @@ metadata/_custom_type_script = "uid://bymj844l5ynju"
 script = ExtResource("2_vk0gd")
 powerup_name = "Basic_Ball"
 powerup_id = "1"
+inventory_icon = ExtResource("3_iutvg")
 global_damage_multi = 1.0
 local_damage_multi = 1.0
 powerup_type = 2
