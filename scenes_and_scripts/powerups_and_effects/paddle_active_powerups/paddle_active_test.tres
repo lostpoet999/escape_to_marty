@@ -6,6 +6,7 @@
 [resource]
 script = ExtResource("1_xvy62")
 projectile_ref = ExtResource("1_0d1pg")
+max_spawn = 1
 speed_modifier = 1.0
 damage = 5
 metadata/_custom_type_script = "uid://0q4ogral5cxt"
