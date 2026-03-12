@@ -12,9 +12,9 @@ var current_active: int = 0
 func _ready()->void:
 	current_active = 0
 
-func activate(paddle , projectile_node: Node):		
+func activate(paddle:Paddle , projectile_node: Node)->void:		
 	if (current_active < max_spawn) or (max_spawn<=0):
-		var projectile = projectile_ref.instantiate() as Area2D
+		var projectile:Projectile = projectile_ref.instantiate() as Area2D
 		projectile.position = paddle.global_position
 		projectile.position.y -= 32
 		projectile.initialize_shot(speed_modifier, damage, self)		

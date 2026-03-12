@@ -2,9 +2,9 @@ class_name Projectile extends Area2D
 
 @export var speed: float = 800
 @export var damage: int
-@export var spawner: PaddleActive
+var spawner: PaddleActive
 
-func initialize_shot(speed_mod, damage_ref, spawner_ref):
+func initialize_shot(speed_mod: float, damage_ref: int, spawner_ref: PaddleActive)->void:
 	speed *= speed_mod
 	damage = damage_ref
 	spawner = spawner_ref

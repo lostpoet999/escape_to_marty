@@ -58,7 +58,7 @@ func get_items() -> Array:
 ## Load power-ups from inventory for appropriate object
 func get_items_for_ball() -> Array[BallPowerUp]:
 	var _items: Array[BallPowerUp]
-	for item in items:
+	for item:BallPowerUp in items:
 		if item is BallPowerUp:
 			_items.append(item)
 	return _items

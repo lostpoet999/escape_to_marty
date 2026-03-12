@@ -9,6 +9,7 @@ radius = 4.0
 [node name="SpiritShot" type="Area2D" unique_id=1199462901]
 z_index = 500
 script = ExtResource("1_66it4")
+speed = 300.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1180427145]
 shape = SubResource("CapsuleShape2D_66it4")
