@@ -6,7 +6,7 @@ const DEBUG: bool = true
 
 signal changed
 
-var items: Array ## Powerups, passives or actives for ball, paddle, or click. One active passive for each type.
+var items: Array[BaseItem] ## Powerups, passives or actives for ball, paddle, or click. One active passive for each type.
 const TESTING: Array = [
 	## Add testing inventory items here that will be added in _ready
 	preload("uid://ctjeqnpuca6lq"),preload("uid://b1myuckbujeku")

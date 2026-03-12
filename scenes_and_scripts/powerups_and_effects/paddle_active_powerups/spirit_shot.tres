@@ -1,8 +1,0 @@
-[gd_resource type="Resource" script_class="ActivePaddlePowerup" format=3 uid="uid://clvf4fkl5a8qt"]
-
-[ext_resource type="Script" uid="uid://cj40umxjq2blj" path="res://scenes_and_scripts/powerups_and_effects/paddle_active_powerups/paddle_active_powerup_base.gd" id="1_ys230"]
-
-[resource]
-script = ExtResource("1_ys230")
-fire_projectile = true
-metadata/_custom_type_script = "uid://cj40umxjq2blj"

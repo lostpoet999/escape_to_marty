@@ -1,9 +1,8 @@
-class_name BaseDamageEffect extends Node
+class_name BaseDamageEffect extends Node2D
 
 var ball_ref: Ball
 var collider_ref: Node2D
 var target: Node2D
-@export var effect_damage_modifier: float = 1.0 # use this if you want the effect to do less or more damage. NOTE: the main damage calculation comes from the powerup parent(s)
 
 func process_targets() -> void:
 	target = collider_ref #just the thing hit

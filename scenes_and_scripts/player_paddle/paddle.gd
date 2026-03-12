@@ -14,7 +14,10 @@ var current_speed: float = 0.0
 
 var accumulated_mouse_movement_x: float = 0
 var mouse_sensitivity: float = 1.0
-@export var active_paddle_powerup: ActivePaddlePowerup
+
+@export var active_paddle_powerup: PaddleActive #will type cast later
+@onready var projectiles: Node = $"../Projectiles"
+
 
 func _ready() -> void:
 	#mouse mode is set by GameManager when entering PLAYING state
@@ -55,7 +58,10 @@ func _input(event: InputEvent) -> void:
 			accumulated_mouse_movement_x += mouse_event.relative.x * mouse_sensitivity
 			accumulated_mouse_movement_x = clamp(accumulated_mouse_movement_x, left_bound, right_bound)
 	if Input.is_action_just_pressed("paddle_active_powerup") and GameManager.current_state != GameManager.GameState.BALL_ON_PADDLE:
-		active_paddle_powerup.activate_paddle_shot()
+		if active_paddle_powerup:
+			active_paddle_powerup.activate(self,projectiles)
+			#get_tree().current_scene.add_child(ability)
+			#ability.activate(self)
 
 func get_movement_direction() -> float:
 	return current_speed

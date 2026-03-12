@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c14m3ye4ihp6" path="res://scenes_and_scripts/player_paddle/paddle.gd" id="1_ews1h"]
 [ext_resource type="Texture2D" uid="uid://ceqjt876orrnp" path="res://scenes_and_scripts/player_paddle/basic_paddle.png" id="2_qicss"]
-[ext_resource type="Resource" uid="uid://clvf4fkl5a8qt" path="res://scenes_and_scripts/powerups_and_effects/paddle_active_powerups/spirit_shot.tres" id="2_sflau"]
+[ext_resource type="Resource" uid="uid://ctgr6av7wt1l4" path="res://scenes_and_scripts/powerups_and_effects/paddle_active_powerups/paddle_active_test.tres" id="2_sflau"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8fbbk"]
 size = Vector2(36.0002, 121.99986)
@@ -20,3 +20,24 @@ texture = ExtResource("2_qicss")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=305792111]
 rotation = 1.57085
 shape = SubResource("RectangleShape2D_8fbbk")
+
+[node name="spawn_center" type="Marker2D" parent="." unique_id=1386430533]
+position = Vector2(0, -18)
+
+[node name="spawn_right_corner" type="Marker2D" parent="." unique_id=655837723]
+position = Vector2(61, -18)
+
+[node name="spawn_right_mid" type="Marker2D" parent="." unique_id=750679057]
+position = Vector2(32, -18)
+
+[node name="spawn_left_mid" type="Marker2D" parent="." unique_id=1199158943]
+position = Vector2(-32, -18)
+
+[node name="spawn_left_corner" type="Marker2D" parent="." unique_id=767644680]
+position = Vector2(-61, -18)
+
+[node name="spawn_left" type="Marker2D" parent="." unique_id=895603561]
+position = Vector2(-61, 0)
+
+[node name="spawn_right" type="Marker2D" parent="." unique_id=1006701272]
+position = Vector2(61, 0)
