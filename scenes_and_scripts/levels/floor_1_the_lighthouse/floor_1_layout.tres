@@ -111,6 +111,10 @@ metadata/_custom_type_script = "uid://pnkwdspwmpwe"
 
 [resource]
 script = ExtResource("2_j7weq")
+common_spawn_weight = 80.0
+uncommon_spawn_weight = 15.0
+rare_spawn_weight = 4.0
+very_rare_spawn_weight = 1.0
 floor_name_id = "The Lighthouse"
 room_entries = Array[ExtResource("1_hqd6g")]([SubResource("Resource_xcoa1"), SubResource("Resource_uasr3"), SubResource("Resource_ujf72"), SubResource("Resource_leowd"), SubResource("Resource_1xisp"), SubResource("Resource_1f751"), SubResource("Resource_87kjy"), SubResource("Resource_smmvo"), SubResource("Resource_2wpod"), SubResource("Resource_gmdml")])
 show_mini_map = true

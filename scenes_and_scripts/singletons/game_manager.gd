@@ -33,7 +33,7 @@ func _input(event: InputEvent) -> void:
 			change_state(GameState.CLICK_MODE)
 		elif current_state == GameState.CLICK_MODE:
 			change_state(GameState.PLAYING)
-	floor_data = ResourceLoader.load(str(floor_ref[current_floor])) as FloorData
+	floor_data = ResourceLoader.load(str(floor_ref[current_floor])) as FloorData #floor one from main-menu
 
 #region gamestate functions
 func change_state(to_state: GameState) -> void:

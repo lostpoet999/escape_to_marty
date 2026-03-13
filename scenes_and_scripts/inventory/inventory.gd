@@ -4,8 +4,6 @@ class_name PlayerInventory extends Node
 
 const DEBUG: bool = true
 
-signal changed
-
 var items: Array[BaseItem] ## Powerups, passives or actives for ball, paddle, or click. One active passive for each type.
 const TESTING: Array = [
 	## Add testing inventory items here that will be added in _ready
@@ -34,7 +32,7 @@ static var instance: PlayerInventory:
 
 ## This method uses an assertion and should be used when you don't expect to handle a null value.
 static func get_instance() -> PlayerInventory:
-	assert(instance)
+	assert(instance, "Get instance called and no inventory instance exists.")
 	return instance
 
 func _enter_tree() -> void:
@@ -85,7 +83,7 @@ func add_item(item) -> void:
 	items.push_back(item)
 	dp("Added item %s." % item)
 	
-	changed.emit()
+	Signalbus.inventory_changed.emit()
 
 func remove_item(item) -> void:
 	if not item in items:
@@ -94,7 +92,7 @@ func remove_item(item) -> void:
 		items.erase(item)
 		dp("Removed item %s.")
 		
-	changed.emit()
+	Signalbus.inventory_changed.emit()
 
 func use_item(item) -> void:
 	dp("Using item %s..." % item)

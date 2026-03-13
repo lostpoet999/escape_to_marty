@@ -78,3 +78,7 @@ signal player_health_updated
 ## Connects: scenes_and_scripts/singletons/game_manager.gd -> _load_level_on_player_death
 @warning_ignore("unused_signal")
 signal player_died
+
+## Emits: inventory.gd - > remove_item(item), add_item(item)
+## connects: inventory_panel.gd -> repopulate_inventory()
+signal inventory_changed

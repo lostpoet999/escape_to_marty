@@ -31,7 +31,7 @@ func _ready() -> void:
 	bounce_effect = bounce_effect_scene.instantiate() as BaseBounceEffect
 	add_child(bounce_effect)
 	
-	PlayerInventory.get_instance().changed.connect(repopulate_effects_from_inventory)
+	Signalbus.inventory_changed.connect(repopulate_effects_from_inventory)
 	repopulate_effects_from_inventory()
 	instantiate_all_effects()
 	

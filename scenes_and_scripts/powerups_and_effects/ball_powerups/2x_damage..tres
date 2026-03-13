@@ -6,9 +6,9 @@
 
 [resource]
 script = ExtResource("2_yvhdv")
-powerup_name = "2x Damage"
-powerup_id = "2"
-inventory_icon = ExtResource("2_omxlg")
 global_damage_multi = 3.0
 local_damage_multi = 1.0
+powerup_name = "2x Damage"
+rarity = 2
+inventory_icon = ExtResource("2_omxlg")
 metadata/_custom_type_script = "uid://bryv4msdad7wu"

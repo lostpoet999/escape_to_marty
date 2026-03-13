@@ -9,7 +9,7 @@ var buttons: Array[Button]
 @onready var grid_container: GridContainer = %GridContainer
 
 func _ready() -> void:
-	PlayerInventory.get_instance().changed.connect(repopulate_inventory)
+	Signalbus.inventory_changed.connect(repopulate_inventory)
 	repopulate_inventory()
 	
 func repopulate_inventory() -> void:
