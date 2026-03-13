@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bea1h3570swpu" path="res://scenes_and_scripts/levels/room_base.tscn" id="1_edbf6"]
 [ext_resource type="FontFile" uid="uid://c1its5lmhd4kg" path="res://label_settings_and_fonts/fonts/8bitlim.ttf" id="2_emyu8"]
+[ext_resource type="PackedScene" uid="uid://165yx2m2saao" path="res://scenes_and_scripts/item_spawning/item_box.tscn" id="3_sw00q"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_oufug"]
 font = ExtResource("2_emyu8")
@@ -12,9 +13,12 @@ font_size = 24
 [node name="Label" type="Label" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="3" unique_id=2097916128]
 layout_mode = 0
 offset_left = 647.0
-offset_top = 480.0
+offset_top = 128.0
 offset_right = 999.0
-offset_bottom = 544.0
+offset_bottom = 192.0
 text = "Free Powerup Room Placeholder"
 label_settings = SubResource("LabelSettings_oufug")
 autowrap_mode = 3
+
+[node name="ItemBox2" parent="." index="6" unique_id=473452843 instance=ExtResource("3_sw00q")]
+position = Vector2(1024, 480)

@@ -33,5 +33,5 @@ func get_tier()->int:
 		if rand < cummulative: return weights
 	return BaseItem.RarityType.VERY_RARE
 
-func normalize_spawn_weights()->void: #will be used when items can alter the spawn weights. IE an item that doubles the rare chance.
+func normalize_spawn_weights()->void: #TODO: create method to normalize the spawn weights when an item changes the spawn rate of a particular tier
 	pass

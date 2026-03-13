@@ -26,6 +26,7 @@ Signalbus="*uid://dmpotobwyljm1"
 PlayerData="*uid://y4ps6dt0vpeq"
 MusicPlayer="*uid://b5146fvylaic"
 GameManager="*uid://doymnbq1juguj"
+ItemSpawner="*uid://fx2uws36tsjt"
 
 [debug]
 
