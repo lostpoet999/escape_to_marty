@@ -1,10 +1,7 @@
 class_name FloorData extends Resource
 
 @export_category("Spawn Rates:")
-@export var common_spawn_weight: float
-@export var uncommon_spawn_weight: float
-@export var rare_spawn_weight: float
-@export var very_rare_spawn_weight: float
+@export var spawn_weight: SpawnWeights
 
 @export_category("Floor Layout Data")
 @export var floor_name_id: String

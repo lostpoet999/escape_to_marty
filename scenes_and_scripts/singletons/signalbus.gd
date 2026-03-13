@@ -81,4 +81,5 @@ signal player_died
 
 ## Emits: inventory.gd - > remove_item(item), add_item(item)
 ## connects: inventory_panel.gd -> repopulate_inventory()
+@warning_ignore("unused_signal")
 signal inventory_changed

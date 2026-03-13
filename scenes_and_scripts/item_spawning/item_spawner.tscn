@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://fx2uws36tsjt"]
+
+[ext_resource type="Script" uid="uid://cqm3il4fbfq0k" path="res://scenes_and_scripts/item_spawning/item_spawner.gd" id="1_buc87"]
+[ext_resource type="Resource" uid="uid://b1luf4tp5gp35" path="res://scenes_and_scripts/inventory/item_pool.tres" id="2_iq68h"]
+
+[node name="ItemSpawner" type="Node" unique_id=437722344]
+script = ExtResource("1_buc87")
+item_pool_data = ExtResource("2_iq68h")

@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://c8g1d60jilaq4" path="res://scenes_and_scripts/levels/floor_1_the_lighthouse/combat_1_4.tscn" id="7_87kjy"]
 [ext_resource type="PackedScene" uid="uid://bwuoolbwt8v67" path="res://scenes_and_scripts/levels/common_rooms/shop_1.tscn" id="9_kvvos"]
 [ext_resource type="PackedScene" uid="uid://brr0pi7naait7" path="res://scenes_and_scripts/levels/common_rooms/boss_1.tscn" id="10_smmvo"]
+[ext_resource type="Script" uid="uid://b1eqt2or38kw6" path="res://scenes_and_scripts/item_spawning/spawn_weights_resource.gd" id="12_2wpod"]
 
 [sub_resource type="Resource" id="Resource_xcoa1"]
 script = ExtResource("1_hqd6g")
@@ -109,12 +110,17 @@ room_type = 1
 west_exit = "combat_1_3"
 metadata/_custom_type_script = "uid://pnkwdspwmpwe"
 
+[sub_resource type="Resource" id="Resource_rtyfa"]
+script = ExtResource("12_2wpod")
+common = 80.0
+unconmon = 15.0
+rare = 4.0
+very_rare = 1.0
+metadata/_custom_type_script = "uid://b1eqt2or38kw6"
+
 [resource]
 script = ExtResource("2_j7weq")
-common_spawn_weight = 80.0
-uncommon_spawn_weight = 15.0
-rare_spawn_weight = 4.0
-very_rare_spawn_weight = 1.0
+spawn_weight = SubResource("Resource_rtyfa")
 floor_name_id = "The Lighthouse"
 room_entries = Array[ExtResource("1_hqd6g")]([SubResource("Resource_xcoa1"), SubResource("Resource_uasr3"), SubResource("Resource_ujf72"), SubResource("Resource_leowd"), SubResource("Resource_1xisp"), SubResource("Resource_1f751"), SubResource("Resource_87kjy"), SubResource("Resource_smmvo"), SubResource("Resource_2wpod"), SubResource("Resource_gmdml")])
 show_mini_map = true
