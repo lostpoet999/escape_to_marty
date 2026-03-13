@@ -6,14 +6,25 @@ const STAR_COLLECTIBLE: PackedScene = preload("uid://cfjv2f23gme53")
 @export var brick_health: int = 3
 @onready var brick_health_label: Label = $brick_health
 
+@export var brick_damage_fx: PackedScene
+@export var brick_destroy_fx: PackedScene
+
 func _ready() -> void:
 	brick_health_label.text = str(brick_health)
 	input_pickable = true
 
 func accept_damage(damage: float) -> void:
 	if brick_health - damage <= 0:
+		var fx = brick_destroy_fx.instantiate()
+		if fx != null:
+			fx.position = global_position
+			get_tree().current_scene.add_child(fx)
 		pop_tween()
 	else:
+		var fx = brick_damage_fx.instantiate()
+		if fx != null:
+			fx.position = global_position
+			get_tree().current_scene.add_child(fx)
 		brick_health -= int(damage)
 		brick_health_label.text = str(brick_health)
 
