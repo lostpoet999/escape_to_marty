@@ -18,14 +18,10 @@ func intitialize_spawn_weights()->void:
 
 func pick_random_item()->BaseItem:
 	var tier: int = get_tier()
-	print("tier: ", tier)
-	print("item pool: ", item_pool_data.item_pool)
 	var list_of_picked_tier: Array = item_pool_data.item_pool.filter(
 		func(item: BaseItem)->bool: return item.rarity == tier
-	)
-	
-	print(list_of_picked_tier)
-		
+	)	
+
 	var picked_item: BaseItem = list_of_picked_tier.pick_random()
 	return picked_item
 

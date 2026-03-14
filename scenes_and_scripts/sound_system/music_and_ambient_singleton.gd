@@ -100,22 +100,17 @@ func play_ambient_set(ambient_set_name: String) -> void:
 	if current_ambient_set != null:
 		stop_ambient_set()
 
-	current_ambient_set = ambient_system[ambient_set_name]
-	print("Playing ambient set: ", ambient_set_name)
+	current_ambient_set = ambient_system[ambient_set_name]	
 
 	for playlist: AmbientPlaylist in current_ambient_set.playlists:
 		match playlist.play_mode:
 			AmbientPlaylist.PlayMode.AMB_RANDOM_SINGLE:
-				_play_ambient_random_single(playlist)
-			_:
-				print("Playlist mode not implemented yet: ", playlist.play_mode)
+				_play_ambient_random_single(playlist)				
 
 func stop_ambient_set() -> void:
 	if current_ambient_set == null:
 		return
-
-	print("Stopping ambient set: ", current_ambient_set.ambience_set_name)
-
+	
 	for player_key: String in active_ambient_players.keys():
 		var player_data: AmbientPlayerData = active_ambient_players[player_key]
 
@@ -164,5 +159,3 @@ func _play_ambient_random_single(playlist: AmbientPlaylist) -> void:
 		tween.tween_property(player, "volume_db", random_track.volume_db, playlist.fade_in_time)
 	else:
 		player.play()
-
-	print("Started ambient track: ", random_track.song_name, " from playlist: ", playlist.playlist_name)

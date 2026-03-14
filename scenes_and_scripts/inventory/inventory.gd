@@ -5,6 +5,7 @@ class_name PlayerInventory extends Node
 const DEBUG: bool = true
 
 var items: Array[BaseItem] ## Powerups, passives or actives for ball, paddle, or click. One active passive for each type.
+
 const TESTING: Array = [
 	## Add testing inventory items here that will be added in _ready
 	preload("uid://ctjeqnpuca6lq")
@@ -54,14 +55,19 @@ func get_items() -> Array:
 	return items
 
 ## Load power-ups from inventory for appropriate object
-func get_items_for_ball() -> Array[BallPowerUp]:
-	print("loading ball pups")
+func get_items_for_ball() -> Array[BallPowerUp]:	
 	var _items: Array[BallPowerUp] = []
 	for item:BaseItem in items:
 		if item is BallPowerUp:
 			_items.append(item)	
 	return _items
-	
+
+func get_paddle_active() -> PaddleActive:	#inventory logic prevents more than one, so returning on first one should be good
+	for item:BaseItem in items:
+		if item is PaddleActive:
+			return item
+	return null
+
 #func get_items_for_paddle() -> Array[PaddlePowerUp]:
 	#var _items: Array[BallPowerUp]
 	#for item in items:
@@ -77,14 +83,22 @@ func get_items_for_ball() -> Array[BallPowerUp]:
 	#return _items
 
 func add_item(item) -> void:
-	# check item here
-	if item in items:
-		dp("Item %s already contained." % item)
-	
-	items.push_back(item)
-	dp("Added item %s." % item)
-	
+	print("item: ", item.get_script().get_global_name())
+	if item is PaddleActive:
+			if item in items:
+				print("you already have one!") #TODO: ask user to swap
+			else:
+				items.push_front(item)
+				Signalbus.paddle_active_picked_up.emit(item) #pass the new paddle active to paddle
+	elif item is BallPowerUp:
+			print("entered ballpower up match")
+			if item in items:
+				print("you already have this one, lets stack them!") #TODO: make it so inventory panel increases quantity in visual vs takeup another spot
+			else:
+				print("cool, new powah")
+			items.push_back(item) #this will move when we do quantity update from above
 	Signalbus.inventory_changed.emit()
+	
 
 func remove_item(item) -> void:
 	if not item in items:
@@ -97,6 +111,7 @@ func remove_item(item) -> void:
 
 func use_item(item) -> void:
 	dp("Using item %s..." % item)
+	remove_item(item)
 	if item is BallPowerUp:
 		## TODO
 		pass

@@ -55,13 +55,10 @@ func position_ball_on_paddle() -> void:
 	GameManager.change_state(GameManager.GameState.BALL_ON_PADDLE)
 	
 ## Clear and load inventory powerups for Ball.
-func repopulate_effects_from_inventory() -> void:
-	print("before clear: ", powerup_array)
-	powerup_array.clear()
-	print("after clear: ", powerup_array)
+func repopulate_effects_from_inventory() -> void:	
+	powerup_array.clear()	
 	var items: Array = PlayerInventory.get_instance().get_items_for_ball()
-	powerup_array.append_array(items)
-	print("after repop: ", powerup_array)
+	powerup_array.append_array(items)	
 
 func instantiate_all_effects() -> void:
 	for powerup_ref: BallPowerUp in powerup_array:
@@ -70,16 +67,12 @@ func instantiate_all_effects() -> void:
 			effects_node.add_child(effect)
 			damage_effects.append(effect)
 
-func update_base_dmg() -> void: #stack the powerup damage
-	print("start of update: ", ball_dmg)
+func update_base_dmg() -> void: #stack the powerup damage	
 	ball_dmg = DEFAULT_BALL_DMG
-	print("after default: ", ball_dmg)
 	for powerup_ref: BallPowerUp in powerup_array:
-		ball_dmg += powerup_ref.global_damage_bonus
-		print("after dmg bonus: ", ball_dmg)
+		ball_dmg += powerup_ref.global_damage_bonus		
 	for powerup_ref: BallPowerUp in powerup_array:
-		ball_dmg *= powerup_ref.global_damage_multi
-		print("after dmg multi: ", ball_dmg)
+		ball_dmg *= powerup_ref.global_damage_multi		
 
 func get_paddle_half_height() -> float:
 	var shape: RectangleShape2D = paddle_collision.shape as RectangleShape2D

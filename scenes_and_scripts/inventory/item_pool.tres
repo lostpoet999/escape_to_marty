@@ -5,8 +5,9 @@
 [ext_resource type="Resource" uid="uid://b1myuckbujeku" path="res://scenes_and_scripts/powerups_and_effects/ball_powerups/2x_damage..tres" id="3_ee38i"]
 [ext_resource type="Resource" uid="uid://fyf4owjki76f" path="res://scenes_and_scripts/powerups_and_effects/ball_powerups/plus_two_dmg.tres" id="3_kfe0u"]
 [ext_resource type="Resource" uid="uid://ctgr6av7wt1l4" path="res://scenes_and_scripts/powerups_and_effects/paddle_active_powerups/paddle_active_test.tres" id="4_ee38i"]
+[ext_resource type="Resource" uid="uid://c7gdauspp2vbh" path="res://scenes_and_scripts/powerups_and_effects/ball_powerups/+3 test.tres" id="5_ee38i"]
 
 [resource]
 script = ExtResource("2_upo5x")
-item_pool = Array[ExtResource("1_8japa")]([ExtResource("3_ee38i"), ExtResource("4_ee38i"), ExtResource("3_kfe0u")])
+item_pool = Array[ExtResource("1_8japa")]([ExtResource("3_ee38i"), ExtResource("4_ee38i"), ExtResource("3_kfe0u"), ExtResource("5_ee38i")])
 metadata/_custom_type_script = "uid://d2lueb6p5il1v"

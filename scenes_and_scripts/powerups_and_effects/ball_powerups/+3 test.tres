@@ -5,5 +5,8 @@
 
 [resource]
 script = ExtResource("2_w1tpf")
+global_damage_bonus = 3.0
+global_damage_multi = 1.0
 powerup_name = "+3 Test"
+rarity = 3
 metadata/_custom_type_script = "uid://bryv4msdad7wu"

@@ -25,6 +25,8 @@ func _ready() -> void:
 	accumulated_mouse_movement_x = position.x
 	Signalbus.game_state_click_mode.connect(_on_game_state_click_mode)
 	Signalbus.game_state_playing.connect(_on_game_state_playing)
+	Signalbus.paddle_active_picked_up.connect(_add_active_powerup)
+	active_paddle_powerup = PlayerData.inventory.get_paddle_active()
 
 func _calculate_bounds() -> void:
 	var half_width: float = _get_scaled_half_width()
@@ -37,6 +39,11 @@ func _calculate_bounds() -> void:
 	# Offset by wall collision half-size (32) to get inner edges
 	left_bound = min_x + 32.0 + half_width
 	right_bound = max_x - 32.0 - half_width
+
+func _add_active_powerup(item: PaddleActive)->void:
+	print("before paddl: ", active_paddle_powerup)
+	active_paddle_powerup = item
+	print("after paddle: ", active_paddle_powerup)
 
 func _get_scaled_half_width() -> float:
 	var sprite: Sprite2D = $Sprite2D
@@ -58,6 +65,7 @@ func _input(event: InputEvent) -> void:
 			accumulated_mouse_movement_x += mouse_event.relative.x * mouse_sensitivity
 			accumulated_mouse_movement_x = clamp(accumulated_mouse_movement_x, left_bound, right_bound)
 	if Input.is_action_just_pressed("paddle_active_powerup") and GameManager.current_state != GameManager.GameState.BALL_ON_PADDLE and GameManager.current_state != GameManager.GameState.LEVEL_CLEARED:		
+		print("at button push: ", active_paddle_powerup)
 		if active_paddle_powerup:
 			active_paddle_powerup.activate(self,projectiles)
 

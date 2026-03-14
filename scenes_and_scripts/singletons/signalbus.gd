@@ -79,7 +79,16 @@ signal player_health_updated
 @warning_ignore("unused_signal")
 signal player_died
 
+## =============================================================================
+## Inventory Signals
+## =============================================================================
+
 ## Emits: inventory.gd - > remove_item(item), add_item(item)
 ## connects: inventory_panel.gd -> repopulate_inventory()
 @warning_ignore("unused_signal")
 signal inventory_changed
+
+## Emits: inventory.gd - > add_item(item)
+## connects: paddle.gd -> change_active()
+@warning_ignore("unused_signal")
+signal paddle_active_picked_up(item: PaddleActive)
