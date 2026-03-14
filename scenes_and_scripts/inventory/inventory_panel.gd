@@ -40,7 +40,8 @@ func get_icon_for_item(item: Variant) -> Texture2D:
 
 func clear_buttons() -> void:
 	for button: Button in buttons:
-		button.queue_free()
+		if is_instance_valid(button):
+			button.queue_free()
 		
 func _on_button_pressed(button: Button) -> void:
 	var item: Variant = button.get_meta(&"Item")

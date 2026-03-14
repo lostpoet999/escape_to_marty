@@ -14,13 +14,18 @@ func intitialize_spawn_weights()->void:
 		BaseItem.RarityType.UNCOMMON : GameManager.floor_data.spawn_weight.unconmon,
 		BaseItem.RarityType.RARE : GameManager.floor_data.spawn_weight.rare,
 		BaseItem.RarityType.VERY_RARE : GameManager.floor_data.spawn_weight.very_rare
-	}
+	}	
 
 func pick_random_item()->BaseItem:
 	var tier: int = get_tier()
+	print("tier: ", tier)
+	print("item pool: ", item_pool_data.item_pool)
 	var list_of_picked_tier: Array = item_pool_data.item_pool.filter(
 		func(item: BaseItem)->bool: return item.rarity == tier
 	)
+	
+	print(list_of_picked_tier)
+		
 	var picked_item: BaseItem = list_of_picked_tier.pick_random()
 	return picked_item
 
@@ -30,7 +35,8 @@ func get_tier()->int:
 	var cummulative: float = 0.0
 	for weights:int in spawn_weights:
 		cummulative += spawn_weights[weights]
-		if rand < cummulative: return weights
+		if rand < cummulative:
+			return weights
 	return BaseItem.RarityType.VERY_RARE
 
 func normalize_spawn_weights()->void: #TODO: create method to normalize the spawn weights when an item changes the spawn rate of a particular tier

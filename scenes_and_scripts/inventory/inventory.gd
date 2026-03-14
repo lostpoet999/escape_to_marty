@@ -7,7 +7,7 @@ const DEBUG: bool = true
 var items: Array[BaseItem] ## Powerups, passives or actives for ball, paddle, or click. One active passive for each type.
 const TESTING: Array = [
 	## Add testing inventory items here that will be added in _ready
-	preload("uid://ctjeqnpuca6lq"),preload("uid://b1myuckbujeku")
+	preload("uid://ctjeqnpuca6lq")
 ]
 
 @warning_ignore_start("untyped_declaration")
@@ -55,10 +55,11 @@ func get_items() -> Array:
 
 ## Load power-ups from inventory for appropriate object
 func get_items_for_ball() -> Array[BallPowerUp]:
-	var _items: Array[BallPowerUp]
-	for item:BallPowerUp in items:
+	print("loading ball pups")
+	var _items: Array[BallPowerUp] = []
+	for item:BaseItem in items:
 		if item is BallPowerUp:
-			_items.append(item)
+			_items.append(item)	
 	return _items
 	
 #func get_items_for_paddle() -> Array[PaddlePowerUp]:
