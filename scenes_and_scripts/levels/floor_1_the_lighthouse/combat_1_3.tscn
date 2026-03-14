@@ -10,6 +10,7 @@ position = Vector2(992, 544)
 
 [node name="BlueBrick2" parent="PlayArea/Walls" parent_id_path=PackedInt32Array(76639453) index="80" unique_id=1239030522 instance=ExtResource("2_l6wtj")]
 position = Vector2(1056, 544)
+brick_health = 50
 
 [node name="BlueBrick" parent="." index="5" unique_id=1506194311 instance=ExtResource("2_l6wtj")]
 position = Vector2(1152, 576)

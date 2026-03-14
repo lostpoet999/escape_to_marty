@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="BallPowerUp" format=3 uid="uid://c7gdauspp2vbh"]
+
+[ext_resource type="Script" uid="uid://bymj844l5ynju" path="res://scenes_and_scripts/powerups_and_effects/ball_effects/damage_effects/Base Definition/damage_effect_wrapper.gd" id="1_7uu15"]
+[ext_resource type="Script" uid="uid://bryv4msdad7wu" path="res://scenes_and_scripts/powerups_and_effects/ball_powerups/ball_power_up.gd" id="2_w1tpf"]
+
+[resource]
+script = ExtResource("2_w1tpf")
+powerup_name = "+3 Test"
+metadata/_custom_type_script = "uid://bryv4msdad7wu"

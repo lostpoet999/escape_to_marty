@@ -14,3 +14,5 @@ offset_right = 40.0
 offset_bottom = 40.0
 texture_normal = ExtResource("1_01tpr")
 texture_hover = ExtResource("3_liaki")
+
+[connection signal="pressed" from="LootBox" to="." method="_on_loot_box_pressed"]
