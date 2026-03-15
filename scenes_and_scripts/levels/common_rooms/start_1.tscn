@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bea1h3570swpu" path="res://scenes_and_scripts/levels/room_base.tscn" id="1_cckqh"]
 [ext_resource type="FontFile" uid="uid://c1its5lmhd4kg" path="res://label_settings_and_fonts/fonts/8bitlim.ttf" id="2_45lsl"]
+[ext_resource type="PackedScene" uid="uid://cm2bdw1o1sypc" path="res://scenes_and_scripts/enemies/dark_cage/dark_cage.tscn" id="3_oufug"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_oufug"]
 font = ExtResource("2_45lsl")
@@ -12,15 +13,21 @@ font_size = 24
 [node name="Label" type="Label" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="3" unique_id=2097916128]
 layout_mode = 0
 offset_left = 391.0
-offset_top = 352.0
+offset_top = 288.0
 offset_right = 1223.0
-offset_bottom = 608.0
+offset_bottom = 585.0
 text = "1. Click the the green barrier to move to the first room.
 
 2. In combat rooms you will have to clear seals to unlock the exits.
 
 3. On combat levels click the mouse to launch the ball!
 
-4. Also, try pushing TAB on combat levels to release the mouse and click on things!"
+4. Also, try pushing TAB on combat levels to release the mouse and click on things!
+
+5. You can push SPACE if you have an active paddle ability."
 label_settings = SubResource("LabelSettings_oufug")
 autowrap_mode = 3
+
+[node name="DarkCage" parent="." index="7" unique_id=2050699978 instance=ExtResource("3_oufug")]
+position = Vector2(1088, 736)
+scale = Vector2(3, 3)
