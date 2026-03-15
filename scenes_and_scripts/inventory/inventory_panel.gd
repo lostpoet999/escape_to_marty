@@ -9,6 +9,7 @@ var buttons: Array[Button]
 @onready var grid_container: GridContainer = %GridContainer
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	Signalbus.inventory_changed.connect(repopulate_inventory)
 	repopulate_inventory()
 	

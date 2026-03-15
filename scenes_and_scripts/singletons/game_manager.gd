@@ -71,7 +71,9 @@ func enter_state(change_to_state: GameState) -> void:
 	match current_state:
 		GameState.MAIN_MENU:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-			Signalbus.game_state_main_menu.emit()
+			current_room_id = floor_data.starting_room_id
+			scene_ref = floor_data.starting_room_scene
+			Signalbus.game_state_main_menu.emit()			
 		GameState.BALL_ON_PADDLE:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		GameState.PLAYING:
@@ -84,8 +86,9 @@ func enter_state(change_to_state: GameState) -> void:
 		GameState.GAME_OVER:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			Signalbus.game_state_game_over.emit()
-			GameManager.change_state(GameState.MAIN_MENU)
-			call_deferred("load_scene", MAIN_MENU)
+			pause_game()
+			#GameManager.change_state(GameState.MAIN_MENU)
+			#call_deferred("load_scene", MAIN_MENU)
 		GameState.CLICK_MODE:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			Signalbus.game_state_click_mode.emit()
@@ -102,7 +105,7 @@ func exit_state(close_state: GameState) -> void:
 		GameState.PAUSED:
 			pause_game()
 		GameState.GAME_OVER:
-			pass
+			pause_game()
 
 func pause_game() -> void:
 	get_tree().paused = !get_tree().paused
