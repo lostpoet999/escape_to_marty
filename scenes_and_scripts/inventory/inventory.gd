@@ -93,11 +93,13 @@ func add_item(new_item) -> void:
 		if existing.is_empty():							
 			Signalbus.paddle_active_assigned.emit(new_item) #signal a new active is assiagned with reference to what was assigned
 			items.push_front(new_item)
+			Signalbus.inventory_changed.emit()
 		elif existing.size() > 1:
 			assert(existing.size() <=1,"more than one paddle active found: there should only be one")
 		else:
 			old_active = existing.front()
-			Signalbus.paddle_active_swap_needed.emit(old_active,new_item)		
+			Signalbus.paddle_active_swap_needed.emit(old_active,new_item)			
+
 
 	elif new_item is BallPowerUp:
 			print("entered ballpower up match")
@@ -105,8 +107,8 @@ func add_item(new_item) -> void:
 				print("you already have this one, lets stack them!") #TODO: make it so inventory panel increases quantity in visual vs takeup another spot
 			else:
 				print("cool, new powah")
-			items.push_back(new_item) #this will move when we do quantity update from above
-	Signalbus.inventory_changed.emit()
+			items.push_back(new_item) #this will move when we do quantity update from above	
+			Signalbus.inventory_changed.emit()
 	
 func replace_paddle_active(new_item: PaddleActive):
 	var index = items.find_custom(func(i): return i is PaddleActive)
