@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://8ebe0a5nsman" path="res://scenes_and_scripts/ui_level/main_ui.tscn" id="2_ujjt5"]
 [ext_resource type="PackedScene" uid="uid://dyl58ch7f3lkt" path="res://scenes_and_scripts/walls/death_wall.tscn" id="3_uxml7"]
 [ext_resource type="PackedScene" uid="uid://dn7s6lrcudtqn" path="res://scenes_and_scripts/walls/64x64_brownish_wall.tscn" id="4_w27iv"]
+[ext_resource type="PackedScene" uid="uid://dmagtsuwajrho" path="res://scenes_and_scripts/ui_menus/paddle_active_swap.tscn" id="5_701b8"]
 [ext_resource type="PackedScene" uid="uid://37ac7xv2kevl" path="res://scenes_and_scripts/walls/exits/east_exit.tscn" id="5_fuowh"]
 [ext_resource type="PackedScene" uid="uid://t38808n7kc0c" path="res://scenes_and_scripts/ui_menus/escape_menu.tscn" id="5_w74c6"]
 [ext_resource type="PackedScene" uid="uid://bk0rhi08kvbgx" path="res://scenes_and_scripts/walls/exits/north_exit.tscn" id="6_701b8"]
@@ -45,6 +46,26 @@ anchor_bottom = 0.0
 offset_bottom = 1077.0
 grow_vertical = 1
 metadata/_edit_use_anchors_ = true
+
+[node name="UI Popup Menus" type="Node" parent="." unique_id=927849858]
+
+[node name="EscapeMenu" parent="UI Popup Menus" unique_id=1133911884 instance=ExtResource("5_w74c6")]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+
+[node name="GameOverMenu" parent="UI Popup Menus" unique_id=1064137318 instance=ExtResource("10_fuowh")]
+visible = false
+
+[node name="PaddleActiveSwap" parent="UI Popup Menus" unique_id=170697184 instance=ExtResource("5_701b8")]
+visible = false
+offset_left = 158.0
+offset_top = -44.0
+offset_right = 158.0
+offset_bottom = -44.0
 
 [node name="PlayArea" type="Control" parent="." unique_id=87831636]
 layout_mode = 3
@@ -337,17 +358,6 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.09411765, 0.039215688, 0.06666667, 1)
 metadata/_edit_lock_ = true
-
-[node name="EscapeMenu" parent="." unique_id=1133911884 instance=ExtResource("5_w74c6")]
-visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-
-[node name="GameOverMenu" parent="." unique_id=1064137318 instance=ExtResource("10_fuowh")]
-visible = false
 
 [node name="Paddle" parent="." unique_id=146319671 instance=ExtResource("6_fuowh")]
 position = Vector2(1088, 913)

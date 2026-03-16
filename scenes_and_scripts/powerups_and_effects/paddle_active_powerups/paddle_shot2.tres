@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="PaddleActive" format=3 uid="uid://8rrbt0jirryc"]
+
+[ext_resource type="Texture2D" uid="uid://0q538vh4iwat" path="res://scenes_and_scripts/powerups_and_effects/paddle_active_powerups/spirit_shot_sprite2.png" id="1_omwp3"]
+[ext_resource type="PackedScene" uid="uid://bhe1gjfa8d5fg" path="res://scenes_and_scripts/powerups_and_effects/paddle_active_powerups/spirit_shot_projectile2.tscn" id="2_omwp3"]
+[ext_resource type="Script" uid="uid://0q4ogral5cxt" path="res://scenes_and_scripts/powerups_and_effects/paddle_active_powerups/paddle_active_ability.gd" id="3_blwhs"]
+
+[resource]
+script = ExtResource("3_blwhs")
+projectile_ref = ExtResource("2_omwp3")
+max_spawn = 1
+speed_modifier = 1.0
+damage = 5
+powerup_name = "Spirit Shot"
+rarity = 1
+inventory_icon = ExtResource("1_omwp3")
+metadata/_custom_type_script = "uid://0q4ogral5cxt"

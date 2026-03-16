@@ -91,4 +91,12 @@ signal inventory_changed
 ## Emits: inventory.gd - > add_item(item)
 ## connects: paddle.gd -> change_active()
 @warning_ignore("unused_signal")
-signal paddle_active_picked_up(item: PaddleActive)
+signal paddle_active_assigned(item: PaddleActive)
+
+##Emits: inventory.gd - > add_item(item)
+##connects: paddle_active_swap.gd ->
+signal paddle_active_swap_needed
+
+##Emits: paddle_active_swap.gd
+##Connects: inventory.gd, paddle.gd
+signal paddle_swap_resolved(item: PaddleActive)

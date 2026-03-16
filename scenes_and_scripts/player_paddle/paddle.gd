@@ -25,7 +25,8 @@ func _ready() -> void:
 	accumulated_mouse_movement_x = position.x
 	Signalbus.game_state_click_mode.connect(_on_game_state_click_mode)
 	Signalbus.game_state_playing.connect(_on_game_state_playing)
-	Signalbus.paddle_active_picked_up.connect(_add_active_powerup)
+	Signalbus.paddle_active_assigned.connect(_assign_active_powerup)
+	Signalbus.paddle_swap_resolved.connect(_assign_active_powerup)
 	active_paddle_powerup = PlayerData.inventory.get_paddle_active()
 
 func _calculate_bounds() -> void:
@@ -40,10 +41,9 @@ func _calculate_bounds() -> void:
 	left_bound = min_x + 32.0 + half_width
 	right_bound = max_x - 32.0 - half_width
 
-func _add_active_powerup(item: PaddleActive)->void:
-	print("before paddl: ", active_paddle_powerup)
+func _assign_active_powerup(item: PaddleActive)->void:
 	active_paddle_powerup = item
-	print("after paddle: ", active_paddle_powerup)
+	
 
 func _get_scaled_half_width() -> float:
 	var sprite: Sprite2D = $Sprite2D
@@ -55,8 +55,6 @@ func _on_game_state_playing() -> void:
 
 func _on_game_state_click_mode() -> void:
 	paddle_frozen = true
-
-
 
 func _input(event: InputEvent) -> void:
 	if !paddle_frozen:

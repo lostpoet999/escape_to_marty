@@ -2,8 +2,6 @@ class_name InventoryPanel extends MarginContainer
 
 ## add a way to get a random item for testing
 
-const PLACEHOLDER_TEX: Texture2D = preload("uid://cn44s8tnj8dg2")
-
 var buttons: Array[Button]
 
 @onready var grid_container: GridContainer = %GridContainer
@@ -37,7 +35,7 @@ func get_icon_for_item(item: Variant) -> Texture2D:
 	if "inventory_icon" in item:
 		if item.inventory_icon:
 			return item.inventory_icon
-	return PLACEHOLDER_TEX
+	return PlayerData.inventory.PLACEHOLDER_TEX
 
 func clear_buttons() -> void:
 	for button: Button in buttons:

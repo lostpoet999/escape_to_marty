@@ -3,6 +3,7 @@ class_name PlayerInventory extends Node
 ## A script to do amazing things, and maybe more ...
 
 const DEBUG: bool = true
+const PLACEHOLDER_TEX: Texture2D = preload("uid://cn44s8tnj8dg2") #putting here so other interfaces can get it easy
 
 var items: Array[BaseItem] ## Powerups, passives or actives for ball, paddle, or click. One active passive for each type.
 
@@ -48,6 +49,7 @@ func _exit_tree() -> void:
 #endregion
 
 func _ready() -> void:
+	Signalbus.paddle_swap_resolved.connect(replace_paddle_active)
 	if not TESTING.is_empty():
 		items.append_array(TESTING)
 
@@ -82,23 +84,36 @@ func get_paddle_active() -> PaddleActive:	#inventory logic prevents more than on
 			#_items.append(item)
 	#return _items
 
-func add_item(item) -> void:
-	print("item: ", item.get_script().get_global_name())
-	if item is PaddleActive:
-			if item in items:
-				print("you already have one!") #TODO: ask user to swap
-			else:
-				items.push_front(item)
-				Signalbus.paddle_active_picked_up.emit(item) #pass the new paddle active to paddle
-	elif item is BallPowerUp:
+func add_item(new_item) -> void:	
+	if new_item is PaddleActive:
+		if items.has(new_item):
+			return
+		var existing = items.filter(func(i): return i is PaddleActive)
+		var old_active: PaddleActive = null
+		if existing.is_empty():							
+			Signalbus.paddle_active_assigned.emit(new_item) #signal a new active is assiagned with reference to what was assigned
+			items.push_front(new_item)
+		elif existing.size() > 1:
+			assert(existing.size() <=1,"more than one paddle active found: there should only be one")
+		else:
+			old_active = existing.front()
+			Signalbus.paddle_active_swap_needed.emit(old_active,new_item)		
+
+	elif new_item is BallPowerUp:
 			print("entered ballpower up match")
-			if item in items:
+			if new_item in items:
 				print("you already have this one, lets stack them!") #TODO: make it so inventory panel increases quantity in visual vs takeup another spot
 			else:
 				print("cool, new powah")
-			items.push_back(item) #this will move when we do quantity update from above
+			items.push_back(new_item) #this will move when we do quantity update from above
 	Signalbus.inventory_changed.emit()
 	
+func replace_paddle_active(new_item: PaddleActive):
+	var index = items.find_custom(func(i): return i is PaddleActive)
+	items.remove_at(index)
+	items.push_front(new_item)
+	Signalbus.inventory_changed.emit()
+
 
 func remove_item(item) -> void:
 	if not item in items:

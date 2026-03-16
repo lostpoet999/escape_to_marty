@@ -1,0 +1,101 @@
+[gd_scene format=3 uid="uid://dmagtsuwajrho"]
+
+[ext_resource type="Script" uid="uid://dfjaux5aex6xv" path="res://scenes_and_scripts/ui_menus/paddle_active_swap.gd" id="1_nym03"]
+[ext_resource type="FontFile" uid="uid://c1its5lmhd4kg" path="res://label_settings_and_fonts/fonts/8bitlim.ttf" id="2_mmef6"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_y3oh4"]
+font = ExtResource("2_mmef6")
+font_size = 40
+font_color = Color(0.941176, 0.882353, 0.0470588, 1)
+outline_size = 3
+outline_color = Color(0.0509804, 0.0509804, 0, 0.909804)
+shadow_size = 10
+shadow_color = Color(0.121569, 0.121569, 0.121569, 0.835294)
+
+[sub_resource type="LabelSettings" id="LabelSettings_nym03"]
+font = ExtResource("2_mmef6")
+font_size = 24
+font_color = Color(1, 1, 0.023529412, 1)
+
+[node name="PaddleActiveSwap" type="Control" unique_id=1064137318]
+top_level = true
+z_index = 1000
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_nym03")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=823661463]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -296.5
+offset_top = -157.5
+offset_right = 296.5
+offset_bottom = 223.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.45882353, 1, 1)
+
+[node name="MainMenuLabel" type="Label" parent="." unique_id=1366498572]
+layout_mode = 0
+offset_left = -253.0
+offset_top = -148.0
+offset_right = 242.0
+offset_bottom = -57.0
+text = "Which Active Paddle Item do you want to keep?"
+label_settings = SubResource("LabelSettings_y3oh4")
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="OldItem" type="Button" parent="." unique_id=1326564837]
+custom_minimum_size = Vector2(200, 65)
+layout_mode = 0
+offset_left = -270.0
+offset_top = -46.0
+offset_right = -70.0
+offset_bottom = 143.0
+icon_alignment = 1
+expand_icon = true
+
+[node name="NewItem" type="Button" parent="." unique_id=696498289]
+custom_minimum_size = Vector2(200, 65)
+layout_mode = 0
+offset_left = 67.0
+offset_top = -46.0
+offset_right = 267.0
+offset_bottom = 143.0
+icon_alignment = 1
+expand_icon = true
+
+[node name="currently_equipped_lbl" type="Label" parent="." unique_id=1112120023]
+layout_mode = 0
+offset_left = -270.0
+offset_top = 171.0
+offset_right = -70.0
+offset_bottom = 198.0
+text = "Currently Equipped"
+label_settings = SubResource("LabelSettings_nym03")
+
+[node name="new_item_lbl" type="Label" parent="." unique_id=100438409]
+layout_mode = 0
+offset_left = 69.0
+offset_top = 157.0
+offset_right = 267.0
+offset_bottom = 214.0
+text = "New Active Paddle Powerup"
+label_settings = SubResource("LabelSettings_nym03")
+autowrap_mode = 3
+
+[connection signal="pressed" from="OldItem" to="." method="_on_old_item_pressed"]
+[connection signal="pressed" from="NewItem" to="." method="_on_new_item_pressed"]

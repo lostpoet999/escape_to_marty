@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://bhe1gjfa8d5fg"]
+
+[ext_resource type="Script" uid="uid://bksjwrxkmarc" path="res://scenes_and_scripts/powerups_and_effects/paddle_active_powerups/projectile_base.gd" id="1_ekw68"]
+[ext_resource type="Texture2D" uid="uid://0q538vh4iwat" path="res://scenes_and_scripts/powerups_and_effects/paddle_active_powerups/spirit_shot_sprite2.png" id="2_ekw68"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_66it4"]
+radius = 4.0
+
+[node name="SpiritShot2" type="Area2D" unique_id=1199462901]
+z_index = 500
+script = ExtResource("1_ekw68")
+speed = 300.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1180427145]
+shape = SubResource("CapsuleShape2D_66it4")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1985655604]
+texture = ExtResource("2_ekw68")
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="." unique_id=825145361]
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenEnabler2D" to="." method="_on_visible_on_screen_enabler_2d_screen_exited"]
