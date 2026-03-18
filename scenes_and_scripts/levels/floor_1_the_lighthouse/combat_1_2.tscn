@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://b3skgrm0cpgc1"]
 
 [ext_resource type="PackedScene" uid="uid://bea1h3570swpu" path="res://scenes_and_scripts/levels/room_base.tscn" id="1_o7dia"]
-[ext_resource type="PackedScene" uid="uid://cm1kspxv86400" path="res://scenes_and_scripts/bricks/base_seal.tscn" id="2_cbojn"]
+[ext_resource type="PackedScene" uid="uid://cm1kspxv86400" path="res://scenes_and_scripts/bricks/open_seal.tscn" id="2_cbojn"]
+[ext_resource type="PackedScene" uid="uid://c5o5lkokqs3a1" path="res://scenes_and_scripts/bricks/shell_of_denial.tscn" id="3_eelm4"]
 
 [node name="combat_1_2" unique_id=565861230 instance=ExtResource("1_o7dia")]
 
@@ -10,3 +11,6 @@ position = Vector2(992, 544)
 
 [node name="BlueBrick2" parent="PlayArea/Walls" parent_id_path=PackedInt32Array(76639453) index="80" unique_id=1239030522 instance=ExtResource("2_cbojn")]
 position = Vector2(1056, 544)
+
+[node name="ShellOfDenial" parent="." index="6" unique_id=1613072468 instance=ExtResource("3_eelm4")]
+position = Vector2(1024, 640)

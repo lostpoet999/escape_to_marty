@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bk4fir2rv0b7w"]
 
 [ext_resource type="PackedScene" uid="uid://bea1h3570swpu" path="res://scenes_and_scripts/levels/room_base.tscn" id="1_nty3w"]
-[ext_resource type="PackedScene" uid="uid://cm1kspxv86400" path="res://scenes_and_scripts/bricks/base_seal.tscn" id="2_l6wtj"]
+[ext_resource type="PackedScene" uid="uid://cm1kspxv86400" path="res://scenes_and_scripts/bricks/open_seal.tscn" id="2_l6wtj"]
 
 [node name="combat_1_3" unique_id=565861230 instance=ExtResource("1_nty3w")]
 
