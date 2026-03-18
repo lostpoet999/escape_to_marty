@@ -19,7 +19,7 @@ var on_paddle: bool = true
 var _collision_set: Array[int] = []
 
 @onready var paddle: Paddle = $"../Paddle"
-@onready var paddle_collision: CollisionShape2D = $"../Paddle/CollisionShape2D"
+@onready var paddle_collision: CollisionShape2D = $"../Paddle/PaddleCollisionShape"
 @onready var ball_collision: CollisionShape2D = $bounce_collision_shape
 
 @onready var ball_half_height: float = (ball_collision.shape as CircleShape2D).radius

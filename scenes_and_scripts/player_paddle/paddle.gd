@@ -46,7 +46,7 @@ func _assign_active_powerup(item: PaddleActive)->void:
 	
 
 func _get_scaled_half_width() -> float:
-	var sprite: Sprite2D = $Sprite2D
+	var sprite: Sprite2D = $PaddleSprite
 	var texture_width: float = sprite.texture.get_width()
 	return (texture_width * sprite.scale.x * scale.x) / 2.0
 	
