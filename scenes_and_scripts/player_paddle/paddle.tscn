@@ -2,38 +2,23 @@
 
 [ext_resource type="Script" uid="uid://c14m3ye4ihp6" path="res://scenes_and_scripts/player_paddle/paddle.gd" id="1_ews1h"]
 [ext_resource type="Texture2D" uid="uid://ceqjt876orrnp" path="res://scenes_and_scripts/player_paddle/basic_paddle.png" id="2_qicss"]
-[ext_resource type="Script" uid="uid://cs82vpqerteng" path="res://scenes_and_scripts/ball/vfx/trail.gd" id="4_gbs0h"]
-[ext_resource type="Texture2D" uid="uid://befajfg1phsl6" path="res://scenes_and_scripts/player_paddle/player_ghost_particles.png" id="5_naoyk"]
+[ext_resource type="PackedScene" uid="uid://ci3ujdi2gcmsw" path="res://scenes_and_scripts/player_paddle/ghost_david.tscn" id="3_sflau"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8fbbk"]
 size = Vector2(28, 122)
-
-[sub_resource type="Gradient" id="Gradient_jrxcm"]
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.15686275)
-
-[sub_resource type="Gradient" id="Gradient_gbs0h"]
-offsets = PackedFloat32Array(0, 0.2, 0.8, 1)
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_naoyk"]
-gradient = SubResource("Gradient_gbs0h")
-fill_from = Vector2(0.5, 1)
-fill_to = Vector2(0.5, 0)
-
-[sub_resource type="Gradient" id="Gradient_d7lcn"]
-offsets = PackedFloat32Array(0, 0.5100865, 1)
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
 
 [node name="Paddle" type="CharacterBody2D" unique_id=1681485936 groups=["paddle"]]
 collision_mask = 3
 script = ExtResource("1_ews1h")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=486052735]
-position = Vector2(0, 59)
+[node name="PaddleSprite" type="Sprite2D" parent="." unique_id=486052735]
+position = Vector2(0, -4)
 scale = Vector2(0.425, 0.425)
 texture = ExtResource("2_qicss")
+region_enabled = true
+region_rect = Rect2(0, 0, 288, 64)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=305792111]
+[node name="PaddleCollisionShape" type="CollisionShape2D" parent="." unique_id=305792111]
 position = Vector2(0.00021475156, -4)
 rotation = 1.57085
 shape = SubResource("RectangleShape2D_8fbbk")
@@ -54,35 +39,10 @@ position = Vector2(-32, -18)
 position = Vector2(-61, -18)
 
 [node name="spawn_left" type="Marker2D" parent="." unique_id=895603561]
-position = Vector2(-61, 0)
+position = Vector2(-61, -4)
 
 [node name="spawn_right" type="Marker2D" parent="." unique_id=1006701272]
-position = Vector2(61, 0)
+position = Vector2(61, -4)
 
-[node name="Ghost Trail" type="Line2D" parent="." unique_id=1998993144]
-top_level = true
-position = Vector2(0, 84)
-width = 64.0
-gradient = SubResource("Gradient_jrxcm")
-texture = SubResource("GradientTexture2D_naoyk")
-texture_mode = 2
-script = ExtResource("4_gbs0h")
-max_points = 32
-
-[node name="Ghost Fog" type="CPUParticles2D" parent="." unique_id=760227215]
-position = Vector2(2, 75)
-amount = 64
-texture = ExtResource("5_naoyk")
-lifetime = 2.8
-preprocess = 2.0
-lifetime_randomness = 0.25
-local_coords = true
-emission_shape = 3
-emission_rect_extents = Vector2(8, 4)
-gravity = Vector2(0, 16)
-angular_velocity_min = -45.0
-angular_velocity_max = 45.0
-angle_max = 360.0
-scale_amount_min = 0.08
-scale_amount_max = 0.1
-color_ramp = SubResource("Gradient_d7lcn")
+[node name="GhostDavid" parent="." unique_id=1136750017 instance=ExtResource("3_sflau")]
+position = Vector2(0, 10)
