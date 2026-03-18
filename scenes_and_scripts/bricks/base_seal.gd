@@ -1,17 +1,31 @@
 extends Area2D
 
 const STAR_COLLECTIBLE: PackedScene = preload("uid://cfjv2f23gme53")
+enum BrickDifficulty_ENUM {super_easy, easy, medium, hard}
+enum BrickPhase {open, denial, anger, bargaining, depression, acceptance}
 
-@export var brick_score_value: int = 5
-@export var brick_health: int = 3
 @onready var brick_health_label: Label = $brick_health
 
+var current_phase: BrickPhase
+
+@export var brick_difficulty: BrickDifficulty_ENUM
+@export var brick_score_value: int
+@export var brick_health: int
 @export var brick_damage_fx: PackedScene
 @export var brick_destroy_fx: PackedScene
 
-func _ready() -> void:
+func _ready() -> void:	
 	brick_health_label.text = str(brick_health)
+	current_phase = BrickPhase.open
+	paint_brick()
 	input_pickable = true
+
+func paint_brick()->void: #swap sprites and/or change color depending on phase
+	match current_phase:
+		BrickPhase.open:
+			modulate = Color.STEEL_BLUE
+		BrickPhase.denial:
+			modulate = Color.BLACK
 
 func accept_damage(damage: float) -> void:
 	if brick_health - damage <= 0:

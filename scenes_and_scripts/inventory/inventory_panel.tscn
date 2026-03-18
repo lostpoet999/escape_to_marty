@@ -18,7 +18,13 @@ layout_mode = 2
 text = "Inventory:"
 label_settings = ExtResource("1_42un2")
 
-[node name="GridContainer" type="GridContainer" parent="HBoxContainer" unique_id=1098704347]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer" unique_id=1211225177]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+
+[node name="GridContainer" type="GridContainer" parent="HBoxContainer/MarginContainer" unique_id=1098704347]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_constants/h_separation = 15
+theme_override_constants/v_separation = 10
 columns = 4
