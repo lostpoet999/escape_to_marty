@@ -45,4 +45,5 @@ position = Vector2(-61, -4)
 position = Vector2(61, -4)
 
 [node name="GhostDavid" parent="." unique_id=1136750017 instance=ExtResource("3_sflau")]
+modulate = Color(1, 1, 1, 0.7921569)
 position = Vector2(0, 10)

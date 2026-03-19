@@ -14,7 +14,7 @@ func process_damage(ball: Ball, collider: Node2D) -> void: # entry point--should
 	process_targets()
 
 func apply_damage(damage_target: Node2D) -> void:
-	if damage_target.is_in_group("open_seal"):
+	if damage_target.is_in_group("bricks"):
 		damage_target.call("accept_damage", ball_ref.ball_dmg) #TODO: biforcate click damage from ball bounce damage
 	elif damage_target.is_in_group("DeathWalls"):
 		ball_ref.position_ball_on_paddle()

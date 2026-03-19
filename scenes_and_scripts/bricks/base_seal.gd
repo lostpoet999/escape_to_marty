@@ -4,16 +4,39 @@ const STAR_COLLECTIBLE: PackedScene = preload("uid://cfjv2f23gme53")
 
 @onready var brick_health_label: Label = $brick_health
 
+enum Stage{denial, anger, bargaining, depression, acceptance}
+var current_stage: Stage
+
+@onready var border: ColorRect = $border
+@onready var fill: ColorRect = $fill
+
+
+@export var initialize_brick_on_leveldata: bool = true
+@export var stages: Dictionary [Stage, float] = {}
+	
 @export var brick_score_value: int
 @export var brick_health: int
 @export var brick_damage_fx: PackedScene
 @export var brick_destroy_fx: PackedScene
-@export var color: Color
+
+func pick_random_stage():
+	current_stage= stages.keys().pick_random()
+	setup_visuals()
+
+func setup_visuals()->void:
+	match current_stage:
+		Stage.denial:
+			border.color = Color.DARK_GRAY
+			fill.color = Color.BLACK
+		Stage.anger:
+			border.color = Color.LIGHT_PINK
+			fill.color = Color.RED
 
 func _ready() -> void:	
 	brick_health_label.text = str(brick_health)
-	modulate = color
+	pick_random_stage()
 	input_pickable = true
+	
 
 func accept_damage(damage: float) -> void: 
 	if brick_health - damage <= 0:

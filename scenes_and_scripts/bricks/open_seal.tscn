@@ -9,6 +9,9 @@ size = Vector2(64, 32)
 
 [node name="OpenSeal" type="Area2D" unique_id=887021685 groups=["bricks", "open_seal"]]
 script = ExtResource("1_nevfk")
+stages = Dictionary[int, float]({
+0: 3.0
+})
 brick_health = 1
 brick_damage_fx = ExtResource("2_xvt2o")
 brick_destroy_fx = ExtResource("3_we8d2")

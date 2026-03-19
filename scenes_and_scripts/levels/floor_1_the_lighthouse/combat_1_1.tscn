@@ -5,6 +5,10 @@
 
 [node name="combat_1_1" unique_id=565861230 instance=ExtResource("1_eysly")]
 
-[node name="BlueBrick" parent="PlayArea/Walls" parent_id_path=PackedInt32Array(76639453) index="79" unique_id=887021685 instance=ExtResource("2_qcry5")]
-position = Vector2(1056, 512)
-brick_health = 5
+[node name="OpenSeal" parent="." index="6" unique_id=887021685 instance=ExtResource("2_qcry5")]
+position = Vector2(1088, 544)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+0: 5.0,
+1: 5.0
+})

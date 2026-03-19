@@ -21,6 +21,7 @@ offsets = PackedFloat32Array(0, 0.5100865, 1)
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
 
 [node name="GhostDavid" type="Node2D" unique_id=1136750017]
+modulate = Color(1, 1, 1, 0.79607844)
 
 [node name="GhostSprite" type="Sprite2D" parent="." unique_id=1014182481]
 position = Vector2(0.2000008, 63)
