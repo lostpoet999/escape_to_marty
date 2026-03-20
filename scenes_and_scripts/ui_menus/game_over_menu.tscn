@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://chs4vfkn7cmgt"]
 
 [ext_resource type="Script" uid="uid://cvswaeyov33c3" path="res://scenes_and_scripts/ui_menus/escape_menu.gd" id="1_brkfe"]
+[ext_resource type="Texture2D" uid="uid://cra2lcyy34b1x" path="res://scenes_and_scripts/ui_menus/edge_patch.png" id="2_htpki"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_y3oh4"]
 font_size = 85
@@ -20,7 +21,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_brkfe")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=823661463]
+[node name="ColorRect" type="NinePatchRect" parent="." unique_id=1843248017]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -33,7 +34,13 @@ offset_right = 365.0
 offset_bottom = 104.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0.458824, 1, 0.886275)
+texture = ExtResource("2_htpki")
+patch_margin_left = 100
+patch_margin_top = 100
+patch_margin_right = 100
+patch_margin_bottom = 100
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ColorRect" unique_id=1015844747]
 layout_mode = 1
@@ -43,21 +50,13 @@ anchor_bottom = 1.0
 offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="Spacer" type="Label" parent="ColorRect/VBoxContainer" unique_id=1018783460]
-layout_mode = 2
-
-[node name="Spacer2" type="Label" parent="ColorRect/VBoxContainer" unique_id=380426974]
-layout_mode = 2
+alignment = 1
 
 [node name="MainMenuLabel" type="Label" parent="ColorRect/VBoxContainer" unique_id=1366498572]
 layout_mode = 2
 text = "Game Over"
 label_settings = SubResource("LabelSettings_y3oh4")
 horizontal_alignment = 1
-
-[node name="Spacer4" type="Label" parent="ColorRect/VBoxContainer" unique_id=953023114]
-layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/VBoxContainer" unique_id=1141022542]
 layout_mode = 2
@@ -74,6 +73,9 @@ custom_minimum_size = Vector2(200, 65)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Exit"
+
+[node name="Spacer" type="Label" parent="ColorRect/VBoxContainer" unique_id=1250367622]
+layout_mode = 2
 
 [connection signal="pressed" from="ColorRect/VBoxContainer/HBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]
 [connection signal="pressed" from="ColorRect/VBoxContainer/HBoxContainer/Exit Button" to="." method="_on_button_pressed"]
