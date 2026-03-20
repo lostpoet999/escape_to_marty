@@ -14,7 +14,8 @@ var floor_ref: Dictionary = {
 	1: "uid://dr8vct1f7lm5n"
 }
 
-enum GameState {MAIN_MENU, BALL_ON_PADDLE, PLAYING, PAUSED, GAME_OVER, CLICK_MODE, LEVEL_CLEARED}
+enum GameState {MAIN_MENU, BALL_ON_PADDLE, PLAYING, PAUSED, GAME_OVER, CLICK_MODE, LEVEL_CLEARED} 
+enum PhaseType {DENIAL, ANGER, BARGAINING, DEPRESSION, ACCEPTANCE, HEALTH}
 var current_state: GameState = GameState.MAIN_MENU
 
 #const node group constants

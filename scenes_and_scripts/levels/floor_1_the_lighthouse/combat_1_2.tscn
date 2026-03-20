@@ -7,9 +7,15 @@
 
 [node name="OpenSeal" parent="." index="6" unique_id=887021685 instance=ExtResource("2_cbojn")]
 position = Vector2(1056, 480)
+brick_score_value = 5
+brick_health = 5
 
 [node name="OpenSeal2" parent="." index="7" unique_id=1264717493 instance=ExtResource("2_cbojn")]
 position = Vector2(1120, 480)
+brick_score_value = 5
+brick_health = 5
 
 [node name="OpenSeal3" parent="." index="8" unique_id=1400623866 instance=ExtResource("2_cbojn")]
 position = Vector2(1087, 416)
+brick_score_value = 5
+brick_health = 5

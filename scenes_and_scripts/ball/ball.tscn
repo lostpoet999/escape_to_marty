@@ -33,6 +33,7 @@ metadata/_custom_type_script = "uid://2fgoca4drc17"
 [node name="Ball" type="Area2D" unique_id=1220836699]
 z_index = 100
 script = ExtResource("1_oyq8w")
+ball_dmg = 5.0
 brick_bounce_particles = ExtResource("2_nxvvx")
 wall_bounce_particles = ExtResource("3_2ucj3")
 paddle_bounce_particles = ExtResource("4_q6nx1")

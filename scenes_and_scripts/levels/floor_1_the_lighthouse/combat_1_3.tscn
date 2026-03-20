@@ -8,20 +8,26 @@
 [node name="OpenSeal" parent="." index="6" unique_id=887021685 instance=ExtResource("2_l6wtj")]
 position = Vector2(1120, 640)
 stages = Dictionary[int, float]({
-0: 3.0,
-1: 2.0
+0: 5.0,
+1: 1.0
 })
+brick_score_value = 5
+brick_health = 5
 
 [node name="OpenSeal2" parent="." index="7" unique_id=647932420 instance=ExtResource("2_l6wtj")]
 position = Vector2(1184, 640)
 stages = Dictionary[int, float]({
-0: 3.0,
-1: 2.0
+0: 5.0,
+1: 1.0
 })
+brick_score_value = 5
+brick_health = 5
 
 [node name="OpenSeal3" parent="." index="8" unique_id=1001972289 instance=ExtResource("2_l6wtj")]
 position = Vector2(1056, 640)
 stages = Dictionary[int, float]({
-0: 3.0,
-1: 2.0
+0: 5.0,
+1: 1.0
 })
+brick_score_value = 5
+brick_health = 5

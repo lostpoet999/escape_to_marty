@@ -12,6 +12,7 @@ metadata/_custom_type_script = "uid://bymj844l5ynju"
 
 [resource]
 script = ExtResource("2_vk0gd")
+global_damage_bonus = 5.0
 global_damage_multi = 1.0
 local_damage_multi = 1.0
 attached_effects = Array[ExtResource("1_3qseh")]([SubResource("Resource_wy5ye")])

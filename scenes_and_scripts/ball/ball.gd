@@ -14,6 +14,8 @@ var damage_effects: Array[BaseDamageEffect]
 var bounce_effect: BaseBounceEffect
 @export var powerup_array: Array[BallPowerUp]
 
+@export var ball_dmg_type: Array[GameManager.PhaseType]
+
 var velocity: Vector2 = Vector2.ZERO
 var on_paddle: bool = true
 var _collision_set: Array[int] = []
@@ -34,9 +36,16 @@ func _ready() -> void:
 	Signalbus.inventory_changed.connect(repopulate_effects_from_inventory)
 	repopulate_effects_from_inventory()
 	instantiate_all_effects()	
+	get_ball_dmg_types()
 	update_base_dmg()
 	
 	Signalbus.level_cleared.connect(remove_ball)
+
+func get_ball_dmg_types():
+	ball_dmg_type.clear()
+	if ball_dmg_type.is_empty():
+		ball_dmg_type.push_back(GameManager.PhaseType.HEALTH)
+		print("damage type: ", ball_dmg_type)
 
 func remove_ball() -> void:
 	on_paddle = false
@@ -238,4 +247,4 @@ func apply_collider_effects(collider: Node2D) -> void:
 	if collider.get_instance_id() in _collision_set:
 		return
 	for effect: BaseDamageEffect in damage_effects:
-		effect.process_damage(self, collider)
+		effect.process_damage(self, collider, ball_dmg_type)

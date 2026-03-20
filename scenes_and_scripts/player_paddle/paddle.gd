@@ -62,8 +62,7 @@ func _input(event: InputEvent) -> void:
 		if mouse_event:
 			accumulated_mouse_movement_x += mouse_event.relative.x * mouse_sensitivity
 			accumulated_mouse_movement_x = clamp(accumulated_mouse_movement_x, left_bound, right_bound)
-	if Input.is_action_just_pressed("paddle_active_powerup") and GameManager.current_state != GameManager.GameState.BALL_ON_PADDLE and GameManager.current_state != GameManager.GameState.LEVEL_CLEARED:		
-		print("at button push: ", active_paddle_powerup)
+	if Input.is_action_just_pressed("paddle_active_powerup") and GameManager.current_state != GameManager.GameState.BALL_ON_PADDLE and GameManager.current_state != GameManager.GameState.LEVEL_CLEARED:				
 		if active_paddle_powerup:
 			active_paddle_powerup.activate(self,projectiles)
 
