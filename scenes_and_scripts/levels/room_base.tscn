@@ -378,3 +378,9 @@ scale = Vector2(1.3, 1)
 position = Vector2(1088, 884)
 
 [node name="Projectiles" type="Node" parent="." unique_id=734841839 groups=["projectile_container"]]
+
+[node name="GameState_Lbl" type="Label" parent="." unique_id=793042494]
+offset_left = 334.0
+offset_top = 19.0
+offset_right = 374.0
+offset_bottom = 42.0

@@ -4,6 +4,13 @@ var stars_cleared: bool = false
 var bricks_cleared: bool = false
 var stars_in_level: int = 0
 var bricks_in_level: int = 0
+@onready var game_state_lbl: Label = $GameState_Lbl
+
+
+func _process(delta: float) -> void:
+	game_state_lbl.text = "Game State: " + GameManager.GameState.keys()[GameManager.current_state]
+
+	
 
 func _ready() -> void:
 	bricks_in_level = get_tree().get_nodes_in_group("bricks").size()

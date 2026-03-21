@@ -50,11 +50,11 @@ func is_valid_state_transition(from_state: GameState, to_state: GameState) -> bo
 	if current_state == to_state: return false
 	match from_state:
 		GameState.MAIN_MENU:
-			return to_state in [GameState.BALL_ON_PADDLE]
+			return to_state in [GameState.BALL_ON_PADDLE, GameState.SPECIAL_ROOM]
 		GameState.BALL_ON_PADDLE:
 			return to_state in [GameState.PLAYING, GameState.PAUSED, GameState.LEVEL_CLEARED, GameState.SPECIAL_ROOM]
 		GameState.PLAYING:
-			return to_state in [GameState.PAUSED, GameState.GAME_OVER, GameState.MAIN_MENU, GameState.CLICK_MODE, GameState.LEVEL_CLEARED]
+			return to_state in [GameState.PAUSED, GameState.GAME_OVER, GameState.MAIN_MENU, GameState.CLICK_MODE, GameState.LEVEL_CLEARED, GameState.SPECIAL_ROOM]
 		GameState.PAUSED:
 			return to_state in [GameState.PLAYING, GameState.BALL_ON_PADDLE]
 		GameState.GAME_OVER:
@@ -63,6 +63,8 @@ func is_valid_state_transition(from_state: GameState, to_state: GameState) -> bo
 			return to_state in [GameState.PLAYING, GameState.LEVEL_CLEARED]
 		GameState.LEVEL_CLEARED:
 			return to_state  in [GameState.BALL_ON_PADDLE, GameState.SPECIAL_ROOM]
+		GameState.SPECIAL_ROOM:
+			return to_state in [GameState.BALL_ON_PADDLE, GameState.PLAYING]
 	return false
 
 func enter_state(change_to_state: GameState) -> void: 
@@ -98,6 +100,7 @@ func enter_state(change_to_state: GameState) -> void:
 			Signalbus.game_state_click_mode.emit()
 		GameState.SPECIAL_ROOM:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+			Signalbus.game_state_special_room.emit()
 
 func exit_state(close_state: GameState) -> void:
 	match close_state: #clean-up/init

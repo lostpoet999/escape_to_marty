@@ -62,9 +62,7 @@ func setup_visuals()->void:
 func _ready() -> void:	
 	if initialize_brick_on_leveldata:#default is populate stages based on level stats		
 		stages.clear()
-		stages = SealInitializer.initialize_seal()
-		print("parent level: ", self.get_parent().name)
-		print("brick stages result: ", stages)
+		stages = SealInitializer.initialize_seal()		
 
 	pick_random_stage()
 	brick_health_label.text = str(health_temp)

@@ -8,9 +8,10 @@ var not_hover = Color(0.5, 0.5, 0.5, 0.95)
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:	
 	pulse_loop(self, 1.1, 1.0)	
-	modulate = not_hover
-	Signalbus.game_state_special_room.emit()
+	modulate = not_hover	
 	GameManager.change_state(GameManager.GameState.SPECIAL_ROOM)
+	print("Game State: ", GameManager.GameState.keys()[GameManager.current_state])
+
 
 func pulse_loop(node: Node2D, scale_amount: float = 1.1, duration: float = 0.6) -> void:
 	var tween := create_tween().set_loops()

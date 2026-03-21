@@ -40,6 +40,7 @@ func _ready() -> void:
 	update_base_dmg()
 	
 	Signalbus.level_cleared.connect(remove_ball)
+	Signalbus.game_state_special_room.connect(remove_ball)
 
 func get_ball_dmg_types():
 	ball_dmg_type.clear()
@@ -89,7 +90,7 @@ func get_paddle_half_height() -> float:
 	return shape.size.y / 2.0
 
 func _input(_event: InputEvent) -> void:
-	if Input.is_action_just_pressed("left_mouse") and on_paddle:
+	if Input.is_action_just_pressed("left_mouse") and on_paddle and GameManager.GameState.BALL_ON_PADDLE:
 		launch_ball()
 
 func launch_ball() -> void:
