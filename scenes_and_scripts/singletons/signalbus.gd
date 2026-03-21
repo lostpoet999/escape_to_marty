@@ -31,6 +31,11 @@ signal game_state_main_menu
 @warning_ignore("unused_signal")
 signal game_state_click_mode
 
+
+##Emits: memory_flame.gd
+##connectts: paddle.gd
+signal game_state_special_room
+
 ## =============================================================================
 ## LEVEL/GAMEPLAY SIGNALS
 ## =============================================================================

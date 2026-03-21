@@ -27,6 +27,7 @@ func _ready() -> void:
 	Signalbus.game_state_playing.connect(_on_game_state_playing)
 	Signalbus.paddle_active_assigned.connect(_assign_active_powerup)
 	Signalbus.paddle_swap_resolved.connect(_assign_active_powerup)
+	Signalbus.game_state_special_room.connect(_on_game_state_click_mode)
 	active_paddle_powerup = PlayerData.inventory.get_paddle_active()
 
 func _calculate_bounds() -> void:
@@ -62,7 +63,7 @@ func _input(event: InputEvent) -> void:
 		if mouse_event:
 			accumulated_mouse_movement_x += mouse_event.relative.x * mouse_sensitivity
 			accumulated_mouse_movement_x = clamp(accumulated_mouse_movement_x, left_bound, right_bound)
-	if Input.is_action_just_pressed("paddle_active_powerup") and GameManager.current_state != GameManager.GameState.BALL_ON_PADDLE and GameManager.current_state != GameManager.GameState.LEVEL_CLEARED:				
+	if Input.is_action_just_pressed("paddle_active_powerup") and GameManager.current_state != GameManager.GameState.BALL_ON_PADDLE and GameManager.current_state != GameManager.GameState.LEVEL_CLEARED and GameManager.current_floor != GameManager.GameState.SPECIAL_ROOM:				
 		if active_paddle_powerup:
 			active_paddle_powerup.activate(self,projectiles)
 

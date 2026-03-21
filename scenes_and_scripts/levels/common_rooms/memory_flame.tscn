@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://pff3jyvmp4md"]
+
+[ext_resource type="Script" uid="uid://b2hc5m7poie2d" path="res://scenes_and_scripts/levels/common_rooms/memory_flame.gd" id="1_kbyc7"]
+[ext_resource type="Texture2D" uid="uid://b6bu5r5mip114" path="res://scenes_and_scripts/levels/common_rooms/memory_temp_sprite.png" id="1_tgpa2"]
+
+[node name="MemoryFlame" type="Node2D" unique_id=1396234316]
+script = ExtResource("1_kbyc7")
+
+[node name="TextureButton" type="TextureButton" parent="." unique_id=320363350]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -41.0
+offset_right = 40.0
+offset_bottom = 41.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("1_tgpa2")
+
+[connection signal="mouse_entered" from="TextureButton" to="." method="_on_texture_button_mouse_entered"]
+[connection signal="mouse_exited" from="TextureButton" to="." method="_on_texture_button_mouse_exited"]
+[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]
