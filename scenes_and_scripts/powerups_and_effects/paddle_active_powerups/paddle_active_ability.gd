@@ -6,13 +6,11 @@ class_name PaddleActive extends BaseItem
 @export var cool_down_seconds: float
 @export var speed_modifier: float
 @export var damage: int
+@export var projectile_dmg_type: Array[GameManager.PhaseType]
 var current_active: int = 0
-var projectile_dmg_type: Array[GameManager.PhaseType]
-#TODO: add spawn logic based on paddle marker. ie, you can mark all the spots its possible to spawn from
 
 func _ready()->void:
-	current_active = 0
-	projectile_dmg_type = [GameManager.PhaseType.DENIAL]
+	current_active = 0	
 
 func activate(paddle:Paddle , projectile_node: Node)->void:		
 	if (current_active < max_spawn) or (max_spawn<=0):

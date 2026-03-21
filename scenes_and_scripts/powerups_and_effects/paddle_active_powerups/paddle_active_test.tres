@@ -10,6 +10,7 @@ projectile_ref = ExtResource("1_0d1pg")
 max_spawn = 1
 speed_modifier = 1.0
 damage = 5
+projectile_dmg_type = Array[int]([0])
 powerup_name = "Spirit Shot"
 rarity = 1
 inventory_icon = ExtResource("1_bqolx")

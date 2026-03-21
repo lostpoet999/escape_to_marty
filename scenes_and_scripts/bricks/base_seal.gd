@@ -22,9 +22,17 @@ func pick_random_stage() -> void:
 	if stages.is_empty():
 		current_stage = GameManager.PhaseType.HEALTH
 		health_temp = brick_health
+		setup_visuals()
+		return
+	
+	var non_health_stages = stages.keys().filter(func(k): return k != GameManager.PhaseType.HEALTH)
+	
+	if non_health_stages.is_empty():
+		current_stage = GameManager.PhaseType.HEALTH
 	else:
-		current_stage = stages.keys().pick_random()
-		health_temp = stages[current_stage]
+		current_stage = non_health_stages.pick_random()
+	
+	health_temp = stages[current_stage]
 	setup_visuals()
 
 func setup_visuals()->void:
@@ -37,13 +45,28 @@ func setup_visuals()->void:
 			border.color = Color.LIGHT_PINK
 			fill.color = Color.RED
 			return
+		GameManager.PhaseType.BARGAINING:
+			border.color = Color.DARK_GOLDENROD
+			fill.color = Color.DARK_KHAKI
+		GameManager.PhaseType.DEPRESSION:
+			border.color = Color.LIGHT_GRAY
+			fill.color = Color.DARK_GRAY
+		GameManager.PhaseType.ACCEPTANCE:
+			border.color = Color.DARK_SEA_GREEN
+			fill.color = Color.LIME_GREEN
 		GameManager.PhaseType.HEALTH:
 			border.color = Color.LIGHT_BLUE
 			fill.color = Color.BLUE
 			return
 			
-func _ready() -> void:		
-	pick_random_stage()	
+func _ready() -> void:	
+	if initialize_brick_on_leveldata:#default is populate stages based on level stats		
+		stages.clear()
+		stages = SealInitializer.initialize_seal()
+		print("parent level: ", self.get_parent().name)
+		print("brick stages result: ", stages)
+
+	pick_random_stage()
 	brick_health_label.text = str(health_temp)
 	input_pickable = true	
 
@@ -53,7 +76,10 @@ func accept_damage(damage: float, damage_types: Array) -> void:
 
 func _damage_current_stage(damage: float) -> void:
 	if health_temp - damage <= 0:
-		var fx = brick_destroy_fx.instantiate()
+		var fx
+		if current_stage == GameManager.PhaseType.HEALTH:
+			fx = brick_destroy_fx.instantiate()
+		else: fx = brick_damage_fx.instantiate()
 		if fx != null:
 			fx.position = global_position
 			get_tree().current_scene.add_child(fx)

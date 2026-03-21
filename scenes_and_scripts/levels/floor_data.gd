@@ -3,8 +3,10 @@ class_name FloorData extends Resource
 @export_category("Item Spawn Rates:")
 @export var spawn_weight: SpawnWeights
 
-@export_category("Seal Difficulty Rates:")
+@export_category("Seal Config for Floor:")
 @export var seal_difficulty_rates: SealDifficulty
+@export var seal_phase_pool: Array[SealPhaseConfig] = []
+@export var seal_health_phase: SealPhaseConfig
 
 @export_category("Floor Layout Data")
 @export var floor_name_id: String

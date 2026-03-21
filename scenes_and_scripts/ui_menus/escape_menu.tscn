@@ -22,6 +22,7 @@ grow_vertical = 2
 script = ExtResource("1_1bvrl")
 
 [node name="ColorRect" type="NinePatchRect" parent="." unique_id=918524913]
+modulate = Color(1, 1, 1, 0.73333335)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

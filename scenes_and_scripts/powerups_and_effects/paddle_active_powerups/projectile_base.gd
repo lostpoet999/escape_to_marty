@@ -10,7 +10,6 @@ func initialize_shot(speed_mod: float, damage_ref: int, spawner_ref: PaddleActiv
 	damage = damage_ref
 	spawner = spawner_ref
 	proj_dmg_type = projectile_dmg_types
-	print("proj dmg type: ", proj_dmg_type)
 	
 
 func _process(delta: float) -> void:

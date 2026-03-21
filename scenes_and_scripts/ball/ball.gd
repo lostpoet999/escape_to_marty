@@ -44,8 +44,7 @@ func _ready() -> void:
 func get_ball_dmg_types():
 	ball_dmg_type.clear()
 	if ball_dmg_type.is_empty():
-		ball_dmg_type.push_back(GameManager.PhaseType.HEALTH)
-		print("damage type: ", ball_dmg_type)
+		ball_dmg_type.push_back(GameManager.PhaseType.HEALTH)		
 
 func remove_ball() -> void:
 	on_paddle = false
