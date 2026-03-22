@@ -7,7 +7,7 @@ class_name SealInitializer extends Node
 	#floor 1: denial, 2: anger 3: bargaining 4: edpression 5: acceptance
 
 static func determine_rarity()->int:
-	var rates = GameManager.floor_data.seal_difficulty_rates
+	var rates:SealDifficulty = GameManager.floor_data.seal_difficulty_rates
 	var total: float = rates.super_easy + rates.easy + rates.medium + rates.hard
 	var roll: float = randf() * total
 	var cumulative: float = 0.0
@@ -40,7 +40,7 @@ static func initialize_seal() -> Dictionary[GameManager.PhaseType, float]:
 	available_pool.shuffle()
 	var count: int = mini(iterations, available_pool.size())
 	
-	for i in count:
+	for i:int in count:
 		var config: SealPhaseConfig = available_pool[i]
 		final_phase_pool[config.phase_type] = ceili(randf_range(config.min_health, config.max_health))
 	

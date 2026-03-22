@@ -11,7 +11,7 @@ func _ready() -> void:
 	Signalbus.paddle_active_swap_needed.connect(_on_swap_needed)
 
 
-func _on_swap_needed(old_item, new_item):
+func _on_swap_needed(old_item:PaddleActive, new_item: PaddleActive)->void:
 	old_active_ref = old_item
 	new_active_ref = new_item
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -33,11 +33,6 @@ func setup_buttons()->void:
 	else:
 		new_item_btn.icon = PlayerData.inventory.PLACEHOLDER_TEX	
 	new_item_btn.tooltip_text = new_active_ref.powerup_name
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
 
 func _on_old_item_pressed() -> void:
 	hide()

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://pff3jyvmp4md"]
 
-[ext_resource type="Script" uid="uid://b2hc5m7poie2d" path="res://scenes_and_scripts/levels/common_rooms/memory_flame.gd" id="1_kbyc7"]
-[ext_resource type="Texture2D" uid="uid://b6bu5r5mip114" path="res://scenes_and_scripts/levels/common_rooms/memory_temp_sprite.png" id="1_tgpa2"]
+[ext_resource type="Script" uid="uid://b2hc5m7poie2d" path="res://scenes_and_scripts/memories/memory_flame.gd" id="1_kbyc7"]
+[ext_resource type="Texture2D" uid="uid://b6bu5r5mip114" path="res://scenes_and_scripts/memories/memory_temp_sprite.png" id="1_tgpa2"]
 
 [node name="MemoryFlame" type="Node2D" unique_id=1396234316]
 script = ExtResource("1_kbyc7")

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ba3bqnqxvm3dh"
-path="res://.godot/imported/particle_cartoon_star.png-0ff8cbeb8c38773d3a7063bf6be050f3.ctex"
+uid="uid://b6bu5r5mip114"
+path="res://.godot/imported/memory_temp_sprite.png-ffb4af559de9d2055dc632733599ab1e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes_and_scripts/star_collectible/particle_cartoon_star.png"
-dest_files=["res://.godot/imported/particle_cartoon_star.png-0ff8cbeb8c38773d3a7063bf6be050f3.ctex"]
+source_file="res://scenes_and_scripts/memories/memory_temp_sprite.png"
+dest_files=["res://.godot/imported/memory_temp_sprite.png-ffb4af559de9d2055dc632733599ab1e.ctex"]
 
 [params]
 

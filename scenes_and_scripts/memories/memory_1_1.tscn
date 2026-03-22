@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://dascwkaim2un"]
+
+[ext_resource type="PackedScene" uid="uid://cuodqq58w45s5" path="res://scenes_and_scripts/memories/memory_base.tscn" id="1_sho7k"]
+[ext_resource type="PackedScene" uid="uid://cgkr65l7x0huu" path="res://scenes_and_scripts/memories/memory_before_click.tscn" id="2_eolee"]
+[ext_resource type="PackedScene" uid="uid://b4n3df2h7ntw" path="res://scenes_and_scripts/memories/room_after_click.tscn" id="3_80kk8"]
+
+[node name="memory_1_1" unique_id=565861230 instance=ExtResource("1_sho7k")]
+
+[node name="RoomBeforeClick" parent="." index="7" unique_id=1974712734 instance=ExtResource("2_eolee")]
+
+[node name="RoomAfterClick" parent="." index="8" unique_id=212795482 instance=ExtResource("3_80kk8")]
+position = Vector2(-17, -6)
+
+[node name="MemoryText" parent="RoomAfterClick" index="1" unique_id=1304825645]
+offset_left = 376.0
+offset_top = 792.0
+offset_right = 1892.0
+offset_bottom = 897.0
+
+[editable path="RoomAfterClick"]

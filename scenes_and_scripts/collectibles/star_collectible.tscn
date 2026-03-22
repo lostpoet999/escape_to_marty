@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cfjv2f23gme53"]
 
-[ext_resource type="Script" uid="uid://dnytssvcgjwet" path="res://scenes_and_scripts/star_collectible/star_collectible.gd" id="1_be2i6"]
-[ext_resource type="Texture2D" uid="uid://ba3bqnqxvm3dh" path="res://scenes_and_scripts/star_collectible/particle_cartoon_star.png" id="1_lutwb"]
+[ext_resource type="Script" uid="uid://dnytssvcgjwet" path="res://scenes_and_scripts/collectibles/star_collectible.gd" id="1_be2i6"]
+[ext_resource type="Texture2D" uid="uid://ba3bqnqxvm3dh" path="res://scenes_and_scripts/collectibles/particle_cartoon_star.png" id="1_lutwb"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_y1yuo"]
 

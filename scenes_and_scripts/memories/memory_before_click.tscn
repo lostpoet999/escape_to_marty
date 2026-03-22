@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cra2lcyy34b1x" path="res://scenes_and_scripts/ui_menus/edge_patch.png" id="1_f4gky"]
 [ext_resource type="FontFile" uid="uid://btahcaxj0t0e3" path="res://label_settings_and_fonts/fonts/8bitlimr.ttf" id="2_bjmne"]
-[ext_resource type="PackedScene" uid="uid://pff3jyvmp4md" path="res://scenes_and_scripts/levels/common_rooms/memory_flame.tscn" id="3_o83dg"]
+[ext_resource type="PackedScene" uid="uid://pff3jyvmp4md" path="res://scenes_and_scripts/memories/memory_flame.tscn" id="3_o83dg"]
 [ext_resource type="Texture2D" uid="uid://xwm6oemnmk8b" path="res://character_design_files/the_collector_concept1.png" id="4_ah0kd"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_fvfdr"]
@@ -29,6 +29,6 @@ offset_left = -85.5372
 offset_top = -70.54054
 offset_right = 118.71817
 offset_bottom = 103.477585
-text = "\"Behold the flame of memories lost. Collect these and heal your spirit. Cherish the past, embrace the future, and cherish the moment...\""
+text = "\"Behold the flame of memories lost. Collect these and heal your spirit. Cherish the past, embrace the future, and live the moment...\""
 label_settings = SubResource("LabelSettings_fvfdr")
 autowrap_mode = 3

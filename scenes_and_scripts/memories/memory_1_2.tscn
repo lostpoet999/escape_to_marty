@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://btijrxb2gp1en"]
+
+[ext_resource type="PackedScene" uid="uid://cuodqq58w45s5" path="res://scenes_and_scripts/memories/memory_base.tscn" id="1_dyw35"]
+[ext_resource type="PackedScene" uid="uid://cgkr65l7x0huu" path="res://scenes_and_scripts/memories/memory_before_click.tscn" id="2_1c8ee"]
+[ext_resource type="PackedScene" uid="uid://b4n3df2h7ntw" path="res://scenes_and_scripts/memories/room_after_click.tscn" id="3_78dq6"]
+
+[node name="memory_1_1" unique_id=565861230 instance=ExtResource("1_dyw35")]
+
+[node name="RoomBeforeClick" parent="." index="7" unique_id=1974712734 instance=ExtResource("2_1c8ee")]
+
+[node name="RoomAfterClick" parent="." index="8" unique_id=212795482 instance=ExtResource("3_78dq6")]
+position = Vector2(-4, -12)
+
+[node name="MemoryText" parent="RoomAfterClick" index="1" unique_id=1304825645]
+offset_left = 366.0
+offset_top = 751.0
+offset_right = 1882.0
+offset_bottom = 856.0
+text = "\"She always made this grab-dip at family gatherings — Marty and I always fought over who got the last bite.\""
+
+[editable path="RoomAfterClick"]

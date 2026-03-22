@@ -42,7 +42,7 @@ func _ready() -> void:
 	Signalbus.level_cleared.connect(remove_ball)
 	Signalbus.game_state_special_room.connect(remove_ball)
 
-func get_ball_dmg_types():
+func get_ball_dmg_types()->void:
 	ball_dmg_type.clear()
 	if ball_dmg_type.is_empty():
 		ball_dmg_type.push_back(GameManager.PhaseType.HEALTH)		

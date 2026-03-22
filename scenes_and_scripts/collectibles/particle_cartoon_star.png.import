@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b6bu5r5mip114"
-path="res://.godot/imported/memory_temp_sprite.png-6f48956e79636c7600d4743199502a8c.ctex"
+uid="uid://ba3bqnqxvm3dh"
+path="res://.godot/imported/particle_cartoon_star.png-e35901eea84b0e614d61756a89e42fe1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes_and_scripts/levels/common_rooms/memory_temp_sprite.png"
-dest_files=["res://.godot/imported/memory_temp_sprite.png-6f48956e79636c7600d4743199502a8c.ctex"]
+source_file="res://scenes_and_scripts/collectibles/particle_cartoon_star.png"
+dest_files=["res://.godot/imported/particle_cartoon_star.png-e35901eea84b0e614d61756a89e42fe1.ctex"]
 
 [params]
 

@@ -34,6 +34,7 @@ signal game_state_click_mode
 
 ##Emits: memory_flame.gd
 ##connectts: paddle.gd
+@warning_ignore("unused_signal")
 signal game_state_special_room
 
 ## =============================================================================
@@ -100,8 +101,10 @@ signal paddle_active_assigned(item: PaddleActive)
 
 ##Emits: inventory.gd - > add_item(item)
 ##connects: paddle_active_swap.gd ->
+@warning_ignore("unused_signal")
 signal paddle_active_swap_needed
 
 ##Emits: paddle_active_swap.gd
 ##Connects: inventory.gd, paddle.gd
+@warning_ignore("unused_signal")
 signal paddle_swap_resolved(item: PaddleActive)

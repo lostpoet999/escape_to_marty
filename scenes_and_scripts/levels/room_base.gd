@@ -7,7 +7,7 @@ var bricks_in_level: int = 0
 @onready var game_state_lbl: Label = $GameState_Lbl
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	game_state_lbl.text = "Game State: " + GameManager.GameState.keys()[GameManager.current_state]
 
 	

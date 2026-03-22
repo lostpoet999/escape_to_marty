@@ -1,7 +1,7 @@
 extends Node2D
 
-var hover = modulate
-var not_hover = Color(0.5, 0.5, 0.5, 0.95)
+var hover: Color = modulate
+var not_hover: Color = Color(0.5, 0.5, 0.5, 0.95)
 @onready var room_before_click: Node2D = $".."
 @onready var room_after_click: Node2D = $"../../RoomAfterClick"
 

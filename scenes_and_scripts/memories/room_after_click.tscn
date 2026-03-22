@@ -791,7 +791,7 @@ position = Vector2(1097, 482)
 scale = Vector2(5.0333333, 2.6933334)
 texture = ExtResource("1_eggfu")
 
-[node name="Label2" type="Label" parent="." unique_id=1304825645]
+[node name="MemoryText" type="Label" parent="." unique_id=1304825645]
 offset_left = 350.0
 offset_top = 811.0
 offset_right = 1866.0
