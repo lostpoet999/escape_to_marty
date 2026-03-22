@@ -104,11 +104,11 @@ func pop_tween() -> void:
 	tween.tween_property(self, "scale", Vector2(.1, .1), 0.1).set_delay(0.05).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 	tween.connect("finished", Callable(self, "_on_tween_finished").bind(self))
 
-func _input_event(_viewport: Viewport, event: InputEvent, _shape_idx: int) -> void:
-	var mouse_event: InputEventMouseButton = event as InputEventMouseButton
-	if mouse_event and mouse_event.pressed and mouse_event.button_index == MOUSE_BUTTON_LEFT:
-		var click_dmg_type: Array[GameManager.PhaseType] = [GameManager.PhaseType.DENIAL, GameManager.PhaseType.ANGER]
-		accept_damage(1, click_dmg_type)
+#func _input_event(_viewport: Viewport, event: InputEvent, _shape_idx: int) -> void:
+	#var mouse_event: InputEventMouseButton = event as InputEventMouseButton
+	#if mouse_event and mouse_event.pressed and mouse_event.button_index == MOUSE_BUTTON_LEFT:
+#		var click_dmg_type: Array[GameManager.PhaseType] = [GameManager.PhaseType.DENIAL, GameManager.PhaseType.ANGER]
+		#accept_damage(1, click_dmg_type)
 
 #cleanup brick collision after tween finishes
 func _on_tween_finished(collider: Area2D) -> void:

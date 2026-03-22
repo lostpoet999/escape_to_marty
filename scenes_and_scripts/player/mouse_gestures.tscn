@@ -1,3 +1,8 @@
 [gd_scene format=3 uid="uid://ck6fj7h722sbs"]
 
-[node name="MouseGestures" type="Node" unique_id=958187126]
+[ext_resource type="Script" uid="uid://b37ejp7ptknxc" path="res://scenes_and_scripts/player/mouse_gestures.gd" id="1_wgaec"]
+
+[node name="MouseGestures" type="Node2D" unique_id=662497496]
+z_index = 500
+script = ExtResource("1_wgaec")
+click_dmg_type = Array[int]([0, 5])
