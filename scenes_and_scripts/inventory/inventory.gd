@@ -101,8 +101,7 @@ func add_item(new_item) -> void:
 			Signalbus.paddle_active_swap_needed.emit(old_active,new_item)			
 
 
-	elif new_item is BallPowerUp:
-			print("entered ballpower up match")
+	elif new_item is BallPowerUp:			
 			if new_item in items:
 				print("you already have this one, lets stack them!") #TODO: make it so inventory panel increases quantity in visual vs takeup another spot
 			else:

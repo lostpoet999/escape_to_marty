@@ -12,7 +12,7 @@ var hold_indicator_radius: float = 0.0
 
 
 func _input(event: InputEvent)->void:
-	if GameManager.current_state == GameManager.GameState.CLICK_MODE:
+	if GameManager.current_state == GameManager.GameState.CLICK_MODE or GameManager.current_state == GameManager.GameState.LEVEL_CLEARED:
 		if not event is InputEventMouseButton:
 			return	
 		if event.button_index == MOUSE_BUTTON_LEFT:
@@ -37,22 +37,18 @@ func _handle_clicks_and_hold()->void:
 	var target = _get_target_under_mouse()
 	if target == null:
 		return
-	if target.has_method("accept_damage"):
-		print("target: ", target)
+	if target.has_method("accept_damage"):		
 		target.accept_damage(damage, click_dmg_type)
 
-func _get_target_under_mouse() -> Node:
-	print("geting targetrs under mouse")
+func _get_target_under_mouse() -> Node:	
 	var space := get_viewport().get_world_2d().direct_space_state
 	var query := PhysicsPointQueryParameters2D.new()
 	query.position = get_viewport().get_mouse_position()
 	query.collide_with_areas = true
 	var results := space.intersect_point(query)
-	if results.is_empty():
-		print("was empty")
+	if results.is_empty():		
 		return null
-	results.sort_custom(func(a, b): return a.collider.z_index > b.collider.z_index)
-	print("results: ", results)
+	results.sort_custom(func(a, b): return a.collider.z_index > b.collider.z_index)	
 	return results[0].collider
 
 func _reset_hold_visuals(): #TODO: goal is for this to feel like a taking a deep breathe
@@ -69,11 +65,9 @@ func _process(delta: float) -> void:
 			_reset_hold_visuals()
 		if mouse_down_time > click_vs_hold:
 			var pct := minf((mouse_down_time - click_vs_hold) / hold_duration_max, 1.0)
-			hold_indicator_radius = ease(pct, -2.0) * 48.0
-			print("queueing redraw, radius: ", hold_indicator_radius)
+			hold_indicator_radius = ease(pct, -2.0) * 48.0			
 			queue_redraw()
 	else:
 		if hold_indicator_radius > 0.0:
-			hold_indicator_radius = 0.0
-			print("queueing redraw, radius: ", hold_indicator_radius)
+			hold_indicator_radius = 0.0			
 			queue_redraw()
