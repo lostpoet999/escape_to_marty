@@ -1,6 +1,7 @@
 extends Area2D
 
 const STAR_COLLECTIBLE: PackedScene = preload("uid://cfjv2f23gme53")
+const DARK_CAGE: PackedScene = preload("uid://cm2bdw1o1sypc")
 
 @onready var brick_health_label: Label = $brick_health
 
@@ -118,4 +119,12 @@ func _on_tween_finished(collider: Area2D) -> void:
 		collider.get_parent().add_child(star_instance)
 		star_instance.position = collider.position
 		Signalbus.star_spawned.emit(1)
+		var enemy_spawn_rate = 50
+		if (randf() * 100 < enemy_spawn_rate):
+			_spawn_enemy(collider)
 		Signalbus.brick_destroyed.emit()
+
+func _spawn_enemy(collider: Area2D) -> void:
+	var enemy = DARK_CAGE.instantiate()
+	collider.get_parent().add_child(enemy)
+	enemy.position = collider.position
