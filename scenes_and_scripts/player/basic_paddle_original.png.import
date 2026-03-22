@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://befajfg1phsl6"
-path="res://.godot/imported/player_ghost_particles.png-46a0f9bceb02a44481ac07118e463726.ctex"
+uid="uid://cc0a85h25otrf"
+path="res://.godot/imported/basic_paddle_original.png-a88847e191640246ac7bcc1e40fd27cb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes_and_scripts/player_paddle/player_ghost_particles.png"
-dest_files=["res://.godot/imported/player_ghost_particles.png-46a0f9bceb02a44481ac07118e463726.ctex"]
+source_file="res://scenes_and_scripts/player/basic_paddle_original.png"
+dest_files=["res://.godot/imported/basic_paddle_original.png-a88847e191640246ac7bcc1e40fd27cb.ctex"]
 
 [params]
 

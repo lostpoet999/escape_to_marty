@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://c8g1d60jilaq4" path="res://scenes_and_scripts/levels/floor_1_the_lighthouse/combat_1_4.tscn" id="7_87kjy"]
 [ext_resource type="PackedScene" uid="uid://dascwkaim2un" path="res://scenes_and_scripts/memories/memory_1_1.tscn" id="8_d5n1e"]
 [ext_resource type="PackedScene" uid="uid://bwuoolbwt8v67" path="res://scenes_and_scripts/levels/common_rooms/shop_1.tscn" id="9_kvvos"]
-[ext_resource type="PackedScene" uid="uid://cuodqq58w45s5" path="res://scenes_and_scripts/memories/memory_base.tscn" id="9_rtyfa"]
+[ext_resource type="PackedScene" uid="uid://btijrxb2gp1en" path="res://scenes_and_scripts/memories/memory_1_2.tscn" id="10_d5n1e"]
 [ext_resource type="PackedScene" uid="uid://brr0pi7naait7" path="res://scenes_and_scripts/levels/common_rooms/boss_1.tscn" id="10_smmvo"]
 [ext_resource type="Script" uid="uid://b1eqt2or38kw6" path="res://scenes_and_scripts/item_spawning/spawn_weights_resource.gd" id="12_2wpod"]
 [ext_resource type="Script" uid="uid://ccw8ssedjvd48" path="res://scenes_and_scripts/bricks/seal_difficulty.gd" id="12_gmdml"]
@@ -98,7 +98,7 @@ metadata/_custom_type_script = "uid://pnkwdspwmpwe"
 [sub_resource type="Resource" id="Resource_2wpod"]
 script = ExtResource("1_hqd6g")
 room_name_id = "memory_2"
-room_scene = ExtResource("9_rtyfa")
+room_scene = ExtResource("10_d5n1e")
 room_coords = Vector2i(3, 5)
 room_type = 3
 north_exit = "shop_1"

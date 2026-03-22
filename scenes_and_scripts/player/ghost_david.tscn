@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://ci3ujdi2gcmsw"]
 
-[ext_resource type="Texture2D" uid="uid://ceqjt876orrnp" path="res://scenes_and_scripts/player_paddle/basic_paddle.png" id="1_dyvie"]
+[ext_resource type="Texture2D" uid="uid://ceqjt876orrnp" path="res://scenes_and_scripts/player/basic_paddle.png" id="1_dyvie"]
 [ext_resource type="Script" uid="uid://cs82vpqerteng" path="res://scenes_and_scripts/ball/vfx/trail.gd" id="2_jui38"]
-[ext_resource type="Texture2D" uid="uid://befajfg1phsl6" path="res://scenes_and_scripts/player_paddle/player_ghost_particles.png" id="3_445r0"]
+[ext_resource type="Texture2D" uid="uid://befajfg1phsl6" path="res://scenes_and_scripts/player/player_ghost_particles.png" id="3_445r0"]
 
 [sub_resource type="Gradient" id="Gradient_jrxcm"]
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.15686275)

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cm2bdw1o1sypc"]
 
-[ext_resource type="Script" uid="uid://b4hcsh1h0iqw" path="res://scenes_and_scripts/enemies/dark_cage/dark_cage.gd" id="1_dimqk"]
+[ext_resource type="Script" path="res://scenes_and_scripts/enemies/dark_cage/dark_cage.gd" id="1_dimqk"]
 [ext_resource type="Texture2D" uid="uid://c16188d7egr7o" path="res://scenes_and_scripts/enemies/dark_cage/dark_cage.png" id="2_ra0n8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dimqk"]
@@ -8,7 +8,6 @@ size = Vector2(64.000534, 59.998764)
 
 [node name="DarkCage" type="CharacterBody2D" unique_id=2050699978]
 script = ExtResource("1_dimqk")
-metadata/_custom_type_script = "uid://b4hcsh1h0iqw"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1946146772]
 position = Vector2(0, 1)

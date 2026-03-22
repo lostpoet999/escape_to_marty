@@ -12,9 +12,6 @@ static func determine_rarity()->int:
 	var roll: float = randf() * total
 	var cumulative: float = 0.0
 	
-	print("rates: ", rates.super_easy, rates.easy, rates.medium, rates.hard)
-	print("total: ", total, " | roll: ", roll)
-	
 	cumulative += rates.super_easy
 	if roll < cumulative: return 0
 	cumulative += rates.easy
