@@ -5,7 +5,27 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jt87b"]
 size = Vector2(128, 64)
 
+[sub_resource type="LabelSettings" id="LabelSettings_jt87b"]
+font_size = 32
+font_color = Color(6.5878965e-07, 0.23922744, 0.05145143, 1)
+
 [node name="SouthExit" unique_id=618575957 instance=ExtResource("1_jt87b")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0" unique_id=2121695436]
 shape = SubResource("RectangleShape2D_jt87b")
+
+[node name="ExitBarrier_open" parent="." index="2" unique_id=1579582079]
+visible = true
+
+[node name="Label" type="Label" parent="ExitBarrier_open" index="0" unique_id=23538917]
+layout_mode = 0
+offset_left = 87.0
+offset_top = 5.0
+offset_right = 142.0
+offset_bottom = 50.0
+rotation = 1.5707964
+text = ">>>"
+label_settings = SubResource("LabelSettings_jt87b")
+
+[node name="walls_no_door" parent="." index="3" unique_id=1036666021]
+visible = false

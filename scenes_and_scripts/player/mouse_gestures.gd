@@ -12,7 +12,7 @@ var hold_indicator_radius: float = 0.0
 
 
 func _input(event: InputEvent)->void:
-	if GameManager.current_state == GameManager.GameState.CLICK_MODE or GameManager.current_state == GameManager.GameState.LEVEL_CLEARED:
+	if GameManager.current_state == GameManager.GameState.CLICK_MODE:
 		if not event is InputEventMouseButton:
 			return	
 		if event.button_index == MOUSE_BUTTON_LEFT:

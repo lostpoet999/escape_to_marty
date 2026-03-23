@@ -384,3 +384,10 @@ offset_left = 334.0
 offset_top = 19.0
 offset_right = 374.0
 offset_bottom = 42.0
+
+[node name="CurrentRoom_Lbl" type="Label" parent="." unique_id=443116913]
+offset_left = 699.0
+offset_top = 19.0
+offset_right = 807.0
+offset_bottom = 42.0
+text = "Current Floor:"

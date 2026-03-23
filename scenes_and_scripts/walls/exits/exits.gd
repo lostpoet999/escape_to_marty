@@ -11,11 +11,18 @@ func _ready() -> void:
 	Signalbus.level_cleared.connect(enable_exits)	
 	reconcile_exits()
 
+func tween_open_door()->void:
+	var tween: Tween = create_tween()
+	tween.tween_property(self, "scale", Vector2(.95, .95), .5)
+	tween.tween_property(self, "scale", Vector2(1.0, 1.0), .5)
+	tween.set_loops(0)
+
 func reconcile_exits()-> void:	
 	match self.name:
 		"NorthExit":
 			if room_ref[GameManager.current_room_id].north_exit != "" and room_cleared:
 				show_open_door()
+				tween_open_door()
 			elif room_ref[GameManager.current_room_id].north_exit != "" and !room_cleared:
 				show_closed_door()
 			elif room_ref[GameManager.current_room_id].north_exit == "":
@@ -23,6 +30,7 @@ func reconcile_exits()-> void:
 		"SouthExit":
 			if room_ref[GameManager.current_room_id].south_exit != "" and room_cleared:
 				show_open_door()
+				tween_open_door()
 			elif room_ref[GameManager.current_room_id].south_exit != "" and !room_cleared:
 				show_closed_door()
 			elif room_ref[GameManager.current_room_id].south_exit == "":
@@ -30,6 +38,7 @@ func reconcile_exits()-> void:
 		"EastExit":
 			if room_ref[GameManager.current_room_id].east_exit != "" and room_cleared:
 				show_open_door()
+				tween_open_door()
 			elif room_ref[GameManager.current_room_id].east_exit != "" and !room_cleared:
 				show_closed_door()
 			elif room_ref[GameManager.current_room_id].east_exit == "":
@@ -37,6 +46,7 @@ func reconcile_exits()-> void:
 		"WestExit":
 			if room_ref[GameManager.current_room_id].west_exit != "" and room_cleared:
 				show_open_door()
+				tween_open_door()
 			elif room_ref[GameManager.current_room_id].west_exit != "" and !room_cleared:
 				show_closed_door()
 			elif room_ref[GameManager.current_room_id].west_exit == "":

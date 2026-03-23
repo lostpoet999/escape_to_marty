@@ -5,6 +5,10 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v65l6"]
 size = Vector2(64, 128)
 
+[sub_resource type="LabelSettings" id="LabelSettings_v65l6"]
+font_size = 32
+font_color = Color(6.5878965e-07, 0.23922744, 0.05145143, 1)
+
 [node name="EastExit" unique_id=618575957 instance=ExtResource("1_v65l6")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0" unique_id=137459280]
@@ -17,13 +21,26 @@ offset_right = 32.0
 offset_bottom = 64.0
 
 [node name="ExitBarrier_open" parent="." index="2" unique_id=1579582079]
+visible = true
 offset_left = -32.0
 offset_top = -64.0
 offset_right = 32.0
 offset_bottom = 64.0
 
-[node name="wall_1" parent="walls_no_door" parent_id_path=PackedInt32Array(1036666021) index="0" unique_id=1891735852]
+[node name="Label" type="Label" parent="ExitBarrier_open" index="0" unique_id=188507996]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 41.0
+offset_right = 61.0
+offset_bottom = 86.0
+text = ">>>"
+label_settings = SubResource("LabelSettings_v65l6")
+
+[node name="walls_no_door" parent="." index="3" unique_id=1036666021]
+visible = false
+
+[node name="wall_1" parent="walls_no_door" index="0" unique_id=1891735852]
 position = Vector2(0, 32)
 
-[node name="wall_2" parent="walls_no_door" parent_id_path=PackedInt32Array(1036666021) index="1" unique_id=408428922]
+[node name="wall_2" parent="walls_no_door" index="1" unique_id=408428922]
 position = Vector2(0, -32)

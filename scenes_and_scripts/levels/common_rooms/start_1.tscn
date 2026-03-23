@@ -8,6 +8,11 @@
 font = ExtResource("2_45lsl")
 font_size = 24
 
+[sub_resource type="LabelSettings" id="LabelSettings_cefam"]
+font = ExtResource("2_45lsl")
+font_size = 24
+font_color = Color(0, 0.59170103, 0.5938744, 1)
+
 [node name="common_room" unique_id=565861230 instance=ExtResource("1_cckqh")]
 
 [node name="Label" type="Label" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="3" unique_id=2097916128]
@@ -28,31 +33,15 @@ text = "1. Click the the green barrier to move to the first room.
 label_settings = SubResource("LabelSettings_oufug")
 autowrap_mode = 3
 
-[node name="OpenSeal" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="4" unique_id=887021685 instance=ExtResource("3_oufug")]
+[node name="OpenSeal2" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="4" unique_id=1038486442 instance=ExtResource("3_oufug")]
 position = Vector2(679, 736)
-initialize_brick_on_leveldata = false
-stages = Dictionary[int, float]({
-1: 5.0
-})
-
-[node name="OpenSeal2" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="5" unique_id=1038486442 instance=ExtResource("3_oufug")]
-position = Vector2(1095, 736)
 initialize_brick_on_leveldata = false
 
 [node name="Label2" type="Label" parent="." index="6" unique_id=1932243363]
-offset_left = 1440.0
-offset_top = 704.0
-offset_right = 1696.0
-offset_bottom = 763.0
-text = "Click to break the \"Shells of Denial\""
-label_settings = SubResource("LabelSettings_oufug")
-autowrap_mode = 3
-
-[node name="Label3" type="Label" parent="." index="7" unique_id=1396358320]
 offset_left = 1024.0
 offset_top = 704.0
 offset_right = 1280.0
-offset_bottom = 791.0
-text = "Click and hold to take a deep breath and clear the anger"
-label_settings = SubResource("LabelSettings_oufug")
+offset_bottom = 763.0
+text = "TIP: Click to break the \"Shells of Denial\""
+label_settings = SubResource("LabelSettings_cefam")
 autowrap_mode = 3
