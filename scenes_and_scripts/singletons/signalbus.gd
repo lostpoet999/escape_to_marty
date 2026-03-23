@@ -61,6 +61,11 @@ signal star_collected(amount: int)
 @warning_ignore("unused_signal")
 signal brick_destroyed
 
+## Emits: scenes_and_scripts/bricks/base_seal.gd -> _on_tween_finished()
+## Connects: scenes_and_scripts/levels/room_base.gd -> _on_enemy_requested()
+@warning_ignore("unused_signal")
+signal enemy_requested(spawn_from: Area2D)
+
 ## =============================================================================
 ## PLAYER/UI SIGNALS
 ## =============================================================================

@@ -15,3 +15,8 @@ class_name FloorData extends Resource
 @export var show_mini_map: bool
 @export var starting_room_id: String
 @export var starting_room_scene: PackedScene
+
+@export_category("Enemy Data")
+@export var seal_break_enemies: Array[EnemyConfig]
+@export var spawner_enemies: Array[EnemyConfig]
+@export var wall_enemies: Array[EnemyConfig]

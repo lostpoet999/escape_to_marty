@@ -14,7 +14,9 @@
 [ext_resource type="PackedScene" uid="uid://brr0pi7naait7" path="res://scenes_and_scripts/levels/common_rooms/boss_1.tscn" id="10_smmvo"]
 [ext_resource type="Script" uid="uid://b1eqt2or38kw6" path="res://scenes_and_scripts/item_spawning/spawn_weights_resource.gd" id="12_2wpod"]
 [ext_resource type="Script" uid="uid://ccw8ssedjvd48" path="res://scenes_and_scripts/bricks/seal_difficulty.gd" id="12_gmdml"]
+[ext_resource type="Script" uid="uid://dm8qchhbo37mu" path="res://scenes_and_scripts/enemies/enemy_config.gd" id="13_74xxy"]
 [ext_resource type="Script" uid="uid://cqac2vv2p8oga" path="res://scenes_and_scripts/bricks/seal_phase_config.gd" id="13_rtyfa"]
+[ext_resource type="PackedScene" uid="uid://cm2bdw1o1sypc" path="res://scenes_and_scripts/enemies/dark_cage/dark_cage.tscn" id="14_q8bvp"]
 
 [sub_resource type="Resource" id="Resource_xcoa1"]
 script = ExtResource("1_hqd6g")
@@ -113,6 +115,13 @@ room_type = 1
 west_exit = "combat_1_3"
 metadata/_custom_type_script = "uid://pnkwdspwmpwe"
 
+[sub_resource type="Resource" id="Resource_w0og2"]
+script = ExtResource("13_74xxy")
+name = "Dark Cage"
+scene_ref = ExtResource("14_q8bvp")
+spawn_chance = 50.0
+metadata/_custom_type_script = "uid://dm8qchhbo37mu"
+
 [sub_resource type="Resource" id="Resource_d5n1e"]
 script = ExtResource("12_gmdml")
 super_easy = 50.0
@@ -159,4 +168,5 @@ room_entries = Array[ExtResource("1_hqd6g")]([SubResource("Resource_xcoa1"), Sub
 show_mini_map = true
 starting_room_id = "start_1"
 starting_room_scene = ExtResource("3_n2un6")
+seal_break_enemies = Array[ExtResource("13_74xxy")]([SubResource("Resource_w0og2")])
 metadata/_custom_type_script = "uid://bvs3ugvgbabkc"
