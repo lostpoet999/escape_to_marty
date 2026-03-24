@@ -4,7 +4,8 @@ class_name InventoryPanel extends MarginContainer
 
 var buttons: Array[Button]
 
-@onready var grid_container: GridContainer = %GridContainer
+@onready var inv_grid_container: GridContainer = $HBoxContainer/MarginContainer2/InventoryGrid
+@onready var core_grid_container: GridContainer = %CoreGrid
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -14,9 +15,13 @@ func _ready() -> void:
 func repopulate_inventory() -> void:
 	clear_buttons()
 	var items: Array = PlayerInventory.get_instance().get_items()
+	var core_items: Array = PlayerData.inventory.get_core_items()
 	for item: Variant in items:
 		var new_button: Button = init_button_for(item)
-		grid_container.add_child(new_button)
+		inv_grid_container.add_child(new_button)
+	for item: Variant in core_items:
+		var new_button: Button = init_button_for(item)
+		core_grid_container.add_child(new_button)
 
 func init_button_for(item: Variant) -> Button:
 	var icon: Texture2D = get_icon_for_item(item)

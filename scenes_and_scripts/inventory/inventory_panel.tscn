@@ -13,17 +13,32 @@ script = ExtResource("1_0u7gp")
 [node name="HBoxContainer" type="VBoxContainer" parent="." unique_id=1246258486]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HBoxContainer" unique_id=880573060]
+[node name="Core_Lbl" type="Label" parent="HBoxContainer" unique_id=880573060]
 layout_mode = 2
-text = "Inventory:"
+text = "Core:"
 label_settings = ExtResource("1_42un2")
 
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer" unique_id=1211225177]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 
-[node name="GridContainer" type="GridContainer" parent="HBoxContainer/MarginContainer" unique_id=1098704347]
+[node name="CoreGrid" type="GridContainer" parent="HBoxContainer/MarginContainer" unique_id=1098704347]
 unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 15
+theme_override_constants/v_separation = 10
+columns = 4
+
+[node name="Inventory_lbl" type="Label" parent="HBoxContainer" unique_id=1826435928]
+layout_mode = 2
+text = "Inventory:"
+label_settings = ExtResource("1_42un2")
+
+[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer" unique_id=1991737143]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+
+[node name="InventoryGrid" type="GridContainer" parent="HBoxContainer/MarginContainer2" unique_id=648838219]
 layout_mode = 2
 theme_override_constants/h_separation = 15
 theme_override_constants/v_separation = 10

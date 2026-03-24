@@ -1,4 +1,4 @@
-class_name BaseBounceEffect extends Node2D
+class_name BaseBounceEffect extends Node
 
 func handle_paddle_collision(ball: Ball, paddle: Paddle) -> void:
 	var hit_pos: float = ball.global_position.x - paddle.global_position.x

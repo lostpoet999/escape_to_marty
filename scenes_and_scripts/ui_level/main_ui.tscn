@@ -75,17 +75,8 @@ label_settings = ExtResource("2_c76ar")
 [node name="health" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=1380871399]
 unique_name_in_owner = true
 layout_mode = 2
-text = "10
-"
+text = "10"
 label_settings = ExtResource("1_utoos")
-
-[node name="spacer3" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=899852516]
-layout_mode = 2
-
-[node name="Player_Health2" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=151350594]
-layout_mode = 2
-text = "Core:"
-label_settings = ExtResource("2_c76ar")
 
 [node name="InventoryPanel" parent="VBoxContainer" unique_id=1905574445 instance=ExtResource("5_h7qrh")]
 layout_mode = 2

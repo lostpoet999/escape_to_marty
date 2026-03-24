@@ -6,10 +6,15 @@ const DEBUG: bool = true
 const PLACEHOLDER_TEX: Texture2D = preload("uid://cn44s8tnj8dg2") #putting here so other interfaces can get it easy
 
 var items: Array[BaseItem] ## Powerups, passives or actives for ball, paddle, or click. One active passive for each type.
+var core_items: Array[BaseItem]
 
 const TESTING: Array = [
 	## Add testing inventory items here that will be added in _ready
 	preload("uid://ctjeqnpuca6lq")
+]
+const CORE_TESTING: Array = [
+	## Add testing inventory items here that will be added in _ready
+	preload("uid://8rrbt0jirryc")	
 ]
 
 @warning_ignore_start("untyped_declaration")
@@ -52,9 +57,14 @@ func _ready() -> void:
 	Signalbus.paddle_swap_resolved.connect(replace_paddle_active)
 	if not TESTING.is_empty():
 		items.append_array(TESTING)
+	if not CORE_TESTING.is_empty():
+		core_items.append_array(CORE_TESTING)	
 
 func get_items() -> Array:
 	return items
+	
+func get_core_items() -> Array:
+	return core_items
 
 ## Load power-ups from inventory for appropriate object
 func get_items_for_ball() -> Array[BallPowerUp]:	
@@ -65,12 +75,12 @@ func get_items_for_ball() -> Array[BallPowerUp]:
 	return _items
 
 func get_paddle_active() -> PaddleActive:	#inventory logic prevents more than one, so returning on first one should be good
-	for item:BaseItem in items:
+	for item:BaseItem in core_items:
 		if item is PaddleActive:
 			return item
 	return null
 
-#func get_items_for_paddle() -> Array[PaddlePowerUp]:
+#func get_items_for_paddle() -> Array[PaddlePowerUp]: ###passives for paddle
 	#var _items: Array[BallPowerUp]
 	#for item in items:
 		#if item is BallPowerUp:
@@ -86,16 +96,16 @@ func get_paddle_active() -> PaddleActive:	#inventory logic prevents more than on
 
 func add_item(new_item) -> void:	
 	if new_item is PaddleActive:
-		if items.has(new_item):
+		if core_items.has(new_item):#:TODO already has exactly this active
 			return
-		var existing = items.filter(func(i): return i is PaddleActive)
+		var existing = core_items.filter(func(i): return i is PaddleActive)
 		var old_active: PaddleActive = null
 		if existing.is_empty():							
 			Signalbus.paddle_active_assigned.emit(new_item) #signal a new active is assiagned with reference to what was assigned
-			items.push_front(new_item)
+			core_items.push_front(new_item)
 			Signalbus.inventory_changed.emit()
 		elif existing.size() > 1:
-			assert(existing.size() <=1,"more than one paddle active found: there should only be one")
+			assert(existing.size() <=1,"more than one paddle active found: there should only be one---kinda like highlander")
 		else:
 			old_active = existing.front()
 			Signalbus.paddle_active_swap_needed.emit(old_active,new_item)			
@@ -109,10 +119,10 @@ func add_item(new_item) -> void:
 			items.push_back(new_item) #this will move when we do quantity update from above	
 			Signalbus.inventory_changed.emit()
 	
-func replace_paddle_active(new_item: PaddleActive):
-	var index = items.find_custom(func(i): return i is PaddleActive)
-	items.remove_at(index)
-	items.push_front(new_item)
+func replace_paddle_active(new_item: PaddleActive): #where item is replaced in player inventory
+	var index = core_items.find_custom(func(i): return i is PaddleActive)
+	core_items.remove_at(index)
+	core_items.push_front(new_item)
 	Signalbus.inventory_changed.emit()
 
 
