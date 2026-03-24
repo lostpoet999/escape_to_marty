@@ -12,6 +12,20 @@ var hold_indicator_radius: float = 0.0
 
 
 func _input(event: InputEvent)->void:
+	
+	if event.is_action_pressed("click_mode_toggle") and GameManager.current_state != GameManager.GameState.MAIN_MENU:
+		print("click mode entered")
+		if GameManager.current_state != GameManager.GameState.CLICK_MODE:
+			GameManager.change_state(GameManager.GameState.CLICK_MODE)
+		elif GameManager.current_state == GameManager.GameState.CLICK_MODE:
+			if mouse_down:
+				mouse_down = false
+				mouse_down_time = 0.0
+				click_dmg_type.clear()
+				_reset_hold_visuals()
+			GameManager.change_state(GameManager.GameState.PLAYING)
+			
+	
 	if GameManager.current_state == GameManager.GameState.CLICK_MODE:
 		if not event is InputEventMouseButton:
 			return	
@@ -30,8 +44,6 @@ func _input(event: InputEvent)->void:
 					click_dmg_type.push_back(GameManager.PhaseType.ANGER)
 					damage = roundf(minf(mouse_down_time, hold_duration_max))
 					_handle_clicks_and_hold()
-		
-		
 
 func _handle_clicks_and_hold()->void:
 	var target = _get_target_under_mouse()
@@ -53,6 +65,7 @@ func _get_target_under_mouse() -> Node:
 
 func _reset_hold_visuals(): #TODO: goal is for this to feel like a taking a deep breathe
 	hold_indicator_radius = 0.0
+	queue_redraw()
 
 func _draw() -> void:
 	if hold_indicator_radius > 0.0:

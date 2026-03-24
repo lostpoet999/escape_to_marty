@@ -28,12 +28,7 @@ func _input(event: InputEvent) -> void:
 		if current_state != GameState.PAUSED:
 			change_state(GameState.PAUSED)
 		else:
-			change_state(GameState.PLAYING)			
-	if event.is_action_pressed("click_mode_toggle") and current_state != GameState.MAIN_MENU:
-		if current_state != GameState.CLICK_MODE:
-			change_state(GameState.CLICK_MODE)
-		elif current_state == GameState.CLICK_MODE:
-			change_state(GameState.PLAYING)
+			change_state(GameState.PLAYING)				
 	floor_data = ResourceLoader.load(str(floor_ref[current_floor])) as FloorData #floor one from main-menu
 
 #region gamestate functions
