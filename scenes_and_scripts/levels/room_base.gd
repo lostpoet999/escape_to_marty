@@ -22,6 +22,7 @@ func _ready() -> void:
 	Signalbus.brick_destroyed.connect(_on_brick_destroyed)
 	Signalbus.star_collected.connect(update_stars_in_level)
 	Signalbus.star_spawned.connect(update_stars_in_level)
+	Signalbus.enemy_requested.connect(_on_enemy_requested)
 	if self.name == "common_room":
 		bricks_cleared = true
 		stars_cleared = true		
@@ -44,3 +45,16 @@ func _on_brick_destroyed() -> void:
 	if bricks_in_level <= 0:
 		bricks_cleared = true
 		check_level_cleared()
+
+## FIXME: this is totally not where to reference the enemy scenes, or in fact any of the configuration data. I need to reference the floor_data instead.
+const DARK_CAGE: PackedScene = preload("uid://cm2bdw1o1sypc")
+
+func _on_enemy_requested(spawn_from: Area2D) -> void:
+	var enemy_spawn_rate = 50
+	if (randf() * 100 < enemy_spawn_rate):
+		_spawn_enemy(spawn_from)
+
+func _spawn_enemy(spawn_from: Area2D) -> void:
+	var enemy = DARK_CAGE.instantiate()
+	spawn_from.get_parent().add_child(enemy)
+	enemy.position = spawn_from.position
