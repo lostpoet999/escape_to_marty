@@ -8,15 +8,6 @@ const PLACEHOLDER_TEX: Texture2D = preload("uid://cn44s8tnj8dg2") #putting here 
 var items: Array[BaseItem] ## Powerups, passives or actives for ball, paddle, or click. One active passive for each type.
 var core_items: Array[BaseItem]
 
-const TESTING: Array = [
-	## Add testing inventory items here that will be added in _ready
-	preload("uid://ctjeqnpuca6lq")
-]
-const CORE_TESTING: Array = [
-	## Add testing inventory items here that will be added in _ready
-	preload("uid://8rrbt0jirryc")	
-]
-
 @warning_ignore_start("untyped_declaration")
 ## Print method with decorator.
 static func p(arg): print_rich("[bgcolor=black][color=white]", "Inventory: ", arg)
@@ -55,10 +46,20 @@ func _exit_tree() -> void:
 
 func _ready() -> void:
 	Signalbus.paddle_swap_resolved.connect(replace_paddle_active)
-	if not TESTING.is_empty():
-		items.append_array(TESTING)
-	if not CORE_TESTING.is_empty():
-		core_items.append_array(CORE_TESTING)	
+	init_starting_items()
+
+func init_starting_items() ->void:
+	const BALL_PASSIVE_POWERUPS: Array = [
+		## Add testing inventory items here that will be added in _ready
+	preload("uid://ctjeqnpuca6lq")	
+]
+	items.append_array(BALL_PASSIVE_POWERUPS)
+	const CORE_ITEMS: Array = [
+		## Add testing inventory items here that will be added in _ready
+	preload("uid://b61d4hm0o24k0") # basic bounce
+	, preload("uid://8rrbt0jirryc") #red spirit shot
+]	
+	core_items.append_array(CORE_ITEMS)
 
 func get_items() -> Array:
 	return items
@@ -73,6 +74,12 @@ func get_items_for_ball() -> Array[BallPowerUp]:
 		if item is BallPowerUp:
 			_items.append(item)	
 	return _items
+
+func get_ball_bounce() -> BaseBounceEffect:
+	for item: BaseItem in core_items:
+		if item is BaseBounceEffect:
+			return item
+	return null
 
 func get_paddle_active() -> PaddleActive:	#inventory logic prevents more than one, so returning on first one should be good
 	for item:BaseItem in core_items:

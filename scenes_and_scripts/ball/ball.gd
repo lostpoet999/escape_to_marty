@@ -10,8 +10,8 @@ var damage_effects: Array[BaseDamageEffect]
 @export var wall_bounce_particles: PackedScene
 @export var paddle_bounce_particles: PackedScene
 
-@export var bounce_effect_scene: PackedScene
-var bounce_effect: BaseBounceEffect
+@export var bounce_effect: BaseBounceEffect
+
 @export var powerup_array: Array[BallPowerUp]
 
 @export var ball_dmg_type: Array[GameManager.PhaseType]
@@ -30,8 +30,9 @@ var _collision_set: Array[int] = []
 
 func _ready() -> void:
 	position_ball_on_paddle()
-	bounce_effect = bounce_effect_scene.instantiate() as BaseBounceEffect
-	add_child(bounce_effect)
+	bounce_effect = null
+	bounce_effect = PlayerData.inventory.get_ball_bounce()
+	assert(bounce_effect != null, "no bounce effect loaded")
 	
 	Signalbus.inventory_changed.connect(repopulate_effects_from_inventory)
 	repopulate_effects_from_inventory()
@@ -175,7 +176,7 @@ func move_ball(delta: float) -> void:
 			fx.position = global_position
 			get_tree().current_scene.add_child(fx)
 
-		if collider.is_in_group("paddle"):
+		if collider.is_in_group("paddle"):#TODO move this to the bounce ball class
 			sfx.play_sound("bounce_1")
 			bounce_effect.handle_paddle_collision(self, collider as Paddle)
 		elif collider.is_in_group("bricks") or collider.is_in_group("walls"):

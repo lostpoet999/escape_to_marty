@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://dojhm36tklo5w"]
-
-[ext_resource type="Script" uid="uid://dtnpin7y2xs7o" path="res://scenes_and_scripts/powerups_and_effects/ball_effects/bounce_effects/base_bounce_effect.gd" id="1_wcj0s"]
-
-[node name="BaseBounceEffect" type="Node2D" unique_id=242337418]
-script = ExtResource("1_wcj0s")

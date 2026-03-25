@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BaseBounceEffect" format=3 uid="uid://b61d4hm0o24k0"]
+
+[ext_resource type="Script" uid="uid://dtnpin7y2xs7o" path="res://scenes_and_scripts/powerups_and_effects/ball_powerups/bounce_effects/base_bounce_effect.gd" id="1_vb8hm"]
+[ext_resource type="Texture2D" uid="uid://mtj7exkdy0ls" path="res://scenes_and_scripts/ball/new_ball.png" id="1_w1py8"]
+
+[resource]
+script = ExtResource("1_vb8hm")
+powerup_name = "Basic Bounce"
+inventory_icon = ExtResource("1_w1py8")
+metadata/_custom_type_script = "uid://dtnpin7y2xs7o"
