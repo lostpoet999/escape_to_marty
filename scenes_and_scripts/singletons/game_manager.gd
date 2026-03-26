@@ -115,15 +115,11 @@ func exit_state(close_state: GameState) -> void:
 			pause_game()
 		GameState.GAME_OVER:
 			pause_game()
-		GameState.DEBUG_PANEL:
-			print("leaving debug")
-			unpause_game()
+		GameState.DEBUG_PANEL:			
+			pause_game()
 
 func pause_game() -> void:
 	get_tree().paused = !get_tree().paused
-	
-func unpause_game() -> void:
-	get_tree().paused = false
 
 #endregionrent_entr
 
