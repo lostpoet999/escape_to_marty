@@ -15,7 +15,8 @@ func _on_swap_needed(old_item:PaddleActive, new_item: PaddleActive)->void:
 	old_active_ref = old_item
 	new_active_ref = new_item
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	get_tree().paused = !get_tree().paused
+	if !get_tree().paused:
+		get_tree().paused
 	setup_buttons()
 	show()
 

@@ -13,8 +13,7 @@ var hold_indicator_radius: float = 0.0
 
 func _input(event: InputEvent)->void:
 	
-	if event.is_action_pressed("click_mode_toggle") and GameManager.current_state != GameManager.GameState.MAIN_MENU:
-		print("click mode entered")
+	if event.is_action_pressed("click_mode_toggle") and GameManager.current_state != GameManager.GameState.MAIN_MENU:		
 		if GameManager.current_state != GameManager.GameState.CLICK_MODE:
 			GameManager.change_state(GameManager.GameState.CLICK_MODE)
 		elif GameManager.current_state == GameManager.GameState.CLICK_MODE:

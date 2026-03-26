@@ -1,0 +1,107 @@
+[gd_scene format=3 uid="uid://c53k2pfrfqs5g"]
+
+[ext_resource type="Script" uid="uid://c04m25enl0k4h" path="res://scenes_and_scripts/db_panel/db_panel.gd" id="1_vy6bg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vy6bg"]
+bg_color = Color(0.6, 0.6, 0.9372549, 1)
+
+[node name="DP" type="Control" unique_id=367010234]
+modulate = Color(1, 1, 1, 0.9254902)
+z_index = 1000
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 841.0
+offset_top = 103.0
+offset_right = -155.0
+offset_bottom = -107.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vy6bg")
+
+[node name="Panel" type="Panel" parent="." unique_id=51120607]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel" unique_id=1812421340]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ItemSpawning" type="Panel" parent="Panel/HBoxContainer" unique_id=1182907007]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer/ItemSpawning" unique_id=367369165]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Panel/HBoxContainer/ItemSpawning/VBoxContainer" unique_id=380482589]
+layout_mode = 2
+text = "Spawn Item"
+
+[node name="HSeparator" type="HSeparator" parent="Panel/HBoxContainer/ItemSpawning/VBoxContainer" unique_id=289014313]
+layout_mode = 2
+
+[node name="ItemPoolPanel" type="GridContainer" parent="Panel/HBoxContainer/ItemSpawning/VBoxContainer" unique_id=1462516119]
+layout_mode = 2
+columns = 8
+
+[node name="TrackedVariables" type="Panel" parent="Panel/HBoxContainer" unique_id=403297387]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer/TrackedVariables" unique_id=1306436900]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 31.0
+grow_horizontal = 2
+
+[node name="Label2" type="Label" parent="Panel/HBoxContainer/TrackedVariables/VBoxContainer" unique_id=191117010]
+layout_mode = 2
+text = "Actions:"
+
+[node name="HSeparator2" type="HSeparator" parent="Panel/HBoxContainer/TrackedVariables/VBoxContainer" unique_id=1220016930]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="Panel/HBoxContainer/TrackedVariables/VBoxContainer" unique_id=1584293416]
+layout_mode = 2
+columns = 4
+
+[node name="enable_exits_btn" type="Button" parent="Panel/HBoxContainer/TrackedVariables/VBoxContainer/GridContainer" unique_id=2133615124]
+layout_mode = 2
+tooltip_text = "ALT+E (in level): Open the exits to the room you currently are in."
+theme_override_styles/normal = SubResource("StyleBoxFlat_vy6bg")
+text = "Exits"
+
+[node name="give_stars_btn" type="Button" parent="Panel/HBoxContainer/TrackedVariables/VBoxContainer/GridContainer" unique_id=863765938]
+layout_mode = 2
+tooltip_text = "Give 100 currency."
+theme_override_styles/normal = SubResource("StyleBoxFlat_vy6bg")
+text = "Stars"
+
+[node name="TrackedVariable_lbl" type="Label" parent="Panel/HBoxContainer/TrackedVariables/VBoxContainer" unique_id=970531247]
+layout_mode = 2
+text = "Tracked Variables"
+
+[node name="HSeparator" type="HSeparator" parent="Panel/HBoxContainer/TrackedVariables/VBoxContainer" unique_id=1533165658]
+layout_mode = 2
+
+[node name="TrackedVariables" type="VBoxContainer" parent="Panel/HBoxContainer/TrackedVariables/VBoxContainer" unique_id=692935122]
+layout_mode = 2
+
+[connection signal="pressed" from="Panel/HBoxContainer/TrackedVariables/VBoxContainer/GridContainer/enable_exits_btn" to="." method="_on_enable_exits_btn_pressed"]
+[connection signal="pressed" from="Panel/HBoxContainer/TrackedVariables/VBoxContainer/GridContainer/give_stars_btn" to="." method="_on_give_stars_btn_pressed"]

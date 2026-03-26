@@ -14,7 +14,7 @@ var floor_ref: Dictionary = {
 	1: "uid://dr8vct1f7lm5n"
 }
 
-enum GameState {MAIN_MENU, BALL_ON_PADDLE, PLAYING, PAUSED, GAME_OVER, CLICK_MODE, LEVEL_CLEARED, SPECIAL_ROOM} 
+enum GameState {MAIN_MENU, BALL_ON_PADDLE, PLAYING, PAUSED, GAME_OVER, CLICK_MODE, LEVEL_CLEARED, SPECIAL_ROOM, DEBUG_PANEL} 
 enum PhaseType {DENIAL, ANGER, BARGAINING, DEPRESSION, ACCEPTANCE, HEALTH}
 var current_state: GameState = GameState.MAIN_MENU
 
@@ -47,19 +47,23 @@ func is_valid_state_transition(from_state: GameState, to_state: GameState) -> bo
 		GameState.MAIN_MENU:
 			return to_state in [GameState.BALL_ON_PADDLE, GameState.SPECIAL_ROOM]
 		GameState.BALL_ON_PADDLE:
-			return to_state in [GameState.PLAYING, GameState.PAUSED, GameState.LEVEL_CLEARED, GameState.SPECIAL_ROOM]
+			return to_state in [GameState.PLAYING, GameState.PAUSED, GameState.LEVEL_CLEARED, GameState.SPECIAL_ROOM,GameState.DEBUG_PANEL]
 		GameState.PLAYING:
-			return to_state in [GameState.PAUSED, GameState.GAME_OVER, GameState.MAIN_MENU, GameState.CLICK_MODE, GameState.LEVEL_CLEARED, GameState.SPECIAL_ROOM]
+			return to_state in [GameState.PAUSED, GameState.GAME_OVER, GameState.MAIN_MENU, GameState.CLICK_MODE, GameState.LEVEL_CLEARED, GameState.SPECIAL_ROOM, GameState.DEBUG_PANEL]
 		GameState.PAUSED:
 			return to_state in [GameState.PLAYING, GameState.BALL_ON_PADDLE]
 		GameState.GAME_OVER:
 			return to_state in [GameState.MAIN_MENU, GameState.PLAYING]
 		GameState.CLICK_MODE:
-			return to_state in [GameState.PLAYING, GameState.LEVEL_CLEARED]
+			return to_state in [GameState.PLAYING, GameState.LEVEL_CLEARED,GameState.DEBUG_PANEL]
 		GameState.LEVEL_CLEARED:
-			return to_state  in [GameState.BALL_ON_PADDLE, GameState.SPECIAL_ROOM]
+			return to_state  in [GameState.BALL_ON_PADDLE, GameState.SPECIAL_ROOM,GameState.DEBUG_PANEL]
 		GameState.SPECIAL_ROOM:
-			return to_state in [GameState.BALL_ON_PADDLE, GameState.PLAYING]
+			return to_state in [GameState.BALL_ON_PADDLE, GameState.PLAYING,GameState.DEBUG_PANEL]
+		GameState.DEBUG_PANEL:
+			return to_state in [GameState.BALL_ON_PADDLE, GameState.PLAYING, GameState.LEVEL_CLEARED, GameState.SPECIAL_ROOM]
+			
+	assert(false, "No valid transitions defined for from_state: %s" % GameState.keys()[from_state])
 	return false
 
 func enter_state(change_to_state: GameState) -> void: 
@@ -96,6 +100,10 @@ func enter_state(change_to_state: GameState) -> void:
 		GameState.SPECIAL_ROOM:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			Signalbus.game_state_special_room.emit()
+		GameState.DEBUG_PANEL:
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+			pause_game()
+
 
 func exit_state(close_state: GameState) -> void:
 	match close_state: #clean-up/init
@@ -107,9 +115,15 @@ func exit_state(close_state: GameState) -> void:
 			pause_game()
 		GameState.GAME_OVER:
 			pause_game()
+		GameState.DEBUG_PANEL:
+			print("leaving debug")
+			unpause_game()
 
 func pause_game() -> void:
 	get_tree().paused = !get_tree().paused
+	
+func unpause_game() -> void:
+	get_tree().paused = false
 
 #endregionrent_entr
 
@@ -117,7 +131,11 @@ func restart_level() -> void:
 	PlayerData.initialize_player_data()
 	get_tree().reload_current_scene()
 
+
 func _ready() -> void:
+	DP.track("Game State", DP, "old_state", GameState)
+	DP.track("Current Room:", self, "current_room_id")	
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	MusicPlayer.execute_playlist("test_playlist")
 	floor_data = ResourceLoader.load(str(floor_ref[current_floor])) as FloorData
 	scene_ref = floor_data.starting_room_scene

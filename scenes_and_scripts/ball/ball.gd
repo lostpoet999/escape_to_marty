@@ -36,6 +36,7 @@ var old_y: float = 0.0
 @onready var sfx: EntitySFX = $EntitySfx
 
 func _ready() -> void:
+	DP.track("Ball Velocity: ",self,"current_speed")
 	position_ball_on_paddle()
 	bounce_effect = null
 	bounce_effect = PlayerData.inventory.get_ball_bounce()
