@@ -15,13 +15,27 @@ var current_speed: float = 0.0
 var accumulated_mouse_movement_x: float = 0
 var mouse_sensitivity: float = 1.0
 
+
+var base_scale_x: float
+var base_shape_size_x: float
+
+
+@onready var sprite: Sprite2D = $PaddleSprite
+@onready var paddle_collision_shape: CollisionShape2D = $PaddleCollisionShape
+
+
+@export var paddle_powerups: Array[PaddlePowerup]
 @export var active_paddle_powerup: PaddleActive #will type cast later
 @onready var projectiles: Node = $"../Projectiles"
 
 
-func _ready() -> void:
-	#mouse mode is set by GameManager when entering PLAYING state
-	_calculate_bounds()
+func _ready() -> void:	
+	base_scale_x = sprite.scale.x
+	base_shape_size_x = paddle_collision_shape.scale.x	
+	paddle_powerups = PlayerData.inventory.get_items_for_paddle()
+	set_paddle_length_from_items()
+	Signalbus.inventory_changed.connect(set_paddle_length_from_items)	
+	_calculate_bounds()	
 	accumulated_mouse_movement_x = position.x
 	Signalbus.game_state_click_mode.connect(_on_game_state_click_mode)
 	Signalbus.game_state_playing.connect(_on_game_state_playing)
@@ -29,6 +43,22 @@ func _ready() -> void:
 	Signalbus.paddle_swap_resolved.connect(_assign_active_powerup)
 	Signalbus.game_state_special_room.connect(_on_game_state_click_mode)
 	active_paddle_powerup = PlayerData.inventory.get_paddle_active()
+
+func adjust_paddle_length(modify_by: float) -> void:
+	sprite.scale.x *= modify_by
+	paddle_collision_shape.scale.x *= modify_by
+
+func reset_paddle_length()->void:
+	sprite.scale.x = base_scale_x
+	paddle_collision_shape.scale.x = base_shape_size_x
+	
+func set_paddle_length_from_items():
+	paddle_powerups = PlayerData.inventory.get_items_for_paddle()  # refresh first
+	if paddle_powerups.is_empty(): return
+	reset_paddle_length()
+	for item in paddle_powerups:
+		if item.paddle_lenghth_mod != null and item.paddle_lenghth_mod>0.0:
+			adjust_paddle_length(item.paddle_lenghth_mod)
 
 func _calculate_bounds() -> void:
 	var half_width: float = _get_scaled_half_width()
@@ -46,8 +76,7 @@ func _assign_active_powerup(item: PaddleActive)->void:
 	active_paddle_powerup = item
 	
 
-func _get_scaled_half_width() -> float:
-	var sprite: Sprite2D = $PaddleSprite
+func _get_scaled_half_width() -> float:	
 	var texture_width: float = sprite.texture.get_width()
 	return (texture_width * sprite.scale.x * scale.x) / 2.0
 	

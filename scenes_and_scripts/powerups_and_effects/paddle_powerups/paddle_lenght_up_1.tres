@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="PaddlePowerup" format=3 uid="uid://cyfkiym60unn"]
+
+[ext_resource type="Script" uid="uid://b81b3hhkeuin4" path="res://scenes_and_scripts/powerups_and_effects/paddle_powerups/paddle_powerup.gd" id="1_cnyl7"]
+
+[resource]
+script = ExtResource("1_cnyl7")
+paddle_lenghth_mod = 1.2
+powerup_name = "Paddle Extender 1"
+metadata/_custom_type_script = "uid://b81b3hhkeuin4"

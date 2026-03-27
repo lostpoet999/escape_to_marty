@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ck6fj7h722sbs" path="res://scenes_and_scripts/player/mouse_gestures.tscn" id="4_ireb1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8fbbk"]
-size = Vector2(28, 122)
+size = Vector2(122, 28)
 
 [node name="Paddle" type="CharacterBody2D" unique_id=1681485936 groups=["paddle"]]
 collision_mask = 3
@@ -20,8 +20,7 @@ region_enabled = true
 region_rect = Rect2(0, 0, 288, 64)
 
 [node name="PaddleCollisionShape" type="CollisionShape2D" parent="." unique_id=305792111]
-position = Vector2(0.00021475156, -4)
-rotation = 1.57085
+position = Vector2(1.9073486e-06, -4)
 shape = SubResource("RectangleShape2D_8fbbk")
 
 [node name="spawn_center" type="Marker2D" parent="." unique_id=1386430533]
@@ -50,3 +49,5 @@ modulate = Color(1, 1, 1, 0.7921569)
 position = Vector2(0, 10)
 
 [node name="MouseGestures" parent="." unique_id=662497496 instance=ExtResource("4_ireb1")]
+
+[node name="Paddle" type="Node2D" parent="." unique_id=192741555]

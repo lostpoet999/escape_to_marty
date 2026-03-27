@@ -74,6 +74,13 @@ func get_items_for_ball() -> Array[BallPowerUp]:
 		if item is BallPowerUp:
 			_items.append(item)	
 	return _items
+	
+func get_items_for_paddle() -> Array[PaddlePowerup]: ###passives for paddle
+	var _items: Array[PaddlePowerup]
+	for item in items:
+		if item is PaddlePowerup:
+			_items.append(item)
+	return _items
 
 func get_ball_bounce() -> BaseBounceEffect:
 	for item: BaseItem in core_items:
@@ -86,13 +93,6 @@ func get_paddle_active() -> PaddleActive:	#inventory logic prevents more than on
 		if item is PaddleActive:
 			return item
 	return null
-
-#func get_items_for_paddle() -> Array[PaddlePowerUp]: ###passives for paddle
-	#var _items: Array[BallPowerUp]
-	#for item in items:
-		#if item is BallPowerUp:
-			#_items.append(item)
-	#return _items
 
 #func get_items_for_click() -> Array[ClickPowerUp]:
 	#var _items: Array[BallPowerUp]
@@ -118,7 +118,7 @@ func add_item(new_item) -> void:
 			Signalbus.paddle_active_swap_needed.emit(old_active,new_item)			
 
 
-	elif new_item is BallPowerUp:			
+	elif new_item is BallPowerUp or new_item is PaddlePowerup:			
 			if new_item in items:
 				print("you already have this one, lets stack them!") #TODO: make it so inventory panel increases quantity in visual vs takeup another spot
 			else:

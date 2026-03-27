@@ -36,7 +36,7 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("toggle_debug_panel"):
 		if visible:
 			hide()
-			GameManager.change_state(old_state)
+			GameManager.change_state(old_state)	
 		else:
 			old_state = GameManager.current_state
 			show()

@@ -7,8 +7,9 @@
 [ext_resource type="Resource" uid="uid://ctgr6av7wt1l4" path="res://scenes_and_scripts/powerups_and_effects/paddle_active_powerups/paddle_active_test.tres" id="4_ee38i"]
 [ext_resource type="Resource" uid="uid://c7gdauspp2vbh" path="res://scenes_and_scripts/powerups_and_effects/ball_powerups/+3 test.tres" id="5_ee38i"]
 [ext_resource type="Resource" uid="uid://8rrbt0jirryc" path="res://scenes_and_scripts/powerups_and_effects/paddle_active_powerups/paddle_shot2.tres" id="6_oyjj8"]
+[ext_resource type="Resource" uid="uid://cyfkiym60unn" path="res://scenes_and_scripts/powerups_and_effects/paddle_powerups/paddle_lenght_up_1.tres" id="7_4n03o"]
 
 [resource]
 script = ExtResource("2_upo5x")
-item_pool = Array[ExtResource("1_8japa")]([ExtResource("3_ee38i"), ExtResource("4_ee38i"), ExtResource("3_kfe0u"), ExtResource("5_ee38i"), ExtResource("6_oyjj8")])
+item_pool = Array[ExtResource("1_8japa")]([ExtResource("3_ee38i"), ExtResource("4_ee38i"), ExtResource("3_kfe0u"), ExtResource("5_ee38i"), ExtResource("6_oyjj8"), ExtResource("7_4n03o")])
 metadata/_custom_type_script = "uid://d2lueb6p5il1v"
