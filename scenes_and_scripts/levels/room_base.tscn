@@ -355,6 +355,9 @@ position = Vector2(1056, 0)
 [node name="WestExit" parent="PlayArea/Walls" unique_id=1024305235 instance=ExtResource("8_2ndtm")]
 position = Vector2(256, 480)
 
+[node name="Spawners" type="Node2D" parent="PlayArea" unique_id=1587044855]
+position = Vector2(-281, 0)
+
 [node name="Background" type="ColorRect" parent="PlayArea" unique_id=306947289]
 z_index = -1
 layout_mode = 1

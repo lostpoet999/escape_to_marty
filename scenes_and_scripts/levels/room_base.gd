@@ -46,15 +46,17 @@ func _on_brick_destroyed() -> void:
 		bricks_cleared = true
 		check_level_cleared()
 
-## FIXME: this is totally not where to reference the enemy scenes, or in fact any of the configuration data. I need to reference the floor_data instead.
-const DARK_CAGE: PackedScene = preload("uid://cm2bdw1o1sypc")
-
 func _on_enemy_requested(spawn_from: Area2D) -> void:
-	var enemy_spawn_rate = 50
-	if (randf() * 100 < enemy_spawn_rate):
-		_spawn_enemy(spawn_from)
-
-func _spawn_enemy(spawn_from: Area2D) -> void:
-	var enemy = DARK_CAGE.instantiate()
-	spawn_from.get_parent().add_child(enemy)
-	enemy.position = spawn_from.position
+	var seal_break_enemies = GameManager.floor_data.seal_break_enemies
+	var index = 0
+	var spawned_percentage = randf() * 100
+	while (index < seal_break_enemies.size()):
+		var spawn_configuration = seal_break_enemies[index]
+		if (spawned_percentage < spawn_configuration.spawn_chance):
+			var enemy = spawn_configuration.scene_ref.instantiate()
+			spawn_from.get_parent().add_child(enemy)
+			enemy.position = spawn_from.position
+			break
+		else:
+			spawned_percentage -= spawn_configuration.spawn_chance
+			index += 1
