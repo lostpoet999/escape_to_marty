@@ -1,10 +1,13 @@
-class_name Enemy
+class_name FallingEnemy
 extends CharacterBody2D
 
-var falling = false
-var gravity = 9.8
-var fall_speed = 0
-var can_damage = true
+var falling: bool = false
+@export var gravity: float = 9.8
+@export var fall_speed: float = 0
+@export var can_damage: bool = true
+@export var damage: float = 1.0
+@export var fall_delay: float = 0.2
+@export var stun_time: float = 1.0
 
 func _ready() -> void:
 	_pause_falling()
@@ -26,7 +29,10 @@ func _physics_process(delta: float) -> void:
 		var collider = collision.get_collider()
 		if collider.is_in_group(GameManager.PADDLE):
 			# stop insta-death from damaging every frame
+			if collider.has_method("freeze_paddle_for_time"):
+				collider.freeze_paddle_for_time(stun_time)
 			if can_damage:
-				PlayerData.accept_damage(1)
+				PlayerData.accept_damage(damage)
 				_pause_falling()
 				can_damage = false
+				queue_free()

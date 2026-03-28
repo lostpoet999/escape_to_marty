@@ -6,6 +6,8 @@ extends CharacterBody2D
 var paddle_frozen: bool = false
 var paddle_click_dmg: float = 1.0
 
+var freeze_timer : Timer
+
 # Screen bounds
 var left_bound: float = 0.0
 var right_bound: float = 0.0
@@ -52,11 +54,11 @@ func reset_paddle_length()->void:
 	sprite.scale.x = base_scale_x
 	paddle_collision_shape.scale.x = base_shape_size_x
 	
-func set_paddle_length_from_items():
+func set_paddle_length_from_items()->void:
 	paddle_powerups = PlayerData.inventory.get_items_for_paddle()  # refresh first
 	if paddle_powerups.is_empty(): return
 	reset_paddle_length()
-	for item in paddle_powerups:
+	for item: BaseItem in paddle_powerups:
 		if item.paddle_lenghth_mod != null and item.paddle_lenghth_mod>0.0:
 			adjust_paddle_length(item.paddle_lenghth_mod)
 
@@ -85,6 +87,27 @@ func _on_game_state_playing() -> void:
 
 func _on_game_state_click_mode() -> void:
 	paddle_frozen = true
+
+func freeze_paddle_for_time(time: float)->void:
+	if paddle_frozen:
+		return
+	if freeze_timer == null:
+		freeze_timer = Timer.new()
+		freeze_timer.one_shot = true	
+		freeze_timer.timeout.connect(_on_freeze_timer_expire)
+		add_child(freeze_timer)
+		
+		
+	freeze_timer.wait_time = time
+	freeze_timer.start()
+	paddle_frozen = true
+	#starts timer for amount passed
+	#freezes paddle until timer over
+	#if another freez happens ignore
+	
+func _on_freeze_timer_expire()->void:
+	if GameManager.current_floor != GameManager.GameState.LEVEL_CLEARED:
+		paddle_frozen=false
 
 func _input(event: InputEvent) -> void:
 	if !paddle_frozen:
