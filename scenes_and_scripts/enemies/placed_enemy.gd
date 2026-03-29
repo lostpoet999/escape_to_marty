@@ -34,12 +34,6 @@ func get_edge(paddle: Paddle) -> float:
 	var half_width: float = $EnemySprite.texture.get_width() * $EnemySprite.scale.x * scale.x / 2.0
 	var paddle_half: float = paddle._get_scaled_half_width()
 	var sprite_half: float = $EnemySprite.texture.get_width() * $EnemySprite.scale.x * scale.x / 2.0	
-	print("sprite_half: ", sprite_half)
-	print("paddle_half: ", paddle_half)
-	print("total: ", sprite_half + paddle_half)
-	print("deon global_pos: ", global_position.x)
-	print("paddle global_pos: ", paddle.global_position.x)
-	print("actual gap: ", paddle.global_position.x - global_position.x)
 	if global_position.x < paddle.global_position.x:
 		return global_position.x + half_width + paddle_half
 	else:
@@ -48,4 +42,11 @@ func get_edge(paddle: Paddle) -> float:
 func start_action_timer()->void:
 	timer.wait_time = action_timer
 	timer.start()
-	
+
+
+func _on_ramming_collision_body_entered(body: Node2D) -> void:
+	if body is Paddle:		
+		if body.committed_distance > 700:
+			print("good hit!")
+			Signalbus.blocker_removed.emit(self)
+			queue_free()

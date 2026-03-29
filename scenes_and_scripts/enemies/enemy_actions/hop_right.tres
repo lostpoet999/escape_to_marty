@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="HopRight" format=3 uid="uid://b35bxjo42acuj"]
 
-[ext_resource type="Script" uid="uid://bggdt68lamuu7" path="res://scenes_and_scripts/enemies/hop_right.gd" id="1_igphw"]
+[ext_resource type="Script" uid="uid://bggdt68lamuu7" path="res://scenes_and_scripts/enemies/enemy_actions/hop_right.gd" id="1_igphw"]
 
 [resource]
 script = ExtResource("1_igphw")

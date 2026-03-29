@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://c3bjgu70hca17"]
+
+[ext_resource type="Script" uid="uid://dhe5qpjvtwdru" path="res://scenes_and_scripts/enemies/specific_enemies/no_see_me_demon/deon.gd" id="1_dj3le"]
+[ext_resource type="PackedScene" uid="uid://b3j8yvc0658fc" path="res://scenes_and_scripts/enemies/placed_enemy_base.tscn" id="1_hxmmq"]
+[ext_resource type="Script" uid="uid://bbq2uibufrs08" path="res://scenes_and_scripts/enemies/enemy_actions/enemy_action_base.gd" id="2_2bfs3"]
+[ext_resource type="Texture2D" uid="uid://dp7nockj7iwkm" path="res://scenes_and_scripts/enemies/specific_enemies/no_see_me_demon/no-see-me-demon.png" id="2_j7ao1"]
+[ext_resource type="Script" uid="uid://bggdt68lamuu7" path="res://scenes_and_scripts/enemies/enemy_actions/hop_right.gd" id="3_2bfs3"]
+
+[sub_resource type="Resource" id="Resource_rwvd0"]
+script = ExtResource("3_2bfs3")
+right_distance = 64.0
+up_distance = 32.0
+speed = 5.0
+max_hops = 5
+back_chance = 30.0
+action_name = "HopRight"
+clamp_paddle = true
+metadata/_custom_type_script = "uid://bggdt68lamuu7"
+
+[node name="Deon" unique_id=1934117901 instance=ExtResource("1_hxmmq")]
+script = ExtResource("1_dj3le")
+action_pool = Array[ExtResource("2_2bfs3")]([SubResource("Resource_rwvd0")])
+action_timer = 5.0
+
+[node name="EnemySprite" parent="." index="0" unique_id=2032254832]
+texture = ExtResource("2_j7ao1")
+
+[node name="CollisionShape2D" parent="." index="1" unique_id=1655691252]
+position = Vector2(1, 1)
+
+[node name="CollisionShape2D" parent="RammingCollision" parent_id_path=PackedInt32Array(390356126) index="0" unique_id=1959629443]
+position = Vector2(1.5, 2)
+
+[connection signal="body_entered" from="RammingCollision" to="." method="_on_ramming_collision_body_entered"]

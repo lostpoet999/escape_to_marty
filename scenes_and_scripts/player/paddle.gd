@@ -25,6 +25,11 @@ var base_shape_size_x: float
 @onready var sprite: Sprite2D = $PaddleSprite
 @onready var paddle_collision_shape: CollisionShape2D = $PaddleCollisionShape
 
+var committed_distance: float = 0.0
+var _last_direction: float = 0.0
+var _distance_accumulator: float = 0.0
+
+
 
 @export var paddle_powerups: Array[PaddlePowerup]
 @export var active_paddle_powerup: PaddleActive #will type cast later
@@ -34,6 +39,7 @@ var blocker_enemies: Array[PlacedEnemy] #hold blocker enemies in paddle path
 
 
 func _ready() -> void:	
+	last_position = global_position
 	connect_signals()
 	base_scale_x = sprite.scale.x
 	base_shape_size_x = paddle_collision_shape.scale.x	
@@ -141,12 +147,10 @@ func freeze_paddle_for_time(time: float)->void:
 		add_child(freeze_timer)
 		
 		
+		
 	freeze_timer.wait_time = time
 	freeze_timer.start()
-	paddle_frozen = true
-	#starts timer for amount passed
-	#freezes paddle until timer over
-	#if another freez happens ignore
+	paddle_frozen = true	
 	
 func _on_freeze_timer_expire()->void:
 	if GameManager.current_floor != GameManager.GameState.LEVEL_CLEARED:
@@ -165,9 +169,25 @@ func _input(event: InputEvent) -> void:
 func get_movement_direction() -> float:
 	return current_speed
 
+func _track_committed_distance(prev_x: float) -> void:
+	var direction = sign(position.x - prev_x)
+	if direction != 0.0:
+		if direction != _last_direction:
+			_distance_accumulator = 0.0
+			_last_direction = direction
+		_distance_accumulator += abs(position.x - prev_x)
+	committed_distance = _distance_accumulator
+
+func reset_committed_distance() -> void:
+	_distance_accumulator = 0.0
+	committed_distance = 0.0
+
 func _physics_process(delta: float) -> void:
+	if abs(current_speed) <= 1500.0: reset_committed_distance()
 	if !paddle_frozen:
+		var prev_x = position.x
 		position.x = accumulated_mouse_movement_x
 		current_speed = (global_position.x - last_position.x) / delta
 		last_position = global_position
+		_track_committed_distance(prev_x)
 	

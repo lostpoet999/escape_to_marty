@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://b3j8yvc0658fc"]
+
+[ext_resource type="Script" uid="uid://d18agj7585akj" path="res://scenes_and_scripts/enemies/placed_enemy.gd" id="1_f4fnr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2bfs3"]
+size = Vector2(84, 127)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xbwaf"]
+size = Vector2(99, 126)
+
+[node name="EnemyName" type="CharacterBody2D" unique_id=1934117901]
+script = ExtResource("1_f4fnr")
+
+[node name="EnemySprite" type="Sprite2D" parent="." unique_id=2032254832]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1655691252]
+position = Vector2(0, 25)
+shape = SubResource("RectangleShape2D_2bfs3")
+
+[node name="RammingCollision" type="Area2D" parent="." unique_id=390356126]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RammingCollision" unique_id=1959629443]
+position = Vector2(0, 16.5)
+shape = SubResource("RectangleShape2D_xbwaf")
