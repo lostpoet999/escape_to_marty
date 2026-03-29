@@ -22,5 +22,5 @@ stages = Dictionary[int, float]({
 1: 3.0
 })
 
-[node name="Deon" parent="." index="11" unique_id=1934117901 instance=ExtResource("3_v1bgv")]
-position = Vector2(384, 960)
+[node name="Deon3" parent="." index="11" unique_id=1934117901 instance=ExtResource("3_v1bgv")]
+position = Vector2(832, 960)

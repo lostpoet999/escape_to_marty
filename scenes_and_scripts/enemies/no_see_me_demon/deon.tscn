@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dhe5qpjvtwdru" path="res://scenes_and_scripts/enemies/no_see_me_demon/deon.gd" id="1_dj3le"]
 [ext_resource type="Script" uid="uid://bbq2uibufrs08" path="res://scenes_and_scripts/enemies/enemy_action_base.gd" id="2_2bfs3"]
-[ext_resource type="Texture2D" uid="uid://cboka5a50o6me" path="res://scenes_and_scripts/enemies/no_see_me_demon/no-see-me-demon.png" id="2_ivtob"]
+[ext_resource type="Texture2D" uid="uid://dp7nockj7iwkm" path="res://scenes_and_scripts/enemies/no_see_me_demon/no-see-me-demon.png" id="2_ivtob"]
 [ext_resource type="Script" uid="uid://bggdt68lamuu7" path="res://scenes_and_scripts/enemies/hop_right.gd" id="3_2bfs3"]
 
 [sub_resource type="Resource" id="Resource_2bfs3"]
@@ -10,7 +10,7 @@ script = ExtResource("3_2bfs3")
 right_distance = 64.0
 up_distance = 32.0
 speed = 5.0
-max_hops = 7
+max_hops = 5
 back_chance = 30.0
 action_name = "HopRight"
 clamp_paddle = true
@@ -25,7 +25,7 @@ action_pool = Array[ExtResource("2_2bfs3")]([SubResource("Resource_2bfs3")])
 action_timer = 1.0
 is_blocker = true
 
-[node name="NoSeeMeDemon" type="Sprite2D" parent="." unique_id=2032254832]
+[node name="EnemySprite" type="Sprite2D" parent="." unique_id=2032254832]
 texture = ExtResource("2_ivtob")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1655691252]

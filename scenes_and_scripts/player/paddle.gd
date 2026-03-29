@@ -34,19 +34,29 @@ var blocker_enemies: Array[PlacedEnemy] #hold blocker enemies in paddle path
 
 
 func _ready() -> void:	
+	connect_signals()
 	base_scale_x = sprite.scale.x
 	base_shape_size_x = paddle_collision_shape.scale.x	
-	paddle_powerups = PlayerData.inventory.get_items_for_paddle()
+	paddle_powerups = PlayerData.inventory.get_items_for_paddle()	
 	set_paddle_length_from_items()
-	Signalbus.inventory_changed.connect(set_paddle_length_from_items)	
+	
 	_calculate_bounds()	
-	accumulated_mouse_movement_x = position.x
+	accumulated_mouse_movement_x = position.x	
+	active_paddle_powerup = PlayerData.inventory.get_paddle_active()
+
+func connect_signals()->void:	
 	Signalbus.game_state_click_mode.connect(_on_game_state_click_mode)
 	Signalbus.game_state_playing.connect(_on_game_state_playing)
 	Signalbus.paddle_active_assigned.connect(_assign_active_powerup)
 	Signalbus.paddle_swap_resolved.connect(_assign_active_powerup)
-	Signalbus.game_state_special_room.connect(_on_game_state_click_mode)
-	active_paddle_powerup = PlayerData.inventory.get_paddle_active()
+	Signalbus.game_state_special_room.connect(_on_game_state_click_mode)	
+	Signalbus.inventory_changed.connect(set_paddle_length_from_items)
+	
+	Signalbus.blocker_added.connect(add_blocker_enemy)
+	Signalbus.blocker_removed.connect(remove_blocker_enemy)
+	Signalbus.blocker_moved.connect(_calculate_blockers_bounds)
+	
+	
 
 func adjust_paddle_length(modify_by: float) -> void:
 	sprite.scale.x *= modify_by
@@ -76,21 +86,36 @@ func _calculate_bounds() -> void:
 	left_bound = min_x + 32.0 + half_width
 	right_bound = max_x - 32.0 - half_width
 
-func add_blocker()->void:
-	#add blocker to array
-	pass
+func add_blocker_enemy(blocker: PlacedEnemy)->void:
+	blocker_enemies.push_back(blocker)
+	_calculate_blockers_bounds()
 
-func remove_blocker_enemy()->void:
-	#remove blocker from array
-	pass
+func remove_blocker_enemy(blocker: PlacedEnemy)->void:
+	blocker_enemies.erase(blocker)
+	_calculate_blockers_bounds()
+	
 
-func _calculate_blockers_bound()-> void:
-	#on add/remove blocker or when blocker moves
-	#filter to all blockers to the left of the paddle
-		#scan for one with right edge closes
-	#filter to all blockers to the right of the paddle
-		#scn for one with mose left edge
-	pass
+func _calculate_blockers_bounds() -> void:
+	_calculate_bounds()
+	var left_blockers = blocker_enemies.filter(
+		func(e): return e.global_position.x < global_position.x
+	)
+	var temp_edge: float = left_bound
+	if !left_blockers.is_empty():
+		for blocker in left_blockers:
+			var blocker_edge = blocker.get_edge(self)
+			if blocker_edge > temp_edge: temp_edge = blocker_edge
+		left_bound = temp_edge
+	var right_blockers = blocker_enemies.filter(
+		func(e): return e.global_position.x > global_position.x
+	)
+	temp_edge = right_bound
+	if !right_blockers.is_empty():
+		for blocker in right_blockers:
+			var blocker_edge = blocker.get_edge(self)
+			if blocker_edge < temp_edge: temp_edge = blocker_edge
+		right_bound = temp_edge
+	accumulated_mouse_movement_x = clamp(accumulated_mouse_movement_x, left_bound, right_bound)
 
 func _assign_active_powerup(item: PaddleActive)->void:
 	active_paddle_powerup = item
