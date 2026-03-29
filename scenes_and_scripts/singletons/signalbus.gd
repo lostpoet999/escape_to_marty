@@ -113,3 +113,11 @@ signal paddle_active_swap_needed
 ##Connects: inventory.gd, paddle.gd
 @warning_ignore("unused_signal")
 signal paddle_swap_resolved(item: PaddleActive)
+
+## =============================================================================
+## Enemy Signals
+## =============================================================================
+@warning_ignore("unused_signal")
+signal blocker_added(enemy: PlacedEnemy)
+signal blocker_removed(enemy: PlacedEnemy)
+signal blocker_moved(enemy: PlacedEnemy)

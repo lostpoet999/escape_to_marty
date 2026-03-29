@@ -30,6 +30,8 @@ var base_shape_size_x: float
 @export var active_paddle_powerup: PaddleActive #will type cast later
 @onready var projectiles: Node = $"../Projectiles"
 
+var blocker_enemies: Array[PlacedEnemy] #hold blocker enemies in paddle path
+
 
 func _ready() -> void:	
 	base_scale_x = sprite.scale.x
@@ -73,6 +75,22 @@ func _calculate_bounds() -> void:
 	# Offset by wall collision half-size (32) to get inner edges
 	left_bound = min_x + 32.0 + half_width
 	right_bound = max_x - 32.0 - half_width
+
+func add_blocker()->void:
+	#add blocker to array
+	pass
+
+func remove_blocker_enemy()->void:
+	#remove blocker from array
+	pass
+
+func _calculate_blockers_bound()-> void:
+	#on add/remove blocker or when blocker moves
+	#filter to all blockers to the left of the paddle
+		#scan for one with right edge closes
+	#filter to all blockers to the right of the paddle
+		#scn for one with mose left edge
+	pass
 
 func _assign_active_powerup(item: PaddleActive)->void:
 	active_paddle_powerup = item

@@ -5,7 +5,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pk4ev"]
 size = Vector2(64, 64)
 
-[node name="BorderWall" type="Area2D" unique_id=618575957 groups=["walls"]]
+[node name="BorderWall" type="Area2D" unique_id=88737804 groups=["walls"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=363479540]
 shape = SubResource("RectangleShape2D_pk4ev")

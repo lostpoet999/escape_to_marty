@@ -358,6 +358,12 @@ position = Vector2(256, 480)
 [node name="Spawners" type="Node2D" parent="PlayArea" unique_id=1587044855]
 position = Vector2(-281, 0)
 
+[node name="side_wall_spawn_left_1" type="Marker2D" parent="PlayArea/Spawners" unique_id=876214005]
+position = Vector2(192, 960)
+
+[node name="side_wall_spawn_right_1" type="Marker2D" parent="PlayArea/Spawners" unique_id=1065147827]
+position = Vector2(1984, 960)
+
 [node name="Background" type="ColorRect" parent="PlayArea" unique_id=306947289]
 z_index = -1
 layout_mode = 1
@@ -374,7 +380,7 @@ color = Color(0.09411765, 0.039215688, 0.06666667, 1)
 metadata/_edit_lock_ = true
 
 [node name="Paddle" parent="." unique_id=146319671 instance=ExtResource("6_fuowh")]
-position = Vector2(1088, 913)
+position = Vector2(1091, 923)
 scale = Vector2(1.3, 1)
 
 [node name="Ball" parent="." unique_id=776217501 instance=ExtResource("7_701b8")]
