@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="HopToCenter" format=3 uid="uid://s3g48bxw4pcg"]
+
+[ext_resource type="Script" uid="uid://bggdt68lamuu7" path="res://scenes_and_scripts/enemies/enemy_actions/hop_to_center.gd" id="1_34bor"]
+
+[resource]
+script = ExtResource("1_34bor")
+hop_distance = 64.0
+up_distance = 32.0
+speed = 1.0
+max_hops = 5
+back_chance = 30.0
+action_name = "Hop To Center"
+clamp_paddle = true
+metadata/_custom_type_script = "uid://bggdt68lamuu7"

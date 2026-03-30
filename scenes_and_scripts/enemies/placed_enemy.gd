@@ -46,7 +46,6 @@ func start_action_timer()->void:
 
 func _on_ramming_collision_body_entered(body: Node2D) -> void:
 	if body is Paddle:		
-		if body.committed_distance > 700:
-			print("good hit!")
+		if body.committed_distance > 500:			
 			Signalbus.blocker_removed.emit(self)
 			queue_free()
