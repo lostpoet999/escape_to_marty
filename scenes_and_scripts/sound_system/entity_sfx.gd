@@ -9,6 +9,7 @@ func _ready() -> void:
 		sound_dict[sound.name] = sound
 
 func play_sound(sound_name: String) -> AudioStreamPlayer:
+	print("sound entered")
 	if not sound_dict.has(sound_name):
 		push_error("Sound '%s' not found in entity SFX dictionary" % sound_name)
 		return null
@@ -21,10 +22,12 @@ func play_sound(sound_name: String) -> AudioStreamPlayer:
 	sfx_player.name = "loop_" + sound_name if sound.loop_sound else sound_name
 	add_child(sfx_player)
 	sfx_player.stream = sound.audio
-	sfx_player.volume_db = sound.volume_db
-	sfx_player.bus = "SFX"
+	print("stream is: ", sfx_player.stream)
+	print("volume is: ", sfx_player.volume_db)
+	sfx_player.volume_db = sound.volume_db	
 	sfx_player.pitch_scale = sound.pitch_scale + randf_range(-sound.pitch_variance, sound.pitch_variance)
 	sfx_player.play()
+	print("playing: ", sfx_player.playing)
 	if sound.loop_sound:
 		sfx_player.finished.connect(func() -> void:
 			if sound.loop_interval > 0:
@@ -36,7 +39,7 @@ func play_sound(sound_name: String) -> AudioStreamPlayer:
 		sfx_player.finished.connect(func() -> void: sfx_player.queue_free())
 	return sfx_player
 
-func stop_looping_sound(sound_name: String) -> void:
+func stop_looping_sound(sound_name: String) -> void:	
 	for child: Node in get_children():
 		if child.name == "loop_" + sound_name:
 			var player: AudioStreamPlayer = child as AudioStreamPlayer

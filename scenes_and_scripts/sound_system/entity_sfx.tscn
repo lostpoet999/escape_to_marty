@@ -1,12 +1,6 @@
 [gd_scene format=3 uid="uid://r23jyns7k0m7"]
 
 [ext_resource type="Script" uid="uid://b7cjbqe0ihfyr" path="res://scenes_and_scripts/sound_system/entity_sfx.gd" id="1_mje1w"]
-[ext_resource type="Script" uid="uid://2fgoca4drc17" path="res://scenes_and_scripts/sound_system/sounds_entry.gd" id="2_gfw5k"]
-
-[sub_resource type="Resource" id="Resource_3pagk"]
-script = ExtResource("2_gfw5k")
-metadata/_custom_type_script = "uid://2fgoca4drc17"
 
 [node name="EntitySfx" type="Node" unique_id=529254853]
 script = ExtResource("1_mje1w")
-sounds = Array[ExtResource("2_gfw5k")]([SubResource("Resource_3pagk")])

@@ -18,7 +18,7 @@
 [ext_resource type="AudioStream" uid="uid://bgrcngu2qulnl" path="res://sound_effects/wet (with reverb)/shield-hit.wav" id="16_de3ey"]
 [ext_resource type="AudioStream" uid="uid://bwn0wk7f6wxb8" path="res://sound_effects/wet (with reverb)/spirit-shot.wav" id="17_vmkds"]
 [ext_resource type="AudioStream" uid="uid://ddrji1fjcik4l" path="res://sound_effects/wet (with reverb)/brick-damage.wav" id="18_ukb6g"]
-[ext_resource type="AudioStream" uid="uid://ba1buqvbcll1e" path="res://sound_effects/wet (with reverb)/paddle-hit.wav" id="19_od66u"]
+[ext_resource type="AudioStream" uid="uid://ctj1otxtjk7pa" path="res://sound_effects/dry (no reverb)/paddle-hit.wav" id="19_ukb6g"]
 
 [sub_resource type="Curve" id="Curve_jlcqq"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -34,78 +34,79 @@ radius = 11.0454
 script = ExtResource("11_r1ng1")
 name = "bounce_1"
 audio = ExtResource("9_8taou")
-volume_db = -15.0
-pitch_variance = 0.1
+volume_db = 10.0
 metadata/_custom_type_script = "uid://2fgoca4drc17"
 
 [sub_resource type="Resource" id="Resource_fvaud"]
 script = ExtResource("11_r1ng1")
 name = "explode"
 audio = ExtResource("10_hqxil")
-volume_db = -20.0
+volume_db = 5.0
 metadata/_custom_type_script = "uid://2fgoca4drc17"
 
 [sub_resource type="Resource" id="Resource_m6f3g"]
 script = ExtResource("11_r1ng1")
 name = "hit"
 audio = ExtResource("11_ukb6g")
-volume_db = -20.0
+volume_db = 5.0
 metadata/_custom_type_script = "uid://2fgoca4drc17"
 
 [sub_resource type="Resource" id="Resource_0i1h3"]
 script = ExtResource("11_r1ng1")
 name = "lost"
 audio = ExtResource("12_od66u")
-volume_db = -15.0
+volume_db = 5.0
 metadata/_custom_type_script = "uid://2fgoca4drc17"
 
 [sub_resource type="Resource" id="Resource_ydcat"]
 script = ExtResource("11_r1ng1")
 name = "powerup"
 audio = ExtResource("13_e3xpv")
-volume_db = -15.0
+volume_db = 5.0
 metadata/_custom_type_script = "uid://2fgoca4drc17"
 
 [sub_resource type="Resource" id="Resource_s48o7"]
 script = ExtResource("11_r1ng1")
 name = "thud"
 audio = ExtResource("14_t1xrg")
-volume_db = -10.0
+volume_db = 5.0
 metadata/_custom_type_script = "uid://2fgoca4drc17"
 
 [sub_resource type="Resource" id="Resource_tnyso"]
 script = ExtResource("11_r1ng1")
 name = "powerup-consume"
 audio = ExtResource("15_q5ns8")
-volume_db = -20.0
+volume_db = 5.0
 metadata/_custom_type_script = "uid://2fgoca4drc17"
 
 [sub_resource type="Resource" id="Resource_ewgdv"]
 script = ExtResource("11_r1ng1")
 name = "shield-hit"
 audio = ExtResource("16_de3ey")
-volume_db = -20.0
+volume_db = 5.0
 metadata/_custom_type_script = "uid://2fgoca4drc17"
 
 [sub_resource type="Resource" id="Resource_fu8r8"]
 script = ExtResource("11_r1ng1")
 name = "spirit-shot"
 audio = ExtResource("17_vmkds")
-volume_db = -20.0
+volume_db = 5.0
 metadata/_custom_type_script = "uid://2fgoca4drc17"
 
 [sub_resource type="Resource" id="Resource_e3xpv"]
 script = ExtResource("11_r1ng1")
 name = "hit-brick"
 audio = ExtResource("18_ukb6g")
-volume_db = -32.0
+volume_db = 5.0
 metadata/_custom_type_script = "uid://2fgoca4drc17"
 
 [sub_resource type="Resource" id="Resource_t1xrg"]
 script = ExtResource("11_r1ng1")
 name = "hit-paddle"
-audio = ExtResource("19_od66u")
-volume_db = -32.0
+audio = ExtResource("19_ukb6g")
+volume_db = 5.0
+pitch_scale = -5.0
+pitch_variance = 1.0
 metadata/_custom_type_script = "uid://2fgoca4drc17"
 
 [node name="Ball" type="Area2D" unique_id=1220836699]
