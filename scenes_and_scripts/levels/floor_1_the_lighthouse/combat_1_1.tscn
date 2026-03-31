@@ -8,6 +8,9 @@
 [node name="side_wall_spawn_left_1" parent="PlayArea/Spawners" parent_id_path=PackedInt32Array(1587044855) index="0" unique_id=876214005]
 position = Vector2(350, 960)
 
+[node name="side_wall_spawn_right_1" parent="PlayArea/Spawners" parent_id_path=PackedInt32Array(1587044855) index="1" unique_id=1065147827]
+position = Vector2(1834, 960)
+
 [node name="OpenSeal" parent="." index="6" unique_id=887021685 instance=ExtResource("2_qcry5")]
 position = Vector2(1088, 544)
 stages = Dictionary[int, float]({

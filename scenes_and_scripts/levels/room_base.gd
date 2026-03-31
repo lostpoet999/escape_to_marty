@@ -62,9 +62,8 @@ func _on_enemy_requested(spawn_from: Area2D) -> void:
 
 func timer_spawn_enemy() -> void:
 	var spawners = $PlayArea/Spawners.get_children()
-	# TODO: get select random spawner
 	# TODO: limit spawns to one per side
-	var selected_spawner = spawners[0]
+	var selected_spawner = spawners.pick_random()
 	var wall_enemies = GameManager.floor_data.wall_enemies
 	var enemy = instantiate_random_enemy(wall_enemies)
 	if enemy:
