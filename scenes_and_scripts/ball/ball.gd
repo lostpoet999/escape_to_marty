@@ -131,18 +131,21 @@ func move_ball(delta: float) -> void:
 		var fx: Node2D = null
 		if collider.is_in_group("bricks"):
 			fx = brick_bounce_particles.instantiate()
+			sfx.play_sound("hit-brick")
 		if collider.is_in_group("walls"):
 			fx = wall_bounce_particles.instantiate()
+			sfx.play_sound("bounce_1")
 		if collider.is_in_group("paddle"):
 			fx = paddle_bounce_particles.instantiate()
+			sfx.play_sound("hit-paddle")
+			
 		if fx != null:
 			fx.position = global_position
 			get_tree().current_scene.add_child(fx)
+			
 		if collider.is_in_group("paddle"):
-			sfx.play_sound("bounce_1")
 			bounce_effect.handle_paddle_collision(self, collider as Paddle)
 		elif collider.is_in_group("bricks") or collider.is_in_group("walls"):
-			sfx.play_sound("bounce_1")
 			bounce_effect.handle_x_collision(self, collider)
 
 	old_y = position.y
@@ -166,10 +169,8 @@ func move_ball(delta: float) -> void:
 			fx.position = global_position
 			get_tree().current_scene.add_child(fx)
 		if collider.is_in_group("paddle"):
-			sfx.play_sound("bounce_1")
 			bounce_effect.handle_paddle_collision(self, collider as Paddle)
 		elif collider.is_in_group("bricks") or collider.is_in_group("walls"):
-			sfx.play_sound("bounce_1")
 			bounce_effect.handle_y_collision(self, collider)
 
 # --- Collision query ---
