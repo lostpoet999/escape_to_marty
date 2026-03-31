@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://83oafc804sr8"
+path="res://.godot/imported/ball-bounce-subtle.wav-eff634bb3aa133eceb7b50f0f50e235a.sample"
+
+[deps]
+
+source_file="res://sound_effects/wet (with reverb)/ball-bounce-subtle.wav"
+dest_files=["res://.godot/imported/ball-bounce-subtle.wav-eff634bb3aa133eceb7b50f0f50e235a.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

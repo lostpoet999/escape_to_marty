@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cqcrhnjxmux3k"
+path="res://.godot/imported/ball-explode.wav-ff156fac2c64bf993a797b254a03201f.sample"
+
+[deps]
+
+source_file="res://sound_effects/wet (with reverb)/ball-explode.wav"
+dest_files=["res://.godot/imported/ball-explode.wav-ff156fac2c64bf993a797b254a03201f.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

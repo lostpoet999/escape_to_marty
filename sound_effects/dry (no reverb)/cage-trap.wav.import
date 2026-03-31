@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://d1tpyyhksf7q2"
+path="res://.godot/imported/cage-trap.wav-10552154c03f99225e306f2e6e3fd589.sample"
+
+[deps]
+
+source_file="res://sound_effects/dry (no reverb)/cage-trap.wav"
+dest_files=["res://.godot/imported/cage-trap.wav-10552154c03f99225e306f2e6e3fd589.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

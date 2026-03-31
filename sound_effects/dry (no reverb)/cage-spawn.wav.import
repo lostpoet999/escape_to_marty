@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cel033qvy7i2o"
+path="res://.godot/imported/cage-spawn.wav-f2c3443ee0288e6f49cda8a8309c4021.sample"
+
+[deps]
+
+source_file="res://sound_effects/dry (no reverb)/cage-spawn.wav"
+dest_files=["res://.godot/imported/cage-spawn.wav-f2c3443ee0288e6f49cda8a8309c4021.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

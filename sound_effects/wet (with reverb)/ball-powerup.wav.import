@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dvbp4k48qucv3"
+path="res://.godot/imported/ball-powerup.wav-c335d04bfb658cb039056d77b15d628e.sample"
+
+[deps]
+
+source_file="res://sound_effects/wet (with reverb)/ball-powerup.wav"
+dest_files=["res://.godot/imported/ball-powerup.wav-c335d04bfb658cb039056d77b15d628e.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

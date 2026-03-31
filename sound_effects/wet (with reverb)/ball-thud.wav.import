@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cjhfj26ralrei"
+path="res://.godot/imported/ball-thud.wav-0f376f7857083c52bed84f36ebe683cb.sample"
+
+[deps]
+
+source_file="res://sound_effects/wet (with reverb)/ball-thud.wav"
+dest_files=["res://.godot/imported/ball-thud.wav-0f376f7857083c52bed84f36ebe683cb.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
