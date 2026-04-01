@@ -18,5 +18,3 @@ class_name FloorData extends Resource
 
 @export_category("Enemy Data")
 @export var seal_break_enemies: Array[EnemyConfig]
-@export var spawner_enemies: Array[EnemyConfig]
-@export var wall_enemies: Array[EnemyConfig]

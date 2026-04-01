@@ -2,6 +2,25 @@
 
 [ext_resource type="PackedScene" uid="uid://bea1h3570swpu" path="res://scenes_and_scripts/levels/room_base.tscn" id="1_7tba3"]
 [ext_resource type="PackedScene" uid="uid://cm1kspxv86400" path="res://scenes_and_scripts/bricks/open_seal.tscn" id="2_pu6mi"]
+[ext_resource type="PackedScene" uid="uid://b7m8vn6kumwyg" path="res://scenes_and_scripts/enemies/enemy_spawner.tscn" id="3_u5l1q"]
+[ext_resource type="Script" uid="uid://dm8qchhbo37mu" path="res://scenes_and_scripts/enemies/enemy_config.gd" id="4_0334r"]
+[ext_resource type="PackedScene" uid="uid://c3bjgu70hca17" path="res://scenes_and_scripts/enemies/specific_enemies/no_see_me_demon/deon.tscn" id="5_ngga0"]
+
+[sub_resource type="Resource" id="Resource_lsl0q"]
+script = ExtResource("4_0334r")
+enemy_name = "Deon"
+scene_ref = ExtResource("5_ngga0")
+spawn_chance = 100.0
+x_offset = 96.0
+metadata/_custom_type_script = "uid://dm8qchhbo37mu"
+
+[sub_resource type="Resource" id="Resource_8n0fq"]
+script = ExtResource("4_0334r")
+enemy_name = "Deon"
+scene_ref = ExtResource("5_ngga0")
+spawn_chance = 100.0
+x_offset = -96.0
+metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 
 [node name="combat_1_4" unique_id=565861230 instance=ExtResource("1_7tba3")]
 
@@ -13,6 +32,22 @@ position = Vector2(1056, 544)
 
 [node name="BlueBrick3" parent="PlayArea/Walls" parent_id_path=PackedInt32Array(76639453) index="81" unique_id=1507508303 instance=ExtResource("2_pu6mi")]
 position = Vector2(1056, 480)
+
+[node name="EnemySpawner" parent="PlayArea/Spawners" parent_id_path=PackedInt32Array(1587044855) index="0" unique_id=740599083 instance=ExtResource("3_u5l1q")]
+position = Vector2(288, 960)
+enemies = Array[ExtResource("4_0334r")]([SubResource("Resource_lsl0q")])
+spawn_an_enemy_chance = 50.0
+respawn_time = 10.0
+initial_spawn_time = 2.0
+max_spawns = 1
+
+[node name="EnemySpawner2" parent="PlayArea/Spawners" parent_id_path=PackedInt32Array(1587044855) index="1" unique_id=2127917868 instance=ExtResource("3_u5l1q")]
+position = Vector2(1888, 960)
+enemies = Array[ExtResource("4_0334r")]([SubResource("Resource_8n0fq")])
+spawn_an_enemy_chance = 50.0
+respawn_time = 10.0
+initial_spawn_time = 2.0
+max_spawns = 1
 
 [node name="BlueBrick" parent="." index="5" unique_id=1506194311 instance=ExtResource("2_pu6mi")]
 position = Vector2(1152, 576)

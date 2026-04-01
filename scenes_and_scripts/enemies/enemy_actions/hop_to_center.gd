@@ -18,7 +18,7 @@ var hops: int = 0
 func reset()->void:
 	hops = 0
 	
-func execute_action(actor: Variant)->void:
+func execute_action(actor: PlacedEnemy)->void:
 	if actor.global_position.x <= LEFT_CENTER:
 		if randf_range(1,100) <= back_chance and actor.global_position.x > 384:
 			actor.global_position.x -= hop_distance

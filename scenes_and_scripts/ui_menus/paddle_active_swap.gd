@@ -15,8 +15,7 @@ func _on_swap_needed(old_item:PaddleActive, new_item: PaddleActive)->void:
 	old_active_ref = old_item
 	new_active_ref = new_item
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	if !get_tree().paused:
-		get_tree().paused
+	GameManager.pause_game()
 	setup_buttons()
 	show()
 
@@ -37,10 +36,10 @@ func setup_buttons()->void:
 
 func _on_old_item_pressed() -> void:
 	hide()
-	get_tree().paused = !get_tree().paused # no change
+	GameManager.unpause_game()
 
 
 func _on_new_item_pressed() -> void:
 	hide()
-	get_tree().paused = !get_tree().paused
+	GameManager.unpause_game()
 	Signalbus.paddle_swap_resolved.emit(new_active_ref)

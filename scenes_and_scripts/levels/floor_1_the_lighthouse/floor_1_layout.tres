@@ -17,7 +17,6 @@
 [ext_resource type="Script" uid="uid://dm8qchhbo37mu" path="res://scenes_and_scripts/enemies/enemy_config.gd" id="13_74xxy"]
 [ext_resource type="Script" uid="uid://cqac2vv2p8oga" path="res://scenes_and_scripts/bricks/seal_phase_config.gd" id="13_rtyfa"]
 [ext_resource type="PackedScene" uid="uid://cm2bdw1o1sypc" path="res://scenes_and_scripts/enemies/specific_enemies/dark_cage/dark_cage.tscn" id="14_q8bvp"]
-[ext_resource type="PackedScene" uid="uid://c3bjgu70hca17" path="res://scenes_and_scripts/enemies/specific_enemies/no_see_me_demon/deon.tscn" id="18_q8bvp"]
 
 [sub_resource type="Resource" id="Resource_xcoa1"]
 script = ExtResource("1_hqd6g")
@@ -118,9 +117,9 @@ metadata/_custom_type_script = "uid://pnkwdspwmpwe"
 
 [sub_resource type="Resource" id="Resource_w0og2"]
 script = ExtResource("13_74xxy")
-name = "Dark Cage"
+enemy_name = "Dark Cage"
 scene_ref = ExtResource("14_q8bvp")
-spawn_chance = 50.0
+spawn_chance = 55.0
 metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 
 [sub_resource type="Resource" id="Resource_d5n1e"]
@@ -150,12 +149,6 @@ rare = 4.0
 very_rare = 1.0
 metadata/_custom_type_script = "uid://b1eqt2or38kw6"
 
-[sub_resource type="Resource" id="Resource_aume1"]
-script = ExtResource("13_74xxy")
-scene_ref = ExtResource("18_q8bvp")
-spawn_chance = 100.0
-metadata/_custom_type_script = "uid://dm8qchhbo37mu"
-
 [resource]
 script = ExtResource("2_j7weq")
 spawn_weight = SubResource("Resource_rtyfa")
@@ -168,5 +161,4 @@ show_mini_map = true
 starting_room_id = "start_1"
 starting_room_scene = ExtResource("3_n2un6")
 seal_break_enemies = Array[ExtResource("13_74xxy")]([SubResource("Resource_w0og2")])
-wall_enemies = Array[ExtResource("13_74xxy")]([SubResource("Resource_aume1")])
 metadata/_custom_type_script = "uid://bvs3ugvgbabkc"

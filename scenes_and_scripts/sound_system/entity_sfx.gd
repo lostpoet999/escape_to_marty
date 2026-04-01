@@ -24,8 +24,9 @@ func play_sound(sound_name: String) -> AudioStreamPlayer:
 	sfx_player.stream = sound.audio
 	print("stream is: ", sfx_player.stream)
 	print("volume is: ", sfx_player.volume_db)
-	sfx_player.volume_db = sound.volume_db	
-	sfx_player.pitch_scale = sound.pitch_scale + randf_range(-sound.pitch_variance, sound.pitch_variance)
+	sfx_player.volume_db = sound.volume_db		
+	var pitch: float = sound.pitch_scale + randf_range(-sound.pitch_variance, sound.pitch_variance)
+	sfx_player.pitch_scale = maxf(pitch, 0.01)
 	sfx_player.play()
 	print("playing: ", sfx_player.playing)
 	if sound.loop_sound:

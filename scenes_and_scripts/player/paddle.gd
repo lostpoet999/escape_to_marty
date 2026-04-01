@@ -77,8 +77,9 @@ func set_paddle_length_from_items()->void:
 	if paddle_powerups.is_empty(): return
 	reset_paddle_length()
 	for item: BaseItem in paddle_powerups:
-		if item.paddle_lenghth_mod != null and item.paddle_lenghth_mod>0.0:
-			adjust_paddle_length(item.paddle_lenghth_mod)
+		var paddle_item: PaddlePowerup = item
+		if paddle_item.paddle_lenghth_mod != null and paddle_item.paddle_lenghth_mod>0.0:
+			adjust_paddle_length(paddle_item.paddle_lenghth_mod)
 
 func _calculate_bounds() -> void:
 	var half_width: float = _get_scaled_half_width()
@@ -103,22 +104,20 @@ func remove_blocker_enemy(blocker: PlacedEnemy)->void:
 
 func _calculate_blockers_bounds() -> void:
 	_calculate_bounds()
-	var left_blockers = blocker_enemies.filter(
-		func(e): return e.global_position.x < global_position.x
-	)
+	var left_blockers: Array[PlacedEnemy] = blocker_enemies.filter(
+		func(e: PlacedEnemy) -> bool: return e.global_position.x < global_position.x	)
 	var temp_edge: float = left_bound
 	if !left_blockers.is_empty():
-		for blocker in left_blockers:
-			var blocker_edge = blocker.get_edge(self)
+		for blocker: PlacedEnemy in left_blockers:
+			var blocker_edge:float = blocker.get_edge(self)
 			if blocker_edge > temp_edge: temp_edge = blocker_edge
 		left_bound = temp_edge
-	var right_blockers = blocker_enemies.filter(
-		func(e): return e.global_position.x > global_position.x
-	)
+	var right_blockers: Array[PlacedEnemy] = blocker_enemies.filter(
+		func(e: PlacedEnemy) -> bool: return e.global_position.x > global_position.x	)
 	temp_edge = right_bound
 	if !right_blockers.is_empty():
-		for blocker in right_blockers:
-			var blocker_edge = blocker.get_edge(self)
+		for blocker: PlacedEnemy in right_blockers:
+			var blocker_edge: float = blocker.get_edge(self)
 			if blocker_edge < temp_edge: temp_edge = blocker_edge
 		right_bound = temp_edge
 	accumulated_mouse_movement_x = clamp(accumulated_mouse_movement_x, left_bound, right_bound)
@@ -170,7 +169,7 @@ func get_movement_direction() -> float:
 	return current_speed
 
 func _track_committed_distance(prev_x: float) -> void:
-	var direction = sign(position.x - prev_x)
+	var direction: float = sign(position.x - prev_x)
 	if direction != 0.0:
 		if direction != _last_direction:
 			_distance_accumulator = 0.0
@@ -185,7 +184,7 @@ func reset_committed_distance() -> void:
 func _physics_process(delta: float) -> void:
 	if abs(current_speed) <= 1500.0: reset_committed_distance()
 	if !paddle_frozen:
-		var prev_x = position.x
+		var prev_x: float = position.x
 		position.x = accumulated_mouse_movement_x
 		current_speed = (global_position.x - last_position.x) / delta
 		last_position = global_position
