@@ -1,9 +1,12 @@
 [gd_scene format=3 uid="uid://c7bssypnnaqai"]
 
 [ext_resource type="Script" uid="uid://dkgixai172xy8" path="res://scenes_and_scripts/ball/vfx/bounce_particle_cleanup.gd" id="1_arng6"]
+[ext_resource type="Texture2D" uid="uid://b46womxq27r2i" path="res://scenes_and_scripts/powerups_and_effects/brick_effects/shine-stripe.png" id="2_g1ier"]
+[ext_resource type="Script" uid="uid://qilwfatpp8mu" path="res://scenes_and_scripts/ball/vfx/particle-force-oneshot.gd" id="3_y8kn0"]
 
 [sub_resource type="Gradient" id="Gradient_arng6"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+offsets = PackedFloat32Array(0.0028490028, 1)
+colors = PackedColorArray(1, 1, 1, 0.34509805, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_g1ier"]
 gradient = SubResource("Gradient_arng6")
@@ -16,12 +19,23 @@ _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.24932978, 0.79645103), 0.0, 0.
 point_count = 3
 
 [sub_resource type="Gradient" id="Gradient_k56j3"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+metadata/_snap_enabled = true
+
+[sub_resource type="Curve" id="Curve_y8kn0"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.50402147, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_g1ier"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+metadata/_snap_enabled = true
 
 [node name="BrickDamageFX" type="Node2D" unique_id=908965456]
 script = ExtResource("1_arng6")
 
-[node name="puff" type="CPUParticles2D" parent="." unique_id=832937311]
+[node name="square-puff" type="CPUParticles2D" parent="." unique_id=832937311]
 amount = 1
 texture = SubResource("GradientTexture2D_g1ier")
 explosiveness = 1.0
@@ -31,3 +45,19 @@ scale_amount_min = 2.0
 scale_amount_max = 2.0
 scale_amount_curve = SubResource("Curve_yxxal")
 color_ramp = SubResource("Gradient_k56j3")
+
+[node name="shine-line" type="CPUParticles2D" parent="." unique_id=1831642217]
+position = Vector2(-32, 0)
+amount = 1
+texture = ExtResource("2_g1ier")
+lifetime = 0.25
+explosiveness = 1.0
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 256.0
+initial_velocity_max = 256.0
+split_scale = true
+scale_curve_x = SubResource("Curve_y8kn0")
+scale_curve_y = null
+color_ramp = SubResource("Gradient_g1ier")
+script = ExtResource("3_y8kn0")

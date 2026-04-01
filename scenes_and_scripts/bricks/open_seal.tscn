@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://cm1kspxv86400"]
 
 [ext_resource type="Script" uid="uid://i403c20dlobl" path="res://scenes_and_scripts/bricks/base_seal.gd" id="1_nevfk"]
-[ext_resource type="PackedScene" path="res://scenes_and_scripts/ball/vfx/brick_damage_fx.tscn" id="2_xvt2o"]
-[ext_resource type="PackedScene" path="res://scenes_and_scripts/ball/vfx/brick_destroy_fx.tscn" id="3_we8d2"]
+[ext_resource type="PackedScene" uid="uid://c7bssypnnaqai" path="res://scenes_and_scripts/ball/vfx/brick_damage_fx.tscn" id="2_xvt2o"]
+[ext_resource type="PackedScene" uid="uid://dejd17bbrym3c" path="res://scenes_and_scripts/ball/vfx/brick_destroy_fx.tscn" id="3_we8d2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xcpf8"]
 size = Vector2(64, 32)
