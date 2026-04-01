@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://ld8u6g3nsn62" path="res://scenes_and_scripts/ball/ball.tscn" id="7_701b8"]
 [ext_resource type="PackedScene" uid="uid://dldewve8r7d7i" path="res://scenes_and_scripts/walls/exits/west_exit.tscn" id="8_2ndtm"]
 [ext_resource type="PackedScene" uid="uid://chs4vfkn7cmgt" path="res://scenes_and_scripts/ui_menus/game_over_menu.tscn" id="10_fuowh"]
+[ext_resource type="Script" uid="uid://tjwcoaf5nkwa" path="res://scenes_and_scripts/levels/camera_2d.gd" id="14_57n16"]
 
 [node name="room_base" type="Node2D" unique_id=565861230]
 script = ExtResource("1_e48p3")
@@ -30,8 +31,10 @@ metadata/_edit_use_anchors_ = true
 [node name="ColorRect" type="ColorRect" parent="UIArea" unique_id=1244292917]
 layout_mode = 1
 anchors_preset = -1
-anchor_right = 0.9142857
-anchor_bottom = 1.0
+anchor_left = -0.35326055
+anchor_top = -0.05185185
+anchor_right = 0.8860245
+anchor_bottom = 1.0675926
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.0869579, 1)
@@ -364,14 +367,14 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -25.0
-offset_right = 30.0
-offset_bottom = 5.0
+offset_left = -26.0
+offset_top = -59.0
+offset_right = 108.0
+offset_bottom = 75.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0.09411765, 0.039215688, 0.06666667, 1)
-metadata/_edit_lock_ = true
 
 [node name="Paddle" parent="." unique_id=146319671 instance=ExtResource("6_fuowh")]
 position = Vector2(1091, 923)
@@ -394,3 +397,7 @@ offset_top = 19.0
 offset_right = 807.0
 offset_bottom = 42.0
 text = "Current Floor:"
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=627549441]
+position = Vector2(960, 540)
+script = ExtResource("14_57n16")

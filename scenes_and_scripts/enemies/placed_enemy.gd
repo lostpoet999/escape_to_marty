@@ -52,4 +52,5 @@ func _on_ramming_collision_body_entered(body: Node2D) -> void:
 		if paddle.committed_distance > 300:			
 			Signalbus.blocker_removed.emit(self)
 			ready_to_remove.emit(self)
+			get_viewport().get_camera_2d().add_trauma(2.0)
 			queue_free()
