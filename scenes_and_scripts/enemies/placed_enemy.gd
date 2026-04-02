@@ -20,7 +20,7 @@ func _ready()->void:
 	timer.wait_time = action_timer	
 	start_action_timer()
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if GameManager.current_state == GameManager.GameState.LEVEL_CLEARED:
 		die()
 
@@ -28,6 +28,7 @@ func die()->void:
 	if is_blocker: 
 		Signalbus.blocker_removed.emit(self)
 		ready_to_remove.emit(self)
+		@warning_ignore("unsafe_method_access")
 		get_viewport().get_camera_2d().add_trauma(2.0)
 		SFX.play_sound("deon_die")
 		queue_free()

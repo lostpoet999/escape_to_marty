@@ -1,3 +1,4 @@
+class_name BaseSeal
 extends Area2D
 
 const STAR_COLLECTIBLE: PackedScene = preload("uid://cfjv2f23gme53")
