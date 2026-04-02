@@ -10,6 +10,7 @@ func initialize_shot(speed_mod: float, damage_ref: int, spawner_ref: PaddleActiv
 	damage = damage_ref
 	spawner = spawner_ref
 	proj_dmg_type = projectile_dmg_types
+	SFX.play_sound("shot_fired")
 	
 
 func _process(delta: float) -> void:
@@ -19,9 +20,11 @@ func _process(delta: float) -> void:
 func _on_area_entered(area: Area2D) -> void:	
 	if area.is_in_group("bricks"):
 		area.accept_damage(damage, proj_dmg_type)		
+		SFX.play_sound("hit-brick")
 		queue_free()
 		spawner.current_active -=1
 	elif area.is_in_group("walls"):
+		SFX.play_sound("bounce_1")
 		queue_free()
 		spawner.current_active -=1
 

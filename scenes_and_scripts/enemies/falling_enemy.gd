@@ -11,6 +11,7 @@ var falling: bool = false
 
 func _ready() -> void:
 	_pause_falling()
+	SFX.play_sound("cage_spawn")
 
 func _pause_falling() -> void:
 	falling = false
@@ -35,4 +36,5 @@ func _physics_process(delta: float) -> void:
 				PlayerData.accept_damage(damage)
 				_pause_falling()
 				can_damage = false
+				SFX.play_sound("cage_hit")
 				queue_free()

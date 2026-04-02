@@ -1,6 +1,77 @@
 [gd_scene format=3 uid="uid://r23jyns7k0m7"]
 
 [ext_resource type="Script" uid="uid://b7cjbqe0ihfyr" path="res://scenes_and_scripts/sound_system/entity_sfx.gd" id="1_mje1w"]
+[ext_resource type="Script" uid="uid://2fgoca4drc17" path="res://scenes_and_scripts/sound_system/sounds_entry.gd" id="2_3pagk"]
+[ext_resource type="AudioStream" uid="uid://31eu7mr58wva" path="res://sound_effects/working/Blip1.wav" id="3_84rug"]
+[ext_resource type="AudioStream" uid="uid://dav0nex5rhrr0" path="res://sound_effects/dry (no reverb)/wall-hit.wav" id="4_84rug"]
+[ext_resource type="AudioStream" uid="uid://dtbtirq0m6aw4" path="res://sound_effects/working/paddle.wav" id="5_84rug"]
+[ext_resource type="AudioStream" uid="uid://bvyu15hd2sjt7" path="res://sound_effects/dry (no reverb)/enemy-destroy.wav" id="6_fl8wb"]
+[ext_resource type="AudioStream" uid="uid://cel033qvy7i2o" path="res://sound_effects/dry (no reverb)/cage-spawn.wav" id="7_axa1s"]
+[ext_resource type="AudioStream" uid="uid://d1tpyyhksf7q2" path="res://sound_effects/dry (no reverb)/cage-trap.wav" id="8_hpigb"]
+[ext_resource type="AudioStream" uid="uid://cwqip11vdpijx" path="res://sound_effects/dry (no reverb)/spirit-shot.wav" id="9_hpigb"]
+[ext_resource type="AudioStream" uid="uid://ddf3es58leurn" path="res://sound_effects/working/star.wav" id="10_0gpy4"]
+
+[sub_resource type="Resource" id="Resource_84rug"]
+script = ExtResource("2_3pagk")
+name = "hit-brick"
+audio = ExtResource("3_84rug")
+volume_db = 5.0
+pitch_variance = 0.5
+metadata/_custom_type_script = "uid://2fgoca4drc17"
+
+[sub_resource type="Resource" id="Resource_w05wb"]
+script = ExtResource("2_3pagk")
+name = "bounce_1"
+audio = ExtResource("4_84rug")
+pitch_scale = 1.3
+pitch_variance = 1.0
+metadata/_custom_type_script = "uid://2fgoca4drc17"
+
+[sub_resource type="Resource" id="Resource_axa1s"]
+script = ExtResource("2_3pagk")
+name = "hit-paddle"
+audio = ExtResource("5_84rug")
+volume_db = -8.0
+pitch_variance = 0.5
+metadata/_custom_type_script = "uid://2fgoca4drc17"
+
+[sub_resource type="Resource" id="Resource_hpigb"]
+script = ExtResource("2_3pagk")
+name = "deon_die"
+audio = ExtResource("6_fl8wb")
+pitch_variance = 0.5
+metadata/_custom_type_script = "uid://2fgoca4drc17"
+
+[sub_resource type="Resource" id="Resource_0gpy4"]
+script = ExtResource("2_3pagk")
+name = "cage_spawn"
+audio = ExtResource("7_axa1s")
+pitch_scale = 1.2
+pitch_variance = 0.5
+metadata/_custom_type_script = "uid://2fgoca4drc17"
+
+[sub_resource type="Resource" id="Resource_idfbx"]
+script = ExtResource("2_3pagk")
+name = "cage_hit"
+audio = ExtResource("8_hpigb")
+volume_db = -8.0
+pitch_variance = 0.5
+metadata/_custom_type_script = "uid://2fgoca4drc17"
+
+[sub_resource type="Resource" id="Resource_568ao"]
+script = ExtResource("2_3pagk")
+name = "shot_fired"
+audio = ExtResource("9_hpigb")
+metadata/_custom_type_script = "uid://2fgoca4drc17"
+
+[sub_resource type="Resource" id="Resource_7iehp"]
+script = ExtResource("2_3pagk")
+name = "star_collected"
+audio = ExtResource("10_0gpy4")
+pitch_scale = 0.8
+pitch_variance = 2.0
+metadata/_custom_type_script = "uid://2fgoca4drc17"
 
 [node name="EntitySfx" type="Node" unique_id=529254853]
 script = ExtResource("1_mje1w")
+sounds = Array[ExtResource("2_3pagk")]([SubResource("Resource_84rug"), SubResource("Resource_w05wb"), SubResource("Resource_axa1s"), SubResource("Resource_hpigb"), SubResource("Resource_0gpy4"), SubResource("Resource_idfbx"), SubResource("Resource_568ao"), SubResource("Resource_7iehp")])

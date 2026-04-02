@@ -29,6 +29,7 @@ MusicPlayer="*uid://b5146fvylaic"
 GameManager="*uid://doymnbq1juguj"
 ItemSpawner="*uid://fx2uws36tsjt"
 DP="*uid://c53k2pfrfqs5g"
+SFX="*uid://r23jyns7k0m7"
 
 [debug]
 

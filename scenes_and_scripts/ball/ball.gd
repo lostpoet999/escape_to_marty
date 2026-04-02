@@ -33,7 +33,6 @@ var old_y: float = 0.0
 
 @onready var ball_half_height: float = (ball_collision.shape as CircleShape2D).radius
 @onready var effects_node: Node = $Effects
-@onready var sfx: EntitySFX = $EntitySfx
 
 func _ready() -> void:	
 	DP.track("Ball Velocity: ",self,"current_speed")
@@ -131,13 +130,13 @@ func move_ball(delta: float) -> void:
 		var fx: Node2D = null
 		if collider.is_in_group("bricks"):
 			fx = brick_bounce_particles.instantiate()
-			sfx.play_sound("hit-brick")
+			SFX.play_sound("hit-brick")
 		if collider.is_in_group("walls"):
 			fx = wall_bounce_particles.instantiate()
-			sfx.play_sound("bounce_1")			
+			SFX.play_sound("bounce_1")			
 		if collider.is_in_group("paddle"):
 			fx = paddle_bounce_particles.instantiate()
-			sfx.play_sound("hit-paddle")
+			SFX.play_sound("hit-paddle")
 			
 		if fx != null:
 			fx.position = global_position
@@ -161,13 +160,13 @@ func move_ball(delta: float) -> void:
 		var fx: Node2D = null
 		if collider.is_in_group("bricks"):
 			fx = brick_bounce_particles.instantiate()
-			sfx.play_sound("hit-brick")
+			SFX.play_sound("hit-brick")
 		if collider.is_in_group("walls"):
 			fx = wall_bounce_particles.instantiate()			
-			sfx.play_sound("bounce_1")		
+			SFX.play_sound("bounce_1")		
 		if collider.is_in_group("paddle"):
 			fx = paddle_bounce_particles.instantiate()
-			sfx.play_sound("hit-paddle")
+			SFX.play_sound("hit-paddle")
 		if fx != null:
 			fx.position = global_position
 			get_tree().current_scene.add_child(fx)

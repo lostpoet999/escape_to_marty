@@ -23,6 +23,7 @@ func _on_body_entered(body: Node2D) -> void:
 		collected = true
 		set_deferred("monitoring", false)
 		Signalbus.star_collected.emit(-1)
+		SFX.play_sound("star_collected")
 		PlayerData.change_player_stars(star_value)
 		visible = false
 		call_deferred("queue_free")

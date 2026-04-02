@@ -17,11 +17,20 @@ func _ready()->void:
 		timer = Timer.new()
 		self.add_child(timer)
 	timer.timeout.connect(pick_action)
-	timer.wait_time = action_timer
+	timer.wait_time = action_timer	
 	start_action_timer()
 
+func _process(delta: float) -> void:
+	if GameManager.current_state == GameManager.GameState.LEVEL_CLEARED:
+		die()
+
 func die()->void:
-	if is_blocker: Signalbus.blocker_removed.emit(self)
+	if is_blocker: 
+		Signalbus.blocker_removed.emit(self)
+		ready_to_remove.emit(self)
+		get_viewport().get_camera_2d().add_trauma(2.0)
+		SFX.play_sound("deon_die")
+		queue_free()
 
 func pick_action()->void:	
 	if !action_pool.is_empty():
@@ -45,12 +54,9 @@ func start_action_timer()->void:
 	timer.wait_time = action_timer
 	timer.start()
 
-
 func _on_ramming_collision_body_entered(body: Node2D) -> void:
 	if body is Paddle:
 		var paddle: Paddle = body
-		if paddle.committed_distance > 300:			
-			Signalbus.blocker_removed.emit(self)
-			ready_to_remove.emit(self)
-			get_viewport().get_camera_2d().add_trauma(2.0)
-			queue_free()
+		if paddle.committed_distance > 300:
+			die()	
+			
