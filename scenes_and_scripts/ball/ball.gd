@@ -47,6 +47,7 @@ func _ready() -> void:
 	update_base_dmg()
 	Signalbus.level_cleared.connect(remove_ball)
 	Signalbus.game_state_special_room.connect(remove_ball)
+	Signalbus.db_panel_closed.connect(repopulate_effects_from_inventory)
 
 func get_ball_dmg_types() -> void:
 	ball_dmg_type.clear()
