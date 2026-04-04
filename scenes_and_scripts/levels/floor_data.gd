@@ -3,6 +3,7 @@ class_name FloorData extends Resource
 @export_category("Item Spawn Rates:")
 @export var spawn_weight: SpawnWeights
 @export var free_item_max: int
+@export var shop_items: int
 
 @export_category("Seal Config for Floor:")
 @export var seal_difficulty_rates: SealDifficulty

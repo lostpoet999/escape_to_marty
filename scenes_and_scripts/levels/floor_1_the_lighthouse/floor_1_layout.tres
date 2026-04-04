@@ -153,6 +153,7 @@ metadata/_custom_type_script = "uid://b1eqt2or38kw6"
 script = ExtResource("2_j7weq")
 spawn_weight = SubResource("Resource_rtyfa")
 free_item_max = 3
+shop_items = 3
 seal_difficulty_rates = SubResource("Resource_d5n1e")
 seal_phase_pool = Array[ExtResource("13_rtyfa")]([SubResource("Resource_mwylx")])
 seal_health_phase = SubResource("Resource_74xxy")

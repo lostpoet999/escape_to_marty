@@ -10,4 +10,5 @@ global_damage_bonus = 2.0
 global_damage_multi = 1.0
 powerup_name = "+2 Damage"
 inventory_icon = ExtResource("2_c8gw7")
+cost = 5
 metadata/_custom_type_script = "uid://bryv4msdad7wu"

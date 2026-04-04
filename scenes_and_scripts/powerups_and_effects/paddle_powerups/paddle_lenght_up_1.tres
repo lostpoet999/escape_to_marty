@@ -6,4 +6,5 @@
 script = ExtResource("1_cnyl7")
 paddle_lenghth_mod = 1.2
 powerup_name = "Paddle Extender 1"
+cost = 5
 metadata/_custom_type_script = "uid://b81b3hhkeuin4"

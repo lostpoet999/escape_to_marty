@@ -37,6 +37,10 @@ signal game_state_click_mode
 @warning_ignore("unused_signal")
 signal game_state_special_room
 
+##emits: db_panel.gd
+##connect shop_grid.gd
+signal db_panel_closed
+
 ## =============================================================================
 ## LEVEL/GAMEPLAY SIGNALS
 ## =============================================================================

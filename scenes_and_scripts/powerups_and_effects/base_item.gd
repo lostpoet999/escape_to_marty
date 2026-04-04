@@ -11,3 +11,4 @@ enum RarityType{
 @export var rarity: RarityType
 @export var min_floor: int
 @export var inventory_icon: Texture2D
+@export var cost: int

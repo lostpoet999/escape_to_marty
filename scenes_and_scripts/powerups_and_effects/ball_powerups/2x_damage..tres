@@ -11,4 +11,5 @@ local_damage_multi = 1.0
 powerup_name = "2x Damage"
 rarity = 2
 inventory_icon = ExtResource("2_omxlg")
+cost = 5
 metadata/_custom_type_script = "uid://bryv4msdad7wu"

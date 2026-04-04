@@ -39,6 +39,7 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("toggle_debug_panel"):
 		if visible:
 			hide()
+			Signalbus.db_panel_closed.emit()
 			GameManager.change_state(old_state)	
 		else:
 			old_state = GameManager.current_state
@@ -56,7 +57,7 @@ func make_item_button(item: BaseItem)-> Button:
 	
 	button.flat = true ## change me if you decide to use a theme
 	
-	button.pressed.connect(func() -> void:PlayerData.inventory.add_item(item))	
+	button.pressed.connect(func() -> void:PlayerData.inventory.add_item(item))
 	return button
 
 func clear_buttons() -> void:

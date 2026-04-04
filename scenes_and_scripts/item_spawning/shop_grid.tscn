@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://uvsmq53yomry"]
+
+[ext_resource type="Script" uid="uid://d17gwgcn8lfjd" path="res://scenes_and_scripts/item_spawning/shop_grid.gd" id="1_f4q4a"]
+
+[node name="ShopGrid" type="GridContainer" unique_id=1965214833]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = 132.0
+offset_right = 384.0
+offset_bottom = 172.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+columns = 3
+script = ExtResource("1_f4q4a")

@@ -14,4 +14,5 @@ projectile_dmg_type = Array[int]([0])
 powerup_name = "Spirit Shot"
 rarity = 1
 inventory_icon = ExtResource("1_bqolx")
+cost = 5
 metadata/_custom_type_script = "uid://0q4ogral5cxt"
