@@ -24,16 +24,7 @@ metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 
 [node name="combat_1_4" unique_id=565861230 instance=ExtResource("1_7tba3")]
 
-[node name="BlueBrick" parent="PlayArea/Walls" parent_id_path=PackedInt32Array(76639453) index="79" unique_id=887021685 instance=ExtResource("2_pu6mi")]
-position = Vector2(992, 544)
-
-[node name="BlueBrick2" parent="PlayArea/Walls" parent_id_path=PackedInt32Array(76639453) index="80" unique_id=1239030522 instance=ExtResource("2_pu6mi")]
-position = Vector2(1056, 544)
-
-[node name="BlueBrick3" parent="PlayArea/Walls" parent_id_path=PackedInt32Array(76639453) index="81" unique_id=1507508303 instance=ExtResource("2_pu6mi")]
-position = Vector2(1056, 480)
-
-[node name="EnemySpawner" parent="PlayArea/Spawners" parent_id_path=PackedInt32Array(1587044855) index="0" unique_id=740599083 instance=ExtResource("3_u5l1q")]
+[node name="EnemySpawner" parent="No-Respawn/Spawners" parent_id_path=PackedInt32Array(1587044855) index="0" unique_id=740599083 instance=ExtResource("3_u5l1q")]
 position = Vector2(288, 960)
 enemies = Array[ExtResource("4_0334r")]([SubResource("Resource_lsl0q")])
 spawn_an_enemy_chance = 50.0
@@ -41,7 +32,7 @@ respawn_time = 10.0
 initial_spawn_time = 2.0
 max_spawns = 1
 
-[node name="EnemySpawner2" parent="PlayArea/Spawners" parent_id_path=PackedInt32Array(1587044855) index="1" unique_id=2127917868 instance=ExtResource("3_u5l1q")]
+[node name="EnemySpawner2" parent="No-Respawn/Spawners" parent_id_path=PackedInt32Array(1587044855) index="1" unique_id=2127917868 instance=ExtResource("3_u5l1q")]
 position = Vector2(1888, 960)
 enemies = Array[ExtResource("4_0334r")]([SubResource("Resource_8n0fq")])
 spawn_an_enemy_chance = 50.0
@@ -49,5 +40,17 @@ respawn_time = 10.0
 initial_spawn_time = 2.0
 max_spawns = 1
 
-[node name="BlueBrick" parent="." index="5" unique_id=1506194311 instance=ExtResource("2_pu6mi")]
-position = Vector2(1152, 576)
+[node name="OpenSeal" parent="." index="8" unique_id=887021685 instance=ExtResource("2_pu6mi")]
+position = Vector2(992, 608)
+
+[node name="OpenSeal2" parent="." index="9" unique_id=689692016 instance=ExtResource("2_pu6mi")]
+position = Vector2(1088, 608)
+
+[node name="OpenSeal3" parent="." index="10" unique_id=893085008 instance=ExtResource("2_pu6mi")]
+position = Vector2(1184, 608)
+
+[node name="OpenSeal4" parent="." index="11" unique_id=1026489600 instance=ExtResource("2_pu6mi")]
+position = Vector2(896, 608)
+
+[node name="OpenSeal5" parent="." index="12" unique_id=2067745846 instance=ExtResource("2_pu6mi")]
+position = Vector2(1280, 608)

@@ -2,14 +2,13 @@
 
 [ext_resource type="PackedScene" uid="uid://bea1h3570swpu" path="res://scenes_and_scripts/levels/room_base.tscn" id="1_edbf6"]
 [ext_resource type="FontFile" uid="uid://c1its5lmhd4kg" path="res://label_settings_and_fonts/fonts/8bitlim.ttf" id="2_emyu8"]
-[ext_resource type="PackedScene" uid="uid://165yx2m2saao" path="res://scenes_and_scripts/item_spawning/item_box.tscn" id="3_sw00q"]
 [ext_resource type="Texture2D" uid="uid://xwm6oemnmk8b" path="res://character_design_files/the_collector_concept1.png" id="4_5sui8"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_oufug"]
 font = ExtResource("2_emyu8")
 font_size = 24
 
-[node name="common_room" unique_id=565861230 instance=ExtResource("1_edbf6")]
+[node name="free_powerup" unique_id=565861230 instance=ExtResource("1_edbf6")]
 
 [node name="Label" type="Label" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="3" unique_id=2097916128]
 layout_mode = 0
@@ -21,10 +20,7 @@ text = "Click for Free Power"
 label_settings = SubResource("LabelSettings_oufug")
 autowrap_mode = 3
 
-[node name="ItemBox2" parent="." index="6" unique_id=473452843 instance=ExtResource("3_sw00q")]
-position = Vector2(1024, 704)
-
-[node name="TheCollectorConcept1" type="Sprite2D" parent="." index="7" unique_id=590668186]
+[node name="TheCollectorConcept1" type="Sprite2D" parent="." index="6" unique_id=590668186]
 modulate = Color(1, 1, 1, 0.8039216)
 position = Vector2(1088, 448)
 scale = Vector2(0.25, 0.25)

@@ -24,7 +24,19 @@ metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 
 [node name="combat_1_2" unique_id=565861230 instance=ExtResource("1_o7dia")]
 
-[node name="EnemySpawner" parent="PlayArea/Spawners" parent_id_path=PackedInt32Array(1587044855) index="0" unique_id=740599083 instance=ExtResource("2_umu5g")]
+[node name="OpenSeal" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="0" unique_id=887021685 instance=ExtResource("2_cbojn")]
+position = Vector2(1120, 608)
+brick_health = 5
+
+[node name="OpenSeal2" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="1" unique_id=1264717493 instance=ExtResource("2_cbojn")]
+position = Vector2(1184, 608)
+brick_health = 5
+
+[node name="OpenSeal3" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="2" unique_id=1400623866 instance=ExtResource("2_cbojn")]
+position = Vector2(1151, 544)
+brick_health = 5
+
+[node name="EnemySpawner" parent="No-Respawn/Spawners" parent_id_path=PackedInt32Array(1587044855) index="0" unique_id=740599083 instance=ExtResource("2_umu5g")]
 position = Vector2(288, 960)
 enemies = Array[ExtResource("3_5jp3l")]([SubResource("Resource_lsl0q")])
 spawn_an_enemy_chance = 50.0
@@ -32,22 +44,10 @@ respawn_time = 10.0
 initial_spawn_time = 2.0
 max_spawns = 1
 
-[node name="EnemySpawner2" parent="PlayArea/Spawners" parent_id_path=PackedInt32Array(1587044855) index="1" unique_id=18242075 instance=ExtResource("2_umu5g")]
+[node name="EnemySpawner2" parent="No-Respawn/Spawners" parent_id_path=PackedInt32Array(1587044855) index="1" unique_id=18242075 instance=ExtResource("2_umu5g")]
 position = Vector2(1888, 960)
 enemies = Array[ExtResource("3_5jp3l")]([SubResource("Resource_8n0fq")])
 spawn_an_enemy_chance = 50.0
 respawn_time = 10.0
 initial_spawn_time = 2.0
 max_spawns = 1
-
-[node name="OpenSeal" parent="." index="6" unique_id=887021685 instance=ExtResource("2_cbojn")]
-position = Vector2(1056, 480)
-brick_health = 5
-
-[node name="OpenSeal2" parent="." index="7" unique_id=1264717493 instance=ExtResource("2_cbojn")]
-position = Vector2(1120, 480)
-brick_health = 5
-
-[node name="OpenSeal3" parent="." index="8" unique_id=1400623866 instance=ExtResource("2_cbojn")]
-position = Vector2(1087, 416)
-brick_health = 5

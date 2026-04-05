@@ -56,8 +56,7 @@ func init_starting_items() ->void:
 	items.append_array(BALL_PASSIVE_POWERUPS)
 	const CORE_ITEMS: Array = [
 		## Add testing inventory items here that will be added in _ready
-	preload("uid://b61d4hm0o24k0") # basic bounce
-	, preload("uid://8rrbt0jirryc") #red spirit shot
+	preload("uid://b61d4hm0o24k0") # basic bounce	
 ]	
 	core_items.append_array(CORE_ITEMS)
 

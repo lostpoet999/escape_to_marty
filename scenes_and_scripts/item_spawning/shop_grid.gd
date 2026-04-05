@@ -7,8 +7,8 @@ func _ready() -> void:
 	populate_shop_panel()
 	Signalbus.db_panel_closed.connect(populate_shop_panel)
 
-func clear_shop_btns():
-	for btn in shop_grid.get_children():
+func clear_shop_btns()->void:
+	for btn: Button in shop_grid.get_children():
 		btn.queue_free()
 
 func get_icon_for_item(item: Variant) -> Texture2D:
@@ -29,7 +29,7 @@ func make_item_button(item: BaseItem)-> Button:
 	button.pressed.connect(buy_item.bind(item,button))
 	return button
 
-func buy_item(item, button):
+func buy_item(item: BaseItem, button: Button)->void:
 	PlayerData.inventory.add_item(item)
 	PlayerData.stars_collected -= item.cost
 	Signalbus.stars_updated.emit()
@@ -39,7 +39,7 @@ func buy_item(item, button):
 func populate_shop_panel()->void:
 	clear_shop_btns()
 	for i:int in GameManager.floor_data.shop_items:
-		var item = ItemSpawner.pick_random_item()
+		var item: BaseItem = ItemSpawner.pick_random_item()
 		var btn: Button = make_item_button(item)
 		if item.cost > PlayerData.stars_collected: btn.disabled = true
 		shop_grid.add_child(btn)

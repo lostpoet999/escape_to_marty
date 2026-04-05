@@ -4,6 +4,7 @@ extends CharacterBody2D
 @export var action_pool: Array [EnemyActions]
 @export var action_timer: float
 @export var is_blocker: bool
+@export var suppressed_on_respawn: bool
 var timer: Timer
 signal ready_to_remove(enemy: PlacedEnemy)
 

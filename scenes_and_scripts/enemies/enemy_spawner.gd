@@ -5,6 +5,7 @@ extends Node2D
 @export var spawn_an_enemy_chance: float
 @export var respawn_time: float
 @export var initial_spawn_time: float
+@export var suppressed_on_respawn: bool
 var active_enemies: Array[PlacedEnemy]
 @export var max_spawns: int
 var enemy_spawn_timer: Timer
@@ -38,13 +39,13 @@ func _on_tracked_enemy_died(enemy: PlacedEnemy)->void:
 	active_enemies.erase(enemy)
 
 func get_random_config() -> EnemyConfig:
-	var total_weight := 0.0
-	for config in enemies:
+	var total_weight: float = 0.0
+	for config: EnemyConfig in enemies:
 		total_weight += config.spawn_chance
 	
-	var roll := randf() * total_weight
-	var cumulative := 0.0
-	for config in enemies:
+	var roll : float = randf() * total_weight
+	var cumulative : float = 0.0
+	for config:EnemyConfig in enemies:
 		cumulative += config.spawn_chance
 		if roll < cumulative:
 			return config
@@ -52,5 +53,5 @@ func get_random_config() -> EnemyConfig:
 	return enemies.back()
 
 	
-func instantiate_random_enemy(enemy_config) -> Node2D:
+func instantiate_random_enemy(enemy_config: EnemyConfig) -> Node2D:
 	return enemy_config.scene_ref.instantiate()

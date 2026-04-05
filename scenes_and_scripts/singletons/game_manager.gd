@@ -41,6 +41,9 @@ func get_floor_data()->void:
 	for room: RoomEntry in floor_data.room_entries:
 		room_data_for_floor[room.room_name_id] = room
 
+func get_current_floor_entry(key: String)->RoomEntry:
+	return room_data_for_floor[key]
+
 func is_valid_state_transition(from_state: GameState, to_state: GameState) -> bool:
 	if current_state == to_state: return false
 	match from_state:

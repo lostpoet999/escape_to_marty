@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://165yx2m2saao"]
 
 [ext_resource type="Texture2D" uid="uid://c56agi3o4rrjf" path="res://scenes_and_scripts/item_spawning/item_box_closed.png" id="1_01tpr"]
-[ext_resource type="Script" uid="uid://div38o3obq6wp" path="res://scenes_and_scripts/item_spawning/item_box.gd" id="1_a3gnj"]
+[ext_resource type="Script" uid="uid://blyo1jn1utafa" path="res://scenes_and_scripts/item_spawning/item_box.gd" id="1_a3gnj"]
 [ext_resource type="Texture2D" uid="uid://c781gc6x353l" path="res://scenes_and_scripts/item_spawning/item_box_hover.png" id="3_liaki"]
 
 [node name="ItemBox" type="Node2D" unique_id=473452843]

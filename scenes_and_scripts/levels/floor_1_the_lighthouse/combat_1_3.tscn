@@ -24,7 +24,31 @@ metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 
 [node name="combat_1_3" unique_id=565861230 instance=ExtResource("1_nty3w")]
 
-[node name="EnemySpawner" parent="PlayArea/Spawners" parent_id_path=PackedInt32Array(1587044855) index="0" unique_id=740599083 instance=ExtResource("2_ytukl")]
+[node name="OpenSeal" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="0" unique_id=887021685 instance=ExtResource("2_l6wtj")]
+position = Vector2(1184, 768)
+stages = Dictionary[int, float]({
+0: 5.0,
+1: 1.0
+})
+brick_health = 5
+
+[node name="OpenSeal2" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="1" unique_id=647932420 instance=ExtResource("2_l6wtj")]
+position = Vector2(1248, 768)
+stages = Dictionary[int, float]({
+0: 5.0,
+1: 1.0
+})
+brick_health = 5
+
+[node name="OpenSeal3" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="2" unique_id=1001972289 instance=ExtResource("2_l6wtj")]
+position = Vector2(1120, 768)
+stages = Dictionary[int, float]({
+0: 5.0,
+1: 1.0
+})
+brick_health = 5
+
+[node name="EnemySpawner" parent="No-Respawn/Spawners" parent_id_path=PackedInt32Array(1587044855) index="0" unique_id=740599083 instance=ExtResource("2_ytukl")]
 position = Vector2(288, 960)
 enemies = Array[ExtResource("3_51qpg")]([SubResource("Resource_lsl0q")])
 spawn_an_enemy_chance = 50.0
@@ -32,34 +56,10 @@ respawn_time = 10.0
 initial_spawn_time = 2.0
 max_spawns = 1
 
-[node name="EnemySpawner2" parent="PlayArea/Spawners" parent_id_path=PackedInt32Array(1587044855) index="1" unique_id=963468 instance=ExtResource("2_ytukl")]
+[node name="EnemySpawner2" parent="No-Respawn/Spawners" parent_id_path=PackedInt32Array(1587044855) index="1" unique_id=963468 instance=ExtResource("2_ytukl")]
 position = Vector2(1888, 960)
 enemies = Array[ExtResource("3_51qpg")]([SubResource("Resource_8n0fq")])
 spawn_an_enemy_chance = 50.0
 respawn_time = 10.0
 initial_spawn_time = 2.0
 max_spawns = 1
-
-[node name="OpenSeal" parent="." index="6" unique_id=887021685 instance=ExtResource("2_l6wtj")]
-position = Vector2(1120, 640)
-stages = Dictionary[int, float]({
-0: 5.0,
-1: 1.0
-})
-brick_health = 5
-
-[node name="OpenSeal2" parent="." index="7" unique_id=647932420 instance=ExtResource("2_l6wtj")]
-position = Vector2(1184, 640)
-stages = Dictionary[int, float]({
-0: 5.0,
-1: 1.0
-})
-brick_health = 5
-
-[node name="OpenSeal3" parent="." index="8" unique_id=1001972289 instance=ExtResource("2_l6wtj")]
-position = Vector2(1056, 640)
-stages = Dictionary[int, float]({
-0: 5.0,
-1: 1.0
-})
-brick_health = 5

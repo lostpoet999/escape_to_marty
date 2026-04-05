@@ -4,3 +4,4 @@
 
 [node name="EnemySpawner" type="Marker2D" unique_id=740599083]
 script = ExtResource("1_5sc8t")
+suppressed_on_respawn = true

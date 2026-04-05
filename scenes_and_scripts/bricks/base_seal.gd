@@ -7,7 +7,7 @@ const STAR_COLLECTIBLE: PackedScene = preload("uid://cfjv2f23gme53")
 
 @onready var border: ColorRect = $border
 @onready var fill: ColorRect = $fill
-
+@export var suppressed_on_respawn: bool
 
 @export var initialize_brick_on_leveldata: bool = true
 @export var stages: Dictionary[GameManager.PhaseType, float]
@@ -26,7 +26,7 @@ func pick_random_stage() -> void:
 		setup_visuals()
 		return
 	
-	var non_health_stages = stages.keys().filter(func(k): return k != GameManager.PhaseType.HEALTH)
+	var non_health_stages: Array = stages.keys().filter(func(k:GameManager.PhaseType)->bool: return k != GameManager.PhaseType.HEALTH)
 	
 	if non_health_stages.is_empty():
 		current_stage = GameManager.PhaseType.HEALTH
@@ -75,7 +75,7 @@ func accept_damage(damage: float, damage_types: Array) -> void:
 
 func _damage_current_stage(damage: float) -> void:
 	if health_temp - damage <= 0:
-		var fx
+		var fx: Node2D
 		if current_stage == GameManager.PhaseType.HEALTH:
 			fx = brick_destroy_fx.instantiate()
 		else: fx = brick_damage_fx.instantiate()
@@ -89,7 +89,7 @@ func _damage_current_stage(damage: float) -> void:
 			pick_random_stage()
 			brick_health_label.text = str(health_temp)
 	else:
-		var fx = brick_damage_fx.instantiate()
+		var fx: Node2D = brick_damage_fx.instantiate()
 		if fx != null:
 			fx.position = global_position
 			get_tree().current_scene.add_child(fx)

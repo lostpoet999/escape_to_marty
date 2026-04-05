@@ -90,10 +90,6 @@ offset_bottom = 1080.0
 mouse_filter = 2
 metadata/_edit_lock_ = true
 
-[node name="Bricks" type="Node2D" parent="PlayArea" unique_id=424513038]
-position = Vector2(-345, -128)
-metadata/_edit_lock_ = true
-
 [node name="Walls" type="Node2D" parent="PlayArea" unique_id=76639453]
 position = Vector2(-249, 32)
 metadata/_edit_lock_ = true
@@ -358,9 +354,6 @@ position = Vector2(1056, 0)
 [node name="WestExit" parent="PlayArea/Walls" unique_id=1024305235 instance=ExtResource("8_2ndtm")]
 position = Vector2(256, 480)
 
-[node name="Spawners" type="Node2D" parent="PlayArea" unique_id=1587044855]
-position = Vector2(-281, 0)
-
 [node name="Background" type="ColorRect" parent="PlayArea" unique_id=306947289]
 z_index = -1
 layout_mode = 1
@@ -376,6 +369,25 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.09411765, 0.039215688, 0.06666667, 1)
 
+[node name="GameState_Lbl" type="Label" parent="PlayArea" unique_id=793042494]
+layout_mode = 0
+offset_left = 53.0
+offset_top = 19.0
+offset_right = 93.0
+offset_bottom = 42.0
+
+[node name="CurrentRoom_Lbl" type="Label" parent="PlayArea" unique_id=443116913]
+layout_mode = 0
+offset_left = 418.0
+offset_top = 19.0
+offset_right = 526.0
+offset_bottom = 42.0
+text = "Current Floor:"
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=627549441]
+position = Vector2(960, 540)
+script = ExtResource("14_57n16")
+
 [node name="Paddle" parent="." unique_id=146319671 instance=ExtResource("6_fuowh")]
 position = Vector2(1091, 923)
 scale = Vector2(1.3, 1)
@@ -385,19 +397,13 @@ position = Vector2(1088, 884)
 
 [node name="Projectiles" type="Node" parent="." unique_id=734841839 groups=["projectile_container"]]
 
-[node name="GameState_Lbl" type="Label" parent="." unique_id=793042494]
-offset_left = 334.0
-offset_top = 19.0
-offset_right = 374.0
-offset_bottom = 42.0
+[node name="No-Respawn" type="Node2D" parent="." unique_id=34663887]
 
-[node name="CurrentRoom_Lbl" type="Label" parent="." unique_id=443116913]
-offset_left = 699.0
-offset_top = 19.0
-offset_right = 807.0
-offset_bottom = 42.0
-text = "Current Floor:"
+[node name="Bricks" type="Node2D" parent="No-Respawn" unique_id=424513038]
+position = Vector2(-64, -128)
+metadata/_edit_lock_ = true
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=627549441]
-position = Vector2(960, 540)
-script = ExtResource("14_57n16")
+[node name="Spawners" type="Node2D" parent="No-Respawn" unique_id=1587044855]
+
+[node name="item_spawn_point" type="Marker2D" parent="." unique_id=51076593]
+position = Vector2(1058, 754)

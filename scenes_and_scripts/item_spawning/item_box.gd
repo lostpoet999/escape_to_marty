@@ -1,16 +1,13 @@
-extends Node2D
+class_name Itembox extends Node2D
 
-var items_looted: int = 0
-var max_items: int
+var item_box_data: ItemBoxData
 
-func _ready() -> void:	
-	max_items = randi() % GameManager.floor_data.free_item_max + 1	
-
-func _on_loot_box_pressed() -> void:	
-	if items_looted < max_items:
-		items_looted +=1
-		var new_item: BaseItem = ItemSpawner.pick_random_item()	
-		PlayerData.inventory.add_item(new_item)
-	elif items_looted == max_items:
+func _on_loot_box_pressed() -> void:
+	if item_box_data.items.is_empty():
 		queue_free()
-		
+		return
+	var item: BaseItem = item_box_data.items.pick_random()
+	item_box_data.items.erase(item)
+	PlayerData.inventory.add_item(item)
+	if item_box_data.items.is_empty():
+		queue_free()

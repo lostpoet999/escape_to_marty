@@ -11,6 +11,7 @@ class_name FloorData extends Resource
 @export var seal_health_phase: SealPhaseConfig
 
 @export_category("Floor Layout Data")
+@export var max_respawn: int
 @export var floor_name_id: String
 @export var room_entries: Array[RoomEntry]
 @export var grid_size: Vector2i = Vector2i(5,5)

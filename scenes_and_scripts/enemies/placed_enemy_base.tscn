@@ -10,6 +10,7 @@ size = Vector2(99, 126)
 
 [node name="EnemyName" type="CharacterBody2D" unique_id=1934117901]
 script = ExtResource("1_f4fnr")
+suppressed_on_respawn = true
 
 [node name="EnemySprite" type="Sprite2D" parent="." unique_id=2032254832]
 
