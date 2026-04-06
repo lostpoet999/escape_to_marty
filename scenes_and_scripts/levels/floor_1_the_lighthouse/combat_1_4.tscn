@@ -24,6 +24,21 @@ metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 
 [node name="combat_1_4" unique_id=565861230 instance=ExtResource("1_7tba3")]
 
+[node name="OpenSeal" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="0" unique_id=887021685 instance=ExtResource("2_pu6mi")]
+position = Vector2(1056, 736)
+
+[node name="OpenSeal2" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="1" unique_id=689692016 instance=ExtResource("2_pu6mi")]
+position = Vector2(1152, 736)
+
+[node name="OpenSeal3" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="2" unique_id=893085008 instance=ExtResource("2_pu6mi")]
+position = Vector2(1248, 736)
+
+[node name="OpenSeal4" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="3" unique_id=1026489600 instance=ExtResource("2_pu6mi")]
+position = Vector2(960, 736)
+
+[node name="OpenSeal5" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="4" unique_id=2067745846 instance=ExtResource("2_pu6mi")]
+position = Vector2(1344, 736)
+
 [node name="EnemySpawner" parent="No-Respawn/Spawners" parent_id_path=PackedInt32Array(1587044855) index="0" unique_id=740599083 instance=ExtResource("3_u5l1q")]
 position = Vector2(288, 960)
 enemies = Array[ExtResource("4_0334r")]([SubResource("Resource_lsl0q")])
@@ -39,18 +54,3 @@ spawn_an_enemy_chance = 50.0
 respawn_time = 10.0
 initial_spawn_time = 2.0
 max_spawns = 1
-
-[node name="OpenSeal" parent="." index="8" unique_id=887021685 instance=ExtResource("2_pu6mi")]
-position = Vector2(992, 608)
-
-[node name="OpenSeal2" parent="." index="9" unique_id=689692016 instance=ExtResource("2_pu6mi")]
-position = Vector2(1088, 608)
-
-[node name="OpenSeal3" parent="." index="10" unique_id=893085008 instance=ExtResource("2_pu6mi")]
-position = Vector2(1184, 608)
-
-[node name="OpenSeal4" parent="." index="11" unique_id=1026489600 instance=ExtResource("2_pu6mi")]
-position = Vector2(896, 608)
-
-[node name="OpenSeal5" parent="." index="12" unique_id=2067745846 instance=ExtResource("2_pu6mi")]
-position = Vector2(1280, 608)

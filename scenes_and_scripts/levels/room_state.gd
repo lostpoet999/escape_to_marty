@@ -5,9 +5,9 @@ var cleared: bool = false
 var loot_taken: bool = false
 var shop_generated: bool = false
 var clear_count: int = 0
-var  item_box_data: ItemBoxData
+var  loot_items_data: LootItemsData
 
 func generate_item_box()->void:
-	if !item_box_data:
-		item_box_data = ItemBoxData.new()
-		item_box_data.generate_item_box()
+	if !loot_items_data:
+		loot_items_data = LootItemsData.new()
+		loot_items_data.generate_item_box()

@@ -76,7 +76,7 @@ func get_items_for_ball() -> Array[BallPowerUp]:
 	
 func get_items_for_paddle() -> Array[PaddlePowerup]: ###passives for paddle
 	var _items: Array[PaddlePowerup]
-	for item in items:
+	for item: BaseItem in items:
 		if item is PaddlePowerup:
 			_items.append(item)
 	return _items
@@ -119,14 +119,12 @@ func add_item(new_item) -> void:
 
 	elif new_item is BallPowerUp or new_item is PaddlePowerup:			
 			if new_item in items:
-				print("you already have this one, lets stack them!") #TODO: make it so inventory panel increases quantity in visual vs takeup another spot
-			else:
-				print("cool, new powah")
+				print("you already have this one, lets stack them!") #TODO: make it so inventory panel increases quantity in visual vs takeup another spot			
 			items.push_back(new_item) #this will move when we do quantity update from above	
 			Signalbus.inventory_changed.emit()
 	
 func replace_paddle_active(new_item: PaddleActive): #where item is replaced in player inventory
-	var index = core_items.find_custom(func(i): return i is PaddleActive)
+	var index: int = core_items.find_custom(func(i): return i is PaddleActive)
 	core_items.remove_at(index)
 	core_items.push_front(new_item)
 	Signalbus.inventory_changed.emit()
@@ -141,7 +139,7 @@ func remove_item(item) -> void:
 		
 	Signalbus.inventory_changed.emit()
 
-func use_item(item) -> void:
+func use_item(item: BaseItem) -> void:
 	dp("Using item %s..." % item)
 	remove_item(item)
 	if item is BallPowerUp:

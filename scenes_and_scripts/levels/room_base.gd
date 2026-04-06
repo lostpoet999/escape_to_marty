@@ -10,8 +10,9 @@ var bricks_in_level: int = 0
 
 var room_state: RoomState
 var entry: RoomEntry
-@onready var item_box_data: ItemBoxData
+@onready var loot_items_data: LootItemsData
 @onready var item_box: Itembox
+@onready var shop_grid: ShopGrid
 @onready var no_respawn: Node2D = $"No-Respawn"
 
 
@@ -21,8 +22,6 @@ func _process(_delta: float) -> void:
 
 	
 func supress_respawn_entities()->void:
-	print("supress entered")
-	print("room: ", GameManager.current_room_id)
 	no_respawn.queue_free()	
 
 func _ready() -> void:
@@ -52,17 +51,27 @@ func initiate_special_room()->void:
 		check_level_cleared() # temp mechanism until i swithc to checking room types purely
 	match entry.room_type:		
 		RoomEntry.ROOM_TYPES.free_item:
-			if !room_state.item_box_data:
+			if !room_state.loot_items_data:
 				room_state.generate_item_box()
-			if !room_state.item_box_data.items.is_empty():
-				item_box_data = room_state.item_box_data
-				item_box = item_box_data.instantiate_scene()
+			if !room_state.loot_items_data.items.is_empty():
+				loot_items_data = room_state.loot_items_data
+				item_box = loot_items_data.instantiate_lootbox()
 				item_box.global_position = item_spawn_point.global_position
-				item_box.item_box_data = item_box_data
+				item_box.loot_items_data = loot_items_data
 				add_child(item_box)
 			bricks_cleared = true
 			stars_cleared = true			
 			check_level_cleared()
+		RoomEntry.ROOM_TYPES.shop:
+			if !room_state.loot_items_data:
+				room_state.generate_item_box()
+			if !room_state.loot_items_data.items.is_empty():
+				loot_items_data = room_state.loot_items_data
+				shop_grid = loot_items_data.instantiate_shop()
+				shop_grid.global_position = item_spawn_point.global_position
+				shop_grid.loot_items_data = loot_items_data
+				add_child(shop_grid)
+				shop_grid.global_position = item_spawn_point.global_position
 
 func _on_enemy_requested(spawn_from: Area2D) -> void: # for brick break enemies
 	var seal_break_enemies: Array[EnemyConfig] = GameManager.floor_data.seal_break_enemies

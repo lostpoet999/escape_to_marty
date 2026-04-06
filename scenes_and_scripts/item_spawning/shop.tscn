@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://bn3va5ib8tytd"]
+
+[ext_resource type="Script" uid="uid://d17gwgcn8lfjd" path="res://scenes_and_scripts/item_spawning/shop.gd" id="1_5lmvd"]
+
+[node name="Shop" type="Node2D" unique_id=700024567]
+script = ExtResource("1_5lmvd")
+
+[node name="ShopGrid" type="GridContainer" parent="." unique_id=1095300514]
+offset_right = 40.0
+offset_bottom = 40.0
+columns = 3

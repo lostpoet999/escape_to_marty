@@ -1,6 +1,8 @@
-class_name ShopGrid extends GridContainer
-@onready var shop_grid: GridContainer = $"."
+class_name ShopGrid extends Node2D
+@onready var shop_grid: GridContainer = $ShopGrid
 
+var loot_items_data: LootItemsData
+var shop_list: Array[BaseItem]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -27,19 +29,21 @@ func make_item_button(item: BaseItem)-> Button:
 	button.flat = true ## change me if you decide to use a theme
 	
 	button.pressed.connect(buy_item.bind(item,button))
+	if item.cost > PlayerData.stars_collected: button.disabled = true
 	return button
 
 func buy_item(item: BaseItem, button: Button)->void:
 	PlayerData.inventory.add_item(item)
+	loot_items_data.items.erase(item)
 	PlayerData.stars_collected -= item.cost
 	Signalbus.stars_updated.emit()
-	button.queue_free()
+	button.queue_free()	
 	
 
 func populate_shop_panel()->void:
-	clear_shop_btns()
-	for i:int in GameManager.floor_data.shop_items:
-		var item: BaseItem = ItemSpawner.pick_random_item()
+	clear_shop_btns()	
+	for i:int in loot_items_data.items.size():
+		var item: BaseItem = loot_items_data.items.pick_random()
 		var btn: Button = make_item_button(item)
 		if item.cost > PlayerData.stars_collected: btn.disabled = true
 		shop_grid.add_child(btn)
