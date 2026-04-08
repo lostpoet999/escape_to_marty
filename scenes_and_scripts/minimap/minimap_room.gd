@@ -1,31 +1,38 @@
+@tool
 class_name MinimapRoom
 extends Control
+
+# We're not updating the visited or cleared state on RoomState yet as far as I can tell
+# When we do that, we can set this to transparent for unvisited rooms to not show up at all
+# Or something like alpha 0.2 for them to show up but look different.
+const UNVISITED_ROOMS_MOD : Color = Color.WHITE
 
 @onready var background: ColorRect = $RoomBackground
 @onready var player_indicator: TextureRect = $PlayerIndicator
 
-@export var room_entry: RoomEntry = null : set=set_room_entry
-@export var is_current: bool = false : set=set_current
+@export var room_entry: RoomEntry = null :
+	set(v):
+		room_entry = v
+		_refresh()
+@export var is_current: bool = false :
+	set(v):
+		is_current = v
+		_refresh()
+@export var is_visited: bool = false :
+	set(v):
+		is_visited = v
+		_refresh()
+
 
 func _ready() -> void:
-	set_room_entry(room_entry)
-	set_current(is_current)
-
-func set_current(_is_current: bool) -> void:
-	is_current = _is_current
 	_refresh()
 
-func set_room_entry(_room_entry: RoomEntry) -> void:
-	room_entry = _room_entry
-	_refresh()
 
 func _refresh() -> void:
 	if room_entry:
 		background.show()
-		if is_current:
-			player_indicator.show()
-		else:
-			player_indicator.hide()
+		player_indicator.visible = is_current
+		modulate = Color.WHITE if is_visited or is_current else UNVISITED_ROOMS_MOD
 	else:
 		background.hide()
 		player_indicator.hide()

@@ -22,9 +22,11 @@ grow_vertical = 2
 script = ExtResource("1_op5x6")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1726861431]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 253.0
+grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer" unique_id=1789650623]
 layout_mode = 2
@@ -81,6 +83,7 @@ label_settings = ExtResource("1_utoos")
 
 [node name="InventoryPanel" parent="VBoxContainer" unique_id=1905574445 instance=ExtResource("5_h7qrh")]
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="MinimapMargins" type="MarginContainer" parent="VBoxContainer" unique_id=882673217]
 layout_mode = 2
