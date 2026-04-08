@@ -12,7 +12,7 @@ func _ready() -> void:
 	GameManager.change_state(GameManager.GameState.SPECIAL_ROOM)
 
 func pulse_loop(node: Node2D, scale_amount: float = 1.1, duration: float = 0.6) -> void:
-	var tween := create_tween().set_loops()
+	var tween : Tween = create_tween().set_loops()
 	tween.set_trans(Tween.TRANS_SINE)
 	tween.set_ease(Tween.EASE_IN_OUT)
 	tween.tween_property(node, "scale", Vector2.ONE * scale_amount, duration * 0.5)

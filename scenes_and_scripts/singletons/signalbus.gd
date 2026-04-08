@@ -39,6 +39,7 @@ signal game_state_special_room
 
 ##emits: db_panel.gd
 ##connect shop_grid.gd
+@warning_ignore("unused_signal")
 signal db_panel_closed
 
 ## =============================================================================

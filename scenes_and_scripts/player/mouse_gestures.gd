@@ -27,9 +27,10 @@ func _input(event: InputEvent)->void:
 	
 	if GameManager.current_state == GameManager.GameState.CLICK_MODE:
 		if not event is InputEventMouseButton:
-			return	
-		if event.button_index == MOUSE_BUTTON_LEFT:
-			if event.pressed:
+			return
+		var mouse_event: InputEventMouseButton = event
+		if mouse_event.button_index == MOUSE_BUTTON_LEFT:
+			if mouse_event.pressed:
 				mouse_down = true
 				mouse_down_time = 0.0
 			else: #released, detect click vs hold
@@ -59,7 +60,7 @@ func _get_target_under_mouse() -> Node:
 	var results : Array[Dictionary] = space.intersect_point(query)
 	if results.is_empty():		
 		return null
-	results.sort_custom(func(a, b): return a.collider.z_index > b.collider.z_index)	
+	results.sort_custom(func(a: Dictionary, b: Dictionary) -> bool: return a.collider.z_index > b.collider.z_index)
 	return results[0].collider
 
 func _reset_hold_visuals()->void: #TODO: goal is for this to feel like a taking a deep breathe
@@ -76,7 +77,7 @@ func _process(delta: float) -> void:
 		if mouse_down_time >= click_vs_hold and mouse_down_time - delta < click_vs_hold:
 			_reset_hold_visuals()
 		if mouse_down_time > click_vs_hold:
-			var pct := minf((mouse_down_time - click_vs_hold) / hold_duration_max, 1.0)
+			var pct : float = minf((mouse_down_time - click_vs_hold) / hold_duration_max, 1.0)
 			hold_indicator_radius = ease(pct, -2.0) * 48.0			
 			queue_redraw()
 	else:

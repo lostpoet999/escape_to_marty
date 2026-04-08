@@ -26,7 +26,7 @@ func timer_spawn_enemy() -> void:
 		return #dont spawn an enemy
 	var enemy_config:EnemyConfig = get_random_config()
 	if enemy_config:
-		var enemy: Node2D = instantiate_random_enemy(enemy_config)
+		var enemy: PlacedEnemy = instantiate_random_enemy(enemy_config)
 		enemy.position.x = enemy_config.x_offset
 		enemy.position.y = enemy_config.y_offset
 		add_child(enemy)

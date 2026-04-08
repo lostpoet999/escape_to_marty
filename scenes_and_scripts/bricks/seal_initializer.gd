@@ -22,8 +22,7 @@ static func determine_rarity()->int:
 
 static func _get_health_value() -> float:
 	var config: SealPhaseConfig = GameManager.floor_data.seal_health_phase
-	return ceili(randf_range(config.min_health, config.max_health)) if config else 5.0
-
+	return float(ceili(randf_range(config.min_health, config.max_health))) if config else 5.0
 
 static func initialize_seal() -> Dictionary[GameManager.PhaseType, float]:
 	var final_phase_pool: Dictionary[GameManager.PhaseType, float] = {}

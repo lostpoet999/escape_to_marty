@@ -19,7 +19,7 @@ func _process(delta: float) -> void:
 
 func _on_area_entered(area: Area2D) -> void:	
 	if area.is_in_group("bricks"):
-		var entity = area
+		var entity: Variant = area
 		entity.accept_damage(damage, proj_dmg_type)		
 		SFX.play_sound("hit-brick")
 		queue_free()
