@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://tqqsp1vs01kj"]
+
+[ext_resource type="Texture2D" uid="uid://mtj7exkdy0ls" path="res://scenes_and_scripts/ball/new_ball.png" id="1_b6trt"]
+[ext_resource type="Script" uid="uid://4eufsb4yiay4" path="res://scenes_and_scripts/minimap/minimap_room.gd" id="1_bbyvs"]
+
+[node name="MinimapRoom" type="Control" unique_id=851394853]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bbyvs")
+
+[node name="RoomBackground" type="ColorRect" parent="." unique_id=2097084728]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.2784314, 0.039215688, 0.015686275, 1)
+
+[node name="PlayerIndicator" type="TextureRect" parent="." unique_id=1350128295]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_b6trt")
+stretch_mode = 5

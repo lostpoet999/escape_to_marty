@@ -5,6 +5,7 @@
 [ext_resource type="FontFile" uid="uid://c1its5lmhd4kg" path="res://label_settings_and_fonts/fonts/8bitlim.ttf" id="2_8r8j7"]
 [ext_resource type="LabelSettings" uid="uid://dx3lg2g7p81op" path="res://label_settings_and_fonts/yellow_48.tres" id="2_c76ar"]
 [ext_resource type="PackedScene" uid="uid://do7j0ir4apgbd" path="res://scenes_and_scripts/inventory/inventory_panel.tscn" id="5_h7qrh"]
+[ext_resource type="PackedScene" uid="uid://rmcbpfstwj3s" path="res://scenes_and_scripts/minimap/minimap.tscn" id="6_a0kf6"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_5qwjd"]
 font = ExtResource("2_8r8j7")
@@ -80,3 +81,15 @@ label_settings = ExtResource("1_utoos")
 
 [node name="InventoryPanel" parent="VBoxContainer" unique_id=1905574445 instance=ExtResource("5_h7qrh")]
 layout_mode = 2
+
+[node name="MinimapMargins" type="MarginContainer" parent="VBoxContainer" unique_id=882673217]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Minimap" parent="VBoxContainer/MinimapMargins" unique_id=1801145944 instance=ExtResource("6_a0kf6")]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 3
