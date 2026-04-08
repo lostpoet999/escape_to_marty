@@ -45,24 +45,24 @@ func _input(event: InputEvent)->void:
 					_handle_clicks_and_hold()
 
 func _handle_clicks_and_hold()->void:
-	var target = _get_target_under_mouse()
+	var target:Variant = _get_target_under_mouse()
 	if target == null:
 		return
 	if target.has_method("accept_damage"):		
 		target.accept_damage(damage, click_dmg_type)
 
 func _get_target_under_mouse() -> Node:	
-	var space := get_viewport().get_world_2d().direct_space_state
-	var query := PhysicsPointQueryParameters2D.new()
+	var space : PhysicsDirectSpaceState2D = get_viewport().get_world_2d().direct_space_state
+	var query : PhysicsPointQueryParameters2D = PhysicsPointQueryParameters2D.new()
 	query.position = get_viewport().get_mouse_position()
 	query.collide_with_areas = true
-	var results := space.intersect_point(query)
+	var results : Array[Dictionary] = space.intersect_point(query)
 	if results.is_empty():		
 		return null
 	results.sort_custom(func(a, b): return a.collider.z_index > b.collider.z_index)	
 	return results[0].collider
 
-func _reset_hold_visuals(): #TODO: goal is for this to feel like a taking a deep breathe
+func _reset_hold_visuals()->void: #TODO: goal is for this to feel like a taking a deep breathe
 	hold_indicator_radius = 0.0
 	queue_redraw()
 

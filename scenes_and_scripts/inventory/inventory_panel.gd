@@ -48,5 +48,5 @@ func clear_buttons() -> void:
 			button.queue_free()
 		
 func _on_button_pressed(button: Button) -> void:
-	var item: Variant = button.get_meta(&"Item")
+	var item: BaseItem = button.get_meta(&"Item")
 	PlayerInventory.get_instance().use_item(item)

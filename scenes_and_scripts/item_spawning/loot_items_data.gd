@@ -25,6 +25,7 @@ func generate_item_box()->void:
 		max_items = randi() % GameManager.floor_data.free_item_max + 2
 	elif room_entry.room_type == RoomEntry.ROOM_TYPES.shop:
 		max_items = GameManager.floor_data.shop_items
+	@warning_ignore("unsafe_property_access")
 	pool = ItemSpawner.item_pool_data.item_pool.duplicate()
 	for n:int in max_items:
 		if pool.is_empty(): break			

@@ -5,7 +5,7 @@ var falling: bool = false
 @export var gravity: float = 9.8
 @export var fall_speed: float = 0
 @export var can_damage: bool = true
-@export var damage: float = 1.0
+@export var damage: int = 1
 @export var fall_delay: float = 0.2
 @export var stun_time: float = 1.0
 
@@ -24,10 +24,10 @@ func _start_falling() -> void:
 func _physics_process(delta: float) -> void:
 	if falling:
 		fall_speed += gravity
-	var velocity = Vector2(0, fall_speed)
-	var collision = move_and_collide(velocity * delta)
+	velocity = Vector2(0, fall_speed)
+	var collision:Variant = move_and_collide(velocity * delta)
 	if (collision):
-		var collider = collision.get_collider()
+		var collider:Variant = collision.get_collider()
 		if collider.is_in_group(GameManager.PADDLE):
 			# stop insta-death from damaging every frame
 			if collider.has_method("freeze_paddle_for_time"):

@@ -24,9 +24,9 @@ func timer_spawn_enemy() -> void:
 	if randf_range(1,100) >= spawn_an_enemy_chance or active_enemies.size()>=max_spawns:
 		enemy_spawn_timer.wait_time = respawn_time
 		return #dont spawn an enemy
-	var enemy_config = get_random_config()
+	var enemy_config:EnemyConfig = get_random_config()
 	if enemy_config:
-		var enemy = instantiate_random_enemy(enemy_config)
+		var enemy: Node2D = instantiate_random_enemy(enemy_config)
 		enemy.position.x = enemy_config.x_offset
 		enemy.position.y = enemy_config.y_offset
 		add_child(enemy)
