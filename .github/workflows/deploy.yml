@@ -1,0 +1,38 @@
+name: Deploy to itch.io
+
+on:
+  push:
+    branches: [release]
+
+jobs:
+  export-web:
+    name: Web Export
+    runs-on: ubuntu-latest
+    container:
+      image: barichello/godot-ci:4.6.1
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Setup export templates
+        run: |
+          mkdir -p ~/.local/share/godot/export_templates/4.6.1.stable
+          mv /root/.local/share/godot/export_templates/4.6.1.stable \
+             ~/.local/share/godot/export_templates/4.6.1.stable
+
+      - name: Web build
+        run: |
+          mkdir -v -p build/web
+          godot --headless --export-release "Web" build/web/index.html
+
+      - name: Deploy to itch.io
+        uses: manleydev/butler-publish-itchio-action@master
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
+          CHANNEL: html
+          ITCH_GAME: escape-to-marty
+          ITCH_USER: lostpoet999
+          PACKAGE: build/web
