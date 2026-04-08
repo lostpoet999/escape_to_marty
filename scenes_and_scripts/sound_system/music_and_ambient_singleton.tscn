@@ -11,7 +11,8 @@
 script = ExtResource("3_1j6id")
 song_name = "track1"
 audio = ExtResource("4_r24dt")
-volume_db = -30.0
+volume_db = -20.0
+pitch_scale = 0.8
 metadata/_custom_type_script = "uid://ci502qqgi27k5"
 
 [sub_resource type="Resource" id="Resource_fmkea"]
