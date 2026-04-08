@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://rmcbpfstwj3s"]
+
+[ext_resource type="Script" uid="uid://cxm0ow32nbmh5" path="res://scenes_and_scripts/minimap/minimap.gd" id="1_l5tn8"]
+
+[node name="Minimap" type="GridContainer" unique_id=430726491]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 10
+script = ExtResource("1_l5tn8")
