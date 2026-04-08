@@ -19,14 +19,16 @@ jobs:
 
       - name: Setup export templates
         run: |
-          mkdir -p /github/home/.local/share/godot/export_templates/4.6.1.stable
-          mv /root/.local/share/godot/export_templates/4.6.1.stable \
-             /github/home/.local/share/godot/export_templates/4.6.1.stable
+          mkdir -p /root/.local/share/godot/export_templates/4.6.1.stable
+        env:
+          HOME: /root
 
       - name: Web build
         run: |
           mkdir -v -p build/web
           godot --headless --export-release "Web" build/web/index.html
+        env:
+          HOME: /root
 
       - name: Deploy to itch.io
         uses: manleydev/butler-publish-itchio-action@master
