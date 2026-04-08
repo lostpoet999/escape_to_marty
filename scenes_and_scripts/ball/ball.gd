@@ -9,6 +9,9 @@ var max_speed: float = 1500.0
 @export var ball_dmg: float = DEFAULT_BALL_DMG
 var damage_effects: Array[BaseDamageEffect]
 
+var flipped_x: bool = false
+var flipped_y: bool = false
+
 @export var brick_bounce_particles: PackedScene
 @export var wall_bounce_particles: PackedScene
 @export var paddle_bounce_particles: PackedScene
@@ -58,7 +61,11 @@ func remove_ball() -> void:
 	on_paddle = false
 	queue_free()
 
+
+
 func _process(delta: float) -> void:
+	flipped_x = false
+	flipped_y = false
 	if on_paddle:
 		position_ball_on_paddle()
 	else:
@@ -142,11 +149,15 @@ func move_ball(delta: float) -> void:
 		if fx != null:
 			fx.position = global_position
 			get_tree().current_scene.add_child(fx)
-			
+		
 		if collider.is_in_group("paddle"):
-			bounce_effect.handle_paddle_collision(self, collider as Paddle)
+			if !flipped_x:
+				bounce_effect.handle_paddle_collision(self, collider as Paddle)
+				flipped_x = true
 		elif collider.is_in_group("bricks") or collider.is_in_group("walls"):
-			bounce_effect.handle_x_collision(self, collider)
+			if !flipped_x:
+				bounce_effect.handle_x_collision(self, collider)
+				flipped_x = true
 
 	old_y = position.y
 	position.y += move.y
@@ -170,11 +181,16 @@ func move_ball(delta: float) -> void:
 			SFX.play_sound("hit-paddle")
 		if fx != null:
 			fx.position = global_position
-			get_tree().current_scene.add_child(fx)
+			get_tree().current_scene.add_child(fx)		
+		
 		if collider.is_in_group("paddle"):
-			bounce_effect.handle_paddle_collision(self, collider as Paddle)
+			if !flipped_y:
+				bounce_effect.handle_paddle_collision(self, collider as Paddle)
+				flipped_y = true
 		elif collider.is_in_group("bricks") or collider.is_in_group("walls"):
-			bounce_effect.handle_y_collision(self, collider)
+			if !flipped_y:
+				bounce_effect.handle_y_collision(self, collider)
+				flipped_y = true
 
 # --- Collision query ---
 
