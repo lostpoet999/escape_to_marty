@@ -69,13 +69,18 @@ func is_valid_state_transition(from_state: GameState, to_state: GameState) -> bo
 	assert(false, "No valid transitions defined for from_state: %s" % GameState.keys()[from_state])
 	return false
 
+func set_mouse_visible() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	if OS.get_name() == "Web":
+		JavaScriptBridge.eval("document.exitPointerLock();")
+
 func enter_state(change_to_state: GameState) -> void: 
 	#note that a big part of gamemanager and the game state is managing when mouse if visible or not. 
 	#centralizing that here so its easy to spot/fix where mouse mode is not correct for current gam
 	current_state = change_to_state
 	match current_state:
 		GameState.MAIN_MENU:
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+			set_mouse_visible()
 			current_room_id = floor_data.starting_room_id
 			scene_ref = floor_data.starting_room_scene
 			Signalbus.game_state_main_menu.emit()			
@@ -85,26 +90,26 @@ func enter_state(change_to_state: GameState) -> void:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 			Signalbus.game_state_playing.emit()
 		GameState.PAUSED:
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+			set_mouse_visible()
 			Signalbus.game_state_paused.emit()
 			pause_game()
 		GameState.GAME_OVER:
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+			set_mouse_visible()
 			Signalbus.game_state_game_over.emit()
 			pause_game()
 			#GameManager.change_state(GameState.MAIN_MENU)
 			#call_deferred("load_scene", MAIN_MENU)
 		GameState.CLICK_MODE:
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+			set_mouse_visible()
 			Signalbus.game_state_click_mode.emit()
 		GameState.LEVEL_CLEARED:			
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+			set_mouse_visible()
 			Signalbus.game_state_click_mode.emit()
 		GameState.SPECIAL_ROOM:
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+			set_mouse_visible()
 			Signalbus.game_state_special_room.emit()
 		GameState.DEBUG_PANEL:
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+			set_mouse_visible()
 			pause_game()
 
 
