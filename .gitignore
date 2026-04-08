@@ -17,3 +17,4 @@ data_*/
 
 # Editor temp files
 *.tmp
+build/
