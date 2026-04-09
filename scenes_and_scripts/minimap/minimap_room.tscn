@@ -16,6 +16,7 @@ grow_vertical = 2
 script = ExtResource("1_bbyvs")
 
 [node name="RoomBackground" type="ColorRect" parent="." unique_id=2097084728]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -25,6 +26,8 @@ grow_vertical = 2
 color = Color(0.2784314, 0.039215688, 0.015686275, 1)
 
 [node name="PlayerIndicator" type="TextureRect" parent="." unique_id=1350128295]
+visible = false
+modulate = Color(0.61960787, 0.5294118, 0.7137255, 1)
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -39,6 +42,7 @@ texture = ExtResource("1_b6trt")
 stretch_mode = 5
 
 [node name="ExitWest" type="ColorRect" parent="." unique_id=1017485260]
+visible = false
 custom_minimum_size = Vector2(4, 4)
 layout_mode = 1
 anchors_preset = -1
@@ -48,9 +52,10 @@ offset_left = -4.0
 offset_top = -4.0
 offset_bottom = 4.0
 grow_vertical = 2
-color = Color(0.2784314, 0.039215688, 0.015686275, 1)
+color = Color(0.7631019, 0.18095887, 0.107912056, 1)
 
 [node name="ExitEast" type="ColorRect" parent="." unique_id=1092331345]
+visible = false
 custom_minimum_size = Vector2(4, 4)
 layout_mode = 1
 anchors_preset = -1
@@ -62,9 +67,10 @@ offset_top = -4.0
 offset_right = 4.0
 offset_bottom = 4.0
 grow_vertical = 2
-color = Color(0.2784314, 0.039215688, 0.015686275, 1)
+color = Color(0.7631019, 0.18095887, 0.107912056, 1)
 
 [node name="ExitNorth" type="ColorRect" parent="." unique_id=2066328354]
+visible = false
 custom_minimum_size = Vector2(4, 4)
 layout_mode = 1
 anchors_preset = -1
@@ -74,9 +80,10 @@ offset_left = -4.0
 offset_top = -4.0
 offset_right = 4.0
 grow_vertical = 2
-color = Color(0.2784314, 0.039215688, 0.015686275, 1)
+color = Color(0.7631019, 0.18095887, 0.107912056, 1)
 
 [node name="ExitSouth" type="ColorRect" parent="." unique_id=1547166696]
+visible = false
 custom_minimum_size = Vector2(4, 4)
 layout_mode = 1
 anchors_preset = -1
@@ -88,4 +95,4 @@ offset_left = -4.0
 offset_right = 4.0
 offset_bottom = 4.0
 grow_vertical = 2
-color = Color(0.2784314, 0.039215688, 0.015686275, 1)
+color = Color(0.7631019, 0.18095887, 0.107912056, 1)

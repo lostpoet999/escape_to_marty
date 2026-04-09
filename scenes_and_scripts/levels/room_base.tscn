@@ -15,6 +15,8 @@
 [ext_resource type="PackedScene" uid="uid://chs4vfkn7cmgt" path="res://scenes_and_scripts/ui_menus/game_over_menu.tscn" id="10_fuowh"]
 [ext_resource type="Script" uid="uid://tjwcoaf5nkwa" path="res://scenes_and_scripts/levels/camera_2d.gd" id="14_57n16"]
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_57n16"]
+
 [node name="room_base" type="Node2D" unique_id=565861230]
 script = ExtResource("1_e48p3")
 
@@ -356,6 +358,7 @@ position = Vector2(256, 480)
 
 [node name="Background" type="ColorRect" parent="PlayArea" unique_id=306947289]
 z_index = -1
+material = SubResource("CanvasItemMaterial_57n16")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -407,3 +410,6 @@ metadata/_edit_lock_ = true
 
 [node name="item_spawn_point" type="Marker2D" parent="." unique_id=51076593]
 position = Vector2(1058, 754)
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=494981743]
+color = Color(0.9157694, 0.9157693, 0.9157694, 1)

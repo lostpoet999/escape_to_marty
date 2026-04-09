@@ -25,6 +25,7 @@ func supress_respawn_entities()->void:
 	no_respawn.queue_free()	
 
 func _ready() -> void:	
+	
 	visible = false
 	entry = GameManager.get_current_floor_entry(GameManager.current_room_id)
 	room_state = PlayerData.get_room_state(entry)	

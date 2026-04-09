@@ -30,6 +30,9 @@ var move: Vector2 = Vector2.ZERO
 var old_x: float = 0.0
 var old_y: float = 0.0
 
+var time := 0.0
+@onready var point_light_2d: PointLight2D = $PointLight2D
+
 @onready var paddle: Paddle = $"../Paddle"
 @onready var paddle_collision: CollisionShape2D = $"../Paddle/PaddleCollisionShape"
 @onready var ball_collision: CollisionShape2D = $bounce_collision_shape
@@ -64,6 +67,8 @@ func remove_ball() -> void:
 
 
 func _process(delta: float) -> void:
+	time += delta
+	point_light_2d.energy = 1.0 + sin(time * 3.0) * 0.15
 	flipped_x = false
 	flipped_y = false
 	if on_paddle:
