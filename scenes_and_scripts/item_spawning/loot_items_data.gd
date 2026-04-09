@@ -20,6 +20,7 @@ func filter_owned_actives()->void:
 
 func generate_item_box()->void:
 	filter_owned_actives()
+	items.clear()
 	var room_entry:RoomEntry = GameManager.get_current_floor_entry(GameManager.current_room_id)
 	if room_entry.room_type == RoomEntry.ROOM_TYPES.free_item:
 		max_items = randi() % GameManager.floor_data.free_item_max + 2

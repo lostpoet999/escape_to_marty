@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://p8kt6vwn7h6a" path="res://scenes_and_scripts/sound_system/music_playlist_entry.gd" id="2_2hmt8"]
 [ext_resource type="Script" uid="uid://ci502qqgi27k5" path="res://scenes_and_scripts/sound_system/music_song_entry.gd" id="3_1j6id"]
 [ext_resource type="AudioStream" uid="uid://bedh6t5f3r3l1" path="res://sound_effects/first_song_test.wav" id="4_r24dt"]
+[ext_resource type="AudioStream" uid="uid://da6baasyqmlbs" path="res://music_and_ambient/song1 lower octave.wav" id="5_nsxlf"]
 [ext_resource type="Script" uid="uid://chiygou8blc0v" path="res://scenes_and_scripts/sound_system/ambience_set_entry.gd" id="7_5toyy"]
 [ext_resource type="Script" uid="uid://cgx4nwjmpwn45" path="res://scenes_and_scripts/sound_system/ambient_playlist_entry.gd" id="8_5sb5x"]
 
@@ -11,14 +12,20 @@
 script = ExtResource("3_1j6id")
 song_name = "track1"
 audio = ExtResource("4_r24dt")
-volume_db = -20.0
-pitch_scale = 0.8
+volume_db = -10.0
+metadata/_custom_type_script = "uid://ci502qqgi27k5"
+
+[sub_resource type="Resource" id="Resource_div0h"]
+script = ExtResource("3_1j6id")
+song_name = "song1 lower octave"
+audio = ExtResource("5_nsxlf")
+volume_db = -10.0
 metadata/_custom_type_script = "uid://ci502qqgi27k5"
 
 [sub_resource type="Resource" id="Resource_fmkea"]
 script = ExtResource("2_2hmt8")
 playlist_name = "test_playlist"
-tracks = Array[ExtResource("3_1j6id")]([SubResource("Resource_5sb5x")])
+tracks = Array[ExtResource("3_1j6id")]([SubResource("Resource_5sb5x"), SubResource("Resource_div0h")])
 interval_between_tracks = 3.0
 metadata/_custom_type_script = "uid://p8kt6vwn7h6a"
 

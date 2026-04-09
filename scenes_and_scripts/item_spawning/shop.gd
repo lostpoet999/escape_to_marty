@@ -37,13 +37,14 @@ func buy_item(item: BaseItem, button: Button)->void:
 	loot_items_data.items.erase(item)
 	PlayerData.stars_collected -= item.cost
 	Signalbus.stars_updated.emit()
-	button.queue_free()	
+	button.queue_free()
+	populate_shop_panel()
 	
 
 func populate_shop_panel()->void:
 	clear_shop_btns()	
 	for i:int in loot_items_data.items.size():
-		var item: BaseItem = loot_items_data.items.pick_random()
+		var item: BaseItem = loot_items_data.items[i]
 		var btn: Button = make_item_button(item)
 		if item.cost > PlayerData.stars_collected: btn.disabled = true
 		shop_grid.add_child(btn)

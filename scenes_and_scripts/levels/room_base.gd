@@ -24,15 +24,16 @@ func _process(_delta: float) -> void:
 func supress_respawn_entities()->void:
 	no_respawn.queue_free()	
 
-func _ready() -> void:
+func _ready() -> void:	
 	visible = false
 	entry = GameManager.get_current_floor_entry(GameManager.current_room_id)
-	room_state = PlayerData.get_room_state(entry)
+	room_state = PlayerData.get_room_state(entry)	
 	if room_state.cleared:
 		supress_respawn_entities()
 		Signalbus.level_cleared.emit()
 	await get_tree().process_frame	
 	visible = true
+	room_state.visited = true
 	bricks_in_level = get_tree().get_nodes_in_group("bricks").size()	
 	current_room_lbl.text = "Current Room: " + GameManager.current_room_id
 	Signalbus.stars_updated.emit()
