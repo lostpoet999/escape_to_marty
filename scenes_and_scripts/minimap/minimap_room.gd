@@ -9,6 +9,10 @@ const UNVISITED_ROOMS_MOD : Color = Color.TRANSPARENT
 
 @onready var background: ColorRect = $RoomBackground
 @onready var player_indicator: TextureRect = $PlayerIndicator
+@onready var north_exit: ColorRect = $ExitNorth
+@onready var south_exit: ColorRect = $ExitSouth
+@onready var east_exit: ColorRect = $ExitEast
+@onready var west_exit: ColorRect = $ExitWest
 
 @export var room_entry: RoomEntry = null :
 	set(v):
@@ -33,6 +37,14 @@ func _refresh() -> void:
 		background.show()
 		player_indicator.visible = is_current
 		modulate = Color.WHITE if is_visited or is_current else UNVISITED_ROOMS_MOD
+		north_exit.visible = bool(room_entry.north_exit != "")
+		south_exit.visible = bool(room_entry.south_exit != "")
+		east_exit.visible = bool(room_entry.east_exit != "")
+		west_exit.visible = bool(room_entry.west_exit != "")
 	else:
 		background.hide()
 		player_indicator.hide()
+		north_exit.hide()
+		south_exit.hide()
+		east_exit.hide()
+		west_exit.hide()
