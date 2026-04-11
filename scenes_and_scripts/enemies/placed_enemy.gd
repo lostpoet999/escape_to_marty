@@ -12,6 +12,7 @@ signal ready_to_remove(enemy: PlacedEnemy)
 @onready var foot_2: Marker2D = $Foot2
 
 func _ready()->void:
+	Signalbus.jump_landed.connect(jump_land_shake)
 	if is_blocker: Signalbus.blocker_added.emit(self)
 	var duped: Array[EnemyActions] = []
 	for action:EnemyActions in action_pool:
@@ -42,8 +43,11 @@ func pick_action()->void:
 		var action:EnemyActions = action_pool.pick_random()
 		action.execute_action(self)
 		if is_blocker:
-			if action.action_type == action.ActionTypes.Move: Signalbus.blocker_moved.emit()
-		timer.wait_time = action_timer
+			if action.action_type == action.ActionTypes.Move: Signalbus.blocker_moved.emit()			
+		timer.wait_time = action_timer - randf_range(0.3,0.8)
+
+func jump_land_shake()->void:
+	get_viewport().get_camera_2d().add_trauma(0.7)
 
 func get_edge(paddle: Paddle) -> float:
 	var sprite: Sprite2D = $EnemySprite
@@ -61,6 +65,7 @@ func start_action_timer()->void:
 func _on_ramming_collision_body_entered(body: Node2D) -> void:
 	if body is Paddle:
 		var paddle: Paddle = body
+		print("committed_distance", paddle.committed_distance)
 		if paddle.committed_distance > 300:
 			die()	
 			

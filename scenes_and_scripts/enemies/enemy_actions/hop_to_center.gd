@@ -73,7 +73,7 @@ func execute_action(actor: PlacedEnemy) -> void:
 		origin_scale, speed * 0.75)\
 		.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
 		
-	# --- Landing fires after arc completes ---
+	# --- Landing fires after arc completes ---		
 	up_tween.tween_callback(func() -> void:
 		var land_tween: Tween = actor.create_tween()
 		land_tween.tween_property(actor, "scale",
@@ -81,6 +81,7 @@ func execute_action(actor: PlacedEnemy) -> void:
 			.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
 		land_tween.tween_callback(func() -> void:
 			SFX.play_sound("landing")
+			Signalbus.jump_landed.emit()
 			var dust1: CPUParticles2D = LANDING_DUST.instantiate()
 			var dust2: CPUParticles2D = LANDING_DUST.instantiate()
 			actor.get_parent().add_child(dust1)
@@ -96,5 +97,5 @@ func execute_action(actor: PlacedEnemy) -> void:
 			origin_scale, speed * 0.30)\
 			.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
 		land_tween.tween_callback(func() -> void: is_hopping = false)
-	)
+	)	
 	hops += 1

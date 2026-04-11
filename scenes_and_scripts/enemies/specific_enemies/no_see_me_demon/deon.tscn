@@ -20,7 +20,7 @@ metadata/_custom_type_script = "uid://bggdt68lamuu7"
 [node name="Deon" unique_id=1934117901 instance=ExtResource("1_hxmmq")]
 script = ExtResource("1_dj3le")
 action_pool = Array[ExtResource("2_2bfs3")]([SubResource("Resource_rwvd0")])
-action_timer = 3.0
+action_timer = 5.0
 is_blocker = true
 
 [node name="EnemySprite" parent="." index="0" unique_id=2032254832]

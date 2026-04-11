@@ -127,4 +127,6 @@ signal blocker_added(enemy: PlacedEnemy)
 @warning_ignore("unused_signal")
 signal blocker_removed(enemy: PlacedEnemy)
 @warning_ignore("unused_signal")
-signal blocker_moved()
+signal blocker_moved
+@warning_ignore("unused_signal")
+signal jump_landed
