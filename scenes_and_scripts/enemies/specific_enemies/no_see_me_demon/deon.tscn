@@ -27,9 +27,15 @@ is_blocker = true
 texture = ExtResource("2_j7ao1")
 
 [node name="CollisionShape2D" parent="." index="1" unique_id=1655691252]
-position = Vector2(1, 1)
+position = Vector2(1, 0.25)
 
 [node name="CollisionShape2D" parent="RammingCollision" parent_id_path=PackedInt32Array(390356126) index="0" unique_id=1959629443]
 position = Vector2(1.5, 2)
+
+[node name="Foot1" type="Marker2D" parent="." index="3" unique_id=1838018458]
+position = Vector2(-15, 91)
+
+[node name="Foot2" type="Marker2D" parent="." index="4" unique_id=1351684469]
+position = Vector2(15, 91)
 
 [connection signal="body_entered" from="RammingCollision" to="." method="_on_ramming_collision_body_entered"]

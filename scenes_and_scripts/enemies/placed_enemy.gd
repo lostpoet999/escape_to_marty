@@ -8,6 +8,9 @@ extends CharacterBody2D
 var timer: Timer
 signal ready_to_remove(enemy: PlacedEnemy)
 
+@onready var foot_1: Marker2D = $Foot1
+@onready var foot_2: Marker2D = $Foot2
+
 func _ready()->void:
 	if is_blocker: Signalbus.blocker_added.emit(self)
 	var duped: Array[EnemyActions] = []

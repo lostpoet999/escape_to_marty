@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://e5v7jmrw71ba"]
+
+[sub_resource type="Gradient" id="Gradient_k1jim"]
+colors = PackedColorArray(0.45374894, 0.45374864, 0.4537487, 0.77254903, 0.76862746, 0.21176471, 0.24705882, 0.7490196)
+
+[node name="LandingDust" type="CPUParticles2D" unique_id=1184652057]
+scale = Vector2(1.2, 1.2)
+emitting = false
+amount = 30
+lifetime = 0.25
+one_shot = true
+explosiveness = 0.9
+randomness = 0.3
+use_fixed_seed = true
+seed = 238242773
+lifetime_randomness = 0.25
+emission_shape = 3
+emission_rect_extents = Vector2(20, 2)
+direction = Vector2(0, -8)
+spread = 80.0
+gravity = Vector2(0, 200)
+initial_velocity_min = 20.0
+initial_velocity_max = 60.0
+scale_amount_min = 4.0
+scale_amount_max = 8.0
+color_initial_ramp = SubResource("Gradient_k1jim")
+hue_variation_min = 0.5
+hue_variation_max = 1.0

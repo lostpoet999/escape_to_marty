@@ -9,6 +9,7 @@ const RIGHT: float = 1782.00
 
 var target_x:float
 var is_hopping: bool = false
+const LANDING_DUST: PackedScene = preload("uid://e5v7jmrw71ba")
 
 
 @export var hop_distance: float
@@ -44,6 +45,7 @@ func execute_action(actor: PlacedEnemy) -> void:
 	var origin_y: float = actor.global_position.y
 	var origin_scale: Vector2 = actor.scale
 	var start_x: float = actor.global_position.x
+	
 	# --- Position Tween ---
 	var tween: Tween = actor.create_tween()
 	tween.tween_method(func(x: float) -> void:
@@ -58,6 +60,7 @@ func execute_action(actor: PlacedEnemy) -> void:
 	up_tween.tween_property(actor, "global_position:y",
 		origin_y, speed * 0.5)\
 		.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_SINE)
+		
 	# --- Takeoff Squash & Stretch ---
 	var scale_tween: Tween = actor.create_tween()
 	scale_tween.tween_property(actor, "scale",
@@ -69,6 +72,7 @@ func execute_action(actor: PlacedEnemy) -> void:
 	scale_tween.tween_property(actor, "scale",
 		origin_scale, speed * 0.75)\
 		.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
+		
 	# --- Landing fires after arc completes ---
 	up_tween.tween_callback(func() -> void:
 		var land_tween: Tween = actor.create_tween()
@@ -77,6 +81,16 @@ func execute_action(actor: PlacedEnemy) -> void:
 			.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
 		land_tween.tween_callback(func() -> void:
 			SFX.play_sound("landing")
+			var dust1: CPUParticles2D = LANDING_DUST.instantiate()
+			var dust2: CPUParticles2D = LANDING_DUST.instantiate()
+			actor.get_parent().add_child(dust1)
+			actor.get_parent().add_child(dust2)
+			dust1.z_index = 1000
+			dust2.z_index = 1000
+			dust1.global_position = actor.foot_1.global_position
+			dust2.global_position = actor.foot_2.global_position
+			dust1.emitting = true			
+			dust2.emitting = true
 		)
 		land_tween.tween_property(actor, "scale",
 			origin_scale, speed * 0.30)\
