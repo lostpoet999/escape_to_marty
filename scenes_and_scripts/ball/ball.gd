@@ -30,7 +30,7 @@ var move: Vector2 = Vector2.ZERO
 var old_x: float = 0.0
 var old_y: float = 0.0
 
-var time := 0.0
+var time : float = 0.0
 @onready var point_light_2d: PointLight2D = $PointLight2D
 
 @onready var paddle: Paddle = $"../Paddle"

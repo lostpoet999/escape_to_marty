@@ -10,6 +10,7 @@
 [ext_resource type="AudioStream" uid="uid://d1tpyyhksf7q2" path="res://sound_effects/dry (no reverb)/cage-trap.wav" id="8_hpigb"]
 [ext_resource type="AudioStream" uid="uid://cwqip11vdpijx" path="res://sound_effects/dry (no reverb)/spirit-shot.wav" id="9_hpigb"]
 [ext_resource type="AudioStream" uid="uid://ddf3es58leurn" path="res://sound_effects/working/star.wav" id="10_0gpy4"]
+[ext_resource type="AudioStream" uid="uid://bqhkgoxlfjnhf" path="res://sound_effects/dry (no reverb)/ball-thud.wav" id="11_idfbx"]
 
 [sub_resource type="Resource" id="Resource_84rug"]
 script = ExtResource("2_3pagk")
@@ -72,6 +73,13 @@ pitch_scale = 0.8
 pitch_variance = 2.0
 metadata/_custom_type_script = "uid://2fgoca4drc17"
 
+[sub_resource type="Resource" id="Resource_3w05g"]
+script = ExtResource("2_3pagk")
+name = "landing"
+audio = ExtResource("11_idfbx")
+pitch_variance = 0.2
+metadata/_custom_type_script = "uid://2fgoca4drc17"
+
 [node name="EntitySfx" type="Node" unique_id=529254853]
 script = ExtResource("1_mje1w")
-sounds = Array[ExtResource("2_3pagk")]([SubResource("Resource_84rug"), SubResource("Resource_w05wb"), SubResource("Resource_axa1s"), SubResource("Resource_hpigb"), SubResource("Resource_0gpy4"), SubResource("Resource_idfbx"), SubResource("Resource_568ao"), SubResource("Resource_7iehp")])
+sounds = Array[ExtResource("2_3pagk")]([SubResource("Resource_84rug"), SubResource("Resource_w05wb"), SubResource("Resource_axa1s"), SubResource("Resource_hpigb"), SubResource("Resource_0gpy4"), SubResource("Resource_idfbx"), SubResource("Resource_568ao"), SubResource("Resource_7iehp"), SubResource("Resource_3w05g")])

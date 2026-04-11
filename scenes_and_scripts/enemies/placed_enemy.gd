@@ -21,7 +21,7 @@ func _ready()->void:
 	timer.wait_time = action_timer	
 	start_action_timer()
 
-func _process(_delta: float) -> void:
+func _process(_delta: float) -> void:	
 	if GameManager.current_state == GameManager.GameState.LEVEL_CLEARED:
 		die()
 
@@ -45,8 +45,7 @@ func pick_action()->void:
 func get_edge(paddle: Paddle) -> float:
 	var sprite: Sprite2D = $EnemySprite
 	var half_width: float = sprite.texture.get_width() * sprite.scale.x * scale.x / 2.0
-	var paddle_half: float = paddle._get_scaled_half_width()
-	#var sprite_half: float = sprite.texture.get_width() * sprite.scale.x * scale.x / 2.0	
+	var paddle_half: float = paddle._get_scaled_half_width()	
 	if global_position.x < paddle.global_position.x:
 		return global_position.x + half_width + paddle_half
 	else:

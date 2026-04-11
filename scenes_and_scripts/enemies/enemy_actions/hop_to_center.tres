@@ -5,8 +5,8 @@
 [resource]
 script = ExtResource("1_34bor")
 hop_distance = 64.0
-up_distance = 32.0
-speed = 1.0
+up_distance = 48.0
+speed = 0.05
 max_hops = 5
 back_chance = 30.0
 action_name = "Hop To Center"
