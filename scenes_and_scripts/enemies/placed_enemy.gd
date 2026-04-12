@@ -64,8 +64,7 @@ func start_action_timer()->void:
 
 func _on_ramming_collision_body_entered(body: Node2D) -> void:
 	if body is Paddle:
-		var paddle: Paddle = body
-		print("committed_distance", paddle.committed_distance)
+		var paddle: Paddle = body		
 		if paddle.committed_distance > 300:
 			die()	
 			

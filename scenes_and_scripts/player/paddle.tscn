@@ -8,6 +8,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8fbbk"]
 size = Vector2(122, 28)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ireb1"]
+size = Vector2(68, 112)
+
 [node name="Paddle" type="CharacterBody2D" unique_id=1681485936 groups=["paddle"]]
 collision_mask = 3
 script = ExtResource("1_ews1h")
@@ -51,3 +54,7 @@ position = Vector2(0, 10)
 [node name="MouseGestures" parent="." unique_id=662497496 instance=ExtResource("4_ireb1")]
 
 [node name="Paddle" type="Node2D" parent="." unique_id=192741555]
+
+[node name="David" type="CollisionShape2D" parent="." unique_id=544298755]
+position = Vector2(1, 67)
+shape = SubResource("RectangleShape2D_ireb1")

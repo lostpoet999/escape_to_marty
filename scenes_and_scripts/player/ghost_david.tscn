@@ -38,7 +38,6 @@ gradient = SubResource("Gradient_jrxcm")
 texture = SubResource("GradientTexture2D_naoyk")
 texture_mode = 2
 script = ExtResource("2_jui38")
-max_points = 32
 
 [node name="GhostFog" type="CPUParticles2D" parent="." unique_id=639358482]
 position = Vector2(2.2000008, 63)

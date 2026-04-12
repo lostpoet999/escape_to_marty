@@ -155,7 +155,7 @@ func move_ball(delta: float) -> void:
 			fx.position = global_position
 			get_tree().current_scene.add_child(fx)
 		
-		if collider.is_in_group("paddle"):
+		if collider.is_in_group("paddle"):			
 			if !flipped_x:
 				bounce_effect.handle_paddle_collision(self, collider as Paddle)
 				flipped_x = true
