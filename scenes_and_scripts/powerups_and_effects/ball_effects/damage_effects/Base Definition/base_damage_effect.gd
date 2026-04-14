@@ -17,5 +17,10 @@ func apply_damage(damage_target: Node2D, damage_types: Array[GameManager.PhaseTy
 	if damage_target.is_in_group("bricks"):
 		damage_target.call("accept_damage", ball_ref.ball_dmg, damage_types) #TODO: biforcate click damage from ball bounce damage
 	elif damage_target.is_in_group("DeathWalls"):
-		ball_ref.position_ball_on_paddle()
+		if ball_ref.is_tweening_to_david:
+			return
+		await ball_ref.tween_to_david(ball_ref.global_position)
 		PlayerData.accept_damage(int(ball_ref.ball_dmg))
+		ball_ref.paddle.hit_feedback()
+		SFX.play_sound("player_hurt")
+		ball_ref.position_ball_on_paddle()

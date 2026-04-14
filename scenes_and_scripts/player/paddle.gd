@@ -16,6 +16,7 @@ var current_speed: float = 0.0
 
 var accumulated_mouse_movement_x: float = 0
 var mouse_sensitivity: float = 1.0
+var is_tweening_to_david: bool = false
 
 
 var base_scale_x: float
@@ -164,6 +165,19 @@ func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("paddle_active_powerup") and GameManager.current_state != GameManager.GameState.BALL_ON_PADDLE and GameManager.current_state != GameManager.GameState.LEVEL_CLEARED and GameManager.current_floor != GameManager.GameState.SPECIAL_ROOM:				
 		if active_paddle_powerup:
 			active_paddle_powerup.activate(self,projectiles)
+
+func hit_feedback() -> void:
+	# scale pulse — David is a child, so he pulses too
+	var base_scale: Vector2 = scale
+	var tw_scale: Tween = create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tw_scale.tween_property(self, "scale", base_scale * 0.9, 0.06)
+	tw_scale.tween_property(self, "scale", base_scale, 0.18)
+
+	# red flash on David only
+	var david: Node2D = $David
+	david.modulate = Color.RED
+	var tw_flash: Tween = create_tween()
+	tw_flash.tween_property(david, "modulate", Color.WHITE, 0.22)
 
 func get_movement_direction() -> float:
 	return current_speed

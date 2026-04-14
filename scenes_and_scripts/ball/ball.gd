@@ -36,6 +36,7 @@ var time : float = 0.0
 @onready var paddle: Paddle = $"../Paddle"
 @onready var paddle_collision: CollisionShape2D = $"../Paddle/PaddleCollisionShape"
 @onready var ball_collision: CollisionShape2D = $bounce_collision_shape
+var is_tweening_to_david: bool = false                                                                                                                        
 
 @onready var ball_half_height: float = (ball_collision.shape as CircleShape2D).radius
 @onready var effects_node: Node = $Effects
@@ -80,7 +81,38 @@ func position_ball_on_paddle() -> void:
 	var offset: float = ball_half_height + get_paddle_half_height() + 1
 	position = paddle.global_position + Vector2(0, -offset)
 	on_paddle = true
+	ball_collision.set_deferred("disabled", false)
+	set_physics_process(true)
+	is_tweening_to_david = false
 	GameManager.change_state(GameManager.GameState.BALL_ON_PADDLE)
+	
+
+func tween_to_david(hit_pos: Vector2) -> void:
+	is_tweening_to_david = true
+	set_physics_process(false)
+	ball_collision.set_deferred("disabled", true)
+
+	var david: Node2D = get_tree().get_first_node_in_group("david")
+	var hit_target: Node2D = david.get_node("DavidHitTarget")
+
+	var p0: Vector2 = hit_pos
+	var p2: Vector2 = hit_target.global_position
+	var mid: Vector2 = (p0 + p2) * 0.5
+	var sag: float = 40.0
+	var p1: Vector2 = mid + Vector2(0, sag)
+
+	var tw: Tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tw.tween_method(
+		func(t: float) -> void:
+			global_position = _bezier(t, p0, p1, p2),
+		0.0, 1.0, 0.2
+	)
+	await tw.finished
+
+
+func _bezier(t: float, p0: Vector2, p1: Vector2, p2: Vector2) -> Vector2:
+	var u: float = 1.0 - t
+	return u * u * p0 + 2.0 * u * t * p1 + t * t * p2
 
 func repopulate_effects_from_inventory() -> void:
 	powerup_array.clear()

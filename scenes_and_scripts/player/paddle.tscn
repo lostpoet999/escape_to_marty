@@ -47,14 +47,19 @@ position = Vector2(-61, -4)
 [node name="spawn_right" type="Marker2D" parent="." unique_id=1006701272]
 position = Vector2(61, -4)
 
-[node name="GhostDavid" parent="." unique_id=1136750017 instance=ExtResource("3_sflau")]
-modulate = Color(1, 1, 1, 0.7921569)
-position = Vector2(0, 10)
-
 [node name="MouseGestures" parent="." unique_id=662497496 instance=ExtResource("4_ireb1")]
 
 [node name="Paddle" type="Node2D" parent="." unique_id=192741555]
 
-[node name="David" type="CollisionShape2D" parent="." unique_id=544298755]
+[node name="David" type="Area2D" parent="." unique_id=947183434 groups=["david"]]
+
+[node name="DavidCollider" type="CollisionShape2D" parent="David" unique_id=544298755]
 position = Vector2(1, 67)
 shape = SubResource("RectangleShape2D_ireb1")
+
+[node name="GhostDavid" parent="David" unique_id=1136750017 instance=ExtResource("3_sflau")]
+modulate = Color(1, 1, 1, 0.7921569)
+position = Vector2(0, 10)
+
+[node name="DavidHitTarget" type="Marker2D" parent="David" unique_id=773740869]
+position = Vector2(1, 59)

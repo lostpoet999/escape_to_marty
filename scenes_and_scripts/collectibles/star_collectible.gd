@@ -17,9 +17,10 @@ func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group(GameManager.DEATH_WALLS):
 		Signalbus.star_collected.emit(-1)
 		queue_free()
+	elif area.is_in_group("david"): collect_star()
+		
 
-func _on_body_entered(body: Node2D) -> void:
-	if body.is_in_group(GameManager.PADDLE):
+func collect_star()->void:
 		collected = true
 		set_deferred("monitoring", false)
 		Signalbus.star_collected.emit(-1)
@@ -27,3 +28,7 @@ func _on_body_entered(body: Node2D) -> void:
 		PlayerData.change_player_stars(star_value)
 		visible = false
 		call_deferred("queue_free")
+
+func _on_body_entered(body: Node2D) -> void:
+	if body.is_in_group(GameManager.PADDLE):
+		collect_star()

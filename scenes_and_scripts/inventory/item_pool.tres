@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" uid="uid://c883xeifksqne" path="res://scenes_and_scripts/powerups_and_effects/base_item.gd" id="1_8japa"]
 [ext_resource type="Script" uid="uid://d2lueb6p5il1v" path="res://scenes_and_scripts/inventory/item_pool.gd" id="2_upo5x"]
-[ext_resource type="Resource" uid="uid://b1myuckbujeku" path="res://scenes_and_scripts/powerups_and_effects/ball_powerups/2x_damage..tres" id="3_ee38i"]
+[ext_resource type="Resource" uid="uid://b1myuckbujeku" path="res://scenes_and_scripts/powerups_and_effects/ball_powerups/2x_damage.tres" id="3_ee38i"]
 [ext_resource type="Resource" uid="uid://fyf4owjki76f" path="res://scenes_and_scripts/powerups_and_effects/ball_powerups/plus_two_dmg.tres" id="3_kfe0u"]
 [ext_resource type="Resource" uid="uid://ctgr6av7wt1l4" path="res://scenes_and_scripts/powerups_and_effects/paddle_active_powerups/paddle_active_test.tres" id="4_ee38i"]
-[ext_resource type="Resource" uid="uid://c7gdauspp2vbh" path="res://scenes_and_scripts/powerups_and_effects/ball_powerups/+3 test.tres" id="5_ee38i"]
+[ext_resource type="Resource" uid="uid://c7gdauspp2vbh" path="res://scenes_and_scripts/powerups_and_effects/ball_powerups/+3_test.tres" id="5_ee38i"]
 [ext_resource type="Resource" uid="uid://8rrbt0jirryc" path="res://scenes_and_scripts/powerups_and_effects/paddle_active_powerups/paddle_shot2.tres" id="6_oyjj8"]
-[ext_resource type="Resource" uid="uid://cyfkiym60unn" path="res://scenes_and_scripts/powerups_and_effects/paddle_powerups/paddle_lenght_up_1.tres" id="7_4n03o"]
+[ext_resource type="Resource" uid="uid://cyfkiym60unn" path="res://scenes_and_scripts/powerups_and_effects/paddle_powerups/paddle_length_up_1.tres" id="7_4n03o"]
 
 [resource]
 script = ExtResource("2_upo5x")
