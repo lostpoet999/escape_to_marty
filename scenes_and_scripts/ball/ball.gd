@@ -16,6 +16,10 @@ var flipped_y: bool = false
 @export var wall_bounce_particles: PackedScene
 @export var paddle_bounce_particles: PackedScene
 
+@export var brick_hit_score_value:int = 50
+@export var wall_hit_score_value:int = 1
+@export var paddle_hit_score_value:int = 1
+
 @export var bounce_effect: BaseBounceEffect
 
 @export var powerup_array: Array[BallPowerUp]
@@ -176,12 +180,15 @@ func move_ball(delta: float) -> void:
 		if collider.is_in_group("bricks"):
 			fx = brick_bounce_particles.instantiate()
 			SFX.play_sound("hit-brick")
+			PlayerData.update_player_score(brick_hit_score_value)
 		if collider.is_in_group("walls"):
 			fx = wall_bounce_particles.instantiate()
 			SFX.play_sound("bounce_1")			
+			PlayerData.update_player_score(wall_hit_score_value)
 		if collider.is_in_group("paddle"):
 			fx = paddle_bounce_particles.instantiate()
 			SFX.play_sound("hit-paddle")
+			PlayerData.update_player_score(paddle_hit_score_value)
 			
 		if fx != null:
 			fx.position = global_position
@@ -210,12 +217,15 @@ func move_ball(delta: float) -> void:
 		if collider.is_in_group("bricks"):
 			fx = brick_bounce_particles.instantiate()
 			SFX.play_sound("hit-brick")
+			PlayerData.update_player_score(brick_hit_score_value)
 		if collider.is_in_group("walls"):
 			fx = wall_bounce_particles.instantiate()			
 			SFX.play_sound("bounce_1")		
+			PlayerData.update_player_score(wall_hit_score_value)
 		if collider.is_in_group("paddle"):
 			fx = paddle_bounce_particles.instantiate()
 			SFX.play_sound("hit-paddle")
+			PlayerData.update_player_score(paddle_hit_score_value)
 		if fx != null:
 			fx.position = global_position
 			get_tree().current_scene.add_child(fx)		

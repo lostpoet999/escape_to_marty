@@ -4,7 +4,7 @@ extends Control
 @onready var stars: Label = %Stars
 @onready var health: Label = %health
 
-var numberAnimDelay = 0.1
+var numberAnimDelay = 1/30 # of a second
 var numberDelayRemaining = 0
 
 var currentScore = 0
@@ -38,15 +38,22 @@ func _process(delta: float) -> void:
 	if numberDelayRemaining > 0: return
 	numberDelayRemaining = numberAnimDelay
 	
-	if displayedHealth != currentHealth:
-		if displayedHealth < currentHealth: displayedHealth += 1
-		if displayedHealth > currentHealth: displayedHealth -= 1
+	var healthChange = abs(displayedHealth-currentHealth)
+	var healthDelta = 1 # 10 if healthChange>10 else 1
+	var starsChange = abs(displayedStars-currentStars)
+	var starsDelta = 1 # 10 if starsChange>10 else 1
+	var scoreChange = abs(displayedScore-currentScore)
+	var scoreDelta = 50 if scoreChange>50 else 1 # go faster if big difference
+	
+	if healthChange!=0:
+		if displayedHealth < currentHealth: displayedHealth += healthDelta
+		if displayedHealth > currentHealth: displayedHealth -= healthDelta
 		health.text = str(displayedHealth)
-	if displayedStars != currentStars:
-		if displayedStars < currentStars: displayedStars += 1
-		if displayedStars > currentStars: displayedStars -= 1
+	if starsChange!=0:
+		if displayedStars < currentStars: displayedStars += starsDelta
+		if displayedStars > currentStars: displayedStars -= starsDelta
 		stars.text = str(displayedStars)
-	if displayedScore != currentScore:
-		if displayedScore < currentScore: displayedScore += 1
-		if displayedScore > currentScore: displayedScore -= 1
+	if scoreChange!=0:
+		if displayedScore < currentScore: displayedScore += scoreDelta
+		if displayedScore > currentScore: displayedScore -= scoreDelta
 		score.text = str(displayedScore)

@@ -13,7 +13,7 @@ const STAR_COLLECTIBLE: PackedScene = preload("uid://cfjv2f23gme53")
 @export var stages: Dictionary[GameManager.PhaseType, float]
 var current_stage: GameManager.PhaseType
 	
-@export var brick_score_value: int = 5
+@export var brick_score_value: int = 500
 @export var brick_health: int = 1
 var health_temp: float
 @export var brick_damage_fx: PackedScene
