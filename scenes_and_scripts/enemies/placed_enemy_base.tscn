@@ -5,9 +5,6 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2bfs3"]
 size = Vector2(84, 127)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xbwaf"]
-size = Vector2(99, 126)
-
 [node name="EnemyName" type="CharacterBody2D" unique_id=1934117901]
 script = ExtResource("1_f4fnr")
 suppressed_on_respawn = true
@@ -17,9 +14,3 @@ suppressed_on_respawn = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1655691252]
 position = Vector2(0, 25)
 shape = SubResource("RectangleShape2D_2bfs3")
-
-[node name="RammingCollision" type="Area2D" parent="." unique_id=390356126]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RammingCollision" unique_id=1959629443]
-position = Vector2(0, 16.5)
-shape = SubResource("RectangleShape2D_xbwaf")
