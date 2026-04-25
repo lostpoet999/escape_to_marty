@@ -166,8 +166,7 @@ func _input(event: InputEvent) -> void:
 		if active_paddle_powerup:
 			active_paddle_powerup.activate(self,projectiles)
 
-func hit_feedback() -> void:
-	# scale pulse — David is a child, so he pulses too
+func hit_feedback() -> void:	
 	var base_scale: Vector2 = scale
 	var tw_scale: Tween = create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	tw_scale.tween_property(self, "scale", base_scale * 0.9, 0.06)

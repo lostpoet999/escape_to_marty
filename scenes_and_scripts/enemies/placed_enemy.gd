@@ -10,8 +10,11 @@ signal ready_to_remove(enemy: PlacedEnemy)
 
 @onready var foot_1: Marker2D = $Foot1
 @onready var foot_2: Marker2D = $Foot2
+@onready var denial_active: bool = true
+@export var denial_health: int = 3
 
 func _ready()->void:
+	if denial_active == true: self.modulate = Color.BLACK
 	Signalbus.jump_landed.connect(jump_land_shake)
 	if is_blocker: Signalbus.blocker_added.emit(self)
 	var duped: Array[EnemyActions] = []
@@ -28,6 +31,13 @@ func _ready()->void:
 func _process(_delta: float) -> void:	
 	if GameManager.current_state == GameManager.GameState.LEVEL_CLEARED:
 		die()
+
+func accept_damage(damage: int, dmg_type: Array[GameManager.PhaseType])->void:
+	SFX.play_sound("player_hurt")
+	denial_health -= 1
+	if denial_health == 0: self.modulate = Color.WHITE
+	elif denial_health <= -1: die()
+		
 
 func die()->void:
 	if is_blocker: 
@@ -61,10 +71,3 @@ func get_edge(paddle: Paddle) -> float:
 func start_action_timer()->void:
 	timer.wait_time = action_timer
 	timer.start()
-
-func _on_ramming_collision_body_entered(body: Node2D) -> void:
-	if body is Paddle:
-		var paddle: Paddle = body		
-		if paddle.committed_distance > 300:
-			die()	
-			

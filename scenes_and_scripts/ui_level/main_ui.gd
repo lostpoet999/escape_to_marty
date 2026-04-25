@@ -4,15 +4,15 @@ extends Control
 @onready var stars: Label = %Stars
 @onready var health: Label = %health
 
-var numberAnimDelay = 1/30 # of a second
-var numberDelayRemaining = 0
+var numberAnimDelay: float = 3/30 # of a second
+var numberDelayRemaining: float = 0
 
-var currentScore = 0
-var currentStars = 0
-var currentHealth = 0
-var displayedScore = 0
-var displayedStars = 0
-var displayedHealth = 0
+var currentScore: int = 0
+var currentStars: int = 0
+var currentHealth: int = 0
+var displayedScore: int = 0
+var displayedStars: int = 0
+var displayedHealth: int = 0
 
 func _ready() -> void:
 	Signalbus.stars_updated.connect(update_star_ui)
@@ -38,12 +38,12 @@ func _process(delta: float) -> void:
 	if numberDelayRemaining > 0: return
 	numberDelayRemaining = numberAnimDelay
 	
-	var healthChange = abs(displayedHealth-currentHealth)
-	var healthDelta = 1 # 10 if healthChange>10 else 1
-	var starsChange = abs(displayedStars-currentStars)
-	var starsDelta = 1 # 10 if starsChange>10 else 1
-	var scoreChange = abs(displayedScore-currentScore)
-	var scoreDelta = 50 if scoreChange>50 else 1 # go faster if big difference
+	var healthChange: int = abs(displayedHealth-currentHealth)
+	var healthDelta: int = 1 # 10 if healthChange>10 else 1
+	var starsChange: int = abs(displayedStars-currentStars)
+	var starsDelta: int = 1 # 10 if starsChange>10 else 1
+	var scoreChange: int = abs(displayedScore-currentScore)
+	var scoreDelta: int = 50 if scoreChange>50 else 1 # go faster if big difference
 	
 	if healthChange!=0:
 		if displayedHealth < currentHealth: displayedHealth += healthDelta

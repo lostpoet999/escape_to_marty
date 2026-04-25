@@ -25,7 +25,7 @@ metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 [node name="combat_1_3" unique_id=565861230 instance=ExtResource("1_nty3w")]
 
 [node name="OpenSeal" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="0" unique_id=887021685 instance=ExtResource("2_l6wtj")]
-position = Vector2(1184, 768)
+position = Vector2(1824, 736)
 stages = Dictionary[int, float]({
 0: 5.0,
 1: 1.0
@@ -33,7 +33,7 @@ stages = Dictionary[int, float]({
 brick_health = 5
 
 [node name="OpenSeal2" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="1" unique_id=647932420 instance=ExtResource("2_l6wtj")]
-position = Vector2(1248, 768)
+position = Vector2(1888, 736)
 stages = Dictionary[int, float]({
 0: 5.0,
 1: 1.0
@@ -41,7 +41,79 @@ stages = Dictionary[int, float]({
 brick_health = 5
 
 [node name="OpenSeal3" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="2" unique_id=1001972289 instance=ExtResource("2_l6wtj")]
-position = Vector2(1120, 768)
+position = Vector2(1760, 736)
+stages = Dictionary[int, float]({
+0: 5.0,
+1: 1.0
+})
+brick_health = 5
+
+[node name="OpenSeal4" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="3" unique_id=177909640 instance=ExtResource("2_l6wtj")]
+position = Vector2(1632, 736)
+stages = Dictionary[int, float]({
+0: 5.0,
+1: 1.0
+})
+brick_health = 5
+
+[node name="OpenSeal5" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="4" unique_id=1529404844 instance=ExtResource("2_l6wtj")]
+position = Vector2(1696, 736)
+stages = Dictionary[int, float]({
+0: 5.0,
+1: 1.0
+})
+brick_health = 5
+
+[node name="OpenSeal6" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="5" unique_id=310012742 instance=ExtResource("2_l6wtj")]
+position = Vector2(1568, 736)
+stages = Dictionary[int, float]({
+0: 5.0,
+1: 1.0
+})
+brick_health = 5
+
+[node name="OpenSeal7" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="6" unique_id=804462732 instance=ExtResource("2_l6wtj")]
+position = Vector2(1824, 544)
+stages = Dictionary[int, float]({
+0: 5.0,
+1: 1.0
+})
+brick_health = 5
+
+[node name="OpenSeal8" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="7" unique_id=1844197599 instance=ExtResource("2_l6wtj")]
+position = Vector2(1888, 544)
+stages = Dictionary[int, float]({
+0: 5.0,
+1: 1.0
+})
+brick_health = 5
+
+[node name="OpenSeal9" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="8" unique_id=1532008478 instance=ExtResource("2_l6wtj")]
+position = Vector2(1760, 544)
+stages = Dictionary[int, float]({
+0: 5.0,
+1: 1.0
+})
+brick_health = 5
+
+[node name="OpenSeal10" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="9" unique_id=884066030 instance=ExtResource("2_l6wtj")]
+position = Vector2(1632, 544)
+stages = Dictionary[int, float]({
+0: 5.0,
+1: 1.0
+})
+brick_health = 5
+
+[node name="OpenSeal11" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="10" unique_id=1401307727 instance=ExtResource("2_l6wtj")]
+position = Vector2(1696, 544)
+stages = Dictionary[int, float]({
+0: 5.0,
+1: 1.0
+})
+brick_health = 5
+
+[node name="OpenSeal12" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="11" unique_id=87421281 instance=ExtResource("2_l6wtj")]
+position = Vector2(1568, 544)
 stages = Dictionary[int, float]({
 0: 5.0,
 1: 1.0
