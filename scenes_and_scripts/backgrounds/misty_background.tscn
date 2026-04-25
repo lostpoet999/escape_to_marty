@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://dwc118v25nv0r"]
+
+[ext_resource type="Gradient" uid="uid://d220ehgw5jb6d" path="res://scenes_and_scripts/backgrounds/misty-black-gradient.tres" id="1_rk52x"]
+[ext_resource type="Material" uid="uid://ba7fs15txmy5s" path="res://scenes_and_scripts/backgrounds/misty-particle-material.tres" id="1_wnnbs"]
+
+[sub_resource type="Gradient" id="Gradient_nf3nx"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+metadata/_snap_enabled = true
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rk52x"]
+gradient = SubResource("Gradient_nf3nx")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="Gradient" id="Gradient_wnnbs"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.023529412, 1, 1, 1, 0)
+metadata/_snap_enabled = true
+
+[node name="Misty-Background" type="Node2D" unique_id=1449763183]
+
+[node name="white particles" type="CPUParticles2D" parent="." unique_id=240854087]
+z_index = -1
+material = ExtResource("1_wnnbs")
+amount = 256
+texture = SubResource("GradientTexture2D_rk52x")
+lifetime = 5.0
+emission_shape = 3
+emission_rect_extents = Vector2(1000, 1000)
+direction = Vector2(1, 1)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 100.0
+angular_velocity_min = -20.0
+angular_velocity_max = 20.0
+scale_amount_min = 0.5
+scale_amount_max = 4.0
+color_ramp = SubResource("Gradient_wnnbs")
+hue_variation_min = -1.0
+hue_variation_max = 1.0
+
+[node name="black particles" type="CPUParticles2D" parent="." unique_id=1199540028]
+z_index = -1
+material = ExtResource("1_wnnbs")
+amount = 256
+texture = SubResource("GradientTexture2D_rk52x")
+lifetime = 5.0
+emission_shape = 3
+emission_rect_extents = Vector2(1000, 1000)
+direction = Vector2(1, 1)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 100.0
+angular_velocity_min = -20.0
+angular_velocity_max = 20.0
+scale_amount_min = 0.5
+scale_amount_max = 4.0
+color_ramp = ExtResource("1_rk52x")
+hue_variation_min = -1.0
+hue_variation_max = 1.0

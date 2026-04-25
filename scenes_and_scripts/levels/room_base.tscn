@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://ld8u6g3nsn62" path="res://scenes_and_scripts/ball/ball.tscn" id="7_701b8"]
 [ext_resource type="PackedScene" uid="uid://dldewve8r7d7i" path="res://scenes_and_scripts/walls/exits/west_exit.tscn" id="8_2ndtm"]
 [ext_resource type="PackedScene" uid="uid://chs4vfkn7cmgt" path="res://scenes_and_scripts/ui_menus/game_over_menu.tscn" id="10_fuowh"]
+[ext_resource type="PackedScene" uid="uid://dwc118v25nv0r" path="res://scenes_and_scripts/backgrounds/misty_background.tscn" id="12_2ndtm"]
 [ext_resource type="Script" uid="uid://tjwcoaf5nkwa" path="res://scenes_and_scripts/levels/camera_2d.gd" id="14_57n16"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_57n16"]
@@ -371,6 +372,9 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0.09411765, 0.039215688, 0.06666667, 1)
+
+[node name="Misty-Background" parent="PlayArea" unique_id=1449763183 instance=ExtResource("12_2ndtm")]
+position = Vector2(806, 544)
 
 [node name="GameState_Lbl" type="Label" parent="PlayArea" unique_id=793042494]
 layout_mode = 0
