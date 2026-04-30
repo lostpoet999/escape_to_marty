@@ -1,10 +1,10 @@
-class_name HopToCenter
+class_name DeonBossHop
 extends EnemyActions
 
 const CENTER:float = 1088.00
 const LEFT:float = 384.00
 const LEFT_CENTER:float  = 960.00
-const RIGHT_CENTER: float = 1216.00
+const RIGHT_CENTER: float = 1516.00
 const RIGHT: float = 1782.00
 
 var target_x:float
@@ -84,8 +84,8 @@ func execute_action(actor: PlacedEnemy) -> void:
 			Signalbus.jump_landed.emit()
 			var dust1: CPUParticles2D = LANDING_DUST.instantiate()
 			var dust2: CPUParticles2D = LANDING_DUST.instantiate()
-			dust1.scale *=1.5
-			dust2.scale *=1.5
+			dust1.scale *=5
+			dust2.scale *=5
 			actor.get_parent().add_child(dust1)
 			actor.get_parent().add_child(dust2)
 			dust1.z_index = 1000

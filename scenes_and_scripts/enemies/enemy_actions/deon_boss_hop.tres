@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="DeonBossHop" format=3 uid="uid://c3282mqidqur5"]
+
+[ext_resource type="Script" uid="uid://bnes3pg7kfcj6" path="res://scenes_and_scripts/enemies/enemy_actions/deon_boss_hop.gd" id="1_1bss2"]
+
+[resource]
+script = ExtResource("1_1bss2")
+hop_distance = 32.0
+up_distance = 64.0
+speed = 5.0
+back_chance = 30.0
+action_name = "DeonBossHop"
+clamp_paddle = true
+metadata/_custom_type_script = "uid://bnes3pg7kfcj6"

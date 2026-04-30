@@ -1,16 +1,16 @@
-[gd_scene format=3 uid="uid://c3bjgu70hca17"]
+[gd_scene format=3 uid="uid://13uav8q34x7t"]
 
-[ext_resource type="Script" uid="uid://dhe5qpjvtwdru" path="res://scenes_and_scripts/enemies/specific_enemies/no_see_me_demon/deon.gd" id="1_dj3le"]
-[ext_resource type="PackedScene" uid="uid://b3j8yvc0658fc" path="res://scenes_and_scripts/enemies/placed_enemy_base.tscn" id="1_hxmmq"]
-[ext_resource type="Script" uid="uid://bbq2uibufrs08" path="res://scenes_and_scripts/enemies/enemy_actions/enemy_action_base.gd" id="2_2bfs3"]
-[ext_resource type="Script" uid="uid://bggdt68lamuu7" path="res://scenes_and_scripts/enemies/enemy_actions/hop_to_center.gd" id="3_2bfs3"]
-[ext_resource type="PackedScene" path="res://scenes_and_scripts/ball/vfx/brick_destroy_fx.tscn" id="4_mhwwu"]
-[ext_resource type="Texture2D" uid="uid://de4qljd70u3rx" path="res://scenes_and_scripts/enemies/specific_enemies/no_see_me_demon/no-see-me-demon_not_idle1.png" id="5_15jb7"]
-[ext_resource type="Material" uid="uid://b6u55aep337u5" path="res://scenes_and_scripts/enemies/specific_enemies/no_see_me_demon/whiteout_shader.tres" id="7_mhwwu"]
-[ext_resource type="Texture2D" uid="uid://dp7nockj7iwkm" path="res://scenes_and_scripts/enemies/specific_enemies/no_see_me_demon/no-see-me-demon.png" id="8_mhwwu"]
+[ext_resource type="PackedScene" uid="uid://b3j8yvc0658fc" path="res://scenes_and_scripts/enemies/placed_enemy_base.tscn" id="1_87rnk"]
+[ext_resource type="Script" uid="uid://dhe5qpjvtwdru" path="res://scenes_and_scripts/enemies/specific_enemies/no_see_me_demon/deon.gd" id="2_inhtf"]
+[ext_resource type="PackedScene" path="res://scenes_and_scripts/ball/vfx/brick_destroy_fx.tscn" id="3_pqpwt"]
+[ext_resource type="Script" uid="uid://bbq2uibufrs08" path="res://scenes_and_scripts/enemies/enemy_actions/enemy_action_base.gd" id="4_okk0g"]
+[ext_resource type="Script" uid="uid://bggdt68lamuu7" path="res://scenes_and_scripts/enemies/enemy_actions/hop_to_center.gd" id="5_ejlyy"]
+[ext_resource type="Texture2D" uid="uid://de4qljd70u3rx" path="res://scenes_and_scripts/enemies/specific_enemies/no_see_me_demon/no-see-me-demon_not_idle1.png" id="6_nbipo"]
+[ext_resource type="Material" uid="uid://b6u55aep337u5" path="res://scenes_and_scripts/enemies/specific_enemies/no_see_me_demon/whiteout_shader.tres" id="7_31hge"]
+[ext_resource type="Texture2D" uid="uid://dp7nockj7iwkm" path="res://scenes_and_scripts/enemies/specific_enemies/no_see_me_demon/no-see-me-demon.png" id="8_30f7f"]
 
 [sub_resource type="Resource" id="Resource_rwvd0"]
-script = ExtResource("3_2bfs3")
+script = ExtResource("5_ejlyy")
 hop_distance = 64.0
 up_distance = 48.0
 speed = 1.0
@@ -24,23 +24,23 @@ metadata/_custom_type_script = "uid://bggdt68lamuu7"
 size = Vector2(82, 124)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nnmbe"]
-atlas = ExtResource("8_mhwwu")
+atlas = ExtResource("8_30f7f")
 region = Rect2(0, 0, 84, 126)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rqyiu"]
-atlas = ExtResource("8_mhwwu")
+atlas = ExtResource("8_30f7f")
 region = Rect2(84, 0, 84, 126)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lxnn2"]
-atlas = ExtResource("8_mhwwu")
+atlas = ExtResource("8_30f7f")
 region = Rect2(168, 0, 84, 126)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nn4bk"]
-atlas = ExtResource("8_mhwwu")
+atlas = ExtResource("8_30f7f")
 region = Rect2(252, 0, 84, 126)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lu1al"]
-atlas = ExtResource("8_mhwwu")
+atlas = ExtResource("8_30f7f")
 region = Rect2(336, 0, 84, 126)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_vye3o"]
@@ -66,16 +66,16 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Deon" unique_id=1934117901 instance=ExtResource("1_hxmmq")]
-script = ExtResource("1_dj3le")
-destroy_fx = ExtResource("4_mhwwu")
-action_pool = Array[ExtResource("2_2bfs3")]([SubResource("Resource_rwvd0")])
+[node name="Deon" unique_id=1934117901 instance=ExtResource("1_87rnk")]
+script = ExtResource("2_inhtf")
+destroy_fx = ExtResource("3_pqpwt")
+action_pool = Array[ExtResource("4_okk0g")]([SubResource("Resource_rwvd0")])
 action_timer = 5.0
 is_blocker = true
 
 [node name="EnemySprite" parent="." index="0" unique_id=2032254832]
 visible = false
-texture = ExtResource("5_15jb7")
+texture = ExtResource("6_nbipo")
 
 [node name="Foot1" type="Marker2D" parent="." index="1" unique_id=1838018458]
 position = Vector2(-15, 91)
@@ -88,6 +88,6 @@ position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_rwvd0")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="4" unique_id=344616733]
-material = ExtResource("7_mhwwu")
+material = ExtResource("7_31hge")
 sprite_frames = SubResource("SpriteFrames_vye3o")
 autoplay = "default"

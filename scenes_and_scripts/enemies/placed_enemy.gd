@@ -14,7 +14,9 @@ signal ready_to_remove(enemy: PlacedEnemy)
 @export var denial_health: int = 3
 
 func _ready()->void:
-	if denial_active == true: self.modulate = Color.BLACK
+	if denial_active == true:
+		self.modulate = Color.BLACK
+		self.modulate.a = .2	
 	Signalbus.jump_landed.connect(jump_land_shake)
 	if is_blocker: Signalbus.blocker_added.emit(self)
 	var duped: Array[EnemyActions] = []
@@ -32,10 +34,12 @@ func _process(_delta: float) -> void:
 	if GameManager.current_state == GameManager.GameState.LEVEL_CLEARED:
 		die()
 
-func accept_damage(damage: int, dmg_type: Array[GameManager.PhaseType])->void:
+func accept_damage(_damage: int, _dmg_type: Array[GameManager.PhaseType])->void:
 	SFX.play_sound("player_hurt")
 	denial_health -= 1
-	if denial_health == 0: self.modulate = Color.WHITE
+	if denial_health == 0:
+		self.modulate = Color.WHITE
+		self.modulate.a = 1.0
 	elif denial_health <= -1: die()
 		
 

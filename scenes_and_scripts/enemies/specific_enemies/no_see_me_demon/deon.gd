@@ -25,7 +25,7 @@ func die()->void:
 	queue_free()
 
 func take_damage_fx()->void:
-	var sprite: Sprite2D = $EnemySprite
+	var sprite: AnimatedSprite2D = $AnimatedSprite2D
 	var original_offset: Vector2 = sprite.offset
 	var mat: ShaderMaterial = sprite.material as ShaderMaterial
 	if mat != null:
@@ -38,7 +38,7 @@ func take_damage_fx()->void:
 	var shake_tween: Tween = create_tween()
 	var shake_amount: float = 15.0
 	var shake_step: float = 0.025
-	for i in 4:
+	for i: int in 4:
 		var random_offset: Vector2 = Vector2(randf_range(-shake_amount, shake_amount), randf_range(-shake_amount, shake_amount))
 		shake_tween.tween_property(sprite, "offset", original_offset + random_offset, shake_step)
 	shake_tween.tween_property(sprite, "offset", original_offset, shake_step)

@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://b6u55aep337u5"]
+
+[ext_resource type="Shader" uid="uid://gnsjmtflfbxt" path="res://scenes_and_scripts/enemies/specific_enemies/no_see_me_demon/flash.gdshader" id="1_n1d3w"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_n1d3w")
+shader_parameter/flash_amount = 0.0

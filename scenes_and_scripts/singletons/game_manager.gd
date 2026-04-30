@@ -100,6 +100,7 @@ func enter_state(change_to_state: GameState) -> void:
 			#GameManager.change_state(GameState.MAIN_MENU)
 			#call_deferred("load_scene", MAIN_MENU)
 		GameState.CLICK_MODE:
+			Engine.time_scale = 0.5
 			set_mouse_visible()
 			Signalbus.game_state_click_mode.emit()
 		GameState.LEVEL_CLEARED:			
@@ -125,6 +126,8 @@ func exit_state(close_state: GameState) -> void:
 			unpause_game()
 		GameState.DEBUG_PANEL:			
 			unpause_game()
+		GameState.CLICK_MODE:
+			Engine.time_scale = 1.0		
 
 func pause_game() -> void:
 	get_tree().paused = true

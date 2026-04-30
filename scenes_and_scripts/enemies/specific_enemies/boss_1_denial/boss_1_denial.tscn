@@ -1,0 +1,95 @@
+[gd_scene format=3 uid="uid://cnv3n7yhiuywa"]
+
+[ext_resource type="PackedScene" uid="uid://c3bjgu70hca17" path="res://scenes_and_scripts/enemies/specific_enemies/no_see_me_demon/deon.tscn" id="1_rewjh"]
+[ext_resource type="Script" uid="uid://bbq2uibufrs08" path="res://scenes_and_scripts/enemies/enemy_actions/enemy_action_base.gd" id="2_6c1wj"]
+[ext_resource type="Script" uid="uid://bnes3pg7kfcj6" path="res://scenes_and_scripts/enemies/enemy_actions/deon_boss_hop.gd" id="3_641j3"]
+[ext_resource type="PackedScene" uid="uid://cm1kspxv86400" path="res://scenes_and_scripts/bricks/open_seal.tscn" id="4_641j3"]
+
+[sub_resource type="Resource" id="Resource_a5dod"]
+script = ExtResource("3_641j3")
+hop_distance = 1.0
+up_distance = 32.0
+speed = 1.0
+max_hops = 1
+back_chance = 50.0
+action_name = "DeonBossHop"
+clamp_paddle = true
+metadata/_custom_type_script = "uid://bnes3pg7kfcj6"
+
+[node name="Boss1Denial" type="Node2D" unique_id=591023107]
+
+[node name="BossDeon" parent="." unique_id=1934117901 instance=ExtResource("1_rewjh")]
+position = Vector2(640, 352)
+scale = Vector2(5, 5)
+action_pool = Array[ExtResource("2_6c1wj")]([SubResource("Resource_a5dod")])
+action_timer = 10.0
+
+[node name="OpenSeal2" parent="." unique_id=10551750 instance=ExtResource("4_641j3")]
+position = Vector2(353, 180)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+0: 5.0
+})
+
+[node name="OpenSeal3" parent="." unique_id=2035327511 instance=ExtResource("4_641j3")]
+position = Vector2(353, 244)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+0: 5.0
+})
+
+[node name="OpenSeal4" parent="." unique_id=1335340101 instance=ExtResource("4_641j3")]
+position = Vector2(353, 308)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+0: 5.0
+})
+
+[node name="OpenSeal5" parent="." unique_id=1622663981 instance=ExtResource("4_641j3")]
+position = Vector2(353, 372)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+0: 5.0
+})
+
+[node name="OpenSeal6" parent="." unique_id=1050856983 instance=ExtResource("4_641j3")]
+position = Vector2(353, 436)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+0: 5.0
+})
+
+[node name="OpenSeal7" parent="." unique_id=1475270491 instance=ExtResource("4_641j3")]
+position = Vector2(353, 500)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+0: 5.0
+})
+
+[node name="OpenSeal" parent="." unique_id=887021685 instance=ExtResource("4_641j3")]
+position = Vector2(608, -42)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+0: 5.0
+})
+
+[node name="OpenSeal8" parent="." unique_id=1039110780 instance=ExtResource("4_641j3")]
+position = Vector2(544, -42)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+0: 5.0
+})
+
+[node name="OpenSeal10" parent="." unique_id=121651213 instance=ExtResource("4_641j3")]
+position = Vector2(736, -42)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+0: 5.0
+})
+
+[node name="OpenSeal9" parent="." unique_id=183995235 instance=ExtResource("4_641j3")]
+position = Vector2(672, -42)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+0: 5.0
+})
