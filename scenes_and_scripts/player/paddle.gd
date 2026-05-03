@@ -145,8 +145,10 @@ func freeze_paddle_for_time(time: float)->void:
 		freeze_timer.one_shot = true	
 		freeze_timer.timeout.connect(_on_freeze_timer_expire)
 		add_child(freeze_timer)
-		
-		
+
+	var shake_effect = ShakeEffect.new()
+	shake_effect.shake_amount = 30
+	shake_effect.apply_to(self, sprite)
 		
 	freeze_timer.wait_time = time
 	freeze_timer.start()
