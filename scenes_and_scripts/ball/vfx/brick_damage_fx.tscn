@@ -33,6 +33,7 @@ colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
 metadata/_snap_enabled = true
 
 [node name="BrickDamageFX" type="Node2D" unique_id=908965456]
+z_index = 1000
 script = ExtResource("1_arng6")
 
 [node name="square-puff" type="CPUParticles2D" parent="." unique_id=832937311]

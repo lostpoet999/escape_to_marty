@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://nx78k65twjxc"]
+
+[ext_resource type="Script" uid="uid://bp1tc5w7h5477" path="res://scenes_and_scripts/walls/deon_boss_wall.gd" id="1_6nu68"]
+[ext_resource type="Texture2D" uid="uid://nhuggym8gsmb" path="res://scenes_and_scripts/walls/1x1_brownish_wall.png" id="1_cw5mq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pk4ev"]
+size = Vector2(64, 64)
+
+[node name="BorderWall" type="Area2D" unique_id=88737804 groups=["walls"]]
+script = ExtResource("1_6nu68")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=363479540]
+shape = SubResource("RectangleShape2D_pk4ev")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1657223946]
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+texture = ExtResource("1_cw5mq")

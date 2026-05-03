@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://b3j8yvc0658fc" path="res://scenes_and_scripts/enemies/placed_enemy_base.tscn" id="1_hxmmq"]
 [ext_resource type="Script" uid="uid://bbq2uibufrs08" path="res://scenes_and_scripts/enemies/enemy_actions/enemy_action_base.gd" id="2_2bfs3"]
 [ext_resource type="Script" uid="uid://bggdt68lamuu7" path="res://scenes_and_scripts/enemies/enemy_actions/hop_to_center.gd" id="3_2bfs3"]
-[ext_resource type="PackedScene" uid="uid://dejd17bbrym3c" path="res://scenes_and_scripts/ball/vfx/brick_destroy_fx.tscn" id="4_mhwwu"]
+[ext_resource type="PackedScene" path="res://scenes_and_scripts/ball/vfx/brick_destroy_fx.tscn" id="4_mhwwu"]
 [ext_resource type="Texture2D" uid="uid://de4qljd70u3rx" path="res://scenes_and_scripts/enemies/specific_enemies/no_see_me_demon/no-see-me-demon_not_idle1.png" id="5_15jb7"]
 [ext_resource type="Material" uid="uid://b6u55aep337u5" path="res://scenes_and_scripts/enemies/specific_enemies/no_see_me_demon/whiteout_shader.tres" id="7_mhwwu"]
 [ext_resource type="Texture2D" uid="uid://dp7nockj7iwkm" path="res://scenes_and_scripts/enemies/specific_enemies/no_see_me_demon/no-see-me-demon.png" id="8_mhwwu"]
@@ -21,7 +21,7 @@ clamp_paddle = true
 metadata/_custom_type_script = "uid://bggdt68lamuu7"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rwvd0"]
-size = Vector2(82, 124)
+size = Vector2(84, 126)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nnmbe"]
 atlas = ExtResource("8_mhwwu")
@@ -84,7 +84,8 @@ position = Vector2(-15, 91)
 position = Vector2(15, 91)
 
 [node name="CollisionShape2D" parent="." index="3" unique_id=1655691252]
-position = Vector2(0, 1)
+z_index = 1000
+position = Vector2(0, 0)
 shape = SubResource("RectangleShape2D_rwvd0")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="4" unique_id=344616733]

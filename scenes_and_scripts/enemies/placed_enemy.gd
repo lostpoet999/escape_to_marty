@@ -12,6 +12,8 @@ signal ready_to_remove(enemy: PlacedEnemy)
 @onready var foot_2: Marker2D = $Foot2
 @onready var denial_active: bool = true
 @export var denial_health: int = 3
+@export var right_clamp_offset: int
+@export var left_clamp_offset: int
 
 func _ready()->void:
 	if denial_active == true:
@@ -68,9 +70,9 @@ func get_edge(paddle: Paddle) -> float:
 	var half_width: float = sprite.texture.get_width() * sprite.scale.x * scale.x / 2.0
 	var paddle_half: float = paddle._get_scaled_half_width()	
 	if global_position.x < paddle.global_position.x:
-		return global_position.x + half_width + paddle_half
+		return global_position.x + half_width + paddle_half + left_clamp_offset
 	else:
-		return global_position.x - half_width - paddle_half
+		return global_position.x - half_width - paddle_half - right_clamp_offset
 
 func start_action_timer()->void:
 	timer.wait_time = action_timer

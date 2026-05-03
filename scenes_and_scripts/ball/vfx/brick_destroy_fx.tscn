@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://dejd17bbrym3c"]
+[gd_scene format=3 uid="uid://dwqgc0eorwbcf"]
 
 [ext_resource type="Script" uid="uid://dkgixai172xy8" path="res://scenes_and_scripts/ball/vfx/bounce_particle_cleanup.gd" id="1_pid3y"]
 
@@ -30,6 +30,7 @@ _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.24932978, 0.79645103), 0.0, 0.
 point_count = 3
 
 [node name="BrickDamageFX" type="Node2D" unique_id=908965456]
+z_index = 1000
 script = ExtResource("1_pid3y")
 
 [node name="sparks" type="CPUParticles2D" parent="." unique_id=126513465]
