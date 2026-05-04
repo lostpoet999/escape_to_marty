@@ -130,3 +130,7 @@ signal blocker_removed(enemy: PlacedEnemy)
 signal blocker_moved
 @warning_ignore("unused_signal")
 signal jump_landed
+@warning_ignore("unused_signal")
+signal deon_boss_seal_cleared(seal: Node2D)
+@warning_ignore("unused_signal")
+signal deon_boss_cage_cleared()

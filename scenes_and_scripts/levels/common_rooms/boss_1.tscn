@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://brr0pi7naait7"]
 
 [ext_resource type="PackedScene" uid="uid://bea1h3570swpu" path="res://scenes_and_scripts/levels/room_base.tscn" id="1_u1v84"]
+[ext_resource type="Script" uid="uid://bp614icwl4d63" path="res://scenes_and_scripts/levels/common_rooms/boss_deon_cage.gd" id="2_njqif"]
 [ext_resource type="PackedScene" uid="uid://cnv3n7yhiuywa" path="res://scenes_and_scripts/enemies/specific_enemies/boss_1_denial/boss_1_denial.tscn" id="3_ndrbk"]
 [ext_resource type="PackedScene" uid="uid://nx78k65twjxc" path="res://scenes_and_scripts/walls/DeonBossWall.tscn" id="4_th818"]
 [ext_resource type="PackedScene" uid="uid://dg0t0jrkytca7" path="res://scenes_and_scripts/bricks/boss_deon_seal.tscn" id="5_njqif"]
@@ -15,66 +16,67 @@ position = Vector2(288, 960)
 metadata/_edit_lock_ = true
 
 [node name="BossDeonCage" type="Node" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="5" unique_id=1789205405]
+script = ExtResource("2_njqif")
 
-[node name="BossDeonSeal" parent="PlayArea/BossDeonCage" index="0" unique_id=887021685 instance=ExtResource("5_njqif")]
-position = Vector2(1312, 864)
-
-[node name="BossDeonSeal2" parent="PlayArea/BossDeonCage" index="1" unique_id=1214185130 instance=ExtResource("5_njqif")]
-position = Vector2(1312, 800)
-
-[node name="BossDeonSeal3" parent="PlayArea/BossDeonCage" index="2" unique_id=336911161 instance=ExtResource("5_njqif")]
-position = Vector2(1312, 736)
-
-[node name="BossDeonSeal4" parent="PlayArea/BossDeonCage" index="3" unique_id=2029771445 instance=ExtResource("5_njqif")]
-position = Vector2(1312, 672)
-
-[node name="BossDeonSeal5" parent="PlayArea/BossDeonCage" index="4" unique_id=1998331999 instance=ExtResource("5_njqif")]
-position = Vector2(1312, 608)
-
-[node name="BossDeonSeal6" parent="PlayArea/BossDeonCage" index="5" unique_id=884025061 instance=ExtResource("5_njqif")]
-position = Vector2(1312, 544)
-
-[node name="BossDeonSeal7" parent="PlayArea/BossDeonCage" index="6" unique_id=109674662 instance=ExtResource("5_njqif")]
-position = Vector2(1312, 480)
-
-[node name="BossDeonSeal8" parent="PlayArea/BossDeonCage" index="7" unique_id=1902180510 instance=ExtResource("5_njqif")]
-position = Vector2(1312, 416)
-
-[node name="Boss1Denial" parent="." index="10" unique_id=591023107 instance=ExtResource("3_ndrbk")]
-position = Vector2(960, 365)
-
-[node name="BorderWall" parent="." index="11" unique_id=88737804 instance=ExtResource("4_th818")]
-position = Vector2(1312, 928)
-
-[node name="BorderWall2" parent="." index="12" unique_id=1746791712 instance=ExtResource("4_th818")]
+[node name="BorderWall2" parent="PlayArea/BossDeonCage" index="0" unique_id=1746791712 instance=ExtResource("4_th818")]
 position = Vector2(1312, 992)
 
-[node name="BorderWall3" parent="." index="13" unique_id=39085958 instance=ExtResource("4_th818")]
+[node name="BorderWall" parent="PlayArea/BossDeonCage" index="1" unique_id=88737804 instance=ExtResource("4_th818")]
+position = Vector2(1312, 928)
+
+[node name="BossDeonSeal" parent="PlayArea/BossDeonCage" index="2" unique_id=887021685 instance=ExtResource("5_njqif")]
+position = Vector2(1312, 864)
+
+[node name="BossDeonSeal2" parent="PlayArea/BossDeonCage" index="3" unique_id=1214185130 instance=ExtResource("5_njqif")]
+position = Vector2(1312, 800)
+
+[node name="BossDeonSeal3" parent="PlayArea/BossDeonCage" index="4" unique_id=336911161 instance=ExtResource("5_njqif")]
+position = Vector2(1312, 736)
+
+[node name="BossDeonSeal4" parent="PlayArea/BossDeonCage" index="5" unique_id=2029771445 instance=ExtResource("5_njqif")]
+position = Vector2(1312, 672)
+
+[node name="BossDeonSeal5" parent="PlayArea/BossDeonCage" index="6" unique_id=1998331999 instance=ExtResource("5_njqif")]
+position = Vector2(1312, 608)
+
+[node name="BossDeonSeal6" parent="PlayArea/BossDeonCage" index="7" unique_id=884025061 instance=ExtResource("5_njqif")]
+position = Vector2(1312, 544)
+
+[node name="BossDeonSeal7" parent="PlayArea/BossDeonCage" index="8" unique_id=109674662 instance=ExtResource("5_njqif")]
+position = Vector2(1312, 480)
+
+[node name="BossDeonSeal8" parent="PlayArea/BossDeonCage" index="9" unique_id=1902180510 instance=ExtResource("5_njqif")]
+position = Vector2(1312, 416)
+
+[node name="BorderWall3" parent="PlayArea/BossDeonCage" index="10" unique_id=39085958 instance=ExtResource("4_th818")]
 position = Vector2(1312, 352)
 
-[node name="BorderWall4" parent="." index="14" unique_id=412955564 instance=ExtResource("4_th818")]
+[node name="BorderWall4" parent="PlayArea/BossDeonCage" index="11" unique_id=412955564 instance=ExtResource("4_th818")]
 position = Vector2(1312, 288)
 
-[node name="BorderWall5" parent="." index="15" unique_id=25702205 instance=ExtResource("4_th818")]
+[node name="BorderWall5" parent="PlayArea/BossDeonCage" index="12" unique_id=25702205 instance=ExtResource("4_th818")]
 position = Vector2(1376, 288)
 
-[node name="BorderWall6" parent="." index="16" unique_id=757830832 instance=ExtResource("4_th818")]
+[node name="BorderWall6" parent="PlayArea/BossDeonCage" index="13" unique_id=757830832 instance=ExtResource("4_th818")]
 position = Vector2(1440, 288)
 
-[node name="BorderWall7" parent="." index="17" unique_id=903218216 instance=ExtResource("4_th818")]
+[node name="BorderWall7" parent="PlayArea/BossDeonCage" index="14" unique_id=903218216 instance=ExtResource("4_th818")]
 position = Vector2(1504, 288)
 
-[node name="BorderWall8" parent="." index="18" unique_id=322610824 instance=ExtResource("4_th818")]
+[node name="BorderWall8" parent="PlayArea/BossDeonCage" index="15" unique_id=322610824 instance=ExtResource("4_th818")]
 position = Vector2(1568, 288)
 
-[node name="BorderWall9" parent="." index="19" unique_id=1423742524 instance=ExtResource("4_th818")]
+[node name="BorderWall9" parent="PlayArea/BossDeonCage" index="16" unique_id=1423742524 instance=ExtResource("4_th818")]
 position = Vector2(1632, 288)
 
-[node name="BorderWall10" parent="." index="20" unique_id=704986998 instance=ExtResource("4_th818")]
+[node name="BorderWall10" parent="PlayArea/BossDeonCage" index="17" unique_id=704986998 instance=ExtResource("4_th818")]
 position = Vector2(1696, 288)
 
-[node name="BorderWall11" parent="." index="21" unique_id=545764881 instance=ExtResource("4_th818")]
+[node name="BorderWall11" parent="PlayArea/BossDeonCage" index="18" unique_id=545764881 instance=ExtResource("4_th818")]
 position = Vector2(1760, 288)
 
-[node name="BorderWall12" parent="." index="22" unique_id=915834336 instance=ExtResource("4_th818")]
+[node name="BorderWall12" parent="PlayArea/BossDeonCage" index="19" unique_id=915834336 instance=ExtResource("4_th818")]
 position = Vector2(1824, 288)
+
+[node name="Boss1Denial" parent="." index="10" unique_id=591023107 instance=ExtResource("3_ndrbk")]
+position = Vector2(1600, 709)
