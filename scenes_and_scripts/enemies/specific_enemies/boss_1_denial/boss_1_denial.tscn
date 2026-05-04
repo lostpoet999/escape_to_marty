@@ -5,8 +5,10 @@
 [ext_resource type="Script" uid="uid://rg8egckoye8l" path="res://scenes_and_scripts/enemies/specific_enemies/boss_1_denial/boss_deon.gd" id="2_641j3"]
 
 [node name="Boss1Denial" type="Node2D" unique_id=591023107]
+z_index = 1000
 
 [node name="BossDeon" parent="." unique_id=1934117901 instance=ExtResource("1_rewjh")]
+z_index = 1000
 scale = Vector2(5, 5)
 script = ExtResource("2_641j3")
 destroy_fx = null
