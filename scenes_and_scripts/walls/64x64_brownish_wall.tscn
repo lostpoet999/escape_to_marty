@@ -1,11 +1,14 @@
 [gd_scene format=3 uid="uid://dn7s6lrcudtqn"]
 
+[ext_resource type="Script" uid="uid://fom873lhlcyv" path="res://scenes_and_scripts/walls/border_wall.gd" id="1_m7l8a"]
 [ext_resource type="Texture2D" uid="uid://nhuggym8gsmb" path="res://scenes_and_scripts/walls/1x1_brownish_wall.png" id="1_pk4ev"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pk4ev"]
 size = Vector2(64, 64)
 
-[node name="BorderWall" type="Area2D" unique_id=88737804 groups=["walls"]]
+[node name="BorderWall" type="Area2D" unique_id=268205262 groups=["walls"]]
+script = ExtResource("1_m7l8a")
+metadata/_custom_type_script = "uid://fom873lhlcyv"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=363479540]
 shape = SubResource("RectangleShape2D_pk4ev")

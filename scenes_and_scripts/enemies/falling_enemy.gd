@@ -38,3 +38,7 @@ func _physics_process(delta: float) -> void:
 				can_damage = false
 				SFX.play_sound("cage_hit")
 				queue_free()
+
+func on_fall_landed() -> void:
+	get_viewport().get_camera_2d().add_trauma(0.7)
+	queue_free()
