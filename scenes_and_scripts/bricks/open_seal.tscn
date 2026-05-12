@@ -2,7 +2,8 @@
 
 [ext_resource type="Script" uid="uid://i403c20dlobl" path="res://scenes_and_scripts/bricks/base_seal.gd" id="1_nevfk"]
 [ext_resource type="PackedScene" uid="uid://c7bssypnnaqai" path="res://scenes_and_scripts/ball/vfx/brick_damage_fx.tscn" id="2_xvt2o"]
-[ext_resource type="PackedScene" path="res://scenes_and_scripts/ball/vfx/brick_destroy_fx.tscn" id="3_we8d2"]
+[ext_resource type="PackedScene" uid="uid://dwqgc0eorwbcf" path="res://scenes_and_scripts/ball/vfx/brick_destroy_fx.tscn" id="3_we8d2"]
+[ext_resource type="Texture2D" uid="uid://wi34v2345ihn" path="res://scenes_and_scripts/bricks/brick-gemstone-facets.png" id="4_xvt2o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xcpf8"]
 size = Vector2(64, 32)
@@ -21,6 +22,7 @@ scale = Vector2(1, 2)
 shape = SubResource("RectangleShape2D_xcpf8")
 
 [node name="border" type="ColorRect" parent="." unique_id=225532092]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -34,8 +36,10 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0.7572688, 0.8283187, 1, 1)
+metadata/_edit_use_anchors_ = true
 
 [node name="fill" type="ColorRect" parent="." unique_id=266568882]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -49,6 +53,11 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0.23091933, 0.25991562, 0.69853663, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="gemstone-facets" type="Sprite2D" parent="." unique_id=1967034558]
+modulate = Color(0.23137255, 0.25882354, 0.69803923, 1)
+texture = ExtResource("4_xvt2o")
 
 [node name="brick_health" type="Label" parent="." unique_id=499738501]
 anchors_preset = 15
@@ -60,6 +69,7 @@ offset_right = 5.0
 offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_shadow_color = Color(0.24985075, 0.24985075, 0.24985075, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "3"
+metadata/_edit_use_anchors_ = true

@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://37ac7xv2kevl"]
 
 [ext_resource type="PackedScene" uid="uid://csxt8ng8rhxo" path="res://scenes_and_scripts/walls/exits/exit_base.tscn" id="1_v65l6"]
+[ext_resource type="Texture2D" uid="uid://wi34v2345ihn" path="res://scenes_and_scripts/bricks/brick-gemstone-facets.png" id="2_x54i1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v65l6"]
 size = Vector2(64, 128)
@@ -20,6 +21,16 @@ offset_top = -64.0
 offset_right = 32.0
 offset_bottom = 64.0
 
+[node name="gem-facets" type="Sprite2D" parent="ExitBarrier_closed" index="0" unique_id=1115695287]
+modulate = Color(1, 0.38431373, 0.32156864, 1)
+position = Vector2(32, 32)
+texture = ExtResource("2_x54i1")
+
+[node name="gem-facets2" type="Sprite2D" parent="ExitBarrier_closed" index="1" unique_id=1608889535]
+modulate = Color(1, 0.38431373, 0.32156864, 1)
+position = Vector2(32, 96)
+texture = ExtResource("2_x54i1")
+
 [node name="ExitBarrier_open" parent="." index="2" unique_id=1579582079]
 visible = true
 offset_left = -32.0
@@ -27,7 +38,17 @@ offset_top = -64.0
 offset_right = 32.0
 offset_bottom = 64.0
 
-[node name="Label" type="Label" parent="ExitBarrier_open" index="0" unique_id=188507996]
+[node name="gem-facets" type="Sprite2D" parent="ExitBarrier_open" index="0" unique_id=954771974]
+modulate = Color(0.101960786, 0.76862746, 0.32156864, 1)
+position = Vector2(32, 32)
+texture = ExtResource("2_x54i1")
+
+[node name="gem-facets2" type="Sprite2D" parent="ExitBarrier_open" index="1" unique_id=1889950784]
+modulate = Color(0.101960786, 0.76862746, 0.32156864, 1)
+position = Vector2(32, 96)
+texture = ExtResource("2_x54i1")
+
+[node name="Label" type="Label" parent="ExitBarrier_open" index="2" unique_id=188507996]
 layout_mode = 0
 offset_left = 6.0
 offset_top = 41.0

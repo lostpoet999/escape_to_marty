@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://bq76gxrqhb3ud"]
+
+[ext_resource type="Script" uid="uid://i403c20dlobl" path="res://scenes_and_scripts/bricks/base_seal.gd" id="1_fb848"]
+[ext_resource type="PackedScene" uid="uid://c7bssypnnaqai" path="res://scenes_and_scripts/ball/vfx/brick_damage_fx.tscn" id="2_0b4ed"]
+[ext_resource type="PackedScene" uid="uid://dwqgc0eorwbcf" path="res://scenes_and_scripts/ball/vfx/brick_destroy_fx.tscn" id="3_5gaf4"]
+[ext_resource type="Texture2D" uid="uid://wi34v2345ihn" path="res://scenes_and_scripts/bricks/brick-gemstone-facets.png" id="4_4bpie"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xcpf8"]
+size = Vector2(64, 32)
+
+[node name="OpenSeal" type="Area2D" unique_id=887021685 groups=["bricks", "open_seal"]]
+script = ExtResource("1_fb848")
+suppressed_on_respawn = true
+stages = Dictionary[int, float]({
+0: 3.0
+})
+brick_health = 3
+brick_damage_fx = ExtResource("2_0b4ed")
+brick_destroy_fx = ExtResource("3_5gaf4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1283164780]
+scale = Vector2(1, 2)
+shape = SubResource("RectangleShape2D_xcpf8")
+
+[node name="gemstone-facets" type="Sprite2D" parent="." unique_id=1967034558]
+modulate = Color(0, 0.56078434, 0.96862745, 1)
+texture = ExtResource("4_4bpie")
+
+[node name="brick_health" type="Label" parent="." unique_id=499738501]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -5.0
+offset_top = -11.5
+offset_right = 5.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "3"
+metadata/_edit_use_anchors_ = true
