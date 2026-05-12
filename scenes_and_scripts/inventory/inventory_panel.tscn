@@ -15,7 +15,7 @@ layout_mode = 2
 
 [node name="Core_Lbl" type="Label" parent="HBoxContainer" unique_id=880573060]
 layout_mode = 2
-text = "Core:"
+text = "Core: "
 label_settings = ExtResource("1_42un2")
 
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer" unique_id=1211225177]
@@ -31,7 +31,7 @@ columns = 4
 
 [node name="Inventory_lbl" type="Label" parent="HBoxContainer" unique_id=1826435928]
 layout_mode = 2
-text = "Inventory:"
+text = "Inventory: "
 label_settings = ExtResource("1_42un2")
 
 [node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer" unique_id=1991737143]
