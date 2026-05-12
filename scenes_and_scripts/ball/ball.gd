@@ -198,7 +198,7 @@ func move_ball(delta: float) -> void:
 			if !flipped_x:
 				bounce_effect.handle_paddle_collision(self, collider as Paddle)
 				flipped_x = true
-		elif collider.is_in_group("bricks") or collider.is_in_group("walls"):
+		elif collider.is_in_group("bricks") or collider.is_in_group("walls") or collider.is_in_group("bounce_enemy"):
 			if !flipped_x:
 				bounce_effect.handle_x_collision(self, collider)
 				flipped_x = true
@@ -234,7 +234,7 @@ func move_ball(delta: float) -> void:
 			if !flipped_y:
 				bounce_effect.handle_paddle_collision(self, collider as Paddle)
 				flipped_y = true
-		elif collider.is_in_group("bricks") or collider.is_in_group("walls"):
+		elif collider.is_in_group("bricks") or collider.is_in_group("walls") or collider.is_in_group("bounce_enemy"):
 			if !flipped_y:
 				bounce_effect.handle_y_collision(self, collider)
 				flipped_y = true

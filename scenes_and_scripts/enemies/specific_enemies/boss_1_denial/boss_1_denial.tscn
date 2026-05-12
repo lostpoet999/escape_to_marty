@@ -3,16 +3,27 @@
 [ext_resource type="PackedScene" uid="uid://c3bjgu70hca17" path="res://scenes_and_scripts/enemies/specific_enemies/no_see_me_demon/deon.tscn" id="1_rewjh"]
 [ext_resource type="Script" uid="uid://bbq2uibufrs08" path="res://scenes_and_scripts/enemies/enemy_actions/enemy_action_base.gd" id="2_6c1wj"]
 [ext_resource type="Script" uid="uid://rg8egckoye8l" path="res://scenes_and_scripts/enemies/specific_enemies/boss_1_denial/boss_deon.gd" id="2_641j3"]
+[ext_resource type="Script" uid="uid://bnes3pg7kfcj6" path="res://scenes_and_scripts/enemies/enemy_actions/deon_boss_hop.gd" id="4_641j3"]
+
+[sub_resource type="Resource" id="Resource_a5dod"]
+script = ExtResource("4_641j3")
+hop_distance = 0.5
+up_distance = 64.0
+speed = 1.0
+max_hops = 500
+back_chance = 50.0
+action_name = "DeonBossHop"
+clamp_paddle = true
+metadata/_custom_type_script = "uid://bnes3pg7kfcj6"
 
 [node name="Boss1Denial" type="Node2D" unique_id=591023107]
 z_index = 1000
 
-[node name="BossDeon" parent="." unique_id=1934117901 instance=ExtResource("1_rewjh")]
+[node name="BossDeon" parent="." unique_id=1934117901 groups=["bounce_enemy"] instance=ExtResource("1_rewjh")]
 z_index = 1000
 scale = Vector2(5, 5)
 script = ExtResource("2_641j3")
-destroy_fx = null
-action_pool = Array[ExtResource("2_6c1wj")]([])
-action_timer = 0.0
-is_blocker = false
-suppressed_on_respawn = false
+action_pool = Array[ExtResource("2_6c1wj")]([SubResource("Resource_a5dod")])
+action_timer = 100000.0
+denial_health = 5
+right_clamp_offset = 115
