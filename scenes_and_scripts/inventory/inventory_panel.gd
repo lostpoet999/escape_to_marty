@@ -4,7 +4,7 @@ class_name InventoryPanel extends MarginContainer
 
 var buttons: Array[Button]
 
-@onready var inv_grid_container: GridContainer = $HBoxContainer/MarginContainer2/InventoryGrid
+@onready var inv_grid_container: GridContainer = %InventoryGrid
 @onready var core_grid_container: GridContainer = %CoreGrid
 
 func _ready() -> void:
