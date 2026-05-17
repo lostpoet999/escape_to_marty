@@ -5,6 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://b7m8vn6kumwyg" path="res://scenes_and_scripts/enemies/enemy_spawner.tscn" id="2_ytukl"]
 [ext_resource type="Script" uid="uid://dm8qchhbo37mu" path="res://scenes_and_scripts/enemies/enemy_config.gd" id="3_51qpg"]
 [ext_resource type="PackedScene" uid="uid://c3bjgu70hca17" path="res://scenes_and_scripts/enemies/specific_enemies/no_see_me_demon/deon.tscn" id="4_vyv6p"]
+[ext_resource type="Script" uid="uid://bgbyjws8op2if" path="res://scenes_and_scripts/ui_level/hint.gd" id="6_e6fxt"]
+[ext_resource type="LabelSettings" uid="uid://x1nhefjv38q7" path="res://label_settings_and_fonts/level_hint.tres" id="7_e6fxt"]
 
 [sub_resource type="Resource" id="Resource_lsl0q"]
 script = ExtResource("3_51qpg")
@@ -21,6 +23,9 @@ scene_ref = ExtResource("4_vyv6p")
 spawn_chance = 100.0
 x_offset = -96.0
 metadata/_custom_type_script = "uid://dm8qchhbo37mu"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t4x8m"]
+size = Vector2(140, 100)
 
 [node name="combat_1_3" unique_id=565861230 instance=ExtResource("1_nty3w")]
 
@@ -135,3 +140,28 @@ spawn_an_enemy_chance = 50.0
 respawn_time = 10.0
 initial_spawn_time = 2.0
 max_spawns = 1
+
+[node name="Hint" type="Node2D" parent="No-Respawn" parent_id_path=PackedInt32Array(34663887) index="2" unique_id=491808151]
+position = Vector2(839, 965)
+script = ExtResource("6_e6fxt")
+text = "Try pressing TAB to release mouse control,
+then try clicking on the Enemy!"
+label_offset = Vector2(-280, -220)
+shape = SubResource("RectangleShape2D_t4x8m")
+
+[node name="Label" type="Label" parent="No-Respawn/Hint" index="0" unique_id=1742816549]
+offset_left = -280.0
+offset_top = -220.0
+offset_right = -279.0
+offset_bottom = -197.0
+text = "Try pressing TAB to release mouse control,
+then try clicking on the Enemy!"
+label_settings = ExtResource("7_e6fxt")
+
+[node name="Area2D" type="Area2D" parent="No-Respawn/Hint" index="1" unique_id=519865730]
+collision_layer = 0
+input_pickable = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="No-Respawn/Hint/Area2D" index="0" unique_id=1122386472]
+shape = SubResource("RectangleShape2D_t4x8m")

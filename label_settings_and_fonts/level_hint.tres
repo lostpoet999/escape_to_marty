@@ -1,0 +1,7 @@
+[gd_resource type="LabelSettings" format=3 uid="uid://x1nhefjv38q7"]
+
+[ext_resource type="FontFile" uid="uid://c1its5lmhd4kg" path="res://label_settings_and_fonts/fonts/8bitlim.ttf" id="1_nrbbj"]
+
+[resource]
+font = ExtResource("1_nrbbj")
+font_size = 24
