@@ -18,7 +18,7 @@ func accept_damage(_damage: int, _dmg_type: Array[GameManager.PhaseType])->void:
 			self.modulate = Color.WHITE
 			self.modulate.a = 1.0
 			stage += 1
-		elif denial_health <= -1: stage += 1
+	elif denial_health <= -1: stage += 1
 
 func _on_cage_cleared()->void:
 	left_clamp_offset = 0 # from placed_enemy

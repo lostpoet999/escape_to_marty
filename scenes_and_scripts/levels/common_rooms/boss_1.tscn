@@ -26,27 +26,51 @@ position = Vector2(1312, 928)
 
 [node name="BossDeonSeal" parent="PlayArea/BossDeonCage" index="2" unique_id=887021685 instance=ExtResource("5_njqif")]
 position = Vector2(1312, 864)
+stages = Dictionary[int, float]({
+0: 1.0
+})
 
 [node name="BossDeonSeal2" parent="PlayArea/BossDeonCage" index="3" unique_id=1214185130 instance=ExtResource("5_njqif")]
 position = Vector2(1312, 800)
+stages = Dictionary[int, float]({
+0: 1.0
+})
 
 [node name="BossDeonSeal3" parent="PlayArea/BossDeonCage" index="4" unique_id=336911161 instance=ExtResource("5_njqif")]
 position = Vector2(1312, 736)
+stages = Dictionary[int, float]({
+0: 1.0
+})
 
 [node name="BossDeonSeal4" parent="PlayArea/BossDeonCage" index="5" unique_id=2029771445 instance=ExtResource("5_njqif")]
 position = Vector2(1312, 672)
+stages = Dictionary[int, float]({
+0: 1.0
+})
 
 [node name="BossDeonSeal5" parent="PlayArea/BossDeonCage" index="6" unique_id=1998331999 instance=ExtResource("5_njqif")]
 position = Vector2(1312, 608)
+stages = Dictionary[int, float]({
+0: 1.0
+})
 
 [node name="BossDeonSeal6" parent="PlayArea/BossDeonCage" index="7" unique_id=884025061 instance=ExtResource("5_njqif")]
 position = Vector2(1312, 544)
+stages = Dictionary[int, float]({
+0: 1.0
+})
 
 [node name="BossDeonSeal7" parent="PlayArea/BossDeonCage" index="8" unique_id=109674662 instance=ExtResource("5_njqif")]
 position = Vector2(1312, 480)
+stages = Dictionary[int, float]({
+0: 1.0
+})
 
 [node name="BossDeonSeal8" parent="PlayArea/BossDeonCage" index="9" unique_id=1902180510 instance=ExtResource("5_njqif")]
 position = Vector2(1312, 416)
+stages = Dictionary[int, float]({
+0: 1.0
+})
 
 [node name="BorderWall3" parent="PlayArea/BossDeonCage" index="10" unique_id=39085958 instance=ExtResource("4_th818")]
 position = Vector2(1312, 352)

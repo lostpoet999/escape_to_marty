@@ -34,5 +34,7 @@ func take_damage_fx()->void:
 			func(v: float) -> void: mat.set_shader_parameter("flash_amount", v),
 			1.0, 0.0, 0.05
 		)
+	var before_shake_pos: Vector2 = self.global_position
 	var shake_effect = ShakeEffect.new()
 	shake_effect.apply_to(self, sprite)
+	self.global_position = before_shake_pos

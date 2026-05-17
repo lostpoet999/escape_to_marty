@@ -3,6 +3,8 @@ class_name ShakeEffect
 var shake_amount: float = 15.0
 var shake_step: float = 0.025
 
+#TODO: make sure we return to original position even if clicked fast
+
 func apply_to(tween_parent: Node2D, sprite: Node2D) -> void:
 	var original_offset: Vector2 = sprite.offset
 	var shake_tween: Tween = tween_parent.create_tween()
