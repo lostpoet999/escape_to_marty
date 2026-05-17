@@ -40,7 +40,7 @@ layout_mode = 2
 
 [node name="Score_label" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=1238751976]
 layout_mode = 2
-text = "Score:"
+text = "Score: "
 label_settings = ExtResource("2_c76ar")
 
 [node name="Score" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=812595105]
@@ -56,7 +56,7 @@ layout_mode = 2
 
 [node name="Star_lable" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=1425838457]
 layout_mode = 2
-text = "Stars:"
+text = "Stars: "
 label_settings = SubResource("LabelSettings_5qwjd")
 
 [node name="Stars" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=358128666]
@@ -72,7 +72,7 @@ layout_mode = 2
 
 [node name="Player_Health" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=1165732847]
 layout_mode = 2
-text = "Health:"
+text = "Health: "
 label_settings = ExtResource("2_c76ar")
 
 [node name="health" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=1380871399]

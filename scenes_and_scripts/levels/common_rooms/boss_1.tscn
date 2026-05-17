@@ -79,4 +79,4 @@ position = Vector2(1760, 288)
 position = Vector2(1824, 288)
 
 [node name="Boss1Denial" parent="." index="10" unique_id=591023107 groups=["bounce_enemy"] instance=ExtResource("3_ndrbk")]
-position = Vector2(1600, 709)
+position = Vector2(1643, 709)

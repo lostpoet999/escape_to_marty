@@ -10,7 +10,7 @@ func _ready() -> void:
 	Signalbus.deon_boss_cage_cleared.connect(_on_cage_cleared)
 
 func accept_damage(_damage: int, _dmg_type: Array[GameManager.PhaseType])->void:
-	if stage >= 2:
+	if stage >= 2 and _dmg_type.has(GameManager.PhaseType.DENIAL) and denial_health > 0:
 		SFX.play_sound("player_hurt")
 		take_damage_fx()
 		denial_health -= 1
@@ -18,7 +18,7 @@ func accept_damage(_damage: int, _dmg_type: Array[GameManager.PhaseType])->void:
 			self.modulate = Color.WHITE
 			self.modulate.a = 1.0
 			stage += 1
-		elif denial_health <= -1: die()
+		elif denial_health <= -1: stage += 1
 
 func _on_cage_cleared()->void:
 	left_clamp_offset = 0 # from placed_enemy
