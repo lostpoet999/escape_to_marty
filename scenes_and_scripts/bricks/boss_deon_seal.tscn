@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://dg0t0jrkytca7"]
 
 [ext_resource type="Script" uid="uid://baljgjpot7uuh" path="res://scenes_and_scripts/bricks/boss_deon_seal.gd" id="1_2aebw"]
-[ext_resource type="PackedScene" uid="uid://c7bssypnnaqai" path="res://scenes_and_scripts/ball/vfx/brick_damage_fx.tscn" id="2_emgad"]
-[ext_resource type="PackedScene" path="res://scenes_and_scripts/ball/vfx/brick_destroy_fx.tscn" id="3_oomrr"]
+[ext_resource type="PackedScene" uid="uid://c7bssypnnaqai" path="res://scenes_and_scripts/powerups_and_effects/brick_effects/brick_damage_fx.tscn" id="2_emgad"]
+[ext_resource type="PackedScene" uid="uid://dwqgc0eorwbcf" path="res://scenes_and_scripts/powerups_and_effects/brick_effects/brick_destroy_fx.tscn" id="3_oomrr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xcpf8"]
 size = Vector2(64, 32)
