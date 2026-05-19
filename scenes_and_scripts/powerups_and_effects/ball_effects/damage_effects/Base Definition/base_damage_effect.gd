@@ -14,7 +14,7 @@ func process_damage(ball: Ball, collider: Node2D, damage_types: Array[GameManage
 	process_targets(damage_types)
 
 func apply_damage(damage_target: Node2D, damage_types: Array[GameManager.PhaseType]) -> void: #note i am passing damage types a few times because i want to deal with brick and enemy reactions on those scenes
-	if damage_target.is_in_group("bricks"):
+	if damage_target.is_in_group("bricks") or damage_target.is_in_group("bounce_enemy"):
 		damage_target.call("accept_damage", ball_ref.ball_dmg, damage_types) #TODO: biforcate click damage from ball bounce damage
 	elif damage_target.is_in_group("DeathWalls"):
 		if ball_ref.is_tweening_to_david:

@@ -21,7 +21,7 @@ clamp_paddle = true
 metadata/_custom_type_script = "uid://bggdt68lamuu7"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rwvd0"]
-size = Vector2(84, 126)
+size = Vector2(87, 126)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nnmbe"]
 atlas = ExtResource("8_mhwwu")
@@ -85,7 +85,7 @@ position = Vector2(15, 91)
 
 [node name="CollisionShape2D" parent="." index="3" unique_id=1655691252]
 z_index = 1000
-position = Vector2(0, 0)
+position = Vector2(1.5, 0)
 shape = SubResource("RectangleShape2D_rwvd0")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="4" unique_id=344616733]

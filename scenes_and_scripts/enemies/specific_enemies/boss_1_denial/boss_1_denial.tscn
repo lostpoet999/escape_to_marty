@@ -24,6 +24,5 @@ z_index = 1000
 scale = Vector2(5, 5)
 script = ExtResource("2_641j3")
 action_pool = Array[ExtResource("2_6c1wj")]([SubResource("Resource_a5dod")])
-action_timer = 100000.0
 denial_health = 5
-right_clamp_offset = 115
+right_clamp_offset = 80
