@@ -11,6 +11,7 @@ var target_x:float
 var is_hopping: bool = false
 const LANDING_DUST: PackedScene = preload("uid://e5v7jmrw71ba")
 
+var darkcage_spawns: Array
 
 @export var hop_distance: float
 @export var up_distance: float
@@ -22,7 +23,7 @@ var hops: int = 0
 func reset()->void:
 	hops = 0
 	is_hopping = false
-
+	
 func set_target_x(actor: PlacedEnemy)->void:	
 	if actor.global_position.x <= LEFT_CENTER:
 		if randf_range(1,100) <= back_chance and actor.global_position.x > 384:
@@ -34,7 +35,20 @@ func set_target_x(actor: PlacedEnemy)->void:
 			target_x = actor.global_position.x + hop_distance
 		elif actor.global_position.x != RIGHT_CENTER:
 			target_x = actor.global_position.x - hop_distance
+
+func setup_darkcage_spawns(spawn_points: Array)->void:
+	darkcage_spawns = spawn_points
 	
+
+func spawn_cage() -> void:
+	var spawn_count := randi_range(1, 4)
+	var available := darkcage_spawns.duplicate()
+	available.shuffle()
+	for i in spawn_count:
+		var marker: Marker2D = available[i]		
+		Signalbus.deon_boss_spawn_cage.emit(marker.global_position)
+
+
 func execute_action(actor: PlacedEnemy) -> void:
 	if is_hopping:
 		return
@@ -101,3 +115,4 @@ func execute_action(actor: PlacedEnemy) -> void:
 		land_tween.tween_callback(func() -> void: is_hopping = false)
 	)	
 	hops += 1
+	spawn_cage()

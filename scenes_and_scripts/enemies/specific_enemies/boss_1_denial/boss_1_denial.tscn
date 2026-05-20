@@ -13,6 +13,7 @@ speed = 1.0
 max_hops = 500
 back_chance = 50.0
 action_name = "DeonBossHop"
+action_type = null
 clamp_paddle = true
 metadata/_custom_type_script = "uid://bnes3pg7kfcj6"
 
@@ -26,3 +27,23 @@ script = ExtResource("2_641j3")
 action_pool = Array[ExtResource("2_6c1wj")]([SubResource("Resource_a5dod")])
 denial_health = 5
 right_clamp_offset = 80
+
+[node name="Cage_Spawn_Points" type="Node2D" parent="." unique_id=395593450]
+
+[node name="SP1" type="Marker2D" parent="Cage_Spawn_Points" unique_id=62908378]
+position = Vector2(-1270, -598)
+
+[node name="SP2" type="Marker2D" parent="Cage_Spawn_Points" unique_id=1507234875]
+position = Vector2(-1046, -598)
+
+[node name="SP3" type="Marker2D" parent="Cage_Spawn_Points" unique_id=1346923149]
+position = Vector2(-854, -598)
+
+[node name="SP4" type="Marker2D" parent="Cage_Spawn_Points" unique_id=1282925578]
+position = Vector2(-726, -598)
+
+[node name="SP5" type="Marker2D" parent="Cage_Spawn_Points" unique_id=1326247027]
+position = Vector2(-566, -598)
+
+[node name="SP6" type="Marker2D" parent="Cage_Spawn_Points" unique_id=450397489]
+position = Vector2(-406, -598)

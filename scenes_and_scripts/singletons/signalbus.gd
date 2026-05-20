@@ -134,3 +134,5 @@ signal jump_landed
 signal deon_boss_seal_cleared(seal: Node2D)
 @warning_ignore("unused_signal")
 signal deon_boss_cage_cleared()
+@warning_ignore("unused_signal")
+signal deon_boss_spawn_cage(world_pos: Vector2)
