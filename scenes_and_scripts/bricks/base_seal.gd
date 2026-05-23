@@ -2,6 +2,7 @@ class_name BaseSeal
 extends Area2D
 
 const STAR_COLLECTIBLE: PackedScene = preload("uid://cfjv2f23gme53")
+const DAMAGE_NUMBER: PackedScene = preload("res://scenes_and_scripts/enemies/vfx/damage_number.tscn")
 
 @onready var brick_health_label: Label = $brick_health
 
@@ -95,6 +96,9 @@ func _damage_current_stage(damage: float) -> void:
 			get_tree().current_scene.add_child(fx)
 		health_temp -= damage
 		brick_health_label.text = str(health_temp)
+	var damage_number = DAMAGE_NUMBER.instantiate()
+	damage_number.position = global_position
+	get_tree().current_scene.add_child(damage_number)
 	
 
 func pop_tween() -> void:
