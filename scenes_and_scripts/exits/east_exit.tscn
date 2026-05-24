@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://37ac7xv2kevl"]
 
-[ext_resource type="PackedScene" uid="uid://csxt8ng8rhxo" path="res://scenes_and_scripts/walls/exits/exit_base.tscn" id="1_v65l6"]
+[ext_resource type="PackedScene" uid="uid://csxt8ng8rhxo" path="res://scenes_and_scripts/exits/exit_base.tscn" id="1_v65l6"]
 [ext_resource type="Texture2D" uid="uid://wi34v2345ihn" path="res://scenes_and_scripts/bricks/brick-gemstone-facets.png" id="2_x54i1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v65l6"]

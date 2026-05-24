@@ -35,10 +35,10 @@ func accept_damage(_damage: int, _dmg_type: Array[GameManager.PhaseType])->void:
 					self.modulate = Color.WHITE
 					self.modulate.a = 1.0
 					stage += 1
-					print("stage in if: ", stage)
 		3: 				
 			if _dmg_type.has(GameManager.PhaseType.HEALTH):
 				die()
+				Signalbus.floor_cleared.emit()
 				
 			
 	if stage >= 2 and _dmg_type.has(GameManager.PhaseType.DENIAL) and denial_health > 0:

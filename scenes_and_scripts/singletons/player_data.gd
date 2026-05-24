@@ -28,6 +28,7 @@ func initialize_player_data() -> void:
 	stars_collected = 0
 	player_current_health = 10
 	player_max_health = 25
+	room_state.clear()
 		
 	## If this is reset every level, this probably isn't the right spot, as I imagine
 	## inventory should be persistent across levels, but you can make that call.

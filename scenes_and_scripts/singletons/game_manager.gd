@@ -2,7 +2,6 @@ extends Node
 
 #scene references
 const MAIN_MENU: PackedScene = preload("uid://djuj72c4lcukn")
-const LEVEL_01: PackedScene = preload("uid://bea1h3570swpu")
 
 #floor references
 var current_floor:int = 1
@@ -11,7 +10,8 @@ var room_data_for_floor: Dictionary = {}
 var scene_ref: PackedScene
 var current_room_id: String
 var floor_ref: Dictionary = {
-	1: "uid://dr8vct1f7lm5n"
+	1: "uid://dr8vct1f7lm5n",
+	2: "uid://doyoqbp1kw58c"
 }
 
 enum GameState {MAIN_MENU, BALL_ON_PADDLE, PLAYING, PAUSED, GAME_OVER, CLICK_MODE, LEVEL_CLEARED, SPECIAL_ROOM, DEBUG_PANEL} 
@@ -97,8 +97,6 @@ func enter_state(change_to_state: GameState) -> void:
 			set_mouse_visible()
 			Signalbus.game_state_game_over.emit()
 			pause_game()
-			#GameManager.change_state(GameState.MAIN_MENU)
-			#call_deferred("load_scene", MAIN_MENU)
 		GameState.CLICK_MODE:
 			Engine.time_scale = 0.5
 			set_mouse_visible()
@@ -141,22 +139,31 @@ func restart_level() -> void:
 	PlayerData.initialize_player_data()
 	get_tree().reload_current_scene()
 
-
-func _ready() -> void:
+func start_floor() -> void:
 	DP.track("Game State", DP, "old_state", GameState)
 	DP.track("Current Room:", self, "current_room_id")	
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	MusicPlayer.execute_playlist("test_playlist")
+	print("floor_ref: ", floor_ref)
+	print("current floor id: ",current_floor)
 	floor_data = ResourceLoader.load(str(floor_ref[current_floor])) as FloorData
 	scene_ref = floor_data.starting_room_scene
 	current_room_id = floor_data.starting_room_id
 	get_floor_data()
 	_configure_frame_rate()
 	PlayerData.initialize_player_data()
+	
+
+func _ready() -> void:
 	Signalbus.player_died.connect(_load_level_on_player_death)
 	Signalbus.level_cleared.connect(set_state_to_cleared)
-	process_mode = Node.PROCESS_MODE_ALWAYS
+	Signalbus.floor_cleared.connect(floor_cleared)
+	start_floor()	
 	
+func floor_cleared()->void:
+	current_floor += 1
+	start_floor()
+	load_current_room()
 
 func _configure_frame_rate() -> void:
 	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)	

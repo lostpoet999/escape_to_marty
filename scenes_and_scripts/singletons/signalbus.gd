@@ -71,6 +71,9 @@ signal brick_destroyed
 @warning_ignore("unused_signal")
 signal enemy_requested(spawn_from: Area2D)
 
+@warning_ignore("unused_signal")
+signal floor_cleared
+
 ## =============================================================================
 ## PLAYER/UI SIGNALS
 ## =============================================================================

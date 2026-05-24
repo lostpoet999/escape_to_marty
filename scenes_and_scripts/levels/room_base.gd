@@ -50,7 +50,7 @@ func initiate_special_room()->void:
 	if self.name =="common_room":
 		bricks_cleared = true
 		stars_cleared = true
-		check_level_cleared() # temp mechanism until i swithc to checking room types purely
+		check_level_cleared() # TODO temp mechanism until i swithc to checking room types purely
 	match entry.room_type:		
 		RoomEntry.ROOM_TYPES.free_item:
 			if !room_state.loot_items_data:

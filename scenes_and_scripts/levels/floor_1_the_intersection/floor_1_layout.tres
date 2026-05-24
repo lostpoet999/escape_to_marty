@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://pnkwdspwmpwe" path="res://scenes_and_scripts/levels/room_entry.gd" id="1_hqd6g"]
 [ext_resource type="Script" uid="uid://bvs3ugvgbabkc" path="res://scenes_and_scripts/levels/floor_data.gd" id="2_j7weq"]
+[ext_resource type="PackedScene" uid="uid://bhyu3nftn678w" path="res://scenes_and_scripts/levels/floor_1_the_intersection/start_1.tscn" id="2_nrnxw"]
 [ext_resource type="PackedScene" uid="uid://bordljimg38oq" path="res://scenes_and_scripts/levels/floor_1_the_intersection/combat_1_1.tscn" id="3_hqd6g"]
-[ext_resource type="PackedScene" uid="uid://bhyu3nftn678w" path="res://scenes_and_scripts/levels/common_rooms/start_1.tscn" id="3_n2un6"]
 [ext_resource type="PackedScene" uid="uid://b3skgrm0cpgc1" path="res://scenes_and_scripts/levels/floor_1_the_intersection/combat_1_2.tscn" id="4_n2un6"]
 [ext_resource type="PackedScene" uid="uid://bk4fir2rv0b7w" path="res://scenes_and_scripts/levels/floor_1_the_intersection/combat_1_3.tscn" id="5_3m4i2"]
 [ext_resource type="PackedScene" uid="uid://7vttec5plsdk" path="res://scenes_and_scripts/levels/common_rooms/powerup_1.tscn" id="6_1f751"]
@@ -22,7 +22,7 @@
 script = ExtResource("1_hqd6g")
 room_name_id = "start_1"
 max_clears = -1
-room_scene = ExtResource("3_n2un6")
+room_scene = ExtResource("2_nrnxw")
 room_coords = Vector2i(1, 3)
 east_exit = "combat_1_1"
 metadata/_custom_type_script = "uid://pnkwdspwmpwe"
@@ -159,10 +159,10 @@ shop_items = 3
 seal_difficulty_rates = SubResource("Resource_d5n1e")
 seal_phase_pool = Array[ExtResource("13_rtyfa")]([SubResource("Resource_mwylx")])
 seal_health_phase = SubResource("Resource_74xxy")
-floor_name_id = "The Lighthouse"
+floor_name_id = "The Intersection"
 room_entries = Array[ExtResource("1_hqd6g")]([SubResource("Resource_xcoa1"), SubResource("Resource_uasr3"), SubResource("Resource_ujf72"), SubResource("Resource_leowd"), SubResource("Resource_1xisp"), SubResource("Resource_1f751"), SubResource("Resource_87kjy"), SubResource("Resource_smmvo"), SubResource("Resource_2wpod"), SubResource("Resource_gmdml")])
 show_mini_map = true
 starting_room_id = "start_1"
-starting_room_scene = ExtResource("3_n2un6")
+starting_room_scene = ExtResource("2_nrnxw")
 seal_break_enemies = Array[ExtResource("13_74xxy")]([SubResource("Resource_w0og2")])
 metadata/_custom_type_script = "uid://bvs3ugvgbabkc"

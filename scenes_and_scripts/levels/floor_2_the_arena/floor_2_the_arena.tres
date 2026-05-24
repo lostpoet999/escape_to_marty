@@ -1,0 +1,93 @@
+[gd_resource type="Resource" script_class="FloorData" format=3 uid="uid://doyoqbp1kw58c"]
+
+[ext_resource type="Script" uid="uid://pnkwdspwmpwe" path="res://scenes_and_scripts/levels/room_entry.gd" id="1_4xv7i"]
+[ext_resource type="Script" uid="uid://bvs3ugvgbabkc" path="res://scenes_and_scripts/levels/floor_data.gd" id="2_yjxva"]
+[ext_resource type="PackedScene" uid="uid://g548cxb8b4py" path="res://scenes_and_scripts/levels/floor_2_the_arena/combat_2_1.tscn" id="3_1r2xy"]
+[ext_resource type="Script" uid="uid://dm8qchhbo37mu" path="res://scenes_and_scripts/enemies/enemy_config.gd" id="3_1wfy1"]
+[ext_resource type="Script" uid="uid://ccw8ssedjvd48" path="res://scenes_and_scripts/bricks/seal_difficulty.gd" id="4_1wfy1"]
+[ext_resource type="PackedScene" uid="uid://dh03r65knxyfb" path="res://scenes_and_scripts/levels/floor_2_the_arena/combat_2_2.tscn" id="4_6son4"]
+[ext_resource type="PackedScene" uid="uid://cm2bdw1o1sypc" path="res://scenes_and_scripts/enemies/specific_enemies/dark_cage/dark_cage.tscn" id="4_hna8n"]
+[ext_resource type="Script" uid="uid://cqac2vv2p8oga" path="res://scenes_and_scripts/bricks/seal_phase_config.gd" id="4_tjbqt"]
+[ext_resource type="Script" uid="uid://b1eqt2or38kw6" path="res://scenes_and_scripts/item_spawning/spawn_weights_resource.gd" id="6_tjbqt"]
+[ext_resource type="PackedScene" uid="uid://bp6phucw4mi01" path="res://scenes_and_scripts/levels/floor_2_the_arena/start_2.tscn" id="8_c5321"]
+
+[sub_resource type="Resource" id="Resource_6son4"]
+script = ExtResource("1_4xv7i")
+room_name_id = "start_2"
+room_scene = ExtResource("8_c5321")
+room_coords = Vector2i(1, 1)
+south_exit = "combat_2_1"
+metadata/_custom_type_script = "uid://pnkwdspwmpwe"
+
+[sub_resource type="Resource" id="Resource_ygwct"]
+script = ExtResource("1_4xv7i")
+room_name_id = "combat_2_1"
+max_clears = 3
+room_scene = ExtResource("3_1r2xy")
+room_coords = Vector2i(1, 2)
+room_type = 1
+north_exit = "start_2"
+south_exit = "combat_2_2"
+metadata/_custom_type_script = "uid://pnkwdspwmpwe"
+
+[sub_resource type="Resource" id="Resource_6jyd5"]
+script = ExtResource("1_4xv7i")
+room_name_id = "combat_2_2"
+room_scene = ExtResource("4_6son4")
+room_coords = Vector2i(1, 2)
+room_type = 1
+north_exit = "combat_1_2"
+metadata/_custom_type_script = "uid://pnkwdspwmpwe"
+
+[sub_resource type="Resource" id="Resource_1r2xy"]
+script = ExtResource("3_1wfy1")
+enemy_name = "Dark Cage"
+scene_ref = ExtResource("4_hna8n")
+spawn_chance = 60.0
+metadata/_custom_type_script = "uid://dm8qchhbo37mu"
+
+[sub_resource type="Resource" id="Resource_hna8n"]
+script = ExtResource("4_1wfy1")
+super_easy = 40.0
+easy = 40.0
+medium = 20.0
+metadata/_custom_type_script = "uid://ccw8ssedjvd48"
+
+[sub_resource type="Resource" id="Resource_1wfy1"]
+script = ExtResource("4_tjbqt")
+phase_type = 5
+min_health = 2.0
+max_health = 10.0
+metadata/_custom_type_script = "uid://cqac2vv2p8oga"
+
+[sub_resource type="Resource" id="Resource_tjbqt"]
+script = ExtResource("4_tjbqt")
+phase_type = 1
+min_health = 1.0
+max_health = 2.0
+metadata/_custom_type_script = "uid://cqac2vv2p8oga"
+
+[sub_resource type="Resource" id="Resource_c5321"]
+script = ExtResource("6_tjbqt")
+common = 70.0
+unconmon = 10.0
+rare = 15.0
+very_rare = 5.0
+metadata/_custom_type_script = "uid://b1eqt2or38kw6"
+
+[resource]
+script = ExtResource("2_yjxva")
+spawn_weight = SubResource("Resource_c5321")
+free_item_max = 3
+shop_items = 4
+seal_difficulty_rates = SubResource("Resource_hna8n")
+seal_phase_pool = Array[ExtResource("4_tjbqt")]([SubResource("Resource_tjbqt")])
+seal_health_phase = SubResource("Resource_1wfy1")
+max_respawn = 3
+floor_name_id = "the_arena"
+room_entries = Array[ExtResource("1_4xv7i")]([SubResource("Resource_6son4"), SubResource("Resource_ygwct"), SubResource("Resource_6jyd5")])
+show_mini_map = true
+starting_room_id = "start_2"
+starting_room_scene = ExtResource("8_c5321")
+seal_break_enemies = Array[ExtResource("3_1wfy1")]([SubResource("Resource_1r2xy")])
+metadata/_custom_type_script = "uid://bvs3ugvgbabkc"

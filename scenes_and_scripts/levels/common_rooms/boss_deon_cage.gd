@@ -12,7 +12,6 @@ func _ready() -> void:
 func _on_seal_cleared(seal: Node2D)->void:
 	seals.erase(seal)
 	if seals.is_empty():
-		print ("wall cleared")
 		Signalbus.deon_boss_cage_cleared.emit()
 		boss_deon_cage.queue_free()	
 
