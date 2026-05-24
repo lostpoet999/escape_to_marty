@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://bedvoohhfbi03"]
+
+[ext_resource type="Script" uid="uid://c065stlu4igff" path="res://scenes_and_scripts/enemies/vfx/damage_number.gd" id="1_1rq4o"]
+[ext_resource type="FontFile" uid="uid://c1its5lmhd4kg" path="res://label_settings_and_fonts/fonts/8bitlim.ttf" id="1_qlyc0"]
+[ext_resource type="FontFile" uid="uid://dlcbkrmorck31" path="res://label_settings_and_fonts/fonts/8bitlimo.ttf" id="2_1rq4o"]
+
+[node name="DamageNumber" type="Node2D" unique_id=113449863]
+script = ExtResource("1_1rq4o")
+
+[node name="TextContainer" type="Node2D" parent="." unique_id=828590304]
+
+[node name="MinusSign" type="Node2D" parent="TextContainer" unique_id=236076751]
+
+[node name="Label" type="Label" parent="TextContainer/MinusSign" unique_id=1163104824]
+offset_right = 40.0
+offset_bottom = 45.0
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_qlyc0")
+theme_override_font_sizes/font_size = 25
+text = "-"
+
+[node name="Outline" type="Label" parent="TextContainer/MinusSign" unique_id=361248320]
+offset_top = 1.0
+offset_right = 40.0
+offset_bottom = 46.0
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_1rq4o")
+theme_override_font_sizes/font_size = 25
+text = "-"
+
+[node name="Digit1" type="Node2D" parent="TextContainer" unique_id=1872208354]
+position = Vector2(20, 0)
+
+[node name="Label" type="Label" parent="TextContainer/Digit1" unique_id=1088065622]
+offset_right = 40.0
+offset_bottom = 45.0
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_qlyc0")
+theme_override_font_sizes/font_size = 25
+text = "1"
+
+[node name="Outline" type="Label" parent="TextContainer/Digit1" unique_id=883543736]
+offset_left = -1.0
+offset_right = 39.0
+offset_bottom = 45.0
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_1rq4o")
+theme_override_font_sizes/font_size = 25
+text = "1"
