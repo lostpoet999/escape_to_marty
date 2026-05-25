@@ -7,12 +7,12 @@ extends Node
 ## =============================================================================
 
 ## Emits: scenes_and_scripts/singletons/game_manager.gd -> enter_state()
-## Connects: scenes_and_scripts/ui/escape_menu.gd -> show_menu
+## Connects: scenes_and_scripts/ui_menus/escape_menu.gd -> show_menu
 @warning_ignore("unused_signal")
 signal game_state_paused
 
 ## Emits: scenes_and_scripts/singletons/game_manager.gd -> enter_state()
-## Connects: scenes_and_scripts/ui/escape_menu.gd -> hide_menu, scenes_and_scripts/player_paddle/paddle.gd -> _on_game_state_playing
+## Connects: scenes_and_scripts/ui_menus/escape_menu.gd -> hide_menu, scenes_and_scripts/player/paddle.gd -> _on_game_state_playing
 @warning_ignore("unused_signal")
 signal game_state_playing
 
@@ -27,18 +27,18 @@ signal game_state_game_over
 signal game_state_main_menu
 
 ## Emits: scenes_and_scripts/singletons/game_manager.gd -> enter_state()
-## Connects: scenes_and_scripts/player_paddle/paddle.gd -> _on_game_state_click_mode
+## Connects: scenes_and_scripts/player/paddle.gd -> _on_game_state_click_mode
 @warning_ignore("unused_signal")
 signal game_state_click_mode
 
 
-##Emits: memory_flame.gd
-##connectts: paddle.gd
+## Emits: scenes_and_scripts/singletons/game_manager.gd -> enter_state()
+## Connects: scenes_and_scripts/ball/ball.gd -> remove_ball, scenes_and_scripts/player/paddle.gd -> _on_game_state_click_mode
 @warning_ignore("unused_signal")
 signal game_state_special_room
 
-##emits: db_panel.gd
-##connect shop_grid.gd
+## Emits: scenes_and_scripts/db_panel/db_panel.gd -> _input()
+## Connects: scenes_and_scripts/ball/ball.gd -> repopulate_effects_from_inventory, scenes_and_scripts/item_spawning/shop.gd -> populate_shop_panel
 @warning_ignore("unused_signal")
 signal db_panel_closed
 
@@ -46,23 +46,23 @@ signal db_panel_closed
 ## LEVEL/GAMEPLAY SIGNALS
 ## =============================================================================
 
-## Emits: scenes_and_scripts/levels/level_01.gd -> check_level_cleared()
-## Connects: scenes_and_scripts/singletons/game_manager.gd -> load_next_level
+## Emits: scenes_and_scripts/levels/room_base.gd -> _ready(), check_level_cleared(), scenes_and_scripts/memories/memory_flame.gd -> _on_texture_button_pressed(), scenes_and_scripts/db_panel/db_panel.gd -> _on_enable_exits_btn_pressed()
+## Connects: scenes_and_scripts/singletons/game_manager.gd -> set_state_to_cleared, scenes_and_scripts/ball/ball.gd -> remove_ball, scenes_and_scripts/exits/exits.gd -> enable_exits
 @warning_ignore("unused_signal")
 signal level_cleared
 
-## Emits: scenes_and_scripts/bricks/blue_brick.gd -> _on_tween_finished()
-## Connects: scenes_and_scripts/levels/level_01.gd -> update_stars_in_level
+## Emits: scenes_and_scripts/bricks/base_seal.gd -> _on_tween_finished()
+## Connects: scenes_and_scripts/levels/room_base.gd -> update_stars_in_level
 @warning_ignore("unused_signal")
 signal star_spawned(amount: int)
 
-## Emits: scenes_and_scripts/star_collectible/star_collectible.gd -> _on_area_entered(), _on_body_entered()
-## Connects: scenes_and_scripts/levels/level_01.gd -> update_stars_in_level
+## Emits: scenes_and_scripts/collectibles/star_collectible.gd -> _on_area_entered(), _on_body_entered()
+## Connects: scenes_and_scripts/levels/room_base.gd -> update_stars_in_level
 @warning_ignore("unused_signal")
 signal star_collected(amount: int)
 
-## Emits: scenes_and_scripts/bricks/blue_brick.gd -> _on_tween_finished()
-## Connects: scenes_and_scripts/levels/level_01.gd -> _on_brick_destroyed
+## Emits: scenes_and_scripts/bricks/base_seal.gd -> _on_tween_finished()
+## Connects: scenes_and_scripts/levels/room_base.gd -> _on_brick_destroyed
 @warning_ignore("unused_signal")
 signal brick_destroyed
 
@@ -71,6 +71,8 @@ signal brick_destroyed
 @warning_ignore("unused_signal")
 signal enemy_requested(spawn_from: Area2D)
 
+## Emits: scenes_and_scripts/enemies/specific_enemies/boss_1_denial/boss_deon.gd -> accept_damage()
+## Connects: scenes_and_scripts/singletons/game_manager.gd -> floor_cleared
 @warning_ignore("unused_signal")
 signal floor_cleared
 
@@ -78,18 +80,18 @@ signal floor_cleared
 ## PLAYER/UI SIGNALS
 ## =============================================================================
 
-## Emits: scenes_and_scripts/singletons/player_data.gd -> change_player_stars(), scenes_and_scripts/levels/level_01.gd -> _ready() (initial sync)
-## Connects: scenes_and_scripts/ui_main/main_ui.gd -> update_star_ui
+## Emits: scenes_and_scripts/singletons/player_data.gd -> change_player_stars(), scenes_and_scripts/levels/room_base.gd -> _ready() (initial sync), scenes_and_scripts/item_spawning/shop.gd -> buy_item()
+## Connects: scenes_and_scripts/ui_level/main_ui.gd -> update_star_ui
 @warning_ignore("unused_signal")
 signal stars_updated
 
-## Emits: scenes_and_scripts/singletons/player_data.gd -> update_player_score(), scenes_and_scripts/levels/level_01.gd -> _ready() (initial sync)
-## Connects: scenes_and_scripts/ui_main/main_ui.gd -> update_score_ui
+## Emits: scenes_and_scripts/singletons/player_data.gd -> update_player_score(), scenes_and_scripts/levels/room_base.gd -> _ready() (initial sync)
+## Connects: scenes_and_scripts/ui_level/main_ui.gd -> update_score_ui
 @warning_ignore("unused_signal")
 signal score_updated
 
-## Emits: scenes_and_scripts/singletons/player_data.gd -> accept_damage(), scenes_and_scripts/levels/level_01.gd -> _ready() (initial sync)
-## Connects: scenes_and_scripts/ui_main/main_ui.gd -> update_player_health
+## Emits: scenes_and_scripts/singletons/player_data.gd -> accept_damage(), scenes_and_scripts/levels/room_base.gd -> _ready() (initial sync)
+## Connects: scenes_and_scripts/ui_level/main_ui.gd -> update_player_health
 @warning_ignore("unused_signal")
 signal player_health_updated
 
@@ -125,17 +127,38 @@ signal paddle_swap_resolved(item: PaddleActive)
 ## =============================================================================
 ## Enemy Signals
 ## =============================================================================
+
+## Emits: scenes_and_scripts/enemies/placed_enemy.gd -> _ready()
+## Connects: scenes_and_scripts/player/paddle.gd -> add_blocker_enemy
 @warning_ignore("unused_signal")
 signal blocker_added(enemy: PlacedEnemy)
+
+## Emits: scenes_and_scripts/enemies/placed_enemy.gd -> die(), scenes_and_scripts/enemies/specific_enemies/no_see_me_demon/deon.gd -> die()
+## Connects: scenes_and_scripts/player/paddle.gd -> remove_blocker_enemy
 @warning_ignore("unused_signal")
 signal blocker_removed(enemy: PlacedEnemy)
+
+## Emits: scenes_and_scripts/enemies/placed_enemy.gd -> pick_action(), scenes_and_scripts/enemies/enemy_actions/hop_to_center.gd -> execute_action(), scenes_and_scripts/enemies/enemy_actions/deon_boss_hop.gd -> execute_action(), scenes_and_scripts/enemies/specific_enemies/boss_1_denial/boss_deon.gd -> pick_action(), _on_cage_cleared()
+## Connects: scenes_and_scripts/player/paddle.gd -> _calculate_blockers_bounds
 @warning_ignore("unused_signal")
 signal blocker_moved
+
+## Emits: scenes_and_scripts/enemies/enemy_actions/hop_to_center.gd -> execute_action(), scenes_and_scripts/enemies/enemy_actions/deon_boss_hop.gd -> execute_action()
+## Connects: scenes_and_scripts/enemies/placed_enemy.gd -> jump_land_shake
 @warning_ignore("unused_signal")
 signal jump_landed
+
+## Emits: scenes_and_scripts/bricks/boss_deon_seal.gd -> _damage_current_stage()
+## Connects: scenes_and_scripts/levels/common_rooms/boss_deon_cage.gd -> _on_seal_cleared
 @warning_ignore("unused_signal")
 signal deon_boss_seal_cleared(seal: Node2D)
+
+## Emits: scenes_and_scripts/levels/common_rooms/boss_deon_cage.gd -> _on_seal_cleared()
+## Connects: scenes_and_scripts/enemies/specific_enemies/boss_1_denial/boss_deon.gd -> _on_cage_cleared
 @warning_ignore("unused_signal")
 signal deon_boss_cage_cleared()
+
+## Emits: scenes_and_scripts/enemies/enemy_actions/deon_boss_hop.gd -> spawn_cage()
+## Connects: scenes_and_scripts/enemies/specific_enemies/boss_1_denial/boss_deon.gd -> _on_spawn_cage
 @warning_ignore("unused_signal")
 signal deon_boss_spawn_cage(world_pos: Vector2)
