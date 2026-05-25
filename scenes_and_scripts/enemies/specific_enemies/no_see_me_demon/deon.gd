@@ -4,6 +4,9 @@ extends PlacedEnemy
 @export var destroy_fx: PackedScene
 
 func accept_damage(_damage: int, _dmg_type: Array[GameManager.PhaseType])->void:
+	# while covered, only DENIAL reveals; once revealed, any damage kills
+	if denial_health > 0 and not _dmg_type.has(GameManager.PhaseType.DENIAL):
+		return
 	SFX.play_sound("player_hurt")
 	take_damage_fx()
 	denial_health -= 1

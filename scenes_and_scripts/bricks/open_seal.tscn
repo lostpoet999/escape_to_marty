@@ -21,40 +21,6 @@ brick_destroy_fx = ExtResource("3_we8d2")
 scale = Vector2(1, 2)
 shape = SubResource("RectangleShape2D_xcpf8")
 
-[node name="border" type="ColorRect" parent="." unique_id=225532092]
-visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -32.0
-offset_top = -32.0
-offset_right = 32.0
-offset_bottom = 32.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0.7572688, 0.8283187, 1, 1)
-metadata/_edit_use_anchors_ = true
-
-[node name="fill" type="ColorRect" parent="." unique_id=266568882]
-visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -31.0
-offset_top = -31.0
-offset_right = 31.0
-offset_bottom = 31.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0.23091933, 0.25991562, 0.69853663, 1)
-metadata/_edit_use_anchors_ = true
-
 [node name="gemstone-facets" type="Sprite2D" parent="." unique_id=1967034558]
 modulate = Color(0.23137255, 0.25882354, 0.69803923, 1)
 texture = ExtResource("4_xvt2o")

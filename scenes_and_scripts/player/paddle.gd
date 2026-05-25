@@ -155,7 +155,7 @@ func freeze_paddle_for_time(time: float)->void:
 	paddle_frozen = true	
 	
 func _on_freeze_timer_expire()->void:
-	if GameManager.current_floor != GameManager.GameState.LEVEL_CLEARED:
+	if GameManager.current_state != GameManager.GameState.LEVEL_CLEARED:
 		paddle_frozen=false
 
 func _input(event: InputEvent) -> void:
@@ -164,7 +164,7 @@ func _input(event: InputEvent) -> void:
 		if mouse_event:
 			accumulated_mouse_movement_x += mouse_event.relative.x * mouse_sensitivity
 			accumulated_mouse_movement_x = clamp(accumulated_mouse_movement_x, left_bound, right_bound)
-	if Input.is_action_just_pressed("paddle_active_powerup") and GameManager.current_state != GameManager.GameState.BALL_ON_PADDLE and GameManager.current_state != GameManager.GameState.LEVEL_CLEARED and GameManager.current_floor != GameManager.GameState.SPECIAL_ROOM:				
+	if Input.is_action_just_pressed("paddle_active_powerup") and GameManager.current_state != GameManager.GameState.BALL_ON_PADDLE and GameManager.current_state != GameManager.GameState.LEVEL_CLEARED and GameManager.current_state != GameManager.GameState.SPECIAL_ROOM:				
 		if active_paddle_powerup:
 			active_paddle_powerup.activate(self,projectiles)
 

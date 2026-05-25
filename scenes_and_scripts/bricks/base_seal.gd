@@ -4,17 +4,24 @@ extends Area2D
 const STAR_COLLECTIBLE: PackedScene = preload("uid://cfjv2f23gme53")
 const DAMAGE_NUMBER: PackedScene = preload("res://scenes_and_scripts/enemies/vfx/damage_number.tscn")
 
+const PHASE_SCORES: Dictionary[GameManager.PhaseType, int] = {
+	GameManager.PhaseType.DENIAL: 100,
+	GameManager.PhaseType.ANGER: 150,
+	GameManager.PhaseType.BARGAINING: 200,
+	GameManager.PhaseType.DEPRESSION: 250,
+	GameManager.PhaseType.ACCEPTANCE: 300,
+	GameManager.PhaseType.HEALTH: 500,
+}
+
 @onready var brick_health_label: Label = $brick_health
 
-@onready var border: ColorRect = $border
-@onready var fill: ColorRect = $fill
+@onready var gemstone_facets: Sprite2D = $"gemstone-facets"
 @export var suppressed_on_respawn: bool
 
 @export var initialize_brick_on_leveldata: bool = true
 @export var stages: Dictionary[GameManager.PhaseType, float]
 var current_stage: GameManager.PhaseType
 	
-@export var brick_score_value: int = 500
 @export var brick_health: int = 1
 var health_temp: float
 @export var brick_damage_fx: PackedScene
@@ -40,26 +47,17 @@ func pick_random_stage() -> void:
 func setup_visuals()->void:
 	match current_stage:
 		GameManager.PhaseType.DENIAL:
-			border.color = Color.DARK_GRAY
-			fill.color = Color.BLACK
-			return
+			gemstone_facets.modulate = Color(0.1, 0.05, 0.15)
 		GameManager.PhaseType.ANGER:
-			border.color = Color.LIGHT_PINK
-			fill.color = Color.RED
-			return
+			gemstone_facets.modulate = Color.RED
 		GameManager.PhaseType.BARGAINING:
-			border.color = Color.DARK_GOLDENROD
-			fill.color = Color.DARK_KHAKI
+			gemstone_facets.modulate = Color.DARK_KHAKI
 		GameManager.PhaseType.DEPRESSION:
-			border.color = Color.LIGHT_GRAY
-			fill.color = Color.DARK_GRAY
+			gemstone_facets.modulate = Color.DARK_GRAY
 		GameManager.PhaseType.ACCEPTANCE:
-			border.color = Color.DARK_SEA_GREEN
-			fill.color = Color.LIME_GREEN
+			gemstone_facets.modulate = Color.LIME_GREEN
 		GameManager.PhaseType.HEALTH:
-			border.color = Color.LIGHT_BLUE
-			fill.color = Color.BLUE
-			return
+			gemstone_facets.modulate = Color.BLUE
 			
 func _ready() -> void:	
 	if initialize_brick_on_leveldata:#default is populate stages based on level stats		
@@ -83,6 +81,7 @@ func _damage_current_stage(damage: float) -> void:
 		if fx != null:
 			fx.position = global_position
 			get_tree().current_scene.add_child(fx)
+		PlayerData.update_player_score(PHASE_SCORES[current_stage])
 		if current_stage == GameManager.PhaseType.HEALTH:
 			pop_tween()
 		else:
@@ -111,7 +110,6 @@ func pop_tween() -> void:
 #cleanup brick collision after tween finishes
 func _on_tween_finished(collider: Area2D) -> void:
 	if is_instance_valid(collider):
-		PlayerData.update_player_score(brick_score_value)
 		collider.queue_free()
 		var star_instance: Area2D = STAR_COLLECTIBLE.instantiate()
 		collider.get_parent().add_child(star_instance)

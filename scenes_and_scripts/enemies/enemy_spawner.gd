@@ -23,7 +23,7 @@ func _ready()->void:
 func timer_spawn_enemy() -> void:	
 	if GameManager.current_state == GameManager.GameState.LEVEL_CLEARED:
 		return
-	if randf_range(1,100) >= spawn_an_enemy_chance or active_enemies.size()>=max_spawns:
+	if randf_range(0,100) >= spawn_an_enemy_chance or active_enemies.size()>=max_spawns:
 		enemy_spawn_timer.wait_time = respawn_time
 		return #dont spawn an enemy
 	var enemy_config:EnemyConfig = get_random_config()

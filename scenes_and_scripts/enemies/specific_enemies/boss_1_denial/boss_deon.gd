@@ -35,21 +35,10 @@ func accept_damage(_damage: int, _dmg_type: Array[GameManager.PhaseType])->void:
 					self.modulate = Color.WHITE
 					self.modulate.a = 1.0
 					stage += 1
-		3: 				
+		3:
 			if _dmg_type.has(GameManager.PhaseType.HEALTH):
 				die()
 				Signalbus.floor_cleared.emit()
-				
-			
-	if stage >= 2 and _dmg_type.has(GameManager.PhaseType.DENIAL) and denial_health > 0:
-		SFX.play_sound("player_hurt")
-		take_damage_fx()
-		denial_health -= 1
-		if denial_health == 0:
-			self.modulate = Color.WHITE
-			self.modulate.a = 1.0
-			stage += 1
-	elif denial_health <= -1: stage += 1	
 
 func pick_action()->void:	
 	if !action_pool.is_empty():

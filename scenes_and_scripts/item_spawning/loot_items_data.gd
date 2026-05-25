@@ -19,15 +19,15 @@ func filter_owned_actives()->void:
 		return not owned_actives.has(i))	
 
 func generate_item_box()->void:
-	filter_owned_actives()
 	items.clear()
 	var room_entry:RoomEntry = GameManager.get_current_floor_entry(GameManager.current_room_id)
 	if room_entry.room_type == RoomEntry.ROOM_TYPES.free_item:
-		max_items = randi() % GameManager.floor_data.free_item_max + 2
+		max_items = randi() % GameManager.floor_data.free_item_max + 1
 	elif room_entry.room_type == RoomEntry.ROOM_TYPES.shop:
 		max_items = GameManager.floor_data.shop_items
 	@warning_ignore("unsafe_property_access")
 	pool = ItemSpawner.item_pool_data.item_pool.duplicate()
+	filter_owned_actives()
 	for n:int in max_items:
 		if pool.is_empty(): break			
 		var item:BaseItem = pool.pick_random()
