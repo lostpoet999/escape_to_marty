@@ -6,12 +6,12 @@ var spawn_weights: Dictionary[int,float]
 var type_filter: String
 
 func _ready() -> void:
-	intitialize_spawn_weights()
+	initialize_spawn_weights()
 
-func intitialize_spawn_weights()->void:
+func initialize_spawn_weights()->void:
 	spawn_weights = {
 		BaseItem.RarityType.COMMON : GameManager.floor_data.spawn_weight.common,
-		BaseItem.RarityType.UNCOMMON : GameManager.floor_data.spawn_weight.unconmon,
+		BaseItem.RarityType.UNCOMMON : GameManager.floor_data.spawn_weight.uncommon,
 		BaseItem.RarityType.RARE : GameManager.floor_data.spawn_weight.rare,
 		BaseItem.RarityType.VERY_RARE : GameManager.floor_data.spawn_weight.very_rare
 	}	

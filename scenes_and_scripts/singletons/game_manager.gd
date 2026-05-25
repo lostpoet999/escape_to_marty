@@ -28,8 +28,7 @@ func _input(event: InputEvent) -> void:
 		if current_state != GameState.PAUSED:
 			change_state(GameState.PAUSED)
 		else:
-			change_state(GameState.PLAYING)				
-	floor_data = ResourceLoader.load(str(floor_ref[current_floor])) as FloorData #floor one from main-menu
+			change_state(GameState.PLAYING)
 
 #region gamestate functions
 func change_state(to_state: GameState) -> void:
@@ -52,13 +51,13 @@ func is_valid_state_transition(from_state: GameState, to_state: GameState) -> bo
 		GameState.BALL_ON_PADDLE:
 			return to_state in [GameState.PLAYING, GameState.PAUSED, GameState.LEVEL_CLEARED, GameState.SPECIAL_ROOM,GameState.DEBUG_PANEL]
 		GameState.PLAYING:
-			return to_state in [GameState.PAUSED, GameState.GAME_OVER, GameState.MAIN_MENU, GameState.CLICK_MODE, GameState.LEVEL_CLEARED, GameState.SPECIAL_ROOM, GameState.DEBUG_PANEL]
+			return to_state in [GameState.PAUSED, GameState.GAME_OVER, GameState.MAIN_MENU, GameState.CLICK_MODE, GameState.LEVEL_CLEARED, GameState.SPECIAL_ROOM, GameState.DEBUG_PANEL, GameState.BALL_ON_PADDLE]
 		GameState.PAUSED:
 			return to_state in [GameState.PLAYING, GameState.BALL_ON_PADDLE]
 		GameState.GAME_OVER:
 			return to_state in [GameState.MAIN_MENU, GameState.PLAYING]
 		GameState.CLICK_MODE:
-			return to_state in [GameState.PLAYING, GameState.LEVEL_CLEARED,GameState.DEBUG_PANEL]
+			return to_state in [GameState.PLAYING, GameState.LEVEL_CLEARED,GameState.DEBUG_PANEL, GameState.BALL_ON_PADDLE]
 		GameState.LEVEL_CLEARED:
 			return to_state  in [GameState.BALL_ON_PADDLE, GameState.SPECIAL_ROOM,GameState.DEBUG_PANEL]
 		GameState.SPECIAL_ROOM:
@@ -86,6 +85,7 @@ func enter_state(change_to_state: GameState) -> void:
 			Signalbus.game_state_main_menu.emit()			
 		GameState.BALL_ON_PADDLE:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+			Signalbus.game_state_playing.emit()
 		GameState.PLAYING:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 			Signalbus.game_state_playing.emit()

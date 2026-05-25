@@ -104,7 +104,7 @@ func add_item(new_item) -> void:
 	if new_item is PaddleActive:
 		if core_items.has(new_item):#:TODO already has exactly this active
 			return
-		var existing = core_items.filter(func(i): return i is PaddleActive)
+		var existing: Array = core_items.filter(func(i: BaseItem) -> bool: return i is PaddleActive)
 		var old_active: PaddleActive = null
 		if existing.is_empty():							
 			Signalbus.paddle_active_assigned.emit(new_item) #signal a new active is assiagned with reference to what was assigned

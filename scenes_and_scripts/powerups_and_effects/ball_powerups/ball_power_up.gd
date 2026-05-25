@@ -11,4 +11,4 @@ class_name BallPowerUp extends BaseItem
 @export var attached_effects: Array[DamageEffectRef]
 
 func _to_string() -> String:
-	return powerup_name + powerup_name
+	return powerup_name

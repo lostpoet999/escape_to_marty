@@ -53,11 +53,10 @@ func _ready() -> void:
 	assert(bounce_effect != null, "no bounce effect loaded")
 	Signalbus.inventory_changed.connect(repopulate_effects_from_inventory)
 	repopulate_effects_from_inventory()
-	instantiate_all_effects()
 	get_ball_dmg_types()
-	update_base_dmg()
 	Signalbus.level_cleared.connect(remove_ball)
 	Signalbus.game_state_special_room.connect(remove_ball)
+	Signalbus.floor_cleared.connect(remove_ball)
 	Signalbus.db_panel_closed.connect(repopulate_effects_from_inventory)
 
 func get_ball_dmg_types() -> void:
@@ -67,11 +66,15 @@ func get_ball_dmg_types() -> void:
 
 func remove_ball() -> void:
 	on_paddle = false
+	set_process(false)
+	set_physics_process(false)
 	queue_free()
 
 
 
 func _process(delta: float) -> void:
+	if not is_inside_tree():
+		return
 	time += delta
 	point_light_2d.energy = 1.0 + sin(time * 3.0) * 0.15
 	flipped_x = false
@@ -119,9 +122,17 @@ func _bezier(t: float, p0: Vector2, p1: Vector2, p2: Vector2) -> Vector2:
 	return u * u * p0 + 2.0 * u * t * p1 + t * t * p2
 
 func repopulate_effects_from_inventory() -> void:
+	# refresh loadout on inventory change (pickup, debug panel)
 	powerup_array.clear()
 	var items: Array = PlayerInventory.get_instance().get_items_for_ball()
 	powerup_array.append_array(items)
+	# free old effect nodes before re-spawning
+	for old_effect: BaseDamageEffect in damage_effects:
+		if is_instance_valid(old_effect):
+			old_effect.queue_free()
+	damage_effects.clear()
+	instantiate_all_effects()
+	update_base_dmg()
 
 func instantiate_all_effects() -> void:
 	for powerup_ref: BallPowerUp in powerup_array:
@@ -144,7 +155,7 @@ func get_paddle_half_height() -> float:
 	return shape.size.y / 2.0
 
 func _input(_event: InputEvent) -> void:
-	if Input.is_action_just_pressed("left_mouse") and on_paddle and GameManager.GameState.BALL_ON_PADDLE:
+	if Input.is_action_just_pressed("left_mouse") and on_paddle and GameManager.current_state == GameManager.GameState.BALL_ON_PADDLE:
 		launch_ball()
 
 func launch_ball() -> void:
@@ -242,6 +253,8 @@ func move_ball(delta: float) -> void:
 # --- Collision query ---
 
 func query_collisions() -> Array[Node2D]:
+	if not is_inside_tree():
+		return []
 	var space: PhysicsDirectSpaceState2D = get_world_2d().direct_space_state
 	var query: PhysicsShapeQueryParameters2D = PhysicsShapeQueryParameters2D.new()
 	query.shape = ball_collision.shape

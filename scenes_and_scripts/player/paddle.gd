@@ -79,8 +79,8 @@ func set_paddle_length_from_items()->void:
 	reset_paddle_length()
 	for item: BaseItem in paddle_powerups:
 		var paddle_item: PaddlePowerup = item
-		if paddle_item.paddle_lenghth_mod != null and paddle_item.paddle_lenghth_mod>0.0:
-			adjust_paddle_length(paddle_item.paddle_lenghth_mod)
+		if paddle_item.paddle_length_mod > 0.0:
+			adjust_paddle_length(paddle_item.paddle_length_mod)
 
 func _calculate_bounds() -> void:
 	var half_width: float = _get_scaled_half_width()

@@ -1,4 +1,4 @@
 class_name PaddlePowerup
 extends BaseItem
 
-@export var paddle_lenghth_mod: float
+@export var paddle_length_mod: float
