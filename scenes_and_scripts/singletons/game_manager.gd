@@ -63,7 +63,7 @@ func is_valid_state_transition(from_state: GameState, to_state: GameState) -> bo
 		GameState.SPECIAL_ROOM:
 			return to_state in [GameState.BALL_ON_PADDLE, GameState.PLAYING,GameState.DEBUG_PANEL]
 		GameState.DEBUG_PANEL:
-			return to_state in [GameState.BALL_ON_PADDLE, GameState.PLAYING, GameState.LEVEL_CLEARED, GameState.SPECIAL_ROOM, GameState.MAIN_MENU]
+			return to_state in [GameState.BALL_ON_PADDLE, GameState.PLAYING, GameState.LEVEL_CLEARED, GameState.SPECIAL_ROOM, GameState.MAIN_MENU, GameState.CLICK_MODE]
 			
 	assert(false, "No valid transitions defined for from_state: %s" % GameState.keys()[from_state])
 	return false
