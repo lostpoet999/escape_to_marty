@@ -2,9 +2,39 @@
 
 [ext_resource type="Script" uid="uid://cp7hqckie8gkd" path="res://scenes_and_scripts/ui_main_menu/main_menu.gd" id="1_2ax67"]
 [ext_resource type="FontFile" uid="uid://ce5jk1ok7f4r5" path="res://label_settings_and_fonts/fonts/PressStart2P-Regular.ttf" id="2_font"]
+[ext_resource type="Material" uid="uid://ba7fs15txmy5s" path="res://scenes_and_scripts/backgrounds/misty-particle-material.tres" id="2_hujsa"]
+[ext_resource type="Texture2D" uid="uid://wi34v2345ihn" path="res://scenes_and_scripts/bricks/brick-gemstone-facets.png" id="3_jl0n4"]
+[ext_resource type="Texture2D" uid="uid://befajfg1phsl6" path="res://scenes_and_scripts/player/player_ghost_particles.png" id="4_jl0n4"]
+[ext_resource type="PackedScene" uid="uid://ld8u6g3nsn62" path="res://scenes_and_scripts/ball/ball.tscn" id="5_78bc0"]
+
+[sub_resource type="Gradient" id="Gradient_nf3nx"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+metadata/_snap_enabled = true
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_s6e4g"]
+gradient = SubResource("Gradient_nf3nx")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="Gradient" id="Gradient_ghq2i"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.1764706, 1, 1, 1, 0)
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_7tfad"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_0s63k"]
+offsets = PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1)
+colors = PackedColorArray(0, 1, 0, 1, 0.0627451, 0.0627451, 1, 1, 1, 0.16862746, 0.16862746, 1, 1, 1, 0.27058825, 1, 0.3764706, 1, 1, 1, 0.47843137, 0, 0.47843137, 1, 0.58431375, 0.58431375, 0, 1, 1, 1, 0, 1, 0.09019608, 0.9764706, 0.7921569, 1, 0.8959334, 0.8959334, 0.8959334, 1, 1, 1, 1, 1)
+metadata/_snap_enabled = true
 
 [sub_resource type="LabelSettings" id="LabelSettings_exyef"]
-font_size = 16
 font_color = Color(1, 0.02745098, 0.08235294, 1)
 
 [node name="MainMenu" type="Control" unique_id=243921106]
@@ -25,6 +55,65 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.27450982, 0.11372549, 0.2509804, 1)
 
+[node name="white particles" type="CPUParticles2D" parent="." unique_id=1566472420]
+material = ExtResource("2_hujsa")
+position = Vector2(960, 400)
+amount = 256
+texture = SubResource("GradientTexture2D_s6e4g")
+lifetime = 5.0
+emission_shape = 3
+emission_rect_extents = Vector2(1000, 1000)
+direction = Vector2(1, 1)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 100.0
+angular_velocity_min = -20.0
+angular_velocity_max = 20.0
+scale_amount_min = 0.5
+scale_amount_max = 2.0
+color_ramp = SubResource("Gradient_ghq2i")
+hue_variation_min = -1.0
+hue_variation_max = 1.0
+
+[node name="gem particles" type="CPUParticles2D" parent="." unique_id=319189802]
+position = Vector2(960, -400)
+amount = 64
+texture = ExtResource("3_jl0n4")
+lifetime = 4.0
+emission_shape = 3
+emission_rect_extents = Vector2(1000, 200)
+direction = Vector2(0, 1)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 64.0
+initial_velocity_max = 64.0
+angular_velocity_min = -15.0
+angular_velocity_max = 15.0
+scale_amount_min = 8.0
+scale_amount_max = 8.0
+color_ramp = SubResource("Gradient_7tfad")
+color_initial_ramp = SubResource("Gradient_0s63k")
+
+[node name="bottom particles" type="CPUParticles2D" parent="." unique_id=642984877]
+position = Vector2(960, 1500)
+amount = 64
+texture = ExtResource("4_jl0n4")
+lifetime = 4.0
+emission_shape = 3
+emission_rect_extents = Vector2(1000, 200)
+direction = Vector2(0, -1)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 64.0
+initial_velocity_max = 64.0
+angular_velocity_min = -15.0
+angular_velocity_max = 15.0
+scale_amount_min = 4.0
+scale_amount_max = 4.0
+color_ramp = SubResource("Gradient_7tfad")
+color_initial_ramp = SubResource("Gradient_0s63k")
+
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=121057991]
 layout_mode = 1
 anchors_preset = 15
@@ -38,10 +127,22 @@ layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
 
-[node name="Title" type="Label" parent="VBoxContainer/TitleContainer" unique_id=640680555]
+[node name="Yellow Title" type="Label" parent="VBoxContainer/TitleContainer" unique_id=640680555]
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_colors/font_color = Color(1, 1, 0.0784314, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 96
+text = "Escape to Marty"
+
+[node name="Black Title" type="Label" parent="VBoxContainer/TitleContainer/Yellow Title" unique_id=1063380365]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 3.0
+offset_right = 1444.0
+offset_bottom = 99.0
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_font")
 theme_override_font_sizes/font_size = 96
 text = "Escape to Marty"
@@ -80,12 +181,19 @@ text = "Fullscreen"
 
 [node name="Label" type="Label" parent="." unique_id=825310730]
 layout_mode = 0
-offset_left = 878.0
-offset_top = 464.0
-offset_right = 961.0
-offset_bottom = 487.0
+offset_left = 1781.0
+offset_top = 1009.0
+offset_right = 1864.0
+offset_bottom = 1032.0
 text = "DEV BUILD"
 label_settings = SubResource("LabelSettings_exyef")
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Ball (without script)" parent="." unique_id=1220836699 instance=ExtResource("5_78bc0")]
+position = Vector2(960, 480)
+scale = Vector2(16, 16)
+script = null
 
 [connection signal="pressed" from="VBoxContainer/ButtonContainer/Start Button" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/ButtonContainer/Exit Button" to="." method="_on_exit_button_pressed"]
