@@ -2,7 +2,7 @@ extends Node
 
 var score: int = 0
 var stars_collected: int = 0
-var player_current_health: int = 2
+var player_current_health: int = 10
 var player_max_health: int = 25
 
 var inventory: PlayerInventory
@@ -42,11 +42,13 @@ func change_player_stars(star_value: int) -> void:
 	Signalbus.stars_updated.emit()
 
 
+func change_player_health(amount: int) -> void:
+	player_current_health = clampi(player_current_health + amount, 0, player_max_health)
+	Signalbus.player_health_updated.emit()
+
 func accept_damage(damage: int) -> void:
-	if player_current_health - damage > 0:
-		player_current_health -= damage
-		Signalbus.player_health_updated.emit()
-	else:
+	change_player_health(-damage)
+	if player_current_health <= 0:
 		Signalbus.player_died.emit()
 
 func get_player_health() -> int:

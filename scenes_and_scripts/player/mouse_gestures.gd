@@ -69,7 +69,7 @@ func _reset_hold_visuals()->void: #TODO: goal is for this to feel like a taking 
 
 func _draw() -> void:
 	if hold_indicator_radius > 0.0:
-		draw_circle(to_local(get_global_mouse_position()), hold_indicator_radius, Color(0.4, 0.7, 1.0, 0.3))
+		draw_circle(to_local(get_global_mouse_position()), hold_indicator_radius, Color(0.5, 0.85, 1.0, 0.6))
 
 func _process(delta: float) -> void:
 	if mouse_down:
@@ -78,7 +78,7 @@ func _process(delta: float) -> void:
 			_reset_hold_visuals()
 		if mouse_down_time > click_vs_hold:
 			var pct : float = minf((mouse_down_time - click_vs_hold) / hold_duration_max, 1.0)
-			hold_indicator_radius = ease(pct, -2.0) * 48.0			
+			hold_indicator_radius = ease(pct, 0.4) * 48.0
 			queue_redraw()
 	else:
 		if hold_indicator_radius > 0.0:

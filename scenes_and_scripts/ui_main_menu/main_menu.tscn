@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://djuj72c4lcukn"]
 
 [ext_resource type="Script" uid="uid://cp7hqckie8gkd" path="res://scenes_and_scripts/ui_main_menu/main_menu.gd" id="1_2ax67"]
-[ext_resource type="FontFile" uid="uid://c1its5lmhd4kg" path="res://label_settings_and_fonts/fonts/8bitlim.ttf" id="2_font"]
+[ext_resource type="FontFile" uid="uid://ce5jk1ok7f4r5" path="res://label_settings_and_fonts/fonts/PressStart2P-Regular.ttf" id="2_font"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_exyef"]
-font_size = 32
+font_size = 16
 font_color = Color(1, 0.02745098, 0.08235294, 1)
 
 [node name="MainMenu" type="Control" unique_id=243921106]
@@ -43,7 +43,7 @@ layout_mode = 2
 size_flags_vertical = 8
 theme_override_colors/font_color = Color(1, 1, 0.0784314, 1)
 theme_override_fonts/font = ExtResource("2_font")
-theme_override_font_sizes/font_size = 192
+theme_override_font_sizes/font_size = 96
 text = "Escape to Marty"
 
 [node name="ButtonContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1755409713]
@@ -58,7 +58,7 @@ custom_minimum_size = Vector2(300, 120)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_font_sizes/font_size = 74
+theme_override_font_sizes/font_size = 36
 text = "Start"
 
 [node name="Exit Button" type="Button" parent="VBoxContainer/ButtonContainer" unique_id=1093171798]
@@ -67,7 +67,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_colors/font_color = Color(1, 0.3, 0.3, 1)
-theme_override_font_sizes/font_size = 74
+theme_override_font_sizes/font_size = 36
 text = "Exit"
 
 [node name="Fullscreen Button" type="Button" parent="VBoxContainer/ButtonContainer" unique_id=658979718]
@@ -75,7 +75,7 @@ custom_minimum_size = Vector2(300, 120)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_font_sizes/font_size = 74
+theme_override_font_sizes/font_size = 36
 text = "Fullscreen"
 
 [node name="Label" type="Label" parent="." unique_id=825310730]

@@ -1,16 +1,16 @@
 [gd_scene format=3 uid="uid://bhyu3nftn678w"]
 
 [ext_resource type="PackedScene" uid="uid://bea1h3570swpu" path="res://scenes_and_scripts/levels/room_base.tscn" id="1_cckqh"]
-[ext_resource type="FontFile" uid="uid://c1its5lmhd4kg" path="res://label_settings_and_fonts/fonts/8bitlim.ttf" id="2_45lsl"]
+[ext_resource type="FontFile" uid="uid://ce5jk1ok7f4r5" path="res://label_settings_and_fonts/fonts/PressStart2P-Regular.ttf" id="2_45lsl"]
 [ext_resource type="PackedScene" uid="uid://cm1kspxv86400" path="res://scenes_and_scripts/bricks/open_seal.tscn" id="3_oufug"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_oufug"]
 font = ExtResource("2_45lsl")
-font_size = 24
+font_size = 16
 
 [sub_resource type="LabelSettings" id="LabelSettings_cefam"]
 font = ExtResource("2_45lsl")
-font_size = 24
+font_size = 16
 font_color = Color(0, 0.59170103, 0.5938744, 1)
 
 [node name="common_room" unique_id=565861230 instance=ExtResource("1_cckqh")]

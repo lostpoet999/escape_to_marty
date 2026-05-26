@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://bwuoolbwt8v67"]
 
 [ext_resource type="PackedScene" uid="uid://bea1h3570swpu" path="res://scenes_and_scripts/levels/room_base.tscn" id="1_os7iy"]
-[ext_resource type="FontFile" uid="uid://c1its5lmhd4kg" path="res://label_settings_and_fonts/fonts/8bitlim.ttf" id="2_fdn02"]
+[ext_resource type="FontFile" uid="uid://ce5jk1ok7f4r5" path="res://label_settings_and_fonts/fonts/PressStart2P-Regular.ttf" id="2_fdn02"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_oufug"]
 font = ExtResource("2_fdn02")
-font_size = 24
+font_size = 16
 
 [node name="common_room" unique_id=565861230 instance=ExtResource("1_os7iy")]
 

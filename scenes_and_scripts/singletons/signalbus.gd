@@ -80,7 +80,7 @@ signal floor_cleared
 ## PLAYER/UI SIGNALS
 ## =============================================================================
 
-## Emits: scenes_and_scripts/singletons/player_data.gd -> change_player_stars(), scenes_and_scripts/levels/room_base.gd -> _ready() (initial sync), scenes_and_scripts/item_spawning/shop.gd -> buy_item()
+## Emits: scenes_and_scripts/singletons/player_data.gd -> change_player_stars(), scenes_and_scripts/levels/room_base.gd -> _ready() (initial sync)
 ## Connects: scenes_and_scripts/ui_level/main_ui.gd -> update_star_ui
 @warning_ignore("unused_signal")
 signal stars_updated
@@ -90,7 +90,7 @@ signal stars_updated
 @warning_ignore("unused_signal")
 signal score_updated
 
-## Emits: scenes_and_scripts/singletons/player_data.gd -> accept_damage(), scenes_and_scripts/levels/room_base.gd -> _ready() (initial sync)
+## Emits: scenes_and_scripts/singletons/player_data.gd -> change_player_health(), scenes_and_scripts/levels/room_base.gd -> _ready() (initial sync)
 ## Connects: scenes_and_scripts/ui_level/main_ui.gd -> update_player_health
 @warning_ignore("unused_signal")
 signal player_health_updated

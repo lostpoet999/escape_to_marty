@@ -35,8 +35,7 @@ func make_item_button(item: BaseItem)-> Button:
 func buy_item(item: BaseItem, button: Button)->void:
 	PlayerData.inventory.add_item(item)
 	loot_items_data.items.erase(item)
-	PlayerData.stars_collected -= item.cost
-	Signalbus.stars_updated.emit()
+	PlayerData.change_player_stars(-item.cost)
 	button.queue_free()
 	populate_shop_panel()
 	

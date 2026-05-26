@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cgkr65l7x0huu"]
 
 [ext_resource type="Texture2D" uid="uid://cra2lcyy34b1x" path="res://scenes_and_scripts/ui_menus/edge_patch.png" id="1_f4gky"]
-[ext_resource type="FontFile" uid="uid://btahcaxj0t0e3" path="res://label_settings_and_fonts/fonts/8bitlimr.ttf" id="2_bjmne"]
+[ext_resource type="FontFile" uid="uid://ce5jk1ok7f4r5" path="res://label_settings_and_fonts/fonts/PressStart2P-Regular.ttf" id="2_bjmne"]
 [ext_resource type="PackedScene" uid="uid://pff3jyvmp4md" path="res://scenes_and_scripts/memories/memory_flame.tscn" id="3_o83dg"]
 [ext_resource type="Texture2D" uid="uid://xwm6oemnmk8b" path="res://character_design_files/the_collector_concept1.png" id="4_ah0kd"]
 
@@ -25,10 +25,10 @@ scale = Vector2(1.9633334, 1.2333333)
 texture = ExtResource("1_f4gky")
 
 [node name="Label" type="Label" parent="Sprite2D" unique_id=1441535487]
-offset_left = -85.5372
-offset_top = -70.54054
-offset_right = 118.71817
-offset_bottom = 103.477585
+offset_left = -119.69437
+offset_top = -115.13513
+offset_right = 145.16135
+offset_bottom = 147.86487
 text = "\"Behold the flame of memories lost. Collect these and heal your spirit. Cherish the past, embrace the future, and live the moment...\""
 label_settings = SubResource("LabelSettings_fvfdr")
 autowrap_mode = 3

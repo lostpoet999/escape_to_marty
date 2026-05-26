@@ -1,16 +1,16 @@
 [gd_scene format=3 uid="uid://bp6phucw4mi01"]
 
 [ext_resource type="PackedScene" uid="uid://bea1h3570swpu" path="res://scenes_and_scripts/levels/room_base.tscn" id="1_ydske"]
-[ext_resource type="FontFile" uid="uid://c1its5lmhd4kg" path="res://label_settings_and_fonts/fonts/8bitlim.ttf" id="2_4xu00"]
+[ext_resource type="FontFile" uid="uid://ce5jk1ok7f4r5" path="res://label_settings_and_fonts/fonts/PressStart2P-Regular.ttf" id="2_4xu00"]
 [ext_resource type="PackedScene" uid="uid://cm1kspxv86400" path="res://scenes_and_scripts/bricks/open_seal.tscn" id="3_m2r8p"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_oufug"]
 font = ExtResource("2_4xu00")
-font_size = 24
+font_size = 16
 
 [sub_resource type="LabelSettings" id="LabelSettings_cefam"]
 font = ExtResource("2_4xu00")
-font_size = 24
+font_size = 16
 font_color = Color(0, 0.59170103, 0.5938744, 1)
 
 [node name="common_room" unique_id=565861230 instance=ExtResource("1_ydske")]
@@ -36,12 +36,15 @@ autowrap_mode = 3
 [node name="OpenSeal2" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="4" unique_id=1038486442 instance=ExtResource("3_m2r8p")]
 position = Vector2(679, 736)
 initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
 
 [node name="Label2" type="Label" parent="." index="6" unique_id=1932243363]
 offset_left = 1024.0
 offset_top = 704.0
 offset_right = 1280.0
 offset_bottom = 763.0
-text = "TIP: Click to break the \"Shells of Denial\""
+text = "TIP: Click and hold to cool your anger."
 label_settings = SubResource("LabelSettings_cefam")
 autowrap_mode = 3

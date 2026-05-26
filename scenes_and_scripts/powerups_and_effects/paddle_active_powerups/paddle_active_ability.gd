@@ -3,6 +3,7 @@ class_name PaddleActive extends BaseItem
 @export_category("Shot Configuration:")
 @export var projectile_ref: PackedScene
 @export var max_spawn: int
+# reserved for future time-based actives (instant abilities with no projectile to gate via max_spawn)
 @export var cool_down_seconds: float
 @export var speed_modifier: float
 @export var damage: int
@@ -12,11 +13,16 @@ var current_active: int = 0
 func _ready()->void:
 	current_active = 0	
 
-func activate(paddle:Paddle , projectile_node: Node)->void:		
+func activate(paddle:Paddle , projectile_node: Node)->void:
 	if (current_active < max_spawn) or (max_spawn<=0):
 		var projectile:Projectile = projectile_ref.instantiate() as Area2D
 		projectile.position = paddle.global_position
 		projectile.position.y -= 32
-		projectile.initialize_shot(speed_modifier, damage, self,projectile_dmg_type)		
+		projectile.initialize_shot(speed_modifier, damage, self,projectile_dmg_type)
 		projectile_node.add_child(projectile)
 		current_active+=1
+		# decrement exactly once when the node leaves the tree, no matter how many handlers fired queue_free
+		projectile.tree_exited.connect(_on_projectile_freed)
+
+func _on_projectile_freed()->void:
+	current_active -= 1

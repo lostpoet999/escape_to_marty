@@ -2,6 +2,7 @@ extends Control
 
 @onready var item_pool_panel: GridContainer = $Panel/HBoxContainer/ItemSpawning/VBoxContainer/ItemPoolPanel
 @onready var tracked_variables: VBoxContainer = $Panel/HBoxContainer/TrackedVariables/VBoxContainer/TrackedVariables
+@onready var floor_list: VBoxContainer = $Panel/HBoxContainer/FloorWarp/VBoxContainer/FloorList
 
 @onready var items: Array[BaseItem] = ItemSpawner.item_pool_data.item_pool
 var old_state: GameManager.GameState
@@ -34,6 +35,7 @@ func populate_tracked_variables() -> void:
 		tracked_variables.add_child(lbl)
 
 func _input(event: InputEvent) -> void:
+	if not OS.has_feature("editor"): return # debug panel is editor-only
 	if event.is_action_pressed("activate_exits"):
 		_on_enable_exits_btn_pressed()
 	if event.is_action_pressed("toggle_debug_panel"):
@@ -43,10 +45,12 @@ func _input(event: InputEvent) -> void:
 			GameManager.change_state(old_state)	
 		else:
 			old_state = GameManager.current_state
+			move_to_front() # autoload sits behind the current scene; lift above scene UI so clicks land here
 			show()
 			GameManager.change_state(GameManager.GameState.DEBUG_PANEL)
 			populate_item_pool_panel()
 			populate_tracked_variables()
+			populate_floor_warp()
 
 func make_item_button(item: BaseItem)-> Button:
 	var icon: Texture2D = get_icon_for_item(item)
@@ -87,3 +91,34 @@ func _on_enable_exits_btn_pressed() -> void:
 
 func _on_give_stars_btn_pressed() -> void:
 	PlayerData.change_player_stars(100)
+
+func populate_floor_warp() -> void:
+	for child: Node in floor_list.get_children():
+		child.queue_free()
+	var floor_keys: Array = GameManager.floor_ref.keys()
+	floor_keys.sort()
+	for floor_num: int in floor_keys:
+		var floor_uid: String = GameManager.floor_ref[floor_num]
+		var fd: FloorData = ResourceLoader.load(floor_uid) as FloorData
+		var label_text: String
+		if fd:
+			label_text = "Floor %d: %s" % [floor_num, fd.floor_name_id]
+		else:
+			label_text = "Floor %d (missing resource)" % floor_num
+		if floor_num == GameManager.current_floor:
+			label_text += "  (current)"
+		var btn: Button = Button.new()
+		btn.text = label_text
+		btn.pressed.connect(warp_to_floor.bind(floor_num))
+		floor_list.add_child(btn)
+
+func warp_to_floor(floor_num: int) -> void:
+	if not GameManager.floor_ref.has(floor_num):
+		push_warning("DP warp: floor %d not in floor_ref" % floor_num)
+		return
+	GameManager.current_floor = floor_num
+	GameManager.start_floor()
+	hide()
+	Signalbus.db_panel_closed.emit()
+	GameManager.change_state(GameManager.GameState.BALL_ON_PADDLE)
+	GameManager.load_current_room()

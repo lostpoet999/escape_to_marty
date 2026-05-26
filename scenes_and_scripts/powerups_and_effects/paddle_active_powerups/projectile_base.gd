@@ -17,19 +17,16 @@ func _process(delta: float) -> void:
 	global_position.y -= speed * delta
 
 
-func _on_area_entered(area: Area2D) -> void:	
+func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group("bricks"):
 		var entity: Variant = area
-		entity.accept_damage(damage, proj_dmg_type)		
+		entity.accept_damage(damage, proj_dmg_type)
 		SFX.play_sound("hit-brick")
 		queue_free()
-		spawner.current_active -=1
 	elif area.is_in_group("walls"):
 		SFX.play_sound("bounce_1")
 		queue_free()
-		spawner.current_active -=1
 
 
 func _on_visible_on_screen_enabler_2d_screen_exited() -> void:
 	queue_free()
-	spawner.current_active -=1

@@ -2,14 +2,14 @@
 
 [ext_resource type="Script" uid="uid://8w5tld7vnxeu" path="res://scenes_and_scripts/ui_level/main_ui.gd" id="1_op5x6"]
 [ext_resource type="LabelSettings" uid="uid://dnb1y3i4cf2ln" path="res://label_settings_and_fonts/basic_white_38.tres" id="1_utoos"]
-[ext_resource type="FontFile" uid="uid://c1its5lmhd4kg" path="res://label_settings_and_fonts/fonts/8bitlim.ttf" id="2_8r8j7"]
+[ext_resource type="FontFile" uid="uid://ce5jk1ok7f4r5" path="res://label_settings_and_fonts/fonts/PressStart2P-Regular.ttf" id="2_8r8j7"]
 [ext_resource type="LabelSettings" uid="uid://dx3lg2g7p81op" path="res://label_settings_and_fonts/yellow_48.tres" id="2_c76ar"]
 [ext_resource type="PackedScene" uid="uid://do7j0ir4apgbd" path="res://scenes_and_scripts/inventory/inventory_panel.tscn" id="5_h7qrh"]
 [ext_resource type="PackedScene" uid="uid://rmcbpfstwj3s" path="res://scenes_and_scripts/minimap/minimap.tscn" id="6_a0kf6"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_5qwjd"]
 font = ExtResource("2_8r8j7")
-font_size = 48
+font_size = 24
 font_color = Color(1, 1, 0.0784314, 1)
 
 [node name="Main_UI" type="Control" unique_id=1289514780]

@@ -47,7 +47,7 @@ func is_valid_state_transition(from_state: GameState, to_state: GameState) -> bo
 	if current_state == to_state: return false
 	match from_state:
 		GameState.MAIN_MENU:
-			return to_state in [GameState.BALL_ON_PADDLE, GameState.SPECIAL_ROOM]
+			return to_state in [GameState.BALL_ON_PADDLE, GameState.SPECIAL_ROOM, GameState.DEBUG_PANEL]
 		GameState.BALL_ON_PADDLE:
 			return to_state in [GameState.PLAYING, GameState.PAUSED, GameState.LEVEL_CLEARED, GameState.SPECIAL_ROOM,GameState.DEBUG_PANEL]
 		GameState.PLAYING:
@@ -63,7 +63,7 @@ func is_valid_state_transition(from_state: GameState, to_state: GameState) -> bo
 		GameState.SPECIAL_ROOM:
 			return to_state in [GameState.BALL_ON_PADDLE, GameState.PLAYING,GameState.DEBUG_PANEL]
 		GameState.DEBUG_PANEL:
-			return to_state in [GameState.BALL_ON_PADDLE, GameState.PLAYING, GameState.LEVEL_CLEARED, GameState.SPECIAL_ROOM]
+			return to_state in [GameState.BALL_ON_PADDLE, GameState.PLAYING, GameState.LEVEL_CLEARED, GameState.SPECIAL_ROOM, GameState.MAIN_MENU]
 			
 	assert(false, "No valid transitions defined for from_state: %s" % GameState.keys()[from_state])
 	return false
@@ -140,8 +140,6 @@ func restart_level() -> void:
 	get_tree().reload_current_scene()
 
 func start_floor() -> void:
-	DP.track("Game State", DP, "old_state", GameState)
-	DP.track("Current Room:", self, "current_room_id")	
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	MusicPlayer.execute_playlist("test_playlist")
 	print("floor_ref: ", floor_ref)
@@ -158,7 +156,9 @@ func _ready() -> void:
 	Signalbus.player_died.connect(_load_level_on_player_death)
 	Signalbus.level_cleared.connect(set_state_to_cleared)
 	Signalbus.floor_cleared.connect(floor_cleared)
-	start_floor()	
+	DP.track("Game State", DP, "old_state", GameState)
+	DP.track("Current Room:", self, "current_room_id")
+	start_floor()
 	
 func floor_cleared()->void:
 	current_floor += 1
