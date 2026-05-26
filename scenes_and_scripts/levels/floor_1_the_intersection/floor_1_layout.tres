@@ -17,6 +17,7 @@
 [ext_resource type="Script" uid="uid://dm8qchhbo37mu" path="res://scenes_and_scripts/enemies/enemy_config.gd" id="13_74xxy"]
 [ext_resource type="Script" uid="uid://cqac2vv2p8oga" path="res://scenes_and_scripts/bricks/seal_phase_config.gd" id="13_rtyfa"]
 [ext_resource type="PackedScene" uid="uid://cm2bdw1o1sypc" path="res://scenes_and_scripts/enemies/specific_enemies/dark_cage/dark_cage.tscn" id="14_q8bvp"]
+[ext_resource type="Texture2D" uid="uid://cqn6snt1p5bby" path="res://scenes_and_scripts/walls/1x1_wall_gray_avg.png" id="18_6jhxo"]
 
 [sub_resource type="Resource" id="Resource_xcoa1"]
 script = ExtResource("1_hqd6g")
@@ -165,4 +166,9 @@ show_mini_map = true
 starting_room_id = "start_1"
 starting_room_scene = ExtResource("2_nrnxw")
 seal_break_enemies = Array[ExtResource("13_74xxy")]([SubResource("Resource_w0og2")])
+wall_texture = ExtResource("18_6jhxo")
+wall_modulate = Color(0, 0.7019608, 0.8862745, 1)
+wall_texture_filter = 1
+wall_brightness_jitter = 0.1
+wall_random_flip = true
 metadata/_custom_type_script = "uid://bvs3ugvgbabkc"

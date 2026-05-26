@@ -8,6 +8,7 @@ var falling: bool = false
 @export var damage: int = 1
 @export var fall_delay: float = 0.2
 @export var stun_time: float = 1.0
+@export var stun_score: int = 5000
 
 func _ready() -> void:
 	_pause_falling()
@@ -38,6 +39,14 @@ func _physics_process(delta: float) -> void:
 				can_damage = false
 				SFX.play_sound("cage_hit")
 				queue_free()
+		elif collider.is_in_group("bounce_enemy"):
+			if collider.has_method("stun_for_time"):
+				collider.stun_for_time(stun_time)
+			if collider.has_method("take_damage_fx"):
+				collider.take_damage_fx()
+			PlayerData.update_player_score(stun_score)
+			SFX.play_sound("cage_hit")
+			on_fall_landed()
 
 func on_fall_landed() -> void:
 	get_viewport().get_camera_2d().add_trauma(0.7)

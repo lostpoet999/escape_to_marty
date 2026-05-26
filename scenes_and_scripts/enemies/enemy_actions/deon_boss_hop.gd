@@ -20,6 +20,10 @@ var darkcage_spawns: Array
 @export var back_chance: float
 var hops: int = 0
 
+var origin_position: Vector2
+var origin_scale_cached: Vector2
+var active_tweens: Array[Tween] = []
+
 func reset()->void:
 	hops = 0
 	is_hopping = false
@@ -59,7 +63,10 @@ func execute_action(actor: PlacedEnemy) -> void:
 	var origin_y: float = actor.global_position.y
 	var origin_scale: Vector2 = actor.scale
 	var start_x: float = actor.global_position.x
-	
+	origin_position = Vector2(start_x, origin_y)
+	origin_scale_cached = origin_scale
+	active_tweens.clear()
+
 	# --- Position Tween ---
 	var tween: Tween = actor.create_tween()
 	tween.tween_method(func(x: float) -> void:
@@ -87,9 +94,12 @@ func execute_action(actor: PlacedEnemy) -> void:
 		origin_scale, speed * 0.75)\
 		.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
 		
-	# --- Landing fires after arc completes ---		
+	active_tweens.append_array([tween, up_tween, scale_tween])
+
+	# --- Landing fires after arc completes ---
 	up_tween.tween_callback(func() -> void:
 		var land_tween: Tween = actor.create_tween()
+		active_tweens.append(land_tween)
 		land_tween.tween_property(actor, "scale",
 			Vector2(origin_scale.x * 1.3, origin_scale.y * 0.7), speed * 0.10)\
 			.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
@@ -113,6 +123,15 @@ func execute_action(actor: PlacedEnemy) -> void:
 			origin_scale, speed * 0.30)\
 			.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
 		land_tween.tween_callback(func() -> void: is_hopping = false)
-	)	
+	)
 	hops += 1
 	spawn_cage()
+
+func cancel_to_origin(actor: PlacedEnemy) -> void:
+	if not is_hopping: return
+	for t: Tween in active_tweens:
+		if t != null and t.is_valid(): t.kill()
+	active_tweens.clear()
+	actor.global_position = origin_position
+	actor.scale = origin_scale_cached
+	is_hopping = false

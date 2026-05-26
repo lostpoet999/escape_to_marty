@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://cqac2vv2p8oga" path="res://scenes_and_scripts/bricks/seal_phase_config.gd" id="4_tjbqt"]
 [ext_resource type="Script" uid="uid://b1eqt2or38kw6" path="res://scenes_and_scripts/item_spawning/spawn_weights_resource.gd" id="6_tjbqt"]
 [ext_resource type="PackedScene" uid="uid://bp6phucw4mi01" path="res://scenes_and_scripts/levels/floor_2_the_arena/start_2.tscn" id="8_c5321"]
+[ext_resource type="Texture2D" uid="uid://b2hkb43f7tu4c" path="res://scenes_and_scripts/walls/1x1_wall_gray_normalized.png" id="11_6son4"]
 
 [sub_resource type="Resource" id="Resource_6son4"]
 script = ExtResource("1_4xv7i")
@@ -90,4 +91,6 @@ show_mini_map = true
 starting_room_id = "start_2"
 starting_room_scene = ExtResource("8_c5321")
 seal_break_enemies = Array[ExtResource("3_1wfy1")]([SubResource("Resource_1r2xy")])
+wall_texture = ExtResource("11_6son4")
+wall_modulate = Color(0.88241285, 0, 0.04436259, 1)
 metadata/_custom_type_script = "uid://bvs3ugvgbabkc"

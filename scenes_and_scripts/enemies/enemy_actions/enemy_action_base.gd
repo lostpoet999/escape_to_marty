@@ -9,3 +9,6 @@ enum ActionTypes{Move, Damage, Stun}
 
 func execute_action(_actor: PlacedEnemy) -> void:
 	pass
+
+func cancel_to_origin(_actor: PlacedEnemy) -> void:
+	pass

@@ -66,7 +66,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Deon" unique_id=1934117901 instance=ExtResource("1_hxmmq")]
+[node name="Deon" unique_id=1934117901 groups=["bounce_enemy"] instance=ExtResource("1_hxmmq")]
 script = ExtResource("1_dj3le")
 destroy_fx = ExtResource("4_mhwwu")
 action_pool = Array[ExtResource("2_2bfs3")]([SubResource("Resource_rwvd0")])

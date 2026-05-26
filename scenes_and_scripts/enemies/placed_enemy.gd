@@ -14,6 +14,7 @@ signal ready_to_remove(enemy: PlacedEnemy)
 @export var denial_health: int = 3
 @export var right_clamp_offset: int
 @export var left_clamp_offset: int
+var current_action: EnemyActions
 
 func _ready()->void:
 	if denial_active == true:
@@ -54,12 +55,13 @@ func die()->void:
 		SFX.play_sound("deon_die")
 		queue_free()
 
-func pick_action()->void:	
+func pick_action()->void:
 	if !action_pool.is_empty():
 		var action:EnemyActions = action_pool.pick_random()
+		current_action = action
 		action.execute_action(self)
 		if is_blocker:
-			if action.action_type == action.ActionTypes.Move: Signalbus.blocker_moved.emit()			
+			if action.action_type == action.ActionTypes.Move: Signalbus.blocker_moved.emit()
 		timer.wait_time = action_timer - randf_range(0.3,0.8)
 
 func jump_land_shake()->void:
@@ -77,3 +79,19 @@ func get_edge(paddle: Paddle) -> float:
 func start_action_timer()->void:
 	timer.wait_time = action_timer
 	timer.start()
+
+func stun_for_time(duration: float) -> void:
+	if timer == null: return
+	if current_action != null:
+		current_action.cancel_to_origin(self)
+	timer.stop()
+	var original_modulate: Color = modulate
+	var pulse_color: Color = Color(1.0, 0.25, 0.25, original_modulate.a)
+	var pulse_tween: Tween = create_tween().set_loops()
+	pulse_tween.tween_property(self, "modulate", pulse_color, 0.2)
+	pulse_tween.tween_property(self, "modulate", original_modulate, 0.2)
+	await get_tree().create_timer(duration).timeout
+	if is_instance_valid(self):
+		pulse_tween.kill()
+		modulate = original_modulate
+		start_action_timer()

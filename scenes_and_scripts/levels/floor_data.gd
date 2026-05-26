@@ -21,3 +21,18 @@ class_name FloorData extends Resource
 
 @export_category("Enemy Data")
 @export var seal_break_enemies: Array[EnemyConfig]
+
+@export_category("Floor Visuals")
+# null = keep whatever each wall scene was built with
+@export var wall_texture: Texture2D
+@export var wall_modulate: Color = Color.WHITE
+# separate alpha multiplier so you can fade walls without re-picking the tint color
+@export_range(0.0, 1.0, 0.01) var wall_alpha: float = 1.0
+@export var wall_texture_filter: CanvasItem.TextureFilter = CanvasItem.TEXTURE_FILTER_PARENT_NODE
+# per-tile rgb shift, breaks the uniform-grid look. 0 = uniform, 0.5 = chaotic
+@export_range(0.0, 0.5, 0.01) var wall_brightness_jitter: float = 0.0
+# randomly flip each tile h/v - kills visible repetition in the brick pattern
+@export var wall_random_flip: bool = false
+# defaults match room_base.tscn's current values so unset floors look unchanged
+@export var background_color: Color = Color(0.094, 0.039, 0.067, 1.0)
+@export var canvas_modulate_color: Color = Color(0.916, 0.916, 0.916, 1.0)

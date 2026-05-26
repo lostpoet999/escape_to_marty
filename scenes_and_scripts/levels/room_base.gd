@@ -14,6 +14,8 @@ var entry: RoomEntry
 @onready var item_box: Itembox
 @onready var shop_grid: ShopGrid
 @onready var no_respawn: Node2D = $"No-Respawn"
+@onready var play_background: ColorRect = $PlayArea/Background
+@onready var canvas_modulate_node: CanvasModulate = $CanvasModulate
 
 
 
@@ -24,15 +26,16 @@ func _process(_delta: float) -> void:
 func supress_respawn_entities()->void:
 	no_respawn.queue_free()	
 
-func _ready() -> void:	
-	
+func _ready() -> void:
+
 	visible = false
 	entry = GameManager.get_current_floor_entry(GameManager.current_room_id)
-	room_state = PlayerData.get_room_state(entry)	
+	room_state = PlayerData.get_room_state(entry)
 	if room_state.cleared:
 		supress_respawn_entities()
 		Signalbus.level_cleared.emit()
-	await get_tree().process_frame	
+	_apply_floor_wall_visuals()
+	await get_tree().process_frame
 	visible = true
 	room_state.visited = true
 	bricks_in_level = get_tree().get_nodes_in_group("bricks").size()	
@@ -115,3 +118,33 @@ func _on_brick_destroyed() -> void:
 	if bricks_in_level <= 0:
 		bricks_cleared = true
 		check_level_cleared()
+
+func _apply_floor_wall_visuals() -> void:
+	var fd: FloorData = GameManager.floor_data
+	if fd == null:
+		return
+	# local RNG seeded by room id so jitter/flip stay stable across re-entries
+	var rng := RandomNumberGenerator.new()
+	rng.seed = hash(GameManager.current_room_id)
+	var base_tint: Color = fd.wall_modulate
+	base_tint.a *= fd.wall_alpha
+	for wall: Node in get_tree().get_nodes_in_group("walls"):
+		for child: Node in wall.find_children("*", "", true, false):
+			# TextureRect (border/boss walls) and Sprite2D (exit-frame tiles) both have .texture
+			# ExitBarrier ColorRects are skipped naturally - they're not TextureRect/Sprite2D
+			if (child is TextureRect or child is Sprite2D) and child.texture != null:
+				if fd.wall_texture != null:
+					child.texture = fd.wall_texture
+				child.self_modulate = _jittered(base_tint, fd.wall_brightness_jitter, rng)
+				child.texture_filter = fd.wall_texture_filter
+				if fd.wall_random_flip:
+					child.flip_h = rng.randi() % 2 == 0
+					child.flip_v = rng.randi() % 2 == 0
+	play_background.color = fd.background_color
+	canvas_modulate_node.color = fd.canvas_modulate_color
+
+func _jittered(base: Color, amount: float, rng: RandomNumberGenerator) -> Color:
+	if amount <= 0.0:
+		return base
+	var j: float = rng.randf_range(-amount, amount)
+	return Color(clampf(base.r + j, 0.0, 1.0), clampf(base.g + j, 0.0, 1.0), clampf(base.b + j, 0.0, 1.0), base.a)

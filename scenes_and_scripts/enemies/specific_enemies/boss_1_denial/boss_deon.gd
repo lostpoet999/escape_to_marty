@@ -40,13 +40,14 @@ func accept_damage(_damage: int, _dmg_type: Array[GameManager.PhaseType])->void:
 				die()
 				Signalbus.floor_cleared.emit()
 
-func pick_action()->void:	
+func pick_action()->void:
 	if !action_pool.is_empty():
 		var action:EnemyActions = action_pool.pick_random()
+		current_action = action
 		action.setup_darkcage_spawns(darkcage_spawnpoints)
 		action.execute_action(self)
 		if is_blocker:
-			if action.action_type == action.ActionTypes.Move: Signalbus.blocker_moved.emit()			
+			if action.action_type == action.ActionTypes.Move: Signalbus.blocker_moved.emit()
 		timer.wait_time = action_timer - randf_range(0.3,0.8)
 
 func _on_cage_cleared()->void:
