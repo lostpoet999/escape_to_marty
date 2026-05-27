@@ -93,10 +93,12 @@ func get_paddle_active() -> PaddleActive:	#inventory logic prevents more than on
 			return item
 	return null
 
+## reserved for the planned ClickPowerUp category (click-mode actives).
+## uncomment once `ClickPowerUp` class exists; ties into the floor-scaling damage rework (denial/anger currently hardcoded to 1).
 #func get_items_for_click() -> Array[ClickPowerUp]:
-	#var _items: Array[BallPowerUp]
-	#for item in items:
-		#if item is BallPowerUp:
+	#var _items: Array[ClickPowerUp]
+	#for item: BaseItem in items:
+		#if item is ClickPowerUp:
 			#_items.append(item)
 	#return _items
 

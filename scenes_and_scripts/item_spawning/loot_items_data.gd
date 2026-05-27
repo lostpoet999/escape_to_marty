@@ -29,7 +29,22 @@ func generate_item_box()->void:
 	pool = ItemSpawner.item_pool_data.item_pool.duplicate()
 	filter_owned_actives()
 	for n:int in max_items:
-		if pool.is_empty(): break			
+		if pool.is_empty(): break
 		var item:BaseItem = pool.pick_random()
 		items.push_back(item)
 		pool.erase(item)
+
+func generate_boss_drop(config: BossLootConfig)->void:
+	items.clear()
+	pool = ItemSpawner.item_pool_data.item_pool.duplicate()
+	filter_owned_actives()
+	# guaranteed items first — bypass weights and owned-active filter
+	for guaranteed:BaseItem in config.guaranteed_items:
+		items.push_back(guaranteed)
+	# weighted random rolls
+	for n:int in config.random_drop_count:
+		if pool.is_empty(): break
+		var rolled:BaseItem = ItemSpawner.pick_random_item(config.tier_weights)
+		if rolled != null:
+			items.push_back(rolled)
+			pool.erase(rolled)

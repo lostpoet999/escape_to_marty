@@ -4,6 +4,7 @@ class_name FloorData extends Resource
 @export var spawn_weight: SpawnWeights
 @export var free_item_max: int
 @export var shop_items: int
+@export var boss_loot_config: BossLootConfig
 
 @export_category("Seal Config for Floor:")
 @export var seal_difficulty_rates: SealDifficulty

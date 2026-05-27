@@ -38,7 +38,7 @@ func accept_damage(_damage: int, _dmg_type: Array[GameManager.PhaseType])->void:
 		3:
 			if _dmg_type.has(GameManager.PhaseType.HEALTH):
 				die()
-				Signalbus.floor_cleared.emit()
+				Signalbus.level_cleared.emit()
 
 func pick_action()->void:
 	if !action_pool.is_empty():

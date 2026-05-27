@@ -1,6 +1,6 @@
 class_name  RoomEntry extends Resource
 
-enum ROOM_TYPES{starting_room,combat,shop,memory,free_item}
+enum ROOM_TYPES{starting_room,combat,shop,memory,free_item,boss}
 
 @export var room_name_id: String
 @export var max_clears: int

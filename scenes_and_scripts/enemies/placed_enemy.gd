@@ -43,7 +43,10 @@ func accept_damage(_damage: int, _dmg_type: Array[GameManager.PhaseType])->void:
 		
 
 func die()->void:
-	if is_blocker: 
+	# guard against re-entry — boss path calls die() directly then emits level_cleared,
+	# and the level_cleared sweep would otherwise re-fire all the side effects on the boss
+	if is_queued_for_deletion(): return
+	if is_blocker:
 		Signalbus.blocker_removed.emit(self)
 		ready_to_remove.emit(self)
 		@warning_ignore("unsafe_method_access")
