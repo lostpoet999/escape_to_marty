@@ -4,7 +4,6 @@ extends CharacterBody2D
 @export var action_pool: Array [EnemyActions]
 @export var action_timer: float
 @export var is_blocker: bool
-@export var suppressed_on_respawn: bool
 var timer: Timer
 signal ready_to_remove(enemy: PlacedEnemy)
 
@@ -21,6 +20,7 @@ func _ready()->void:
 		self.modulate = Color.BLACK
 		self.modulate.a = .2	
 	Signalbus.jump_landed.connect(jump_land_shake)
+	Signalbus.level_cleared.connect(die)
 	if is_blocker: Signalbus.blocker_added.emit(self)
 	var duped: Array[EnemyActions] = []
 	for action:EnemyActions in action_pool:
@@ -32,10 +32,6 @@ func _ready()->void:
 	timer.timeout.connect(pick_action)
 	timer.wait_time = action_timer	
 	start_action_timer()
-
-func _process(_delta: float) -> void:	
-	if GameManager.current_state == GameManager.GameState.LEVEL_CLEARED:
-		die()
 
 func accept_damage(_damage: int, _dmg_type: Array[GameManager.PhaseType])->void:
 	SFX.play_sound("player_hurt")

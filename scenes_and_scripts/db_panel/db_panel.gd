@@ -95,16 +95,11 @@ func _on_give_stars_btn_pressed() -> void:
 func populate_floor_warp() -> void:
 	for child: Node in floor_list.get_children():
 		child.queue_free()
-	var floor_keys: Array = GameManager.floor_ref.keys()
-	floor_keys.sort()
-	for floor_num: int in floor_keys:
-		var floor_uid: String = GameManager.floor_ref[floor_num]
-		var fd: FloorData = ResourceLoader.load(floor_uid) as FloorData
-		var label_text: String
-		if fd:
-			label_text = "Floor %d: %s" % [floor_num, fd.floor_name_id]
-		else:
-			label_text = "Floor %d (missing resource)" % floor_num
+	for i: int in GameManager.FLOOR_REGISTRY.floors.size():
+		var floor_num: int = i + 1
+		var fd_variant: Variant = GameManager.FLOOR_REGISTRY.floors[i]
+		var fd: FloorData = fd_variant
+		var label_text: String = "Floor %d: %s" % [floor_num, fd.floor_name_id]
 		if floor_num == GameManager.current_floor:
 			label_text += "  (current)"
 		var btn: Button = Button.new()
@@ -113,8 +108,8 @@ func populate_floor_warp() -> void:
 		floor_list.add_child(btn)
 
 func warp_to_floor(floor_num: int) -> void:
-	if not GameManager.floor_ref.has(floor_num):
-		push_warning("DP warp: floor %d not in floor_ref" % floor_num)
+	if floor_num < 1 or floor_num > GameManager.FLOOR_REGISTRY.floors.size():
+		push_warning("DP warp: floor %d not in registry" % floor_num)
 		return
 	GameManager.current_floor = floor_num
 	GameManager.start_floor()

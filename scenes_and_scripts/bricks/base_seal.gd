@@ -16,7 +16,6 @@ const PHASE_SCORES: Dictionary[GameManager.PhaseType, int] = {
 @onready var brick_health_label: Label = $brick_health
 
 @onready var gemstone_facets: Sprite2D = $"gemstone-facets"
-@export var suppressed_on_respawn: bool
 
 @export var initialize_brick_on_leveldata: bool = true
 @export var stages: Dictionary[GameManager.PhaseType, float]

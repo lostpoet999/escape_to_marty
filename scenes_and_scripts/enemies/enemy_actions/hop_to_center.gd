@@ -4,7 +4,6 @@ extends EnemyActions
 const CENTER:float = 1088.00
 const LEFT:float = 384.00
 const LEFT_CENTER:float  = 960.00
-const RIGHT_CENTER: float = 1216.00
 const RIGHT: float = 1782.00
 
 var target_x:float
@@ -17,6 +16,9 @@ const LANDING_DUST: PackedScene = preload("uid://e5v7jmrw71ba")
 @export var speed: float
 @export var max_hops: int
 @export var back_chance: float
+# scaled-up subclasses (e.g. DeonBossHop) override these via .tscn sub_resource
+@export var right_center: float = 1216.0
+@export var landing_dust_scale: float = 1.5
 var hops: int = 0
 
 var origin_position: Vector2
@@ -33,10 +35,10 @@ func set_target_x(actor: PlacedEnemy)->void:
 			target_x = actor.global_position.x - hop_distance
 		elif actor.global_position.x != LEFT_CENTER:
 			target_x = actor.global_position.x + hop_distance
-	elif actor.global_position.x >= RIGHT_CENTER:
+	elif actor.global_position.x >= right_center:
 		if randf_range(1,100) <= back_chance and actor.global_position.x < 1782:
 			target_x = actor.global_position.x + hop_distance
-		elif actor.global_position.x != RIGHT_CENTER:
+		elif actor.global_position.x != right_center:
 			target_x = actor.global_position.x - hop_distance
 	
 func execute_action(actor: PlacedEnemy) -> void:
@@ -94,8 +96,8 @@ func execute_action(actor: PlacedEnemy) -> void:
 			Signalbus.jump_landed.emit()
 			var dust1: CPUParticles2D = LANDING_DUST.instantiate()
 			var dust2: CPUParticles2D = LANDING_DUST.instantiate()
-			dust1.scale *=1.5
-			dust2.scale *=1.5
+			dust1.scale *= landing_dust_scale
+			dust2.scale *= landing_dust_scale
 			actor.get_parent().add_child(dust1)
 			actor.get_parent().add_child(dust2)
 			dust1.z_index = 1000
@@ -111,6 +113,11 @@ func execute_action(actor: PlacedEnemy) -> void:
 		land_tween.tween_callback(func() -> void: is_hopping = false)
 	)
 	hops += 1
+	_after_takeoff(actor)
+
+# subclass hook — runs once per hop, right after the hop is launched
+func _after_takeoff(_actor: PlacedEnemy) -> void:
+	pass
 
 func cancel_to_origin(actor: PlacedEnemy) -> void:
 	if not is_hopping: return

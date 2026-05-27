@@ -5,7 +5,6 @@ extends Node2D
 @export var spawn_an_enemy_chance: float
 @export var respawn_time: float
 @export var initial_spawn_time: float
-@export var suppressed_on_respawn: bool
 var active_enemies: Array[PlacedEnemy]
 @export var max_spawns: int
 var enemy_spawn_timer: Timer

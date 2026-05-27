@@ -104,23 +104,23 @@ signal player_died
 ## Inventory Signals
 ## =============================================================================
 
-## Emits: inventory.gd - > remove_item(item), add_item(item)
-## connects: inventory_panel.gd -> repopulate_inventory()
+## Emits: scenes_and_scripts/inventory/inventory.gd -> add_item(), replace_paddle_active(), remove_item()
+## Connects: scenes_and_scripts/inventory/inventory_panel.gd -> repopulate_inventory, scenes_and_scripts/ball/ball.gd -> repopulate_effects_from_inventory, scenes_and_scripts/player/paddle.gd -> set_paddle_length_from_items
 @warning_ignore("unused_signal")
 signal inventory_changed
 
-## Emits: inventory.gd - > add_item(item)
-## connects: paddle.gd -> change_active()
+## Emits: scenes_and_scripts/inventory/inventory.gd -> add_item()
+## Connects: scenes_and_scripts/player/paddle.gd -> _assign_active_powerup
 @warning_ignore("unused_signal")
 signal paddle_active_assigned(item: PaddleActive)
 
-##Emits: inventory.gd - > add_item(item)
-##connects: paddle_active_swap.gd ->
+## Emits: scenes_and_scripts/inventory/inventory.gd -> add_item()
+## Connects: scenes_and_scripts/ui_menus/paddle_active_swap.gd -> _on_swap_needed
 @warning_ignore("unused_signal")
-signal paddle_active_swap_needed
+signal paddle_active_swap_needed(old_item: PaddleActive, new_item: PaddleActive)
 
-##Emits: paddle_active_swap.gd
-##Connects: inventory.gd, paddle.gd
+## Emits: scenes_and_scripts/ui_menus/paddle_active_swap.gd -> _on_new_item_pressed()
+## Connects: scenes_and_scripts/inventory/inventory.gd -> replace_paddle_active, scenes_and_scripts/player/paddle.gd -> _assign_active_powerup
 @warning_ignore("unused_signal")
 signal paddle_swap_resolved(item: PaddleActive)
 

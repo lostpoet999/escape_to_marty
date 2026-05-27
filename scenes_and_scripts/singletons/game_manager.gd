@@ -3,16 +3,13 @@ extends Node
 #scene references
 const MAIN_MENU: PackedScene = preload("uid://djuj72c4lcukn")
 
-#floor references
+#floor references — add floors by editing floor_registry.tres in the inspector
+const FLOOR_REGISTRY: FloorRegistry = preload("res://scenes_and_scripts/levels/floor_registry.tres")
 var current_floor:int = 1
 var floor_data: FloorData
 var room_data_for_floor: Dictionary = {}
 var scene_ref: PackedScene
 var current_room_id: String
-var floor_ref: Dictionary = {
-	1: "uid://dr8vct1f7lm5n",
-	2: "uid://doyoqbp1kw58c"
-}
 
 enum GameState {MAIN_MENU, BALL_ON_PADDLE, PLAYING, PAUSED, GAME_OVER, CLICK_MODE, LEVEL_CLEARED, SPECIAL_ROOM, DEBUG_PANEL} 
 enum PhaseType {DENIAL, ANGER, BARGAINING, DEPRESSION, ACCEPTANCE, HEALTH}
@@ -80,9 +77,9 @@ func enter_state(change_to_state: GameState) -> void:
 	match current_state:
 		GameState.MAIN_MENU:
 			set_mouse_visible()
-			current_room_id = floor_data.starting_room_id
-			scene_ref = floor_data.starting_room_scene
-			Signalbus.game_state_main_menu.emit()			
+			current_floor = 1
+			start_floor()
+			Signalbus.game_state_main_menu.emit()
 		GameState.BALL_ON_PADDLE:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 			Signalbus.game_state_playing.emit()
@@ -142,9 +139,9 @@ func restart_level() -> void:
 func start_floor() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	MusicPlayer.execute_playlist("test_playlist")
-	print("floor_ref: ", floor_ref)
-	print("current floor id: ",current_floor)
-	floor_data = ResourceLoader.load(str(floor_ref[current_floor])) as FloorData
+	print("current floor: ", current_floor, " of ", FLOOR_REGISTRY.floors.size())
+	var fd_variant: Variant = FLOOR_REGISTRY.floors[current_floor - 1]
+	floor_data = fd_variant
 	scene_ref = floor_data.starting_room_scene
 	current_room_id = floor_data.starting_room_id
 	get_floor_data()

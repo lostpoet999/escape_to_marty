@@ -9,6 +9,7 @@ size = Vector2(64.000534, 59.998764)
 [node name="DarkCage" type="CharacterBody2D" unique_id=2050699978]
 script = ExtResource("1_dimqk")
 fall_speed = 0.5
+fall_delay = 0.5
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1946146772]
 position = Vector2(0, 1)

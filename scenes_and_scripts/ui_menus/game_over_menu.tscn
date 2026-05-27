@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://chs4vfkn7cmgt"]
 
-[ext_resource type="Script" uid="uid://cvswaeyov33c3" path="res://scenes_and_scripts/ui_menus/escape_menu.gd" id="1_brkfe"]
+[ext_resource type="Script" uid="uid://d01coo5nu6uyw" path="res://scenes_and_scripts/ui_menus/game_over_menu.gd" id="1_brkfe"]
 [ext_resource type="Texture2D" uid="uid://cra2lcyy34b1x" path="res://scenes_and_scripts/ui_menus/edge_patch.png" id="2_htpki"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_y3oh4"]
