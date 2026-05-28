@@ -10,6 +10,14 @@
 [ext_resource type="Script" uid="uid://cqac2vv2p8oga" path="res://scenes_and_scripts/bricks/seal_phase_config.gd" id="4_tjbqt"]
 [ext_resource type="Script" uid="uid://b1eqt2or38kw6" path="res://scenes_and_scripts/item_spawning/spawn_weights_resource.gd" id="6_tjbqt"]
 [ext_resource type="PackedScene" uid="uid://bp6phucw4mi01" path="res://scenes_and_scripts/levels/floor_2_the_arena/start_2.tscn" id="8_c5321"]
+[ext_resource type="PackedScene" uid="uid://c2t3rk8hpx4qr" path="res://scenes_and_scripts/levels/floor_2_the_arena/combat_2_3.tscn" id="9_c2t3r"]
+[ext_resource type="PackedScene" uid="uid://b4w9mz5cevn7y" path="res://scenes_and_scripts/levels/floor_2_the_arena/combat_2_4.tscn" id="10_b4w9m"]
+[ext_resource type="PackedScene" uid="uid://dq6e1jkns8mwb" path="res://scenes_and_scripts/levels/floor_2_the_arena/combat_2_5.tscn" id="11_dq6e1"]
+[ext_resource type="PackedScene" uid="uid://7vttec5plsdk" path="res://scenes_and_scripts/levels/common_rooms/powerup_1.tscn" id="12_pwrup"]
+[ext_resource type="PackedScene" uid="uid://bwuoolbwt8v67" path="res://scenes_and_scripts/levels/common_rooms/shop_1.tscn" id="13_shopc"]
+[ext_resource type="PackedScene" uid="uid://cn5hfx7q4drtu" path="res://scenes_and_scripts/memories/memory_2_1.tscn" id="14_mem21"]
+[ext_resource type="PackedScene" uid="uid://bk3eqz8wp6m5n" path="res://scenes_and_scripts/memories/memory_2_2.tscn" id="15_mem22"]
+[ext_resource type="PackedScene" uid="uid://dv7p2h9fjnr4x" path="res://scenes_and_scripts/levels/floor_2_the_arena/boss_2.tscn" id="16_boss2"]
 [ext_resource type="Texture2D" uid="uid://b2hkb43f7tu4c" path="res://scenes_and_scripts/walls/1x1_wall_gray_normalized.png" id="11_6son4"]
 
 [sub_resource type="Resource" id="Resource_6son4"]
@@ -38,6 +46,86 @@ room_scene = ExtResource("4_6son4")
 room_coords = Vector2i(1, 3)
 room_type = 1
 north_exit = "combat_2_1"
+east_exit = "combat_2_3"
+metadata/_custom_type_script = "uid://pnkwdspwmpwe"
+
+[sub_resource type="Resource" id="Resource_c2t3r"]
+script = ExtResource("1_4xv7i")
+room_name_id = "combat_2_3"
+room_scene = ExtResource("9_c2t3r")
+room_coords = Vector2i(2, 3)
+room_type = 1
+east_exit = "free_item_2"
+south_exit = "memory_2_1"
+west_exit = "combat_2_2"
+metadata/_custom_type_script = "uid://pnkwdspwmpwe"
+
+[sub_resource type="Resource" id="Resource_freeit"]
+script = ExtResource("1_4xv7i")
+room_name_id = "free_item_2"
+room_scene = ExtResource("12_pwrup")
+room_coords = Vector2i(3, 3)
+room_type = 4
+east_exit = "combat_2_4"
+west_exit = "combat_2_3"
+metadata/_custom_type_script = "uid://pnkwdspwmpwe"
+
+[sub_resource type="Resource" id="Resource_b4w9m"]
+script = ExtResource("1_4xv7i")
+room_name_id = "combat_2_4"
+room_scene = ExtResource("10_b4w9m")
+room_coords = Vector2i(4, 3)
+room_type = 1
+north_exit = "shop_2"
+south_exit = "combat_2_5"
+west_exit = "free_item_2"
+metadata/_custom_type_script = "uid://pnkwdspwmpwe"
+
+[sub_resource type="Resource" id="Resource_shop2"]
+script = ExtResource("1_4xv7i")
+room_name_id = "shop_2"
+room_scene = ExtResource("13_shopc")
+room_coords = Vector2i(4, 2)
+room_type = 2
+south_exit = "combat_2_4"
+metadata/_custom_type_script = "uid://pnkwdspwmpwe"
+
+[sub_resource type="Resource" id="Resource_dq6e1"]
+script = ExtResource("1_4xv7i")
+room_name_id = "combat_2_5"
+room_scene = ExtResource("11_dq6e1")
+room_coords = Vector2i(4, 4)
+room_type = 1
+north_exit = "combat_2_4"
+east_exit = "boss_2"
+south_exit = "memory_2_2"
+metadata/_custom_type_script = "uid://pnkwdspwmpwe"
+
+[sub_resource type="Resource" id="Resource_mem21"]
+script = ExtResource("1_4xv7i")
+room_name_id = "memory_2_1"
+room_scene = ExtResource("14_mem21")
+room_coords = Vector2i(2, 4)
+room_type = 3
+north_exit = "combat_2_3"
+metadata/_custom_type_script = "uid://pnkwdspwmpwe"
+
+[sub_resource type="Resource" id="Resource_mem22"]
+script = ExtResource("1_4xv7i")
+room_name_id = "memory_2_2"
+room_scene = ExtResource("15_mem22")
+room_coords = Vector2i(4, 5)
+room_type = 3
+north_exit = "combat_2_5"
+metadata/_custom_type_script = "uid://pnkwdspwmpwe"
+
+[sub_resource type="Resource" id="Resource_boss2"]
+script = ExtResource("1_4xv7i")
+room_name_id = "boss_2"
+room_scene = ExtResource("16_boss2")
+room_coords = Vector2i(5, 4)
+room_type = 5
+west_exit = "combat_2_5"
 metadata/_custom_type_script = "uid://pnkwdspwmpwe"
 
 [sub_resource type="Resource" id="Resource_1r2xy"]
@@ -86,7 +174,7 @@ seal_phase_pool = Array[ExtResource("4_tjbqt")]([SubResource("Resource_tjbqt")])
 seal_health_phase = SubResource("Resource_1wfy1")
 max_respawn = 3
 floor_name_id = "the_arena"
-room_entries = Array[ExtResource("1_4xv7i")]([SubResource("Resource_6son4"), SubResource("Resource_ygwct"), SubResource("Resource_6jyd5")])
+room_entries = Array[ExtResource("1_4xv7i")]([SubResource("Resource_6son4"), SubResource("Resource_ygwct"), SubResource("Resource_6jyd5"), SubResource("Resource_c2t3r"), SubResource("Resource_freeit"), SubResource("Resource_b4w9m"), SubResource("Resource_shop2"), SubResource("Resource_dq6e1"), SubResource("Resource_mem21"), SubResource("Resource_mem22"), SubResource("Resource_boss2")])
 show_mini_map = true
 starting_room_id = "start_2"
 starting_room_scene = ExtResource("8_c5321")
