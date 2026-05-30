@@ -51,7 +51,7 @@ func _ready() -> void:
 func init_starting_items() ->void:
 	const BALL_PASSIVE_POWERUPS: Array = [
 		## Add testing inventory items here that will be added in _ready
-	preload("uid://ctjeqnpuca6lq")	
+	preload("uid://ctjeqnpuca6lq"), # base ball
 ]
 	items.append_array(BALL_PASSIVE_POWERUPS)
 	const CORE_ITEMS: Array = [
@@ -67,11 +67,11 @@ func get_core_items() -> Array:
 	return core_items
 
 ## Load power-ups from inventory for appropriate object
-func get_items_for_ball() -> Array[BallPowerUp]:	
-	var _items: Array[BallPowerUp] = []
+func get_items_for_ball() -> Array[BallPassive]:
+	var _items: Array[BallPassive] = []
 	for item:BaseItem in items:
-		if item is BallPowerUp:
-			_items.append(item)	
+		if item is BallPassive:
+			_items.append(item)
 	return _items
 	
 func get_items_for_paddle() -> Array[PaddlePowerup]: ###passives for paddle
@@ -119,7 +119,7 @@ func add_item(new_item) -> void:
 			Signalbus.paddle_active_swap_needed.emit(old_active,new_item)			
 
 
-	elif new_item is BallPowerUp or new_item is PaddlePowerup:			
+	elif new_item is BallPassive or new_item is PaddlePowerup:
 			if new_item in items:
 				print("you already have this one, lets stack them!") #TODO: make it so inventory panel increases quantity in visual vs takeup another spot			
 			items.push_back(new_item) #this will move when we do quantity update from above	
@@ -144,7 +144,7 @@ func remove_item(item) -> void:
 func use_item(item: BaseItem) -> void:
 	dp("Using item %s..." % item)
 	remove_item(item)
-	if item is BallPowerUp:
+	if item is BallPassive:
 		## TODO
 		pass
 	#elif item is PaddlePowerUp:

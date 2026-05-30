@@ -66,8 +66,6 @@ visible = false
 shape = SubResource("CircleShape2D_olawr")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
-[node name="Effects" type="Node" parent="." unique_id=949634543]
-
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=733232863]
 color = Color(0.9999998, 0.18011233, 0.15537703, 1)
 energy = 2.2

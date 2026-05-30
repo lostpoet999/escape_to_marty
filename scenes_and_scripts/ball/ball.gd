@@ -7,7 +7,7 @@ const DEFAULT_BALL_DMG: int = 1
 var current_speed: float = 500.0
 var max_speed: float = 1500.0
 @export var ball_dmg: float = DEFAULT_BALL_DMG
-var damage_effects: Array[BaseDamageEffect]
+var behaviors: Array[HitBehavior]
 
 var flipped_x: bool = false
 var flipped_y: bool = false
@@ -22,7 +22,7 @@ var flipped_y: bool = false
 
 @export var bounce_effect: BaseBounceEffect
 
-@export var powerup_array: Array[BallPowerUp]
+@export var powerup_array: Array[BallPassive]
 
 @export var ball_dmg_type: Array[GameManager.PhaseType]
 
@@ -43,7 +43,6 @@ var time : float = 0.0
 var is_tweening_to_david: bool = false                                                                                                                        
 
 @onready var ball_half_height: float = (ball_collision.shape as CircleShape2D).radius
-@onready var effects_node: Node = $Effects
 
 func _ready() -> void:	
 	DP.track("Ball Velocity: ",self,"current_speed")
@@ -122,31 +121,24 @@ func _bezier(t: float, p0: Vector2, p1: Vector2, p2: Vector2) -> Vector2:
 	return u * u * p0 + 2.0 * u * t * p1 + t * t * p2
 
 func repopulate_effects_from_inventory() -> void:
-	# refresh loadout on inventory change (pickup, debug panel)
 	powerup_array.clear()
 	var items: Array = PlayerInventory.get_instance().get_items_for_ball()
 	powerup_array.append_array(items)
-	# free old effect nodes before re-spawning
-	for old_effect: BaseDamageEffect in damage_effects:
-		if is_instance_valid(old_effect):
-			old_effect.queue_free()
-	damage_effects.clear()
-	instantiate_all_effects()
+	collect_behaviors()
 	update_base_dmg()
 
-func instantiate_all_effects() -> void:
-	for powerup_ref: BallPowerUp in powerup_array:
-		for effect_ref: DamageEffectRef in powerup_ref.attached_effects:
-			var effect: BaseDamageEffect = effect_ref.instantiate_effect()
-			effects_node.add_child(effect)
-			damage_effects.append(effect)
+func collect_behaviors() -> void:
+	behaviors.clear()
+	for powerup_ref: BallPassive in powerup_array:
+		for behavior: HitBehavior in powerup_ref.on_hit:
+			behaviors.append(behavior)
 
 func update_base_dmg() -> void:
 	ball_dmg = DEFAULT_BALL_DMG
-	for powerup_ref: BallPowerUp in powerup_array:
-		ball_dmg += powerup_ref.global_damage_bonus
-	for powerup_ref: BallPowerUp in powerup_array:
-		ball_dmg *= powerup_ref.global_damage_multi
+	for powerup_ref: BallPassive in powerup_array:
+		ball_dmg += powerup_ref.global_bonus
+	for powerup_ref: BallPassive in powerup_array:
+		ball_dmg *= powerup_ref.global_multi
 
 func get_paddle_half_height() -> float:
 	var shape: RectangleShape2D = paddle_collision.shape as RectangleShape2D
@@ -307,5 +299,18 @@ func clean_collision_set() -> void:
 func apply_collider_effects(collider: Node2D) -> void:
 	if collider.get_instance_id() in _collision_set:
 		return
-	for effect: BaseDamageEffect in damage_effects:
-		effect.process_damage(self, collider, ball_dmg_type)
+	for behavior: HitBehavior in behaviors:
+		behavior.apply(self, collider)
+
+# per-target application; group decides the reaction
+func apply_damage_to(target: Node2D, amount: float, dmg_types: Array) -> void:
+	if target.is_in_group("bricks") or target.is_in_group("bounce_enemy"):
+		target.call("accept_damage", amount, dmg_types)
+	elif target.is_in_group("DeathWalls"):
+		if is_tweening_to_david:
+			return
+		await tween_to_david(global_position)
+		PlayerData.accept_damage(int(amount))
+		paddle.hit_feedback()
+		SFX.play_sound("player_hurt")
+		position_ball_on_paddle()

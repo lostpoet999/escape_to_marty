@@ -1,12 +1,11 @@
-[gd_resource type="Resource" script_class="BallPowerUp" format=3 uid="uid://c7gdauspp2vbh"]
+[gd_resource type="Resource" script_class="BallPassive" format=3 uid="uid://c7gdauspp2vbh"]
 
-[ext_resource type="Script" uid="uid://bymj844l5ynju" path="res://scenes_and_scripts/powerups_and_effects/ball_effects/damage_effects/Base Definition/damage_effect_wrapper.gd" id="1_7uu15"]
-[ext_resource type="Script" uid="uid://bryv4msdad7wu" path="res://scenes_and_scripts/powerups_and_effects/ball_powerups/ball_power_up.gd" id="2_w1tpf"]
+[ext_resource type="Script" uid="uid://bryv4msdad7wu" path="res://scenes_and_scripts/powerups_and_effects/ball_powerups/ball_passive.gd" id="1_ball"]
+[ext_resource type="Script" uid="uid://jwtisqgpmqvq" path="res://scenes_and_scripts/powerups_and_effects/ball_effects/behaviors/hit_behavior.gd" id="1_sfmso"]
 
 [resource]
-script = ExtResource("2_w1tpf")
-global_damage_bonus = 3.0
-global_damage_multi = 1.0
+script = ExtResource("1_ball")
+global_bonus = 3.0
 powerup_name = "+3 Test"
 rarity = 3
 cost = 5
