@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://brr0pi7naait7"]
 
 [ext_resource type="PackedScene" uid="uid://bea1h3570swpu" path="res://scenes_and_scripts/levels/room_base.tscn" id="1_u1v84"]
-[ext_resource type="Script" uid="uid://bp614icwl4d63" path="res://scenes_and_scripts/levels/common_rooms/boss_deon_cage.gd" id="2_njqif"]
+[ext_resource type="Script" uid="uid://bp614icwl4d63" path="res://scenes_and_scripts/enemies/specific_enemies/boss_1_denial/boss_deon_cage.gd" id="2_njqif"]
 [ext_resource type="PackedScene" uid="uid://cnv3n7yhiuywa" path="res://scenes_and_scripts/enemies/specific_enemies/boss_1_denial/boss_1_denial.tscn" id="3_ndrbk"]
 [ext_resource type="PackedScene" uid="uid://nx78k65twjxc" path="res://scenes_and_scripts/walls/DeonBossWall.tscn" id="4_th818"]
 [ext_resource type="PackedScene" uid="uid://dg0t0jrkytca7" path="res://scenes_and_scripts/bricks/boss_deon_seal.tscn" id="5_njqif"]
@@ -107,10 +107,10 @@ position = Vector2(1824, 288)
 position = Vector2(804, 540)
 script = ExtResource("6_portal")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/FloorPortal" unique_id=1860885061]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/FloorPortal" index="0" unique_id=1860885061]
 shape = SubResource("RectangleShape2D_portal")
 
-[node name="Visual" type="Polygon2D" parent="PlayArea/FloorPortal" unique_id=1860885062]
+[node name="Visual" type="Polygon2D" parent="PlayArea/FloorPortal" index="1" unique_id=1860885062]
 color = Color(0.3, 0.8, 1, 1)
 polygon = PackedVector2Array(-80, -80, 80, -80, 80, 80, -80, 80)
 

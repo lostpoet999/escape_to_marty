@@ -30,7 +30,12 @@ func generate_item_box()->void:
 	filter_owned_actives()
 	for n:int in max_items:
 		if pool.is_empty(): break
-		var item:BaseItem = pool.pick_random()
+		# weight by the floor's rarity tiers, but pick from the filtered pool so
+		# owned-active filtering and no-duplicates still hold. fall back to a flat
+		# pick if the rolled tier has no remaining items.
+		var tier: int = ItemSpawner.get_tier(GameManager.floor_data.spawn_weight)
+		var tier_pool: Array = pool.filter(func(i: BaseItem) -> bool: return i.rarity == tier)
+		var item: BaseItem = tier_pool.pick_random() if not tier_pool.is_empty() else pool.pick_random()
 		items.push_back(item)
 		pool.erase(item)
 
