@@ -1,5 +1,6 @@
 [gd_resource type="Resource" script_class="FloorData" format=3 uid="uid://dr8vct1f7lm5n"]
 
+[ext_resource type="Script" uid="uid://c883xeifksqne" path="res://scenes_and_scripts/powerups_and_effects/base_item.gd" id="1_4482o"]
 [ext_resource type="Script" uid="uid://pnkwdspwmpwe" path="res://scenes_and_scripts/levels/room_entry.gd" id="1_hqd6g"]
 [ext_resource type="Script" uid="uid://bvs3ugvgbabkc" path="res://scenes_and_scripts/levels/floor_data.gd" id="2_j7weq"]
 [ext_resource type="PackedScene" uid="uid://bhyu3nftn678w" path="res://scenes_and_scripts/levels/floor_1_the_intersection/start_1.tscn" id="2_nrnxw"]
@@ -19,6 +20,19 @@
 [ext_resource type="PackedScene" uid="uid://cm2bdw1o1sypc" path="res://scenes_and_scripts/enemies/specific_enemies/dark_cage/dark_cage.tscn" id="14_q8bvp"]
 [ext_resource type="Texture2D" uid="uid://cqn6snt1p5bby" path="res://scenes_and_scripts/walls/1x1_wall_gray_avg.png" id="18_6jhxo"]
 [ext_resource type="Script" uid="uid://cfvu47iaybkxv" path="res://scenes_and_scripts/item_spawning/boss_loot_config.gd" id="19_bossloot"]
+
+[sub_resource type="Resource" id="Resource_bossweights"]
+script = ExtResource("12_2wpod")
+common = 10.0
+uncommon = 40.0
+rare = 40.0
+very_rare = 10.0
+metadata/_custom_type_script = "uid://b1eqt2or38kw6"
+
+[sub_resource type="Resource" id="Resource_bossloot"]
+script = ExtResource("19_bossloot")
+tier_weights = SubResource("Resource_bossweights")
+metadata/_custom_type_script = "uid://cfvu47iaybkxv"
 
 [sub_resource type="Resource" id="Resource_xcoa1"]
 script = ExtResource("1_hqd6g")
@@ -152,20 +166,6 @@ uncommon = 15.0
 rare = 4.0
 very_rare = 1.0
 metadata/_custom_type_script = "uid://b1eqt2or38kw6"
-
-[sub_resource type="Resource" id="Resource_bossweights"]
-script = ExtResource("12_2wpod")
-common = 10.0
-uncommon = 40.0
-rare = 40.0
-very_rare = 10.0
-metadata/_custom_type_script = "uid://b1eqt2or38kw6"
-
-[sub_resource type="Resource" id="Resource_bossloot"]
-script = ExtResource("19_bossloot")
-tier_weights = SubResource("Resource_bossweights")
-random_drop_count = 1
-metadata/_custom_type_script = "uid://cfvu47iaybkxv"
 
 [resource]
 script = ExtResource("2_j7weq")
