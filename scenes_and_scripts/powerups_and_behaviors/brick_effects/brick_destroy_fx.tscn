@@ -1,0 +1,162 @@
+[gd_scene format=3 uid="uid://dwqgc0eorwbcf"]
+
+[ext_resource type="Script" uid="uid://dkgixai172xy8" path="res://scenes_and_scripts/ball/vfx/bounce_particle_cleanup.gd" id="1_pid3y"]
+[ext_resource type="Texture2D" uid="uid://bfk2bqlffamdb" path="res://scenes_and_scripts/powerups_and_behaviors/brick_effects/gem-shard-1.png" id="2_oupqs"]
+[ext_resource type="Texture2D" uid="uid://ddif387f7kunh" path="res://scenes_and_scripts/powerups_and_behaviors/brick_effects/gem-shard-2.png" id="3_x1f3h"]
+[ext_resource type="Texture2D" uid="uid://bwodp473wtruw" path="res://scenes_and_scripts/powerups_and_behaviors/brick_effects/gem-shard-3.png" id="4_if5fw"]
+[ext_resource type="Texture2D" uid="uid://chipc78blllhj" path="res://scenes_and_scripts/powerups_and_behaviors/brick_effects/gem-shard-4.png" id="5_8nlie"]
+[ext_resource type="Texture2D" uid="uid://dvqxcwg8ni5kb" path="res://scenes_and_scripts/powerups_and_behaviors/brick_effects/gem-shard-5.png" id="6_5ab2r"]
+[ext_resource type="Texture2D" uid="uid://cde411n3woqm" path="res://scenes_and_scripts/powerups_and_behaviors/brick_effects/gem-shard-6.png" id="7_dtmvv"]
+
+[sub_resource type="Gradient" id="Gradient_jjk1v"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_jm7an"]
+gradient = SubResource("Gradient_jjk1v")
+width = 4
+height = 4
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0, 0)
+
+[sub_resource type="Gradient" id="Gradient_k56j3"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_arng6"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_g1ier"]
+gradient = SubResource("Gradient_arng6")
+fill = 2
+fill_from = Vector2(0.5, 0.5)
+metadata/_snap_enabled = true
+
+[sub_resource type="Curve" id="Curve_yxxal"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.24932978, 0.79645103), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[node name="BrickDamageFX" type="Node2D" unique_id=908965456]
+z_index = 1000
+script = ExtResource("1_pid3y")
+
+[node name="sparks" type="CPUParticles2D" parent="." unique_id=126513465]
+amount = 64
+texture = SubResource("GradientTexture2D_jm7an")
+explosiveness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(64, 64)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 25.0
+scale_amount_min = 4.0
+scale_amount_max = 8.0
+color = Color(0.22352941, 0.5137255, 1, 1)
+color_ramp = SubResource("Gradient_k56j3")
+
+[node name="puff" type="CPUParticles2D" parent="." unique_id=832937311]
+amount = 1
+texture = SubResource("GradientTexture2D_g1ier")
+explosiveness = 1.0
+spread = 180.0
+gravity = Vector2(0, 0)
+scale_amount_min = 2.0
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_yxxal")
+color_ramp = SubResource("Gradient_k56j3")
+
+[node name="shard1" type="CPUParticles2D" parent="." unique_id=980560707]
+amount = 1
+texture = ExtResource("2_oupqs")
+explosiveness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(64, 64)
+direction = Vector2(0, -1)
+spread = 90.0
+gravity = Vector2(0, 800)
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+angular_velocity_min = 180.0
+angular_velocity_max = 420.0
+color = Color(0.22352941, 0.5137255, 1, 1)
+color_ramp = SubResource("Gradient_k56j3")
+
+[node name="shard2" type="CPUParticles2D" parent="." unique_id=753744681]
+amount = 1
+texture = ExtResource("3_x1f3h")
+explosiveness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(64, 64)
+direction = Vector2(0, -1)
+spread = 90.0
+gravity = Vector2(0, 800)
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+angular_velocity_min = 180.0
+angular_velocity_max = 420.0
+color = Color(0.22352941, 0.5137255, 1, 1)
+color_ramp = SubResource("Gradient_k56j3")
+
+[node name="shard3" type="CPUParticles2D" parent="." unique_id=2144286862]
+amount = 1
+texture = ExtResource("4_if5fw")
+explosiveness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(64, 64)
+direction = Vector2(0, -1)
+spread = 90.0
+gravity = Vector2(0, 800)
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+angular_velocity_min = 180.0
+angular_velocity_max = 420.0
+color = Color(0.22352941, 0.5137255, 1, 1)
+color_ramp = SubResource("Gradient_k56j3")
+
+[node name="shard4" type="CPUParticles2D" parent="." unique_id=1911042939]
+amount = 1
+texture = ExtResource("5_8nlie")
+explosiveness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(64, 64)
+direction = Vector2(0, -1)
+spread = 90.0
+gravity = Vector2(0, 800)
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+angular_velocity_min = 180.0
+angular_velocity_max = 420.0
+color = Color(0.22352941, 0.5137255, 1, 1)
+color_ramp = SubResource("Gradient_k56j3")
+
+[node name="shard5" type="CPUParticles2D" parent="." unique_id=1428464851]
+amount = 1
+texture = ExtResource("6_5ab2r")
+explosiveness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(64, 64)
+direction = Vector2(0, -1)
+spread = 90.0
+gravity = Vector2(0, 800)
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+angular_velocity_min = 180.0
+angular_velocity_max = 420.0
+color = Color(0.22352941, 0.5137255, 1, 1)
+color_ramp = SubResource("Gradient_k56j3")
+
+[node name="shard6" type="CPUParticles2D" parent="." unique_id=857954572]
+amount = 1
+texture = ExtResource("7_dtmvv")
+explosiveness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(64, 64)
+direction = Vector2(0, -1)
+spread = 90.0
+gravity = Vector2(0, 800)
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+angular_velocity_min = 180.0
+angular_velocity_max = 420.0
+color = Color(0.22352941, 0.5137255, 1, 1)
+color_ramp = SubResource("Gradient_k56j3")

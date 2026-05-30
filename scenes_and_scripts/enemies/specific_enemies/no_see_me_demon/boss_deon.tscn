@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://b3j8yvc0658fc" path="res://scenes_and_scripts/enemies/placed_enemy_base.tscn" id="1_87rnk"]
 [ext_resource type="Script" uid="uid://dhe5qpjvtwdru" path="res://scenes_and_scripts/enemies/specific_enemies/no_see_me_demon/deon.gd" id="2_inhtf"]
-[ext_resource type="PackedScene" uid="uid://dwqgc0eorwbcf" path="res://scenes_and_scripts/powerups_and_effects/brick_effects/brick_destroy_fx.tscn" id="3_pqpwt"]
+[ext_resource type="PackedScene" uid="uid://dwqgc0eorwbcf" path="res://scenes_and_scripts/powerups_and_behaviors/brick_effects/brick_destroy_fx.tscn" id="3_pqpwt"]
 [ext_resource type="Script" uid="uid://bbq2uibufrs08" path="res://scenes_and_scripts/enemies/enemy_actions/enemy_action_base.gd" id="4_okk0g"]
 [ext_resource type="Script" uid="uid://bggdt68lamuu7" path="res://scenes_and_scripts/enemies/enemy_actions/hop_to_center.gd" id="5_ejlyy"]
 [ext_resource type="Texture2D" uid="uid://de4qljd70u3rx" path="res://scenes_and_scripts/enemies/specific_enemies/no_see_me_demon/no-see-me-demon_not_idle1.png" id="6_nbipo"]

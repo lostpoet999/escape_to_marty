@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="BallPassive" format=3 uid="uid://fyf4owjki76f"]
+
+[ext_resource type="Texture2D" uid="uid://cecsf2n63bp27" path="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/plus_two_dmg.png" id="1_icon"]
+[ext_resource type="Script" uid="uid://jwtisqgpmqvq" path="res://scenes_and_scripts/powerups_and_behaviors/ball_behaviors/hit_behavior.gd" id="2_27g62"]
+[ext_resource type="Script" uid="uid://bryv4msdad7wu" path="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/ball_passive.gd" id="2_ball"]
+
+[resource]
+script = ExtResource("2_ball")
+global_bonus = 2.0
+powerup_name = "+2 Damage"
+inventory_icon = ExtResource("1_icon")
+cost = 5
+metadata/_custom_type_script = "uid://bryv4msdad7wu"

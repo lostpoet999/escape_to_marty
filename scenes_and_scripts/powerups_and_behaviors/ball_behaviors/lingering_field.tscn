@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://bqe7hlw4h07dm" path="res://scenes_and_scripts/powerups_and_behaviors/ball_behaviors/lingering_field.gd" id="1_lf"]
+
+[node name="LingeringField" type="Node2D"]
+script = ExtResource("1_lf")

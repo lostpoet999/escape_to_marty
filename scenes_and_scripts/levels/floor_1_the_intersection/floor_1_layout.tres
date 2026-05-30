@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="FloorData" format=3 uid="uid://dr8vct1f7lm5n"]
 
-[ext_resource type="Script" uid="uid://c883xeifksqne" path="res://scenes_and_scripts/powerups_and_effects/base_item.gd" id="1_4482o"]
+[ext_resource type="Script" uid="uid://c883xeifksqne" path="res://scenes_and_scripts/powerups_and_behaviors/base_item.gd" id="1_4482o"]
 [ext_resource type="Script" uid="uid://pnkwdspwmpwe" path="res://scenes_and_scripts/levels/room_entry.gd" id="1_hqd6g"]
 [ext_resource type="Script" uid="uid://bvs3ugvgbabkc" path="res://scenes_and_scripts/levels/floor_data.gd" id="2_j7weq"]
 [ext_resource type="PackedScene" uid="uid://bhyu3nftn678w" path="res://scenes_and_scripts/levels/floor_1_the_intersection/start_1.tscn" id="2_nrnxw"]

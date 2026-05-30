@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="BallPassive" format=3 uid="uid://c7gdauspp2vbh"]
+
+[ext_resource type="Script" uid="uid://bryv4msdad7wu" path="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/ball_passive.gd" id="1_ball"]
+[ext_resource type="Script" uid="uid://jwtisqgpmqvq" path="res://scenes_and_scripts/powerups_and_behaviors/ball_behaviors/hit_behavior.gd" id="1_sfmso"]
+
+[resource]
+script = ExtResource("1_ball")
+global_bonus = 3.0
+powerup_name = "+3 Test"
+rarity = 3
+cost = 5
+metadata/_custom_type_script = "uid://bryv4msdad7wu"
