@@ -6,6 +6,11 @@ class_name FloorData extends Resource
 @export var shop_items: int
 @export var boss_loot_config: BossLootConfig
 
+@export_category("Bankruptcy")
+@export var bankruptcy_enabled: bool = true
+@export var bankruptcy_stars_per_life: int = 10
+@export var bankruptcy_damage_per_life: int = 1
+
 @export_category("Seal Config for Floor:")
 @export var seal_difficulty_rates: SealDifficulty
 @export var seal_phase_pool: Array[SealPhaseConfig] = []

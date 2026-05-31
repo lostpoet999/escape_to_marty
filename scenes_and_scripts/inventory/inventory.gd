@@ -81,6 +81,17 @@ func get_items_for_paddle() -> Array[PaddlePowerup]: ###passives for paddle
 			_items.append(item)
 	return _items
 
+## current ball damage derived from owned ball passives. mirrors Ball.update_base_dmg
+## so the inventory panel can report it without a live Ball in the tree.
+func get_ball_damage() -> float:
+	var dmg: float = Ball.DEFAULT_BALL_DMG
+	var ball_items: Array[BallPassive] = get_items_for_ball()
+	for passive: BallPassive in ball_items:
+		dmg += passive.global_bonus
+	for passive: BallPassive in ball_items:
+		dmg *= passive.global_multi
+	return dmg
+
 func get_ball_bounce() -> BaseBounceEffect:
 	for item: BaseItem in core_items:
 		if item is BaseBounceEffect:

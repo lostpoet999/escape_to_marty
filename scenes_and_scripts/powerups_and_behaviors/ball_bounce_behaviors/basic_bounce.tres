@@ -7,4 +7,5 @@
 script = ExtResource("1_vb8hm")
 powerup_name = "Basic Bounce"
 inventory_icon = ExtResource("1_w1py8")
+removable = false
 metadata/_custom_type_script = "uid://dtnpin7y2xs7o"

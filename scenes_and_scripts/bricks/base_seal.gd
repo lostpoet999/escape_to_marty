@@ -13,6 +13,8 @@ const PHASE_SCORES: Dictionary[GameManager.PhaseType, int] = {
 	GameManager.PhaseType.HEALTH: 500,
 }
 
+enum BargainOutcome { OVERPAY, DEAL, WHIFF, INSULT }
+
 @onready var brick_health_label: Label = $brick_health
 
 @onready var gemstone_facets: Sprite2D = $"gemstone-facets"
@@ -26,6 +28,18 @@ var dying: bool = false
 var health_temp: float
 @export var brick_damage_fx: PackedScene
 @export var brick_destroy_fx: PackedScene
+
+@export_category("Bargain")
+@export var bargain_sweet_spot: float = 0.5
+@export var bargain_sweet_spot_width: float = 0.128
+@export var bargain_discount: float = 0.0
+@export var bargain_undercut_chance_near: float = 0.5
+@export var bargain_undercut_chance_mid: float = 0.2
+@export var bargain_undercut_chance_far: float = 0.1
+
+var bargain_markup: int = 0
+var bargain_sweet_spot_bonus: float = 0.0
+var bargain_discount_bonus: float = 0.0
 
 func pick_random_stage() -> void:
 	if stages.is_empty():
@@ -65,8 +79,8 @@ func _ready() -> void:
 		stages = SealInitializer.initialize_seal()		
 
 	pick_random_stage()
-	brick_health_label.text = str(health_temp)
-	input_pickable = true	
+	_update_stage_label()
+	input_pickable = true
 
 func accept_damage(damage: float, damage_types: Array) -> void:
 	if dying:
@@ -90,18 +104,79 @@ func _damage_current_stage(damage: float) -> void:
 		else:
 			stages.erase(current_stage)
 			pick_random_stage()
-			brick_health_label.text = str(health_temp)
+			_update_stage_label()
 	else:
 		var fx: Node2D = brick_damage_fx.instantiate()
 		if fx != null:
 			fx.position = global_position
 			get_tree().current_scene.add_child(fx)
 		health_temp -= damage
-		brick_health_label.text = str(health_temp)
+		_update_stage_label()
 	var damage_number = DAMAGE_NUMBER.instantiate()
 	damage_number.position = global_position
 	get_tree().current_scene.add_child(damage_number)
 	
+
+func bargain_sweet_range() -> Vector2:
+	var half: float = (bargain_sweet_spot_width + bargain_sweet_spot_bonus) * 0.5
+	return Vector2(bargain_sweet_spot - half, bargain_sweet_spot + half)
+
+func apply_bargain_modifiers(sweet_spot_bonus: float, discount_bonus: float) -> void:
+	bargain_sweet_spot_bonus = sweet_spot_bonus
+	bargain_discount_bonus = discount_bonus
+
+func _bargain_price() -> int:
+	return roundi(health_temp) + bargain_markup
+
+func _update_stage_label() -> void:
+	if current_stage == GameManager.PhaseType.BARGAINING:
+		brick_health_label.text = str(_bargain_price())
+	else:
+		brick_health_label.text = str(health_temp)
+
+func resolve_bargain(bid: float) -> BargainOutcome:
+	var sweet: Vector2 = bargain_sweet_range()
+	var price: int = _bargain_price()
+	if bid < sweet.x:
+		return _resolve_undercut(bid, sweet.x, price)
+	if bid <= sweet.y:
+		var discount: float = clampf(bargain_discount + bargain_discount_bonus, 0.0, 0.95)
+		_settle_deal(int(round(price * (1.0 - discount))))
+		return BargainOutcome.DEAL
+	_settle_deal(price + int(round((bid - sweet.y) * price)))
+	return BargainOutcome.OVERPAY
+
+func _resolve_undercut(bid: float, sweet_low: float, price: int) -> BargainOutcome:
+	var depth: float = (sweet_low - bid) / sweet_low
+	var chance: float
+	var penalty: int
+	if depth < 1.0 / 3.0:
+		chance = bargain_undercut_chance_near
+		penalty = 1
+	elif depth < 2.0 / 3.0:
+		chance = bargain_undercut_chance_mid
+		penalty = 2
+	else:
+		chance = bargain_undercut_chance_far
+		penalty = 3
+	if randf() < chance:
+		_settle_deal(int(round(price * (1.0 - clampf(depth, 0.0, 0.9)))))
+		Signalbus.screen_flash.emit(Color.GOLD)
+		return BargainOutcome.DEAL
+	bargain_markup += penalty
+	_update_stage_label()
+	return BargainOutcome.INSULT if penalty == 3 else BargainOutcome.WHIFF
+
+func _settle_deal(cost: int) -> void:
+	PlayerData.pay_bargain_cost(cost)
+	PlayerData.update_player_score(PHASE_SCORES[GameManager.PhaseType.BARGAINING])
+	var fx: Node2D = brick_damage_fx.instantiate()
+	if fx != null:
+		fx.position = global_position
+		get_tree().current_scene.add_child(fx)
+	stages.erase(current_stage)
+	pick_random_stage()
+	_update_stage_label()
 
 func pop_tween() -> void:
 	var tween: Tween = get_tree().create_tween()

@@ -39,14 +39,23 @@ func init_button_for(item: Variant) -> Button:
 	var icon: Texture2D = get_icon_for_item(item)
 	var button: Button = Button.new()
 	button.icon = icon
-	button.tooltip_text = item.powerup_name
+	button.tooltip_text = get_tooltip_for_item(item)
 	button.set_meta(&"Item", item) ## store the variant
 
 	button.flat = true ## change me if you decide to use a theme
 
-	button.pressed.connect(_on_button_pressed.bind(button))
+	## essential items (basic ball, single-slot bounce) can't be clicked away — skip the use hook
+	if item.removable:
+		button.pressed.connect(_on_button_pressed.bind(button))
 	buttons.push_back(button)
 	return button
+
+func get_tooltip_for_item(item: Variant) -> String:
+	## the basic ball is the one non-removable ball passive — report live ball damage on hover
+	if item is BallPassive and not item.removable:
+		var dmg: float = PlayerInventory.get_instance().get_ball_damage()
+		return "%s\nBall Damage: %s" % [item.powerup_name, snappedf(dmg, 0.01)]
+	return item.powerup_name
 
 func add_count_badge(button: Button, count: int) -> void:
 	var label: Label = Label.new()

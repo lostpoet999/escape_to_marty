@@ -54,7 +54,7 @@ func is_valid_state_transition(from_state: GameState, to_state: GameState) -> bo
 		GameState.GAME_OVER:
 			return to_state in [GameState.MAIN_MENU, GameState.PLAYING]
 		GameState.CLICK_MODE:
-			return to_state in [GameState.PLAYING, GameState.LEVEL_CLEARED,GameState.DEBUG_PANEL, GameState.BALL_ON_PADDLE]
+			return to_state in [GameState.PLAYING, GameState.LEVEL_CLEARED,GameState.DEBUG_PANEL, GameState.BALL_ON_PADDLE, GameState.GAME_OVER]
 		GameState.LEVEL_CLEARED:
 			return to_state  in [GameState.BALL_ON_PADDLE, GameState.SPECIAL_ROOM,GameState.DEBUG_PANEL]
 		GameState.SPECIAL_ROOM:

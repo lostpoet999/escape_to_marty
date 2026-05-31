@@ -12,3 +12,4 @@ enum RarityType{
 @export var min_floor: int
 @export var inventory_icon: Texture2D
 @export var cost: int
+@export var removable: bool = true ## false = essential, can't be clicked out of the inventory (basic ball, basic bounce)

@@ -14,13 +14,18 @@ func _process(delta: float) -> void:
 	position.y += fall_speed * delta
 
 func _on_area_entered(area: Area2D) -> void:
+	if collected:
+		return
 	if area.is_in_group(GameManager.DEATH_WALLS):
+		collected = true
 		Signalbus.star_collected.emit(-1)
 		queue_free()
 	elif area.is_in_group("david"): collect_star()
-		
+
 
 func collect_star()->void:
+		if collected:
+			return
 		collected = true
 		set_deferred("monitoring", false)
 		Signalbus.star_collected.emit(-1)

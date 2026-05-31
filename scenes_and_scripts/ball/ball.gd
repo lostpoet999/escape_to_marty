@@ -134,11 +134,7 @@ func collect_behaviors() -> void:
 			behaviors.append(behavior)
 
 func update_base_dmg() -> void:
-	ball_dmg = DEFAULT_BALL_DMG
-	for powerup_ref: BallPassive in powerup_array:
-		ball_dmg += powerup_ref.global_bonus
-	for powerup_ref: BallPassive in powerup_array:
-		ball_dmg *= powerup_ref.global_multi
+	ball_dmg = PlayerInventory.get_instance().get_ball_damage()
 
 func get_paddle_half_height() -> float:
 	var shape: RectangleShape2D = paddle_collision.shape as RectangleShape2D
