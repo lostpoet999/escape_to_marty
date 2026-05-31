@@ -87,6 +87,11 @@ func accept_damage(damage: float, damage_types: Array) -> void:
 		return
 	if damage_types.has(current_stage):
 		_damage_current_stage(damage)
+	else:
+		var damage_number = DAMAGE_NUMBER.instantiate()
+		damage_number.position = global_position
+		damage_number.show_damage("denied")
+		get_tree().current_scene.add_child(damage_number)
 
 func _damage_current_stage(damage: float) -> void:
 	if health_temp - damage <= 0:
@@ -114,6 +119,7 @@ func _damage_current_stage(damage: float) -> void:
 		_update_stage_label()
 	var damage_number = DAMAGE_NUMBER.instantiate()
 	damage_number.position = global_position
+	damage_number.show_damage("-" + str(int(round(damage))))
 	get_tree().current_scene.add_child(damage_number)
 	
 
