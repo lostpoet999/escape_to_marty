@@ -6,6 +6,7 @@ const BOSS_SEAL_SCORE: int = 250
 
 func _damage_current_stage(damage: float) -> void:
 	if health_temp - damage <= 0: #override base behavior to turn denial brick into a 'deon wall'
+		dying = true
 		PlayerData.update_player_score(BOSS_SEAL_SCORE)
 		var deon_wall: Node2D = DEON_BOSS_WALL.instantiate()
 		var fx: Node2D = brick_damage_fx.instantiate()

@@ -136,7 +136,7 @@ func restart_level() -> void:
 	PlayerData.initialize_player_data()
 	get_tree().reload_current_scene()
 
-func start_floor() -> void:
+func start_floor(reset_player_data: bool = true) -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	MusicPlayer.execute_playlist("test_playlist")
 	print("current floor: ", current_floor, " of ", FLOOR_REGISTRY.floors.size())
@@ -146,7 +146,8 @@ func start_floor() -> void:
 	current_room_id = floor_data.starting_room_id
 	get_floor_data()
 	_configure_frame_rate()
-	PlayerData.initialize_player_data()
+	if reset_player_data:
+		PlayerData.initialize_player_data()
 	
 
 func _ready() -> void:
@@ -159,7 +160,7 @@ func _ready() -> void:
 	
 func floor_cleared()->void:
 	current_floor += 1
-	start_floor()
+	start_floor(false)
 	load_current_room()
 
 func _configure_frame_rate() -> void:

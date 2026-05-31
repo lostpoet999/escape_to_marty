@@ -10,12 +10,30 @@ func _ready() -> void:
 	super()
 	SFX.play_sound("cage_spawn")
 
+func tick_movement(delta: float) -> void:
+	if falling:
+		fall_speed += gravity
+	velocity = Vector2(0, fall_speed)
+	var motion: Vector2 = velocity * delta
+	while true:
+		var collision: KinematicCollision2D = move_and_collide(motion)
+		if collision == null:
+			return
+		var collider: Node = collision.get_collider() as Node
+		if collider is RageBlob:
+			add_collision_exception_with(collider)
+			motion = collision.get_remainder()
+			continue
+		_dispatch_collision(collider)
+		return
+
 func on_hit_paddle(paddle: Node) -> void:
 	# stop insta-death from damaging every frame
 	if paddle.has_method("freeze_paddle_for_time"):
 		paddle.freeze_paddle_for_time(stun_time)
 	if can_damage:
 		PlayerData.accept_damage(damage)
+		Signalbus.screen_flash.emit(Color.RED)
 		_pause_falling()
 		can_damage = false
 		SFX.play_sound("cage_hit")

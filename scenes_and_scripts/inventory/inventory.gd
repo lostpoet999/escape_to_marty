@@ -120,8 +120,6 @@ func add_item(new_item) -> void:
 
 
 	elif new_item is BallPassive or new_item is PaddlePowerup:
-			if new_item in items:
-				print("you already have this one, lets stack them!") #TODO: make it so inventory panel increases quantity in visual vs takeup another spot			
 			items.push_back(new_item) #this will move when we do quantity update from above	
 			Signalbus.inventory_changed.emit()
 	

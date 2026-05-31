@@ -188,8 +188,7 @@ func _apply_floor_wall_visuals() -> void:
 	base_tint.a *= fd.wall_alpha
 	for wall: Node in get_tree().get_nodes_in_group("walls"):
 		for child: Node in wall.find_children("*", "", true, false):
-			# TextureRect (border/boss walls) and Sprite2D (exit-frame tiles) both have .texture
-			# ExitBarrier ColorRects are skipped naturally - they're not TextureRect/Sprite2D
+
 			if (child is TextureRect or child is Sprite2D) and child.texture != null:
 				if fd.wall_texture != null:
 					child.texture = fd.wall_texture

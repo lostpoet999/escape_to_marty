@@ -41,8 +41,7 @@ func tick_movement(delta: float) -> void:
 		add_collision_exception_with(collider)
 		motion = collision.get_remainder()
 
-func on_hit_paddle(_paddle: Node) -> void:
-	# harmless to the player — the paddle simply destroys the blob
+func on_hit_paddle(_paddle: Node) -> void:	
 	queue_free()
 
 func on_hit_death_wall(_wall: Node) -> void:

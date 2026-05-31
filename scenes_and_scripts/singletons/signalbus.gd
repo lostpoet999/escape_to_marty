@@ -100,7 +100,7 @@ signal player_health_updated
 @warning_ignore("unused_signal")
 signal player_died
 
-## Emits: scenes_and_scripts/enemies/specific_enemies/rage_blob/rage_blob.gd -> on_hit_death_wall()
+## Emits: scenes_and_scripts/enemies/specific_enemies/rage_blob/rage_blob.gd -> on_hit_death_wall(), scenes_and_scripts/enemies/specific_enemies/dark_cage/dark_cage.gd -> on_hit_paddle(), scenes_and_scripts/ball/ball.gd -> apply_damage_to() (death-wall hit)
 ## Connects: scenes_and_scripts/levels/room_base.gd -> flash_play_area
 @warning_ignore("unused_signal")
 signal screen_flash(color: Color)

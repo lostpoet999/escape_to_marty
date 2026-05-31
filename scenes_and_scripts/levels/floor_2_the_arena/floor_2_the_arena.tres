@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://cn5hfx7q4drtu" path="res://scenes_and_scripts/memories/memory_2_1.tscn" id="14_mem21"]
 [ext_resource type="PackedScene" uid="uid://bk3eq08wp6m5n" path="res://scenes_and_scripts/memories/memory_2_2.tscn" id="15_mem22"]
 [ext_resource type="PackedScene" uid="uid://dv7p2iafjnr4x" path="res://scenes_and_scripts/levels/floor_2_the_arena/boss_2.tscn" id="16_boss2"]
+[ext_resource type="PackedScene" uid="uid://b1mku5iyrtraa" path="res://scenes_and_scripts/enemies/specific_enemies/rage_blob/rage_blob.tscn" id="16_tikq6"]
 
 [sub_resource type="Resource" id="Resource_6son4"]
 script = ExtResource("1_4xv7i")
@@ -132,7 +133,15 @@ metadata/_custom_type_script = "uid://pnkwdspwmpwe"
 script = ExtResource("3_1wfy1")
 enemy_name = "Dark Cage"
 scene_ref = ExtResource("4_hna8n")
-spawn_chance = 60.0
+spawn_chance = 30.0
+metadata/_custom_type_script = "uid://dm8qchhbo37mu"
+
+[sub_resource type="Resource" id="Resource_a1chj"]
+script = ExtResource("3_1wfy1")
+enemy_name = "RageBlob"
+scene_ref = ExtResource("16_tikq6")
+spawn_chance = 50.0
+max_global_spawn = 3
 metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 
 [sub_resource type="Resource" id="Resource_hna8n"]
@@ -184,7 +193,7 @@ room_entries = Array[ExtResource("1_4xv7i")]([SubResource("Resource_6son4"), Sub
 show_mini_map = true
 starting_room_id = "start_2"
 starting_room_scene = ExtResource("8_c5321")
-seal_break_enemies = Array[ExtResource("3_1wfy1")]([SubResource("Resource_1r2xy")])
+seal_break_enemies = Array[ExtResource("3_1wfy1")]([SubResource("Resource_1r2xy"), SubResource("Resource_a1chj")])
 wall_texture = ExtResource("11_6son4")
 wall_modulate = Color(0.88241285, 0, 0.04436259, 1)
 metadata/_custom_type_script = "uid://bvs3ugvgbabkc"

@@ -112,7 +112,7 @@ func warp_to_floor(floor_num: int) -> void:
 		push_warning("DP warp: floor %d not in registry" % floor_num)
 		return
 	GameManager.current_floor = floor_num
-	GameManager.start_floor()
+	GameManager.start_floor(false)
 	hide()
 	Signalbus.db_panel_closed.emit()
 	GameManager.change_state(GameManager.GameState.BALL_ON_PADDLE)

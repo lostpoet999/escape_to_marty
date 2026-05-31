@@ -20,6 +20,7 @@ const PHASE_SCORES: Dictionary[GameManager.PhaseType, int] = {
 @export var initialize_brick_on_leveldata: bool = true
 @export var stages: Dictionary[GameManager.PhaseType, float]
 var current_stage: GameManager.PhaseType
+var dying: bool = false
 	
 @export var brick_health: int = 1
 var health_temp: float
@@ -68,6 +69,8 @@ func _ready() -> void:
 	input_pickable = true	
 
 func accept_damage(damage: float, damage_types: Array) -> void:
+	if dying:
+		return
 	if damage_types.has(current_stage):
 		_damage_current_stage(damage)
 
@@ -82,6 +85,7 @@ func _damage_current_stage(damage: float) -> void:
 			get_tree().current_scene.add_child(fx)
 		PlayerData.update_player_score(PHASE_SCORES[current_stage])
 		if current_stage == GameManager.PhaseType.HEALTH:
+			dying = true
 			pop_tween()
 		else:
 			stages.erase(current_stage)
