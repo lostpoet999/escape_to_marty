@@ -2,6 +2,9 @@ class_name DarkCage
 extends FallingEnemy
 
 @export var can_damage: bool = true
+@export var damage: int = 1
+@export var stun_time: float = 1.0
+@export var stun_score: int = 5000
 
 func _ready() -> void:
 	super()

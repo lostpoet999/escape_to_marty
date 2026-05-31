@@ -7,10 +7,7 @@ extends CharacterBody2D
 var falling: bool = false
 @export var gravity: float = 9.8
 @export var fall_speed: float = 0
-@export var damage: int = 1
 @export var fall_delay: float = 0.2
-@export var stun_time: float = 1.0
-@export var stun_score: int = 5000
 
 func _ready() -> void:
 	_setup_offscreen_cleanup()
