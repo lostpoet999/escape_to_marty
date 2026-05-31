@@ -47,4 +47,5 @@ func on_hit_paddle(_paddle: Node) -> void:
 
 func on_hit_death_wall(_wall: Node) -> void:
 	PlayerData.accept_damage(randi_range(damage_min, damage_max))
+	Signalbus.screen_flash.emit(Color.RED)
 	on_fall_landed()

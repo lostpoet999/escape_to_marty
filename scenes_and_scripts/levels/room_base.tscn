@@ -391,6 +391,17 @@ offset_right = 526.0
 offset_bottom = 42.0
 text = "Current Floor:"
 
+[node name="FlashOverlay" type="ColorRect" parent="PlayArea" unique_id=443116914]
+z_index = 4096
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 0, 0, 0)
+
 [node name="Camera2D" type="Camera2D" parent="." unique_id=627549441]
 position = Vector2(960, 540)
 script = ExtResource("14_57n16")

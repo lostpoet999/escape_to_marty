@@ -22,6 +22,7 @@ var entry: RoomEntry
 @onready var shop_grid: ShopGrid
 @onready var no_respawn: Node2D = $"No-Respawn"
 @onready var play_background: ColorRect = $PlayArea/Background
+@onready var flash_overlay: ColorRect = $PlayArea/FlashOverlay
 @onready var canvas_modulate_node: CanvasModulate = $CanvasModulate
 
 
@@ -57,7 +58,15 @@ func _ready() -> void:
 	Signalbus.star_collected.connect(update_stars_in_level)
 	Signalbus.star_spawned.connect(update_stars_in_level)
 	Signalbus.enemy_requested.connect(_on_enemy_requested)
+	Signalbus.screen_flash.connect(flash_play_area)
 	initiate_special_room()
+
+# quick play-area tint, then fade out — damage juice (overlay sits above gameplay via z_index)
+func flash_play_area(color: Color) -> void:
+	flash_overlay.color = Color(color.r, color.g, color.b, 0.0)
+	var tw: Tween = create_tween()
+	tw.tween_property(flash_overlay, "color:a", 0.45, 0.06)
+	tw.tween_property(flash_overlay, "color:a", 0.0, 0.35)
 
 func _on_level_cleared_boss_extras() -> void:
 	if entry.room_type != RoomEntry.ROOM_TYPES.boss:
