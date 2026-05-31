@@ -1,6 +1,6 @@
 extends Control
 
-@onready var item_pool_panel: GridContainer = $Panel/HBoxContainer/ItemSpawning/VBoxContainer/ItemPoolPanel
+@onready var item_pool_panel: GridContainer = $Panel/HBoxContainer/ItemSpawning/VBoxContainer/ScrollContainer/ItemPoolPanel
 @onready var tracked_variables: VBoxContainer = $Panel/HBoxContainer/TrackedVariables/VBoxContainer/TrackedVariables
 @onready var floor_list: VBoxContainer = $Panel/HBoxContainer/FloorWarp/VBoxContainer/FloorList
 

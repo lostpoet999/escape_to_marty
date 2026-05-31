@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b46womxq27r2i"
-path="res://.godot/imported/shine-stripe.png-ce9c43f2cc071973c08f9bc1354f9983.ctex"
+uid="uid://cj3e173xt6qj6"
+path="res://.godot/imported/damage3.png-4bc68ca34e741af65d92d976d21e11bc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes_and_scripts/powerups_and_behaviors/brick_effects/shine-stripe.png"
-dest_files=["res://.godot/imported/shine-stripe.png-ce9c43f2cc071973c08f9bc1354f9983.ctex"]
+source_file="res://scenes_and_scripts/bricks/brick_vfx/damage3.png"
+dest_files=["res://.godot/imported/damage3.png-4bc68ca34e741af65d92d976d21e11bc.ctex"]
 
 [params]
 

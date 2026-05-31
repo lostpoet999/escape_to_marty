@@ -55,9 +55,14 @@ text = "Spawn Item"
 [node name="HSeparator" type="HSeparator" parent="Panel/HBoxContainer/ItemSpawning/VBoxContainer" unique_id=289014313]
 layout_mode = 2
 
-[node name="ItemPoolPanel" type="GridContainer" parent="Panel/HBoxContainer/ItemSpawning/VBoxContainer" unique_id=1462516119]
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/HBoxContainer/ItemSpawning/VBoxContainer"]
 layout_mode = 2
-columns = 8
+size_flags_vertical = 3
+
+[node name="ItemPoolPanel" type="GridContainer" parent="Panel/HBoxContainer/ItemSpawning/VBoxContainer/ScrollContainer" unique_id=1462516119]
+layout_mode = 2
+size_flags_horizontal = 3
+columns = 6
 
 [node name="FloorWarp" type="Panel" parent="Panel/HBoxContainer" unique_id=712040001]
 layout_mode = 2

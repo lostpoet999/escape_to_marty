@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://dg0t0jrkytca7"]
 
 [ext_resource type="Script" uid="uid://baljgjpot7uuh" path="res://scenes_and_scripts/bricks/boss_deon_seal.gd" id="1_2aebw"]
-[ext_resource type="PackedScene" uid="uid://c7bssypnnaqai" path="res://scenes_and_scripts/powerups_and_behaviors/brick_effects/brick_damage_fx.tscn" id="2_emgad"]
-[ext_resource type="PackedScene" uid="uid://dwqgc0eorwbcf" path="res://scenes_and_scripts/powerups_and_behaviors/brick_effects/brick_destroy_fx.tscn" id="3_oomrr"]
+[ext_resource type="PackedScene" uid="uid://c7bssypnnaqai" path="res://scenes_and_scripts/bricks/brick_vfx/brick_damage_fx.tscn" id="2_emgad"]
+[ext_resource type="PackedScene" uid="uid://dwqgc0eorwbcf" path="res://scenes_and_scripts/bricks/brick_vfx/brick_destroy_fx.tscn" id="3_oomrr"]
 [ext_resource type="Texture2D" uid="uid://wi34v2345ihn" path="res://scenes_and_scripts/bricks/brick-gemstone-facets.png" id="4_gem"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xcpf8"]

@@ -8,8 +8,10 @@
 [ext_resource type="Resource" uid="uid://c7gdauspp2vbh" path="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/+3_test.tres" id="5_ee38i"]
 [ext_resource type="Resource" uid="uid://8rrbt0jirryc" path="res://scenes_and_scripts/powerups_and_behaviors/paddle_active_powerups/paddle_shot2.tres" id="6_oyjj8"]
 [ext_resource type="Resource" uid="uid://cyfkiym60unn" path="res://scenes_and_scripts/powerups_and_behaviors/paddle_powerups/paddle_length_up_1.tres" id="7_4n03o"]
+[ext_resource type="Resource" uid="uid://csplashtst2" path="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/splash_test.tres" id="8_spls"]
+[ext_resource type="Resource" uid="uid://cphsesweep1" path="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/phase_sweep_test.tres" id="9_phsw"]
 
 [resource]
 script = ExtResource("2_upo5x")
-item_pool = Array[ExtResource("1_8japa")]([ExtResource("3_ee38i"), ExtResource("4_ee38i"), ExtResource("3_kfe0u"), ExtResource("5_ee38i"), ExtResource("6_oyjj8"), ExtResource("7_4n03o")])
+item_pool = Array[ExtResource("1_8japa")]([ExtResource("3_ee38i"), ExtResource("4_ee38i"), ExtResource("3_kfe0u"), ExtResource("5_ee38i"), ExtResource("6_oyjj8"), ExtResource("7_4n03o"), ExtResource("8_spls"), ExtResource("9_phsw")])
 metadata/_custom_type_script = "uid://d2lueb6p5il1v"

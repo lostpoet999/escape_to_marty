@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="BallPassive" format=3]
+[gd_resource type="Resource" script_class="BallPassive" format=3 uid="uid://csplashtst2"]
 
 [ext_resource type="Script" uid="uid://bryv4msdad7wu" path="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/ball_passive.gd" id="1_ball"]
 [ext_resource type="Script" uid="uid://jwtisqgpmqvq" path="res://scenes_and_scripts/powerups_and_behaviors/ball_behaviors/hit_behavior.gd" id="2_hb"]
+[ext_resource type="PackedScene" uid="uid://dwqgc0eorwbcf" path="res://scenes_and_scripts/bricks/brick_vfx/brick_destroy_fx.tscn" id="2_obcvj"]
 [ext_resource type="Script" uid="uid://dnkfaoggkglke" path="res://scenes_and_scripts/powerups_and_behaviors/ball_behaviors/targeting/shape_target.gd" id="3_st"]
 
 [sub_resource type="CircleShape2D" id="Circle_splash"]
@@ -16,12 +17,11 @@ metadata/_custom_type_script = "uid://dnkfaoggkglke"
 script = ExtResource("2_hb")
 targeting = SubResource("ShapeTarget_splash")
 local_multi = 0.5
+hit_vfx = ExtResource("2_obcvj")
 metadata/_custom_type_script = "uid://jwtisqgpmqvq"
 
 [resource]
 script = ExtResource("1_ball")
-global_bonus = 0.0
-global_multi = 1.0
 on_hit = Array[ExtResource("2_hb")]([SubResource("HitBehavior_splash")])
 powerup_name = "Splash Test"
 rarity = 2

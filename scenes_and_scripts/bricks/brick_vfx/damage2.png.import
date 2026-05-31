@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b2d528eyj6wyb"
-path="res://.godot/imported/damage1.png-9efbb6bc1afbce712dadfe60a3a91c9c.ctex"
+uid="uid://b7n76eqijqu62"
+path="res://.godot/imported/damage2.png-3ae092c49dcdf668a8e17d3e4462d816.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes_and_scripts/powerups_and_behaviors/brick_effects/damage1.png"
-dest_files=["res://.godot/imported/damage1.png-9efbb6bc1afbce712dadfe60a3a91c9c.ctex"]
+source_file="res://scenes_and_scripts/bricks/brick_vfx/damage2.png"
+dest_files=["res://.godot/imported/damage2.png-3ae092c49dcdf668a8e17d3e4462d816.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cde411n3woqm"
-path="res://.godot/imported/gem-shard-6.png-abe974b770c87e37d0f78e781f656517.ctex"
+uid="uid://dvqxcwg8ni5kb"
+path="res://.godot/imported/gem-shard-5.png-e14c8c6640cf4a6d2f0061e92fd55f1f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes_and_scripts/powerups_and_behaviors/brick_effects/gem-shard-6.png"
-dest_files=["res://.godot/imported/gem-shard-6.png-abe974b770c87e37d0f78e781f656517.ctex"]
+source_file="res://scenes_and_scripts/bricks/brick_vfx/gem-shard-5.png"
+dest_files=["res://.godot/imported/gem-shard-5.png-e14c8c6640cf4a6d2f0061e92fd55f1f.ctex"]
 
 [params]
 

@@ -1,12 +1,12 @@
 [gd_scene format=3 uid="uid://dwqgc0eorwbcf"]
 
 [ext_resource type="Script" uid="uid://dkgixai172xy8" path="res://scenes_and_scripts/ball/vfx/bounce_particle_cleanup.gd" id="1_pid3y"]
-[ext_resource type="Texture2D" uid="uid://bfk2bqlffamdb" path="res://scenes_and_scripts/powerups_and_behaviors/brick_effects/gem-shard-1.png" id="2_oupqs"]
-[ext_resource type="Texture2D" uid="uid://ddif387f7kunh" path="res://scenes_and_scripts/powerups_and_behaviors/brick_effects/gem-shard-2.png" id="3_x1f3h"]
-[ext_resource type="Texture2D" uid="uid://bwodp473wtruw" path="res://scenes_and_scripts/powerups_and_behaviors/brick_effects/gem-shard-3.png" id="4_if5fw"]
-[ext_resource type="Texture2D" uid="uid://chipc78blllhj" path="res://scenes_and_scripts/powerups_and_behaviors/brick_effects/gem-shard-4.png" id="5_8nlie"]
-[ext_resource type="Texture2D" uid="uid://dvqxcwg8ni5kb" path="res://scenes_and_scripts/powerups_and_behaviors/brick_effects/gem-shard-5.png" id="6_5ab2r"]
-[ext_resource type="Texture2D" uid="uid://cde411n3woqm" path="res://scenes_and_scripts/powerups_and_behaviors/brick_effects/gem-shard-6.png" id="7_dtmvv"]
+[ext_resource type="Texture2D" uid="uid://bfk2bqlffamdb" path="res://scenes_and_scripts/bricks/brick_vfx/gem-shard-1.png" id="2_oupqs"]
+[ext_resource type="Texture2D" uid="uid://ddif387f7kunh" path="res://scenes_and_scripts/bricks/brick_vfx/gem-shard-2.png" id="3_x1f3h"]
+[ext_resource type="Texture2D" uid="uid://bwodp473wtruw" path="res://scenes_and_scripts/bricks/brick_vfx/gem-shard-3.png" id="4_if5fw"]
+[ext_resource type="Texture2D" uid="uid://chipc78blllhj" path="res://scenes_and_scripts/bricks/brick_vfx/gem-shard-4.png" id="5_8nlie"]
+[ext_resource type="Texture2D" uid="uid://dvqxcwg8ni5kb" path="res://scenes_and_scripts/bricks/brick_vfx/gem-shard-5.png" id="6_5ab2r"]
+[ext_resource type="Texture2D" uid="uid://cde411n3woqm" path="res://scenes_and_scripts/bricks/brick_vfx/gem-shard-6.png" id="7_dtmvv"]
 
 [sub_resource type="Gradient" id="Gradient_jjk1v"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)

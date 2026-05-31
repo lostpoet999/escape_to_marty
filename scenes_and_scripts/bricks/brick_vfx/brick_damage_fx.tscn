@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c7bssypnnaqai"]
 
 [ext_resource type="Script" uid="uid://dkgixai172xy8" path="res://scenes_and_scripts/ball/vfx/bounce_particle_cleanup.gd" id="1_arng6"]
-[ext_resource type="Texture2D" uid="uid://b46womxq27r2i" path="res://scenes_and_scripts/powerups_and_behaviors/brick_effects/shine-stripe.png" id="2_g1ier"]
+[ext_resource type="Texture2D" uid="uid://b46womxq27r2i" path="res://scenes_and_scripts/bricks/brick_vfx/shine-stripe.png" id="2_g1ier"]
 [ext_resource type="Script" uid="uid://qilwfatpp8mu" path="res://scenes_and_scripts/ball/vfx/particle-force-oneshot.gd" id="3_y8kn0"]
 
 [sub_resource type="Gradient" id="Gradient_arng6"]

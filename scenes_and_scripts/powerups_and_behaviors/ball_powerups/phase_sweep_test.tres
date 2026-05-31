@@ -1,17 +1,17 @@
-[gd_resource type="Resource" script_class="BallPassive" format=3]
+[gd_resource type="Resource" script_class="BallPassive" format=3 uid="uid://cphsesweep1"]
 
 [ext_resource type="Script" uid="uid://bryv4msdad7wu" path="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/ball_passive.gd" id="1_ball"]
 [ext_resource type="Script" uid="uid://jwtisqgpmqvq" path="res://scenes_and_scripts/powerups_and_behaviors/ball_behaviors/hit_behavior.gd" id="2_hb"]
-[ext_resource type="Script" uid="uid://bl7jpgmdpf3y8" path="res://scenes_and_scripts/powerups_and_behaviors/ball_behaviors/targeting/logic_target.gd" id="3_lt"]
+[ext_resource type="Script" uid="uid://bl7jpgmdpf3y8" path="res://scenes_and_scripts/powerups_and_behaviors/ball_behaviors/targeting/phase_target.gd" id="3_pt"]
 
-[sub_resource type="Resource" id="LogicTarget_denial"]
-script = ExtResource("3_lt")
-filter_phase = 0
+[sub_resource type="Resource" id="PhaseTarget_sweep"]
+script = ExtResource("3_pt")
+filter_phases = Array[int]([0])
 metadata/_custom_type_script = "uid://bl7jpgmdpf3y8"
 
-[sub_resource type="Resource" id="HitBehavior_denial"]
+[sub_resource type="Resource" id="HitBehavior_sweep"]
 script = ExtResource("2_hb")
-targeting = SubResource("LogicTarget_denial")
+targeting = SubResource("PhaseTarget_sweep")
 trigger_groups = Array[StringName]([&"bricks"])
 types = Array[int]([0])
 local_multi = 0.25
@@ -19,10 +19,8 @@ metadata/_custom_type_script = "uid://jwtisqgpmqvq"
 
 [resource]
 script = ExtResource("1_ball")
-global_bonus = 0.0
-global_multi = 1.0
-on_hit = Array[ExtResource("2_hb")]([SubResource("HitBehavior_denial")])
-powerup_name = "Denial Sweep Test"
+on_hit = Array[ExtResource("2_hb")]([SubResource("HitBehavior_sweep")])
+powerup_name = "Phase Sweep"
 rarity = 3
 cost = 5
 metadata/_custom_type_script = "uid://bryv4msdad7wu"
