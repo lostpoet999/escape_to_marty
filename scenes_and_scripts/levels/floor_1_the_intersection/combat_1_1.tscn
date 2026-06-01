@@ -44,23 +44,17 @@ stages = Dictionary[int, float]({})
 [node name="OpenSeal3" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="2" unique_id=1794760010 instance=ExtResource("2_qcry5")]
 position = Vector2(1184, 640)
 initialize_brick_on_leveldata = false
-stages = Dictionary[int, float]({
-2: 5.0
-})
+stages = Dictionary[int, float]({})
 
 [node name="OpenSeal5" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="3" unique_id=843230974 instance=ExtResource("2_qcry5")]
-position = Vector2(1376, 640)
+position = Vector2(1312, 640)
 initialize_brick_on_leveldata = false
-stages = Dictionary[int, float]({
-2: 5.0
-})
+stages = Dictionary[int, float]({})
 
 [node name="OpenSeal6" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="4" unique_id=1235412364 instance=ExtResource("2_qcry5")]
-position = Vector2(1536, 640)
+position = Vector2(992, 640)
 initialize_brick_on_leveldata = false
-stages = Dictionary[int, float]({
-2: 5.0
-})
+stages = Dictionary[int, float]({})
 
 [node name="OpenSeal4" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="5" unique_id=1855742673 instance=ExtResource("2_qcry5")]
 position = Vector2(1248, 640)
@@ -70,7 +64,6 @@ stages = Dictionary[int, float]({})
 [node name="EnemySpawner" parent="No-Respawn/Spawners" parent_id_path=PackedInt32Array(1587044855) index="0" unique_id=740599083 instance=ExtResource("3_dfsbl")]
 position = Vector2(288, 960)
 enemies = Array[ExtResource("3_lsl0q")]([SubResource("Resource_lsl0q")])
-spawn_an_enemy_chance = 50.0
 respawn_time = 10.0
 initial_spawn_time = 2.0
 max_spawns = 1
@@ -78,7 +71,6 @@ max_spawns = 1
 [node name="EnemySpawner2" parent="No-Respawn/Spawners" parent_id_path=PackedInt32Array(1587044855) index="1" unique_id=600490071 instance=ExtResource("3_dfsbl")]
 position = Vector2(1888, 960)
 enemies = Array[ExtResource("3_lsl0q")]([SubResource("Resource_8n0fq")])
-spawn_an_enemy_chance = 50.0
 respawn_time = 10.0
 initial_spawn_time = 2.0
 max_spawns = 1

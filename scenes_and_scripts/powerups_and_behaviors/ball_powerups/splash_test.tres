@@ -39,7 +39,7 @@ metadata/_custom_type_script = "uid://jwtisqgpmqvq"
 [resource]
 script = ExtResource("1_ball")
 on_hit = Array[ExtResource("2_hb")]([SubResource("HitBehavior_splash")])
-powerup_name = "Splash Test"
+powerup_name = "Sun Flash"
 rarity = 2
-cost = 5
+cost = 8
 metadata/_custom_type_script = "uid://bryv4msdad7wu"

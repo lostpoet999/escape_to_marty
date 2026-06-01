@@ -128,7 +128,6 @@ brick_health = 5
 [node name="EnemySpawner" parent="No-Respawn/Spawners" parent_id_path=PackedInt32Array(1587044855) index="0" unique_id=740599083 instance=ExtResource("2_ytukl")]
 position = Vector2(288, 960)
 enemies = Array[ExtResource("3_51qpg")]([SubResource("Resource_lsl0q")])
-spawn_an_enemy_chance = 50.0
 respawn_time = 10.0
 initial_spawn_time = 2.0
 max_spawns = 1
@@ -136,12 +135,12 @@ max_spawns = 1
 [node name="EnemySpawner2" parent="No-Respawn/Spawners" parent_id_path=PackedInt32Array(1587044855) index="1" unique_id=963468 instance=ExtResource("2_ytukl")]
 position = Vector2(1888, 960)
 enemies = Array[ExtResource("3_51qpg")]([SubResource("Resource_8n0fq")])
-spawn_an_enemy_chance = 50.0
 respawn_time = 10.0
 initial_spawn_time = 2.0
 max_spawns = 1
 
 [node name="Hint" type="Node2D" parent="No-Respawn" parent_id_path=PackedInt32Array(34663887) index="2" unique_id=491808151]
+visible = false
 position = Vector2(839, 965)
 script = ExtResource("6_e6fxt")
 text = "Try pressing TAB to release mouse control,
@@ -164,4 +163,21 @@ input_pickable = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="No-Respawn/Hint/Area2D" index="0" unique_id=1122386472]
+shape = SubResource("RectangleShape2D_t4x8m")
+
+[node name="Label2" type="Label" parent="No-Respawn/Hint" index="2" unique_id=444543725]
+offset_left = -280.0
+offset_top = -220.0
+offset_right = -279.0
+offset_bottom = -197.0
+text = "Try pressing TAB to release mouse control,
+then try clicking on the Enemy!"
+label_settings = ExtResource("7_e6fxt")
+
+[node name="Area2D2" type="Area2D" parent="No-Respawn/Hint" index="3" unique_id=2015381350]
+collision_layer = 0
+input_pickable = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="No-Respawn/Hint/Area2D2" index="0" unique_id=1357236983]
 shape = SubResource("RectangleShape2D_t4x8m")
