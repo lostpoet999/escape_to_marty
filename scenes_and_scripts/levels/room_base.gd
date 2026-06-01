@@ -7,6 +7,8 @@ const AUTO_CLEAR_ROOM_TYPES: Array[RoomEntry.ROOM_TYPES] = [
 	RoomEntry.ROOM_TYPES.free_item,
 ]
 
+const ESCAPED_SPIRIT: PackedScene = preload("uid://5j2pau7yvts4")
+
 var stars_cleared: bool = false
 var bricks_cleared: bool = false
 var stars_in_level: int = 0
@@ -142,6 +144,12 @@ func _on_enemy_requested(spawn_from: Area2D) -> void: # for brick break enemies
 	if enemy:
 		spawn_from.get_parent().add_child(enemy)
 		enemy.position = spawn_from.position
+	else:#freed-spirit
+		var spirit: Node2D = ESCAPED_SPIRIT.instantiate()
+		# set position before add_child — add_child runs the spirit's _ready synchronously,
+		# which captures its start position; setting it after would leave it at (0,0)
+		spirit.position = spawn_from.position
+		spawn_from.get_parent().add_child(spirit)
 
 func instantiate_random_enemy(enemy_configs: Array[EnemyConfig]) -> Node2D: #for brick break enemies
 	var index: int = 0

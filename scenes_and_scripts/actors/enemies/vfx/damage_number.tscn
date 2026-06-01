@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bedvoohhfbi03"]
 
-[ext_resource type="Script" uid="uid://c065stlu4igff" path="res://scenes_and_scripts/enemies/vfx/damage_number.gd" id="1_1rq4o"]
+[ext_resource type="Script" uid="uid://c065stlu4igff" path="res://scenes_and_scripts/actors/enemies/vfx/damage_number.gd" id="1_1rq4o"]
 [ext_resource type="FontFile" uid="uid://ce5jk1ok7f4r5" path="res://label_settings_and_fonts/fonts/PressStart2P-Regular.ttf" id="2_1rq4o"]
 
 [node name="DamageNumber" type="Node2D" unique_id=113449863]

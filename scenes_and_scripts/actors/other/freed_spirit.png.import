@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c16188d7egr7o"
-path="res://.godot/imported/dark_cage.png-38072f1da71a9dc4b77323215dd4ae95.ctex"
+uid="uid://3h1jr0hf5tnk"
+path="res://.godot/imported/freed_spirit.png-2819ec31be1329a12a600fe1aad6467b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes_and_scripts/enemies/specific_enemies/dark_cage/dark_cage.png"
-dest_files=["res://.godot/imported/dark_cage.png-38072f1da71a9dc4b77323215dd4ae95.ctex"]
+source_file="res://scenes_and_scripts/actors/other/freed_spirit.png"
+dest_files=["res://.godot/imported/freed_spirit.png-2819ec31be1329a12a600fe1aad6467b.ctex"]
 
 [params]
 

@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://5j2pau7yvts4"]
+
+[ext_resource type="Script" uid="uid://i1rp2jo8fds4" path="res://scenes_and_scripts/actors/other/escaped_spirit.gd" id="1_clgui"]
+[ext_resource type="Texture2D" uid="uid://3h1jr0hf5tnk" path="res://scenes_and_scripts/actors/other/freed_spirit.png" id="2_pjev4"]
+
+[node name="EscapedSpirit" type="Node2D"]
+script = ExtResource("1_clgui")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_pjev4")

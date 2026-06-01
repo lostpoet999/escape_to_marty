@@ -2,7 +2,7 @@ class_name BaseSeal
 extends Area2D
 
 const STAR_COLLECTIBLE: PackedScene = preload("uid://cfjv2f23gme53")
-const DAMAGE_NUMBER: PackedScene = preload("res://scenes_and_scripts/enemies/vfx/damage_number.tscn")
+const DAMAGE_NUMBER: PackedScene = preload("uid://bedvoohhfbi03")
 
 const PHASE_SCORES: Dictionary[GameManager.PhaseType, int] = {
 	GameManager.PhaseType.DENIAL: 100,

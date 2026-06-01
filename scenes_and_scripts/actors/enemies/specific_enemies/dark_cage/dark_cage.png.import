@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dnrtc21p2irlg"
-path="res://.godot/imported/rage_blob.png-49b9bee50367d743a8681e13e540ba48.ctex"
+uid="uid://c16188d7egr7o"
+path="res://.godot/imported/dark_cage.png-f20b8d57b59d6dfda9f4d7d9bbbc65ce.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes_and_scripts/enemies/specific_enemies/rage_blob/rage_blob.png"
-dest_files=["res://.godot/imported/rage_blob.png-49b9bee50367d743a8681e13e540ba48.ctex"]
+source_file="res://scenes_and_scripts/actors/enemies/specific_enemies/dark_cage/dark_cage.png"
+dest_files=["res://.godot/imported/dark_cage.png-f20b8d57b59d6dfda9f4d7d9bbbc65ce.ctex"]
 
 [params]
 

@@ -15,9 +15,9 @@
 [ext_resource type="PackedScene" uid="uid://brr0pi7naait7" path="res://scenes_and_scripts/levels/floor_1_the_intersection/boss_1.tscn" id="11_6jhxo"]
 [ext_resource type="Script" uid="uid://b1eqt2or38kw6" path="res://scenes_and_scripts/item_spawning/spawn_weights_resource.gd" id="12_2wpod"]
 [ext_resource type="Script" uid="uid://ccw8ssedjvd48" path="res://scenes_and_scripts/bricks/seal_difficulty.gd" id="12_gmdml"]
-[ext_resource type="Script" uid="uid://dm8qchhbo37mu" path="res://scenes_and_scripts/enemies/enemy_config.gd" id="13_74xxy"]
+[ext_resource type="Script" uid="uid://dm8qchhbo37mu" path="res://scenes_and_scripts/actors/enemies/enemy_config.gd" id="13_74xxy"]
 [ext_resource type="Script" uid="uid://cqac2vv2p8oga" path="res://scenes_and_scripts/bricks/seal_phase_config.gd" id="13_rtyfa"]
-[ext_resource type="PackedScene" uid="uid://cm2bdw1o1sypc" path="res://scenes_and_scripts/enemies/specific_enemies/dark_cage/dark_cage.tscn" id="14_q8bvp"]
+[ext_resource type="PackedScene" uid="uid://cm2bdw1o1sypc" path="res://scenes_and_scripts/actors/enemies/specific_enemies/dark_cage/dark_cage.tscn" id="14_q8bvp"]
 [ext_resource type="Texture2D" uid="uid://cqn6snt1p5bby" path="res://scenes_and_scripts/walls/1x1_wall_gray_avg.png" id="18_6jhxo"]
 [ext_resource type="Script" uid="uid://cfvu47iaybkxv" path="res://scenes_and_scripts/item_spawning/boss_loot_config.gd" id="19_bossloot"]
 

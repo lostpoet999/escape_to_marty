@@ -2,9 +2,9 @@
 
 [ext_resource type="PackedScene" uid="uid://bea1h3570swpu" path="res://scenes_and_scripts/levels/room_base.tscn" id="1_nty3w"]
 [ext_resource type="PackedScene" uid="uid://cm1kspxv86400" path="res://scenes_and_scripts/bricks/open_seal.tscn" id="2_l6wtj"]
-[ext_resource type="PackedScene" uid="uid://b7m8vn6kumwyg" path="res://scenes_and_scripts/enemies/enemy_spawner.tscn" id="2_ytukl"]
-[ext_resource type="Script" uid="uid://dm8qchhbo37mu" path="res://scenes_and_scripts/enemies/enemy_config.gd" id="3_51qpg"]
-[ext_resource type="PackedScene" uid="uid://c3bjgu70hca17" path="res://scenes_and_scripts/enemies/specific_enemies/no_see_me_demon/deon.tscn" id="4_vyv6p"]
+[ext_resource type="PackedScene" uid="uid://b7m8vn6kumwyg" path="res://scenes_and_scripts/actors/enemies/enemy_spawner.tscn" id="2_ytukl"]
+[ext_resource type="Script" uid="uid://dm8qchhbo37mu" path="res://scenes_and_scripts/actors/enemies/enemy_config.gd" id="3_51qpg"]
+[ext_resource type="PackedScene" uid="uid://c3bjgu70hca17" path="res://scenes_and_scripts/actors/enemies/specific_enemies/no_see_me_demon/deon.tscn" id="4_vyv6p"]
 [ext_resource type="Script" uid="uid://bgbyjws8op2if" path="res://scenes_and_scripts/ui_level/hint.gd" id="6_e6fxt"]
 [ext_resource type="LabelSettings" uid="uid://x1nhefjv38q7" path="res://label_settings_and_fonts/level_hint.tres" id="7_e6fxt"]
 

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b1mku5iyrtraa"]
 
-[ext_resource type="Texture2D" uid="uid://dnrtc21p2irlg" path="res://scenes_and_scripts/enemies/specific_enemies/rage_blob/rage_blob.png" id="1_7ftyd"]
-[ext_resource type="Script" uid="uid://dorcleys6jhl5" path="res://scenes_and_scripts/enemies/specific_enemies/rage_blob/rage_blob.gd" id="1_o86yc"]
+[ext_resource type="Texture2D" uid="uid://dnrtc21p2irlg" path="res://scenes_and_scripts/actors/enemies/specific_enemies/rage_blob/rage_blob.png" id="1_7ftyd"]
+[ext_resource type="Script" uid="uid://dorcleys6jhl5" path="res://scenes_and_scripts/actors/enemies/specific_enemies/rage_blob/rage_blob.gd" id="1_o86yc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_o86yc"]
 radius = 24.020824

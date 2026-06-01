@@ -128,7 +128,7 @@ func _process(delta: float) -> void:
 		if mouse_down_time >= click_vs_hold and mouse_down_time - delta < click_vs_hold:
 			_reset_hold_visuals()
 		if mouse_down_time > click_vs_hold:
-			var pct : float = minf((mouse_down_time - click_vs_hold) / hold_duration_max, 1.0)
+			var pct : float = minf((mouse_down_time - click_vs_hold) / hold_duration_max, 1.0) #TODO: tie this to powerups for AE and  more anger dmg
 			hold_indicator_radius = ease(pct, 0.4) * 48.0
 			queue_redraw()
 	else:

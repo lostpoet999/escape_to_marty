@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://de4qljd70u3rx"
-path="res://.godot/imported/no-see-me-demon_not_idle1.png-5fce2f39b7d7286eedc46a8b976447b3.ctex"
+uid="uid://dp7nockj7iwkm"
+path="res://.godot/imported/no-see-me-demon.png-bc329965646b1eaf887753dabaa000cc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes_and_scripts/enemies/specific_enemies/no_see_me_demon/no-see-me-demon_not_idle1.png"
-dest_files=["res://.godot/imported/no-see-me-demon_not_idle1.png-5fce2f39b7d7286eedc46a8b976447b3.ctex"]
+source_file="res://scenes_and_scripts/actors/enemies/specific_enemies/no_see_me_demon/no-see-me-demon.png"
+dest_files=["res://.godot/imported/no-see-me-demon.png-bc329965646b1eaf887753dabaa000cc.ctex"]
 
 [params]
 
