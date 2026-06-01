@@ -140,7 +140,7 @@ metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 script = ExtResource("3_1wfy1")
 enemy_name = "RageBlob"
 scene_ref = ExtResource("16_tikq6")
-spawn_chance = 50.0
+spawn_chance = 40.0
 max_global_spawn = 3
 metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 
