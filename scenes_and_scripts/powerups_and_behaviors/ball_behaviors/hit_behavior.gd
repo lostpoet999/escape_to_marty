@@ -8,6 +8,9 @@ class_name HitBehavior extends Resource
 @export var max_spawn: int = 0
 @export var hit_vfx: PackedScene
 
+## VFX played at the hit point, fitted to the targeting shape (e.g. a ShapeDrawVfx).
+@export var vfx: VfxSpec
+
 var _active_spawns: int = 0
 
 func apply(ball: Ball, collider: Node2D) -> void:
@@ -23,6 +26,11 @@ func apply(ball: Ball, collider: Node2D) -> void:
 	var amount: float = ball.ball_dmg * local_multi
 	for target: Node2D in targets:
 		ball.apply_damage_to(target, amount, effective_types)
+	if vfx != null:
+		var probe_shape: Shape2D = null
+		if "probe_shape" in targeting:
+			probe_shape = targeting.get("probe_shape")
+		vfx.spawn_fitted(ball.get_tree().current_scene, Transform2D(0, hit_point), probe_shape)
 	if hit_vfx != null:
 		_spawn(ball, hit_vfx, amount, effective_types)
 	if spawn_on_apply != null and (max_spawn <= 0 or _active_spawns < max_spawn):
