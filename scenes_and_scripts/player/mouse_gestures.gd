@@ -57,14 +57,28 @@ func _input(event: InputEvent)->void:
 				else:
 					click_dmg_type.push_back(GameManager.PhaseType.ANGER)
 					damage = roundf(minf(mouse_down_time, hold_duration_max))
-					_handle_clicks_and_hold()
+					_handle_anger_aoe()
 
 func _handle_clicks_and_hold()->void:
 	var target:Variant = _get_target_under_mouse()
 	if target == null:
 		return
-	if target.has_method("accept_damage"):		
+	if target.has_method("accept_damage"):
 		target.accept_damage(damage, click_dmg_type)
+
+func _handle_anger_aoe()->void: #the hold-indicator circle is the AOE: hit every ANGER seal it covers
+	var space: PhysicsDirectSpaceState2D = get_viewport().get_world_2d().direct_space_state
+	var shape: CircleShape2D = CircleShape2D.new()
+	shape.radius = maxf(hold_indicator_radius, 8.0)
+	var query: PhysicsShapeQueryParameters2D = PhysicsShapeQueryParameters2D.new()
+	query.shape = shape
+	query.transform = Transform2D(0.0, get_global_mouse_position())
+	query.collide_with_areas = true
+	var results: Array[Dictionary] = space.intersect_shape(query, 64)
+	for result in results:
+		var collider: Variant = result.collider
+		if collider is BaseSeal and collider.current_stage == GameManager.PhaseType.ANGER:
+			collider.accept_damage(damage, click_dmg_type)
 
 func _get_target_under_mouse() -> Node:	
 	var space : PhysicsDirectSpaceState2D = get_viewport().get_world_2d().direct_space_state
