@@ -95,7 +95,7 @@ func enter_state(change_to_state: GameState) -> void:
 			Signalbus.game_state_game_over.emit()
 			pause_game()
 		GameState.CLICK_MODE:
-			Engine.time_scale = 0.5
+			Engine.time_scale = 0.5 * SettingsManager.game_speed
 			set_mouse_visible()
 			Signalbus.game_state_click_mode.emit()
 		GameState.LEVEL_CLEARED:			
@@ -122,7 +122,7 @@ func exit_state(close_state: GameState) -> void:
 		GameState.DEBUG_PANEL:			
 			unpause_game()
 		GameState.CLICK_MODE:
-			Engine.time_scale = 1.0		
+			Engine.time_scale = 1.0 * SettingsManager.game_speed
 
 func pause_game() -> void:
 	get_tree().paused = true
