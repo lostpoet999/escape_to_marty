@@ -45,8 +45,6 @@ func _ready() -> void:
 	visible = false
 	entry = GameManager.get_current_floor_entry(GameManager.current_room_id)
 	room_state = PlayerData.get_room_state(entry)
-	# connect boss-extras BEFORE the cleared-state level_cleared emit below,
-	# otherwise on re-entry the handler misses the emit fired from _ready itself
 	Signalbus.level_cleared.connect(_on_level_cleared_boss_extras)
 	if room_state.cleared:
 		supress_respawn_entities()
@@ -68,7 +66,6 @@ func _ready() -> void:
 	Signalbus.player_damaged.connect(_on_player_damaged)
 	initiate_special_room()
 
-# quick play-area tint, then fade out — damage juice (overlay sits above gameplay via z_index)
 func flash_play_area(color: Color) -> void:
 	flash_overlay.color = Color(color.r, color.g, color.b, 0.0)
 	var tw: Tween = create_tween()
@@ -90,8 +87,7 @@ func _on_player_damaged(amount: int) -> void:
 func _on_level_cleared_boss_extras() -> void:
 	if entry.room_type != RoomEntry.ROOM_TYPES.boss:
 		return
-	# first-defeat path runs alongside the level_cleared signal sweep; re-entry path
-	# is triggered by the cleared-check emit in _ready above. Both end up here.
+			
 	room_state.cleared = true
 	_despawn_boss_entities()
 	_spawn_boss_drop()
@@ -119,9 +115,6 @@ func _activate_floor_portal() -> void:
 		portal.activate()
 
 func _despawn_boss_entities() -> void:
-	# boss + cage live outside No-Respawn (cage under PlayArea uses local coords, boss at root),
-	# so supress_respawn_entities can't reach them. Free them explicitly so a cleared
-	# boss-room re-entry shows only the lootbox + portal.
 	var cage: Node = find_child("BossDeonCage", true, false)
 	if cage != null and not cage.is_queued_for_deletion():
 		cage.queue_free()
@@ -157,28 +150,37 @@ func initiate_special_room()->void:
 
 func _on_enemy_requested(spawn_from: Area2D) -> void: # for brick break enemies
 	var seal_break_enemies: Array[EnemyConfig] = GameManager.floor_data.seal_break_enemies
-	var enemy: FallingEnemy = instantiate_random_enemy(seal_break_enemies)
-	if enemy:
+	var config: EnemyConfig = pick_seal_break_config(seal_break_enemies)
+	
+	if config and not _config_at_spawn_cap(config):
+		var enemy: FallingEnemy = config.scene_ref.instantiate()
+		enemy.add_to_group(_spawn_cap_group(config))
 		spawn_from.get_parent().add_child(enemy)
 		enemy.position = spawn_from.position
 	else:#freed-spirit
 		var spirit: Node2D = ESCAPED_SPIRIT.instantiate()
-		# set position before add_child — add_child runs the spirit's _ready synchronously,
-		# which captures its start position; setting it after would leave it at (0,0)
 		spirit.position = spawn_from.position
 		spawn_from.get_parent().add_child(spirit)
 
-func instantiate_random_enemy(enemy_configs: Array[EnemyConfig]) -> Node2D: #for brick break enemies
+func pick_seal_break_config(enemy_configs: Array[EnemyConfig]) -> EnemyConfig: #for brick break enemies
 	var index: int = 0
 	var spawned_percentage: float = randf() * 100
 	while (index < enemy_configs.size()):
 		var spawn_configuration: EnemyConfig = enemy_configs[index]
 		if (spawned_percentage < spawn_configuration.spawn_chance):
-			return spawn_configuration.scene_ref.instantiate()
+			return spawn_configuration
 		else:
 			spawned_percentage -= spawn_configuration.spawn_chance
 			index += 1
 	return null
+
+func _config_at_spawn_cap(config: EnemyConfig) -> bool:
+	if config.max_global_spawn <= 0:
+		return false
+	return get_tree().get_nodes_in_group(_spawn_cap_group(config)).size() >= config.max_global_spawn
+
+func _spawn_cap_group(config: EnemyConfig) -> StringName:
+	return StringName("seal_break_enemy_" + config.enemy_name)
 
 func check_level_cleared() -> void: #let gamemanager know level is cleared
 	var max_clear:int = GameManager.get_current_floor_entry(GameManager.current_room_id).max_clears

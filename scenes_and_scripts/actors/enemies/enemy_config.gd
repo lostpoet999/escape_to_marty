@@ -4,6 +4,6 @@ extends Resource
 @export var enemy_name: String
 @export var scene_ref: PackedScene
 @export var spawn_chance: float
-@export var max_global_spawn: int #TODO: implement global max spawning
+@export var max_global_spawn: int ## Max of this enemy alive at once (seal-break path). 0 = unlimited.
 @export var x_offset: float
 @export var y_offset: float

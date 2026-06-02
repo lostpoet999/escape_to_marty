@@ -16,18 +16,10 @@ offset_right = 40.0
 offset_bottom = 45.0
 size_flags_vertical = 8
 theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("2_1rq4o")
-theme_override_font_sizes/font_size = 16
-text = "-"
-
-[node name="Outline" type="Label" parent="AllTextTypes/Number" unique_id=361248320]
-offset_top = 1.0
-offset_right = 40.0
-offset_bottom = 46.0
-size_flags_vertical = 8
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_1rq4o")
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 17
 text = "-"
 
 [node name="Denied" type="Node2D" parent="AllTextTypes" unique_id=357962390]
@@ -37,16 +29,8 @@ offset_right = 96.0
 offset_bottom = 45.0
 size_flags_vertical = 8
 theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("2_1rq4o")
-theme_override_font_sizes/font_size = 16
-text = "Denied"
-
-[node name="Outline" type="Label" parent="AllTextTypes/Denied" unique_id=1039662179]
-offset_top = 1.0
-offset_right = 96.0
-offset_bottom = 46.0
-size_flags_vertical = 8
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_1rq4o")
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 17
 text = "Denied"
