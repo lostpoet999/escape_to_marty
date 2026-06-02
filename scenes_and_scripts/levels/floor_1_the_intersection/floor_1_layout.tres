@@ -50,8 +50,7 @@ max_clears = 2
 room_scene = ExtResource("3_hqd6g")
 room_coords = Vector2i(2, 3)
 room_type = 1
-north_exit = "combat_1_2"
-east_exit = "combat_1_3"
+east_exit = "powerup_1"
 west_exit = "start_1"
 metadata/_custom_type_script = "uid://pnkwdspwmpwe"
 
@@ -59,69 +58,70 @@ metadata/_custom_type_script = "uid://pnkwdspwmpwe"
 script = ExtResource("1_hqd6g")
 room_name_id = "combat_1_2"
 room_scene = ExtResource("4_n2un6")
-room_coords = Vector2i(2, 2)
+room_coords = Vector2i(3, 2)
 room_type = 1
-north_exit = "powerup_1"
-south_exit = "combat_1_1"
+north_exit = "shop_1"
+south_exit = "powerup_1"
+west_exit = "memory_1_1"
 metadata/_custom_type_script = "uid://pnkwdspwmpwe"
 
 [sub_resource type="Resource" id="Resource_leowd"]
 script = ExtResource("1_hqd6g")
 room_name_id = "combat_1_3"
 room_scene = ExtResource("5_3m4i2")
-room_coords = Vector2i(3, 3)
+room_coords = Vector2i(4, 1)
 room_type = 1
-north_exit = "combat_1_4"
-south_exit = "shop_1"
-east_exit = "boss_1"
-west_exit = "combat_1_1"
+south_exit = "combat_1_4"
+east_exit = "memory_2"
+west_exit = "shop_1"
 metadata/_custom_type_script = "uid://pnkwdspwmpwe"
 
 [sub_resource type="Resource" id="Resource_1xisp"]
 script = ExtResource("1_hqd6g")
 room_name_id = "powerup_1"
 room_scene = ExtResource("6_1f751")
-room_coords = Vector2i(2, 1)
+room_coords = Vector2i(3, 3)
 room_type = 4
-south_exit = "combat_1_2"
+north_exit = "combat_1_2"
+west_exit = "combat_1_1"
 metadata/_custom_type_script = "uid://pnkwdspwmpwe"
 
 [sub_resource type="Resource" id="Resource_1f751"]
 script = ExtResource("1_hqd6g")
 room_name_id = "combat_1_4"
 room_scene = ExtResource("7_87kjy")
-room_coords = Vector2i(3, 2)
+room_coords = Vector2i(4, 2)
 room_type = 1
-north_exit = "memory_1_1"
-south_exit = "combat_1_3"
+north_exit = "combat_1_3"
+south_exit = "boss_1"
 metadata/_custom_type_script = "uid://pnkwdspwmpwe"
 
 [sub_resource type="Resource" id="Resource_87kjy"]
 script = ExtResource("1_hqd6g")
 room_name_id = "memory_1_1"
 room_scene = ExtResource("8_d5n1e")
-room_coords = Vector2i(3, 1)
+room_coords = Vector2i(2, 2)
 room_type = 3
-south_exit = "combat_1_4"
+east_exit = "combat_1_2"
 metadata/_custom_type_script = "uid://pnkwdspwmpwe"
 
 [sub_resource type="Resource" id="Resource_smmvo"]
 script = ExtResource("1_hqd6g")
 room_name_id = "shop_1"
 room_scene = ExtResource("9_kvvos")
-room_coords = Vector2i(3, 4)
+room_coords = Vector2i(3, 1)
 room_type = 2
-north_exit = "combat_1_3"
-south_exit = "memory_2"
+south_exit = "combat_1_2"
+east_exit = "combat_1_3"
 metadata/_custom_type_script = "uid://pnkwdspwmpwe"
 
 [sub_resource type="Resource" id="Resource_2wpod"]
 script = ExtResource("1_hqd6g")
 room_name_id = "memory_2"
 room_scene = ExtResource("10_d5n1e")
-room_coords = Vector2i(3, 5)
+room_coords = Vector2i(5, 1)
 room_type = 3
-north_exit = "shop_1"
+west_exit = "combat_1_3"
 metadata/_custom_type_script = "uid://pnkwdspwmpwe"
 
 [sub_resource type="Resource" id="Resource_gmdml"]
@@ -130,7 +130,7 @@ room_name_id = "boss_1"
 room_scene = ExtResource("11_6jhxo")
 room_coords = Vector2i(4, 3)
 room_type = 5
-west_exit = "combat_1_3"
+north_exit = "combat_1_4"
 metadata/_custom_type_script = "uid://pnkwdspwmpwe"
 
 [sub_resource type="Resource" id="Resource_w0og2"]

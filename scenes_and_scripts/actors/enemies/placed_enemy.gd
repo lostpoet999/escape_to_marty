@@ -1,6 +1,8 @@
 class_name PlacedEnemy
 extends CharacterBody2D
 
+const DAMAGE_NUMBER: PackedScene = preload("uid://bedvoohhfbi03")
+
 @export var action_pool: Array [EnemyActions]
 @export var action_timer: float
 @export var is_blocker: bool
@@ -34,13 +36,20 @@ func _ready()->void:
 	start_action_timer()
 
 func accept_damage(_damage: int, _dmg_type: Array[GameManager.PhaseType])->void:
-	SFX.play_sound("player_hurt")
+	SFX.play_sound("enemy_hurt")
+	show_damage_number(1)
 	denial_health -= 1
 	if denial_health == 0:
 		self.modulate = Color.WHITE
 		self.modulate.a = 1.0
 	elif denial_health <= -1: die()
-		
+
+func show_damage_number(amount: int) -> void:
+	var dn: DamageNumber = DAMAGE_NUMBER.instantiate()
+	dn.position = global_position
+	get_tree().current_scene.add_child(dn)
+	dn.show_damage("-" + str(amount), DamageNumber.COLOR_DEALT)
+
 
 func die()->void:
 	# guard against re-entry — boss path calls die() directly then emits level_cleared,

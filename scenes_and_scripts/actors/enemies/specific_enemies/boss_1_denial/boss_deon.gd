@@ -23,12 +23,13 @@ func fill_spawn_points()->void:
 	for spawnpoint: Node2D in cage_spawn_points.get_children():
 		darkcage_spawnpoints.append(spawnpoint)
 
-func accept_damage(_damage: int, _dmg_type: Array[GameManager.PhaseType])->void:	
+func accept_damage(_damage: int, _dmg_type: Array[GameManager.PhaseType])->void:
 	match stage:
 		1: return
 		2:
 			if _dmg_type.has(GameManager.PhaseType.DENIAL) and denial_health > 0:
-				SFX.play_sound("player_hurt")
+				SFX.play_sound("enemy_hurt")
+				show_damage_number(1)
 				take_damage_fx()
 				denial_health -= 1
 				if denial_health == 0:
@@ -37,6 +38,7 @@ func accept_damage(_damage: int, _dmg_type: Array[GameManager.PhaseType])->void:
 					stage += 1
 		3:
 			if _dmg_type.has(GameManager.PhaseType.HEALTH):
+				show_damage_number(1)
 				die()
 				Signalbus.level_cleared.emit()
 

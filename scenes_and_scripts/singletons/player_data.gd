@@ -61,7 +61,6 @@ func _cover_bankrupt_deal(cost: int) -> void:
 	var lives_needed: int = ceili(float(cost - stars_collected) / stars_per_life)
 	var damage_per_life: int = maxi(active_floor.bankruptcy_damage_per_life + bankruptcy_damage_per_life_bonus, 0)
 	accept_damage(lives_needed * damage_per_life)
-	Signalbus.screen_flash.emit(Color.RED)
 	stars_collected += lives_needed * stars_per_life - cost
 	Signalbus.stars_updated.emit()
 
@@ -72,6 +71,8 @@ func change_player_health(amount: int) -> void:
 
 func accept_damage(damage: int) -> void:
 	change_player_health(-damage)
+	if damage > 0:
+		Signalbus.player_damaged.emit(damage)
 	if player_current_health <= 0:
 		Signalbus.player_died.emit()
 

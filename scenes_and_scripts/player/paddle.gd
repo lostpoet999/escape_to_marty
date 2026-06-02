@@ -35,6 +35,7 @@ var _distance_accumulator: float = 0.0
 @export var paddle_powerups: Array[PaddlePowerup]
 @export var active_paddle_powerup: PaddleActive #will type cast later
 @onready var projectiles: Node = $"../Projectiles"
+@onready var david: Node2D = $David
 
 var blocker_enemies: Array[PlacedEnemy] #hold blocker enemies in paddle path
 
@@ -175,10 +176,12 @@ func hit_feedback() -> void:
 	tw_scale.tween_property(self, "scale", base_scale, 0.18)
 
 	# red flash on David only
-	var david: Node2D = $David
 	david.modulate = Color.RED
 	var tw_flash: Tween = create_tween()
 	tw_flash.tween_property(david, "modulate", Color.WHITE, 0.22)
+
+func david_global_position() -> Vector2:
+	return david.global_position
 
 func get_movement_direction() -> float:
 	return current_speed

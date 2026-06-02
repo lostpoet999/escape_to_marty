@@ -12,10 +12,6 @@
 position = Vector2(-17, -6)
 
 [node name="MemoryText" parent="RoomAfterClick" index="1" unique_id=1304825645]
-offset_left = 376.0
-offset_top = 792.0
-offset_right = 1892.0
-offset_bottom = 897.0
 text = "placeholder memory text (floor 2 - memory 1)"
 
 [editable path="RoomAfterClick"]

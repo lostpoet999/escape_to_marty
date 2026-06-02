@@ -82,10 +82,22 @@ scale = Vector2(5.0333333, 2.6933334)
 texture = ExtResource("1_eggfu")
 
 [node name="MemoryText" type="Label" parent="." unique_id=1304825645]
-offset_left = 350.0
-offset_top = 811.0
-offset_right = 1866.0
-offset_bottom = 872.0
+offset_left = 452.0
+offset_top = 232.0
+offset_right = 1742.0
+offset_bottom = 732.0
+mouse_filter = 2
 text = "\"The day of the adoption was probably one of the happiest days of my life.\""
 label_settings = SubResource("LabelSettings_seyf6")
+horizontal_alignment = 1
+vertical_alignment = 1
 autowrap_mode = 3
+
+[node name="CloseButton" type="Button" parent="." unique_id=320364000]
+offset_left = 897.0
+offset_top = 766.0
+offset_right = 1297.0
+offset_bottom = 856.0
+theme_override_fonts/font = ExtResource("2_press")
+theme_override_font_sizes/font_size = 36
+text = "Close"

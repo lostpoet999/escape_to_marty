@@ -8,6 +8,9 @@ const AUTO_CLEAR_ROOM_TYPES: Array[RoomEntry.ROOM_TYPES] = [
 ]
 
 const ESCAPED_SPIRIT: PackedScene = preload("uid://5j2pau7yvts4")
+const DAMAGE_NUMBER: PackedScene = preload("uid://bedvoohhfbi03")
+
+const PLAYER_HURT_TRAUMA: float = 0.8
 
 var stars_cleared: bool = false
 var bricks_cleared: bool = false
@@ -26,6 +29,7 @@ var entry: RoomEntry
 @onready var play_background: ColorRect = $PlayArea/Background
 @onready var flash_overlay: ColorRect = $PlayArea/FlashOverlay
 @onready var canvas_modulate_node: CanvasModulate = $CanvasModulate
+@onready var paddle: Paddle = $Paddle
 
 
 
@@ -61,6 +65,7 @@ func _ready() -> void:
 	Signalbus.star_spawned.connect(update_stars_in_level)
 	Signalbus.enemy_requested.connect(_on_enemy_requested)
 	Signalbus.screen_flash.connect(flash_play_area)
+	Signalbus.player_damaged.connect(_on_player_damaged)
 	initiate_special_room()
 
 # quick play-area tint, then fade out — damage juice (overlay sits above gameplay via z_index)
@@ -69,6 +74,18 @@ func flash_play_area(color: Color) -> void:
 	var tw: Tween = create_tween()
 	tw.tween_property(flash_overlay, "color:a", 0.45, 0.06)
 	tw.tween_property(flash_overlay, "color:a", 0.0, 0.35)
+
+func _on_player_damaged(amount: int) -> void:
+	flash_play_area(Color.RED)
+	var cam: Camera2D = get_viewport().get_camera_2d()
+	if cam != null and cam.has_method("add_trauma"):
+		cam.add_trauma(PLAYER_HURT_TRAUMA)
+	SFX.play_sound("player_hurt")
+	paddle.hit_feedback()
+	var damage_number := DAMAGE_NUMBER.instantiate()
+	damage_number.position = paddle.david_global_position()
+	add_child(damage_number)
+	damage_number.show_damage("-" + str(amount), DamageNumber.COLOR_TAKEN)
 
 func _on_level_cleared_boss_extras() -> void:
 	if entry.room_type != RoomEntry.ROOM_TYPES.boss:

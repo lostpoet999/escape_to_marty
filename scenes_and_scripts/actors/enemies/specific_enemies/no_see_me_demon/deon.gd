@@ -7,7 +7,8 @@ func accept_damage(_damage: int, _dmg_type: Array[GameManager.PhaseType])->void:
 	# while covered, only DENIAL reveals; once revealed, any damage kills
 	if denial_health > 0 and not _dmg_type.has(GameManager.PhaseType.DENIAL):
 		return
-	SFX.play_sound("player_hurt")
+	SFX.play_sound("enemy_hurt")
+	show_damage_number(1)
 	take_damage_fx()
 	denial_health -= 1
 	if denial_health == 0: self.modulate = Color.WHITE

@@ -11,10 +11,4 @@
 [node name="RoomAfterClick" parent="." index="8" unique_id=212795482 instance=ExtResource("3_80kk8")]
 position = Vector2(-17, -6)
 
-[node name="MemoryText" parent="RoomAfterClick" index="1" unique_id=1304825645]
-offset_left = 376.0
-offset_top = 792.0
-offset_right = 1892.0
-offset_bottom = 897.0
-
 [editable path="RoomAfterClick"]

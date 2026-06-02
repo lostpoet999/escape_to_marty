@@ -33,7 +33,6 @@ func on_hit_paddle(paddle: Node) -> void:
 		paddle.freeze_paddle_for_time(stun_time)
 	if can_damage:
 		PlayerData.accept_damage(damage)
-		Signalbus.screen_flash.emit(Color.RED)
 		_pause_falling()
 		can_damage = false
 		SFX.play_sound("cage_hit")
