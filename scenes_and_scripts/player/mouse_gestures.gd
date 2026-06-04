@@ -1,5 +1,11 @@
 class_name MouseGestures extends Node2D
 
+const DEFAULT_CLICK_DMG: float = 1.0
+
+var click_behavior: HitBehavior
+var hold_probe: CircleShape2D
+var hold_behavior: HitBehavior
+
 var mouse_down: bool = false
 var mouse_down_time: float = 0.0
 
@@ -7,8 +13,18 @@ var mouse_down_time: float = 0.0
 @export_category("Click & Hold Config")
 @export var click_vs_hold: float = 0.2
 @export var hold_duration_max: float = 3.0
-var damage: float = 0.0
 var hold_indicator_radius: float = 0.0
+
+func _ready() -> void:
+	click_behavior = HitBehavior.new()
+	click_behavior.targeting = DirectTarget.new()
+	hold_probe = CircleShape2D.new()
+	var hold_shape: ShapeTarget = ShapeTarget.new()
+	hold_shape.probe_shape = hold_probe
+	var anger_only: Array[GameManager.PhaseType] = [GameManager.PhaseType.ANGER]
+	hold_shape.filter_phases = anger_only
+	hold_behavior = HitBehavior.new()
+	hold_behavior.targeting = hold_shape
 
 @export_category("Bargain Config")
 @export var bargain_sweep_duration: float = 0.37
@@ -49,36 +65,37 @@ func _input(event: InputEvent)->void:
 				_resolve_bargain()
 			elif mouse_down: #released, detect click vs hold
 				mouse_down = false
-				click_dmg_type.clear()
-				if mouse_down_time <= click_vs_hold: #a normal hold
-					click_dmg_type.push_back(GameManager.PhaseType.DENIAL)
-					damage = 1.0 #TODO this will be pulled from player/powerup data for click
+				if mouse_down_time <= click_vs_hold:
 					_handle_clicks_and_hold()
 				else:
-					click_dmg_type.push_back(GameManager.PhaseType.ANGER)
-					damage = roundf(minf(mouse_down_time, hold_duration_max))
 					_handle_anger_aoe()
 
 func _handle_clicks_and_hold()->void:
-	var target:Variant = _get_target_under_mouse()
+	var target: Node = _get_target_under_mouse()
 	if target == null:
 		return
-	if target.has_method("accept_damage"):
-		target.accept_damage(damage, click_dmg_type)
+	click_behavior.apply(_gesture_context(GameManager.PhaseType.DENIAL, _gesture_damage()), target as Node2D)
 
-func _handle_anger_aoe()->void: #the hold-indicator circle is the AOE: hit every ANGER seal it covers
-	var space: PhysicsDirectSpaceState2D = get_viewport().get_world_2d().direct_space_state
-	var shape: CircleShape2D = CircleShape2D.new()
-	shape.radius = maxf(hold_indicator_radius, 8.0)
-	var query: PhysicsShapeQueryParameters2D = PhysicsShapeQueryParameters2D.new()
-	query.shape = shape
-	query.transform = Transform2D(0.0, get_global_mouse_position())
-	query.collide_with_areas = true
-	var results: Array[Dictionary] = space.intersect_shape(query, 64)
-	for result in results:
-		var collider: Variant = result.collider
-		if collider is BaseSeal and collider.current_stage == GameManager.PhaseType.ANGER:
-			collider.accept_damage(damage, click_dmg_type)
+func _handle_anger_aoe()->void:
+	hold_probe.radius = maxf(hold_indicator_radius, 8.0)
+	var hold_charge: float = roundf(minf(mouse_down_time, hold_duration_max))
+	hold_behavior.apply(_gesture_context(GameManager.PhaseType.ANGER, _gesture_damage() * hold_charge), null)
+
+func _gesture_context(verb_type: GameManager.PhaseType, base: float) -> HitContext:
+	var ctx: HitContext = HitContext.new()
+	ctx.source = self
+	ctx.hit_point = get_global_mouse_position()
+	ctx.collision_mask = 0xFFFFFFFF
+	ctx.base_damage = base
+	var verb_types: Array[GameManager.PhaseType] = [verb_type]
+	ctx.dmg_types = verb_types
+	ctx.apply = func(target: Node2D, amount: float, _types: Array) -> void:
+		if target != null and target.has_method("accept_damage"):
+			target.accept_damage(amount, verb_types)
+	return ctx
+
+func _gesture_damage() -> float:
+	return PlayerInventory.get_instance().get_gesture_damage()
 
 func _get_target_under_mouse() -> Node:	
 	var space : PhysicsDirectSpaceState2D = get_viewport().get_world_2d().direct_space_state

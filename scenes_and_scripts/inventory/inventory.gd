@@ -104,14 +104,21 @@ func get_paddle_active() -> PaddleActive:	#inventory logic prevents more than on
 			return item
 	return null
 
-## reserved for the planned ClickPowerUp category (click-mode actives).
-## uncomment once `ClickPowerUp` class exists; ties into the floor-scaling damage rework (denial/anger currently hardcoded to 1).
-#func get_items_for_click() -> Array[ClickPowerUp]:
-	#var _items: Array[ClickPowerUp]
-	#for item: BaseItem in items:
-		#if item is ClickPowerUp:
-			#_items.append(item)
-	#return _items
+func get_items_for_click() -> Array[ClickPowerUp]:
+	var _items: Array[ClickPowerUp] = []
+	for item: BaseItem in items:
+		if item is ClickPowerUp:
+			_items.append(item)
+	return _items
+
+func get_gesture_damage() -> float:
+	var dmg: float = MouseGestures.DEFAULT_CLICK_DMG
+	var click_items: Array[ClickPowerUp] = get_items_for_click()
+	for power: ClickPowerUp in click_items:
+		dmg += power.global_bonus
+	for power: ClickPowerUp in click_items:
+		dmg *= power.global_multi
+	return dmg
 
 func add_item(new_item) -> void:	
 	if new_item is PaddleActive:
@@ -130,7 +137,7 @@ func add_item(new_item) -> void:
 			Signalbus.paddle_active_swap_needed.emit(old_active,new_item)			
 
 
-	elif new_item is BallPassive or new_item is PaddlePowerup:
+	elif new_item is BallPassive or new_item is PaddlePowerup or new_item is ClickPowerUp:
 			items.push_back(new_item) #this will move when we do quantity update from above	
 			Signalbus.inventory_changed.emit()
 	

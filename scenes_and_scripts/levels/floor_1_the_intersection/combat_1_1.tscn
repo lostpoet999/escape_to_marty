@@ -49,44 +49,37 @@ position = Vector2(1184, 640)
 initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({})
 
-[node name="OpenSeal11" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="3" unique_id=139370847 instance=ExtResource("2_qcry5")]
-position = Vector2(1152, 768)
-initialize_brick_on_leveldata = false
-stages = Dictionary[int, float]({
-2: 5.0
-})
-
-[node name="OpenSeal5" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="4" unique_id=843230974 instance=ExtResource("2_qcry5")]
+[node name="OpenSeal5" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="3" unique_id=843230974 instance=ExtResource("2_qcry5")]
 position = Vector2(1312, 640)
 initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({})
 
-[node name="OpenSeal6" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="5" unique_id=1235412364 instance=ExtResource("2_qcry5")]
+[node name="OpenSeal6" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="4" unique_id=1235412364 instance=ExtResource("2_qcry5")]
 position = Vector2(992, 640)
 initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({})
 
-[node name="OpenSeal4" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="6" unique_id=1855742673 instance=ExtResource("2_qcry5")]
+[node name="OpenSeal4" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="5" unique_id=1855742673 instance=ExtResource("2_qcry5")]
 position = Vector2(1248, 640)
 initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({})
 
-[node name="OpenSeal7" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="7" unique_id=422098733 instance=ExtResource("2_qcry5")]
+[node name="OpenSeal7" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="6" unique_id=422098733 instance=ExtResource("2_qcry5")]
 position = Vector2(1440, 640)
 initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({})
 
-[node name="OpenSeal8" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="8" unique_id=599257209 instance=ExtResource("2_qcry5")]
+[node name="OpenSeal8" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="7" unique_id=599257209 instance=ExtResource("2_qcry5")]
 position = Vector2(1376, 640)
 initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({})
 
-[node name="OpenSeal9" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="9" unique_id=408570536 instance=ExtResource("2_qcry5")]
+[node name="OpenSeal9" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="8" unique_id=408570536 instance=ExtResource("2_qcry5")]
 position = Vector2(928, 640)
 initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({})
 
-[node name="OpenSeal10" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="10" unique_id=944791178 instance=ExtResource("2_qcry5")]
+[node name="OpenSeal10" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="9" unique_id=944791178 instance=ExtResource("2_qcry5")]
 position = Vector2(864, 640)
 initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({})

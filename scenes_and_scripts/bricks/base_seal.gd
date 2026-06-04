@@ -23,6 +23,8 @@ enum BargainOutcome { OVERPAY, DEAL, WHIFF, INSULT }
 @export var stages: Dictionary[GameManager.PhaseType, float]
 var current_stage: GameManager.PhaseType
 var dying: bool = false
+var _feedback_pending: bool = false
+var _feedback_damaged: bool = false
 	
 @export var brick_health: int = 1
 var health_temp: float
@@ -87,11 +89,19 @@ func accept_damage(damage: float, damage_types: Array) -> void:
 		return
 	if damage_types.has(current_stage):
 		_damage_current_stage(damage)
-	else:
+		_feedback_damaged = true
+	if not _feedback_pending:
+		_feedback_pending = true
+		_resolve_damage_feedback.call_deferred()
+
+func _resolve_damage_feedback() -> void:
+	if not _feedback_damaged:
 		var damage_number = DAMAGE_NUMBER.instantiate()
 		damage_number.position = global_position
 		damage_number.show_damage("denied", DamageNumber.COLOR_DEALT)
 		get_tree().current_scene.add_child(damage_number)
+	_feedback_damaged = false
+	_feedback_pending = false
 
 func _damage_current_stage(damage: float) -> void:
 	if health_temp - damage <= 0:

@@ -295,8 +295,20 @@ func clean_collision_set() -> void:
 func apply_collider_effects(collider: Node2D) -> void:
 	if collider.get_instance_id() in _collision_set:
 		return
+	var ctx: HitContext = _make_hit_context()
 	for behavior: HitBehavior in behaviors:
-		behavior.apply(self, collider)
+		behavior.apply(ctx, collider)
+
+func _make_hit_context() -> HitContext:
+	var ctx: HitContext = HitContext.new()
+	ctx.source = self
+	ctx.hit_point = global_position
+	ctx.collision_mask = collision_mask
+	ctx.exclude = [get_rid()]
+	ctx.base_damage = ball_dmg
+	ctx.dmg_types = ball_dmg_type
+	ctx.apply = apply_damage_to
+	return ctx
 
 # per-target application; group decides the reaction
 func apply_damage_to(target: Node2D, amount: float, dmg_types: Array) -> void:

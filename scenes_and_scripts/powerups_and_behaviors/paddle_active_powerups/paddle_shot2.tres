@@ -1,16 +1,40 @@
 [gd_resource type="Resource" script_class="PaddleActive" format=3 uid="uid://8rrbt0jirryc"]
 
 [ext_resource type="Texture2D" uid="uid://0q538vh4iwat" path="res://scenes_and_scripts/powerups_and_behaviors/paddle_active_powerups/spirit_shot_sprite2.png" id="1_omwp3"]
+[ext_resource type="Script" uid="uid://jwtisqgpmqvq" path="res://scenes_and_scripts/powerups_and_behaviors/ball_behaviors/hit_behavior.gd" id="2_mb6dy"]
 [ext_resource type="PackedScene" uid="uid://bhe1gjfa8d5fg" path="res://scenes_and_scripts/powerups_and_behaviors/paddle_active_powerups/spirit_shot_projectile2.tscn" id="2_omwp3"]
+[ext_resource type="Script" uid="uid://dnkfaoggkglke" path="res://scenes_and_scripts/powerups_and_behaviors/ball_behaviors/targeting/shape_target.gd" id="3_1jm3t"]
 [ext_resource type="Script" uid="uid://0q4ogral5cxt" path="res://scenes_and_scripts/powerups_and_behaviors/paddle_active_powerups/paddle_active_ability.gd" id="3_blwhs"]
+[ext_resource type="Script" uid="uid://cshapedrvfx" path="res://scenes_and_scripts/powerups_and_behaviors/ball_behaviors/vfx/shape_draw_vfx.gd" id="4_055kh"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_055kh"]
+radius = 40.0
+
+[sub_resource type="Resource" id="Resource_dc7p0"]
+script = ExtResource("3_1jm3t")
+probe_shape = SubResource("CircleShape2D_055kh")
+metadata/_custom_type_script = "uid://dnkfaoggkglke"
+
+[sub_resource type="Resource" id="Resource_nuxh8"]
+script = ExtResource("4_055kh")
+color = Color(0.9502842, 0.4866907, 0.24111873, 0.5019608)
+metadata/_custom_type_script = "uid://cshapedrvfx"
+
+[sub_resource type="Resource" id="Resource_o057o"]
+script = ExtResource("2_mb6dy")
+targeting = SubResource("Resource_dc7p0")
+vfx = SubResource("Resource_nuxh8")
+metadata/_custom_type_script = "uid://jwtisqgpmqvq"
 
 [resource]
 script = ExtResource("3_blwhs")
 projectile_ref = ExtResource("2_omwp3")
-max_spawn = 1
+max_spawn = 2
 speed_modifier = 1.0
-damage = 1
+damage = 2
 projectile_dmg_type = Array[int]([0, 5])
+on_hit = Array[ExtResource("2_mb6dy")]([SubResource("Resource_o057o")])
+spawn_points = 127
 powerup_name = "Spirit Shot"
 rarity = 1
 inventory_icon = ExtResource("1_omwp3")

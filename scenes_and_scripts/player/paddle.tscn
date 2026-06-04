@@ -43,9 +43,11 @@ position = Vector2(-61, -18)
 
 [node name="spawn_left" type="Marker2D" parent="." unique_id=895603561]
 position = Vector2(-61, -4)
+rotation = -1.5707964
 
 [node name="spawn_right" type="Marker2D" parent="." unique_id=1006701272]
 position = Vector2(61, -4)
+rotation = 1.5707964
 
 [node name="MouseGestures" parent="." unique_id=662497496 instance=ExtResource("4_ireb1")]
 
