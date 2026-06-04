@@ -2,6 +2,8 @@ class_name BaseSeal
 extends Area2D
 
 const STAR_COLLECTIBLE: PackedScene = preload("uid://cfjv2f23gme53")
+const BONUS_DROP: PackedScene = preload("res://scenes_and_scripts/collectibles/bonus_drop.tscn")
+const BONUS_POOL: BonusDropPool = preload("res://scenes_and_scripts/collectibles/bonus_drops/bonus_drop_pool.tres")
 const DAMAGE_NUMBER: PackedScene = preload("uid://bedvoohhfbi03")
 
 const PHASE_SCORES: Dictionary[GameManager.PhaseType, int] = {
@@ -205,9 +207,18 @@ func pop_tween() -> void:
 func _on_tween_finished(collider: Area2D) -> void:
 	if is_instance_valid(collider):
 		collider.queue_free()
-		var star_instance: Area2D = STAR_COLLECTIBLE.instantiate()
-		collider.get_parent().add_child(star_instance)
-		star_instance.position = collider.position
+		var drop: Area2D = _make_drop()
+		collider.get_parent().add_child(drop)
+		drop.position = collider.position
 		Signalbus.star_spawned.emit(1)
 		Signalbus.enemy_requested.emit(collider)
 		Signalbus.brick_destroyed.emit()
+
+func _make_drop() -> Area2D:
+	if randf() < BONUS_POOL.drop_chance:
+		var payload: BonusPayload = BONUS_POOL.pick_random()
+		if payload != null:
+			var bonus: BonusDrop = BONUS_DROP.instantiate()
+			bonus.payload = payload
+			return bonus
+	return STAR_COLLECTIBLE.instantiate()

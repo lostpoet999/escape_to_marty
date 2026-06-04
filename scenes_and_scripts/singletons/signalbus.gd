@@ -110,6 +110,11 @@ signal screen_flash(color: Color)
 @warning_ignore("unused_signal")
 signal player_damaged(amount: int)
 
+## Emits: scenes_and_scripts/singletons/player_data.gd -> grant_free_miss_shield(), accept_reflect_damage()
+## Connects: scenes_and_scripts/player/paddle.gd -> _on_reflect_shield_changed
+@warning_ignore("unused_signal")
+signal reflect_shield_changed(count: int)
+
 ## =============================================================================
 ## Inventory Signals
 ## =============================================================================

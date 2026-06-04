@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="BonusDropPool" format=3 uid="uid://cbonuspool1"]
+
+[ext_resource type="Script" uid="uid://c18k4y2vxgl5s" path="res://scenes_and_scripts/collectibles/bonus_drops/bonus_drop_pool.gd" id="1"]
+[ext_resource type="Script" uid="uid://bbhl5vhelk7nf" path="res://scenes_and_scripts/collectibles/bonus_drops/bonus_payload.gd" id="2"]
+[ext_resource type="Resource" uid="uid://chealpld01" path="res://scenes_and_scripts/collectibles/bonus_drops/heal_payload.tres" id="3"]
+[ext_resource type="Resource" uid="uid://cstarspld01" path="res://scenes_and_scripts/collectibles/bonus_drops/stars_payload.tres" id="4"]
+[ext_resource type="Resource" uid="uid://cshieldpld1" path="res://scenes_and_scripts/collectibles/bonus_drops/shield_payload.tres" id="5"]
+
+[resource]
+script = ExtResource("1")
+drop_chance = 0.015
+payloads = Array[ExtResource("2")]([ExtResource("3"), ExtResource("4"), ExtResource("5")])
+metadata/_custom_type_script = "uid://c18k4y2vxgl5s"

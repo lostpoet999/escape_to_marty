@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="HealPayload" format=3 uid="uid://chealpld01"]
+
+[ext_resource type="Script" uid="uid://cdal3omj7hrcp" path="res://scenes_and_scripts/collectibles/bonus_drops/heal_payload.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+label = "Full Heal"
+drop_modulate = Color(0.3, 1, 0.4, 1)
+metadata/_custom_type_script = "uid://cdal3omj7hrcp"

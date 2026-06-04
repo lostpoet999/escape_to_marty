@@ -1,8 +1,14 @@
 class_name Paddle
 extends CharacterBody2D
 
+const SHIELD_COLOR: Color = Color(0.5, 0.8, 1.0)
+const SHIELD_COLOR_BRIGHT: Color = Color(0.8, 0.95, 1.0)
+const SHIELD_PULSE_TIME: float = 0.45
+
 @export var paddle_influence: float = 5.0
 
+var is_shielded: bool = false
+var shield_pulse_tween: Tween
 var paddle_frozen: bool = false
 var paddle_click_dmg: float = 1.0
 
@@ -63,6 +69,7 @@ func connect_signals()->void:
 	Signalbus.blocker_added.connect(add_blocker_enemy)
 	Signalbus.blocker_removed.connect(remove_blocker_enemy)
 	Signalbus.blocker_moved.connect(_calculate_blockers_bounds)
+	Signalbus.reflect_shield_changed.connect(_on_reflect_shield_changed)
 	
 	
 
@@ -176,9 +183,35 @@ func hit_feedback() -> void:
 	tw_scale.tween_property(self, "scale", base_scale, 0.18)
 
 	# red flash on David only
+	stop_shield_pulse()
 	david.modulate = Color.RED
 	var tw_flash: Tween = create_tween()
-	tw_flash.tween_property(david, "modulate", Color.WHITE, 0.22)
+	tw_flash.tween_property(david, "modulate", _resting_david_color(), 0.22)
+	if is_shielded:
+		tw_flash.finished.connect(start_shield_pulse, CONNECT_ONE_SHOT)
+
+func _on_reflect_shield_changed(count: int) -> void:
+	is_shielded = count > 0
+	if is_shielded:
+		start_shield_pulse()
+	else:
+		stop_shield_pulse()
+		var tw: Tween = create_tween()
+		tw.tween_property(david, "modulate", Color.WHITE, 0.2)
+
+func start_shield_pulse() -> void:
+	stop_shield_pulse()
+	shield_pulse_tween = create_tween().set_loops().set_trans(Tween.TRANS_SINE)
+	shield_pulse_tween.tween_property(david, "modulate", SHIELD_COLOR_BRIGHT, SHIELD_PULSE_TIME)
+	shield_pulse_tween.tween_property(david, "modulate", SHIELD_COLOR, SHIELD_PULSE_TIME)
+
+func stop_shield_pulse() -> void:
+	if shield_pulse_tween and shield_pulse_tween.is_valid():
+		shield_pulse_tween.kill()
+	shield_pulse_tween = null
+
+func _resting_david_color() -> Color:
+	return SHIELD_COLOR if is_shielded else Color.WHITE
 
 func david_global_position() -> Vector2:
 	return david.global_position

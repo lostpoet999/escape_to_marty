@@ -56,8 +56,8 @@ func init_starting_items() ->void:
 	items.append_array(BALL_PASSIVE_POWERUPS)
 	const CORE_ITEMS: Array = [
 		## Add testing inventory items here that will be added in _ready
-	preload("uid://b61d4hm0o24k0") # basic bounce	
-]	
+	preload("uid://b61d4hm0o24k0") # basic bounce
+]
 	core_items.append_array(CORE_ITEMS)
 
 func get_items() -> Array:
@@ -111,6 +111,25 @@ func get_items_for_click() -> Array[ClickPowerUp]:
 			_items.append(item)
 	return _items
 
+func get_items_for_defense() -> Array[DefensivePowerup]:
+	var _items: Array[DefensivePowerup] = []
+	for item: BaseItem in items:
+		if item is DefensivePowerup:
+			_items.append(item)
+	return _items
+
+func get_reflect_reduction() -> float:
+	var total: float = 0.0
+	for powerup: DefensivePowerup in get_items_for_defense():
+		total += powerup.reflect_reduction
+	return clampf(total, 0.0, PlayerData.MAX_REFLECT_REDUCTION)
+
+func get_max_health_bonus() -> int:
+	var total: int = 0
+	for powerup: DefensivePowerup in get_items_for_defense():
+		total += powerup.max_health_bonus
+	return total
+
 func get_gesture_damage() -> float:
 	var dmg: float = MouseGestures.DEFAULT_CLICK_DMG
 	var click_items: Array[ClickPowerUp] = get_items_for_click()
@@ -137,9 +156,13 @@ func add_item(new_item) -> void:
 			Signalbus.paddle_active_swap_needed.emit(old_active,new_item)			
 
 
-	elif new_item is BallPassive or new_item is PaddlePowerup or new_item is ClickPowerUp:
-			items.push_back(new_item) #this will move when we do quantity update from above	
+	elif new_item is BallPassive or new_item is PaddlePowerup or new_item is ClickPowerUp or new_item is DefensivePowerup:
+			items.push_back(new_item) #this will move when we do quantity update from above
 			Signalbus.inventory_changed.emit()
+			if new_item is DefensivePowerup:
+				var defense: DefensivePowerup = new_item
+				if defense.heal_on_pickup > 0:
+					PlayerData.change_player_health(defense.heal_on_pickup)
 	
 func replace_paddle_active(new_item: PaddleActive): #where item is replaced in player inventory
 	var index: int = core_items.find_custom(func(i): return i is PaddleActive)

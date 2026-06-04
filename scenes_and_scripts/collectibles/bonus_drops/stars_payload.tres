@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="StarsPayload" format=3 uid="uid://cstarspld01"]
+
+[ext_resource type="Script" uid="uid://bl601eqowjyrp" path="res://scenes_and_scripts/collectibles/bonus_drops/stars_payload.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+label = "100 Stars"
+drop_modulate = Color(1, 0.85, 0.2, 1)
+stars = 100
+metadata/_custom_type_script = "uid://bl601eqowjyrp"

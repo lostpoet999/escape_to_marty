@@ -318,5 +318,5 @@ func apply_damage_to(target: Node2D, amount: float, dmg_types: Array) -> void:
 		if is_tweening_to_david:
 			return
 		await tween_to_david(global_position)
-		PlayerData.accept_damage(int(amount))
+		PlayerData.accept_reflect_damage(amount)
 		position_ball_on_paddle()

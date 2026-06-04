@@ -1,9 +1,16 @@
 extends Node
 
+const MAX_REFLECT_REDUCTION: float = 0.5
+const REFLECT_MISS_CAP_RATIO: float = 0.85
+const BASE_MAX_HEALTH: int = 10
+const MAX_HEALTH_CEILING: int = 25
+const MAX_FREE_MISS_SHIELDS: int = 1
+
 var score: int = 0
 var stars_collected: int = 0
-var player_current_health: int = 10
-var player_max_health: int = 25
+var player_current_health: int = BASE_MAX_HEALTH
+var player_max_health: int = BASE_MAX_HEALTH
+var free_miss_shields: int = 0
 
 var inventory: PlayerInventory
 var room_state: Dictionary = {}
@@ -12,6 +19,16 @@ var item_box: Node2D
 var bankruptcy_stars_per_life_bonus: int = 0
 var bankruptcy_damage_per_life_bonus: int = 0
 
+
+func _ready() -> void:
+	Signalbus.inventory_changed.connect(recompute_max_health)
+
+func recompute_max_health() -> void:
+	if inventory == null:
+		return
+	player_max_health = mini(BASE_MAX_HEALTH + inventory.get_max_health_bonus(), MAX_HEALTH_CEILING)
+	player_current_health = mini(player_current_health, player_max_health)
+	Signalbus.player_health_updated.emit()
 
 func update_player_score(amount: int) -> void:
 	score += amount
@@ -29,8 +46,9 @@ func get_room_state(entry: RoomEntry)->RoomState:
 func initialize_player_data() -> void:
 	score = 0
 	stars_collected = 0
-	player_current_health = 10
-	player_max_health = 25
+	player_current_health = BASE_MAX_HEALTH
+	player_max_health = BASE_MAX_HEALTH
+	free_miss_shields = 0
 	room_state.clear()
 	bankruptcy_stars_per_life_bonus = 0
 	bankruptcy_damage_per_life_bonus = 0
@@ -69,12 +87,30 @@ func change_player_health(amount: int) -> void:
 	player_current_health = clampi(player_current_health + amount, 0, player_max_health)
 	Signalbus.player_health_updated.emit()
 
+func heal_to_full() -> void:
+	player_current_health = player_max_health
+	Signalbus.player_health_updated.emit()
+
 func accept_damage(damage: int) -> void:
 	change_player_health(-damage)
 	if damage > 0:
 		Signalbus.player_damaged.emit(damage)
 	if player_current_health <= 0:
 		Signalbus.player_died.emit()
+
+func accept_reflect_damage(amount: float) -> void:
+	if free_miss_shields > 0:
+		free_miss_shields -= 1
+		Signalbus.reflect_shield_changed.emit(free_miss_shields)
+		return
+	var reduction: float = inventory.get_reflect_reduction() if inventory else 0.0
+	var mitigated: float = amount * (1.0 - reduction)
+	var capped: float = minf(mitigated, player_max_health * REFLECT_MISS_CAP_RATIO)
+	accept_damage(maxi(1, roundi(capped)))
+
+func grant_free_miss_shield(count: int = 1) -> void:
+	free_miss_shields = mini(free_miss_shields + count, MAX_FREE_MISS_SHIELDS)
+	Signalbus.reflect_shield_changed.emit(free_miss_shields)
 
 func get_player_health() -> int:
 	return player_current_health
