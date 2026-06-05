@@ -54,9 +54,12 @@ func _ready() -> void:
 	paddle_powerups = PlayerData.inventory.get_items_for_paddle()	
 	set_paddle_length_from_items()
 	
-	_calculate_bounds()	
-	accumulated_mouse_movement_x = position.x	
+	_calculate_bounds()
+	accumulated_mouse_movement_x = position.x
 	active_paddle_powerup = PlayerData.inventory.get_paddle_active()
+	# free-miss shields persist run-scoped on PlayerData; re-apply the glow on every paddle
+	# spawn (new room/floor) so the visual matches the banked count, not just live grants
+	_on_reflect_shield_changed(PlayerData.free_miss_shields)
 
 func connect_signals()->void:	
 	Signalbus.game_state_click_mode.connect(_on_game_state_click_mode)

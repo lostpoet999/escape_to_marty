@@ -133,14 +133,15 @@ metadata/_custom_type_script = "uid://pnkwdspwmpwe"
 script = ExtResource("3_1wfy1")
 enemy_name = "Dark Cage"
 scene_ref = ExtResource("4_hna8n")
-spawn_chance = 30.0
+spawn_chance = 20.0
+max_global_spawn = 2
 metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 
 [sub_resource type="Resource" id="Resource_a1chj"]
 script = ExtResource("3_1wfy1")
 enemy_name = "RageBlob"
 scene_ref = ExtResource("16_tikq6")
-spawn_chance = 35.0
+spawn_chance = 25.0
 max_global_spawn = 2
 metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 
@@ -182,8 +183,6 @@ metadata/_custom_type_script = "uid://b1eqt2or38kw6"
 [resource]
 script = ExtResource("2_yjxva")
 spawn_weight = SubResource("Resource_c5321")
-free_item_max = 4
-shop_items = 4
 seal_difficulty_rates = SubResource("Resource_hna8n")
 seal_phase_pool = Array[ExtResource("4_tjbqt")]([SubResource("Resource_tjbqt"), SubResource("Resource_o7ibu")])
 seal_health_phase = SubResource("Resource_1wfy1")

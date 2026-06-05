@@ -9,6 +9,8 @@ const AUTO_CLEAR_ROOM_TYPES: Array[RoomEntry.ROOM_TYPES] = [
 
 const ESCAPED_SPIRIT: PackedScene = preload("uid://5j2pau7yvts4")
 const DAMAGE_NUMBER: PackedScene = preload("uid://bedvoohhfbi03")
+const FREE_ITEM_PANEL: PackedScene = preload("uid://ct8n40refigl7")
+const SHOP_PANEL: PackedScene = preload("uid://cshoppanel1")
 
 const PLAYER_HURT_TRAUMA: float = 0.8
 
@@ -24,7 +26,6 @@ var room_state: RoomState
 var entry: RoomEntry
 @onready var loot_items_data: LootItemsData
 @onready var item_box: Itembox
-@onready var shop_grid: ShopGrid
 @onready var no_respawn: Node2D = $"No-Respawn"
 @onready var play_background: ColorRect = $PlayArea/Background
 @onready var flash_overlay: ColorRect = $PlayArea/FlashOverlay
@@ -133,20 +134,19 @@ func initiate_special_room()->void:
 				room_state.generate_item_box()
 			if !room_state.loot_items_data.items.is_empty():
 				loot_items_data = room_state.loot_items_data
-				item_box = loot_items_data.instantiate_lootbox()
-				item_box.global_position = item_spawn_point.global_position
-				item_box.loot_items_data = loot_items_data
-				add_child(item_box)
+				var panel: FreeItemPanel = FREE_ITEM_PANEL.instantiate()
+				panel.z_index = 500
+				panel.setup(loot_items_data)
+				$PlayArea.add_child(panel)
 		RoomEntry.ROOM_TYPES.shop:
 			if !room_state.loot_items_data:
 				room_state.generate_item_box()
 			if !room_state.loot_items_data.items.is_empty():
 				loot_items_data = room_state.loot_items_data
-				shop_grid = loot_items_data.instantiate_shop()
-				shop_grid.global_position = item_spawn_point.global_position
-				shop_grid.loot_items_data = loot_items_data
-				add_child(shop_grid)
-				shop_grid.global_position = item_spawn_point.global_position
+				var panel: ShopPanel = SHOP_PANEL.instantiate()
+				panel.z_index = 500
+				panel.setup(loot_items_data)
+				$PlayArea.add_child(panel)
 
 func _on_enemy_requested(spawn_from: Area2D) -> void: # for brick break enemies
 	var seal_break_enemies: Array[EnemyConfig] = GameManager.floor_data.seal_break_enemies

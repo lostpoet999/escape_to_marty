@@ -6,6 +6,15 @@ const BADGE_FONT: FontFile = preload("uid://ce5jk1ok7f4r5") ## PressStart2P
 const BADGE_FONT_SIZE: int = 10
 const ICON_SIZE: int = 32 ## standard inventory icon dimension; buttons clamp to this so the badge anchors to the icon edge, not the button's padded edge
 
+## banked vouchers are PlayerData counters, not real inventory items — these display-only tickets render them
+## as non-removable buttons slotted right after the base-ball anchor (index 1) so a held voucher is always visible.
+## tint distinguishes them while real art is pending; mirrors each payload's drop_modulate.
+const PICK2_TICKET: BaseItem = preload("uid://cpick2tkt01")
+const SHOP_RESTOCK_TICKET: BaseItem = preload("uid://cshoprstkt1")
+const PICK2_TINT: Color = Color(0.5, 1, 0.5)
+const SHOP_RESTOCK_TINT: Color = Color(1, 0.7, 0.3)
+const TICKET_SLOT_START: int = 1 ## index 0 is the base-ball anchor; tickets follow it
+
 var buttons: Array[Button]
 
 @onready var inv_grid_container: GridContainer = %InventoryGrid
@@ -14,12 +23,34 @@ var buttons: Array[Button]
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	Signalbus.inventory_changed.connect(repopulate_inventory)
+	Signalbus.pick2_vouchers_changed.connect(_on_vouchers_changed)
+	Signalbus.shop_restock_vouchers_changed.connect(_on_vouchers_changed)
+	repopulate_inventory()
+
+func _on_vouchers_changed(_count: int) -> void:
 	repopulate_inventory()
 
 func repopulate_inventory() -> void:
 	clear_buttons()
 	populate_grid(inv_grid_container, PlayerInventory.get_instance().get_items())
 	populate_grid(core_grid_container, PlayerData.inventory.get_core_items())
+	add_voucher_tickets()
+
+func add_voucher_tickets() -> void:
+	var slot: int = TICKET_SLOT_START
+	slot = _add_ticket(PICK2_TICKET, PlayerData.pick2_vouchers, PICK2_TINT, slot)
+	slot = _add_ticket(SHOP_RESTOCK_TICKET, PlayerData.shop_restock_vouchers, SHOP_RESTOCK_TINT, slot)
+
+func _add_ticket(ticket: BaseItem, count: int, tint: Color, slot: int) -> int:
+	if count <= 0:
+		return slot
+	var button: Button = init_button_for(ticket)
+	button.modulate = tint
+	if count > 1:
+		add_count_badge(button, count)
+	inv_grid_container.add_child(button)
+	inv_grid_container.move_child(button, slot)
+	return slot + 1
 
 func populate_grid(grid: GridContainer, items: Array) -> void:
 	## group duplicates so a stack of 3 shows as one button with "x3" instead of three buttons

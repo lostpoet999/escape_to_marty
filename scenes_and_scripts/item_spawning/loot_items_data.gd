@@ -1,17 +1,16 @@
 class_name LootItemsData extends Resource
 
+const ITEMS_PER_ROOM: int = 3 ## free-item and shop rooms both offer exactly this many; shop_panel.tscn has a matching fixed slot count
+
 var max_items: int = 0
 var items: Array [BaseItem] = []
 var pool: Array[BaseItem]
+var base_pick_used: bool = false
 const ITEM_BOX: PackedScene = preload("uid://165yx2m2saao")
-const SHOP: PackedScene = preload("uid://bn3va5ib8tytd")
 
 
 func instantiate_lootbox() -> Node2D:
 	return ITEM_BOX.instantiate()
-
-func instantiate_shop() -> Node2D:
-	return SHOP.instantiate()
 
 func filter_owned_actives()->void:
 	var owned_actives: Array[BaseItem] = PlayerData.inventory.get_core_items()
@@ -20,11 +19,7 @@ func filter_owned_actives()->void:
 
 func generate_item_box()->void:
 	items.clear()
-	var room_entry:RoomEntry = GameManager.get_current_floor_entry(GameManager.current_room_id)
-	if room_entry.room_type == RoomEntry.ROOM_TYPES.free_item:
-		max_items = randi() % GameManager.floor_data.free_item_max + 1
-	elif room_entry.room_type == RoomEntry.ROOM_TYPES.shop:
-		max_items = GameManager.floor_data.shop_items
+	max_items = ITEMS_PER_ROOM
 	@warning_ignore("unsafe_property_access")
 	pool = ItemSpawner.item_pool_data.item_pool.duplicate()
 	filter_owned_actives()

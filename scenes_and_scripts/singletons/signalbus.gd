@@ -115,6 +115,16 @@ signal player_damaged(amount: int)
 @warning_ignore("unused_signal")
 signal reflect_shield_changed(count: int)
 
+## Emits: scenes_and_scripts/singletons/player_data.gd -> grant_pick2_voucher(), consume_pick2_voucher()
+## Connects: scenes_and_scripts/ui_menus/free_item_panel.gd -> _update_footer (planned: inventory ticket UI)
+@warning_ignore("unused_signal")
+signal pick2_vouchers_changed(count: int)
+
+## Emits: scenes_and_scripts/singletons/player_data.gd -> grant_shop_restock_voucher(), consume_shop_restock_voucher()
+## Connects: scenes_and_scripts/ui_menus/shop_panel.gd -> _update_reroll (planned: inventory ticket UI)
+@warning_ignore("unused_signal")
+signal shop_restock_vouchers_changed(count: int)
+
 ## =============================================================================
 ## Inventory Signals
 ## =============================================================================

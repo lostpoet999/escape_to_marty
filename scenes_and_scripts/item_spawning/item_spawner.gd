@@ -2,19 +2,7 @@ extends Node
 
 @export var item_pool_data: ItemPool
 
-var spawn_weights: Dictionary[int,float]
 var type_filter: String
-
-func _ready() -> void:
-	initialize_spawn_weights()
-
-func initialize_spawn_weights()->void:
-	spawn_weights = {
-		BaseItem.RarityType.COMMON : GameManager.floor_data.spawn_weight.common,
-		BaseItem.RarityType.UNCOMMON : GameManager.floor_data.spawn_weight.uncommon,
-		BaseItem.RarityType.RARE : GameManager.floor_data.spawn_weight.rare,
-		BaseItem.RarityType.VERY_RARE : GameManager.floor_data.spawn_weight.very_rare
-	}
 
 func pick_random_item(weights_override: SpawnWeights = null)->BaseItem:
 	var tier: int = get_tier(weights_override)
@@ -26,14 +14,15 @@ func pick_random_item(weights_override: SpawnWeights = null)->BaseItem:
 	return picked_item
 
 func get_tier(weights_override: SpawnWeights = null)->int:
-	var weights: Dictionary[int, float] = spawn_weights
-	if weights_override != null:
-		weights = {
-			BaseItem.RarityType.COMMON : weights_override.common,
-			BaseItem.RarityType.UNCOMMON : weights_override.uncommon,
-			BaseItem.RarityType.RARE : weights_override.rare,
-			BaseItem.RarityType.VERY_RARE : weights_override.very_rare,
-		}
+	# read the current floor's weights live (no cache) so a floor change always takes effect;
+	# pass weights_override to roll against a specific table (e.g. a boss's tier_weights)
+	var source: SpawnWeights = weights_override if weights_override != null else GameManager.floor_data.spawn_weight
+	var weights: Dictionary[int, float] = {
+		BaseItem.RarityType.COMMON : source.common,
+		BaseItem.RarityType.UNCOMMON : source.uncommon,
+		BaseItem.RarityType.RARE : source.rare,
+		BaseItem.RarityType.VERY_RARE : source.very_rare,
+	}
 	#get spawn-tier
 	var rand: float = randf_range(0.0, 100.0)
 	var cummulative: float = 0.0

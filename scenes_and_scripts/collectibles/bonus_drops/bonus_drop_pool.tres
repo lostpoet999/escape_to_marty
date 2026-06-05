@@ -5,9 +5,11 @@
 [ext_resource type="Resource" uid="uid://chealpld01" path="res://scenes_and_scripts/collectibles/bonus_drops/heal_payload.tres" id="3"]
 [ext_resource type="Resource" uid="uid://cstarspld01" path="res://scenes_and_scripts/collectibles/bonus_drops/stars_payload.tres" id="4"]
 [ext_resource type="Resource" uid="uid://cshieldpld1" path="res://scenes_and_scripts/collectibles/bonus_drops/shield_payload.tres" id="5"]
+[ext_resource type="Resource" uid="uid://cpick2pld01" path="res://scenes_and_scripts/collectibles/bonus_drops/pick2_payload.tres" id="6"]
+[ext_resource type="Resource" uid="uid://cshoprspld1" path="res://scenes_and_scripts/collectibles/bonus_drops/shop_restock_payload.tres" id="7"]
 
 [resource]
 script = ExtResource("1")
-drop_chance = 0.015
-payloads = Array[ExtResource("2")]([ExtResource("3"), ExtResource("4"), ExtResource("5")])
+drop_chance = 0.5
+payloads = Array[ExtResource("2")]([ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6"), ExtResource("7")])
 metadata/_custom_type_script = "uid://c18k4y2vxgl5s"

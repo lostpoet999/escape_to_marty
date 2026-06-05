@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://ct8n40refigl7"]
+
+[ext_resource type="PackedScene" uid="uid://cvun7uxdg3ly8" path="res://scenes_and_scripts/ui_menus/item_selector_panel.tscn" id="1_mcjjd"]
+[ext_resource type="LabelSettings" uid="uid://dx3lg2g7p81op" path="res://label_settings_and_fonts/yellow_48.tres" id="2_l1kq8"]
+[ext_resource type="Script" uid="uid://wvn542jibsc8" path="res://scenes_and_scripts/ui_menus/free_item_panel.gd" id="3_free"]
+
+[node name="FreeItemPanel" unique_id=250866345 instance=ExtResource("1_mcjjd")]
+script = ExtResource("3_free")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." index="1" unique_id=1142411566]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Spacer" type="ColorRect" parent="VBoxContainer" index="0" unique_id=2051305740]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+color = Color(1, 1, 1, 0)
+
+[node name="PanelLabel" type="Label" parent="VBoxContainer" index="1" unique_id=730604009]
+layout_mode = 2
+text = "Choose Wisely..."
+label_settings = ExtResource("2_l1kq8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Spacer2" type="ColorRect" parent="VBoxContainer" index="2" unique_id=1263086415]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+color = Color(1, 1, 1, 0)
+
+[node name="ItemGrid" type="GridContainer" parent="VBoxContainer" index="3" unique_id=1946128147]
+custom_minimum_size = Vector2(0, 250)
+layout_mode = 2
+columns = 3
+
+[node name="Spacer3" type="ColorRect" parent="VBoxContainer" index="4" unique_id=262400209]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+color = Color(1, 1, 1, 0)
+
+[node name="Footer" type="Label" parent="VBoxContainer" index="5" unique_id=1016545299]
+layout_mode = 2
+text = "x1 free pick + 0 pick tickets..."
+label_settings = ExtResource("2_l1kq8")
+horizontal_alignment = 1

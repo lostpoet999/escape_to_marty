@@ -2,8 +2,6 @@ class_name FloorData extends Resource
 
 @export_category("Item Spawn Rates:")
 @export var spawn_weight: SpawnWeights
-@export var free_item_max: int
-@export var shop_items: int
 @export var boss_loot_config: BossLootConfig
 
 @export_category("Bankruptcy")

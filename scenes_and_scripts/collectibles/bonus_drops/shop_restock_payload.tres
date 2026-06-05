@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="ShopRestockPayload" format=3 uid="uid://cshoprspld1"]
+
+[ext_resource type="Script" path="res://scenes_and_scripts/collectibles/bonus_drops/shop_restock_payload.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+label = "Shop Restock Voucher"
+drop_modulate = Color(1, 0.7, 0.3, 1)

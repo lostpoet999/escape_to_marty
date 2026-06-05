@@ -11,6 +11,8 @@ var stars_collected: int = 0
 var player_current_health: int = BASE_MAX_HEALTH
 var player_max_health: int = BASE_MAX_HEALTH
 var free_miss_shields: int = 0
+var pick2_vouchers: int = 0
+var shop_restock_vouchers: int = 0
 
 var inventory: PlayerInventory
 var room_state: Dictionary = {}
@@ -49,6 +51,8 @@ func initialize_player_data() -> void:
 	player_current_health = BASE_MAX_HEALTH
 	player_max_health = BASE_MAX_HEALTH
 	free_miss_shields = 0
+	pick2_vouchers = 0
+	shop_restock_vouchers = 0
 	room_state.clear()
 	bankruptcy_stars_per_life_bonus = 0
 	bankruptcy_damage_per_life_bonus = 0
@@ -111,6 +115,28 @@ func accept_reflect_damage(amount: float) -> void:
 func grant_free_miss_shield(count: int = 1) -> void:
 	free_miss_shields = mini(free_miss_shields + count, MAX_FREE_MISS_SHIELDS)
 	Signalbus.reflect_shield_changed.emit(free_miss_shields)
+
+func grant_pick2_voucher(count: int = 1) -> void:
+	pick2_vouchers += count
+	Signalbus.pick2_vouchers_changed.emit(pick2_vouchers)
+
+func consume_pick2_voucher() -> bool:
+	if pick2_vouchers <= 0:
+		return false
+	pick2_vouchers -= 1
+	Signalbus.pick2_vouchers_changed.emit(pick2_vouchers)
+	return true
+
+func grant_shop_restock_voucher(count: int = 1) -> void:
+	shop_restock_vouchers += count
+	Signalbus.shop_restock_vouchers_changed.emit(shop_restock_vouchers)
+
+func consume_shop_restock_voucher() -> bool:
+	if shop_restock_vouchers <= 0:
+		return false
+	shop_restock_vouchers -= 1
+	Signalbus.shop_restock_vouchers_changed.emit(shop_restock_vouchers)
+	return true
 
 func get_player_health() -> int:
 	return player_current_health
