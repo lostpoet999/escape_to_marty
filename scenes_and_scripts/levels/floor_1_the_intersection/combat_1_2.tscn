@@ -24,6 +24,9 @@ metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 
 [node name="combat_1_2" unique_id=565861230 instance=ExtResource("1_o7dia")]
 
+[node name="Background" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="1" unique_id=306947289]
+metadata/_edit_lock_ = true
+
 [node name="FlashOverlay" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="5" unique_id=443116914]
 metadata/_edit_lock_ = true
 

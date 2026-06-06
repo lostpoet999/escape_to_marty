@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="UtilityPowerup" load_steps=3 format=3 uid="uid://broomscanr1"]
+
+[ext_resource type="Script" uid="uid://cscanutil01" path="res://scenes_and_scripts/powerups_and_behaviors/utility_powerups/utility_powerup.gd" id="1_util"]
+[ext_resource type="Texture2D" uid="uid://cn44s8tnj8dg2" path="res://scenes_and_scripts/inventory/placeholder_tex_32.tres" id="2_icon"]
+
+[resource]
+script = ExtResource("1_util")
+powerup_name = "Room Scanner"
+rarity = 1
+min_floor = 0
+inventory_icon = ExtResource("2_icon")
+cost = 4
+removable = true
+reveals_adjacent_rooms = true
+metadata/_custom_type_script = "uid://cscanutil01"

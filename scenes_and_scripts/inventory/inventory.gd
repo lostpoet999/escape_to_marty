@@ -130,6 +130,15 @@ func get_max_health_bonus() -> int:
 		total += powerup.max_health_bonus
 	return total
 
+func has_room_scanner() -> bool:
+	for item: BaseItem in items:
+		if item.reveals_adjacent_rooms:
+			return true
+	for item: BaseItem in core_items:
+		if item.reveals_adjacent_rooms:
+			return true
+	return false
+
 func get_gesture_damage() -> float:
 	var dmg: float = MouseGestures.DEFAULT_CLICK_DMG
 	var click_items: Array[ClickPowerUp] = get_items_for_click()
@@ -156,7 +165,7 @@ func add_item(new_item) -> void:
 			Signalbus.paddle_active_swap_needed.emit(old_active,new_item)			
 
 
-	elif new_item is BallPassive or new_item is PaddlePowerup or new_item is ClickPowerUp or new_item is DefensivePowerup:
+	elif new_item is BallPassive or new_item is PaddlePowerup or new_item is ClickPowerUp or new_item is DefensivePowerup or new_item is UtilityPowerup:
 			items.push_back(new_item) #this will move when we do quantity update from above
 			Signalbus.inventory_changed.emit()
 			if new_item is DefensivePowerup:

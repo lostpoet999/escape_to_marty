@@ -5,6 +5,7 @@ var cleared: bool = false
 var loot_taken: bool = false
 var shop_generated: bool = false
 var clear_count: int = 0
+var revealed_exits: Array[StringName] = [] #directions (e.g. &"north") whose secret exit the player has revealed this run
 var  loot_items_data: LootItemsData
 
 func generate_item_box()->void:

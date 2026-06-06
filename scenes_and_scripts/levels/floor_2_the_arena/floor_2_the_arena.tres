@@ -108,6 +108,7 @@ room_name_id = "memory_2_1"
 room_scene = ExtResource("14_mem21")
 room_coords = Vector2i(2, 4)
 room_type = 3
+is_secret = true
 north_exit = "combat_2_3"
 metadata/_custom_type_script = "uid://pnkwdspwmpwe"
 
@@ -117,6 +118,7 @@ room_name_id = "memory_2_2"
 room_scene = ExtResource("15_mem22")
 room_coords = Vector2i(4, 5)
 room_type = 3
+is_secret = true
 north_exit = "combat_2_5"
 metadata/_custom_type_script = "uid://pnkwdspwmpwe"
 

@@ -10,6 +10,6 @@
 
 [resource]
 script = ExtResource("1")
-drop_chance = 0.5
+drop_chance = 0.02
 payloads = Array[ExtResource("2")]([ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6"), ExtResource("7")])
 metadata/_custom_type_script = "uid://c18k4y2vxgl5s"
