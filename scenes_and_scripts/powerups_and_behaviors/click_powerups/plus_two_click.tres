@@ -6,6 +6,6 @@
 script = ExtResource("1_clk")
 global_bonus = 2.0
 powerup_name = "Clearer Sight (test)"
-shop_description = "Insert description here 8"
+shop_description = "Adds two click damage"
 rarity = 2
 metadata/_custom_type_script = "uid://cqk3m8x2n5p1"

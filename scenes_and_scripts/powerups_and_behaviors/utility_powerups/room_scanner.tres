@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_util")
 powerup_name = "Room Scanner"
-shop_description = "Insert description here 12"
+shop_description = "Displays nearby rooms in the minimap"
 rarity = 1
 inventory_icon = ExtResource("2_icon")
 cost = 4
