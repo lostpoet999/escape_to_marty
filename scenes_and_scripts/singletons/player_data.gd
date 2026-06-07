@@ -40,7 +40,7 @@ func get_player_score() -> int:
 	return score
 
 func get_room_state(entry: RoomEntry)->RoomState:
-	var id: String = entry.room_name_id
+	var id: String = RoomEntry.make_key(entry.room_coords)
 	if !room_state.has(id):
 		room_state[id] = RoomState.new()
 	return room_state[id]

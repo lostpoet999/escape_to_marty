@@ -1,19 +1,22 @@
 class_name  RoomEntry extends Resource
 
-enum ROOM_TYPES{starting_room,combat,shop,memory,free_item,boss}
+@export var room_coords: Vector2i
+@export var is_static: bool = true
+## pinned content for static slots; pooled content is assigned at runtime otherwise
+@export var content: RoomContent
 
-@export var room_name_id: String
-@export var max_clears: int
-@export var room_scene: PackedScene
-@export var room_coords: Vector2i #most rooms in the floor will be in 5x5 grid so the player can see minimap
-@export var room_type: ROOM_TYPES
+@export var north_exit: bool = false
+@export var south_exit: bool = false
+@export var east_exit: bool = false
+@export var west_exit: bool = false
 
-@export var is_secret: bool = false
+static func make_key(coords: Vector2i) -> String:
+	return "%d_%d" % [coords.x, coords.y]
 
-@export var north_exit: String = ""
-@export var south_exit: String = ""
-@export var east_exit: String = ""
-@export var west_exit: String = ""
-@export var brick_layout: BrickLayout #for future editor/png importer
-
-#TODO: exit conditions for each exit
+func has_door(offset: Vector2i) -> bool:
+	match offset:
+		Vector2i(0, -1): return north_exit
+		Vector2i(0, 1): return south_exit
+		Vector2i(1, 0): return east_exit
+		Vector2i(-1, 0): return west_exit
+	return false

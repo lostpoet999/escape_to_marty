@@ -5,20 +5,20 @@ extends Control
 const UNVISITED_ROOMS_MOD : Color = Color.TRANSPARENT
 
 const TYPE_LETTERS: Dictionary = {
-	RoomEntry.ROOM_TYPES.starting_room: "S",
-	RoomEntry.ROOM_TYPES.combat: "",
-	RoomEntry.ROOM_TYPES.shop: "$",
-	RoomEntry.ROOM_TYPES.memory: "M",
-	RoomEntry.ROOM_TYPES.free_item: "F",
-	RoomEntry.ROOM_TYPES.boss: "B",
+	RoomContent.ROOM_TYPES.starting_room: "S",
+	RoomContent.ROOM_TYPES.combat: "",
+	RoomContent.ROOM_TYPES.shop: "$",
+	RoomContent.ROOM_TYPES.memory: "M",
+	RoomContent.ROOM_TYPES.free_item: "F",
+	RoomContent.ROOM_TYPES.boss: "B",
 }
 const TYPE_COLORS: Dictionary = {
-	RoomEntry.ROOM_TYPES.starting_room: Color(0.65, 0.85, 1.0),
-	RoomEntry.ROOM_TYPES.combat: Color.WHITE,
-	RoomEntry.ROOM_TYPES.shop: Color(1.0, 0.84, 0.0),
-	RoomEntry.ROOM_TYPES.memory: Color(0.7, 0.55, 0.95),
-	RoomEntry.ROOM_TYPES.free_item: Color(0.4, 0.9, 0.45),
-	RoomEntry.ROOM_TYPES.boss: Color(0.9, 0.2, 0.2),
+	RoomContent.ROOM_TYPES.starting_room: Color(0.65, 0.85, 1.0),
+	RoomContent.ROOM_TYPES.combat: Color.WHITE,
+	RoomContent.ROOM_TYPES.shop: Color(1.0, 0.84, 0.0),
+	RoomContent.ROOM_TYPES.memory: Color(0.7, 0.55, 0.95),
+	RoomContent.ROOM_TYPES.free_item: Color(0.4, 0.9, 0.45),
+	RoomContent.ROOM_TYPES.boss: Color(0.9, 0.2, 0.2),
 }
 const REVEALED_BLANK_GLYPH: String = "·"
 
@@ -61,20 +61,20 @@ func _ready() -> void:
 func _refresh() -> void:
 	if room_entry:
 		var discovered: bool = is_visited or is_current
-		var letter: String = TYPE_LETTERS.get(room_entry.room_type, "")
+		var letter: String = TYPE_LETTERS.get(room_entry.content.room_type, "")
 		background.visible = discovered
 		player_indicator.visible = is_current
 		modulate = Color.WHITE if discovered or is_revealed else UNVISITED_ROOMS_MOD
-		north_exit.visible = discovered and _exit_tick_visible(&"north", room_entry.north_exit)
-		south_exit.visible = discovered and _exit_tick_visible(&"south", room_entry.south_exit)
-		east_exit.visible = discovered and _exit_tick_visible(&"east", room_entry.east_exit)
-		west_exit.visible = discovered and _exit_tick_visible(&"west", room_entry.west_exit)
+		north_exit.visible = discovered and _exit_tick_visible(&"north", Vector2i(0, -1))
+		south_exit.visible = discovered and _exit_tick_visible(&"south", Vector2i(0, 1))
+		east_exit.visible = discovered and _exit_tick_visible(&"east", Vector2i(1, 0))
+		west_exit.visible = discovered and _exit_tick_visible(&"west", Vector2i(-1, 0))
 		var glyph: String = letter
 		if is_revealed and not discovered and glyph == "":
 			glyph = REVEALED_BLANK_GLYPH
 		type_label.visible = (discovered or is_revealed) and glyph != ""
 		type_label.text = glyph
-		type_label.add_theme_color_override("font_color", TYPE_COLORS.get(room_entry.room_type, Color.WHITE))
+		type_label.add_theme_color_override("font_color", TYPE_COLORS.get(room_entry.content.room_type, Color.WHITE))
 	else:
 		background.hide()
 		player_indicator.hide()
@@ -85,10 +85,11 @@ func _refresh() -> void:
 		type_label.hide()
 
 
-func _exit_tick_visible(direction: StringName, target_id: String) -> bool:
-	if target_id == "":
+func _exit_tick_visible(direction: StringName, offset: Vector2i) -> bool:
+	if not room_entry.has_door(offset):
 		return false
 	var rooms: Dictionary = GameManager.room_data_for_floor
-	if rooms.has(target_id) and rooms[target_id].is_secret and direction not in revealed_exits:
+	var target_id: String = RoomEntry.make_key(room_entry.room_coords + offset)
+	if rooms.has(target_id) and rooms[target_id].content.is_secret and direction not in revealed_exits:
 		return false
 	return true

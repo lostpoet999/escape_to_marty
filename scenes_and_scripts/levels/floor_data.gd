@@ -18,10 +18,12 @@ class_name FloorData extends Resource
 @export var max_respawn: int
 @export var floor_name_id: String
 @export var room_entries: Array[RoomEntry]
+## content assigned to non-static slots at floor start; required placed first, filler fills the rest
+@export var room_pool: Array[RoomContent]
+## minimum guaranteed rooms per type (RoomContent.ROOM_TYPES value -> count); empty = unchecked
+@export var required_composition: Dictionary
 @export var grid_size: Vector2i = Vector2i(5,5)
 @export var show_mini_map: bool
-@export var starting_room_id: String
-@export var starting_room_scene: PackedScene
 
 @export_category("Enemy Data")
 @export var seal_break_enemies: Array[EnemyConfig]

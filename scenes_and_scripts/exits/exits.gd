@@ -1,7 +1,13 @@
 extends Area2D
 
 const DEFAULT_REVEAL_VFX: PackedScene = preload("res://scenes_and_scripts/bricks/brick_vfx/brick_damage_fx.tscn")
-const SECRET_WALL_TELL: Color = Color(1.3, 1.3, 1.3)
+const SECRET_WALL_TELL: Color = Color(4.0, 0.3, 4.0)
+const DIR_OFFSETS: Dictionary = {
+	"NorthExit": Vector2i(0, -1),
+	"SouthExit": Vector2i(0, 1),
+	"EastExit": Vector2i(1, 0),
+	"WestExit": Vector2i(-1, 0),
+}
 
 @onready var room_ref: Dictionary = GameManager.room_data_for_floor #dictionary of room entries
 @onready var walls_no_door: Node2D = $walls_no_door
@@ -42,7 +48,7 @@ func _input_event(_viewport: Viewport, event: InputEvent, _shape_idx: int) -> vo
 
 func _on_exit_clicked()-> void:
 	if _is_secret_unrevealed():
-		if GameManager.current_state == GameManager.GameState.CLICK_MODE:
+		if _can_reveal_secret():
 			reveal_secret()
 		return
 
@@ -55,9 +61,24 @@ func _on_exit_clicked()-> void:
 
 	var target_room: RoomEntry = room_ref[target_id]
 	GameManager.current_room_id = target_id
-	GameManager.scene_ref = target_room.room_scene
+	GameManager.scene_ref = target_room.content.room_scene
 	GameManager.change_state(GameManager.GameState.BALL_ON_PADDLE)
-	get_tree().change_scene_to_packed(target_room.room_scene)
+	get_tree().change_scene_to_packed(target_room.content.room_scene)
+
+# combat rooms reveal secrets only mid-fight (CLICK_MODE while PLAYING), so a
+# cleared room can't be brute-force scanned. no-combat rooms have no such fight to
+# gate the reveal: shops/free-item/start reveal once they auto-clear into
+# LEVEL_CLEARED; a memory sits in SPECIAL_ROOM, so it reveals once its flame is
+# collected (room_cleared) — this lets a memory link onward to another secret.
+func _can_reveal_secret()-> bool:
+	if GameManager.current_state == GameManager.GameState.CLICK_MODE:
+		return true
+	var here: RoomEntry = room_ref[GameManager.current_room_id]
+	if GameManager.current_state == GameManager.GameState.LEVEL_CLEARED:
+		return here.content.room_type in RoomContent.AUTO_CLEAR_ROOM_TYPES
+	if GameManager.current_state == GameManager.GameState.SPECIAL_ROOM:
+		return room_cleared and here.content.room_type == RoomContent.ROOM_TYPES.memory
+	return false
 
 func reveal_secret()-> void:
 	var state: RoomState = _current_room_state()
@@ -108,12 +129,15 @@ func _direction_key()-> StringName:
 	return &""
 
 func _target_id()-> String:
-	var entry: RoomEntry = room_ref[GameManager.current_room_id]
-	match self.name:
-		"NorthExit": return entry.north_exit
-		"SouthExit": return entry.south_exit
-		"EastExit": return entry.east_exit
-		"WestExit": return entry.west_exit
+	var offset: Vector2i = DIR_OFFSETS.get(self.name, Vector2i.ZERO)
+	if offset == Vector2i.ZERO:
+		return ""
+	var here: RoomEntry = room_ref[GameManager.current_room_id]
+	var key: String = RoomEntry.make_key(here.room_coords + offset)
+	if not room_ref.has(key):
+		return ""
+	if here.has_door(offset) or room_ref[key].has_door(-offset):
+		return key
 	return ""
 
 func _current_room_state()-> RoomState:
@@ -123,7 +147,7 @@ func _is_secret_unrevealed()-> bool:
 	var target_id: String = _target_id()
 	if target_id == "" or not room_ref.has(target_id):
 		return false
-	if not room_ref[target_id].is_secret:
+	if not room_ref[target_id].content.is_secret:
 		return false
 	return _direction_key() not in _current_room_state().revealed_exits
 

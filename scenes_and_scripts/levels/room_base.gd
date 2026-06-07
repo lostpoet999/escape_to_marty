@@ -1,12 +1,5 @@
 extends Node2D
 
-# room types whose exits are open on entry — no combat objective to clear
-const AUTO_CLEAR_ROOM_TYPES: Array[RoomEntry.ROOM_TYPES] = [
-	RoomEntry.ROOM_TYPES.starting_room,
-	RoomEntry.ROOM_TYPES.shop,
-	RoomEntry.ROOM_TYPES.free_item,
-]
-
 const ESCAPED_SPIRIT: PackedScene = preload("uid://5j2pau7yvts4")
 const DAMAGE_NUMBER: PackedScene = preload("uid://bedvoohhfbi03")
 const FREE_ITEM_PANEL: PackedScene = preload("uid://ct8n40refigl7")
@@ -86,7 +79,7 @@ func _on_player_damaged(amount: int) -> void:
 	damage_number.show_damage("-" + str(amount), DamageNumber.COLOR_TAKEN)
 
 func _on_level_cleared_boss_extras() -> void:
-	if entry.room_type != RoomEntry.ROOM_TYPES.boss:
+	if entry.content.room_type != RoomContent.ROOM_TYPES.boss:
 		return
 			
 	room_state.cleared = true
@@ -124,12 +117,12 @@ func _despawn_boss_entities() -> void:
 		boss.queue_free()
 
 func initiate_special_room()->void:
-	if entry.room_type in AUTO_CLEAR_ROOM_TYPES:
+	if entry.content.room_type in RoomContent.AUTO_CLEAR_ROOM_TYPES:
 		bricks_cleared = true
 		stars_cleared = true
 		check_level_cleared()
-	match entry.room_type:
-		RoomEntry.ROOM_TYPES.free_item:
+	match entry.content.room_type:
+		RoomContent.ROOM_TYPES.free_item:
 			if !room_state.loot_items_data:
 				room_state.generate_item_box()
 			if !room_state.loot_items_data.items.is_empty():
@@ -138,7 +131,7 @@ func initiate_special_room()->void:
 				panel.z_index = 500
 				panel.setup(loot_items_data)
 				$PlayArea.add_child(panel)
-		RoomEntry.ROOM_TYPES.shop:
+		RoomContent.ROOM_TYPES.shop:
 			if !room_state.loot_items_data:
 				room_state.generate_item_box()
 			if !room_state.loot_items_data.items.is_empty():
@@ -183,11 +176,11 @@ func _spawn_cap_group(config: EnemyConfig) -> StringName:
 	return StringName("seal_break_enemy_" + config.enemy_name)
 
 func check_level_cleared() -> void: #let gamemanager know level is cleared
-	var max_clear:int = GameManager.get_current_floor_entry(GameManager.current_room_id).max_clears
+	var max_clear:int = GameManager.get_current_floor_entry(GameManager.current_room_id).content.max_clears
 	if stars_cleared && bricks_cleared:
-		Signalbus.level_cleared.emit()		
+		Signalbus.level_cleared.emit()
 		room_state.clear_count +=1
-		if entry.max_clears == -1: return
+		if entry.content.max_clears == -1: return
 		if room_state.clear_count >= max_clear: room_state.cleared = true
 
 func update_stars_in_level(amount: int) -> void:

@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c3bjgu70hca17" path="res://scenes_and_scripts/actors/enemies/specific_enemies/no_see_me_demon/deon.tscn" id="4_vyv6p"]
 [ext_resource type="Script" uid="uid://bgbyjws8op2if" path="res://scenes_and_scripts/ui_level/hint.gd" id="6_e6fxt"]
 [ext_resource type="LabelSettings" uid="uid://x1nhefjv38q7" path="res://label_settings_and_fonts/level_hint.tres" id="7_e6fxt"]
+[ext_resource type="Texture2D" uid="uid://cra2lcyy34b1x" path="res://scenes_and_scripts/ui_menus/edge_patch.png" id="8_u58d3"]
 
 [sub_resource type="Resource" id="Resource_lsl0q"]
 script = ExtResource("3_51qpg")
@@ -26,6 +27,10 @@ metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t4x8m"]
 size = Vector2(140, 100)
+
+[sub_resource type="Curve" id="Curve_e84rk"]
+_data = [Vector2(0.013774104, 0.022184134), 0.0, 0.0, 0, 0, Vector2(0.23829202, 0.12851995), 0.0, 0.0, 0, 0, Vector2(0.5179063, 0.25518858), 0.0, 0.0, 0, 0, Vector2(0.7011019, 0.3742571), 0.0, 0.0, 0, 0, Vector2(0.92699724, 0.49585897), 0.0, 0.0, 0, 0, Vector2(1, 0.9974667), 0.0, 0.0, 0, 0]
+point_count = 6
 
 [node name="combat_1_3" unique_id=565861230 instance=ExtResource("1_nty3w")]
 
@@ -276,3 +281,92 @@ monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="No-Respawn/Hint/Area2D4" index="0" unique_id=1578841472]
 shape = SubResource("RectangleShape2D_t4x8m")
+
+[node name="Label5" type="Label" parent="No-Respawn/Hint" index="8" unique_id=1818022316]
+offset_left = -280.0
+offset_top = -220.0
+offset_right = -279.0
+offset_bottom = -197.0
+text = "Try pressing TAB to release mouse control,
+then try clicking on the Enemy!"
+label_settings = ExtResource("7_e6fxt")
+
+[node name="Area2D5" type="Area2D" parent="No-Respawn/Hint" index="9" unique_id=753223464]
+collision_layer = 0
+input_pickable = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="No-Respawn/Hint/Area2D5" index="0" unique_id=377875965]
+shape = SubResource("RectangleShape2D_t4x8m")
+
+[node name="Label6" type="Label" parent="No-Respawn/Hint" index="10" unique_id=1251507232]
+offset_left = -280.0
+offset_top = -220.0
+offset_right = -279.0
+offset_bottom = -197.0
+text = "Try pressing TAB to release mouse control,
+then try clicking on the Enemy!"
+label_settings = ExtResource("7_e6fxt")
+
+[node name="Area2D6" type="Area2D" parent="No-Respawn/Hint" index="11" unique_id=1334299445]
+collision_layer = 0
+input_pickable = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="No-Respawn/Hint/Area2D6" index="0" unique_id=851849351]
+shape = SubResource("RectangleShape2D_t4x8m")
+
+[node name="Label7" type="Label" parent="No-Respawn/Hint" index="12" unique_id=542588660]
+offset_left = -280.0
+offset_top = -220.0
+offset_right = -279.0
+offset_bottom = -197.0
+text = "Try pressing TAB to release mouse control,
+then try clicking on the Enemy!"
+label_settings = ExtResource("7_e6fxt")
+
+[node name="Area2D7" type="Area2D" parent="No-Respawn/Hint" index="13" unique_id=1639211727]
+collision_layer = 0
+input_pickable = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="No-Respawn/Hint/Area2D7" index="0" unique_id=994154862]
+shape = SubResource("RectangleShape2D_t4x8m")
+
+[node name="DialogTest" type="NinePatchRect" parent="." index="10" unique_id=1982968050]
+visible = false
+offset_left = 1216.0
+offset_top = 672.0
+offset_right = 1664.0
+offset_bottom = 864.0
+texture = ExtResource("8_u58d3")
+patch_margin_left = 50
+patch_margin_top = 1
+patch_margin_right = 50
+patch_margin_bottom = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="DialogTest" index="0" unique_id=792749109]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Label" type="Label" parent="DialogTest/MarginContainer" index="0" unique_id=1272387773]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "I guess I should try and block those rage blobs..."
+label_settings = ExtResource("7_e6fxt")
+autowrap_mode = 3
+
+[node name="Line2D" type="Line2D" parent="DialogTest" index="1" unique_id=35711781]
+position = Vector2(-1216, -672)
+points = PackedVector2Array(1184, 960, 1216, 960, 1248, 928, 1280, 896, 1280, 864)
+width = 5.0
+width_curve = SubResource("Curve_e84rk")

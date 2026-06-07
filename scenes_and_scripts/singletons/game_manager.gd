@@ -34,8 +34,41 @@ func change_state(to_state: GameState) -> void:
 	enter_state(to_state)
 	
 func get_floor_data()->void:
+	room_data_for_floor.clear()
+	var open_slots: Array[RoomEntry] = []
+	for slot: RoomEntry in floor_data.room_entries:
+		if slot.is_static:
+			room_data_for_floor[RoomEntry.make_key(slot.room_coords)] = slot
+		else:
+			open_slots.append(slot)
+	_assign_pooled_content(open_slots)
+
+func _assign_pooled_content(open_slots: Array[RoomEntry]) -> void:
+	var assignment: Array[RoomContent] = []
+	var filler: Array[RoomContent] = []
+	for content: RoomContent in floor_data.room_pool:
+		if content.required:
+			assignment.append(content)
+		else:
+			filler.append(content)
+	filler.shuffle()
+	var filler_needed: int = open_slots.size() - assignment.size()
+	for i: int in range(mini(filler_needed, filler.size())):
+		assignment.append(filler[i])
+	if assignment.size() < open_slots.size():
+		push_warning("floor pool under-supplies slots: %d content for %d open slots" % [assignment.size(), open_slots.size()])
+	open_slots.shuffle()
+	for i: int in range(open_slots.size()):
+		var resolved: RoomEntry = open_slots[i].duplicate()
+		if i < assignment.size():
+			resolved.content = assignment[i]
+		room_data_for_floor[RoomEntry.make_key(resolved.room_coords)] = resolved
+
+func _find_starting_slot() -> RoomEntry:
 	for room: RoomEntry in floor_data.room_entries:
-		room_data_for_floor[room.room_name_id] = room
+		if room.content != null and room.content.room_type == RoomContent.ROOM_TYPES.starting_room:
+			return room
+	return floor_data.room_entries[0]
 
 func get_current_floor_entry(key: String)->RoomEntry:
 	return room_data_for_floor[key]
@@ -142,12 +175,15 @@ func start_floor(reset_player_data: bool = true) -> void:
 	print("current floor: ", current_floor, " of ", FLOOR_REGISTRY.floors.size())
 	var fd_variant: Variant = FLOOR_REGISTRY.floors[current_floor - 1]
 	floor_data = fd_variant
-	scene_ref = floor_data.starting_room_scene
-	current_room_id = floor_data.starting_room_id
 	get_floor_data()
+	var start_slot: RoomEntry = _find_starting_slot()
+	current_room_id = RoomEntry.make_key(start_slot.room_coords)
+	scene_ref = start_slot.content.room_scene
 	_configure_frame_rate()
 	if reset_player_data:
 		PlayerData.initialize_player_data()
+	else:
+		PlayerData.room_state.clear()
 	
 
 func _ready() -> void:

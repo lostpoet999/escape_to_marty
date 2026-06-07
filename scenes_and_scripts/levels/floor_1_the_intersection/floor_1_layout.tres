@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://cm2bdw1o1sypc" path="res://scenes_and_scripts/actors/enemies/specific_enemies/dark_cage/dark_cage.tscn" id="14_q8bvp"]
 [ext_resource type="Texture2D" uid="uid://cqn6snt1p5bby" path="res://scenes_and_scripts/walls/1x1_wall_gray_avg.png" id="18_6jhxo"]
 [ext_resource type="Script" uid="uid://cfvu47iaybkxv" path="res://scenes_and_scripts/item_spawning/boss_loot_config.gd" id="19_bossloot"]
+[ext_resource type="Script" uid="uid://roomcontent0" path="res://scenes_and_scripts/levels/room_content.gd" id="20_rc"]
 
 [sub_resource type="Resource" id="Resource_bossweights"]
 script = ExtResource("12_2wpod")
@@ -34,106 +35,147 @@ script = ExtResource("19_bossloot")
 tier_weights = SubResource("Resource_bossweights")
 metadata/_custom_type_script = "uid://cfvu47iaybkxv"
 
-[sub_resource type="Resource" id="Resource_xcoa1"]
-script = ExtResource("1_hqd6g")
-room_name_id = "start_1"
-max_clears = -1
+[sub_resource type="Resource" id="Content_start1"]
+script = ExtResource("20_rc")
 room_scene = ExtResource("2_nrnxw")
+max_clears = -1
+metadata/_custom_type_script = "uid://roomcontent0"
+
+[sub_resource type="Resource" id="Slot_start1"]
+script = ExtResource("1_hqd6g")
 room_coords = Vector2i(1, 3)
-east_exit = "combat_1_1"
+content = SubResource("Content_start1")
+east_exit = true
 metadata/_custom_type_script = "uid://pnkwdspwmpwe"
 
-[sub_resource type="Resource" id="Resource_uasr3"]
+[sub_resource type="Resource" id="Slot_c11"]
 script = ExtResource("1_hqd6g")
-room_name_id = "combat_1_1"
-max_clears = 2
-room_scene = ExtResource("3_hqd6g")
 room_coords = Vector2i(2, 3)
-room_type = 1
-east_exit = "powerup_1"
-west_exit = "start_1"
+is_static = false
+east_exit = true
+west_exit = true
 metadata/_custom_type_script = "uid://pnkwdspwmpwe"
 
-[sub_resource type="Resource" id="Resource_ujf72"]
+[sub_resource type="Resource" id="Slot_c12"]
 script = ExtResource("1_hqd6g")
-room_name_id = "combat_1_2"
-room_scene = ExtResource("4_n2un6")
 room_coords = Vector2i(3, 2)
-room_type = 1
-north_exit = "shop_1"
-south_exit = "powerup_1"
-west_exit = "memory_1_1"
+is_static = false
+north_exit = true
+south_exit = true
+west_exit = true
 metadata/_custom_type_script = "uid://pnkwdspwmpwe"
 
-[sub_resource type="Resource" id="Resource_leowd"]
+[sub_resource type="Resource" id="Slot_c13"]
 script = ExtResource("1_hqd6g")
-room_name_id = "combat_1_3"
-room_scene = ExtResource("5_3m4i2")
 room_coords = Vector2i(4, 1)
-room_type = 1
-south_exit = "combat_1_4"
-east_exit = "memory_2"
-west_exit = "shop_1"
+is_static = false
+south_exit = true
+west_exit = true
 metadata/_custom_type_script = "uid://pnkwdspwmpwe"
 
-[sub_resource type="Resource" id="Resource_1xisp"]
+[sub_resource type="Resource" id="Slot_p1"]
 script = ExtResource("1_hqd6g")
-room_name_id = "powerup_1"
-room_scene = ExtResource("6_1f751")
 room_coords = Vector2i(3, 3)
-room_type = 4
-north_exit = "combat_1_2"
-west_exit = "combat_1_1"
+is_static = false
+north_exit = true
+west_exit = true
 metadata/_custom_type_script = "uid://pnkwdspwmpwe"
 
-[sub_resource type="Resource" id="Resource_1f751"]
+[sub_resource type="Resource" id="Slot_c14"]
 script = ExtResource("1_hqd6g")
-room_name_id = "combat_1_4"
-room_scene = ExtResource("7_87kjy")
 room_coords = Vector2i(4, 2)
-room_type = 1
-north_exit = "combat_1_3"
-south_exit = "boss_1"
+is_static = false
+north_exit = true
+south_exit = true
 metadata/_custom_type_script = "uid://pnkwdspwmpwe"
 
-[sub_resource type="Resource" id="Resource_87kjy"]
-script = ExtResource("1_hqd6g")
-room_name_id = "memory_1_1"
+[sub_resource type="Resource" id="Content_m11"]
+script = ExtResource("20_rc")
 room_scene = ExtResource("8_d5n1e")
+room_type = 3
+is_secret = true
+metadata/_custom_type_script = "uid://roomcontent0"
+
+[sub_resource type="Resource" id="Slot_m11"]
+script = ExtResource("1_hqd6g")
 room_coords = Vector2i(2, 2)
-room_type = 3
-is_secret = true
-east_exit = "combat_1_2"
+content = SubResource("Content_m11")
+east_exit = true
 metadata/_custom_type_script = "uid://pnkwdspwmpwe"
 
-[sub_resource type="Resource" id="Resource_smmvo"]
+[sub_resource type="Resource" id="Slot_s1"]
 script = ExtResource("1_hqd6g")
-room_name_id = "shop_1"
-room_scene = ExtResource("9_kvvos")
 room_coords = Vector2i(3, 1)
-room_type = 2
-south_exit = "combat_1_2"
-east_exit = "combat_1_3"
+is_static = false
+south_exit = true
+east_exit = true
 metadata/_custom_type_script = "uid://pnkwdspwmpwe"
 
-[sub_resource type="Resource" id="Resource_2wpod"]
+[sub_resource type="Resource" id="Slot_b1"]
 script = ExtResource("1_hqd6g")
-room_name_id = "memory_2"
+room_coords = Vector2i(4, 3)
+is_static = false
+north_exit = true
+south_exit = true
+metadata/_custom_type_script = "uid://pnkwdspwmpwe"
+
+[sub_resource type="Resource" id="Resource_hisw4"]
+script = ExtResource("20_rc")
 room_scene = ExtResource("10_d5n1e")
-room_coords = Vector2i(5, 1)
 room_type = 3
 is_secret = true
-west_exit = "combat_1_3"
-metadata/_custom_type_script = "uid://pnkwdspwmpwe"
 
-[sub_resource type="Resource" id="Resource_gmdml"]
+[sub_resource type="Resource" id="Resource_03adn"]
 script = ExtResource("1_hqd6g")
-room_name_id = "boss_1"
+room_coords = Vector2i(4, 4)
+content = SubResource("Resource_hisw4")
+north_exit = true
+
+[sub_resource type="Resource" id="Content_c11"]
+script = ExtResource("20_rc")
+room_scene = ExtResource("3_hqd6g")
+room_type = 1
+max_clears = 2
+metadata/_custom_type_script = "uid://roomcontent0"
+
+[sub_resource type="Resource" id="Content_c12"]
+script = ExtResource("20_rc")
+room_scene = ExtResource("4_n2un6")
+room_type = 1
+metadata/_custom_type_script = "uid://roomcontent0"
+
+[sub_resource type="Resource" id="Content_c13"]
+script = ExtResource("20_rc")
+room_scene = ExtResource("5_3m4i2")
+room_type = 1
+metadata/_custom_type_script = "uid://roomcontent0"
+
+[sub_resource type="Resource" id="Content_p1"]
+script = ExtResource("20_rc")
+room_scene = ExtResource("6_1f751")
+room_type = 4
+required = true
+metadata/_custom_type_script = "uid://roomcontent0"
+
+[sub_resource type="Resource" id="Content_c14"]
+script = ExtResource("20_rc")
+room_scene = ExtResource("7_87kjy")
+room_type = 1
+metadata/_custom_type_script = "uid://roomcontent0"
+
+[sub_resource type="Resource" id="Content_s1"]
+script = ExtResource("20_rc")
+room_scene = ExtResource("9_kvvos")
+room_type = 2
+required = true
+metadata/_custom_type_script = "uid://roomcontent0"
+
+[sub_resource type="Resource" id="Content_b1"]
+script = ExtResource("20_rc")
 room_scene = ExtResource("11_6jhxo")
-room_coords = Vector2i(4, 3)
 room_type = 5
-north_exit = "combat_1_4"
-metadata/_custom_type_script = "uid://pnkwdspwmpwe"
+required = true
+metadata/_custom_type_script = "uid://roomcontent0"
 
 [sub_resource type="Resource" id="Resource_w0og2"]
 script = ExtResource("13_74xxy")
@@ -178,10 +220,9 @@ seal_difficulty_rates = SubResource("Resource_d5n1e")
 seal_phase_pool = Array[ExtResource("13_rtyfa")]([SubResource("Resource_mwylx")])
 seal_health_phase = SubResource("Resource_74xxy")
 floor_name_id = "The Intersection"
-room_entries = Array[ExtResource("1_hqd6g")]([SubResource("Resource_xcoa1"), SubResource("Resource_uasr3"), SubResource("Resource_ujf72"), SubResource("Resource_leowd"), SubResource("Resource_1xisp"), SubResource("Resource_1f751"), SubResource("Resource_87kjy"), SubResource("Resource_smmvo"), SubResource("Resource_2wpod"), SubResource("Resource_gmdml")])
+room_entries = Array[ExtResource("1_hqd6g")]([SubResource("Slot_start1"), SubResource("Slot_c11"), SubResource("Slot_c12"), SubResource("Slot_c13"), SubResource("Slot_p1"), SubResource("Slot_c14"), SubResource("Slot_m11"), SubResource("Slot_s1"), SubResource("Slot_b1"), SubResource("Resource_03adn")])
+room_pool = Array[ExtResource("20_rc")]([SubResource("Content_c11"), SubResource("Content_c12"), SubResource("Content_c13"), SubResource("Content_p1"), SubResource("Content_c14"), SubResource("Content_s1"), SubResource("Content_b1")])
 show_mini_map = true
-starting_room_id = "start_1"
-starting_room_scene = ExtResource("2_nrnxw")
 seal_break_enemies = Array[ExtResource("13_74xxy")]([SubResource("Resource_w0og2")])
 wall_texture = ExtResource("18_6jhxo")
 wall_modulate = Color(0, 0.7019608, 0.8862745, 1)
