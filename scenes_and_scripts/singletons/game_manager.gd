@@ -21,7 +21,7 @@ const BRICKS: String = "Brick"
 const PADDLE: String = "paddle"
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel") and current_state != GameState.MAIN_MENU:
+	if (event.is_action_pressed("ui_cancel") or event.is_action_pressed("pause")) and current_state != GameState.MAIN_MENU:
 		if current_state != GameState.PAUSED:
 			change_state(GameState.PAUSED)
 		else:
