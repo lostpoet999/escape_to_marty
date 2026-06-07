@@ -1,6 +1,7 @@
 class_name FreeItemPanel extends ItemSelectorPanelBase
 
 @onready var footer_label: Label = $VBoxContainer/Footer
+@onready var item_description_label: Label = $VBoxContainer/ItemDescription
 
 func _ready() -> void:
 	_configure_grid()
@@ -18,6 +19,7 @@ func _refresh() -> void:
 		var button: Button = _make_slot_button(item)
 		button.disabled = not can_pick
 		button.pressed.connect(_on_slot_pressed.bind(item))
+		button.mouse_entered.connect(_on_mouse_entered_item.bind(item))
 		item_grid.add_child(button)
 	_update_footer()
 
@@ -38,3 +40,6 @@ func _update_footer() -> void:
 	var free_pick: int = 0 if loot_items_data.base_pick_used else 1
 	footer_label.text = "x%d free pick + %d pick tickets" % [free_pick, PlayerData.pick2_vouchers]
 	footer_label.visible = true
+
+func _on_mouse_entered_item(item: BaseItem) -> void:
+	item_description_label.text = item.shop_description

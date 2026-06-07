@@ -2,6 +2,7 @@ class_name ShopPanel extends ItemSelectorPanelBase
 
 @onready var reroll_button: Button = $VBoxContainer/Footer/RerollButton
 @onready var reroll_count_label: Label = $VBoxContainer/Footer/RerollCountLabel
+@onready var item_description_label: Label = $VBoxContainer/ItemDescription
 
 var slots: Array[Control] = []
 
@@ -11,6 +12,9 @@ func _ready() -> void:
 			slots.append(child)
 	for i: int in slots.size():
 		_buy_button(i).pressed.connect(_on_buy_pressed.bind(i))
+		_item_button(i).mouse_entered.connect(_on_mouse_entered_item.bind(i))
+		_buy_button(i).mouse_entered.connect(_on_mouse_entered_item.bind(i))
+		slots[i].mouse_entered.connect(_on_mouse_entered_item.bind(i))
 	reroll_button.pressed.connect(_on_reroll_pressed)
 	_refresh()
 
@@ -61,3 +65,7 @@ func _on_reroll_pressed() -> void:
 func _update_reroll() -> void:
 	reroll_count_label.text = "x%d" % PlayerData.shop_restock_vouchers
 	reroll_button.disabled = PlayerData.shop_restock_vouchers <= 0
+
+func _on_mouse_entered_item(i: int) -> void:
+	var item: BaseItem = loot_items_data.items[i]
+	item_description_label.text = item.shop_description

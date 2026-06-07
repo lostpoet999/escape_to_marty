@@ -1,15 +1,11 @@
-[gd_resource type="Resource" script_class="ClickPowerUp" load_steps=3 format=3 uid="uid://dn5w9k2x4m71"]
+[gd_resource type="Resource" script_class="ClickPowerUp" format=3 uid="uid://dn5xak2x4m71"]
 
 [ext_resource type="Script" uid="uid://cqk3m8x2n5p1" path="res://scenes_and_scripts/powerups_and_behaviors/click_powerups/click_powerup.gd" id="1_clk"]
-[ext_resource type="Texture2D" uid="uid://cecsf2n63bp27" path="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/plus_two_dmg.png" id="2_icon"]
 
 [resource]
 script = ExtResource("1_clk")
-powerup_name = "Clearer Sight (test)"
-rarity = 2
-min_floor = 0
-cost = 0
-removable = true
 global_bonus = 2.0
-global_multi = 1.0
+powerup_name = "Clearer Sight (test)"
+shop_description = "Insert description here 8"
+rarity = 2
 metadata/_custom_type_script = "uid://cqk3m8x2n5p1"

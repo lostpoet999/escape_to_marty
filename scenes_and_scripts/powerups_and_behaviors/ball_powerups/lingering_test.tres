@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BallPassive" format=3]
+[gd_resource type="Resource" script_class="BallPassive" format=3 uid="uid://guk72l7j0j54"]
 
 [ext_resource type="Script" uid="uid://bryv4msdad7wu" path="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/ball_passive.gd" id="1_ball"]
 [ext_resource type="Script" uid="uid://jwtisqgpmqvq" path="res://scenes_and_scripts/powerups_and_behaviors/ball_behaviors/hit_behavior.gd" id="2_hb"]
@@ -13,17 +13,15 @@ metadata/_custom_type_script = "uid://bghf4s4u8hh5r"
 script = ExtResource("2_hb")
 targeting = SubResource("DirectTarget_ling")
 trigger_groups = Array[StringName]([&"bricks"])
-local_multi = 1.0
 spawn_on_apply = ExtResource("4_field")
 max_spawn = 3
 metadata/_custom_type_script = "uid://jwtisqgpmqvq"
 
 [resource]
 script = ExtResource("1_ball")
-global_bonus = 0.0
-global_multi = 1.0
 on_hit = Array[ExtResource("2_hb")]([SubResource("HitBehavior_ling")])
 powerup_name = "Lingering Field Test"
+shop_description = "Insert description here 4"
 rarity = 3
 cost = 5
 metadata/_custom_type_script = "uid://bryv4msdad7wu"

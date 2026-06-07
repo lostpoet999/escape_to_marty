@@ -42,7 +42,18 @@ custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 color = Color(1, 1, 1, 0)
 
-[node name="Footer" type="Label" parent="VBoxContainer" index="5" unique_id=1016545299]
+[node name="ItemDescription" type="Label" parent="VBoxContainer" index="5" unique_id=468371289]
+layout_mode = 2
+text = "Hover over an item to view its description"
+label_settings = ExtResource("2_l1kq8")
+horizontal_alignment = 1
+
+[node name="Spacer4" type="ColorRect" parent="VBoxContainer" index="6" unique_id=402232831]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+color = Color(1, 1, 1, 0)
+
+[node name="Footer" type="Label" parent="VBoxContainer" index="7" unique_id=1016545299]
 layout_mode = 2
 text = "x1 free pick + 0 pick tickets..."
 label_settings = ExtResource("2_l1kq8")
