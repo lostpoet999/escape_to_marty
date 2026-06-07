@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cvun7uxdg3ly8" path="res://scenes_and_scripts/ui_menus/item_selector_panel.tscn" id="1_frame"]
 [ext_resource type="LabelSettings" uid="uid://dx3lg2g7p81op" path="res://label_settings_and_fonts/yellow_48.tres" id="2_title"]
 [ext_resource type="Script" uid="uid://b0gdq6w0ac67c" path="res://scenes_and_scripts/ui_menus/shop_panel.gd" id="3_shop"]
+[ext_resource type="LabelSettings" uid="uid://dggu2le3hh0p5" path="res://label_settings_and_fonts/yellow_40.tres" id="4_3ld4c"]
 
 [node name="ShopPanel" unique_id=1777654044 instance=ExtResource("1_frame")]
 script = ExtResource("3_shop")
@@ -100,7 +101,7 @@ layout_mode = 2
 [node name="ItemDescription" type="Label" parent="VBoxContainer" index="5" unique_id=1537438559]
 layout_mode = 2
 text = "Hover over an item to view its description"
-label_settings = ExtResource("2_title")
+label_settings = ExtResource("4_3ld4c")
 horizontal_alignment = 1
 
 [node name="Spacer4" type="Control" parent="VBoxContainer" index="6" unique_id=240771028]
