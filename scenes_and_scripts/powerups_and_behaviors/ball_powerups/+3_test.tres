@@ -7,6 +7,7 @@
 script = ExtResource("1_ball")
 global_bonus = 3.0
 powerup_name = "+3 Test"
+shop_description = "Adds 3 ball damage (before multipliers)"
 rarity = 3
 cost = 5
 metadata/_custom_type_script = "uid://bryv4msdad7wu"

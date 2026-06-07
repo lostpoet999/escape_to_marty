@@ -20,6 +20,7 @@ script = ExtResource("2_ball")
 global_multi = 2.0
 on_hit = Array[ExtResource("2_lqspo")]([SubResource("Resource_3ry8e")])
 powerup_name = "2x Damage"
+shop_description = "Doubles damage deal by ball"
 rarity = 2
 inventory_icon = ExtResource("1_icon")
 cost = 5

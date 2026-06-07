@@ -36,6 +36,7 @@ projectile_dmg_type = Array[int]([0, 5])
 on_hit = Array[ExtResource("2_mb6dy")]([SubResource("Resource_o057o")])
 spawn_points = 127
 powerup_name = "Spirit Shot"
+shop_description = "Fires projectile that damages bricks and Shells of Denial"
 rarity = 1
 inventory_icon = ExtResource("1_omwp3")
 cost = 5

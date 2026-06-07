@@ -21,6 +21,7 @@ metadata/_custom_type_script = "uid://jwtisqgpmqvq"
 script = ExtResource("1_ball")
 on_hit = Array[ExtResource("2_hb")]([SubResource("HitBehavior_sweep")])
 powerup_name = "Denial Sweep"
+shop_description = "Damages nearby Shells of Denial"
 rarity = 3
 cost = 10
 metadata/_custom_type_script = "uid://bryv4msdad7wu"

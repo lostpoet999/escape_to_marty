@@ -18,6 +18,7 @@ metadata/_custom_type_script = "uid://jwtisqgpmqvq"
 script = ExtResource("1_ball")
 on_hit = Array[ExtResource("2_hb")]([SubResource("HitBehavior_base")])
 powerup_name = "Basic_Ball"
+shop_description = "Adds ball"
 inventory_icon = ExtResource("4_icon")
 removable = false
 metadata/_custom_type_script = "uid://bryv4msdad7wu"
