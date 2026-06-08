@@ -35,7 +35,7 @@ func _ready()->void:
 	timer.wait_time = action_timer	
 	start_action_timer()
 
-func accept_damage(_damage: int, _dmg_type: Array[GameManager.PhaseType])->void:
+func accept_damage(_damage: float, _dmg_type: Array[GameManager.PhaseType])->void:
 	SFX.play_sound("enemy_hurt")
 	show_damage_number(1)
 	denial_health -= 1
@@ -47,6 +47,7 @@ func accept_damage(_damage: int, _dmg_type: Array[GameManager.PhaseType])->void:
 func show_damage_number(amount: int) -> void:
 	var dn: DamageNumber = DAMAGE_NUMBER.instantiate()
 	dn.position = global_position
+	dn.z_index = 2000
 	get_tree().current_scene.add_child(dn)
 	dn.show_damage("-" + str(amount), DamageNumber.COLOR_DEALT)
 

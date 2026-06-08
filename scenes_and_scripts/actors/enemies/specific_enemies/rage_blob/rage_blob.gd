@@ -6,6 +6,8 @@ extends FallingEnemy
 @export var damage_min: int = 1
 @export var damage_max: int = 3
 
+var is_tweening_to_david: bool = false
+
 func _ready() -> void:
 	_setup_offscreen_cleanup()	
 	falling = false
@@ -45,5 +47,34 @@ func on_hit_paddle(_paddle: Node) -> void:
 	queue_free()
 
 func on_hit_death_wall(_wall: Node) -> void:
+	if is_tweening_to_david:
+		return
+	await tween_to_david(global_position)
 	PlayerData.accept_damage(randi_range(damage_min, damage_max))
 	on_fall_landed()
+
+func tween_to_david(hit_pos: Vector2) -> void:
+	is_tweening_to_david = true
+	set_physics_process(false)
+	$DeathWallDetector.set_deferred("monitoring", false)
+
+	var david: Node2D = get_tree().get_first_node_in_group("david")
+	var hit_target: Node2D = david.get_node("DavidHitTarget")
+
+	var p0: Vector2 = hit_pos
+	var p2: Vector2 = hit_target.global_position
+	var mid: Vector2 = (p0 + p2) * 0.5
+	var sag: float = 40.0
+	var p1: Vector2 = mid + Vector2(0, sag)
+
+	var tw: Tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tw.tween_method(
+		func(t: float) -> void:
+			global_position = _bezier(t, p0, p1, p2),
+		0.0, 1.0, 0.2
+	)
+	await tw.finished
+
+func _bezier(t: float, p0: Vector2, p1: Vector2, p2: Vector2) -> Vector2:
+	var u: float = 1.0 - t
+	return u * u * p0 + 2.0 * u * t * p1 + t * t * p2

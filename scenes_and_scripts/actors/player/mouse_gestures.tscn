@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ck6fj7h722sbs"]
 
-[ext_resource type="Script" uid="uid://b37ejp7ptknxc" path="res://scenes_and_scripts/player/mouse_gestures.gd" id="1_wgaec"]
+[ext_resource type="Script" uid="uid://b37ejp7ptknxc" path="res://scenes_and_scripts/actors/player/mouse_gestures.gd" id="1_wgaec"]
 
 [node name="MouseGestures" type="Node2D" unique_id=662497496]
 z_index = 500

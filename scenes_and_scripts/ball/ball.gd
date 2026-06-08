@@ -298,6 +298,8 @@ func apply_collider_effects(collider: Node2D) -> void:
 	var ctx: HitContext = _make_hit_context()
 	for behavior: HitBehavior in behaviors:
 		behavior.apply(ctx, collider)
+	if collider.is_in_group("bounce_enemy"):
+		_collision_set.append(collider.get_instance_id())
 
 func _make_hit_context() -> HitContext:
 	var ctx: HitContext = HitContext.new()

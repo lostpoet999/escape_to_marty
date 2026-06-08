@@ -83,7 +83,11 @@ func adjust_paddle_length(modify_by: float) -> void:
 func reset_paddle_length()->void:
 	sprite.scale.x = base_scale_x
 	paddle_collision_shape.scale.x = base_shape_size_x
-	
+
+func set_paddle_hidden(hidden: bool) -> void:
+	sprite.visible = not hidden
+	paddle_collision_shape.set_deferred("disabled", hidden)
+
 func set_paddle_length_from_items()->void:
 	paddle_powerups = PlayerData.inventory.get_items_for_paddle()  # refresh first
 	if paddle_powerups.is_empty(): return

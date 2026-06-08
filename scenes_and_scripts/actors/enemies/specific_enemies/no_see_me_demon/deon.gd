@@ -3,7 +3,7 @@ extends PlacedEnemy
 
 @export var destroy_fx: PackedScene
 
-func accept_damage(_damage: int, _dmg_type: Array[GameManager.PhaseType])->void:
+func accept_damage(_damage: float, _dmg_type: Array[GameManager.PhaseType])->void:
 	# while covered, only DENIAL reveals; once revealed, any damage kills
 	if denial_health > 0 and not _dmg_type.has(GameManager.PhaseType.DENIAL):
 		return
@@ -16,6 +16,7 @@ func accept_damage(_damage: int, _dmg_type: Array[GameManager.PhaseType])->void:
 		
 
 func die()->void:
+	if is_queued_for_deletion(): return
 	if is_blocker:
 		Signalbus.blocker_removed.emit(self)
 		ready_to_remove.emit(self)

@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://csjala42gonuh" path="res://scenes_and_scripts/ball/vfx/bounce_wall_particles.tscn" id="3_2ucj3"]
 [ext_resource type="PackedScene" uid="uid://cu8odfaqma1aj" path="res://scenes_and_scripts/ball/vfx/bounce_paddle_particles.tscn" id="4_q6nx1"]
 [ext_resource type="Script" uid="uid://cs82vpqerteng" path="res://scenes_and_scripts/ball/vfx/trail.gd" id="5_jlcqq"]
-[ext_resource type="Texture2D" uid="uid://befajfg1phsl6" path="res://scenes_and_scripts/player/player_ghost_particles.png" id="7_nxvvx"]
+[ext_resource type="Texture2D" uid="uid://befajfg1phsl6" path="res://scenes_and_scripts/actors/player/player_ghost_particles.png" id="7_nxvvx"]
 [ext_resource type="Texture2D" uid="uid://c2jiidt43iqcx" path="res://scenes_and_scripts/ball/vfx/negative-energy.png" id="8_0y8e8"]
 
 [sub_resource type="Curve" id="Curve_jlcqq"]

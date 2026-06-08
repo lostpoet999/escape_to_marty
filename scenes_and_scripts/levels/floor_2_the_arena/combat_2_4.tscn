@@ -139,9 +139,9 @@ brick_health = 2
 [node name="EnemySpawner" parent="No-Respawn/Spawners" parent_id_path=PackedInt32Array(1587044855) index="0" unique_id=740599083 instance=ExtResource("3_hkc1k")]
 position = Vector2(288, 960)
 enemies = Array[ExtResource("4_xsesl")]([SubResource("Resource_lsl0q")])
-spawn_an_enemy_chance = 50.0
+spawn_an_enemy_chance = 45.0
 respawn_time = 10.0
-initial_spawn_time = 2.0
+initial_spawn_time = 5.0
 max_spawns = 1
 
 [node name="EnemySpawner2" parent="No-Respawn/Spawners" parent_id_path=PackedInt32Array(1587044855) index="1" unique_id=18242075 instance=ExtResource("3_hkc1k")]

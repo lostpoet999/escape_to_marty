@@ -101,9 +101,37 @@ static func validate(floor: FloorData) -> Array[Dictionary]:
 			if have < need:
 				issues.append({severity = "error", text = "Need %d %s, only %d guaranteed." % [need, _type_name(type_value), have]})
 
+	_check_boss_count(floor, slots, issues)
+
 	if _no_errors(issues):
 		issues.append({severity = "ok", text = "No blocking issues."})
 	return issues
+
+# only one boss room is usable per floor — its FloorPortal ends the floor on click,
+# so a second boss room is wasted/skipped. count static boss slots + pooled boss
+# content (required always placed, filler may be). >1 guaranteed is broken; a filler
+# boss that could double the count is a warning.
+static func _check_boss_count(floor: FloorData, slots: Array[RoomEntry], issues: Array[Dictionary]) -> void:
+	var boss_type: int = RoomContent.ROOM_TYPES.boss
+	var static_boss: int = 0
+	for slot: RoomEntry in slots:
+		if slot != null and slot.is_static and slot.content != null and slot.content.room_type == boss_type:
+			static_boss += 1
+	var required_boss: int = 0
+	var filler_boss: int = 0
+	for content: RoomContent in floor.room_pool:
+		if content == null or content.room_type != boss_type:
+			continue
+		if content.required:
+			required_boss += 1
+		else:
+			filler_boss += 1
+	var guaranteed: int = static_boss + required_boss
+	var possible: int = guaranteed + filler_boss
+	if guaranteed > 1:
+		issues.append({severity = "error", text = "%d boss rooms always spawn — only one is usable (its portal ends the floor)." % guaranteed})
+	elif possible > 1:
+		issues.append({severity = "error", text = "Up to %d boss rooms can spawn — a filler boss in the pool may double the boss." % possible})
 
 static func _reachable_keys(start: RoomEntry, by_coords: Dictionary) -> Dictionary:
 	var seen: Dictionary = {RoomEntry.make_key(start.room_coords): true}

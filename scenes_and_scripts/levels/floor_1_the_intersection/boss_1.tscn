@@ -30,51 +30,35 @@ position = Vector2(1376, 928)
 
 [node name="BossDeonSeal" parent="PlayArea/BossDeonCage" index="2" unique_id=887021685 instance=ExtResource("5_njqif")]
 position = Vector2(1376, 864)
-stages = Dictionary[int, float]({
-0: 1.0
-})
+brick_health = 5
 
 [node name="BossDeonSeal2" parent="PlayArea/BossDeonCage" index="3" unique_id=1214185130 instance=ExtResource("5_njqif")]
 position = Vector2(1376, 800)
-stages = Dictionary[int, float]({
-0: 1.0
-})
+brick_health = 5
 
 [node name="BossDeonSeal3" parent="PlayArea/BossDeonCage" index="4" unique_id=336911161 instance=ExtResource("5_njqif")]
 position = Vector2(1376, 736)
-stages = Dictionary[int, float]({
-0: 1.0
-})
+brick_health = 5
 
 [node name="BossDeonSeal4" parent="PlayArea/BossDeonCage" index="5" unique_id=2029771445 instance=ExtResource("5_njqif")]
 position = Vector2(1376, 672)
-stages = Dictionary[int, float]({
-0: 1.0
-})
+brick_health = 5
 
 [node name="BossDeonSeal5" parent="PlayArea/BossDeonCage" index="6" unique_id=1998331999 instance=ExtResource("5_njqif")]
 position = Vector2(1376, 608)
-stages = Dictionary[int, float]({
-0: 1.0
-})
+brick_health = 5
 
 [node name="BossDeonSeal6" parent="PlayArea/BossDeonCage" index="7" unique_id=884025061 instance=ExtResource("5_njqif")]
 position = Vector2(1376, 544)
-stages = Dictionary[int, float]({
-0: 1.0
-})
+brick_health = 5
 
 [node name="BossDeonSeal7" parent="PlayArea/BossDeonCage" index="8" unique_id=109674662 instance=ExtResource("5_njqif")]
 position = Vector2(1376, 480)
-stages = Dictionary[int, float]({
-0: 1.0
-})
+brick_health = 5
 
 [node name="BossDeonSeal8" parent="PlayArea/BossDeonCage" index="9" unique_id=1902180510 instance=ExtResource("5_njqif")]
 position = Vector2(1376, 416)
-stages = Dictionary[int, float]({
-0: 1.0
-})
+brick_health = 5
 
 [node name="BorderWall3" parent="PlayArea/BossDeonCage" index="10" unique_id=39085958 instance=ExtResource("4_th818")]
 position = Vector2(1376, 352)
@@ -114,10 +98,11 @@ shape = SubResource("RectangleShape2D_portal")
 color = Color(0.3, 0.8, 1, 1)
 polygon = PackedVector2Array(-80, -80, 80, -80, 80, 80, -80, 80)
 
+[node name="FlashOverlay" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="7" unique_id=443116914]
+metadata/_edit_lock_ = true
+
 [node name="item_spawn_point" parent="." index="8" unique_id=51076593]
 position = Vector2(1079, 736)
 
 [node name="Boss1Denial" parent="." index="10" unique_id=591023107 groups=["bounce_enemy"] instance=ExtResource("3_ndrbk")]
 position = Vector2(1633, 709)
-
-[editable path="Boss1Denial"]

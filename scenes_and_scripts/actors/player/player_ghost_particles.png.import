@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://befajfg1phsl6"
-path="res://.godot/imported/player_ghost_particles.png-8c9a6c998d5214db9ec1d3b795a18b45.ctex"
+path="res://.godot/imported/player_ghost_particles.png-43a0d3d0c16d865cbe8e67d018ebe8ad.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes_and_scripts/player/player_ghost_particles.png"
-dest_files=["res://.godot/imported/player_ghost_particles.png-8c9a6c998d5214db9ec1d3b795a18b45.ctex"]
+source_file="res://scenes_and_scripts/actors/player/player_ghost_particles.png"
+dest_files=["res://.godot/imported/player_ghost_particles.png-43a0d3d0c16d865cbe8e67d018ebe8ad.ctex"]
 
 [params]
 

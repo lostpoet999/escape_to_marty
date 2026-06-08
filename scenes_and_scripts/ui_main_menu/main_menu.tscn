@@ -4,7 +4,7 @@
 [ext_resource type="FontFile" uid="uid://ce5jk1ok7f4r5" path="res://label_settings_and_fonts/fonts/PressStart2P-Regular.ttf" id="2_font"]
 [ext_resource type="Material" uid="uid://ba7fs15txmy5s" path="res://scenes_and_scripts/backgrounds/misty-particle-material.tres" id="2_hujsa"]
 [ext_resource type="Texture2D" uid="uid://wi34v2345ihn" path="res://scenes_and_scripts/bricks/brick-gemstone-facets.png" id="3_jl0n4"]
-[ext_resource type="Texture2D" uid="uid://befajfg1phsl6" path="res://scenes_and_scripts/player/player_ghost_particles.png" id="4_jl0n4"]
+[ext_resource type="Texture2D" uid="uid://befajfg1phsl6" path="res://scenes_and_scripts/actors/player/player_ghost_particles.png" id="4_jl0n4"]
 [ext_resource type="PackedScene" uid="uid://ld8u6g3nsn62" path="res://scenes_and_scripts/ball/ball.tscn" id="5_78bc0"]
 
 [sub_resource type="Gradient" id="Gradient_nf3nx"]

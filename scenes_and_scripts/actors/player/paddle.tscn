@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://bvg65uexkq1cm"]
 
-[ext_resource type="Script" uid="uid://c14m3ye4ihp6" path="res://scenes_and_scripts/player/paddle.gd" id="1_ews1h"]
-[ext_resource type="Texture2D" uid="uid://ceqjt876orrnp" path="res://scenes_and_scripts/player/basic_paddle.png" id="2_qicss"]
-[ext_resource type="PackedScene" uid="uid://ci3ujdi2gcmsw" path="res://scenes_and_scripts/player/ghost_david.tscn" id="3_sflau"]
-[ext_resource type="PackedScene" uid="uid://ck6fj7h722sbs" path="res://scenes_and_scripts/player/mouse_gestures.tscn" id="4_ireb1"]
+[ext_resource type="Script" uid="uid://c14m3ye4ihp6" path="res://scenes_and_scripts/actors/player/paddle.gd" id="1_ews1h"]
+[ext_resource type="Texture2D" uid="uid://ceqjt876orrnp" path="res://scenes_and_scripts/actors/player/basic_paddle.png" id="2_qicss"]
+[ext_resource type="PackedScene" uid="uid://ci3ujdi2gcmsw" path="res://scenes_and_scripts/actors/player/ghost_david.tscn" id="3_sflau"]
+[ext_resource type="PackedScene" uid="uid://ck6fj7h722sbs" path="res://scenes_and_scripts/actors/player/mouse_gestures.tscn" id="4_ireb1"]
+[ext_resource type="PackedScene" uid="uid://deb5vtt4s4rrl" path="res://scenes_and_scripts/dialog/dialog.tscn" id="5_mc4wn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8fbbk"]
 size = Vector2(122, 28)
@@ -11,8 +12,7 @@ size = Vector2(122, 28)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ireb1"]
 size = Vector2(68, 112)
 
-[node name="Paddle" type="CharacterBody2D" unique_id=1681485936 groups=["paddle"]]
-collision_mask = 3
+[node name="Paddle" type="CharacterBody2D" unique_id=146304682 groups=["paddle"]]
 script = ExtResource("1_ews1h")
 
 [node name="PaddleSprite" type="Sprite2D" parent="." unique_id=486052735]
@@ -51,8 +51,6 @@ rotation = 1.5707964
 
 [node name="MouseGestures" parent="." unique_id=662497496 instance=ExtResource("4_ireb1")]
 
-[node name="Paddle" type="Node2D" parent="." unique_id=192741555]
-
 [node name="David" type="Area2D" parent="." unique_id=947183434 groups=["david"]]
 
 [node name="DavidCollider" type="CollisionShape2D" parent="David" unique_id=544298755]
@@ -65,3 +63,10 @@ position = Vector2(0, 10)
 
 [node name="DavidHitTarget" type="Marker2D" parent="David" unique_id=773740869]
 position = Vector2(1, 59)
+
+[node name="DialogTest" parent="David" unique_id=1685290747 instance=ExtResource("5_mc4wn")]
+visible = false
+offset_left = 96.0
+offset_top = -256.0
+offset_right = 544.0
+offset_bottom = -64.0

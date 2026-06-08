@@ -176,6 +176,8 @@ func _spawn_cap_group(config: EnemyConfig) -> StringName:
 	return StringName("seal_break_enemy_" + config.enemy_name)
 
 func check_level_cleared() -> void: #let gamemanager know level is cleared
+	if entry.content.room_type == RoomContent.ROOM_TYPES.boss:
+		return
 	var max_clear:int = GameManager.get_current_floor_entry(GameManager.current_room_id).content.max_clears
 	if stars_cleared && bricks_cleared:
 		Signalbus.level_cleared.emit()

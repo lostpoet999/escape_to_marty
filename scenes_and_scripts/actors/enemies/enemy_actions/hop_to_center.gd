@@ -24,6 +24,8 @@ var hops: int = 0
 var origin_position: Vector2
 var origin_scale_cached: Vector2
 var active_tweens: Array[Tween] = []
+var collision_node: Node2D
+var origin_collision_scale_cached: Vector2 = Vector2.ONE
 
 func reset()->void:
 	hops = 0
@@ -54,6 +56,19 @@ func execute_action(actor: PlacedEnemy) -> void:
 	origin_position = Vector2(start_x, origin_y)
 	origin_scale_cached = origin_scale
 	active_tweens.clear()
+
+	# --- Hitbox stays a constant world size while the sprite squashes ---
+	collision_node = actor.get_node_or_null("CollisionShape2D")
+	if collision_node != null:
+		origin_collision_scale_cached = collision_node.scale
+		var hitbox_tween: Tween = actor.create_tween()
+		hitbox_tween.tween_method(func(_t: float) -> void:
+			collision_node.scale = origin_collision_scale_cached * origin_scale / actor.scale
+		, 0.0, 1.0, speed * 1.5)
+		hitbox_tween.tween_callback(func() -> void:
+			collision_node.scale = origin_collision_scale_cached
+		)
+		active_tweens.append(hitbox_tween)
 
 	# --- Position Tween ---
 	var tween: Tween = actor.create_tween()
@@ -126,4 +141,6 @@ func cancel_to_origin(actor: PlacedEnemy) -> void:
 	active_tweens.clear()
 	actor.global_position = origin_position
 	actor.scale = origin_scale_cached
+	if collision_node != null:
+		collision_node.scale = origin_collision_scale_cached
 	is_hopping = false
