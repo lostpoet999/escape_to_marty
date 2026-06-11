@@ -59,6 +59,16 @@ func _ready() -> void:
 	Signalbus.screen_flash.connect(flash_play_area)
 	Signalbus.player_damaged.connect(_on_player_damaged)
 	initiate_special_room()
+	if entry.content.room_type == RoomContent.ROOM_TYPES.combat:
+		DialogDirector.play(&"first_combat_room")
+	_run_cutscene_if_present()
+
+
+func _run_cutscene_if_present() -> void:
+	for child: Node in get_children():
+		if child.is_in_group("cutscene") and child.has_method("run"):
+			child.call("run")
+			return
 
 func flash_play_area(color: Color) -> void:
 	flash_overlay.color = Color(color.r, color.g, color.b, 0.0)
@@ -154,6 +164,7 @@ func _on_enemy_requested(spawn_from: Area2D) -> void: # for brick break enemies
 		var spirit: Node2D = ESCAPED_SPIRIT.instantiate()
 		spirit.position = spawn_from.position
 		spawn_from.get_parent().add_child(spirit)
+		DialogDirector.play(&"freed_spirit")
 
 func pick_seal_break_config(enemy_configs: Array[EnemyConfig]) -> EnemyConfig: #for brick break enemies
 	var index: int = 0

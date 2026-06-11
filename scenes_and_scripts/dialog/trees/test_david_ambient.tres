@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="DialogTree" format=3 uid="uid://b1ska6v4f5n1s"]
+
+[ext_resource type="Script" uid="uid://bkgp0oq7lrafl" path="res://scenes_and_scripts/dialog/dialog_tree.gd" id="1_tree"]
+[ext_resource type="Script" uid="uid://da86xmy7akvas" path="res://scenes_and_scripts/dialog/dialog_beat.gd" id="2_beat"]
+
+[sub_resource type="Resource" id="Resource_beat_1"]
+script = ExtResource("2_beat")
+text = "Testing, testing... can anyone hear me?"
+
+[sub_resource type="Resource" id="Resource_beat_2"]
+script = ExtResource("2_beat")
+text = "This bubble should follow the paddle while I talk."
+
+[sub_resource type="Resource" id="Resource_beat_3"]
+script = ExtResource("2_beat")
+text = "And I should only say all this once per run."
+
+[resource]
+script = ExtResource("1_tree")
+beats = Array[ExtResource("2_beat")]([SubResource("Resource_beat_1"), SubResource("Resource_beat_2"), SubResource("Resource_beat_3")])

@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bwqqfn8j70s1u" path="res://scenes_and_scripts/exits/exits.gd" id="1_gtbbh"]
 [ext_resource type="Texture2D" uid="uid://nhuggym8gsmb" path="res://scenes_and_scripts/walls/1x1_brownish_wall.png" id="2_x23op"]
 
-[node name="exit_base" type="Area2D" unique_id=618575957 groups=["walls"]]
+[node name="exit_base" type="Area2D" unique_id=618575957 groups=["exits", "walls"]]
 script = ExtResource("1_gtbbh")
 
 [node name="ExitBarrier_closed" type="ColorRect" parent="." unique_id=902411008]

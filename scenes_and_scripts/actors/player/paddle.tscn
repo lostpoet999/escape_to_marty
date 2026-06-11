@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://ceqjt876orrnp" path="res://scenes_and_scripts/actors/player/basic_paddle.png" id="2_qicss"]
 [ext_resource type="PackedScene" uid="uid://ci3ujdi2gcmsw" path="res://scenes_and_scripts/actors/player/ghost_david.tscn" id="3_sflau"]
 [ext_resource type="PackedScene" uid="uid://ck6fj7h722sbs" path="res://scenes_and_scripts/actors/player/mouse_gestures.tscn" id="4_ireb1"]
-[ext_resource type="PackedScene" uid="uid://deb5vtt4s4rrl" path="res://scenes_and_scripts/dialog/dialog.tscn" id="5_mc4wn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8fbbk"]
 size = Vector2(122, 28)
@@ -63,10 +62,3 @@ position = Vector2(0, 10)
 
 [node name="DavidHitTarget" type="Marker2D" parent="David" unique_id=773740869]
 position = Vector2(1, 59)
-
-[node name="DialogTest" parent="David" unique_id=1685290747 instance=ExtResource("5_mc4wn")]
-visible = false
-offset_left = 96.0
-offset_top = -256.0
-offset_right = 544.0
-offset_bottom = -64.0

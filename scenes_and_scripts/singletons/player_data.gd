@@ -17,6 +17,9 @@ var shop_restock_vouchers: int = 0
 var inventory: PlayerInventory
 var room_state: Dictionary = {}
 var item_box: Node2D
+var seen_dialog_trees: Array[StringName] = []
+var seen_cutscenes: Array[StringName] = []
+var dialog_trigger_counts: Dictionary[StringName, int] = {}
 
 var bankruptcy_stars_per_life_bonus: int = 0
 var bankruptcy_damage_per_life_bonus: int = 0
@@ -54,6 +57,9 @@ func initialize_player_data() -> void:
 	pick2_vouchers = 0
 	shop_restock_vouchers = 0
 	room_state.clear()
+	seen_dialog_trees.clear()
+	seen_cutscenes.clear()
+	dialog_trigger_counts.clear()
 	bankruptcy_stars_per_life_bonus = 0
 	bankruptcy_damage_per_life_bonus = 0
 	if inventory: inventory.free()

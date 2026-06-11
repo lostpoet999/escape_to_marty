@@ -51,6 +51,7 @@ func on_hit_death_wall(_wall: Node) -> void:
 		return
 	await tween_to_david(global_position)
 	PlayerData.accept_damage(randi_range(damage_min, damage_max))
+	DialogDirector.play(&"rage_blob_hit")
 	on_fall_landed()
 
 func tween_to_david(hit_pos: Vector2) -> void:

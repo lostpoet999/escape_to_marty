@@ -12,7 +12,6 @@ metadata/_custom_type_script = "uid://bghf4s4u8hh5r"
 [sub_resource type="Resource" id="Resource_3ry8e"]
 script = ExtResource("2_lqspo")
 targeting = SubResource("Resource_ine0i")
-types = Array[int]([0, 5])
 metadata/_custom_type_script = "uid://jwtisqgpmqvq"
 
 [resource]

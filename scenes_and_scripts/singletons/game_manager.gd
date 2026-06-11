@@ -29,6 +29,7 @@ func _input(event: InputEvent) -> void:
 
 #region gamestate functions
 func change_state(to_state: GameState) -> void:
+	if DialogDirector.focused_active: return
 	if not is_valid_state_transition(current_state, to_state): return
 	exit_state(current_state)
 	enter_state(to_state)

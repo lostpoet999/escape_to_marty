@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://cdlgbubble01"]
+
+[ext_resource type="Script" uid="uid://mi3766wvx8nf" path="res://scenes_and_scripts/dialog/dialog_bubble.gd" id="1_dlgbb"]
+[ext_resource type="Texture2D" uid="uid://cra2lcyy34b1x" path="res://scenes_and_scripts/ui_menus/edge_patch.png" id="2_dlgbb"]
+[ext_resource type="FontFile" uid="uid://ce5jk1ok7f4r5" path="res://label_settings_and_fonts/fonts/PressStart2P-Regular.ttf" id="3_dlgbb"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_dlgbb"]
+font = ExtResource("3_dlgbb")
+font_size = 20
+font_color = Color(0.7019608, 1, 1, 1)
+
+[sub_resource type="Curve" id="Curve_dlgbb"]
+_data = [Vector2(0, 0.05), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="DialogBubble" type="Node2D" unique_id=950464218]
+top_level = true
+z_index = 100
+script = ExtResource("1_dlgbb")
+
+[node name="BubblePanel" type="NinePatchRect" parent="." unique_id=1193149781]
+offset_left = -579.0
+offset_top = -40.0
+offset_right = -131.0
+offset_bottom = 152.0
+texture = ExtResource("2_dlgbb")
+patch_margin_left = 50
+patch_margin_top = 1
+patch_margin_right = 50
+patch_margin_bottom = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="BubblePanel" unique_id=1967683214]
+z_index = 5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 20
+
+[node name="DialogText" type="Label" parent="BubblePanel/MarginContainer" unique_id=348876687]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_dlgbb")
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="AdvanceIndicator" type="Polygon2D" parent="BubblePanel" unique_id=1409552871]
+visible = false
+z_index = 6
+position = Vector2(398, 164)
+color = Color(1, 1, 1, 0.85)
+polygon = PackedVector2Array(-8, -5, 8, -5, 0, 5)
+
+[node name="TailLine" type="Line2D" parent="." unique_id=1151695496]
+z_index = -1
+position = Vector2(-135.00002, 70)
+rotation = -3.1401598
+points = PackedVector2Array(-67.972725, 19.097416, -44.991364, 6.064476, -14.987106, 9.021484, 4.007187, 4.9942627)
+width = 5.0
+width_curve = SubResource("Curve_dlgbb")

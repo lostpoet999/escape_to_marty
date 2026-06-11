@@ -103,7 +103,8 @@ func _get_target_under_mouse() -> Node:
 	query.position = get_viewport().get_mouse_position()
 	query.collide_with_areas = true
 	var results : Array[Dictionary] = space.intersect_point(query)
-	if results.is_empty():		
+	results = results.filter(func(result: Dictionary) -> bool: return result.collider.has_method("accept_damage"))
+	if results.is_empty():
 		return null
 	results.sort_custom(func(a: Dictionary, b: Dictionary) -> bool: return a.collider.z_index > b.collider.z_index)
 	return results[0].collider

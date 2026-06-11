@@ -17,6 +17,7 @@ const DIR_OFFSETS: Dictionary = {
 @export var reveal_vfx: PackedScene
 
 var room_cleared: bool = false
+var travel_locked: bool = false
 
 func _ready() -> void:
 	Signalbus.level_cleared.connect(enable_exits)
@@ -28,12 +29,23 @@ func tween_open_door()->void:
 	tween.tween_property(self, "scale", Vector2(1.0, 1.0), .5)
 	tween.set_loops(0)
 
+## Cutscenes lock travel without lying about the room: real doors show
+## closed, solid walls stay walls, unrevealed secrets stay disguised (but
+## can't be reveal-clicked while locked).
+func set_travel_locked(locked: bool) -> void:
+	travel_locked = locked
+	reconcile_exits()
+
 func reconcile_exits()-> void:
 	var target_id: String = _target_id()
 	if target_id == "":
 		show_walls()
 	elif _is_secret_unrevealed():
 		show_secret_wall()
+		if travel_locked:
+			self.input_pickable = false
+	elif travel_locked:
+		show_closed_door()
 	elif room_cleared:
 		show_open_door()
 		tween_open_door()

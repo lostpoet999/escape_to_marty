@@ -24,8 +24,7 @@ var hops: int = 0
 var origin_position: Vector2
 var origin_scale_cached: Vector2
 var active_tweens: Array[Tween] = []
-var collision_node: Node2D
-var origin_collision_scale_cached: Vector2 = Vector2.ONE
+var squash_node: Node2D
 
 func reset()->void:
 	hops = 0
@@ -51,24 +50,14 @@ func execute_action(actor: PlacedEnemy) -> void:
 		return
 	is_hopping = true
 	var origin_y: float = actor.global_position.y
-	var origin_scale: Vector2 = actor.scale
+	squash_node = actor.get_node_or_null("AnimatedSprite2D")
+	if squash_node == null:
+		squash_node = actor
+	var origin_scale: Vector2 = squash_node.scale
 	var start_x: float = actor.global_position.x
 	origin_position = Vector2(start_x, origin_y)
 	origin_scale_cached = origin_scale
 	active_tweens.clear()
-
-	# --- Hitbox stays a constant world size while the sprite squashes ---
-	collision_node = actor.get_node_or_null("CollisionShape2D")
-	if collision_node != null:
-		origin_collision_scale_cached = collision_node.scale
-		var hitbox_tween: Tween = actor.create_tween()
-		hitbox_tween.tween_method(func(_t: float) -> void:
-			collision_node.scale = origin_collision_scale_cached * origin_scale / actor.scale
-		, 0.0, 1.0, speed * 1.5)
-		hitbox_tween.tween_callback(func() -> void:
-			collision_node.scale = origin_collision_scale_cached
-		)
-		active_tweens.append(hitbox_tween)
 
 	# --- Position Tween ---
 	var tween: Tween = actor.create_tween()
@@ -84,26 +73,26 @@ func execute_action(actor: PlacedEnemy) -> void:
 	up_tween.tween_property(actor, "global_position:y",
 		origin_y, speed * 0.5)\
 		.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_SINE)
-		
-	# --- Takeoff Squash & Stretch ---
+	
+	#jump and stretch	
 	var scale_tween: Tween = actor.create_tween()
-	scale_tween.tween_property(actor, "scale",
+	scale_tween.tween_property(squash_node, "scale",
 		Vector2(origin_scale.x * 1.3, origin_scale.y * 0.7), speed * 0.15)\
 		.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
-	scale_tween.tween_property(actor, "scale",
+	scale_tween.tween_property(squash_node, "scale",
 		Vector2(origin_scale.x * 0.8, origin_scale.y * 1.4), speed * 0.10)\
 		.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
-	scale_tween.tween_property(actor, "scale",
+	scale_tween.tween_property(squash_node, "scale",
 		origin_scale, speed * 0.75)\
 		.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
 		
 	active_tweens.append_array([tween, up_tween, scale_tween])
 
-	# --- Landing fires after arc completes ---
+	# land
 	up_tween.tween_callback(func() -> void:
 		var land_tween: Tween = actor.create_tween()
 		active_tweens.append(land_tween)
-		land_tween.tween_property(actor, "scale",
+		land_tween.tween_property(squash_node, "scale",
 			Vector2(origin_scale.x * 1.3, origin_scale.y * 0.7), speed * 0.10)\
 			.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
 		land_tween.tween_callback(func() -> void:
@@ -122,7 +111,7 @@ func execute_action(actor: PlacedEnemy) -> void:
 			dust1.emitting = true			
 			dust2.emitting = true
 		)
-		land_tween.tween_property(actor, "scale",
+		land_tween.tween_property(squash_node, "scale",
 			origin_scale, speed * 0.30)\
 			.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
 		land_tween.tween_callback(func() -> void: is_hopping = false)
@@ -140,7 +129,6 @@ func cancel_to_origin(actor: PlacedEnemy) -> void:
 		if t != null and t.is_valid(): t.kill()
 	active_tweens.clear()
 	actor.global_position = origin_position
-	actor.scale = origin_scale_cached
-	if collision_node != null:
-		collision_node.scale = origin_collision_scale_cached
+	if squash_node != null:
+		squash_node.scale = origin_scale_cached
 	is_hopping = false
