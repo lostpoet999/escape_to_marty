@@ -85,8 +85,8 @@ func get_tooltip_for_item(item: Variant) -> String:
 	## the basic ball is the one non-removable ball passive — report live ball damage on hover
 	if item is BallPassive and not item.removable:
 		var dmg: float = PlayerInventory.get_instance().get_ball_damage()
-		return "%s\nBall Damage: %s" % [item.powerup_name, snappedf(dmg, 0.01)]
-	return item.powerup_name
+		return "%s\n%s\nBall Damage: %s" % [item.powerup_name, item.shop_description, snappedf(dmg, 0.01)]
+	return "%s\n%s" % [item.powerup_name, item.shop_description]
 
 func add_count_badge(button: Button, count: int) -> void:
 	var label: Label = Label.new()
