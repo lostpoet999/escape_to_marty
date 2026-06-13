@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="BallPassive" format=3 uid="uid://cphsesweep1"]
+
+[ext_resource type="Texture2D" uid="uid://pj7r7jekie5" path="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/self_discovery_denial.png" id="1_50aic"]
+[ext_resource type="Script" uid="uid://jwtisqgpmqvq" path="res://scenes_and_scripts/powerups_and_behaviors/ball_behaviors/hit_behavior.gd" id="1_lrrnb"]
+[ext_resource type="Script" uid="uid://bl7jpgmdpf3y8" path="res://scenes_and_scripts/powerups_and_behaviors/ball_behaviors/targeting/phase_target.gd" id="2_50aic"]
+[ext_resource type="Script" uid="uid://bryv4msdad7wu" path="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/ball_passive.gd" id="3_tvk15"]
+
+[sub_resource type="Resource" id="PhaseTarget_sweep"]
+script = ExtResource("2_50aic")
+filter_phases = Array[int]([0])
+metadata/_custom_type_script = "uid://bl7jpgmdpf3y8"
+
+[sub_resource type="Resource" id="HitBehavior_sweep"]
+script = ExtResource("1_lrrnb")
+targeting = SubResource("PhaseTarget_sweep")
+trigger_groups = Array[StringName]([&"bricks"])
+types = Array[int]([0])
+local_multi = 0.25
+metadata/_custom_type_script = "uid://jwtisqgpmqvq"
+
+[resource]
+script = ExtResource("3_tvk15")
+on_hit = Array[ExtResource("1_lrrnb")]([SubResource("HitBehavior_sweep")])
+powerup_name = "Self Discovery"
+shop_description = "Damages all Shells of Denial"
+rarity = 3
+inventory_icon = ExtResource("1_50aic")
+cost = 10
+metadata/_custom_type_script = "uid://bryv4msdad7wu"

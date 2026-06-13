@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cqbg6wq1hq6mj"
-path="res://.godot/imported/spirit_shot_sprite.png-b62df32d42c50403272b839995de6b63.ctex"
+uid="uid://c27a2o0fxbvpf"
+path="res://.godot/imported/bounce.png-23ba5d9a81e0030d0d9453ca9c1f640d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes_and_scripts/powerups_and_behaviors/paddle_active_powerups/spirit_shot_sprite.png"
-dest_files=["res://.godot/imported/spirit_shot_sprite.png-b62df32d42c50403272b839995de6b63.ctex"]
+source_file="res://scenes_and_scripts/ball/bounce.png"
+dest_files=["res://.godot/imported/bounce.png-23ba5d9a81e0030d0d9453ca9c1f640d.ctex"]
 
 [params]
 

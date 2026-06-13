@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://wf32q64261vr"]
 
 [ext_resource type="Script" uid="uid://bksjwrxkmarc" path="res://scenes_and_scripts/powerups_and_behaviors/paddle_active_powerups/projectile_base.gd" id="1_66it4"]
-[ext_resource type="Texture2D" uid="uid://cqbg6wq1hq6mj" path="res://scenes_and_scripts/powerups_and_behaviors/paddle_active_powerups/spirit_shot_sprite.png" id="1_ltkbp"]
+[ext_resource type="Texture2D" uid="uid://cqbg6wq1hq6mj" path="res://scenes_and_scripts/powerups_and_behaviors/paddle_active_powerups/quick_truth_denial_dam.png" id="1_ltkbp"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_66it4"]
 radius = 4.0

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ClickPowerUp" format=3 uid="uid://dn5xak2x4m71"]
+
+[ext_resource type="Texture2D" uid="uid://c5l85jl7hn0tw" path="res://scenes_and_scripts/powerups_and_behaviors/click_powerups/develop_patience.png" id="1_tripy"]
+[ext_resource type="Script" uid="uid://cqk3m8x2n5p1" path="res://scenes_and_scripts/powerups_and_behaviors/click_powerups/click_powerup.gd" id="2_5rfq0"]
+
+[resource]
+script = ExtResource("2_5rfq0")
+global_bonus = 2.0
+powerup_name = "Develop Patience"
+shop_description = "Adds two click damage"
+rarity = 2
+inventory_icon = ExtResource("1_tripy")
+metadata/_custom_type_script = "uid://cqk3m8x2n5p1"

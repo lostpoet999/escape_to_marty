@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cuwvvr2wvgr25"
-path="res://.godot/imported/2x_powerup_sprite.png-d1af13cb3fc6947cae2e407ff5b0f0b5.ctex"
+uid="uid://pj7r7jekie5"
+path="res://.godot/imported/self_discovery_denial.png-1b837aa65889c77446d446089dac9049.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/2x_powerup_sprite.png"
-dest_files=["res://.godot/imported/2x_powerup_sprite.png-d1af13cb3fc6947cae2e407ff5b0f0b5.ctex"]
+source_file="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/self_discovery_denial.png"
+dest_files=["res://.godot/imported/self_discovery_denial.png-1b837aa65889c77446d446089dac9049.ctex"]
 
 [params]
 

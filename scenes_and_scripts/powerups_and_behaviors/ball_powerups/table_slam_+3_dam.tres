@@ -2,12 +2,14 @@
 
 [ext_resource type="Script" uid="uid://bryv4msdad7wu" path="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/ball_passive.gd" id="1_ball"]
 [ext_resource type="Script" uid="uid://jwtisqgpmqvq" path="res://scenes_and_scripts/powerups_and_behaviors/ball_behaviors/hit_behavior.gd" id="1_sfmso"]
+[ext_resource type="Texture2D" uid="uid://be4rl8byg8uy7" path="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/table_slam_+3_dam.png" id="1_vhlsx"]
 
 [resource]
 script = ExtResource("1_ball")
 global_bonus = 3.0
-powerup_name = "+3 Test"
+powerup_name = "Table Slam"
 shop_description = "Adds 3 ball damage (before multipliers)"
 rarity = 3
+inventory_icon = ExtResource("1_vhlsx")
 cost = 5
 metadata/_custom_type_script = "uid://bryv4msdad7wu"

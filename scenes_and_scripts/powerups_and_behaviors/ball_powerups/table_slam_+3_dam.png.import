@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://0q538vh4iwat"
-path="res://.godot/imported/spirit_shot_sprite2.png-80e01d6369a815da932b88038fbe7cf6.ctex"
+uid="uid://be4rl8byg8uy7"
+path="res://.godot/imported/table_slam_+3_dam.png-8775a3127ac4ac2301eb98082bb46966.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes_and_scripts/powerups_and_behaviors/paddle_active_powerups/spirit_shot_sprite2.png"
-dest_files=["res://.godot/imported/spirit_shot_sprite2.png-80e01d6369a815da932b88038fbe7cf6.ctex"]
+source_file="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/table_slam_+3_dam.png"
+dest_files=["res://.godot/imported/table_slam_+3_dam.png-8775a3127ac4ac2301eb98082bb46966.ctex"]
 
 [params]
 

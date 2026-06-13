@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PaddlePowerup" format=3 uid="uid://cyfkiym60unn"]
+
+[ext_resource type="Texture2D" uid="uid://damrqqo47shtq" path="res://scenes_and_scripts/powerups_and_behaviors/paddle_powerups/safe_space_paddle_up.png" id="1_su1ya"]
+[ext_resource type="Script" uid="uid://b81b3hhkeuin4" path="res://scenes_and_scripts/powerups_and_behaviors/paddle_powerups/paddle_powerup.gd" id="1_txn2m"]
+
+[resource]
+script = ExtResource("1_txn2m")
+paddle_length_mod = 1.2
+powerup_name = "Safe Space"
+shop_description = "Widens the paddle"
+inventory_icon = ExtResource("1_su1ya")
+cost = 5
+metadata/_custom_type_script = "uid://b81b3hhkeuin4"

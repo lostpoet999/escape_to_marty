@@ -1,0 +1,43 @@
+[gd_resource type="Resource" script_class="PaddleActive" format=3 uid="uid://8rrbt0jirryc"]
+
+[ext_resource type="Texture2D" uid="uid://0q538vh4iwat" path="res://scenes_and_scripts/powerups_and_behaviors/paddle_active_powerups/focused_outburst.png" id="1_0rmrp"]
+[ext_resource type="Script" uid="uid://jwtisqgpmqvq" path="res://scenes_and_scripts/powerups_and_behaviors/ball_behaviors/hit_behavior.gd" id="2_ijb7f"]
+[ext_resource type="Script" uid="uid://dnkfaoggkglke" path="res://scenes_and_scripts/powerups_and_behaviors/ball_behaviors/targeting/shape_target.gd" id="3_8wnky"]
+[ext_resource type="Script" uid="uid://cshapedrvfx" path="res://scenes_and_scripts/powerups_and_behaviors/ball_behaviors/vfx/shape_draw_vfx.gd" id="4_gd8dq"]
+[ext_resource type="PackedScene" uid="uid://bhe1gjfa8d5fg" path="res://scenes_and_scripts/powerups_and_behaviors/paddle_active_powerups/red_projectile.tscn" id="5_ijb7f"]
+[ext_resource type="Script" uid="uid://0q4ogral5cxt" path="res://scenes_and_scripts/powerups_and_behaviors/paddle_active_powerups/paddle_active_ability.gd" id="6_ccrp2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_055kh"]
+radius = 40.0
+
+[sub_resource type="Resource" id="Resource_dc7p0"]
+script = ExtResource("3_8wnky")
+probe_shape = SubResource("CircleShape2D_055kh")
+metadata/_custom_type_script = "uid://dnkfaoggkglke"
+
+[sub_resource type="Resource" id="Resource_nuxh8"]
+script = ExtResource("4_gd8dq")
+color = Color(0.9502842, 0.4866907, 0.24111873, 0.5019608)
+metadata/_custom_type_script = "uid://cshapedrvfx"
+
+[sub_resource type="Resource" id="Resource_o057o"]
+script = ExtResource("2_ijb7f")
+targeting = SubResource("Resource_dc7p0")
+vfx = SubResource("Resource_nuxh8")
+metadata/_custom_type_script = "uid://jwtisqgpmqvq"
+
+[resource]
+script = ExtResource("6_ccrp2")
+projectile_ref = ExtResource("5_ijb7f")
+max_spawn = 2
+speed_modifier = 1.0
+damage = 1
+projectile_dmg_type = Array[int]([1, 5])
+on_hit = Array[ExtResource("2_ijb7f")]([SubResource("Resource_o057o")])
+spawn_points = 25
+powerup_name = "Focused Outburst"
+shop_description = "Fires projectile that damages seals and Pent Rage"
+rarity = 1
+inventory_icon = ExtResource("1_0rmrp")
+cost = 5
+metadata/_custom_type_script = "uid://0q4ogral5cxt"

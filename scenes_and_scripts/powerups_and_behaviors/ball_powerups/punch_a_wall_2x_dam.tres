@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="BallPassive" format=3 uid="uid://b1myuckbujeku"]
 
-[ext_resource type="Texture2D" uid="uid://cuwvvr2wvgr25" path="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/2x_powerup_sprite.png" id="1_icon"]
+[ext_resource type="Texture2D" uid="uid://cuwvvr2wvgr25" path="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/punch_a_wall_2x_dam.png" id="1_icon"]
 [ext_resource type="Script" uid="uid://bryv4msdad7wu" path="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/ball_passive.gd" id="2_ball"]
 [ext_resource type="Script" uid="uid://jwtisqgpmqvq" path="res://scenes_and_scripts/powerups_and_behaviors/ball_behaviors/hit_behavior.gd" id="2_lqspo"]
 [ext_resource type="Script" uid="uid://bghf4s4u8hh5r" path="res://scenes_and_scripts/powerups_and_behaviors/ball_behaviors/targeting/direct_target.gd" id="3_ydxcu"]
@@ -18,7 +18,7 @@ metadata/_custom_type_script = "uid://jwtisqgpmqvq"
 script = ExtResource("2_ball")
 global_multi = 2.0
 on_hit = Array[ExtResource("2_lqspo")]([SubResource("Resource_3ry8e")])
-powerup_name = "2x Damage"
+powerup_name = "Punch a wall"
 shop_description = "Doubles damage deal by ball"
 rarity = 2
 inventory_icon = ExtResource("1_icon")

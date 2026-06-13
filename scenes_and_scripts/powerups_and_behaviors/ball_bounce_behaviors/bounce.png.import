@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cecsf2n63bp27"
-path="res://.godot/imported/plus_two_dmg.png-71de49d5042c69a72f5c597068df5a81.ctex"
+uid="uid://bwm37vi681rt3"
+path="res://.godot/imported/bounce.png-e7d44248428c1a8222d87d39e57a9409.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/plus_two_dmg.png"
-dest_files=["res://.godot/imported/plus_two_dmg.png-71de49d5042c69a72f5c597068df5a81.ctex"]
+source_file="res://scenes_and_scripts/powerups_and_behaviors/ball_bounce_behaviors/bounce.png"
+dest_files=["res://.godot/imported/bounce.png-e7d44248428c1a8222d87d39e57a9409.ctex"]
 
 [params]
 
