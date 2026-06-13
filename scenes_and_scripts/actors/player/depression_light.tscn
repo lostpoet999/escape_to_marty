@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://cdeprlight1"]
+
+[ext_resource type="Script" path="res://scenes_and_scripts/actors/player/depression_light.gd" id="1"]
+
+[sub_resource type="Gradient" id="Gradient_1"]
+offsets = PackedFloat32Array(0, 1)
+colors = PackedColorArray(1, 0.92, 0.72, 1, 1, 0.92, 0.72, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1"]
+gradient = SubResource("Gradient_1")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="Gradient" id="Gradient_Orb"]
+offsets = PackedFloat32Array(0, 0.55, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.85, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_Orb"]
+gradient = SubResource("Gradient_Orb")
+width = 64
+height = 64
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[node name="DepressionLight" type="Node2D"]
+script = ExtResource("1")
+tick_interval_centered = 1.0
+tick_interval_edge = 3.0
+damage_per_tick = 1.0
+lifetime = 14.0
+flicker_fractions = Array[float]([])
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 1.8
+texture = SubResource("GradientTexture2D_1")
+texture_scale = 0.8
+color = Color(1, 0.9, 0.68, 1)
+
+[node name="Orb" type="Sprite2D" parent="."]
+z_index = 1
+texture = SubResource("GradientTexture2D_Orb")

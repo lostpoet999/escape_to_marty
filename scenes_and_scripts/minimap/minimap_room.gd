@@ -11,6 +11,7 @@ const TYPE_LETTERS: Dictionary = {
 	RoomContent.ROOM_TYPES.memory: "M",
 	RoomContent.ROOM_TYPES.free_item: "F",
 	RoomContent.ROOM_TYPES.boss: "B",
+	RoomContent.ROOM_TYPES.bonus_room: "+",
 }
 const TYPE_COLORS: Dictionary = {
 	RoomContent.ROOM_TYPES.starting_room: Color(0.65, 0.85, 1.0),
@@ -19,6 +20,7 @@ const TYPE_COLORS: Dictionary = {
 	RoomContent.ROOM_TYPES.memory: Color(0.7, 0.55, 0.95),
 	RoomContent.ROOM_TYPES.free_item: Color(0.4, 0.9, 0.45),
 	RoomContent.ROOM_TYPES.boss: Color(0.9, 0.2, 0.2),
+	RoomContent.ROOM_TYPES.bonus_room: Color(0.35, 0.85, 0.9),
 }
 const REVEALED_BLANK_GLYPH: String = "·"
 
@@ -53,6 +55,11 @@ const REVEALED_BLANK_GLYPH: String = "·"
 		revealed_exits = v
 		_refresh()
 
+@export var labels_enabled: bool = true : # room-type glyphs gated behind the Map Marker item
+	set(v):
+		labels_enabled = v
+		_refresh()
+
 
 func _ready() -> void:
 	_refresh()
@@ -61,7 +68,7 @@ func _ready() -> void:
 func _refresh() -> void:
 	if room_entry:
 		var discovered: bool = is_visited or is_current
-		var letter: String = TYPE_LETTERS.get(room_entry.content.room_type, "")
+		var letter: String = TYPE_LETTERS.get(room_entry.content.room_type, "") if labels_enabled else ""
 		background.visible = discovered
 		player_indicator.visible = is_current
 		modulate = Color.WHITE if discovered or is_revealed else UNVISITED_ROOMS_MOD

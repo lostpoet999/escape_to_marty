@@ -2,6 +2,7 @@ extends Area2D
 
 const DEFAULT_REVEAL_VFX: PackedScene = preload("res://scenes_and_scripts/bricks/brick_vfx/brick_damage_fx.tscn")
 const SECRET_WALL_TELL: Color = Color(4.0, 0.3, 4.0)
+const BONUS_DOOR_GOLD: Color = Color(1.0, 0.9, 0.2)
 const DIR_OFFSETS: Dictionary = {
 	"NorthExit": Vector2i(0, -1),
 	"SouthExit": Vector2i(0, 1),
@@ -46,11 +47,29 @@ func reconcile_exits()-> void:
 			self.input_pickable = false
 	elif travel_locked:
 		show_closed_door()
+	elif _targets_bonus_room():
+		_show_bonus_door()
 	elif room_cleared:
 		show_open_door()
 		tween_open_door()
 	else:
 		show_closed_door()
+
+func _show_bonus_door()-> void:
+	if room_cleared and _bonus_gate_open():
+		show_open_door()
+		tween_open_door()
+	else:
+		show_closed_door()
+		self.input_pickable = true
+	exit_barrier_closed.color = BONUS_DOOR_GOLD
+	exit_barrier_open.color = BONUS_DOOR_GOLD
+
+func _targets_bonus_room()-> bool:
+	var target_id: String = _target_id()
+	if target_id == "" or not room_ref.has(target_id):
+		return false
+	return room_ref[target_id].content.room_type == RoomContent.ROOM_TYPES.bonus_room
 
 func _input_event(_viewport: Viewport, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton:
@@ -62,6 +81,10 @@ func _on_exit_clicked()-> void:
 	if _is_secret_unrevealed():
 		if _can_reveal_secret():
 			reveal_secret()
+		return
+
+	if _targets_bonus_room() and not _bonus_gate_open():
+		DialogDirector.play(&"bonus_door_locked")
 		return
 
 	if !room_cleared:
@@ -76,6 +99,14 @@ func _on_exit_clicked()-> void:
 	GameManager.scene_ref = target_room.content.room_scene
 	GameManager.change_state(GameManager.GameState.BALL_ON_PADDLE)
 	get_tree().change_scene_to_packed(target_room.content.room_scene)
+
+func _bonus_gate_open()-> bool:
+	var target_id: String = _target_id()
+	if target_id == "" or not room_ref.has(target_id):
+		return true
+	if room_ref[target_id].content.room_type != RoomContent.ROOM_TYPES.bonus_room:
+		return true
+	return GameManager.memories_complete_for_current_floor()
 
 # combat rooms reveal secrets only mid-fight (CLICK_MODE while PLAYING), so a
 # cleared room can't be brute-force scanned. no-combat rooms have no such fight to

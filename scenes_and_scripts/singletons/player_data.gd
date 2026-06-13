@@ -65,6 +65,7 @@ func initialize_player_data() -> void:
 	if inventory: inventory.free()
 	inventory = PlayerInventory.new()
 	add_child(inventory)
+	GameManager.grant_memory_trophies()
 
 func change_player_stars(star_value: int) -> void:
 	stars_collected += star_value

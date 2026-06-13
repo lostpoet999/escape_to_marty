@@ -11,9 +11,8 @@
 [ext_resource type="Resource" uid="uid://csplashtst2" path="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/support_group_radius_denial_ae.tres" id="8_spls"]
 [ext_resource type="Resource" uid="uid://cphsesweep1" path="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/self_discovery_denial.tres" id="9_phsw"]
 [ext_resource type="Resource" uid="uid://dn5xak2x4m71" path="res://scenes_and_scripts/powerups_and_behaviors/click_powerups/develop_patience.tres" id="10_clk"]
-[ext_resource type="Resource" uid="uid://broomscanr1" path="res://scenes_and_scripts/powerups_and_behaviors/utility_powerups/room_scanner.tres" id="11_scan"]
 
 [resource]
 script = ExtResource("2_upo5x")
-item_pool = Array[ExtResource("1_8japa")]([ExtResource("3_ee38i"), ExtResource("4_ee38i"), ExtResource("3_kfe0u"), ExtResource("5_ee38i"), ExtResource("6_oyjj8"), ExtResource("7_4n03o"), ExtResource("8_spls"), ExtResource("9_phsw"), ExtResource("10_clk"), ExtResource("11_scan")])
+item_pool = Array[ExtResource("1_8japa")]([ExtResource("3_ee38i"), ExtResource("4_ee38i"), ExtResource("3_kfe0u"), ExtResource("5_ee38i"), ExtResource("6_oyjj8"), ExtResource("7_4n03o"), ExtResource("8_spls"), ExtResource("9_phsw"), ExtResource("10_clk")])
 metadata/_custom_type_script = "uid://d2lueb6p5il1v"

@@ -10,10 +10,11 @@ var viewing_memory: bool = false
 const COLLECTED_TEXT: String = "This flame of memory has been collected... but visit me again some other time..."
 
 func _ready() -> void:
-	GameManager.change_state(GameManager.GameState.SPECIAL_ROOM)
-	if memory_room_state().cleared:
-		collect_flame()
+	if SaveProgression.is_memory_seen(_memory_id()):
+		room_before_click.hide()
+		room_after_click.hide()
 		return
+	GameManager.change_state(GameManager.GameState.SPECIAL_ROOM)
 	var close_button: Button = room_after_click.get_node("CloseButton") as Button
 	close_button.pressed.connect(close_memory)
 	pulse_loop(self, 1.1, 1.0)
@@ -22,6 +23,10 @@ func _ready() -> void:
 func memory_room_state() -> RoomState:
 	var entry: RoomEntry = GameManager.get_current_floor_entry(GameManager.current_room_id)
 	return PlayerData.get_room_state(entry)
+
+func _memory_id() -> StringName:
+	var entry: RoomEntry = GameManager.get_current_floor_entry(GameManager.current_room_id)
+	return entry.content.memory_id()
 
 func pulse_loop(node: Node2D, scale_amount: float = 1.1, duration: float = 0.6) -> void:
 	var tween : Tween = create_tween().set_loops()
@@ -62,6 +67,7 @@ func close_memory() -> void:
 	room_before_click.show()
 	collect_flame()
 	memory_room_state().cleared = true
+	SaveProgression.mark_memory_seen(_memory_id())
 	Signalbus.level_cleared.emit()
 
 func collect_flame() -> void:

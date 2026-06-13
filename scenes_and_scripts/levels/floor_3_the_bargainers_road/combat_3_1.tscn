@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://68vub5lvtlyv"]
+
+[ext_resource type="PackedScene" uid="uid://bea1h3570swpu" path="res://scenes_and_scripts/levels/room_base.tscn" id="1_hg0a2"]
+[ext_resource type="PackedScene" uid="uid://cm1kspxv86400" path="res://scenes_and_scripts/bricks/open_seal.tscn" id="2_vpeb0"]
+[ext_resource type="PackedScene" uid="uid://b7m8vn6kumwyg" path="res://scenes_and_scripts/actors/enemies/enemy_spawner.tscn" id="3_qnki4"]
+[ext_resource type="Script" uid="uid://dm8qchhbo37mu" path="res://scenes_and_scripts/actors/enemies/enemy_config.gd" id="4_roht2"]
+[ext_resource type="PackedScene" uid="uid://c3bjgu70hca17" path="res://scenes_and_scripts/actors/enemies/specific_enemies/no_see_me_demon/deon.tscn" id="5_peiqh"]
+
+[sub_resource type="Resource" id="Resource_lsl0q"]
+script = ExtResource("4_roht2")
+enemy_name = "Deon"
+scene_ref = ExtResource("5_peiqh")
+spawn_chance = 100.0
+x_offset = 96.0
+metadata/_custom_type_script = "uid://dm8qchhbo37mu"
+
+[sub_resource type="Resource" id="Resource_8n0fq"]
+script = ExtResource("4_roht2")
+enemy_name = "Deon"
+scene_ref = ExtResource("5_peiqh")
+spawn_chance = 100.0
+x_offset = -96.0
+metadata/_custom_type_script = "uid://dm8qchhbo37mu"
+
+[node name="combat_2_1" unique_id=565861230 instance=ExtResource("1_hg0a2")]
+
+[node name="OpenSeal2" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="0" unique_id=112920898 instance=ExtResource("2_vpeb0")]
+position = Vector2(1120, 640)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 1.0
+})
+
+[node name="OpenSeal7" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="1" unique_id=887021685 instance=ExtResource("2_vpeb0")]
+position = Vector2(1184, 640)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 1.0
+})
+
+[node name="OpenSeal3" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="2" unique_id=1589963747 instance=ExtResource("2_vpeb0")]
+position = Vector2(1248, 704)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 1.0
+})
+
+[node name="OpenSeal4" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="3" unique_id=2018441867 instance=ExtResource("2_vpeb0")]
+position = Vector2(1056, 704)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 1.0
+})
+
+[node name="OpenSeal5" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="4" unique_id=677646096 instance=ExtResource("2_vpeb0")]
+position = Vector2(1248, 576)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 1.0
+})
+
+[node name="OpenSeal6" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="5" unique_id=1936305112 instance=ExtResource("2_vpeb0")]
+position = Vector2(1056, 576)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 1.0
+})
+
+[node name="EnemySpawner" parent="No-Respawn/Spawners" parent_id_path=PackedInt32Array(1587044855) index="0" unique_id=740599083 instance=ExtResource("3_qnki4")]
+position = Vector2(288, 960)
+enemies = Array[ExtResource("4_roht2")]([SubResource("Resource_lsl0q")])
+spawn_an_enemy_chance = 45.0
+respawn_time = 10.0
+initial_spawn_time = 5.0
+max_spawns = 1
+
+[node name="EnemySpawner2" parent="No-Respawn/Spawners" parent_id_path=PackedInt32Array(1587044855) index="1" unique_id=600490071 instance=ExtResource("3_qnki4")]
+position = Vector2(1888, 960)
+enemies = Array[ExtResource("4_roht2")]([SubResource("Resource_8n0fq")])
+spawn_an_enemy_chance = 45.0
+respawn_time = 10.0
+initial_spawn_time = 5.0
+max_spawns = 1

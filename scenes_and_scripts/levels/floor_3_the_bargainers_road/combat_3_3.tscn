@@ -1,0 +1,129 @@
+[gd_scene format=3 uid="uid://c0x07to7sbcsg"]
+
+[ext_resource type="PackedScene" uid="uid://bea1h3570swpu" path="res://scenes_and_scripts/levels/room_base.tscn" id="1_8gija"]
+[ext_resource type="PackedScene" uid="uid://cm1kspxv86400" path="res://scenes_and_scripts/bricks/open_seal.tscn" id="2_4285g"]
+[ext_resource type="PackedScene" uid="uid://b7m8vn6kumwyg" path="res://scenes_and_scripts/actors/enemies/enemy_spawner.tscn" id="3_hkc1k"]
+[ext_resource type="Script" uid="uid://dm8qchhbo37mu" path="res://scenes_and_scripts/actors/enemies/enemy_config.gd" id="4_xsesl"]
+[ext_resource type="PackedScene" uid="uid://c3bjgu70hca17" path="res://scenes_and_scripts/actors/enemies/specific_enemies/no_see_me_demon/deon.tscn" id="5_ssaou"]
+
+[sub_resource type="Resource" id="Resource_lsl0q"]
+script = ExtResource("4_xsesl")
+enemy_name = "Deon"
+scene_ref = ExtResource("5_ssaou")
+spawn_chance = 100.0
+x_offset = 96.0
+metadata/_custom_type_script = "uid://dm8qchhbo37mu"
+
+[sub_resource type="Resource" id="Resource_8n0fq"]
+script = ExtResource("4_xsesl")
+enemy_name = "Deon"
+scene_ref = ExtResource("5_ssaou")
+spawn_chance = 100.0
+x_offset = -96.0
+metadata/_custom_type_script = "uid://dm8qchhbo37mu"
+
+[node name="combat_2_3" unique_id=565861230 instance=ExtResource("1_8gija")]
+
+[node name="OpenSeal" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="0" unique_id=887021685 instance=ExtResource("2_4285g")]
+position = Vector2(1344, 342)
+brick_health = 2
+
+[node name="OpenSeal2" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="1" unique_id=2055408532 instance=ExtResource("2_4285g")]
+position = Vector2(1248, 342)
+brick_health = 2
+
+[node name="OpenSeal3" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="2" unique_id=1397344597 instance=ExtResource("2_4285g")]
+position = Vector2(960, 438)
+brick_health = 2
+
+[node name="OpenSeal7" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="3" unique_id=1580935119 instance=ExtResource("2_4285g")]
+position = Vector2(960, 534)
+brick_health = 2
+
+[node name="OpenSeal8" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="4" unique_id=1262458805 instance=ExtResource("2_4285g")]
+position = Vector2(960, 630)
+brick_health = 2
+
+[node name="OpenSeal9" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="5" unique_id=1527694363 instance=ExtResource("2_4285g")]
+position = Vector2(960, 726)
+brick_health = 2
+
+[node name="OpenSeal10" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="6" unique_id=1112351374 instance=ExtResource("2_4285g")]
+position = Vector2(1056, 726)
+brick_health = 2
+
+[node name="OpenSeal11" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="7" unique_id=134648069 instance=ExtResource("2_4285g")]
+position = Vector2(1152, 726)
+brick_health = 2
+
+[node name="OpenSeal12" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="8" unique_id=654388278 instance=ExtResource("2_4285g")]
+position = Vector2(1248, 726)
+brick_health = 2
+
+[node name="OpenSeal13" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="9" unique_id=512536577 instance=ExtResource("2_4285g")]
+position = Vector2(1344, 726)
+brick_health = 2
+
+[node name="OpenSeal14" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="10" unique_id=462148445 instance=ExtResource("2_4285g")]
+position = Vector2(1344, 630)
+brick_health = 2
+
+[node name="OpenSeal15" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="11" unique_id=256968440 instance=ExtResource("2_4285g")]
+position = Vector2(1344, 534)
+brick_health = 2
+
+[node name="OpenSeal18" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="12" unique_id=1702242477 instance=ExtResource("2_4285g")]
+position = Vector2(1440, 534)
+brick_health = 2
+
+[node name="OpenSeal21" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="13" unique_id=2062446417 instance=ExtResource("2_4285g")]
+position = Vector2(864, 534)
+brick_health = 2
+
+[node name="OpenSeal22" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="14" unique_id=472956597 instance=ExtResource("2_4285g")]
+position = Vector2(1056, 822)
+brick_health = 2
+
+[node name="OpenSeal24" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="15" unique_id=671263517 instance=ExtResource("2_4285g")]
+position = Vector2(1088, 448)
+brick_health = 2
+
+[node name="OpenSeal25" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="16" unique_id=767990171 instance=ExtResource("2_4285g")]
+position = Vector2(1216, 448)
+brick_health = 2
+
+[node name="OpenSeal23" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="17" unique_id=1980185314 instance=ExtResource("2_4285g")]
+position = Vector2(1248, 822)
+brick_health = 2
+
+[node name="OpenSeal16" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="18" unique_id=390890085 instance=ExtResource("2_4285g")]
+position = Vector2(1344, 438)
+brick_health = 2
+
+[node name="OpenSeal4" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="19" unique_id=948470160 instance=ExtResource("2_4285g")]
+position = Vector2(960, 342)
+brick_health = 2
+
+[node name="OpenSeal5" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="20" unique_id=107809509 instance=ExtResource("2_4285g")]
+position = Vector2(1056, 342)
+brick_health = 2
+
+[node name="OpenSeal6" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="21" unique_id=1398468162 instance=ExtResource("2_4285g")]
+position = Vector2(1152, 342)
+brick_health = 2
+
+[node name="EnemySpawner" parent="No-Respawn/Spawners" parent_id_path=PackedInt32Array(1587044855) index="0" unique_id=740599083 instance=ExtResource("3_hkc1k")]
+position = Vector2(288, 960)
+enemies = Array[ExtResource("4_xsesl")]([SubResource("Resource_lsl0q")])
+spawn_an_enemy_chance = 45.0
+respawn_time = 10.0
+initial_spawn_time = 5.0
+max_spawns = 1
+
+[node name="EnemySpawner2" parent="No-Respawn/Spawners" parent_id_path=PackedInt32Array(1587044855) index="1" unique_id=18242075 instance=ExtResource("3_hkc1k")]
+position = Vector2(1888, 960)
+enemies = Array[ExtResource("4_xsesl")]([SubResource("Resource_8n0fq")])
+spawn_an_enemy_chance = 50.0
+respawn_time = 10.0
+initial_spawn_time = 2.0
+max_spawns = 1

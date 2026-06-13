@@ -45,6 +45,19 @@ var bargain_markup: int = 0
 var bargain_sweet_spot_bonus: float = 0.0
 var bargain_discount_bonus: float = 0.0
 
+@export_category("Depression")
+## Phase-HP per second the exposed DEPRESSION phase regrows while it sits unlit. Snuffing a light lets cleared progress melt back into the dark.
+@export var depression_regen_rate: float = 0.6
+## When true, a seal whose DEPRESSION was fully cleared slides BACK into depression if left dark too long (the snuff-trap). Off until the light-snuff enemy exists; flip on per-seal to feel it.
+@export var depression_reseeds_when_dark: bool = false
+## Seconds a cleared seal must stay unlit before DEPRESSION reseeds (only when depression_reseeds_when_dark).
+@export var depression_reseed_delay: float = 3.0
+const _LIT_GRACE: float = 0.12
+var _lit_cooldown: float = 0.0
+var _depression_max: float = 0.0
+var _had_depression: bool = false
+var _reseed_timer: float = 0.0
+
 func pick_random_stage() -> void:
 	if stages.is_empty():
 		current_stage = GameManager.PhaseType.HEALTH
@@ -80,8 +93,10 @@ func setup_visuals()->void:
 func _ready() -> void:	
 	if initialize_brick_on_leveldata:#default is populate stages based on level stats		
 		stages.clear()
-		stages = SealInitializer.initialize_seal()		
+		stages = SealInitializer.initialize_seal()
 
+	_depression_max = stages.get(GameManager.PhaseType.DEPRESSION, 0.0)
+	_had_depression = _depression_max > 0.0
 	pick_random_stage()
 	_update_stage_label()
 	input_pickable = true
@@ -151,6 +166,34 @@ func _update_stage_label() -> void:
 		brick_health_label.text = str(_bargain_price())
 	else:
 		brick_health_label.text = str(health_temp)
+
+## Called each frame by a DepressionLight covering this seal; holds back the dark.
+func illuminate(grace: float = _LIT_GRACE) -> void:
+	_lit_cooldown = maxf(_lit_cooldown, grace)
+	_reseed_timer = 0.0
+
+func _process(delta: float) -> void:
+	if dying:
+		return
+	if _lit_cooldown > 0.0:
+		_lit_cooldown -= delta
+		return
+	if current_stage == GameManager.PhaseType.DEPRESSION:
+		if health_temp < _depression_max:
+			health_temp = minf(health_temp + depression_regen_rate * delta, _depression_max)
+			_update_stage_label()
+	elif depression_reseeds_when_dark and _had_depression and not stages.has(GameManager.PhaseType.DEPRESSION):
+		_reseed_timer += delta
+		if _reseed_timer >= depression_reseed_delay:
+			_reseed_depression()
+
+func _reseed_depression() -> void:
+	_reseed_timer = 0.0
+	stages[GameManager.PhaseType.DEPRESSION] = _depression_max
+	current_stage = GameManager.PhaseType.DEPRESSION
+	health_temp = _depression_max
+	setup_visuals()
+	_update_stage_label()
 
 func resolve_bargain(bid: float) -> BargainOutcome:
 	var sweet: Vector2 = bargain_sweet_range()

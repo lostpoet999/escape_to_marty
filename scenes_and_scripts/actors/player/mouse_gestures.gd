@@ -1,6 +1,7 @@
 class_name MouseGestures extends Node2D
 
 const DEFAULT_CLICK_DMG: float = 1.0
+const DEPRESSION_LIGHT: PackedScene = preload("res://scenes_and_scripts/actors/player/depression_light.tscn")
 
 var click_behavior: HitBehavior
 var hold_probe: CircleShape2D
@@ -31,6 +32,11 @@ func _ready() -> void:
 var bargain_active: bool = false
 var bargain_seal: BaseSeal = null
 var bargain_bid: float = 0.0
+
+@export_category("Depression Config")
+## Max placed lights on screen at once; at the cap, placement is blocked until one burns out (or is snuffed) — the depression verb's light budget. No replacing.
+@export var max_depression_lights: int = 2
+var depression_lights: Array[Node2D] = []
 
 
 func _input(event: InputEvent)->void:
@@ -73,8 +79,36 @@ func _input(event: InputEvent)->void:
 func _handle_clicks_and_hold()->void:
 	var target: Node = _get_target_under_mouse()
 	if target == null:
+		_place_depression_light(get_global_mouse_position())
 		return
 	click_behavior.apply(_gesture_context(GameManager.PhaseType.DENIAL, _gesture_damage()), target as Node2D)
+
+func _place_depression_light(at: Vector2) -> void:
+	if depression_lights.size() >= max_depression_lights:
+		return
+	if _point_over_wall(at):
+		return
+	var light: Node2D = DEPRESSION_LIGHT.instantiate()
+	var host: Node = get_tree().current_scene
+	if host == null:
+		host = self
+	host.add_child(light)
+	light.global_position = at
+	depression_lights.append(light)
+	light.tree_exited.connect(_on_depression_light_freed.bind(light))
+
+func _on_depression_light_freed(light: Node2D) -> void:
+	depression_lights.erase(light)
+
+func _point_over_wall(at: Vector2) -> bool:
+	var space: PhysicsDirectSpaceState2D = get_viewport().get_world_2d().direct_space_state
+	var query: PhysicsPointQueryParameters2D = PhysicsPointQueryParameters2D.new()
+	query.position = at
+	query.collide_with_areas = true
+	for result: Dictionary in space.intersect_point(query):
+		if result.collider is Node and (result.collider as Node).is_in_group("walls"):
+			return true
+	return false
 
 func _handle_anger_aoe()->void:
 	hold_probe.radius = maxf(hold_indicator_radius, 8.0)

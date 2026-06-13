@@ -102,6 +102,7 @@ static func validate(floor: FloorData) -> Array[Dictionary]:
 				issues.append({severity = "error", text = "Need %d %s, only %d guaranteed." % [need, _type_name(type_value), have]})
 
 	_check_boss_count(floor, slots, issues)
+	_check_missing_scenes(floor, slots, issues)
 
 	if _no_errors(issues):
 		issues.append({severity = "ok", text = "No blocking issues."})
@@ -132,6 +133,16 @@ static func _check_boss_count(floor: FloorData, slots: Array[RoomEntry], issues:
 		issues.append({severity = "error", text = "%d boss rooms always spawn — only one is usable (its portal ends the floor)." % guaranteed})
 	elif possible > 1:
 		issues.append({severity = "error", text = "Up to %d boss rooms can spawn — a filler boss in the pool may double the boss." % possible})
+
+static func _check_missing_scenes(floor: FloorData, slots: Array[RoomEntry], issues: Array[Dictionary]) -> void:
+	for slot: RoomEntry in slots:
+		if slot != null and slot.is_static and slot.content != null and slot.content.room_scene == null:
+			issues.append({severity = "error", text = "Static slot %s has content but no room scene." % RoomEntry.make_key(slot.room_coords)})
+	for i: int in floor.room_pool.size():
+		var content: RoomContent = floor.room_pool[i]
+		if content != null and content.room_scene == null:
+			issues.append({severity = "error", text = "Pool entry %d (%s) has no room scene." % [i, _type_name(content.room_type)]})
+
 
 static func _reachable_keys(start: RoomEntry, by_coords: Dictionary) -> Dictionary:
 	var seen: Dictionary = {RoomEntry.make_key(start.room_coords): true}

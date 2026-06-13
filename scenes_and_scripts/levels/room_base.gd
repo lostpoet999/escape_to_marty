@@ -4,6 +4,7 @@ const ESCAPED_SPIRIT: PackedScene = preload("uid://5j2pau7yvts4")
 const DAMAGE_NUMBER: PackedScene = preload("uid://bedvoohhfbi03")
 const FREE_ITEM_PANEL: PackedScene = preload("uid://ct8n40refigl7")
 const SHOP_PANEL: PackedScene = preload("uid://cshoppanel1")
+const BONUS_ITEM_PANEL: PackedScene = preload("res://scenes_and_scripts/ui_menus/bonus_item_panel.tscn")
 
 const PLAYER_HURT_TRAUMA: float = 0.8
 
@@ -133,14 +134,9 @@ func initiate_special_room()->void:
 		check_level_cleared()
 	match entry.content.room_type:
 		RoomContent.ROOM_TYPES.free_item:
-			if !room_state.loot_items_data:
-				room_state.generate_item_box()
-			if !room_state.loot_items_data.items.is_empty():
-				loot_items_data = room_state.loot_items_data
-				var panel: FreeItemPanel = FREE_ITEM_PANEL.instantiate()
-				panel.z_index = 500
-				panel.setup(loot_items_data)
-				$PlayArea.add_child(panel)
+			_spawn_free_item_panel()
+		RoomContent.ROOM_TYPES.memory:
+			_init_memory_room()
 		RoomContent.ROOM_TYPES.shop:
 			if !room_state.loot_items_data:
 				room_state.generate_item_box()
@@ -150,6 +146,44 @@ func initiate_special_room()->void:
 				panel.z_index = 500
 				panel.setup(loot_items_data)
 				$PlayArea.add_child(panel)
+		RoomContent.ROOM_TYPES.bonus_room:
+			_init_bonus_room()
+
+func _init_bonus_room() -> void:
+	var content: RoomContent = entry.content
+	if content.bonus_item == null:
+		return
+	if SaveProgression.has_memory_trophy(GameManager.current_floor):
+		return
+	var data: LootItemsData = LootItemsData.new()
+	var single: Array[BaseItem] = [content.bonus_item]
+	data.items = single
+	var panel: BonusItemPanel = BONUS_ITEM_PANEL.instantiate()
+	panel.z_index = 500
+	panel.setup(data)
+	panel.item_taken.connect(_on_bonus_item_taken)
+	$PlayArea.add_child(panel)
+
+func _on_bonus_item_taken(item: BaseItem) -> void:
+	SaveProgression.set_memory_trophy(GameManager.current_floor, item.resource_path)
+
+func _spawn_free_item_panel() -> void:
+	if !room_state.loot_items_data:
+		room_state.generate_item_box()
+	if !room_state.loot_items_data.items.is_empty():
+		loot_items_data = room_state.loot_items_data
+		var panel: FreeItemPanel = FREE_ITEM_PANEL.instantiate()
+		panel.z_index = 500
+		panel.setup(loot_items_data)
+		$PlayArea.add_child(panel)
+
+func _init_memory_room() -> void:
+	if not SaveProgression.is_memory_seen(entry.content.memory_id()):
+		return
+	bricks_cleared = true
+	stars_cleared = true
+	check_level_cleared()
+	_spawn_free_item_panel()
 
 func _on_enemy_requested(spawn_from: Area2D) -> void: # for brick break enemies
 	var seal_break_enemies: Array[EnemyConfig] = GameManager.floor_data.seal_break_enemies

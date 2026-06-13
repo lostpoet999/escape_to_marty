@@ -1,10 +1,12 @@
-[gd_resource type="Resource" script_class="FloorRegistry" load_steps=4 format=3 uid="uid://b8qrlxm5jw2vn"]
+[gd_resource type="Resource" script_class="FloorRegistry" format=3 uid="uid://b8qrlxm5jw2vn"]
 
-[ext_resource type="Script" uid="uid://c4kp9m2nrxv8t" path="res://scenes_and_scripts/levels/floor_registry.gd" id="1_reg"]
+[ext_resource type="Script" uid="uid://bvs3ugvgbabkc" path="res://scenes_and_scripts/levels/floor_data.gd" id="1_iscbc"]
+[ext_resource type="Script" uid="uid://c4kqam2nrxv8t" path="res://scenes_and_scripts/levels/floor_registry.gd" id="1_reg"]
 [ext_resource type="Resource" uid="uid://dr8vct1f7lm5n" path="res://scenes_and_scripts/levels/floor_1_the_intersection/floor_1_layout.tres" id="2_f1"]
 [ext_resource type="Resource" uid="uid://doyoqbp1kw58c" path="res://scenes_and_scripts/levels/floor_2_the_arena/floor_2_the_arena.tres" id="3_f2"]
+[ext_resource type="Resource" uid="uid://bfdmio2rsbp3e" path="res://scenes_and_scripts/levels/floor_3_the_bargainers_road/floor_3_the_bargainers_road.tres" id="4_ri25y"]
 
 [resource]
 script = ExtResource("1_reg")
-floors = [ExtResource("2_f1"), ExtResource("3_f2")]
+floors = Array[ExtResource("1_iscbc")]([ExtResource("2_f1"), ExtResource("3_f2"), ExtResource("4_ri25y")])
 metadata/_custom_type_script = "uid://c4kp9m2nrxv8t"

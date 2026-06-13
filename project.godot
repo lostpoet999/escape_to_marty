@@ -32,6 +32,7 @@ DP="*uid://c53k2pfrfqs5g"
 SFX="*uid://r23jyns7k0m7"
 SettingsManager="*uid://bci7epy5sf36y"
 DialogDirector="*res://scenes_and_scripts/dialog/dialog_director.gd"
+SaveProgression="*res://scenes_and_scripts/singletons/save_progression.gd"
 
 [debug]
 

@@ -13,6 +13,21 @@ script = ExtResource("1_0u7gp")
 [node name="HBoxContainer" type="VBoxContainer" parent="." unique_id=1246258486]
 layout_mode = 2
 
+[node name="Trophies_Lbl" type="Label" parent="HBoxContainer" unique_id=1010101010]
+layout_mode = 2
+text = "Memory Trophies: "
+label_settings = ExtResource("1_42un2")
+autowrap_mode = 2
+
+[node name="TrophyMargin" type="MarginContainer" parent="HBoxContainer" unique_id=2020202020]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+
+[node name="TrophyRow" type="HBoxContainer" parent="HBoxContainer/TrophyMargin" unique_id=3030303030]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 8
+
 [node name="Core_Lbl" type="Label" parent="HBoxContainer" unique_id=880573060]
 layout_mode = 2
 text = "Core: "

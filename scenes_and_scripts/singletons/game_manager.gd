@@ -65,6 +65,28 @@ func _assign_pooled_content(open_slots: Array[RoomEntry]) -> void:
 			resolved.content = assignment[i]
 		room_data_for_floor[RoomEntry.make_key(resolved.room_coords)] = resolved
 
+func grant_memory_trophies() -> void:
+	if PlayerData.inventory == null:
+		return
+	for floor_index: int in range(1, FLOOR_REGISTRY.floors.size() + 1):
+		var path: String = SaveProgression.memory_trophy_path(floor_index)
+		if path == "":
+			continue
+		var item: Resource = load(path)
+		if item is BaseItem:
+			PlayerData.inventory.add_item(item)
+
+func memories_complete_for_current_floor() -> bool:
+	var found_memory: bool = false
+	for key: String in room_data_for_floor:
+		var entry: RoomEntry = room_data_for_floor[key]
+		if entry.content == null or entry.content.room_type != RoomContent.ROOM_TYPES.memory:
+			continue
+		found_memory = true
+		if not SaveProgression.is_memory_seen(entry.content.memory_id()):
+			return false
+	return found_memory
+
 func _find_starting_slot() -> RoomEntry:
 	for room: RoomEntry in floor_data.room_entries:
 		if room.content != null and room.content.room_type == RoomContent.ROOM_TYPES.starting_room:

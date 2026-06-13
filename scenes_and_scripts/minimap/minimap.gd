@@ -12,6 +12,7 @@ func _ready() -> void:
 		rooms.append(room)
 		add_child(room)
 
+	var labels_enabled: bool = PlayerData.inventory != null and PlayerData.inventory.has_map_marker()
 	var scanner: bool = PlayerData.inventory != null and PlayerData.inventory.has_room_scanner()
 	var idx_by_id: Dictionary = {}
 	var revealed_ids: Dictionary = {}
@@ -22,6 +23,7 @@ func _ready() -> void:
 		rooms[idx].room_entry = room_entry
 		rooms[idx].is_visited = room_state.visited or room_state.cleared
 		rooms[idx].revealed_exits = room_state.revealed_exits
+		rooms[idx].labels_enabled = labels_enabled
 		var room_key: String = RoomEntry.make_key(room_entry.room_coords)
 		idx_by_id[room_key] = idx
 		if room_key == GameManager.current_room_id:

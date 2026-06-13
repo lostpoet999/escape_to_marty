@@ -15,10 +15,14 @@ const PICK2_TINT: Color = Color(0.5, 1, 0.5)
 const SHOP_RESTOCK_TINT: Color = Color(1, 0.7, 0.3)
 const TICKET_SLOT_START: int = 1 ## index 0 is the base-ball anchor; tickets follow it
 
+const MEMORY_TROPHY_SLOTS: int = 5
+const TROPHY_DIM: Color = Color(0.35, 0.35, 0.35)
+
 var buttons: Array[Button]
 
 @onready var inv_grid_container: GridContainer = %InventoryGrid
 @onready var core_grid_container: GridContainer = %CoreGrid
+@onready var trophy_row: HBoxContainer = %TrophyRow
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -27,11 +31,39 @@ func _ready() -> void:
 	Signalbus.shop_restock_vouchers_changed.connect(_on_vouchers_changed)
 	repopulate_inventory()
 
+func populate_trophies() -> void:
+	for child: Node in trophy_row.get_children():
+		child.queue_free()
+	for floor_index: int in range(1, MEMORY_TROPHY_SLOTS + 1):
+		var cell: CenterContainer = CenterContainer.new()
+		cell.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		cell.add_child(_make_trophy_slot(floor_index))
+		trophy_row.add_child(cell)
+
+func _make_trophy_slot(floor_index: int) -> Control:
+	var path: String = SaveProgression.memory_trophy_path(floor_index)
+	if path == "":
+		var number: Label = Label.new()
+		number.text = str(floor_index)
+		number.custom_minimum_size = Vector2(ICON_SIZE, ICON_SIZE)
+		number.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		number.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		number.modulate = TROPHY_DIM
+		return number
+	var item: BaseItem = load(path) as BaseItem
+	var icon: TextureRect = TextureRect.new()
+	icon.custom_minimum_size = Vector2(ICON_SIZE, ICON_SIZE)
+	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	icon.texture = item.inventory_icon if item and item.inventory_icon else PlayerInventory.PLACEHOLDER_TEX
+	icon.tooltip_text = item.powerup_name if item else ""
+	return icon
+
 func _on_vouchers_changed(_count: int) -> void:
 	repopulate_inventory()
 
 func repopulate_inventory() -> void:
 	clear_buttons()
+	populate_trophies()
 	populate_grid(inv_grid_container, PlayerInventory.get_instance().get_items())
 	populate_grid(core_grid_container, PlayerData.inventory.get_core_items())
 	add_voucher_tickets()

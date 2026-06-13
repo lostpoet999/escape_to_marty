@@ -15,4 +15,5 @@ enum RarityType{
 @export var inventory_icon: Texture2D
 @export var cost: int
 @export var removable: bool = true 
-@export var reveals_adjacent_rooms: bool = false 
+@export var reveals_adjacent_rooms: bool = false
+@export var enables_minimap: bool = false
