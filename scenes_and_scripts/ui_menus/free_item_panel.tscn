@@ -3,7 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://cvun7uxdg3ly8" path="res://scenes_and_scripts/ui_menus/item_selector_panel.tscn" id="1_mcjjd"]
 [ext_resource type="LabelSettings" uid="uid://dx3lg2g7p81op" path="res://label_settings_and_fonts/yellow_48.tres" id="2_l1kq8"]
 [ext_resource type="Script" uid="uid://wvn542jibsc8" path="res://scenes_and_scripts/ui_menus/free_item_panel.gd" id="3_free"]
-[ext_resource type="LabelSettings" uid="uid://dggu2le3hh0p5" path="res://label_settings_and_fonts/yellow_40.tres" id="4_co5i3"]
 
 [node name="FreeItemPanel" unique_id=250866345 instance=ExtResource("1_mcjjd")]
 script = ExtResource("3_free")
@@ -43,11 +42,13 @@ custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 color = Color(1, 1, 1, 0)
 
-[node name="ItemDescription" type="Label" parent="VBoxContainer" index="5" unique_id=468371289]
+[node name="ItemDescription" type="RichTextLabel" parent="VBoxContainer" index="5" unique_id=468371289]
 layout_mode = 2
-text = "Hover over an item to view its description"
-label_settings = ExtResource("4_co5i3")
-horizontal_alignment = 1
+mouse_filter = 2
+bbcode_enabled = true
+text = "[center]Hover over an item to view its description[/center]"
+fit_content = true
+scroll_active = false
 
 [node name="Spacer4" type="ColorRect" parent="VBoxContainer" index="6" unique_id=402232831]
 custom_minimum_size = Vector2(0, 40)

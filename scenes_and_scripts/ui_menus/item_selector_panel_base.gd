@@ -2,13 +2,24 @@ class_name ItemSelectorPanelBase extends Control
 
 const SLOT_MIN_SIZE: Vector2 = Vector2(200, 200)
 const SLOT_SEPARATION: int = 140
+const DESCRIPTION_SETTINGS: LabelSettings = preload("res://label_settings_and_fonts/yellow_40.tres")
+const DESCRIPTION_TITLE_COLOR: Color = Color("ffb347")
 
 @onready var item_grid: GridContainer = $VBoxContainer/ItemGrid
+@onready var item_description_label: RichTextLabel = $VBoxContainer/ItemDescription
 
 var loot_items_data: LootItemsData
 
 func setup(data: LootItemsData) -> void:
 	loot_items_data = data
+
+func _style_item_description() -> void:
+	item_description_label.add_theme_font_override(&"normal_font", DESCRIPTION_SETTINGS.font)
+	item_description_label.add_theme_font_size_override(&"normal_font_size", DESCRIPTION_SETTINGS.font_size)
+	item_description_label.add_theme_color_override(&"default_color", DESCRIPTION_SETTINGS.font_color)
+
+func _show_item_description(item: BaseItem) -> void:
+	item_description_label.text = "[center][color=#%s]%s:[/color] %s[/center]" % [DESCRIPTION_TITLE_COLOR.to_html(false), item.powerup_name, item.shop_description]
 
 func _configure_grid() -> void:
 	# hug the buttons' total width and center the group, so it doesn't touch the panel edges
