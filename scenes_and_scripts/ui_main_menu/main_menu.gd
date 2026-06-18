@@ -1,5 +1,9 @@
 extends Control
 
+const MAIN_MENU: PackedScene = preload("uid://djuj72c4lcukn")
+const CREDITS_SCENE: PackedScene = preload("res://scenes_and_scripts/ui_main_menu/credits_scene.tscn")
+const SETTINGS_SCENE: PackedScene = preload("res://scenes_and_scripts/ui_main_menu/settings_scene.tscn")
+
 const RESET_HOLD_SECONDS: float = 1.5
 const RESET_IDLE_TEXT: String = "Reset Progress"
 const RESET_FILL_COLOR: Color = Color(1.0, 0.3, 0.3, 0.45)
@@ -55,14 +59,24 @@ func _execute_reset() -> void:
 	reset_button.text = "Progress Reset!"
 
 func _on_start_button_pressed() -> void:
+	print("start button pressed")
 	GameManager.change_state(GameManager.GameState.BALL_ON_PADDLE)
 	GameManager.load_current_room()
 
+func _on_settings_button_pressed() -> void:
+	print("settings button pressed")
+	get_tree().change_scene_to_packed(SETTINGS_SCENE)
+
+func _on_credits_button_pressed() -> void:
+	print("credits button pressed")
+	get_tree().change_scene_to_packed(CREDITS_SCENE)
+
 func _on_exit_button_pressed() -> void:
+	print("exit button pressed")
 	get_tree().quit()
 
-
 func _on_fullscreen_button_pressed() -> void:
+	print("fullscreen button pressed")
 	var current_mode: DisplayServer.WindowMode = DisplayServer.window_get_mode()
 	if current_mode == DisplayServer.WINDOW_MODE_FULLSCREEN or current_mode == DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
