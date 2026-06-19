@@ -53,6 +53,7 @@ stages = Dictionary[int, float]({})
 position = Vector2(1312, 640)
 initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({})
+depression_reseeds_when_dark = true
 
 [node name="OpenSeal6" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="4" unique_id=1235412364 instance=ExtResource("2_qcry5")]
 position = Vector2(992, 640)
@@ -63,6 +64,7 @@ stages = Dictionary[int, float]({})
 position = Vector2(1248, 640)
 initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({})
+depression_reseeds_when_dark = true
 
 [node name="OpenSeal7" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="6" unique_id=422098733 instance=ExtResource("2_qcry5")]
 position = Vector2(1440, 640)
@@ -73,6 +75,7 @@ stages = Dictionary[int, float]({})
 position = Vector2(1376, 640)
 initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({})
+depression_reseeds_when_dark = true
 
 [node name="OpenSeal9" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="8" unique_id=408570536 instance=ExtResource("2_qcry5")]
 position = Vector2(928, 640)
