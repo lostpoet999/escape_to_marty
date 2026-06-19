@@ -12,6 +12,9 @@ const DARK_CAGE: PackedScene = preload("uid://cm2bdw1o1sypc")
 
 func _ready() -> void:
 	super()
+	#stops die vfx/sfx on room persistance/revisit
+	if Signalbus.level_cleared.is_connected(die):
+		Signalbus.level_cleared.disconnect(die)
 	Signalbus.deon_boss_cage_cleared.connect(_on_cage_cleared)
 	Signalbus.deon_boss_spawn_cage.connect(_on_spawn_cage)
 	fill_spawn_points()
