@@ -148,11 +148,12 @@ func _input(_event: InputEvent) -> void:
 
 func launch_ball() -> void:
 	on_paddle = false
-	current_speed = initial_speed
+	var launch_speed: float = initial_speed * SettingsManager.difficulty_mult()
+	current_speed = launch_speed
 	GameManager.change_state(GameManager.GameState.PLAYING)
 	set_process(true)
-	velocity = Vector2(float(paddle.current_speed), -initial_speed)
-	velocity = velocity.normalized() * initial_speed
+	velocity = Vector2(float(paddle.current_speed), -launch_speed)
+	velocity = velocity.normalized() * launch_speed
 
 func update_velocity(velocity_ref: Vector2) -> void:
 	velocity = velocity_ref

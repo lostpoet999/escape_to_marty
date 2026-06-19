@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="DefensivePowerup" format=3 uid="uid://b8bqdgvahk8u"]
+
+[ext_resource type="Script" uid="uid://bfi0bx0djqr18" path="res://scenes_and_scripts/powerups_and_behaviors/defensive_powerups/defensive_powerup.gd" id="1_g7csf"]
+
+[resource]
+script = ExtResource("1_g7csf")
+reflect_reduction = 0.2
+powerup_name = "Self Forgiveness"
+shop_description = "You go easy on yourself.  Ball misses do 20% less damage."
+metadata/_custom_type_script = "uid://bfi0bx0djqr18"

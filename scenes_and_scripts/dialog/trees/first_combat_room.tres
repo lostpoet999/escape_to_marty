@@ -1,14 +1,29 @@
 [gd_resource type="Resource" script_class="DialogTree" format=3 uid="uid://cfirstcombat"]
 
-[ext_resource type="Script" path="res://scenes_and_scripts/dialog/dialog_tree.gd" id="1_tree"]
-[ext_resource type="Script" path="res://scenes_and_scripts/dialog/dialog_beat.gd" id="2_beat"]
+[ext_resource type="Script" uid="uid://bkgp0oq7lrafl" path="res://scenes_and_scripts/dialog/dialog_tree.gd" id="1_tree"]
+[ext_resource type="Script" uid="uid://da86xmy7akvas" path="res://scenes_and_scripts/dialog/dialog_beat.gd" id="2_beat"]
 
 [sub_resource type="Resource" id="Resource_beat_1"]
 script = ExtResource("2_beat")
 speaker = 1
 text = "Enjoy your \"happy\" little dream...hahaha"
 
+[sub_resource type="Resource" id="Resource_igwkx"]
+script = ExtResource("2_beat")
+text = "When will you ever learn?"
+metadata/_custom_type_script = "uid://da86xmy7akvas"
+
+[sub_resource type="Resource" id="Resource_2qq5w"]
+script = ExtResource("2_beat")
+text = "You should just give up."
+metadata/_custom_type_script = "uid://da86xmy7akvas"
+
+[sub_resource type="Resource" id="Resource_mfg6b"]
+script = ExtResource("2_beat")
+text = "Maybe this is the time you escape this \"dream\".... NOT!"
+metadata/_custom_type_script = "uid://da86xmy7akvas"
+
 [resource]
 script = ExtResource("1_tree")
-beats = Array[ExtResource("2_beat")]([SubResource("Resource_beat_1")])
+beats = Array[ExtResource("2_beat")]([SubResource("Resource_beat_1"), SubResource("Resource_igwkx"), SubResource("Resource_2qq5w"), SubResource("Resource_mfg6b")])
 pick_random_beat = true

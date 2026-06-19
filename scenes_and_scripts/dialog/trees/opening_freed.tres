@@ -5,11 +5,11 @@
 
 [sub_resource type="Resource" id="Resource_beat_1"]
 script = ExtResource("2_beat")
-text = "Thanks, whoever you are! Not the creepy voice---you, clicker."
+text = "Thanks, whoever you are! Not the creepy voice...tha guy--erm thing sucks!"
 
 [sub_resource type="Resource" id="Resource_beat_2"]
 script = ExtResource("2_beat")
-text = "Alright---time to be a ninja again."
+text = "Alright---time play this silly little game again."
 
 [sub_resource type="Resource" id="Resource_beat_3"]
 script = ExtResource("2_beat")

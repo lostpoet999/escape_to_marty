@@ -1,0 +1,45 @@
+[gd_resource type="Resource" script_class="BallPassive" format=3 uid="uid://dhuy7jly76eah"]
+
+[ext_resource type="Script" uid="uid://jwtisqgpmqvq" path="res://scenes_and_scripts/powerups_and_behaviors/ball_behaviors/hit_behavior.gd" id="1_r0841"]
+[ext_resource type="Script" uid="uid://dnkfaoggkglke" path="res://scenes_and_scripts/powerups_and_behaviors/ball_behaviors/targeting/shape_target.gd" id="2_om8wf"]
+[ext_resource type="Script" uid="uid://bryv4msdad7wu" path="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/ball_passive.gd" id="2_xud0i"]
+[ext_resource type="Script" uid="uid://cshapedrvfx" path="res://scenes_and_scripts/powerups_and_behaviors/ball_behaviors/vfx/shape_draw_vfx.gd" id="3_hbrwr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0doum"]
+size = Vector2(400, 20)
+
+[sub_resource type="Resource" id="Resource_ew74w"]
+script = ExtResource("2_om8wf")
+probe_shape = SubResource("RectangleShape2D_0doum")
+filter_phases = Array[int]([0, 1, 2, 5, 3, 4])
+metadata/_custom_type_script = "uid://dnkfaoggkglke"
+
+[sub_resource type="Curve" id="Curve_he7ld"]
+_data = [Vector2(0.008583687, 0.03567493), 0.0, 0.0, 0, 0, Vector2(0.29828325, 0.33396196), 0.0, 0.0, 0, 0, Vector2(0.62017167, 0.68536854), 0.0, 0.0, 0, 0, Vector2(0.9957082, 1), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Resource" id="Resource_6qbsl"]
+script = ExtResource("3_hbrwr")
+color = Color(0.9254902, 0.011764706, 0.84705883, 0.654902)
+scale_curve = SubResource("Curve_he7ld")
+lifetime = 0.5
+metadata/_custom_type_script = "uid://cshapedrvfx"
+
+[sub_resource type="Resource" id="Resource_6slr1"]
+script = ExtResource("1_r0841")
+targeting = SubResource("Resource_ew74w")
+trigger_groups = Array[StringName]([&"bricks"])
+types = Array[int]([0, 1, 2, 3, 4, 5])
+local_multi = 0.5
+vfx = SubResource("Resource_6qbsl")
+center_on_brick = true
+metadata/_custom_type_script = "uid://jwtisqgpmqvq"
+
+[resource]
+script = ExtResource("2_xud0i")
+on_hit = Array[ExtResource("1_r0841")]([SubResource("Resource_6slr1")])
+powerup_name = "Long Stretch"
+shop_description = "You stretch out and clear all seal phases for 30% of toal ball damage."
+rarity = 1
+cost = 50
+metadata/_custom_type_script = "uid://bryv4msdad7wu"

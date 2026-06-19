@@ -27,8 +27,23 @@ text = "I'd break out myself, but my everything is brick right now."
 script = ExtResource("2_beat")
 text = "Helloooo? Shiny purple shell? I'm IN it. Click it!"
 
+[sub_resource type="Resource" id="Resource_cec6f"]
+script = ExtResource("2_beat")
+text = "You do know you will have to use <TAB> in this game right?"
+metadata/_custom_type_script = "uid://da86xmy7akvas"
+
+[sub_resource type="Resource" id="Resource_kbjsr"]
+script = ExtResource("2_beat")
+text = "Ya, we just hang out here, no problem. Cool-cool."
+metadata/_custom_type_script = "uid://da86xmy7akvas"
+
+[sub_resource type="Resource" id="Resource_hlcmw"]
+script = ExtResource("2_beat")
+text = "Yo! Just click the black brick!"
+metadata/_custom_type_script = "uid://da86xmy7akvas"
+
 [resource]
 script = ExtResource("1_tree")
-beats = Array[ExtResource("2_beat")]([SubResource("Resource_beat_1"), SubResource("Resource_beat_2"), SubResource("Resource_beat_3"), SubResource("Resource_beat_4"), SubResource("Resource_beat_5"), SubResource("Resource_beat_6")])
+beats = Array[ExtResource("2_beat")]([SubResource("Resource_beat_1"), SubResource("Resource_beat_2"), SubResource("Resource_beat_3"), SubResource("Resource_beat_4"), SubResource("Resource_beat_5"), SubResource("Resource_beat_6"), SubResource("Resource_cec6f"), SubResource("Resource_kbjsr"), SubResource("Resource_hlcmw")])
 once_per_run = false
 pick_random_beat = true

@@ -201,21 +201,24 @@ func _on_enemy_requested(spawn_from: Area2D) -> void: # for brick break enemies
 		DialogDirector.play(&"freed_spirit")
 
 func pick_seal_break_config(enemy_configs: Array[EnemyConfig]) -> EnemyConfig: #for brick break enemies
+	var mult: float = SettingsManager.difficulty_mult()
 	var index: int = 0
 	var spawned_percentage: float = randf() * 100
 	while (index < enemy_configs.size()):
 		var spawn_configuration: EnemyConfig = enemy_configs[index]
-		if (spawned_percentage < spawn_configuration.spawn_chance):
+		var chance: float = spawn_configuration.spawn_chance * mult
+		if (spawned_percentage < chance):
 			return spawn_configuration
 		else:
-			spawned_percentage -= spawn_configuration.spawn_chance
+			spawned_percentage -= chance
 			index += 1
 	return null
 
 func _config_at_spawn_cap(config: EnemyConfig) -> bool:
 	if config.max_global_spawn <= 0:
 		return false
-	return get_tree().get_nodes_in_group(_spawn_cap_group(config)).size() >= config.max_global_spawn
+	var cap: int = roundi(config.max_global_spawn * SettingsManager.difficulty_mult())
+	return get_tree().get_nodes_in_group(_spawn_cap_group(config)).size() >= cap
 
 func _spawn_cap_group(config: EnemyConfig) -> StringName:
 	return StringName("seal_break_enemy_" + config.enemy_name)

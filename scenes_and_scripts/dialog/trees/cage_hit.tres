@@ -5,10 +5,9 @@
 
 [sub_resource type="Resource" id="Resource_beat_1"]
 script = ExtResource("2_beat")
-text = "OUCH! I should avoid those..."
+text = "Maybe I should avoid those..."
 
 [resource]
 script = ExtResource("1_tree")
 beats = Array[ExtResource("2_beat")]([SubResource("Resource_beat_1")])
 pick_random_beat = true
-trigger_threshold = 3
