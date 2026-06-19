@@ -14,14 +14,20 @@ probe_shape = SubResource("RectangleShape2D_0doum")
 filter_phases = Array[int]([0, 1, 2, 5, 3, 4])
 metadata/_custom_type_script = "uid://dnkfaoggkglke"
 
+[sub_resource type="Gradient" id="Gradient_om8wf"]
+offsets = PackedFloat32Array(0.6270208, 1)
+colors = PackedColorArray(0.9411765, 0, 0, 1, 1, 1, 1, 1)
+
 [sub_resource type="Curve" id="Curve_he7ld"]
 _data = [Vector2(0.008583687, 0.03567493), 0.0, 0.0, 0, 0, Vector2(0.29828325, 0.33396196), 0.0, 0.0, 0, 0, Vector2(0.62017167, 0.68536854), 0.0, 0.0, 0, 0, Vector2(0.9957082, 1), 0.0, 0.0, 0, 0]
 point_count = 4
 
 [sub_resource type="Resource" id="Resource_6qbsl"]
 script = ExtResource("3_hbrwr")
-color = Color(0.9254902, 0.011764706, 0.84705883, 0.654902)
+color = Color(0.9254902, 0.011764706, 0.14901961, 0.52156866)
+color_ramp = SubResource("Gradient_om8wf")
 scale_curve = SubResource("Curve_he7ld")
+blend = 3
 lifetime = 0.5
 metadata/_custom_type_script = "uid://cshapedrvfx"
 
