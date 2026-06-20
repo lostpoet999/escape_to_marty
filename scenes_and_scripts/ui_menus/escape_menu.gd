@@ -22,5 +22,9 @@ func _on_restart_button_pressed() -> void:
 	GameManager.change_state(GameManager.GameState.PLAYING) #TODO: change to load the first level of the floor or keep?
 	GameManager.restart_level()
 
+func _on_main_menu_pressed() -> void:
+	GameManager.change_state(GameManager.GameState.MAIN_MENU)
+	GameManager.load_scene(GameManager.MAIN_MENU)
+
 func _on_button_pressed() -> void:
 	get_tree().quit()

@@ -2,9 +2,10 @@ extends Node
 
 var settings_file: ConfigFile = ConfigFile.new()
 const SETTINGS_PATH: String = "user://escape_to_marty_settings.cfg"
+const SFX_BOOST_DB: float = 8.0
 
-var music_volume: float = 1.0
-var sfx_volume: float = 1.0
+var music_volume: float = 0.5
+var sfx_volume: float = 0.5
 var game_speed: float = 1.0
 var difficulty: int = 1
 
@@ -41,11 +42,11 @@ func apply_settings() -> void:
 	apply_audio()
 
 func apply_audio() -> void:
-	set_bus_volume("Music", music_volume)
-	set_bus_volume("SFX", sfx_volume)
-	set_bus_volume("Ambience", sfx_volume)
+	set_bus_volume("Music", music_volume, 0.0)
+	set_bus_volume("SFX", sfx_volume, SFX_BOOST_DB)
+	set_bus_volume("Ambience", sfx_volume, SFX_BOOST_DB)
 
-func set_bus_volume(bus_name: String, linear: float) -> void:
+func set_bus_volume(bus_name: String, linear: float, boost_db: float) -> void:
 	var bus_index: int = AudioServer.get_bus_index(bus_name)
 	if bus_index == -1: return
-	AudioServer.set_bus_volume_db(bus_index, linear_to_db(maxf(linear, 0.0001)))
+	AudioServer.set_bus_volume_db(bus_index, linear_to_db(maxf(linear, 0.0001)) + boost_db)

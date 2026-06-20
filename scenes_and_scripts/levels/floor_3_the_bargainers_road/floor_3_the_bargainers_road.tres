@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cm2bdw1o1sypc" path="res://scenes_and_scripts/actors/enemies/specific_enemies/dark_cage/dark_cage.tscn" id="4_hna8n"]
 [ext_resource type="Script" uid="uid://cqac2vv2p8oga" path="res://scenes_and_scripts/bricks/seal_phase_config.gd" id="4_tjbqt"]
 [ext_resource type="PackedScene" uid="uid://bk3eq08wp6m5n" path="res://scenes_and_scripts/memories/memory_2_2.tscn" id="5_tinj5"]
+[ext_resource type="PackedScene" uid="uid://68vub5lvtlyv" path="res://scenes_and_scripts/levels/floor_3_the_bargainers_road/combat_3_1.tscn" id="5_wwqpq"]
 [ext_resource type="Script" uid="uid://b1eqt2or38kw6" path="res://scenes_and_scripts/item_spawning/spawn_weights_resource.gd" id="6_tjbqt"]
 [ext_resource type="PackedScene" uid="uid://cn5hfx7q4drtu" path="res://scenes_and_scripts/memories/memory_2_1.tscn" id="7_wwqpq"]
 [ext_resource type="PackedScene" uid="uid://ds323mh1ch3fa" path="res://scenes_and_scripts/levels/floor_3_the_bargainers_road/start_3.tscn" id="8_c5321"]
@@ -42,10 +43,15 @@ content = SubResource("Resource_lcsg3")
 east_exit = true
 west_exit = true
 
+[sub_resource type="Resource" id="Resource_k6scc"]
+script = ExtResource("20_rc")
+room_scene = ExtResource("5_wwqpq")
+room_type = 1
+
 [sub_resource type="Resource" id="Resource_f0fcd"]
 script = ExtResource("1_4xv7i")
 room_coords = Vector2i(3, 1)
-is_static = false
+content = SubResource("Resource_k6scc")
 south_exit = true
 east_exit = true
 west_exit = true
@@ -193,21 +199,28 @@ metadata/_custom_type_script = "uid://ccw8ssedjvd48"
 [sub_resource type="Resource" id="Resource_1wfy1"]
 script = ExtResource("4_tjbqt")
 phase_type = 5
-min_health = 2.0
-max_health = 10.0
+min_health = 10.0
+max_health = 25.0
 metadata/_custom_type_script = "uid://cqac2vv2p8oga"
 
 [sub_resource type="Resource" id="Resource_tjbqt"]
 script = ExtResource("4_tjbqt")
 phase_type = 1
-min_health = 1.0
-max_health = 2.0
+min_health = 2.0
+max_health = 4.0
 metadata/_custom_type_script = "uid://cqac2vv2p8oga"
 
 [sub_resource type="Resource" id="Resource_o7ibu"]
 script = ExtResource("4_tjbqt")
-min_health = 2.0
-max_health = 5.0
+min_health = 5.0
+max_health = 15.0
+metadata/_custom_type_script = "uid://cqac2vv2p8oga"
+
+[sub_resource type="Resource" id="Resource_bxwwk"]
+script = ExtResource("4_tjbqt")
+phase_type = 2
+min_health = 5.0
+max_health = 25.0
 metadata/_custom_type_script = "uid://cqac2vv2p8oga"
 
 [sub_resource type="Resource" id="Resource_c5321"]
@@ -222,7 +235,7 @@ metadata/_custom_type_script = "uid://b1eqt2or38kw6"
 script = ExtResource("2_yjxva")
 spawn_weight = SubResource("Resource_c5321")
 seal_difficulty_rates = SubResource("Resource_hna8n")
-seal_phase_pool = Array[ExtResource("4_tjbqt")]([SubResource("Resource_tjbqt"), SubResource("Resource_o7ibu")])
+seal_phase_pool = Array[ExtResource("4_tjbqt")]([SubResource("Resource_tjbqt"), SubResource("Resource_o7ibu"), SubResource("Resource_bxwwk")])
 seal_health_phase = SubResource("Resource_1wfy1")
 max_respawn = 3
 floor_name_id = "The Bargainer's Road"

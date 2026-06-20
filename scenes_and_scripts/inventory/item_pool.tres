@@ -12,7 +12,7 @@
 [ext_resource type="Resource" uid="uid://cphsesweep1" path="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/self_discovery_denial.tres" id="9_phsw"]
 [ext_resource type="Resource" uid="uid://dn5xak2x4m71" path="res://scenes_and_scripts/powerups_and_behaviors/click_powerups/develop_patience.tres" id="10_clk"]
 [ext_resource type="Resource" uid="uid://t58lupaqmea4" path="res://scenes_and_scripts/powerups_and_behaviors/defensive_powerups/self_confidence.tres" id="11_2updi"]
-[ext_resource type="Resource" uid="uid://b8bqdgvahk8u" path="res://scenes_and_scripts/powerups_and_behaviors/defensive_powerups/thick_skin.tres" id="12_rtsd2"]
+[ext_resource type="Resource" uid="uid://b8bqdgvahk8u" path="res://scenes_and_scripts/powerups_and_behaviors/defensive_powerups/self_forgiveness.tres" id="12_rtsd2"]
 [ext_resource type="Resource" uid="uid://dhuy7jly76eah" path="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/long_stretch.tres" id="13_mlme4"]
 
 [resource]

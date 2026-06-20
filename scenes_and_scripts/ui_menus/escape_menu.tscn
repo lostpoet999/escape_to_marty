@@ -69,6 +69,11 @@ custom_minimum_size = Vector2(200, 65)
 layout_mode = 2
 text = "Restart"
 
+[node name="MainMenu" type="Button" parent="ColorRect/VBoxContainer/HBoxContainer" unique_id=1487556102]
+custom_minimum_size = Vector2(200, 65)
+layout_mode = 2
+text = "Main Menu"
+
 [node name="Exit Button" type="Button" parent="ColorRect/VBoxContainer/HBoxContainer" unique_id=1326564837]
 custom_minimum_size = Vector2(200, 65)
 layout_mode = 2
@@ -79,4 +84,5 @@ text = "Exit"
 layout_mode = 2
 
 [connection signal="pressed" from="ColorRect/VBoxContainer/HBoxContainer/Restart Button" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="ColorRect/VBoxContainer/HBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]
 [connection signal="pressed" from="ColorRect/VBoxContainer/HBoxContainer/Exit Button" to="." method="_on_button_pressed"]
