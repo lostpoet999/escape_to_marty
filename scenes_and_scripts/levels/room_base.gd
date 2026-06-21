@@ -24,6 +24,7 @@ var entry: RoomEntry
 @onready var play_background: ColorRect = $PlayArea/Background
 @onready var flash_overlay: ColorRect = $PlayArea/FlashOverlay
 @onready var canvas_modulate_node: CanvasModulate = $CanvasModulate
+@onready var misty_background: Node2D = $"PlayArea/Misty-Background"
 @onready var paddle: Paddle = $Paddle
 
 
@@ -169,7 +170,7 @@ func _on_bonus_item_taken(item: BaseItem) -> void:
 
 func _spawn_free_item_panel() -> void:
 	if !room_state.loot_items_data:
-		room_state.generate_item_box()
+		room_state.generate_item_box(entry.content.item_pool_override)
 	if !room_state.loot_items_data.items.is_empty():
 		loot_items_data = room_state.loot_items_data
 		var panel: FreeItemPanel = FREE_ITEM_PANEL.instantiate()
@@ -269,6 +270,7 @@ func _apply_floor_wall_visuals() -> void:
 					child.flip_v = rng.randi() % 2 == 0
 	play_background.color = fd.background_color
 	canvas_modulate_node.color = fd.canvas_modulate_color
+	misty_background.visible = fd.misty_background_enabled
 
 func _jittered(base: Color, amount: float, rng: RandomNumberGenerator) -> Color:
 	if amount <= 0.0:

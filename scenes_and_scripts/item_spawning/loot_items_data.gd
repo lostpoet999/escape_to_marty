@@ -17,20 +17,27 @@ func filter_owned_actives()->void:
 	pool = pool.filter(func(i: BaseItem) -> bool:
 		return not owned_actives.has(i))	
 
-func generate_item_box()->void:
+func generate_item_box(pool_override: ItemPool = null)->void:
 	items.clear()
 	max_items = ITEMS_PER_ROOM
-	@warning_ignore("unsafe_property_access")
-	pool = ItemSpawner.item_pool_data.item_pool.duplicate()
+	if pool_override != null:
+		pool = pool_override.item_pool.duplicate()
+	else:
+		@warning_ignore("unsafe_property_access")
+		pool = ItemSpawner.item_pool_data.item_pool.duplicate()
 	filter_owned_actives()
 	for n:int in max_items:
 		if pool.is_empty(): break
-		# weight by the floor's rarity tiers, but pick from the filtered pool so
-		# owned-active filtering and no-duplicates still hold. fall back to a flat
-		# pick if the rolled tier has no remaining items.
-		var tier: int = ItemSpawner.get_tier(GameManager.floor_data.spawn_weight)
-		var tier_pool: Array = pool.filter(func(i: BaseItem) -> bool: return i.rarity == tier)
-		var item: BaseItem = tier_pool.pick_random() if not tier_pool.is_empty() else pool.pick_random()
+		var item: BaseItem
+		if pool_override != null:
+			item = pool.pick_random()
+		else:
+			# weight by the floor's rarity tiers, but pick from the filtered pool so
+			# owned-active filtering and no-duplicates still hold. fall back to a flat
+			# pick if the rolled tier has no remaining items.
+			var tier: int = ItemSpawner.get_tier(GameManager.floor_data.spawn_weight)
+			var tier_pool: Array = pool.filter(func(i: BaseItem) -> bool: return i.rarity == tier)
+			item = tier_pool.pick_random() if not tier_pool.is_empty() else pool.pick_random()
 		items.push_back(item)
 		pool.erase(item)
 

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ItemPool" format=3 uid="uid://strtitempl1"]
+
+[ext_resource type="Script" uid="uid://c883xeifksqne" path="res://scenes_and_scripts/powerups_and_behaviors/base_item.gd" id="1_8japa"]
+[ext_resource type="Script" uid="uid://d2lueb6p5il1v" path="res://scenes_and_scripts/inventory/item_pool.gd" id="2_upo5x"]
+[ext_resource type="Resource" uid="uid://csplashtst2" path="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/support_group_radius_denial_ae.tres" id="3_spgrp"]
+[ext_resource type="Resource" uid="uid://c7gdauspp2vbh" path="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/table_slam_+3_dam.tres" id="4_tslam"]
+[ext_resource type="Resource" uid="uid://8rrbt0jirryc" path="res://scenes_and_scripts/powerups_and_behaviors/paddle_active_powerups/focused_outburst.tres" id="5_fcout"]
+
+[resource]
+script = ExtResource("2_upo5x")
+item_pool = Array[ExtResource("1_8japa")]([ExtResource("3_spgrp"), ExtResource("4_tslam"), ExtResource("5_fcout")])
+metadata/_custom_type_script = "uid://d2lueb6p5il1v"

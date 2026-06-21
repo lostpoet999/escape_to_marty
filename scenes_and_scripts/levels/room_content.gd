@@ -20,6 +20,9 @@ const AUTO_CLEAR_ROOM_TYPES: Array[ROOM_TYPES] = [
 @export var required: bool = false
 ## the floor's memory trophy — kept across runs once you grab it
 @export var bonus_item: BaseItem
+## free-item/memory rooms only: a curated pool to draw the offered picks from instead of the
+## floor's rarity-weighted master pool. when set, picks are flat-random so every listed item is equally likely
+@export var item_pool_override: ItemPool
 
 func memory_id() -> StringName:
 	if room_scene == null:

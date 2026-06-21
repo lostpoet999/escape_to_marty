@@ -42,3 +42,17 @@ class_name FloorData extends Resource
 # defaults match room_base.tscn's current values so unset floors look unchanged
 @export var background_color: Color = Color(0.094, 0.039, 0.067, 1.0)
 @export var canvas_modulate_color: Color = Color(0.916, 0.916, 0.916, 1.0)
+## 2D drifting-mist particle layer over the play area
+@export var misty_background_enabled: bool = true
+
+@export_category("3D Background")
+## key SpotLight3D color; alpha 0 = derive a softened tint from wall_modulate
+@export var bg_key_light_color: Color = Color(0, 0, 0, 0)
+## fog color; alpha 0 = keep the bg_3d scene default
+@export var bg_fog_color: Color = Color(0, 0, 0, 0)
+## fog density; negative = keep the bg_3d scene default
+@export var bg_fog_density: float = -1.0
+## glow intensity; negative = keep the bg_3d scene default
+@export var bg_glow_intensity: float = -1.0
+## tonemap exposure; negative = keep the bg_3d scene default
+@export var bg_tonemap_exposure: float = -1.0

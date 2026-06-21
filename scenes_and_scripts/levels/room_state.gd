@@ -8,7 +8,7 @@ var clear_count: int = 0
 var revealed_exits: Array[StringName] = [] #directions (e.g. &"north") whose secret exit the player has revealed this run
 var  loot_items_data: LootItemsData
 
-func generate_item_box()->void:
+func generate_item_box(pool_override: ItemPool = null)->void:
 	if !loot_items_data:
 		loot_items_data = LootItemsData.new()
-		loot_items_data.generate_item_box()
+		loot_items_data.generate_item_box(pool_override)

@@ -23,6 +23,7 @@
 [ext_resource type="Texture2D" uid="uid://cqn6snt1p5bby" path="res://scenes_and_scripts/walls/1x1_wall_gray_avg.png" id="18_6jhxo"]
 [ext_resource type="Script" uid="uid://cfvu47iaybkxv" path="res://scenes_and_scripts/item_spawning/boss_loot_config.gd" id="19_bossloot"]
 [ext_resource type="Script" uid="uid://roomcontent0" path="res://scenes_and_scripts/levels/room_content.gd" id="20_rc"]
+[ext_resource type="Resource" uid="uid://strtitempl1" path="res://scenes_and_scripts/inventory/starting_item_pool.tres" id="21_strtpool"]
 
 [sub_resource type="Resource" id="Resource_bossweights"]
 script = ExtResource("12_2wpod")
@@ -89,6 +90,7 @@ metadata/_custom_type_script = "uid://pnkwdspwmpwe"
 script = ExtResource("20_rc")
 room_scene = ExtResource("6_1f751")
 room_type = 4
+item_pool_override = ExtResource("21_strtpool")
 
 [sub_resource type="Resource" id="Resource_o2ge4"]
 script = ExtResource("1_hqd6g")
@@ -239,4 +241,10 @@ wall_modulate = Color(0, 0.7019608, 0.8862745, 1)
 wall_texture_filter = 1
 wall_brightness_jitter = 0.1
 wall_random_flip = true
+misty_background_enabled = false
+bg_key_light_color = Color(1, 0.8, 0.5, 1)
+bg_fog_color = Color(0.45, 0.4, 0.36, 1)
+bg_fog_density = 0.006
+bg_glow_intensity = 7.0
+bg_tonemap_exposure = 1.1
 metadata/_custom_type_script = "uid://bvs3ugvgbabkc"

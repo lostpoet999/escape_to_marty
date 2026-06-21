@@ -15,9 +15,9 @@ sky_top_color = Color(0.19095299, 0.1519762, 0.30743927, 1)
 sky_horizon_color = Color(0.1911475, 0.27601853, 0.38250917, 1)
 sky_curve = 0.34460923
 sky_cover = SubResource("NoiseTexture2D_kat55")
-sky_cover_modulate = Color(1, 1, 1, 0.047058824)
-ground_bottom_color = Color(0.7292993, 0.47044736, 0.44529945, 1)
-ground_horizon_color = Color(0.20306957, 0.3126656, 0.34096518, 1)
+sky_cover_modulate = Color(1, 1, 1, 0.2)
+ground_bottom_color = Color(0.19095299, 0.1519762, 0.30743927, 1)
+ground_horizon_color = Color(0.1911475, 0.27601853, 0.38250917, 1)
 ground_curve = 0.033635926
 use_debanding = false
 
@@ -39,6 +39,7 @@ glow_hdr_scale = 0.36
 fog_enabled = true
 fog_light_color = Color(0.10253123, 0.09251962, 0.10349815, 1)
 fog_density = 0.045
+fog_sky_affect = 0.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3hxvf"]
 albedo_color = Color(0, 0.7019608, 0.8862745, 1)
@@ -241,3 +242,8 @@ process_material = SubResource("ParticleProcessMaterial_l8dg0")
 draw_pass_1 = SubResource("BoxMesh_ngguw")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1553591780]
+
+[node name="Sun" type="DirectionalLight3D" parent="." unique_id=1553591781]
+transform = Transform3D(1, 0, 0, 0, -0.8660254, -0.5, 0, 0.5, -0.8660254, 0, 0, 0)
+light_color = Color(1, 0.94, 0.82, 1)
+light_energy = 0.5
