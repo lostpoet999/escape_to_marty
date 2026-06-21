@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://csyqsr55dvuii" path="res://scenes_and_scripts/backgrounds/bg_3d.gd" id="1_kat55"]
 [ext_resource type="PackedScene" uid="uid://b5wsv1qakbmm" path="res://scenes_and_scripts/backgrounds/light.tscn" id="2_ss3jj"]
+[ext_resource type="Texture2D" uid="uid://b2hkb43f7tu4c" path="res://scenes_and_scripts/walls/1x1_wall_gray_normalized.png" id="3_ryyjo"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_nei6l"]
 
@@ -29,8 +30,8 @@ background_mode = 2
 sky = SubResource("Sky_c062d")
 sky_rotation = Vector3(-0.4537856, 0, 0)
 tonemap_mode = 4
-tonemap_exposure = 0.31
-tonemap_agx_contrast = 1.28
+tonemap_exposure = 0.65
+tonemap_agx_contrast = 1.47
 glow_enabled = true
 glow_intensity = 6.0
 glow_hdr_threshold = 0.5
@@ -38,9 +39,16 @@ glow_hdr_scale = 0.36
 fog_enabled = true
 fog_light_color = Color(0.10253123, 0.09251962, 0.10349815, 1)
 fog_density = 0.045
-fog_sky_affect = 0.858
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3hxvf"]
+albedo_color = Color(0, 0.7019608, 0.8862745, 1)
+albedo_texture = ExtResource("3_ryyjo")
+roughness = 0.8
+uv1_triplanar = true
+uv1_world_triplanar = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_nei6l"]
+material = SubResource("StandardMaterial3D_3hxvf")
 size = Vector3(5, 5, 40)
 
 [sub_resource type="Curve" id="Curve_kat55"]
