@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bea1h3570swpu"]
 
 [ext_resource type="Script" uid="uid://b6dtbdoyigctm" path="res://scenes_and_scripts/levels/room_base.gd" id="1_e48p3"]
+[ext_resource type="PackedScene" uid="uid://sogvxmv6eitk" path="res://scenes_and_scripts/backgrounds/bg_3d.tscn" id="2_h56ea"]
 [ext_resource type="PackedScene" uid="uid://8ebe0a5nsman" path="res://scenes_and_scripts/ui_level/main_ui.tscn" id="2_ujjt5"]
 [ext_resource type="PackedScene" uid="uid://dyl58ch7f3lkt" path="res://scenes_and_scripts/walls/death_wall.tscn" id="3_uxml7"]
 [ext_resource type="PackedScene" uid="uid://dn7s6lrcudtqn" path="res://scenes_and_scripts/walls/64x64_brownish_wall.tscn" id="4_w27iv"]
@@ -22,6 +23,27 @@
 
 [node name="room_base" type="Node2D" unique_id=565861230]
 script = ExtResource("1_e48p3")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1513724378]
+z_index = -1
+texture_filter = 2
+offset_left = 258.0
+offset_right = 1918.0
+offset_bottom = 1080.0
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=1272984319]
+own_world_3d = true
+handle_input_locally = false
+screen_space_aa = 1
+use_debanding = true
+gui_disable_input = true
+positional_shadow_atlas_size = 0
+oversampling = false
+size = Vector2i(1660, 1080)
+render_target_update_mode = 4
+
+[node name="BG3D" parent="SubViewportContainer/SubViewport" unique_id=1085885422 instance=ExtResource("2_h56ea")]
 
 [node name="UIArea" type="Control" parent="." unique_id=2088925402]
 layout_mode = 3
@@ -55,10 +77,10 @@ offset_bottom = 1077.0
 grow_vertical = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="ClickModePrompt" type="CanvasLayer" parent="."]
+[node name="ClickModePrompt" type="CanvasLayer" parent="." unique_id=1590460842]
 script = ExtResource("15_ckmpt")
 
-[node name="ClickModeCursor" type="Node2D" parent="."]
+[node name="ClickModeCursor" type="Node2D" parent="." unique_id=1985007121]
 script = ExtResource("16_ckcur")
 
 [node name="PlayArea" type="Control" parent="." unique_id=87831636]
@@ -335,6 +357,7 @@ position = Vector2(1056, 0)
 position = Vector2(256, 480)
 
 [node name="Background" type="ColorRect" parent="PlayArea" unique_id=306947289]
+visible = false
 z_index = -1
 material = SubResource("CanvasItemMaterial_57n16")
 layout_mode = 1
