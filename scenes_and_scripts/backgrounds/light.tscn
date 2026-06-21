@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://b5wsv1qakbmm"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eaa0b"]
+disable_ambient_light = true
+disable_fog = true
+emission_enabled = true
+emission = Color(0.98047405, 0.984503, 0.7510098, 1)
+disable_receive_shadows = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_kat55"]
+material = SubResource("StandardMaterial3D_eaa0b")
+radius = 0.16
+height = 0.2
+radial_segments = 9
+rings = 1
+is_hemisphere = true
+
+[node name="Light" type="Node3D" unique_id=1201690930]
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1970887794]
+omni_range = 25.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=781147750]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+mesh = SubResource("SphereMesh_kat55")
