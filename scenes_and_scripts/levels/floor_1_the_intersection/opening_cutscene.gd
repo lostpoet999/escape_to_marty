@@ -15,6 +15,9 @@ const SKIP_PULSE_AMPLITUDE: float = 0.03
 const SKIP_PULSE_SECONDS: float = 2.6
 const SKIP_WOBBLE_RADIANS: float = 0.03
 const SKIP_WOBBLE_SECONDS: float = 1.7
+const SKIP_FLASH_INTERVAL: float = 8.0
+const SKIP_FLASH_SECONDS: float = 0.35
+const SKIP_FLASH_GLOW_SIZE: int = 8
 
 ## The seal used in the opening scene.
 @export var seal: BaseSeal
@@ -28,6 +31,7 @@ var _skip_layer: CanvasLayer
 var _skip_box: VBoxContainer
 var _skip_bar: ColorRect
 var _skip_fill: ColorRect
+var _skip_label: Label
 
 
 func _ready() -> void:
@@ -170,6 +174,7 @@ func _spawn_skip_prompt() -> void:
 	label.add_theme_color_override("font_color", SKIP_COLOR)
 	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_skip_box.add_child(label)
+	_skip_label = label
 	_skip_bar = ColorRect.new()
 	_skip_bar.color = Color(SKIP_COLOR, 0.25)
 	_skip_bar.custom_minimum_size = Vector2(0, SKIP_BAR_HEIGHT)
@@ -203,6 +208,21 @@ func _animate_skip_prompt() -> void:
 	var pulse: float = 1.0 + sin(TAU * _animation_time / SKIP_PULSE_SECONDS) * SKIP_PULSE_AMPLITUDE
 	_skip_box.scale = Vector2.ONE * pulse
 	_skip_box.rotation = sin(TAU * _animation_time / SKIP_WOBBLE_SECONDS) * SKIP_WOBBLE_RADIANS
+	_animate_skip_flash()
+
+
+func _animate_skip_flash() -> void:
+	if not is_instance_valid(_skip_label):
+		return
+	var time_into_flash: float = fmod(_animation_time, SKIP_FLASH_INTERVAL)
+	if time_into_flash >= SKIP_FLASH_SECONDS:
+		_skip_label.add_theme_color_override("font_color", SKIP_COLOR)
+		_skip_label.add_theme_constant_override("outline_size", 0)
+		return
+	var flash: float = sin(PI * time_into_flash / SKIP_FLASH_SECONDS)
+	_skip_label.add_theme_color_override("font_color", SKIP_COLOR.lerp(Color.WHITE, flash))
+	_skip_label.add_theme_color_override("font_outline_color", Color(1, 1, 1, flash))
+	_skip_label.add_theme_constant_override("outline_size", int(round(flash * SKIP_FLASH_GLOW_SIZE)))
 
 
 func _remove_skip_prompt() -> void:

@@ -13,10 +13,14 @@ const PROMPT_PULSE_AMPLITUDE: float = 0.03
 const PROMPT_PULSE_SECONDS: float = 2.6
 const PROMPT_WOBBLE_RADIANS: float = 0.03
 const PROMPT_WOBBLE_SECONDS: float = 1.7
+const PROMPT_FLASH_INTERVAL: float = 8.0
+const PROMPT_FLASH_SECONDS: float = 0.35
+const PROMPT_FLASH_GLOW_SIZE: int = 8
 
 var _box: VBoxContainer
 var _label: Label
 var _applied_state: int = -1
+var _base_color: Color = PROMPT_COLOR_PLAYING
 var _animation_time: float = 0.0
 
 func _ready() -> void:
@@ -51,6 +55,7 @@ func _process(delta: float) -> void:
 	var pulse: float = 1.0 + sin(TAU * _animation_time / PROMPT_PULSE_SECONDS) * PROMPT_PULSE_AMPLITUDE
 	_box.scale = Vector2.ONE * pulse
 	_box.rotation = sin(TAU * _animation_time / PROMPT_WOBBLE_SECONDS) * PROMPT_WOBBLE_RADIANS
+	_animate_flash()
 
 func _apply_state_style() -> void:
 	if GameManager.current_state == _applied_state:
@@ -58,10 +63,22 @@ func _apply_state_style() -> void:
 	_applied_state = GameManager.current_state
 	if _applied_state == GameManager.GameState.CLICK_MODE:
 		_label.text = PROMPT_TEXT_CLICK_MODE
-		_label.add_theme_color_override("font_color", PROMPT_COLOR_CLICK_MODE)
+		_base_color = PROMPT_COLOR_CLICK_MODE
 	else:
 		_label.text = PROMPT_TEXT_PLAYING
-		_label.add_theme_color_override("font_color", PROMPT_COLOR_PLAYING)
+		_base_color = PROMPT_COLOR_PLAYING
+	_label.add_theme_color_override("font_color", _base_color)
+
+func _animate_flash() -> void:
+	var time_into_flash: float = fmod(_animation_time, PROMPT_FLASH_INTERVAL)
+	if time_into_flash >= PROMPT_FLASH_SECONDS:
+		_label.add_theme_color_override("font_color", _base_color)
+		_label.add_theme_constant_override("outline_size", 0)
+		return
+	var flash: float = sin(PI * time_into_flash / PROMPT_FLASH_SECONDS)
+	_label.add_theme_color_override("font_color", _base_color.lerp(Color.WHITE, flash))
+	_label.add_theme_color_override("font_outline_color", Color(1, 1, 1, flash))
+	_label.add_theme_constant_override("outline_size", int(round(flash * PROMPT_FLASH_GLOW_SIZE)))
 
 func _should_show() -> bool:
 	if GameManager.current_state != GameManager.GameState.PLAYING and GameManager.current_state != GameManager.GameState.CLICK_MODE:
