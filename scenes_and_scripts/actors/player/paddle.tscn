@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://ceqjt876orrnp" path="res://scenes_and_scripts/actors/player/basic_paddle.png" id="2_qicss"]
 [ext_resource type="PackedScene" uid="uid://ci3ujdi2gcmsw" path="res://scenes_and_scripts/actors/player/ghost_david.tscn" id="3_sflau"]
 [ext_resource type="PackedScene" uid="uid://ck6fj7h722sbs" path="res://scenes_and_scripts/actors/player/mouse_gestures.tscn" id="4_ireb1"]
+[ext_resource type="Material" uid="uid://cdsatpdlmt0" path="res://scenes_and_scripts/actors/player/paddle_desaturate.tres" id="5_dsat0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8fbbk"]
 size = Vector2(122, 28)
@@ -15,6 +16,7 @@ size = Vector2(68, 112)
 script = ExtResource("1_ews1h")
 
 [node name="PaddleSprite" type="Sprite2D" parent="." unique_id=486052735]
+material = ExtResource("5_dsat0")
 position = Vector2(0, -4)
 scale = Vector2(0.425, 0.425)
 texture = ExtResource("2_qicss")

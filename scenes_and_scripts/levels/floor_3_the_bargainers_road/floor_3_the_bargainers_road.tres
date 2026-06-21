@@ -191,9 +191,10 @@ metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 
 [sub_resource type="Resource" id="Resource_hna8n"]
 script = ExtResource("4_1wfy1")
-super_easy = 40.0
-easy = 40.0
+super_easy = 30.0
+easy = 30.0
 medium = 20.0
+hard = 20.0
 metadata/_custom_type_script = "uid://ccw8ssedjvd48"
 
 [sub_resource type="Resource" id="Resource_1wfy1"]

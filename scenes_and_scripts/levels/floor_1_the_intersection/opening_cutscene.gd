@@ -159,6 +159,7 @@ func _spawn_skip_prompt() -> void:
 	_skip_box.offset_right = -SKIP_MARGIN
 	_skip_box.offset_bottom = -SKIP_MARGIN
 	_skip_box.modulate.a = SKIP_IDLE_ALPHA
+	_skip_box.add_to_group(&"skip_prompt")
 	_skip_box.mouse_filter = Control.MOUSE_FILTER_STOP
 	_skip_box.gui_input.connect(_on_prompt_gui_input)
 	_skip_layer.add_child(_skip_box)

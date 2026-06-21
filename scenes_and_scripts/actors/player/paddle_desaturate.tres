@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://cdsatpdlmt0"]
+
+[ext_resource type="Shader" uid="uid://cdsatpdlsh0" path="res://scenes_and_scripts/actors/player/desaturate.gdshader" id="1_dsat0"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_dsat0")
+shader_parameter/desaturate_amount = 0.0

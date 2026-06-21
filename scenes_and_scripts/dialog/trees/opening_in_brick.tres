@@ -13,7 +13,7 @@ text = "Someone always breaks me out. Hey---you out there. You count as someone!
 
 [sub_resource type="Resource" id="Resource_beat_3"]
 script = ExtResource("2_beat")
-text = "Click me out of here! Click the shell!"
+text = "Click me out of here! Click the seal!"
 
 [resource]
 script = ExtResource("1_tree")

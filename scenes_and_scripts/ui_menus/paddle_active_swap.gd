@@ -26,13 +26,17 @@ func setup_buttons()->void:
 	else:
 		old_item_btn.icon = PlayerData.inventory.PLACEHOLDER_TEX
 	old_item_btn.tooltip_text = old_active_ref.powerup_name
-	
+	if old_active_ref is BaseItem:
+		BaseItem.style_button_with_rarity(old_item_btn, old_active_ref.rarity)
+
 	#new button
 	if "inventory_icon" in new_active_ref:
 		new_item_btn.icon = new_active_ref.inventory_icon
 	else:
-		new_item_btn.icon = PlayerData.inventory.PLACEHOLDER_TEX	
+		new_item_btn.icon = PlayerData.inventory.PLACEHOLDER_TEX
 	new_item_btn.tooltip_text = new_active_ref.powerup_name
+	if new_active_ref is BaseItem:
+		BaseItem.style_button_with_rarity(new_item_btn, new_active_ref.rarity)
 
 func _on_old_item_pressed() -> void:
 	hide()

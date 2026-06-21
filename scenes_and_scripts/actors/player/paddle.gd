@@ -150,9 +150,16 @@ func _get_scaled_half_width() -> float:
 	
 func _on_game_state_playing() -> void:
 	paddle_frozen = false
+	_set_desaturate(0.0)
 
 func _on_game_state_click_mode() -> void:
 	paddle_frozen = true
+	_set_desaturate(1.0)
+
+func _set_desaturate(amount: float) -> void:
+	var mat: ShaderMaterial = sprite.material as ShaderMaterial
+	if mat:
+		mat.set_shader_parameter("desaturate_amount", amount)
 
 func freeze_paddle_for_time(time: float)->void:
 	if paddle_frozen:

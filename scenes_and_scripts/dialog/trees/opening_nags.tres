@@ -9,7 +9,7 @@ text = "Longest. Dream. Ever. A little help out here?"
 
 [sub_resource type="Resource" id="Resource_beat_2"]
 script = ExtResource("2_beat")
-text = "No paddle yet, so get those clicks warmed up. Click the shell!"
+text = "No paddle yet, so get those clicks warmed up. Click the seal!"
 
 [sub_resource type="Resource" id="Resource_beat_3"]
 script = ExtResource("2_beat")
@@ -17,15 +17,15 @@ text = "...what day is it? Still the weekend? Focus, stranger---clicking!"
 
 [sub_resource type="Resource" id="Resource_beat_4"]
 script = ExtResource("2_beat")
-text = "These Shells of Denial don't break themselves. That's what you're for."
+text = "These Seals of Denial don't break themselves. That's what you're for."
 
 [sub_resource type="Resource" id="Resource_beat_5"]
 script = ExtResource("2_beat")
-text = "I'd break out myself, but my everything is brick right now."
+text = "I'd break out myself, but my everything is sealed right now."
 
 [sub_resource type="Resource" id="Resource_beat_6"]
 script = ExtResource("2_beat")
-text = "Helloooo? Shiny purple shell? I'm IN it. Click it!"
+text = "Helloooo? Shiny purple seal? I'm IN it. Click it!"
 
 [sub_resource type="Resource" id="Resource_cec6f"]
 script = ExtResource("2_beat")
@@ -39,7 +39,7 @@ metadata/_custom_type_script = "uid://da86xmy7akvas"
 
 [sub_resource type="Resource" id="Resource_hlcmw"]
 script = ExtResource("2_beat")
-text = "Yo! Just click the black brick!"
+text = "Yo! Just click the black seal!"
 metadata/_custom_type_script = "uid://da86xmy7akvas"
 
 [resource]

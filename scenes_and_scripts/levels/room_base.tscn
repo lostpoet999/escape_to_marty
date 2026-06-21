@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://chs4vfkn7cmgt" path="res://scenes_and_scripts/ui_menus/game_over_menu.tscn" id="10_fuowh"]
 [ext_resource type="PackedScene" uid="uid://dwc118v25nv0r" path="res://scenes_and_scripts/backgrounds/misty_background.tscn" id="12_2ndtm"]
 [ext_resource type="Script" uid="uid://tjwcoaf5nkwa" path="res://scenes_and_scripts/levels/camera_2d.gd" id="14_57n16"]
+[ext_resource type="Script" uid="uid://d2ip0nttvnd5r" path="res://scenes_and_scripts/ui_menus/click_mode_prompt.gd" id="15_ckmpt"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_57n16"]
 
@@ -52,6 +53,9 @@ anchor_bottom = 0.0
 offset_bottom = 1077.0
 grow_vertical = 1
 metadata/_edit_use_anchors_ = true
+
+[node name="ClickModePrompt" type="CanvasLayer" parent="."]
+script = ExtResource("15_ckmpt")
 
 [node name="UI Popup Menus" type="Node" parent="." unique_id=927849858]
 

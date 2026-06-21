@@ -5,27 +5,27 @@
 [ext_resource type="PackedScene" uid="uid://cm1kspxv86400" path="res://scenes_and_scripts/bricks/open_seal.tscn" id="3_oufug"]
 [ext_resource type="Script" uid="uid://c3j3pe8lurgrc" path="res://scenes_and_scripts/levels/floor_1_the_intersection/opening_cutscene.gd" id="4_opcut"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_oufug"]
-font = ExtResource("2_45lsl")
-
 [node name="common_room" unique_id=565861230 instance=ExtResource("1_cckqh")]
 
-[node name="Label" type="Label" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="3" unique_id=2097916128 groups=["opening_tutorial"]]
+[node name="Label" type="RichTextLabel" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="3" unique_id=2097916128 groups=["opening_tutorial"]]
 layout_mode = 0
 offset_left = 391.0
 offset_top = 288.0
 offset_right = 1223.0
 offset_bottom = 585.0
-text = "1. Click the the green barrier to move to the first room.
+theme_override_fonts/normal_font = ExtResource("2_45lsl")
+bbcode_enabled = true
+text = "1. In combat rooms you will have to clear [color=yellow]seals[/color] to unlock the exits.
 
-2. In combat rooms you will have to clear seals to unlock the exits.
+2. On combat levels [color=yellow]click[/color] the mouse to launch the [color=yellow]ball[/color]!
 
-3. On combat levels click the mouse to launch the ball!
+3. Also, try pushing [color=yellow]TAB[/color] on combat levels to release the mouse and click on things!
 
-4. Also, try pushing TAB on combat levels to release the mouse and click on things!
+4. You can push [color=yellow]SPACE[/color] if you have an active paddle ability.
 
-5. You can push SPACE if you have an active paddle ability."
-label_settings = SubResource("LabelSettings_oufug")
+5. [color=yellow]Click[/color] the [color=yellow]green barrier[/color] to move to the first room."
+fit_content = true
+scroll_active = false
 autowrap_mode = 3
 
 [node name="OpenSeal2" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="4" unique_id=1038486442 instance=ExtResource("3_oufug")]

@@ -38,6 +38,7 @@ func _refresh() -> void:
 			icon_btn.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
 			icon_btn.vertical_icon_alignment = VERTICAL_ALIGNMENT_CENTER
 			icon_btn.tooltip_text = item.powerup_name
+			BaseItem.style_button_with_rarity(icon_btn, item.rarity)
 			_cost_label(i).text = "%d" % item.cost
 			_buy_button(i).disabled = item.cost > PlayerData.stars_collected
 		else:

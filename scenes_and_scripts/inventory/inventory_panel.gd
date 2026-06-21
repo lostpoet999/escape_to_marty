@@ -100,12 +100,14 @@ func populate_grid(grid: GridContainer, items: Array) -> void:
 
 func init_button_for(item: Variant) -> Button:
 	var icon: Texture2D = get_icon_for_item(item)
-	var button: Button = Button.new()
+	var button: Button = RarityTooltipButton.new()
 	button.icon = icon
 	button.tooltip_text = get_tooltip_for_item(item)
 	button.set_meta(&"Item", item) ## store the variant
 
 	button.flat = true ## change me if you decide to use a theme
+	if item is BaseItem:
+		BaseItem.style_button_with_rarity(button, item.rarity, 2, 4, 2.0)
 
 	## essential items (basic ball, single-slot bounce) can't be clicked away — skip the use hook
 	if item.removable:
@@ -114,11 +116,15 @@ func init_button_for(item: Variant) -> Button:
 	return button
 
 func get_tooltip_for_item(item: Variant) -> String:
+	if not item is BaseItem:
+		return ""
+	var title_color: String = BaseItem.rarity_color(item.rarity).to_html(false)
+	var header: String = "[color=#%s]%s (%s):[/color]" % [title_color, item.powerup_name, BaseItem.rarity_label(item.rarity)]
 	## the basic ball is the one non-removable ball passive — report live ball damage on hover
 	if item is BallPassive and not item.removable:
 		var dmg: float = PlayerInventory.get_instance().get_ball_damage()
-		return "%s\n%s\nBall Damage: %s" % [item.powerup_name, item.shop_description, snappedf(dmg, 0.01)]
-	return "%s\n%s" % [item.powerup_name, item.shop_description]
+		return "%s %s\nBall Damage: %s" % [header, item.shop_description, snappedf(dmg, 0.01)]
+	return "%s %s" % [header, item.shop_description]
 
 func add_count_badge(button: Button, count: int) -> void:
 	var label: Label = Label.new()
