@@ -3,9 +3,9 @@ extends Node3D
 const offset: Vector2 = Vector2(260, 0)
 
 ## how far the floor tint is darkened toward black before it becomes box albedo
-@export var bg3d_box_darken: float = 0.2
+@export var bg3d_box_darken: float = 0.3
 ## how far the floor tint is desaturated toward gray before it becomes box albedo
-@export var bg3d_box_desaturate: float = 0.3
+@export var bg3d_box_desaturate: float = 0.15
 ## how far a derived key light is whitened toward neutral so it tints rather than washes
 @export var bg3d_key_whiten: float = 0.4
 ## camera pitch in degrees; positive tilts the view up toward the sky
@@ -59,7 +59,10 @@ func _apply_floor_theme() -> void:
 		return
 	var mat: StandardMaterial3D = (first_box.mesh as BoxMesh).material as StandardMaterial3D
 	if mat != null:
-		mat.albedo_color = _box_albedo_from_tint(fd.wall_modulate, bg3d_box_darken, bg3d_box_desaturate)
+		if fd.bg_box_color.a > 0.0:
+			mat.albedo_color = fd.bg_box_color
+		else:
+			mat.albedo_color = _box_albedo_from_tint(fd.wall_modulate, bg3d_box_darken, bg3d_box_desaturate)
 	if fd.bg_key_light_color.a > 0.0:
 		key_light.light_color = fd.bg_key_light_color
 	else:
@@ -73,6 +76,18 @@ func _apply_floor_theme() -> void:
 		env.glow_intensity = fd.bg_glow_intensity
 	if fd.bg_tonemap_exposure >= 0.0:
 		env.tonemap_exposure = fd.bg_tonemap_exposure
+	if env.sky != null:
+		var sky_mat: ProceduralSkyMaterial = env.sky.sky_material as ProceduralSkyMaterial
+		if sky_mat != null:
+			if fd.bg_sky_top_color.a > 0.0:
+				sky_mat.sky_top_color = fd.bg_sky_top_color
+				sky_mat.ground_bottom_color = fd.bg_sky_top_color
+			if fd.bg_sky_horizon_color.a > 0.0:
+				sky_mat.sky_horizon_color = fd.bg_sky_horizon_color
+				sky_mat.ground_horizon_color = fd.bg_sky_horizon_color
+	if fd.bg_saturation >= 0.0:
+		env.adjustment_enabled = true
+		env.adjustment_saturation = fd.bg_saturation
 
 func _box_albedo_from_tint(tint: Color, darken: float, desaturate: float) -> Color:
 	var c: Color = tint.darkened(darken)

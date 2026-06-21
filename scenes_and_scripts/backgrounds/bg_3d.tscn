@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://csyqsr55dvuii" path="res://scenes_and_scripts/backgrounds/bg_3d.gd" id="1_kat55"]
 [ext_resource type="PackedScene" uid="uid://b5wsv1qakbmm" path="res://scenes_and_scripts/backgrounds/light.tscn" id="2_ss3jj"]
-[ext_resource type="Texture2D" uid="uid://b2hkb43f7tu4c" path="res://scenes_and_scripts/walls/1x1_wall_gray_normalized.png" id="3_ryyjo"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_nei6l"]
 
@@ -42,11 +41,9 @@ fog_density = 0.045
 fog_sky_affect = 0.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3hxvf"]
-albedo_color = Color(0, 0.7019608, 0.8862745, 1)
-albedo_texture = ExtResource("3_ryyjo")
-roughness = 0.8
-uv1_triplanar = true
-uv1_world_triplanar = true
+albedo_color = Color(0.65, 0.58, 0.77, 1)
+metallic = 0.15
+roughness = 0.2
 
 [sub_resource type="BoxMesh" id="BoxMesh_nei6l"]
 material = SubResource("StandardMaterial3D_3hxvf")

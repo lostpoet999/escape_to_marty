@@ -78,7 +78,7 @@ func pick_random_stage() -> void:
 func setup_visuals()->void:
 	match current_stage:
 		GameManager.PhaseType.DENIAL:
-			gemstone_facets.modulate = Color(0.1, 0.05, 0.15)
+			gemstone_facets.modulate = Color(0.58, 0.37, 0.81)
 		GameManager.PhaseType.ANGER:
 			gemstone_facets.modulate = Color.RED
 		GameManager.PhaseType.BARGAINING:
