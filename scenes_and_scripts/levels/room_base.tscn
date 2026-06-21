@@ -30,6 +30,7 @@ texture_filter = 2
 offset_left = 258.0
 offset_right = 1918.0
 offset_bottom = 1080.0
+mouse_filter = 2
 stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=1272984319]
