@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://ci3ujdi2gcmsw" path="res://scenes_and_scripts/actors/player/ghost_david.tscn" id="3_sflau"]
 [ext_resource type="PackedScene" uid="uid://ck6fj7h722sbs" path="res://scenes_and_scripts/actors/player/mouse_gestures.tscn" id="4_ireb1"]
 [ext_resource type="Material" uid="uid://cdsatpdlmt0" path="res://scenes_and_scripts/actors/player/paddle_desaturate.tres" id="5_dsat0"]
+[ext_resource type="PackedScene" uid="uid://dlforceorb7x" path="res://scenes_and_scripts/actors/player/life_force_orb.tscn" id="6_lforb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8fbbk"]
 size = Vector2(122, 28)
@@ -63,4 +64,7 @@ modulate = Color(1, 1, 1, 0.7921569)
 position = Vector2(0, 10)
 
 [node name="DavidHitTarget" type="Marker2D" parent="David" unique_id=773740869]
-position = Vector2(1, 59)
+position = Vector2(1, 53)
+
+[node name="LifeForceOrb" parent="David/DavidHitTarget" unique_id=314060768 instance=ExtResource("6_lforb")]
+position = Vector2(1, 7)

@@ -144,11 +144,14 @@ func _damage_current_stage(damage: float) -> void:
 			get_tree().current_scene.add_child(fx)
 		health_temp -= damage
 		_update_stage_label()
+	_spawn_damage_number(damage)
+
+func _spawn_damage_number(damage: float) -> void:
 	var damage_number = DAMAGE_NUMBER.instantiate()
 	damage_number.position = global_position
 	damage_number.show_damage("-" + str(int(round(damage))), DamageNumber.COLOR_DEALT)
 	get_tree().current_scene.add_child(damage_number)
-	
+
 
 func bargain_sweet_range() -> Vector2:
 	var half: float = (bargain_sweet_spot_width + bargain_sweet_spot_bonus) * 0.5

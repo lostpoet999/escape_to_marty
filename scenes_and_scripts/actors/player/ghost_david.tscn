@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://ceqjt876orrnp" path="res://scenes_and_scripts/actors/player/basic_paddle.png" id="1_dyvie"]
 [ext_resource type="Script" uid="uid://cs82vpqerteng" path="res://scenes_and_scripts/ball/vfx/trail.gd" id="2_jui38"]
 [ext_resource type="Texture2D" uid="uid://befajfg1phsl6" path="res://scenes_and_scripts/actors/player/player_ghost_particles.png" id="3_445r0"]
+[ext_resource type="Texture2D" uid="uid://ba3bqnqxvm3dh" path="res://scenes_and_scripts/collectibles/particle_cartoon_star.png" id="4_b4emf"]
 
 [sub_resource type="Gradient" id="Gradient_jrxcm"]
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.15686275)
@@ -19,6 +20,15 @@ fill_to = Vector2(0.5, 0)
 [sub_resource type="Gradient" id="Gradient_d7lcn"]
 offsets = PackedFloat32Array(0, 0.5100865, 1)
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_glow"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_glow"]
+gradient = SubResource("Gradient_glow")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
 
 [node name="GhostDavid" type="Node2D" unique_id=1136750017]
 modulate = Color(1, 1, 1, 0.79607844)
@@ -56,3 +66,17 @@ angle_max = 360.0
 scale_amount_min = 0.08
 scale_amount_max = 0.1
 color_ramp = SubResource("Gradient_d7lcn")
+
+[node name="ParticleCartoonStar" type="Sprite2D" parent="." unique_id=1212152946]
+visible = false
+modulate = Color(0.11372549, 0.9607843, 0.003921569, 1)
+position = Vector2(-29, -1)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("4_b4emf")
+
+[node name="DavidGlow" type="PointLight2D" parent="." unique_id=1212152947]
+position = Vector2(0, 50)
+color = Color(1, 0.92, 0.78, 1)
+energy = 1.3
+texture = SubResource("GradientTexture2D_glow")
+texture_scale = 3.0

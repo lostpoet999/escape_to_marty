@@ -44,7 +44,8 @@ var is_tweening_to_david: bool = false
 
 @onready var ball_half_height: float = (ball_collision.shape as CircleShape2D).radius
 
-func _ready() -> void:	
+func _ready() -> void:
+	add_to_group(&"ball")
 	DP.track("Ball Velocity: ",self,"current_speed")
 	position_ball_on_paddle()
 	bounce_effect = null

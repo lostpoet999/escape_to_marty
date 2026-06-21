@@ -4,6 +4,8 @@
 [ext_resource type="FontFile" uid="uid://ce5jk1ok7f4r5" path="res://label_settings_and_fonts/fonts/PressStart2P-Regular.ttf" id="2_1rq4o"]
 
 [node name="DamageNumber" type="Node2D" unique_id=113449863]
+z_index = 2000
+z_as_relative = false
 script = ExtResource("1_1rq4o")
 
 [node name="AllTextTypes" type="Node2D" parent="." unique_id=1549933708]
