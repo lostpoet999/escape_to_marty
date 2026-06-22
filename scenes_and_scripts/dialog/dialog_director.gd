@@ -74,6 +74,24 @@ func cancel_active() -> void:
 	_dismiss_active_bubble()
 
 
+func force_reset() -> void:
+	_play_serial += 1
+	_cancel_requested = true
+	_kill_focus_tween()
+	_kill_focus_pull_tween()
+	_dismiss_active_bubble()
+	if is_instance_valid(_active_catcher):
+		_active_catcher.queue_free()
+	_active_catcher = null
+	if is_instance_valid(_focus_dim):
+		_focus_dim.queue_free()
+	_focus_dim = null
+	_focus_camera = null
+	if focused_active:
+		GameManager.unpause_game()
+		focused_active = false
+
+
 func _passes_trigger_threshold(tree_id: StringName, tree: DialogTree) -> bool:
 	if tree.trigger_threshold <= 1:
 		return true

@@ -10,16 +10,19 @@ text = "Enjoy your \"happy\" little dream...hahaha"
 
 [sub_resource type="Resource" id="Resource_igwkx"]
 script = ExtResource("2_beat")
+speaker = 1
 text = "When will you ever learn?"
 metadata/_custom_type_script = "uid://da86xmy7akvas"
 
 [sub_resource type="Resource" id="Resource_2qq5w"]
 script = ExtResource("2_beat")
+speaker = 1
 text = "You should just give up."
 metadata/_custom_type_script = "uid://da86xmy7akvas"
 
 [sub_resource type="Resource" id="Resource_mfg6b"]
 script = ExtResource("2_beat")
+speaker = 1
 text = "Maybe this is the time you escape this \"dream\".... NOT!"
 metadata/_custom_type_script = "uid://da86xmy7akvas"
 

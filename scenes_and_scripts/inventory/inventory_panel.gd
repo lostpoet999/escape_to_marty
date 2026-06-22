@@ -31,6 +31,23 @@ func _ready() -> void:
 	Signalbus.shop_restock_vouchers_changed.connect(_on_vouchers_changed)
 	repopulate_inventory()
 
+## memory trophies stay in the inventory only to carry their capability (e.g. minimap),
+## so surface them in the dedicated trophy row and keep them out of the standard grid.
+func _trophy_paths() -> Dictionary:
+	var paths: Dictionary = {}
+	for floor_index: int in range(1, MEMORY_TROPHY_SLOTS + 1):
+		var path: String = SaveProgression.memory_trophy_path(floor_index)
+		if path != "":
+			paths[path] = true
+	return paths
+
+func _non_trophy_items() -> Array:
+	var trophy_paths: Dictionary = _trophy_paths()
+	return PlayerInventory.get_instance().get_items().filter(
+		func(item: Variant) -> bool:
+			return not (item is BaseItem and trophy_paths.has(item.resource_path))
+	)
+
 func populate_trophies() -> void:
 	for child: Node in trophy_row.get_children():
 		child.queue_free()
@@ -51,12 +68,14 @@ func _make_trophy_slot(floor_index: int) -> Control:
 		number.modulate = TROPHY_DIM
 		return number
 	var item: BaseItem = load(path) as BaseItem
-	var icon: TextureRect = TextureRect.new()
-	icon.custom_minimum_size = Vector2(ICON_SIZE, ICON_SIZE)
-	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	icon.texture = item.inventory_icon if item and item.inventory_icon else PlayerInventory.PLACEHOLDER_TEX
-	icon.tooltip_text = item.powerup_name if item else ""
-	return icon
+	var button: Button = Button.new()
+	button.focus_mode = Control.FOCUS_NONE
+	button.custom_minimum_size = Vector2(ICON_SIZE, ICON_SIZE)
+	button.icon = item.inventory_icon if item and item.inventory_icon else PlayerInventory.PLACEHOLDER_TEX
+	button.tooltip_text = item.powerup_name if item else ""
+	if item:
+		BaseItem.style_button_with_rarity(button, item.rarity, 2, 4, 2.0)
+	return button
 
 func _on_vouchers_changed(_count: int) -> void:
 	repopulate_inventory()
@@ -64,7 +83,7 @@ func _on_vouchers_changed(_count: int) -> void:
 func repopulate_inventory() -> void:
 	clear_buttons()
 	populate_trophies()
-	populate_grid(inv_grid_container, PlayerInventory.get_instance().get_items())
+	populate_grid(inv_grid_container, _non_trophy_items())
 	populate_grid(core_grid_container, PlayerData.inventory.get_core_items())
 	add_voucher_tickets()
 

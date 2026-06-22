@@ -6,7 +6,7 @@
 [sub_resource type="Resource" id="Resource_beat_1"]
 script = ExtResource("2_beat")
 speaker = 1
-text = "Fine, take the paddle---you'll be back here soon enough."
+text = "Fine, take the paddle---your LIFE FORCE is tied to anyway! Hahaha..."
 
 [resource]
 script = ExtResource("1_tree")

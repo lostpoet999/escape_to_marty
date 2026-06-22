@@ -17,8 +17,15 @@ script = ExtResource("2_beat")
 text = "Why does this \"collector\" thing keep trapping us all in these seals?"
 metadata/_custom_type_script = "uid://da86xmy7akvas"
 
+[sub_resource type="Resource" id="Resource_fsd4m"]
+script = ExtResource("2_beat")
+speaker = 2
+text = "Thanks for freeing me!"
+metadata/_custom_type_script = "uid://da86xmy7akvas"
+
 [resource]
 script = ExtResource("1_tree")
-beats = Array[ExtResource("2_beat")]([SubResource("Resource_beat_1"), SubResource("Resource_wtmx1"), SubResource("Resource_36tgn")])
-trigger_threshold = 8
+beats = Array[ExtResource("2_beat")]([SubResource("Resource_beat_1"), SubResource("Resource_wtmx1"), SubResource("Resource_36tgn"), SubResource("Resource_fsd4m")])
+once_per_run = false
+trigger_threshold = 10
 pick_random_beat = true

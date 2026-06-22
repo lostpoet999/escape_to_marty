@@ -41,7 +41,6 @@ class_name FloorData extends Resource
 @export var wall_random_flip: bool = false
 # defaults match room_base.tscn's current values so unset floors look unchanged
 @export var background_color: Color = Color(0.094, 0.039, 0.067, 1.0)
-@export var canvas_modulate_color: Color = Color(0.916, 0.916, 0.916, 1.0)
 ## 2D drifting-mist particle layer over the play area
 @export var misty_background_enabled: bool = true
 

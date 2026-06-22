@@ -22,6 +22,7 @@ const SKIP_FLASH_GLOW_SIZE: int = 8
 ## The seal used in the opening scene.
 @export var seal: BaseSeal
 
+var active: bool = false
 var _break_position: Vector2
 var _skipped: bool = false
 var _animation_time: float = 0.0
@@ -42,6 +43,7 @@ func run() -> void:
 	if PlayerData.seen_cutscenes.has(CUTSCENE_ID):
 		return
 	PlayerData.seen_cutscenes.append(CUTSCENE_ID)
+	active = true
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_spawn_skip_prompt()
 	set_process(true)
@@ -68,6 +70,7 @@ func run() -> void:
 	_set_tutorial_visible(true)
 	_set_exits_locked(false)
 	_remove_skip_prompt()
+	active = false
 
 
 func _process(delta: float) -> void:
@@ -86,6 +89,7 @@ func _process(delta: float) -> void:
 
 func _skip_to_end() -> void:
 	_skipped = true
+	active = false
 	_remove_skip_prompt()
 	DialogDirector.cancel_active()
 	if is_instance_valid(seal) and not seal.dying:

@@ -95,6 +95,7 @@ func _on_give_stars_btn_pressed() -> void:
 func populate_floor_warp() -> void:
 	for child: Node in floor_list.get_children():
 		child.queue_free()
+	var cutscene_active: bool = _cutscene_active()
 	for i: int in GameManager.FLOOR_REGISTRY.floors.size():
 		var floor_num: int = i + 1
 		var fd_variant: Variant = GameManager.FLOOR_REGISTRY.floors[i]
@@ -104,13 +105,23 @@ func populate_floor_warp() -> void:
 			label_text += "  (current)"
 		var btn: Button = Button.new()
 		btn.text = label_text
+		btn.disabled = cutscene_active
 		btn.pressed.connect(warp_to_floor.bind(floor_num))
 		floor_list.add_child(btn)
+
+func _cutscene_active() -> bool:
+	for node: Node in get_tree().get_nodes_in_group("cutscene"):
+		if node.get("active") == true:
+			return true
+	return false
 
 func warp_to_floor(floor_num: int) -> void:
 	if floor_num < 1 or floor_num > GameManager.FLOOR_REGISTRY.floors.size():
 		push_warning("DP warp: floor %d not in registry" % floor_num)
 		return
+	if _cutscene_active():
+		return
+	DialogDirector.force_reset()
 	GameManager.current_floor = floor_num
 	GameManager.start_floor(false)
 	hide()

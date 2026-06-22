@@ -23,7 +23,6 @@ var entry: RoomEntry
 @onready var no_respawn: Node2D = $"No-Respawn"
 @onready var play_background: ColorRect = $PlayArea/Background
 @onready var flash_overlay: ColorRect = $PlayArea/FlashOverlay
-@onready var canvas_modulate_node: CanvasModulate = $CanvasModulate
 @onready var misty_background: Node2D = $"PlayArea/Misty-Background"
 @onready var paddle: Paddle = $Paddle
 
@@ -259,7 +258,6 @@ func _apply_floor_wall_visuals() -> void:
 	base_tint.a *= fd.wall_alpha
 	for wall: Node in get_tree().get_nodes_in_group("walls"):
 		for child: Node in wall.find_children("*", "", true, false):
-
 			if (child is TextureRect or child is Sprite2D) and child.texture != null:
 				if fd.wall_texture != null:
 					child.texture = fd.wall_texture
@@ -269,7 +267,6 @@ func _apply_floor_wall_visuals() -> void:
 					child.flip_h = rng.randi() % 2 == 0
 					child.flip_v = rng.randi() % 2 == 0
 	play_background.color = fd.background_color
-	canvas_modulate_node.color = fd.canvas_modulate_color
 	misty_background.visible = fd.misty_background_enabled
 
 func _jittered(base: Color, amount: float, rng: RandomNumberGenerator) -> Color:
