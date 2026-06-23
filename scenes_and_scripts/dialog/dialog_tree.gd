@@ -10,7 +10,7 @@ class_name DialogTree extends Resource
 ## Play at most once per run including if trigger happens again.
 @export var once_per_run: bool = true
 
-## Which call count actuall triggers the dialog. IE- the nth freed spirit trigger dialog.
+## Fires once on every Nth trigger (the Nth, 2Nth, 3Nth...), staying silent in between. IE- a bark every 10th freed spirit. 1 = every trigger.
 @export var trigger_threshold: int = 1
 
 ## ON: pick a random beat from the "pool" vs play all sequentially

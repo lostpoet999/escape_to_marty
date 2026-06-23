@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://dwc118v25nv0r" path="res://scenes_and_scripts/backgrounds/misty_background.tscn" id="12_2ndtm"]
 [ext_resource type="Script" uid="uid://tjwcoaf5nkwa" path="res://scenes_and_scripts/levels/camera_2d.gd" id="14_57n16"]
 [ext_resource type="Script" uid="uid://d2ip0nttvnd5r" path="res://scenes_and_scripts/ui_menus/click_mode_prompt.gd" id="15_ckmpt"]
+[ext_resource type="Script" uid="uid://b8dmglbl0ckp1" path="res://scenes_and_scripts/ui_menus/ball_damage_label.gd" id="15_bdmlb"]
 [ext_resource type="Script" uid="uid://cle2k8vhlcj7h" path="res://scenes_and_scripts/actors/player/click_mode_cursor.gd" id="16_ckcur"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_57n16"]
@@ -82,6 +83,9 @@ metadata/_edit_use_anchors_ = true
 
 [node name="ClickModePrompt" type="CanvasLayer" parent="." unique_id=1590460842]
 script = ExtResource("15_ckmpt")
+
+[node name="BallDamageLabel" type="CanvasLayer" parent="."]
+script = ExtResource("15_bdmlb")
 
 [node name="ClickModeCursor" type="Node2D" parent="." unique_id=1985007121]
 script = ExtResource("16_ckcur")

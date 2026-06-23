@@ -97,7 +97,7 @@ func _passes_trigger_threshold(tree_id: StringName, tree: DialogTree) -> bool:
 		return true
 	var count: int = PlayerData.dialog_trigger_counts.get(tree_id, 0) + 1
 	PlayerData.dialog_trigger_counts[tree_id] = count
-	return count >= tree.trigger_threshold
+	return count % tree.trigger_threshold == 0
 
 
 func _play_timed(tree_id: StringName, tree: DialogTree, anchor: Node2D, serial: int) -> void:

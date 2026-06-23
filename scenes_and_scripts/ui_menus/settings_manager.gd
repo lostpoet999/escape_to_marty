@@ -3,6 +3,7 @@ extends Node
 var settings_file: ConfigFile = ConfigFile.new()
 const SETTINGS_PATH: String = "user://escape_to_marty_settings.cfg"
 const SFX_BOOST_DB: float = 8.0
+const MUSIC_TRIM_DB: float = -3.1
 
 var music_volume: float = 0.5
 var sfx_volume: float = 0.5
@@ -42,7 +43,7 @@ func apply_settings() -> void:
 	apply_audio()
 
 func apply_audio() -> void:
-	set_bus_volume("Music", music_volume, 0.0)
+	set_bus_volume("Music", music_volume, MUSIC_TRIM_DB)
 	set_bus_volume("SFX", sfx_volume, SFX_BOOST_DB)
 	set_bus_volume("Ambience", sfx_volume, SFX_BOOST_DB)
 
