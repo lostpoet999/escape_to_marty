@@ -4,6 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://c7bssypnnaqai" path="res://scenes_and_scripts/bricks/brick_vfx/brick_damage_fx.tscn" id="2_xvt2o"]
 [ext_resource type="PackedScene" uid="uid://dwqgc0eorwbcf" path="res://scenes_and_scripts/bricks/brick_vfx/brick_destroy_fx.tscn" id="3_we8d2"]
 [ext_resource type="Texture2D" uid="uid://wi34v2345ihn" path="res://scenes_and_scripts/bricks/brick-gemstone-facets.png" id="4_xvt2o"]
+[ext_resource type="Texture2D" uid="uid://b2d528eyj6wyb" path="res://scenes_and_scripts/bricks/brick_vfx/damage1.png" id="5_tudpi"]
+[ext_resource type="Texture2D" uid="uid://b7n76eqijqu62" path="res://scenes_and_scripts/bricks/brick_vfx/damage2.png" id="6_sd7kg"]
+[ext_resource type="Texture2D" uid="uid://cj3e173xt6qj6" path="res://scenes_and_scripts/bricks/brick_vfx/damage3.png" id="7_uo7yk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xcpf8"]
 size = Vector2(64, 32)
@@ -23,6 +26,18 @@ shape = SubResource("RectangleShape2D_xcpf8")
 [node name="gemstone-facets" type="Sprite2D" parent="." unique_id=1967034558]
 modulate = Color(0.23137255, 0.25882354, 0.69803923, 1)
 texture = ExtResource("4_xvt2o")
+
+[node name="damage_cracks_1" type="Sprite2D" parent="." unique_id=721189873]
+visible = false
+texture = ExtResource("5_tudpi")
+
+[node name="damage_cracks_2" type="Sprite2D" parent="." unique_id=474540060]
+visible = false
+texture = ExtResource("6_sd7kg")
+
+[node name="damage_cracks_3" type="Sprite2D" parent="." unique_id=1904148263]
+visible = false
+texture = ExtResource("7_uo7yk")
 
 [node name="brick_health" type="Label" parent="." unique_id=499738501]
 anchors_preset = 15

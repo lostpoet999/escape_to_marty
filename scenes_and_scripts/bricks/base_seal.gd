@@ -6,6 +6,7 @@ const BONUS_DROP: PackedScene = preload("res://scenes_and_scripts/collectibles/b
 const BONUS_POOL: BonusDropPool = preload("res://scenes_and_scripts/collectibles/bonus_drops/bonus_drop_pool.tres")
 const DAMAGE_NUMBER: PackedScene = preload("uid://bedvoohhfbi03")
 
+
 const PHASE_SCORES: Dictionary[GameManager.PhaseType, int] = {
 	GameManager.PhaseType.DENIAL: 100,
 	GameManager.PhaseType.ANGER: 150,
@@ -18,6 +19,10 @@ const PHASE_SCORES: Dictionary[GameManager.PhaseType, int] = {
 enum BargainOutcome { OVERPAY, DEAL, WHIFF, INSULT }
 
 @onready var brick_health_label: Label = $brick_health
+
+@onready var damage_cracks_1: Sprite2D = $"damage_cracks_1"
+@onready var damage_cracks_2: Sprite2D = $"damage_cracks_2"
+@onready var damage_cracks_3: Sprite2D = $"damage_cracks_3"
 
 @onready var gemstone_facets: Sprite2D = $"gemstone-facets"
 
@@ -100,6 +105,9 @@ func _ready() -> void:
 	pick_random_stage()
 	_update_stage_label()
 	input_pickable = true
+	damage_cracks_1.visible = false
+	damage_cracks_2.visible = false
+	damage_cracks_3.visible = false
 
 func accept_damage(damage: float, damage_types: Array) -> void:
 	if dying:
@@ -138,6 +146,10 @@ func _damage_current_stage(damage: float) -> void:
 			pick_random_stage()
 			_update_stage_label()
 	else:
+		if !damage_cracks_1.visible: damage_cracks_1.visible = true
+		if damage_cracks_1.visible: damage_cracks_2.visible = true
+		if damage_cracks_2.visible: damage_cracks_3.visible = true
+
 		var fx: Node2D = brick_damage_fx.instantiate()
 		if fx != null:
 			fx.position = global_position
