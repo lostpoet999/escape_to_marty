@@ -105,9 +105,10 @@ func _ready() -> void:
 	pick_random_stage()
 	_update_stage_label()
 	input_pickable = true
-	damage_cracks_1.visible = false
-	damage_cracks_2.visible = false
-	damage_cracks_3.visible = false
+	if damage_cracks_1 != null:
+		damage_cracks_1.visible = false
+		damage_cracks_2.visible = false
+		damage_cracks_3.visible = false
 
 func accept_damage(damage: float, damage_types: Array) -> void:
 	if dying:
