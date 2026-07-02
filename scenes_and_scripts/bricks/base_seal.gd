@@ -32,8 +32,10 @@ var dying: bool = false
 var _feedback_pending: bool = false
 var _feedback_damaged: bool = false
 	
-@export var brick_health: int = 1
-var health_temp: float
+@export var brick_health: int = 1 # default starting health
+var health_temp: float # current health
+var health_max: float # max health for this stage
+
 @export var brick_damage_fx: PackedScene
 @export var brick_destroy_fx: PackedScene
 
@@ -66,6 +68,8 @@ func pick_random_stage() -> void:
 	if stages.is_empty():
 		current_stage = GameManager.PhaseType.HEALTH
 		health_temp = brick_health
+		health_max = health_temp
+		_update_damage_cracks()
 		setup_visuals()
 		return
 	
@@ -77,6 +81,8 @@ func pick_random_stage() -> void:
 		current_stage = non_health_stages.pick_random()
 	
 	health_temp = stages[current_stage]
+	health_max = health_temp
+	_update_damage_cracks()
 	setup_visuals()
 
 func setup_visuals()->void:
@@ -95,7 +101,7 @@ func setup_visuals()->void:
 			gemstone_facets.modulate = Color.BLUE
 			
 func _ready() -> void:	
-	if initialize_brick_on_leveldata:#default is populate stages based on level stats		
+	if initialize_brick_on_leveldata: #default is populate stages based on level stats		
 		stages.clear()
 		stages = SealInitializer.initialize_seal()
 
@@ -104,10 +110,9 @@ func _ready() -> void:
 	pick_random_stage()
 	_update_stage_label()
 	input_pickable = true
-	if damage_cracks_1 != null:
-		damage_cracks_1.visible = false
-		damage_cracks_2.visible = false
-		damage_cracks_3.visible = false
+	if damage_cracks_1: damage_cracks_1.visible = false
+	if damage_cracks_2: damage_cracks_2.visible = false
+	if damage_cracks_3: damage_cracks_3.visible = false
 
 func accept_damage(damage: float, damage_types: Array) -> void:
 	if dying:
@@ -128,8 +133,30 @@ func _resolve_damage_feedback() -> void:
 	_feedback_damaged = false
 	_feedback_pending = false
 
+func _update_damage_cracks() -> void:
+	if !damage_cracks_1: return
+	if !damage_cracks_2: return
+	if !damage_cracks_3: return
+	if health_temp >= health_max: # starting health or greater
+		damage_cracks_1.visible = false
+		damage_cracks_2.visible = false
+		damage_cracks_3.visible = false
+	if health_temp == health_max-1: # first hit
+		damage_cracks_1.visible = true
+		damage_cracks_2.visible = false
+		damage_cracks_3.visible = false
+	if health_temp == health_max-2: # second hit
+		damage_cracks_1.visible = false
+		damage_cracks_2.visible = true
+		damage_cracks_3.visible = false
+	if health_temp <= health_max-3: # third and higher hits
+		damage_cracks_1.visible = false
+		damage_cracks_2.visible = false
+		damage_cracks_3.visible = true
+
 func _damage_current_stage(damage: float) -> void:
 	if health_temp - damage <= 0:
+		# took damage and was destroyed
 		var fx: Node2D
 		if current_stage == GameManager.PhaseType.HEALTH:
 			fx = brick_destroy_fx.instantiate()
@@ -146,16 +173,15 @@ func _damage_current_stage(damage: float) -> void:
 			pick_random_stage()
 			_update_stage_label()
 	else:
-		if !damage_cracks_1.visible: damage_cracks_1.visible = true
-		if damage_cracks_1.visible: damage_cracks_2.visible = true
-		if damage_cracks_2.visible: damage_cracks_3.visible = true
-
+		# took damage but not yet destroyed
 		var fx: Node2D = brick_damage_fx.instantiate()
 		if fx != null:
 			fx.position = global_position
 			get_tree().current_scene.add_child(fx)
 		health_temp -= damage
+		_update_damage_cracks()
 		_update_stage_label()
+
 	_spawn_damage_number(damage)
 
 func _spawn_damage_number(damage: float) -> void:
@@ -196,6 +222,7 @@ func _process(delta: float) -> void:
 	if current_stage == GameManager.PhaseType.DEPRESSION:
 		if health_temp < _depression_max:
 			health_temp = minf(health_temp + depression_regen_rate * delta, _depression_max)
+			_update_damage_cracks()
 			_update_stage_label()
 	elif depression_reseeds_when_dark and _had_depression and not stages.has(GameManager.PhaseType.DEPRESSION):
 		_reseed_timer += delta
@@ -207,6 +234,7 @@ func _reseed_depression() -> void:
 	stages[GameManager.PhaseType.DEPRESSION] = _depression_max
 	current_stage = GameManager.PhaseType.DEPRESSION
 	health_temp = _depression_max
+	_update_damage_cracks()
 	setup_visuals()
 	_update_stage_label()
 
