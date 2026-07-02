@@ -23,7 +23,6 @@ enum BargainOutcome { OVERPAY, DEAL, WHIFF, INSULT }
 @onready var damage_cracks_1: Sprite2D = $"damage_cracks_1"
 @onready var damage_cracks_2: Sprite2D = $"damage_cracks_2"
 @onready var damage_cracks_3: Sprite2D = $"damage_cracks_3"
-
 @onready var gemstone_facets: Sprite2D = $"gemstone-facets"
 
 @export var initialize_brick_on_leveldata: bool = true
