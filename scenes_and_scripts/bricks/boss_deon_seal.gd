@@ -23,5 +23,6 @@ func _damage_current_stage(damage: float) -> void:
 			fx.position = global_position
 			get_tree().current_scene.add_child(fx)
 		health_temp -= damage
-		brick_health_label.text = str(health_temp)
+		_update_damage_cracks()
+		_update_stage_label()
 	_spawn_damage_number(damage)
