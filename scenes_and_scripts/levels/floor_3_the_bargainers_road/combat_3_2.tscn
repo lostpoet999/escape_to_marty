@@ -52,24 +52,164 @@ brick_health = 2
 position = Vector2(896, 480)
 brick_health = 2
 
-[node name="OpenSeal20" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="6" unique_id=2019167097 instance=ExtResource("2_4285g")]
+[node name="OpenSeal25" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="6" unique_id=887021685 instance=ExtResource("2_4285g")]
+position = Vector2(832, 480)
+brick_health = 2
+
+[node name="OpenSeal26" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="7" unique_id=904319043 instance=ExtResource("2_4285g")]
+position = Vector2(832, 480)
+brick_health = 2
+
+[node name="OpenSeal30" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="8" unique_id=898648725 instance=ExtResource("2_4285g")]
+position = Vector2(768, 480)
+brick_health = 2
+
+[node name="OpenSeal31" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="9" unique_id=61459826 instance=ExtResource("2_4285g")]
+position = Vector2(704, 480)
+brick_health = 2
+
+[node name="OpenSeal20" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="10" unique_id=2019167097 instance=ExtResource("2_4285g")]
 position = Vector2(896, 608)
 brick_health = 2
 
-[node name="OpenSeal21" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="7" unique_id=456834334 instance=ExtResource("2_4285g")]
+[node name="OpenSeal27" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="11" unique_id=1347019178 instance=ExtResource("2_4285g")]
+position = Vector2(832, 608)
+brick_health = 2
+
+[node name="OpenSeal28" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="12" unique_id=1386066601 instance=ExtResource("2_4285g")]
+position = Vector2(768, 608)
+brick_health = 2
+
+[node name="OpenSeal29" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="13" unique_id=1087879345 instance=ExtResource("2_4285g")]
+position = Vector2(704, 608)
+brick_health = 2
+
+[node name="OpenSeal40" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="14" unique_id=112669197 instance=ExtResource("2_4285g")]
+position = Vector2(640, 480)
+brick_health = 2
+
+[node name="OpenSeal41" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="15" unique_id=540232230 instance=ExtResource("2_4285g")]
+position = Vector2(576, 480)
+brick_health = 2
+
+[node name="OpenSeal42" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="16" unique_id=884243338 instance=ExtResource("2_4285g")]
+position = Vector2(640, 608)
+brick_health = 2
+
+[node name="OpenSeal43" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="17" unique_id=1628258592 instance=ExtResource("2_4285g")]
+position = Vector2(576, 608)
+brick_health = 2
+
+[node name="OpenSeal21" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="18" unique_id=456834334 instance=ExtResource("2_4285g")]
 position = Vector2(1408, 480)
 brick_health = 2
 
-[node name="OpenSeal23" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="8" unique_id=338690007 instance=ExtResource("2_4285g")]
+[node name="OpenSeal22" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="19" unique_id=1306039291 instance=ExtResource("2_4285g")]
+position = Vector2(1472, 480)
+brick_health = 2
+
+[node name="OpenSeal23" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="20" unique_id=338690007 instance=ExtResource("2_4285g")]
 position = Vector2(1408, 608)
 brick_health = 2
 
-[node name="OpenSeal16" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="9" unique_id=642171185 instance=ExtResource("2_4285g")]
+[node name="OpenSeal24" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="21" unique_id=550473567 instance=ExtResource("2_4285g")]
+position = Vector2(1472, 608)
+brick_health = 2
+
+[node name="OpenSeal32" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="22" unique_id=2017758684 instance=ExtResource("2_4285g")]
+position = Vector2(1536, 480)
+brick_health = 2
+
+[node name="OpenSeal33" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="23" unique_id=1636128710 instance=ExtResource("2_4285g")]
+position = Vector2(1600, 480)
+brick_health = 2
+
+[node name="OpenSeal34" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="24" unique_id=1075299478 instance=ExtResource("2_4285g")]
+position = Vector2(1536, 608)
+brick_health = 2
+
+[node name="OpenSeal35" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="25" unique_id=1839293396 instance=ExtResource("2_4285g")]
+position = Vector2(1600, 608)
+brick_health = 2
+
+[node name="OpenSeal36" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="26" unique_id=422783685 instance=ExtResource("2_4285g")]
+position = Vector2(1664, 480)
+brick_health = 2
+
+[node name="OpenSeal37" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="27" unique_id=577152944 instance=ExtResource("2_4285g")]
+position = Vector2(1728, 480)
+brick_health = 2
+
+[node name="OpenSeal38" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="28" unique_id=1945598623 instance=ExtResource("2_4285g")]
+position = Vector2(1664, 608)
+brick_health = 2
+
+[node name="OpenSeal39" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="29" unique_id=608883727 instance=ExtResource("2_4285g")]
+position = Vector2(1728, 608)
+brick_health = 2
+
+[node name="OpenSeal16" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="30" unique_id=642171185 instance=ExtResource("2_4285g")]
 position = Vector2(1344, 544)
 brick_health = 2
 
-[node name="OpenSeal18" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="10" unique_id=236963144 instance=ExtResource("2_4285g")]
+[node name="OpenSeal18" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="31" unique_id=236963144 instance=ExtResource("2_4285g")]
 position = Vector2(1280, 544)
+brick_health = 2
+
+[node name="OpenSeal7" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="32" unique_id=821617921 instance=ExtResource("2_4285g")]
+position = Vector2(1152, 416)
+brick_health = 2
+
+[node name="OpenSeal8" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="33" unique_id=486171813 instance=ExtResource("2_4285g")]
+position = Vector2(1216, 416)
+brick_health = 2
+
+[node name="OpenSeal9" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="34" unique_id=934794077 instance=ExtResource("2_4285g")]
+position = Vector2(1088, 416)
+brick_health = 2
+
+[node name="OpenSeal12" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="35" unique_id=344541593 instance=ExtResource("2_4285g")]
+position = Vector2(960, 416)
+brick_health = 2
+
+[node name="OpenSeal13" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="36" unique_id=1480593730 instance=ExtResource("2_4285g")]
+position = Vector2(1024, 416)
+brick_health = 2
+
+[node name="OpenSeal17" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="37" unique_id=554896058 instance=ExtResource("2_4285g")]
+position = Vector2(1344, 416)
+brick_health = 2
+
+[node name="OpenSeal44" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="38" unique_id=268607396 instance=ExtResource("2_4285g")]
+position = Vector2(1280, 416)
+brick_health = 2
+
+[node name="OpenSeal14" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="39" unique_id=1839907907 instance=ExtResource("2_4285g")]
+position = Vector2(1152, 672)
+brick_health = 2
+
+[node name="OpenSeal15" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="40" unique_id=1384224667 instance=ExtResource("2_4285g")]
+position = Vector2(1216, 672)
+brick_health = 2
+
+[node name="OpenSeal45" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="41" unique_id=875510995 instance=ExtResource("2_4285g")]
+position = Vector2(1088, 672)
+brick_health = 2
+
+[node name="OpenSeal46" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="42" unique_id=778195582 instance=ExtResource("2_4285g")]
+position = Vector2(960, 672)
+brick_health = 2
+
+[node name="OpenSeal47" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="43" unique_id=1602172808 instance=ExtResource("2_4285g")]
+position = Vector2(1024, 672)
+brick_health = 2
+
+[node name="OpenSeal48" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="44" unique_id=1768920238 instance=ExtResource("2_4285g")]
+position = Vector2(1344, 672)
+brick_health = 2
+
+[node name="OpenSeal49" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="45" unique_id=698017854 instance=ExtResource("2_4285g")]
+position = Vector2(1280, 672)
 brick_health = 2
 
 [node name="EnemySpawner" parent="No-Respawn/Spawners" parent_id_path=PackedInt32Array(1587044855) index="0" unique_id=740599083 instance=ExtResource("3_hkc1k")]

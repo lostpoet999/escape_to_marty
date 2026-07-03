@@ -5,7 +5,7 @@
 
 [sub_resource type="Resource" id="Resource_beat_1"]
 script = ExtResource("2_beat")
-text = "Thanks, whoever you are! Not the creepy voice...tha guy--erm thing sucks!"
+text = "Thanks, whoever you are! Not the creepy voice...that guy--erm thing sucks!"
 
 [sub_resource type="Resource" id="Resource_beat_2"]
 script = ExtResource("2_beat")

@@ -6,11 +6,9 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_oufug"]
 font = ExtResource("2_4xu00")
-font_size = 16
 
 [sub_resource type="LabelSettings" id="LabelSettings_cefam"]
 font = ExtResource("2_4xu00")
-font_size = 16
 font_color = Color(0, 0.59170103, 0.5938744, 1)
 
 [node name="common_room" unique_id=565861230 instance=ExtResource("1_ydske")]
@@ -37,8 +35,11 @@ autowrap_mode = 3
 position = Vector2(679, 736)
 initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({
-1: 3.0
+2: 5.0
 })
+
+[node name="FlashOverlay" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="7" unique_id=443116914]
+metadata/_edit_lock_ = true
 
 [node name="Label2" type="Label" parent="." index="6" unique_id=1932243363]
 offset_left = 1024.0
