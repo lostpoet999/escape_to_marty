@@ -40,7 +40,8 @@ var time : float = 0.0
 @onready var paddle: Paddle = $"../Paddle"
 @onready var paddle_collision: CollisionShape2D = $"../Paddle/PaddleCollisionShape"
 @onready var ball_collision: CollisionShape2D = $bounce_collision_shape
-var is_tweening_to_david: bool = false                                                                                                                        
+var is_tweening_to_david: bool = false
+var is_tweening_to_nearest_brick: bool = false                                                                                                                        
 
 @onready var ball_half_height: float = (ball_collision.shape as CircleShape2D).radius
 
@@ -116,6 +117,12 @@ func tween_to_david(hit_pos: Vector2) -> void:
 	)
 	await tw.finished
 
+func tween_to_nearest_brick() -> void:
+	# check if seals are present 
+	#is_tweening_to_nearest_brick = true
+	#set_physics_process(false)
+	#ball_collision.set_deferred("disabled", true)
+	print("tweening to nearest brick")
 
 func _bezier(t: float, p0: Vector2, p1: Vector2, p2: Vector2) -> Vector2:
 	var u: float = 1.0 - t
@@ -145,7 +152,11 @@ func get_paddle_half_height() -> float:
 
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("left_mouse") and on_paddle and GameManager.current_state == GameManager.GameState.BALL_ON_PADDLE:
+		print("mouse pressed")
 		launch_ball()
+	if Input.is_action_just_pressed("ball_activate_powerup"):
+		print("ball powerup input working!")
+		tween_to_nearest_brick()
 
 func launch_ball() -> void:
 	on_paddle = false
