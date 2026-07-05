@@ -119,10 +119,25 @@ func tween_to_david(hit_pos: Vector2) -> void:
 
 func tween_to_nearest_brick() -> void:
 	# check if seals are present 
-	#is_tweening_to_nearest_brick = true
-	#set_physics_process(false)
-	#ball_collision.set_deferred("disabled", true)
+	is_tweening_to_nearest_brick = true
+	set_physics_process(false)
+	ball_collision.set_deferred("disabled", true)
+	#get nearest brick and continue operations
 	print("tweening to nearest brick")
+
+func get_nearest_brick() -> Node:
+	var bricks: Array[Node] = get_tree().get_nodes_in_group("bricks")
+	var p0: Vector2 = position
+	var nearest_brick: Node = bricks[0]
+	var p1: Vector2 = nearest_brick.position
+	var nearest_dist: float = global_position.distance_to(nearest_brick.position)
+	for i in range (bricks.size()):
+		var brick = bricks[i]
+		var temp_dist: float = global_position.distance_to(brick.position)
+		if temp_dist < nearest_dist:
+			nearest_dist = temp_dist
+			nearest_brick = brick
+	return nearest_brick
 
 func _bezier(t: float, p0: Vector2, p1: Vector2, p2: Vector2) -> Vector2:
 	var u: float = 1.0 - t
