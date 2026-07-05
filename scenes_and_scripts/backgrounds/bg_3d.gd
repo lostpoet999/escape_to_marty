@@ -93,7 +93,6 @@ func _cloud_albedo_from_tint(tint: Color, darken: float, desaturate: float) -> C
 	var gray: float = c.get_luminance()
 	return c.lerp(Color(gray, gray, gray, c.a), desaturate)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	if not camera_3d: return
 	if not BG3DRemote.is_active(): return

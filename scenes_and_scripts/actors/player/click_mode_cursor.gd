@@ -2,7 +2,7 @@ class_name ClickModeCursor extends Node2D
 
 const CURSOR_SCENE: PackedScene = preload("res://scenes_and_scripts/actors/player/ghost_david.tscn")
 const CURSOR_SCALE_FACTOR: float = 0.80
-const CURSOR_Z_INDEX: int = 1000
+const CURSOR_Z_INDEX: int = 4095
 const TRANSITION_SECONDS: float = 0.144
 const RELEASE_LIFT: float = 150.0
 

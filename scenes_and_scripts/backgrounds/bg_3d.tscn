@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://csyqsr55dvuii" path="res://scenes_and_scripts/backgrounds/bg_3d.gd" id="1_kat55"]
 [ext_resource type="PackedScene" uid="uid://b5wsv1qakbmm" path="res://scenes_and_scripts/backgrounds/light.tscn" id="2_ss3jj"]
 [ext_resource type="PackedScene" uid="uid://dvh8mcakq6yax" path="res://scenes_and_scripts/backgrounds/BG Objects/bg_cloud.tscn" id="3_ryyjo"]
+[ext_resource type="Script" uid="uid://djyqs3netpwfe" path="res://scenes_and_scripts/backgrounds/bg_cloud_spawner.gd" id="4_cldsp"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_nei6l"]
 
@@ -177,17 +178,14 @@ transform = Transform3D(1, 0, 0, 0, -0.8660254, -0.5, 0, 0.5, -0.8660254, 0, 0, 
 light_color = Color(1, 0.94, 0.82, 1)
 light_energy = 0.5
 
-[node name="BgCloud" parent="." unique_id=1543804289 instance=ExtResource("3_ryyjo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.38374, 2.7641277, -11.773158)
-
-[node name="BgCloud2" parent="." unique_id=1499963070 instance=ExtResource("3_ryyjo")]
-transform = Transform3D(1, 0, 0, 0, 0.9348948, -0.35492495, 0, 0.35492495, 0.9348948, 2.3825417, 1.4916496, -4.3608475)
-
-[node name="BgCloud5" parent="." unique_id=326627347 instance=ExtResource("3_ryyjo")]
-transform = Transform3D(1, 0, 0, 0, 0.5153931, -0.8569538, 0, 0.8569538, 0.5153931, -2.090972, 3.5259686, -1.5146961)
-
-[node name="BgCloud3" parent="." unique_id=161997706 instance=ExtResource("3_ryyjo")]
-transform = Transform3D(10, 0, 0, 0, 7.058708, -7.0834064, 0, 7.0834064, 7.058708, -5.3425364, 27.862291, -25.151443)
-
-[node name="BgCloud4" parent="." unique_id=138714953 instance=ExtResource("3_ryyjo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.3222694, 1.69579, -10.677671)
+[node name="CloudSpawner" type="Node3D" parent="." unique_id=147013607]
+script = ExtResource("4_cldsp")
+cloud_scene = ExtResource("3_ryyjo")
+min_clouds = 5
+max_clouds = 8
+depth_near = 4.0
+depth_far = 72.0
+speed_near = 0.35
+speed_far = 0.1
+scale_near = 2.0
+scale_far = 15.0
