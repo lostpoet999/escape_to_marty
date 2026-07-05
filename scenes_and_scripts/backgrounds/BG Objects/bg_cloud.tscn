@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://dvh8mcakq6yax"]
+
+[ext_resource type="Material" uid="uid://vn7up1b8w6h7" path="res://scenes_and_scripts/backgrounds/BG Objects/mat_cloud.tres" id="1_2oso8"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_44koe"]
+material = ExtResource("1_2oso8")
+radius = 0.44244385
+height = 0.8848877
+
+[node name="BgCloud" type="Node3D" unique_id=1543804289]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1238137541]
+transform = Transform3D(-6.24666e-08, 0, 2.5637403, 0, 0.4784903, 0, -1.429069, 0, -1.1206465e-07, 0, -0.55755615, 0)
+mesh = SubResource("CapsuleMesh_44koe")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=389643158]
+transform = Transform3D(-6.24666e-08, 0, 1.2318767, 0, 0.6655194, 0, -1.429069, 0, -5.3847042e-08, 0, -0.38328236, 0)
+mesh = SubResource("CapsuleMesh_44koe")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="." unique_id=365228348]
+transform = Transform3D(-6.24666e-08, 0, 1.009636, 0, 0.7500971, 0, -1.429069, 0, -4.413259e-08, -0.40041167, -0.66141576, 0)
+mesh = SubResource("CapsuleMesh_44koe")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="." unique_id=10478651]
+transform = Transform3D(-6.24666e-08, 0, 1.2318767, 0, 0.34124875, 0, -1.429069, 0, -5.3847042e-08, 0.40716088, -0.66141576, 0)
+mesh = SubResource("CapsuleMesh_44koe")

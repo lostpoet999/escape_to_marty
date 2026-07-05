@@ -35,6 +35,8 @@ var _feedback_damaged: bool = false
 @export var brick_health: int = 1 # default starting health
 var health_temp: float # current health
 var health_max: float # max health for this stage
+var _denial_revert_max: float = 0.0
+var _denial_revert_armed_at_ms: int = -1
 
 @export var brick_damage_fx: PackedScene
 @export var brick_destroy_fx: PackedScene
@@ -153,6 +155,31 @@ func _update_damage_cracks() -> void:
 		damage_cracks_1.visible = false
 		damage_cracks_2.visible = false
 		damage_cracks_3.visible = true
+
+func arm_denial_revert(full_health: float) -> void:
+	_denial_revert_max = full_health
+	_denial_revert_armed_at_ms = Time.get_ticks_msec()
+
+func try_revert_denial(window_seconds: float) -> bool:
+	if dying or _denial_revert_armed_at_ms < 0:
+		return false
+	var expired: bool = Time.get_ticks_msec() - _denial_revert_armed_at_ms > int(window_seconds * 1000.0)
+	_denial_revert_armed_at_ms = -1
+	if expired:
+		return false
+	restore_denial(_denial_revert_max)
+	return true
+
+func restore_denial(full_health: float) -> void:
+	if dying:
+		return
+	stages[GameManager.PhaseType.DENIAL] = full_health
+	current_stage = GameManager.PhaseType.DENIAL
+	health_temp = full_health
+	health_max = full_health
+	_update_damage_cracks()
+	setup_visuals()
+	_update_stage_label()
 
 func _damage_current_stage(damage: float) -> void:
 	if health_temp - damage <= 0:

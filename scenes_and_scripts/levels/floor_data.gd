@@ -59,7 +59,7 @@ class_name FloorData extends Resource
 @export var bg_sky_top_color: Color = Color(0, 0, 0, 0)
 ## procedural sky horizon color; alpha 0 = keep the bg_3d scene default
 @export var bg_sky_horizon_color: Color = Color(0, 0, 0, 0)
-## 3D column albedo; alpha 0 = derive a darkened/desaturated tint from wall_modulate
-@export var bg_box_color: Color = Color(0, 0, 0, 0)
+## 3D cloud albedo; alpha 0 = derive a darkened/desaturated tint from wall_modulate
+@export var bg_cloud_color: Color = Color(0, 0, 0, 0)
 ## 3D bg saturation via WorldEnvironment adjustments (1 = unchanged, <1 desaturates); negative = keep scene default
 @export var bg_saturation: float = -1.0

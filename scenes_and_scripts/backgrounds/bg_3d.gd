@@ -1,28 +1,26 @@
 extends Node3D
 
-const offset: Vector2 = Vector2(260, 0)
+const parallax_rest: Vector2 = Vector2(1091, 923)
+var cloud_material: StandardMaterial3D = preload("res://scenes_and_scripts/backgrounds/BG Objects/mat_cloud.tres")
 
-## how far the floor tint is darkened toward black before it becomes box albedo
-@export var bg3d_box_darken: float = 0.3
-## how far the floor tint is desaturated toward gray before it becomes box albedo
-@export var bg3d_box_desaturate: float = 0.15
+## how far the floor tint is darkened toward black before it becomes cloud albedo
+@export var bg3d_cloud_darken: float = 0.3
+## how far the floor tint is desaturated toward gray before it becomes cloud albedo
+@export var bg3d_cloud_desaturate: float = 0.15
 ## how far a derived key light is whitened toward neutral so it tints rather than washes
 @export var bg3d_key_whiten: float = 0.4
-## camera pitch in degrees; positive tilts the view up toward the sky
-@export var bg3d_camera_pitch_deg: float = 25.0
 
 @onready var camera_3d: Camera3D = $Camera3D
 @onready var lights: Node3D = $Lights
-@onready var first_box: MeshInstance3D = $World/MeshInstance3D
 @onready var key_light: SpotLight3D = $World/SpotLight3D
 @onready var world_environment: WorldEnvironment = $WorldEnvironment
 @onready var world: Node3D = $World
+@onready var _camera_base: Vector3 = camera_3d.position
 
 func _ready() -> void:
-	var pitch: Transform3D = Transform3D(Basis(Vector3.RIGHT, deg_to_rad(bg3d_camera_pitch_deg)), Vector3.ZERO)
-	camera_3d.rotation_degrees.x = bg3d_camera_pitch_deg
-	world.transform = pitch * world.transform
-	lights.transform = pitch * lights.transform
+	var frame_guide: Node3D = camera_3d.get_node_or_null("FrameGuide")
+	if frame_guide != null:
+		frame_guide.queue_free()
 	var t: Tween = lights.create_tween()
 	t.set_loops()
 	t.set_trans(Tween.TRANS_CUBIC)
@@ -57,12 +55,13 @@ func _apply_floor_theme() -> void:
 	var fd: FloorData = GameManager.floor_data
 	if fd == null:
 		return
-	var mat: StandardMaterial3D = (first_box.mesh as BoxMesh).material as StandardMaterial3D
-	if mat != null:
-		if fd.bg_box_color.a > 0.0:
-			mat.albedo_color = fd.bg_box_color
-		else:
-			mat.albedo_color = _box_albedo_from_tint(fd.wall_modulate, bg3d_box_darken, bg3d_box_desaturate)
+	var albedo: Color
+	if fd.bg_cloud_color.a > 0.0:
+		albedo = fd.bg_cloud_color
+	else:
+		albedo = _cloud_albedo_from_tint(fd.wall_modulate, bg3d_cloud_darken, bg3d_cloud_desaturate)
+	albedo.a = cloud_material.albedo_color.a
+	cloud_material.albedo_color = albedo
 	if fd.bg_key_light_color.a > 0.0:
 		key_light.light_color = fd.bg_key_light_color
 	else:
@@ -89,20 +88,18 @@ func _apply_floor_theme() -> void:
 		env.adjustment_enabled = true
 		env.adjustment_saturation = fd.bg_saturation
 
-func _box_albedo_from_tint(tint: Color, darken: float, desaturate: float) -> Color:
+func _cloud_albedo_from_tint(tint: Color, darken: float, desaturate: float) -> Color:
 	var c: Color = tint.darkened(darken)
 	var gray: float = c.get_luminance()
-	c = c.lerp(Color(gray, gray, gray, c.a), desaturate)
-	c.a = 1.0
-	return c
+	return c.lerp(Color(gray, gray, gray, c.a), desaturate)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	if not camera_3d: return
 	if not BG3DRemote.is_active(): return
 	
-	var mouse_pos = BG3DRemote.get_current_position()
-	
-	var pos: Vector2 = (mouse_pos - offset) * 0.001
-	
-	camera_3d.position = Vector3(pos.x, pos.y, 0.0)
+	var paddle_pos: Vector2 = BG3DRemote.get_current_position()
+
+	var parallax: Vector2 = (paddle_pos - parallax_rest) * 0.001
+
+	camera_3d.position = _camera_base + Vector3(parallax.x, parallax.y, 0.0)

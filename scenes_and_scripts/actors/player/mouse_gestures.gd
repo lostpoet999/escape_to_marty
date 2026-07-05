@@ -14,6 +14,8 @@ var mouse_down_time: float = 0.0
 @export_category("Click & Hold Config")
 @export var click_vs_hold: float = 0.2
 @export var hold_duration_max: float = 3.0
+## Seconds after a click clears a seal's DENIAL phase during which clicking that seal again reverts it to a fully healed DENIAL brick.
+@export var denial_revert_window: float = 1.0
 var hold_indicator_radius: float = 0.0
 
 func _ready() -> void:
@@ -62,7 +64,9 @@ func _input(event: InputEvent)->void:
 		if mouse_event.button_index == MOUSE_BUTTON_LEFT:
 			if mouse_event.pressed:
 				var target: Node = _get_target_under_mouse()
-				if _is_bargain_target(target):
+				if _try_revert_denial(target):
+					pass
+				elif _is_bargain_target(target):
 					_begin_bargain(target)
 				else:
 					mouse_down = true
@@ -81,7 +85,21 @@ func _handle_clicks_and_hold()->void:
 	if target == null:
 		_place_depression_light(get_global_mouse_position())
 		return
+	var seal: BaseSeal = target as BaseSeal
+	var was_denial: bool = seal != null and seal.current_stage == GameManager.PhaseType.DENIAL
+	var denial_max: float = seal.health_max if was_denial else 0.0
 	click_behavior.apply(_gesture_context(GameManager.PhaseType.DENIAL, _gesture_damage()), target as Node2D)
+	if was_denial and is_instance_valid(seal) and not seal.dying and seal.current_stage != GameManager.PhaseType.DENIAL:
+		seal.arm_denial_revert(denial_max)
+
+func _try_revert_denial(target: Node) -> bool:
+	var seal: BaseSeal = target as BaseSeal
+	if seal == null:
+		return false
+	if not seal.try_revert_denial(denial_revert_window):
+		return false
+	DialogDirector.play(&"denial_pushed_too_far")
+	return true
 
 func _place_depression_light(at: Vector2) -> void:
 	if depression_lights.size() >= max_depression_lights:

@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://csyqsr55dvuii" path="res://scenes_and_scripts/backgrounds/bg_3d.gd" id="1_kat55"]
 [ext_resource type="PackedScene" uid="uid://b5wsv1qakbmm" path="res://scenes_and_scripts/backgrounds/light.tscn" id="2_ss3jj"]
+[ext_resource type="PackedScene" uid="uid://dvh8mcakq6yax" path="res://scenes_and_scripts/backgrounds/BG Objects/bg_cloud.tscn" id="3_ryyjo"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_nei6l"]
 
@@ -39,15 +40,6 @@ fog_enabled = true
 fog_light_color = Color(0.10253123, 0.09251962, 0.10349815, 1)
 fog_density = 0.045
 fog_sky_affect = 0.0
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3hxvf"]
-albedo_color = Color(0.65, 0.58, 0.77, 1)
-metallic = 0.15
-roughness = 0.2
-
-[sub_resource type="BoxMesh" id="BoxMesh_nei6l"]
-material = SubResource("StandardMaterial3D_3hxvf")
-size = Vector3(5, 5, 40)
 
 [sub_resource type="Curve" id="Curve_kat55"]
 _data = [Vector2(0, 0), 0.0, 2.2479439, 0, 0, Vector2(0.49899396, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -91,6 +83,18 @@ material = SubResource("StandardMaterial3D_kat55")
 size = Vector3(0.25, 0.25, 50)
 subdivide_depth = 8
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_guide"]
+shading_mode = 0
+albedo_color = Color(1, 0, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_guideh"]
+material = SubResource("StandardMaterial3D_guide")
+size = Vector3(23.669718, 0.08, 0.08)
+
+[sub_resource type="BoxMesh" id="BoxMesh_guidev"]
+material = SubResource("StandardMaterial3D_guide")
+size = Vector3(0.08, 15.34654, 0.08)
+
 [node name="BG3D" type="Node3D" unique_id=1085885422]
 script = ExtResource("1_kat55")
 
@@ -98,7 +102,7 @@ script = ExtResource("1_kat55")
 environment = SubResource("Environment_l8dg0")
 
 [node name="Lights" type="Node3D" parent="." unique_id=1153511487]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -72)
+transform = Transform3D(1, 0, 0, 0, 0.9063078, -0.42261827, 0, 0.42261827, 0.9063078, 0, 30.428514, -65.25416)
 
 [node name="Light" parent="Lights" unique_id=1201690930 instance=ExtResource("2_ss3jj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0)
@@ -128,6 +132,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 13, 40)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -8, 35)
 
 [node name="World" type="Node3D" parent="." unique_id=1786207227]
+transform = Transform3D(1, 0, 0, 0, 0.9063078, -0.42261827, 0, 0.42261827, 0.9063078, 0, 0, 0)
 
 [node name="SpotLight3D" type="SpotLight3D" parent="World" unique_id=959868602]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
@@ -136,98 +141,6 @@ light_energy = 12.0
 light_size = 20.0
 spot_range = 30.0
 spot_angle = 36.0
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="World" unique_id=1857019928]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -20)
-mesh = SubResource("BoxMesh_nei6l")
-
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="World" unique_id=796058767]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.705, 5.14, -34.165)
-mesh = SubResource("BoxMesh_nei6l")
-
-[node name="MeshInstance3D10" type="MeshInstance3D" parent="World" unique_id=867135869]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.78, 13.325, -14.89)
-mesh = SubResource("BoxMesh_nei6l")
-
-[node name="MeshInstance3D11" type="MeshInstance3D" parent="World" unique_id=694982807]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.555, 7.18, -2.7)
-mesh = SubResource("BoxMesh_nei6l")
-
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="World" unique_id=860978277]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.645, 5.31, -4.795)
-mesh = SubResource("BoxMesh_nei6l")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="World" unique_id=1520228971]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -20)
-mesh = SubResource("BoxMesh_nei6l")
-
-[node name="MeshInstance3D12" type="MeshInstance3D" parent="World" unique_id=2009270503]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.405, 26.885, -55.715)
-mesh = SubResource("BoxMesh_nei6l")
-
-[node name="MeshInstance3D13" type="MeshInstance3D" parent="World" unique_id=2092178353]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.16, 27.925, -77.63)
-mesh = SubResource("BoxMesh_nei6l")
-
-[node name="MeshInstance3D14" type="MeshInstance3D" parent="World" unique_id=420906265]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.795, 19.11, -53.305)
-mesh = SubResource("BoxMesh_nei6l")
-
-[node name="MeshInstance3D15" type="MeshInstance3D" parent="World" unique_id=361229303]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.68, 42.215, -93.665)
-mesh = SubResource("BoxMesh_nei6l")
-
-[node name="MeshInstance3D16" type="MeshInstance3D" parent="World" unique_id=737980318]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.56, 51.68, -93.665)
-mesh = SubResource("BoxMesh_nei6l")
-
-[node name="MeshInstance3D17" type="MeshInstance3D" parent="World" unique_id=1645504028]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.97, 51.68, -93.665)
-mesh = SubResource("BoxMesh_nei6l")
-
-[node name="MeshInstance3D18" type="MeshInstance3D" parent="World" unique_id=1446809307]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.49, 19.465, -7.52)
-mesh = SubResource("BoxMesh_nei6l")
-
-[node name="MeshInstance3D19" type="MeshInstance3D" parent="World" unique_id=1211402157]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.135, 10.7, 4.87)
-mesh = SubResource("BoxMesh_nei6l")
-
-[node name="MeshInstance3D5" type="MeshInstance3D" parent="World" unique_id=1748066465]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.225, -4.95, -31.2)
-mesh = SubResource("BoxMesh_nei6l")
-
-[node name="MeshInstance3D6" type="MeshInstance3D" parent="World" unique_id=320379963]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.16, -9.265, -37.065)
-mesh = SubResource("BoxMesh_nei6l")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="World" unique_id=1214117451]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.015, -12.885, -54.025)
-mesh = SubResource("BoxMesh_nei6l")
-
-[node name="MeshInstance3D23" type="MeshInstance3D" parent="World" unique_id=2047797765]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.465, 17.995, -54.025)
-mesh = SubResource("BoxMesh_nei6l")
-
-[node name="MeshInstance3D8" type="MeshInstance3D" parent="World" unique_id=1182582548]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.125, -16.4, -34.225)
-mesh = SubResource("BoxMesh_nei6l")
-
-[node name="MeshInstance3D9" type="MeshInstance3D" parent="World" unique_id=1376709887]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.17, -7.075, -29.245)
-mesh = SubResource("BoxMesh_nei6l")
-
-[node name="MeshInstance3D20" type="MeshInstance3D" parent="World" unique_id=216610526]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.11, -28.79, -98.445)
-mesh = SubResource("BoxMesh_nei6l")
-
-[node name="MeshInstance3D21" type="MeshInstance3D" parent="World" unique_id=228756952]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.695, -31.095, -61.66)
-mesh = SubResource("BoxMesh_nei6l")
-
-[node name="MeshInstance3D22" type="MeshInstance3D" parent="World" unique_id=789310085]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.68, 16.96, -74.125)
-mesh = SubResource("BoxMesh_nei6l")
 
 [node name="Node3D" type="Node3D" parent="World" unique_id=1982068815]
 
@@ -239,8 +152,42 @@ process_material = SubResource("ParticleProcessMaterial_l8dg0")
 draw_pass_1 = SubResource("BoxMesh_ngguw")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1553591780]
+transform = Transform3D(1, 0, 0, 0, 0.9063078, -0.42261827, 0, 0.42261827, 0.9063078, 0.831, 0.923, 0)
+
+[node name="FrameGuide" type="Node3D" parent="Camera3D" unique_id=13733052]
+
+[node name="Top" type="MeshInstance3D" parent="Camera3D/FrameGuide" unique_id=2082777157]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.6732697, -10)
+mesh = SubResource("BoxMesh_guideh")
+
+[node name="Bottom" type="MeshInstance3D" parent="Camera3D/FrameGuide" unique_id=1170514770]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -7.6732697, -10)
+mesh = SubResource("BoxMesh_guideh")
+
+[node name="Left" type="MeshInstance3D" parent="Camera3D/FrameGuide" unique_id=903329891]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.794859, 0, -10)
+mesh = SubResource("BoxMesh_guidev")
+
+[node name="Right" type="MeshInstance3D" parent="Camera3D/FrameGuide" unique_id=657088961]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.794859, 0, -10)
+mesh = SubResource("BoxMesh_guidev")
 
 [node name="Sun" type="DirectionalLight3D" parent="." unique_id=1553591781]
 transform = Transform3D(1, 0, 0, 0, -0.8660254, -0.5, 0, 0.5, -0.8660254, 0, 0, 0)
 light_color = Color(1, 0.94, 0.82, 1)
 light_energy = 0.5
+
+[node name="BgCloud" parent="." unique_id=1543804289 instance=ExtResource("3_ryyjo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.38374, 2.7641277, -11.773158)
+
+[node name="BgCloud2" parent="." unique_id=1499963070 instance=ExtResource("3_ryyjo")]
+transform = Transform3D(1, 0, 0, 0, 0.9348948, -0.35492495, 0, 0.35492495, 0.9348948, 2.3825417, 1.4916496, -4.3608475)
+
+[node name="BgCloud5" parent="." unique_id=326627347 instance=ExtResource("3_ryyjo")]
+transform = Transform3D(1, 0, 0, 0, 0.5153931, -0.8569538, 0, 0.8569538, 0.5153931, -2.090972, 3.5259686, -1.5146961)
+
+[node name="BgCloud3" parent="." unique_id=161997706 instance=ExtResource("3_ryyjo")]
+transform = Transform3D(10, 0, 0, 0, 7.058708, -7.0834064, 0, 7.0834064, 7.058708, -5.3425364, 27.862291, -25.151443)
+
+[node name="BgCloud4" parent="." unique_id=138714953 instance=ExtResource("3_ryyjo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.3222694, 1.69579, -10.677671)
