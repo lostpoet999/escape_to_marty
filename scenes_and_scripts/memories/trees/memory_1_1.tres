@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="DialogTree" format=3 uid="uid://cmemtree0101"]
+
+[ext_resource type="Script" uid="uid://bkgp0oq7lrafl" path="res://scenes_and_scripts/dialog/dialog_tree.gd" id="1_tree"]
+[ext_resource type="Script" uid="uid://da86xmy7akvas" path="res://scenes_and_scripts/dialog/dialog_beat.gd" id="2_beat"]
+[ext_resource type="Texture2D" uid="uid://b6bu5r5mip114" path="res://scenes_and_scripts/memories/memory_temp_sprite.png" id="3_img"]
+
+[sub_resource type="Resource" id="Resource_beat_1"]
+script = ExtResource("2_beat")
+text = "\"The day of the adoption was probably one of the happiest days of my life.\""
+central_image = ExtResource("3_img")
+
+[resource]
+script = ExtResource("1_tree")
+beats = Array[ExtResource("2_beat")]([SubResource("Resource_beat_1")])
+once_per_run = false

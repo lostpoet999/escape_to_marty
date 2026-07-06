@@ -1,0 +1,7 @@
+[gd_resource type="LabelSettings" format=3 uid="uid://ccodectextls"]
+
+[ext_resource type="FontFile" uid="uid://ce5jk1ok7f4r5" path="res://label_settings_and_fonts/fonts/PressStart2P-Regular.ttf" id="1_codec"]
+
+[resource]
+font = ExtResource("1_codec")
+font_size = 28

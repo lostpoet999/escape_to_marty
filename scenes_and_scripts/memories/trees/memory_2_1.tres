@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="DialogTree" format=3 uid="uid://cmemtree0201"]
+
+[ext_resource type="Script" uid="uid://bkgp0oq7lrafl" path="res://scenes_and_scripts/dialog/dialog_tree.gd" id="1_tree"]
+[ext_resource type="Script" uid="uid://da86xmy7akvas" path="res://scenes_and_scripts/dialog/dialog_beat.gd" id="2_beat"]
+[ext_resource type="Texture2D" uid="uid://b6bu5r5mip114" path="res://scenes_and_scripts/memories/memory_temp_sprite.png" id="3_img"]
+[ext_resource type="Texture2D" uid="uid://xwm6oemnmk8b" path="res://character_design_files/the_collector_concept1.png" id="4_face"]
+
+[sub_resource type="Resource" id="Resource_beat_1"]
+script = ExtResource("2_beat")
+text = "placeholder memory (floor 2 - memory 1) -- codec conversation demo, replace with real beats."
+central_image = ExtResource("3_img")
+
+[sub_resource type="Resource" id="Resource_beat_2"]
+script = ExtResource("2_beat")
+text = "Left side speaks -- this face was set once and stays put (sticky)."
+speaker_name = "Marty"
+portrait = ExtResource("3_img")
+
+[sub_resource type="Resource" id="Resource_beat_3"]
+script = ExtResource("2_beat")
+speaker = 2
+text = "Right side answers -- the left face dims while this side is lit."
+speaker_name = "???"
+portrait = ExtResource("4_face")
+portrait_side = 1
+
+[sub_resource type="Resource" id="Resource_beat_4"]
+script = ExtResource("2_beat")
+text = "Text-only beat -- faces stay sticky, and the lit side follows portrait_side on every beat. Pure-voice memories go in trees with no portraits."
+portrait_side = 1
+
+[resource]
+script = ExtResource("1_tree")
+beats = Array[ExtResource("2_beat")]([SubResource("Resource_beat_1"), SubResource("Resource_beat_2"), SubResource("Resource_beat_3"), SubResource("Resource_beat_4")])
+once_per_run = false

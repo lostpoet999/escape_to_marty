@@ -3,20 +3,15 @@ extends Node2D
 var hover: Color = modulate
 var not_hover: Color = Color(0.5, 0.5, 0.5, 0.95)
 @onready var room_before_click: Node2D = $".."
-@onready var room_after_click: Node2D = $"../../RoomAfterClick"
-
-var viewing_memory: bool = false
+@onready var codec_player: MemoryCodecPlayer = $"../../MemoryCodecPlayer"
 
 const COLLECTED_TEXT: String = "This flame of memory has been collected... but visit me again some other time..."
 
 func _ready() -> void:
 	if SaveProgression.is_memory_seen(_memory_id()):
 		room_before_click.hide()
-		room_after_click.hide()
 		return
 	GameManager.change_state(GameManager.GameState.SPECIAL_ROOM)
-	var close_button: Button = room_after_click.get_node("CloseButton") as Button
-	close_button.pressed.connect(close_memory)
 	pulse_loop(self, 1.1, 1.0)
 	modulate = not_hover
 
@@ -42,28 +37,14 @@ func _on_texture_button_mouse_exited() -> void:
 	modulate = not_hover
 
 func _on_texture_button_pressed() -> void:
+	if codec_player.memory_tree == null or codec_player.memory_tree.beats.is_empty():
+		push_warning("MemoryFlame: no memory_tree authored for %s--flame stays uncollected" % _memory_id())
+		return
 	room_before_click.hide()
-	room_after_click.show()
-	viewing_memory = true
-
-func _unhandled_input(event: InputEvent) -> void:
-	if not viewing_memory:
-		return
-	if event.is_action_pressed("ui_cancel"):
-		get_viewport().set_input_as_handled()
-		close_memory()
-		return
-	if event is InputEventMouseButton:
-		var mouse_event: InputEventMouseButton = event as InputEventMouseButton
-		if mouse_event.pressed and mouse_event.button_index == MOUSE_BUTTON_LEFT:
-			get_viewport().set_input_as_handled()
-			close_memory()
+	await codec_player.play()
+	close_memory()
 
 func close_memory() -> void:
-	if not viewing_memory:
-		return
-	viewing_memory = false
-	room_after_click.hide()
 	room_before_click.show()
 	collect_flame()
 	memory_room_state().cleared = true

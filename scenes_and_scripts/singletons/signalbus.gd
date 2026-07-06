@@ -46,7 +46,7 @@ signal db_panel_closed
 ## LEVEL/GAMEPLAY SIGNALS
 ## =============================================================================
 
-## Emits: scenes_and_scripts/levels/room_base.gd -> _ready(), check_level_cleared(), scenes_and_scripts/memories/memory_flame.gd -> _on_texture_button_pressed(), scenes_and_scripts/db_panel/db_panel.gd -> _on_enable_exits_btn_pressed(), scenes_and_scripts/enemies/specific_enemies/boss_1_denial/boss_deon.gd -> accept_damage()
+## Emits: scenes_and_scripts/levels/room_base.gd -> _ready(), check_level_cleared(), scenes_and_scripts/memories/memory_flame.gd -> close_memory(), scenes_and_scripts/db_panel/db_panel.gd -> _on_enable_exits_btn_pressed(), scenes_and_scripts/enemies/specific_enemies/boss_1_denial/boss_deon.gd -> accept_damage()
 ## Connects: scenes_and_scripts/singletons/game_manager.gd -> set_state_to_cleared, scenes_and_scripts/ball/ball.gd -> remove_ball, scenes_and_scripts/exits/exits.gd -> enable_exits, scenes_and_scripts/levels/room_base.gd -> _on_level_cleared_boss_extras
 @warning_ignore("unused_signal")
 signal level_cleared
