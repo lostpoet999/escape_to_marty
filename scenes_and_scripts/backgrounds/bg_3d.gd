@@ -99,6 +99,6 @@ func _process(_delta: float) -> void:
 	
 	var paddle_pos: Vector2 = BG3DRemote.get_current_position()
 
-	var parallax: Vector2 = (paddle_pos - parallax_rest) * 0.001
+	var parallax: Vector2 = (paddle_pos - parallax_rest) * 0.00025
 
 	camera_3d.position = _camera_base + Vector3(parallax.x, parallax.y, 0.0)
