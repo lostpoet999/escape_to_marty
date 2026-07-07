@@ -123,6 +123,18 @@ func tween_to_nearest_brick() -> void:
 	set_physics_process(false)
 	ball_collision.set_deferred("disabled", true)
 	#get nearest brick and continue operations
+	var nearest_brick: Node = get_nearest_brick()
+	var p0: Vector2 = position
+	var p2: Vector2 = nearest_brick.position 
+	var mid: Vector2 = (p0 + p2) * 0.5
+	var sag: float = 20.0
+	var p1: Vector2 = mid + Vector2(sag, 0)
+	var tw: Tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	tw.tween_method(
+		func(t: float) -> void:
+			global_position = _bezier(t, p0, p1, p2),
+			0.0, 1.0, 0.2
+	)
 	print("tweening to nearest brick")
 
 func get_nearest_brick() -> Node:
