@@ -9,18 +9,27 @@ height = 0.8848877
 
 [node name="BgCloud" type="Node3D" unique_id=1543804289]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1238137541]
-transform = Transform3D(-6.24666e-08, 0, 2.5637403, 0, 0.4784903, 0, -1.429069, 0, -1.1206465e-07, 0, -0.55755615, 0)
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="." unique_id=372358450]
+transform = Transform3D(-5.3300212e-08, 0, 1.0396885, 0.5188695, 0.8321677, 1.9338447e-08, -1.1034627, 0.3913013, -4.1126437e-08, -0.075415224, -0.1655096, 0.36301827)
+cast_shadow = 0
 mesh = SubResource("CapsuleMesh_44koe")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=389643158]
-transform = Transform3D(-6.24666e-08, 0, 1.2318767, 0, 0.6655194, 0, -1.429069, 0, -5.3847042e-08, 0, -0.38328236, 0)
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="." unique_id=1682358507]
+transform = Transform3D(-5.3300212e-08, 0, 1.0396885, 0.5188695, 0.8321677, 1.9338447e-08, -1.1034627, 0.3913013, -4.1126437e-08, 0.28253356, -0.1655096, 0.36301827)
+cast_shadow = 0
 mesh = SubResource("CapsuleMesh_44koe")
 
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="." unique_id=365228348]
-transform = Transform3D(-6.24666e-08, 0, 1.009636, 0, 0.7500971, 0, -1.429069, 0, -4.413259e-08, -0.40041167, -0.66141576, 0)
+[node name="MeshInstance3D8" type="MeshInstance3D" parent="." unique_id=694656092]
+transform = Transform3D(-5.3300212e-08, 0, 1.0396885, 0.5188695, 0.8321677, 1.9338447e-08, -1.1034627, 0.3913013, -4.1126437e-08, 0.28253356, -0.1655096, 0.36301827)
+cast_shadow = 0
 mesh = SubResource("CapsuleMesh_44koe")
 
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="." unique_id=10478651]
-transform = Transform3D(-6.24666e-08, 0, 1.2318767, 0, 0.34124875, 0, -1.429069, 0, -5.3847042e-08, 0.40716088, -0.66141576, 0)
+[node name="MeshInstance3D9" type="MeshInstance3D" parent="." unique_id=1976382262]
+transform = Transform3D(-5.3300212e-08, 0, 1.0396885, 0.5188695, 0.8321677, 1.9338447e-08, -1.1034627, 0.3913013, -4.1126437e-08, 0.7608185, 0.08478938, 0.36039495)
+cast_shadow = 0
+mesh = SubResource("CapsuleMesh_44koe")
+
+[node name="MeshInstance3D10" type="MeshInstance3D" parent="." unique_id=254762945]
+transform = Transform3D(-5.3300212e-08, 0, 1.0396885, 0.5188695, 0.8321677, 1.9338447e-08, -1.1034627, 0.3913013, -4.1126437e-08, 0.28253356, 0.11807321, 0.36301827)
+cast_shadow = 0
 mesh = SubResource("CapsuleMesh_44koe")

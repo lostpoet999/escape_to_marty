@@ -1,7 +1,7 @@
 extends Node3D
 
 const parallax_rest: Vector2 = Vector2(1091, 923)
-var cloud_material: StandardMaterial3D = preload("res://scenes_and_scripts/backgrounds/BG Objects/mat_cloud.tres")
+var cloud_material: ShaderMaterial = preload("res://scenes_and_scripts/backgrounds/BG Objects/mat_cloud.tres")
 
 ## how far the floor tint is darkened toward black before it becomes cloud albedo
 @export var bg3d_cloud_darken: float = 0.3
@@ -60,8 +60,7 @@ func _apply_floor_theme() -> void:
 		albedo = fd.bg_cloud_color
 	else:
 		albedo = _cloud_albedo_from_tint(fd.wall_modulate, bg3d_cloud_darken, bg3d_cloud_desaturate)
-	albedo.a = cloud_material.albedo_color.a
-	cloud_material.albedo_color = albedo
+	cloud_material.set_shader_parameter("cloud_color", albedo)
 	if fd.bg_key_light_color.a > 0.0:
 		key_light.light_color = fd.bg_key_light_color
 	else:

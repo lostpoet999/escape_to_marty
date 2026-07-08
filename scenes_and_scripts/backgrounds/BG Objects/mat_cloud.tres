@@ -1,5 +1,10 @@
-[gd_resource type="StandardMaterial3D" format=3 uid="uid://vn7up1b8w6h7"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://vn7up1b8w6h7"]
+
+[ext_resource type="Shader" uid="uid://bco7jx4cekhx0" path="res://scenes_and_scripts/backgrounds/BG Objects/mat_cloud.gdshader" id="1_shad0"]
 
 [resource]
-specular_mode = 1
-albedo_color = Color(0.84705883, 0.8235294, 1, 0.627451)
+render_priority = 0
+shader = ExtResource("1_shad0")
+shader_parameter/cloud_color = Color(0.847, 0.824, 1, 1)
+shader_parameter/core_opacity = 0.70000003325
+shader_parameter/feather = 3.00000011875
