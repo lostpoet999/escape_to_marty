@@ -119,26 +119,36 @@ func tween_to_david(hit_pos: Vector2) -> void:
 
 func tween_to_nearest_brick() -> void:
 	# check if seals are present 
+	if is_tweening_to_nearest_brick == true:
+		return
 	is_tweening_to_nearest_brick = true
 	set_physics_process(false)
-	ball_collision.set_deferred("disabled", true)
+	#ball_collision.set_deferred("disabled", true)
 	#get nearest brick and continue operations
+	if get_nearest_brick() == null:
+		return
 	var nearest_brick: Node = get_nearest_brick()
 	var p0: Vector2 = position
-	var p2: Vector2 = nearest_brick.position 
+	var p2: Vector2 = nearest_brick.global_position 
 	var mid: Vector2 = (p0 + p2) * 0.5
 	var sag: float = 20.0
 	var p1: Vector2 = mid + Vector2(sag, 0)
-	var tw: Tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	var tw: Tween = create_tween().set_trans(Tween.TRANS_SINE)
 	tw.tween_method(
 		func(t: float) -> void:
+			if is_tweening_to_nearest_brick == false:
+				return
 			global_position = _bezier(t, p0, p1, p2),
-			0.0, 1.0, 0.2
+			0.0, 1.0, 0.3
 	)
+	await tw.finished
+	is_tweening_to_nearest_brick = false
 	print("tweening to nearest brick")
 
 func get_nearest_brick() -> Node:
 	var bricks: Array[Node] = get_tree().get_nodes_in_group("bricks")
+	if bricks.is_empty():
+		return null
 	var p0: Vector2 = position
 	var nearest_brick: Node = bricks[0]
 	var p1: Vector2 = nearest_brick.position
@@ -274,6 +284,8 @@ func move_ball(delta: float) -> void:
 				bounce_effect.handle_paddle_collision(self, collider as Paddle)
 				flipped_y = true
 		elif collider.is_in_group("bricks") or collider.is_in_group("walls") or collider.is_in_group("bounce_enemy"):
+			if is_tweening_to_nearest_brick == true:
+				is_tweening_to_nearest_brick = false
 			if !flipped_y:
 				bounce_effect.handle_y_collision(self, collider)
 				flipped_y = true
