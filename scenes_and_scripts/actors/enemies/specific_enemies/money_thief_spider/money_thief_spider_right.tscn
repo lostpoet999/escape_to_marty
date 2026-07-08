@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bmtspiderr001"]
+
+[ext_resource type="PackedScene" uid="uid://bmtspiderl001" path="res://scenes_and_scripts/actors/enemies/specific_enemies/money_thief_spider/money_thief_spider.tscn" id="1_parent"]
+
+[node name="MoneyThiefSpider" instance=ExtResource("1_parent")]
+wall_side = 1
+
+[node name="EnemySprite" parent="." index="0"]
+flip_h = true
