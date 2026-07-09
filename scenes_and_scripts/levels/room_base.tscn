@@ -16,8 +16,8 @@
 [ext_resource type="PackedScene" uid="uid://chs4vfkn7cmgt" path="res://scenes_and_scripts/ui_menus/game_over_menu.tscn" id="10_fuowh"]
 [ext_resource type="PackedScene" uid="uid://dwc118v25nv0r" path="res://scenes_and_scripts/backgrounds/misty_background.tscn" id="12_2ndtm"]
 [ext_resource type="Script" uid="uid://tjwcoaf5nkwa" path="res://scenes_and_scripts/levels/camera_2d.gd" id="14_57n16"]
-[ext_resource type="Script" uid="uid://d2ip0nttvnd5r" path="res://scenes_and_scripts/ui_menus/click_mode_prompt.gd" id="15_ckmpt"]
 [ext_resource type="Script" uid="uid://b8dmglbl0ckp1" path="res://scenes_and_scripts/ui_menus/ball_damage_label.gd" id="15_bdmlb"]
+[ext_resource type="Script" uid="uid://d2ip0nttvnd5r" path="res://scenes_and_scripts/ui_menus/click_mode_prompt.gd" id="15_ckmpt"]
 [ext_resource type="Script" uid="uid://cle2k8vhlcj7h" path="res://scenes_and_scripts/actors/player/click_mode_cursor.gd" id="16_ckcur"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_57n16"]
@@ -63,9 +63,8 @@ metadata/_edit_use_anchors_ = true
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -0.35326055
-anchor_top = -0.05185185
 anchor_right = 0.8860245
-anchor_bottom = 1.0675926
+anchor_bottom = 0.5037037
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.0869579, 1)
@@ -84,7 +83,7 @@ metadata/_edit_use_anchors_ = true
 [node name="ClickModePrompt" type="CanvasLayer" parent="." unique_id=1590460842]
 script = ExtResource("15_ckmpt")
 
-[node name="BallDamageLabel" type="CanvasLayer" parent="."]
+[node name="BallDamageLabel" type="CanvasLayer" parent="." unique_id=2086239281]
 script = ExtResource("15_bdmlb")
 
 [node name="ClickModeCursor" type="Node2D" parent="." unique_id=1985007121]
