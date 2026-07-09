@@ -1,7 +1,6 @@
 class_name BaseSeal
 extends Area2D
 
-const STAR_COLLECTIBLE: PackedScene = preload("uid://cfjv2f23gme53")
 const BONUS_DROP: PackedScene = preload("res://scenes_and_scripts/collectibles/bonus_drop.tscn")
 const BONUS_POOL: BonusDropPool = preload("res://scenes_and_scripts/collectibles/bonus_drops/bonus_drop_pool.tres")
 const DAMAGE_NUMBER: PackedScene = preload("uid://bedvoohhfbi03")
@@ -328,10 +327,6 @@ func _on_tween_finished(collider: Area2D) -> void:
 		Signalbus.brick_destroyed.emit()
 
 func _make_drop() -> Area2D:
-	if randf() < BONUS_POOL.drop_chance:
-		var payload: BonusPayload = BONUS_POOL.pick_random()
-		if payload != null:
-			var bonus: BonusDrop = BONUS_DROP.instantiate()
-			bonus.payload = payload
-			return bonus
-	return STAR_COLLECTIBLE.instantiate()
+	var bonus: BonusDrop = BONUS_DROP.instantiate()
+	bonus.payload = BONUS_POOL.pick_weighted()
+	return bonus

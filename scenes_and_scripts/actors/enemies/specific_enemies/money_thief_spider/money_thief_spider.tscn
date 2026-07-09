@@ -1,10 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://bmtspiderl001"]
+[gd_scene load_steps=9 format=3 uid="uid://bmtspiderl001"]
 
 [ext_resource type="Script" uid="uid://dhjwmgoechoov" path="res://scenes_and_scripts/actors/enemies/specific_enemies/money_thief_spider/money_thief_spider.gd" id="1_spdr0"]
 [ext_resource type="PackedScene" uid="uid://b3j8yvc0658fc" path="res://scenes_and_scripts/actors/enemies/placed_enemy_base.tscn" id="1_base0"]
 [ext_resource type="Script" uid="uid://bbq2uibufrs08" path="res://scenes_and_scripts/actors/enemies/enemy_actions/enemy_action_base.gd" id="2_abase"]
 [ext_resource type="Script" uid="uid://cokw6vjrb4e8c" path="res://scenes_and_scripts/actors/enemies/enemy_actions/wall_crawl.gd" id="3_crawl"]
-[ext_resource type="Texture2D" uid="uid://dnrtc21p2irlg" path="res://scenes_and_scripts/actors/enemies/specific_enemies/rage_blob/rage_blob.png" id="4_tex0"]
+[ext_resource type="Texture2D" uid="uid://sdfbl6kimb0q" path="res://scenes_and_scripts/actors/enemies/specific_enemies/money_thief_spider/placeholder_box.png" id="4_tex0"]
 
 [sub_resource type="Resource" id="Resource_crawl"]
 script = ExtResource("3_crawl")
@@ -19,7 +19,10 @@ clamp_paddle = false
 metadata/_custom_type_script = "uid://cokw6vjrb4e8c"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_spdr0"]
-size = Vector2(96, 96)
+size = Vector2(77, 77)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_steal"]
+size = Vector2(280, 400)
 
 [node name="MoneyThiefSpider" unique_id=1934117901 groups=["bounce_enemy"] instance=ExtResource("1_base0")]
 script = ExtResource("1_spdr0")
@@ -28,6 +31,11 @@ action_timer = 3.0
 denial_health = 2
 wall_side = 0
 emerge_time = 0.6
+escape_time = 24.0
+escape_run_speed = 0.7
+steal_reach = 280.0
+steal_span = 400.0
+eat_radius = 45.0
 
 [node name="EnemySprite" parent="." index="0" unique_id=2032254832]
 texture = ExtResource("4_tex0")
@@ -41,3 +49,19 @@ position = Vector2(15, 91)
 [node name="CollisionShape2D" parent="." index="3" unique_id=1655691252]
 position = Vector2(0, 0)
 shape = SubResource("RectangleShape2D_spdr0")
+
+[node name="EscapeIndicator" type="ProgressBar" parent="." index="4" unique_id=1487326905]
+offset_left = -30.0
+offset_top = -60.0
+offset_right = 30.0
+offset_bottom = -48.0
+mouse_filter = 2
+show_percentage = false
+z_index = 2000
+
+[node name="StealZone" type="Area2D" parent="." index="5" unique_id=771029385]
+collision_layer = 0
+collision_mask = 2
+
+[node name="StealCollision" type="CollisionShape2D" parent="StealZone" unique_id=771029386]
+shape = SubResource("RectangleShape2D_steal")

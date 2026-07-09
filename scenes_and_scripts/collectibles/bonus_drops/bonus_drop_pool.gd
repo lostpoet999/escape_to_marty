@@ -1,9 +1,19 @@
 class_name BonusDropPool extends Resource
 
-## Chance per fully-destroyed seal that its drop rerolls from a normal star into one of these payloads.
-@export_range(0.0, 1.0, 0.001) var drop_chance: float = 0.015
-## The bonus payloads, picked with equal weight on a successful reroll.
+## Every possible drop from a fully-destroyed seal, currency and bonuses alike. Each payload's weight sets how often it is picked, relative to the others.
 @export var payloads: Array[BonusPayload]
 
-func pick_random() -> BonusPayload:
-	return payloads.pick_random() if not payloads.is_empty() else null
+func pick_weighted() -> BonusPayload:
+	if payloads.is_empty():
+		return null
+	var total: float = 0.0
+	for payload: BonusPayload in payloads:
+		total += payload.weight
+	if total <= 0.0:
+		return null
+	var roll: float = randf() * total
+	for payload: BonusPayload in payloads:
+		roll -= payload.weight
+		if roll < 0.0:
+			return payload
+	return payloads[-1]

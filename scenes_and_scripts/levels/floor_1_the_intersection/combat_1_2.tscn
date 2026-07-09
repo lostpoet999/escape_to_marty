@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c3bjgu70hca17" path="res://scenes_and_scripts/actors/enemies/specific_enemies/no_see_me_demon/deon.tscn" id="4_i0iwg"]
 [ext_resource type="PackedScene" uid="uid://bmtspiderl001" path="res://scenes_and_scripts/actors/enemies/specific_enemies/money_thief_spider/money_thief_spider.tscn" id="6_spdrl"]
 [ext_resource type="PackedScene" uid="uid://bmtspiderr001" path="res://scenes_and_scripts/actors/enemies/specific_enemies/money_thief_spider/money_thief_spider_right.tscn" id="7_spdrr"]
+[ext_resource type="PackedScene" uid="uid://bmtspidert01" path="res://scenes_and_scripts/actors/enemies/specific_enemies/money_thief_spider/money_thief_spider_top.tscn" id="8_spdrt"]
 
 [sub_resource type="Resource" id="Resource_lsl0q"]
 script = ExtResource("3_5jp3l")
@@ -40,6 +41,14 @@ scene_ref = ExtResource("7_spdrr")
 spawn_chance = 100.0
 x_offset = -48.0
 y_offset = -300.0
+metadata/_custom_type_script = "uid://dm8qchhbo37mu"
+
+[sub_resource type="Resource" id="Resource_spdrt"]
+script = ExtResource("3_5jp3l")
+enemy_name = "MoneyThiefSpider"
+scene_ref = ExtResource("8_spdrt")
+spawn_chance = 100.0
+y_offset = 48.0
 metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 
 [node name="combat_1_2" unique_id=565861230 instance=ExtResource("1_o7dia")]
@@ -169,6 +178,14 @@ max_spawns = 1
 [node name="EnemySpawner2" parent="No-Respawn/Spawners" parent_id_path=PackedInt32Array(1587044855) index="1" unique_id=18242075 instance=ExtResource("2_umu5g")]
 position = Vector2(1888, 960)
 enemies = Array[ExtResource("3_5jp3l")]([SubResource("Resource_8n0fq"), SubResource("Resource_spdrr")])
+spawn_an_enemy_chance = 100.0
+respawn_time = 10.0
+initial_spawn_time = 2.0
+max_spawns = 1
+
+[node name="EnemySpawner3" parent="No-Respawn/Spawners" parent_id_path=PackedInt32Array(1587044855) index="2" unique_id=991827364 instance=ExtResource("2_umu5g")]
+position = Vector2(1088, 32)
+enemies = Array[ExtResource("3_5jp3l")]([SubResource("Resource_spdrt")])
 spawn_an_enemy_chance = 100.0
 respawn_time = 10.0
 initial_spawn_time = 2.0

@@ -56,7 +56,7 @@ signal level_cleared
 @warning_ignore("unused_signal")
 signal star_spawned(amount: int)
 
-## Emits: scenes_and_scripts/collectibles/star_collectible.gd -> _on_area_entered(), _on_body_entered()
+## Emits: scenes_and_scripts/collectibles/bonus_drop.gd -> _on_area_entered(), collect(); money_thief_spider.gd -> _eat()
 ## Connects: scenes_and_scripts/levels/room_base.gd -> update_stars_in_level
 @warning_ignore("unused_signal")
 signal star_collected(amount: int)
