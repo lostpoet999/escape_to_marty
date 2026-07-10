@@ -73,6 +73,12 @@ func accept_damage(damage: float, _dmg_type: Array[GameManager.PhaseType])->void
 					die()
 					Signalbus.boss_defeated.emit()
 
+func responding_gestures() -> Array[GameManager.PhaseType]:
+	var verbs: Array[GameManager.PhaseType] = []
+	if stage == 2 and not dying:
+		verbs.append(GameManager.PhaseType.DENIAL)
+	return verbs
+
 func pick_action()->void:
 	if !action_pool.is_empty():
 		var action:EnemyActions = action_pool.pick_random()
