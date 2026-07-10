@@ -40,10 +40,19 @@ func on_hit_paddle(paddle: Node) -> void:
 		queue_free()
 
 func on_hit_enemy(enemy: Node) -> void:
+	if enemy is DarkCage:
+		return
 	if enemy.has_method("stun_for_time"):
 		enemy.stun_for_time(stun_time)
 	if enemy.has_method("take_damage_fx"):
 		enemy.take_damage_fx()
 	PlayerData.update_player_score(stun_score)
+	SFX.play_sound("cage_hit")
+	on_fall_landed()
+
+func accept_damage(_damage: float, _dmg_types: Array[GameManager.PhaseType]) -> void:
+	on_hit_ball(null)
+
+func on_hit_ball(_ball: Node) -> void:
 	SFX.play_sound("cage_hit")
 	on_fall_landed()

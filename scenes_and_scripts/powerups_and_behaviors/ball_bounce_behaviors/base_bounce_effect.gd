@@ -18,19 +18,19 @@ func handle_x_collision(ball: Ball, collider: Node2D) -> void:
 		ball.handle_pierce(collider)
 		return
 	ball.push_out_x(collider, ball.move.x)
-	ball.velocity.x *= -1
+	ball.velocity.x = absf(ball.velocity.x) * signf(ball.global_position.x - collider.global_position.x)
 	ball.current_speed *= velocity_factor
 	ball.current_speed = clampf(ball.current_speed * velocity_factor, 0.0, ball.max_speed)
-	var leftover: float = absf(ball.move.x) - absf(ball.position.x - ball.old_x)
-	ball.position.x += sign(-ball.move.x) * leftover
+	var leftover: float = maxf(absf(ball.move.x) - absf(ball.position.x - ball.old_x), 0.0)
+	ball.position.x += signf(ball.velocity.x) * leftover
 
 func handle_y_collision(ball: Ball, collider: Node2D) -> void:
 	if pierce_brick:
 		ball.handle_pierce(collider)
 		return
 	ball.push_out_y(collider, ball.move.y)
-	ball.velocity.y *= -1
+	ball.velocity.y = absf(ball.velocity.y) * signf(ball.global_position.y - collider.global_position.y)
 	ball.current_speed *= velocity_factor
 	ball.current_speed = clampf(ball.current_speed * velocity_factor, 0.0, ball.max_speed)
-	var leftover: float = absf(ball.move.y) - absf(ball.position.y - ball.old_y)
-	ball.position.y += sign(-ball.move.y) * leftover
+	var leftover: float = maxf(absf(ball.move.y) - absf(ball.position.y - ball.old_y), 0.0)
+	ball.position.y += signf(ball.velocity.y) * leftover

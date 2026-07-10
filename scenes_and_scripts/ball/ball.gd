@@ -26,6 +26,9 @@ var flipped_y: bool = false
 
 @export var ball_dmg_type: Array[GameManager.PhaseType]
 
+## Gates the ball_activate_powerup input; stays false until the player owns the homing powerup.
+@export var has_homing_powerup: bool = false
+
 var velocity: Vector2 = Vector2.ZERO
 var on_paddle: bool = true
 var _collision_set: Array[int] = []
@@ -41,7 +44,8 @@ var time : float = 0.0
 @onready var paddle_collision: CollisionShape2D = $"../Paddle/PaddleCollisionShape"
 @onready var ball_collision: CollisionShape2D = $bounce_collision_shape
 var is_tweening_to_david: bool = false
-var is_tweening_to_nearest_brick: bool = false                                                                                                                        
+var is_tweening_to_nearest_brick: bool = false
+var nearest_brick_tween: Tween = null
 
 @onready var ball_half_height: float = (ball_collision.shape as CircleShape2D).radius
 
@@ -92,6 +96,7 @@ func position_ball_on_paddle() -> void:
 	ball_collision.set_deferred("disabled", false)
 	set_physics_process(true)
 	is_tweening_to_david = false
+	cancel_tween_to_nearest_brick()
 	GameManager.change_state(GameManager.GameState.BALL_ON_PADDLE)
 	
 
@@ -118,32 +123,36 @@ func tween_to_david(hit_pos: Vector2) -> void:
 	await tw.finished
 
 func tween_to_nearest_brick() -> void:
-	# check if seals are present 
 	if is_tweening_to_nearest_brick == true:
+		return
+	var nearest_brick: Node = get_nearest_brick()
+	if nearest_brick == null:
 		return
 	is_tweening_to_nearest_brick = true
 	set_physics_process(false)
-	#ball_collision.set_deferred("disabled", true)
-	#get nearest brick and continue operations
-	if get_nearest_brick() == null:
-		return
-	var nearest_brick: Node = get_nearest_brick()
 	var p0: Vector2 = position
-	var p2: Vector2 = nearest_brick.global_position 
+	var p2: Vector2 = nearest_brick.global_position
 	var mid: Vector2 = (p0 + p2) * 0.5
 	var sag: float = 20.0
 	var p1: Vector2 = mid + Vector2(sag, 0)
-	var tw: Tween = create_tween().set_trans(Tween.TRANS_SINE)
-	tw.tween_method(
+	nearest_brick_tween = create_tween().set_trans(Tween.TRANS_SINE)
+	nearest_brick_tween.tween_method(
 		func(t: float) -> void:
 			if is_tweening_to_nearest_brick == false:
 				return
 			global_position = _bezier(t, p0, p1, p2),
 			0.0, 1.0, 0.3
 	)
-	await tw.finished
+	nearest_brick_tween.finished.connect(cancel_tween_to_nearest_brick)
+
+func cancel_tween_to_nearest_brick() -> void:
+	if is_tweening_to_nearest_brick == false:
+		return
 	is_tweening_to_nearest_brick = false
-	print("tweening to nearest brick")
+	if nearest_brick_tween != null and nearest_brick_tween.is_valid():
+		nearest_brick_tween.kill()
+	nearest_brick_tween = null
+	set_physics_process(true)
 
 func get_nearest_brick() -> Node:
 	var bricks: Array[Node] = get_tree().get_nodes_in_group("bricks")
@@ -192,8 +201,8 @@ func _input(_event: InputEvent) -> void:
 		print("mouse pressed")
 		launch_ball()
 	if Input.is_action_just_pressed("ball_activate_powerup"):
-		print("ball powerup input working!")
-		tween_to_nearest_brick()
+		if has_homing_powerup and not on_paddle and GameManager.current_state == GameManager.GameState.PLAYING:
+			tween_to_nearest_brick()
 
 func launch_ball() -> void:
 	on_paddle = false
@@ -208,12 +217,43 @@ func update_velocity(velocity_ref: Vector2) -> void:
 	velocity = velocity_ref
 
 func move_ball(delta: float) -> void:
+	if bounce_effect != null and not bounce_effect.pierce_brick:
+		resolve_frame_start_overlaps()
+	if not _collision_set.is_empty():
+		clean_collision_set()
+	var frame_move: Vector2 = velocity.normalized() * current_speed * delta
+	var steps: int = maxi(1, ceili(maxf(absf(frame_move.x), absf(frame_move.y)) / ball_half_height))
+	var step_delta: float = delta / float(steps)
+	for _i: int in steps:
+		move_ball_step(step_delta)
+		if on_paddle or flipped_x or flipped_y:
+			return
+
+func resolve_frame_start_overlaps() -> void:
+	for collider: Node2D in query_collisions():
+		if not (collider.is_in_group("bricks") or collider.is_in_group("walls") or collider.is_in_group("bounce_enemy")):
+			continue
+		var half: Vector2 = get_collider_half_size(collider)
+		var diff: Vector2 = global_position - collider.global_position
+		var pen_x: float = half.x + ball_half_height - absf(diff.x)
+		var pen_y: float = half.y + ball_half_height - absf(diff.y)
+		if pen_x <= 0.0 or pen_y <= 0.0:
+			continue
+		cancel_tween_to_nearest_brick()
+		var dir_x: float = 1.0 if diff.x == 0.0 else signf(diff.x)
+		var dir_y: float = 1.0 if diff.y == 0.0 else signf(diff.y)
+		if pen_x < pen_y:
+			position.x = collider.global_position.x + (half.x + ball_half_height + 0.5) * dir_x
+			velocity.x = absf(velocity.x) * dir_x
+		else:
+			position.y = collider.global_position.y + (half.y + ball_half_height + 0.5) * dir_y
+			velocity.y = absf(velocity.y) * dir_y
+
+func move_ball_step(delta: float) -> void:
 	velocity = velocity.normalized() * current_speed
 	move = velocity * delta
 	var hit_this_step: Array[int] = []
-
-	if not _collision_set.is_empty():
-		clean_collision_set()
+	var effects_this_step: Array[int] = []
 
 	old_x = position.x
 	position.x += move.x
@@ -222,36 +262,23 @@ func move_ball(delta: float) -> void:
 		if collider.get_instance_id() in hit_this_step:
 			continue
 		hit_this_step.append(collider.get_instance_id())
-		apply_collider_effects(collider)
-		if on_paddle:
-			return
-		var fx: Node2D = null
-		if collider.is_in_group("bricks"):
-			fx = brick_bounce_particles.instantiate()
-			SFX.play_sound("hit-brick")
-			PlayerData.update_player_score(brick_hit_score_value)
-		if collider.is_in_group("walls"):
-			fx = wall_bounce_particles.instantiate()
-			SFX.play_sound("bounce_1")			
-			PlayerData.update_player_score(wall_hit_score_value)
+		if collider.get_instance_id() not in effects_this_step:
+			effects_this_step.append(collider.get_instance_id())
+			apply_collider_effects(collider)
+			if on_paddle:
+				return
+			spawn_collision_feedback(collider)
 		if collider.is_in_group("paddle"):
-			fx = paddle_bounce_particles.instantiate()
-			SFX.play_sound("hit-paddle")
-			PlayerData.update_player_score(paddle_hit_score_value)
-			
-		if fx != null:
-			fx.position = global_position
-			get_tree().current_scene.add_child(fx)
-		
-		if collider.is_in_group("paddle"):			
 			if !flipped_x:
 				bounce_effect.handle_paddle_collision(self, collider as Paddle)
 				flipped_x = true
 		elif collider.is_in_group("bricks") or collider.is_in_group("walls") or collider.is_in_group("bounce_enemy"):
+			cancel_tween_to_nearest_brick()
 			if !flipped_x:
 				bounce_effect.handle_x_collision(self, collider)
 				flipped_x = true
 
+	hit_this_step.clear()
 	old_y = position.y
 	position.y += move.y
 	var y_collisions: Array[Node2D] = query_collisions()
@@ -259,36 +286,39 @@ func move_ball(delta: float) -> void:
 		if collider.get_instance_id() in hit_this_step:
 			continue
 		hit_this_step.append(collider.get_instance_id())
-		apply_collider_effects(collider)
-		if on_paddle:
-			return
-		var fx: Node2D = null
-		if collider.is_in_group("bricks"):
-			fx = brick_bounce_particles.instantiate()
-			SFX.play_sound("hit-brick")
-			PlayerData.update_player_score(brick_hit_score_value)
-		if collider.is_in_group("walls"):
-			fx = wall_bounce_particles.instantiate()			
-			SFX.play_sound("bounce_1")		
-			PlayerData.update_player_score(wall_hit_score_value)
-		if collider.is_in_group("paddle"):
-			fx = paddle_bounce_particles.instantiate()
-			SFX.play_sound("hit-paddle")
-			PlayerData.update_player_score(paddle_hit_score_value)
-		if fx != null:
-			fx.position = global_position
-			get_tree().current_scene.add_child(fx)		
-		
+		if collider.get_instance_id() not in effects_this_step:
+			effects_this_step.append(collider.get_instance_id())
+			apply_collider_effects(collider)
+			if on_paddle:
+				return
+			spawn_collision_feedback(collider)
 		if collider.is_in_group("paddle"):
 			if !flipped_y:
 				bounce_effect.handle_paddle_collision(self, collider as Paddle)
 				flipped_y = true
 		elif collider.is_in_group("bricks") or collider.is_in_group("walls") or collider.is_in_group("bounce_enemy"):
-			if is_tweening_to_nearest_brick == true:
-				is_tweening_to_nearest_brick = false
+			cancel_tween_to_nearest_brick()
 			if !flipped_y:
 				bounce_effect.handle_y_collision(self, collider)
 				flipped_y = true
+
+func spawn_collision_feedback(collider: Node2D) -> void:
+	var fx: Node2D = null
+	if collider.is_in_group("bricks"):
+		fx = brick_bounce_particles.instantiate()
+		SFX.play_sound("hit-brick")
+		PlayerData.update_player_score(brick_hit_score_value)
+	if collider.is_in_group("walls"):
+		fx = wall_bounce_particles.instantiate()
+		SFX.play_sound("bounce_1")
+		PlayerData.update_player_score(wall_hit_score_value)
+	if collider.is_in_group("paddle"):
+		fx = paddle_bounce_particles.instantiate()
+		SFX.play_sound("hit-paddle")
+		PlayerData.update_player_score(paddle_hit_score_value)
+	if fx != null:
+		fx.position = global_position
+		get_tree().current_scene.add_child(fx)
 
 # --- Collision query ---
 
@@ -312,18 +342,18 @@ func query_collisions() -> Array[Node2D]:
 
 # --- Push-out helpers ---
 
-func push_out_x(collider: Node2D, move_x: float) -> void:
+func push_out_x(collider: Node2D, _move_x: float) -> void:
 	var half: Vector2 = get_collider_half_size(collider)
 	var r: float = ball_half_height
-	if move_x > 0:
+	if global_position.x < collider.global_position.x:
 		position.x = collider.global_position.x - half.x - r - 0.5
 	else:
 		position.x = collider.global_position.x + half.x + r + 0.5
 
-func push_out_y(collider: Node2D, move_y: float) -> void:
+func push_out_y(collider: Node2D, _move_y: float) -> void:
 	var half: Vector2 = get_collider_half_size(collider)
 	var r: float = ball_half_height
-	if move_y > 0:
+	if global_position.y < collider.global_position.y:
 		position.y = collider.global_position.y - half.y - r - 0.5
 	else:
 		position.y = collider.global_position.y + half.y + r + 0.5
