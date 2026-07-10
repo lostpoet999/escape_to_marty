@@ -6,11 +6,12 @@ const CURSOR_Z_INDEX: int = 4095
 const TRANSITION_SECONDS: float = 0.144
 const RELEASE_LIFT: float = 150.0
 const STAR_REST_COLOR: Color = Color("#ebede9")
-const STAR_HOVER_COLOR: Color = Color("#a8ca58")
-const STAR_HOVER_GROW: float = 1.25
-const STAR_PULSE_PEAK: float = 1.4
+const STAR_HOVER_COLOR: Color = Color("#75a743")
+const STAR_PULSE_COLOR: Color = Color("#a8ca58")
+const STAR_HOVER_GROW: float = 1.5
+const STAR_PULSE_PEAK: float = 1.7
 const HOVER_TRANSITION_SECONDS: float = 0.12
-const HOVER_PULSE_SECONDS: float = 0.35
+const HOVER_PULSE_SECONDS: float = 0.22
 const ENTRY_PULSE_GROW: float = 1.15
 const ENTRY_PULSE_LIFT: float = 1.25
 const ENTRY_PULSE_SECONDS: float = 0.3
@@ -144,7 +145,9 @@ func _start_hover_visuals() -> void:
 	_hover_tween.tween_property(_star, "modulate", STAR_HOVER_COLOR, HOVER_TRANSITION_SECONDS)
 	_hover_tween.parallel().tween_property(_star, "scale", _star_rest_scale * STAR_HOVER_GROW, HOVER_TRANSITION_SECONDS)
 	_hover_tween.chain().tween_property(_star, "scale", _star_rest_scale * STAR_PULSE_PEAK, HOVER_PULSE_SECONDS)
+	_hover_tween.parallel().tween_property(_star, "modulate", STAR_PULSE_COLOR, HOVER_PULSE_SECONDS)
 	_hover_tween.chain().tween_property(_star, "scale", _star_rest_scale * STAR_HOVER_GROW, HOVER_PULSE_SECONDS)
+	_hover_tween.parallel().tween_property(_star, "modulate", STAR_HOVER_COLOR, HOVER_PULSE_SECONDS)
 	_hover_tween.set_loops(0)
 
 func _end_hover_visuals() -> void:
@@ -165,10 +168,10 @@ func _kill_hover_tween() -> void:
 
 func _pulse_click_targets() -> void:
 	var scene: Node = get_tree().current_scene
-	if scene == null:
+	if scene == null or not _resolve_gestures():
 		return
 	for node: Node in scene.find_children("*", "", true, false):
-		if node.has_method("accept_damage"):
+		if node.has_method("accept_damage") and _gestures.is_gesture_target(node):
 			_pulse_target_sprite(node)
 
 func _pulse_target_sprite(target: Node) -> void:

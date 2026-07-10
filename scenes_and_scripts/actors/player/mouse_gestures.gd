@@ -167,9 +167,18 @@ func get_hover_target() -> Node:
 	return results[0].collider
 
 func _is_hover_responsive(collider: Variant) -> bool:
-	if collider.has_method("accept_damage"):
+	if is_gesture_target(collider):
 		return true
 	return collider.has_method("is_click_responsive") and collider.is_click_responsive()
+
+func is_gesture_target(target: Variant) -> bool:
+	var seal: BaseSeal = target as BaseSeal
+	if seal != null:
+		return not seal.responding_gestures(denial_revert_window).is_empty()
+	if target.has_method("responding_gestures"):
+		var verbs: Array = target.responding_gestures()
+		return not verbs.is_empty()
+	return target.has_method("accept_damage")
 
 func _point_query_under_mouse() -> Array[Dictionary]:
 	var space: PhysicsDirectSpaceState2D = get_viewport().get_world_2d().direct_space_state
