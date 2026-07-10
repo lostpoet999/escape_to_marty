@@ -12,6 +12,16 @@ const ITEM_BOX: PackedScene = preload("uid://165yx2m2saao")
 func instantiate_lootbox() -> Node2D:
 	return ITEM_BOX.instantiate()
 
+func free_picks_available() -> int:
+	var base_pick: int = 0 if base_pick_used else 1
+	return base_pick + PlayerData.pick2_vouchers
+
+func free_pick_exhausted() -> bool:
+	return items.is_empty() or free_picks_available() <= 0
+
+func shop_exhausted() -> bool:
+	return items.is_empty() and PlayerData.shop_restock_vouchers <= 0
+
 func filter_owned_actives()->void:
 	var owned_actives: Array[BaseItem] = PlayerData.inventory.get_core_items()
 	pool = pool.filter(func(i: BaseItem) -> bool:

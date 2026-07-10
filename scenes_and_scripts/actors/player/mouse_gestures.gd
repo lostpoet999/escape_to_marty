@@ -167,7 +167,7 @@ func get_hover_target() -> Node:
 	return results[0].collider
 
 func _is_hover_responsive(collider: Variant) -> bool:
-	if is_gesture_target(collider):
+	if GameManager.current_state == GameManager.GameState.CLICK_MODE and is_gesture_target(collider):
 		return true
 	return collider.has_method("is_click_responsive") and collider.is_click_responsive()
 

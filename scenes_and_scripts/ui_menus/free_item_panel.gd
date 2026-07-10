@@ -9,10 +9,12 @@ func _ready() -> void:
 
 # one free pick per room (spent on the first take), plus one extra pick per banked voucher
 func _picks_available() -> int:
-	var base_pick: int = 0 if loot_items_data.base_pick_used else 1
-	return base_pick + PlayerData.pick2_vouchers
+	return loot_items_data.free_picks_available()
 
 func _refresh() -> void:
+	if loot_items_data.free_pick_exhausted():
+		queue_free()
+		return
 	_clear_slots()
 	var can_pick: bool = _picks_available() > 0
 	for item: BaseItem in loot_items_data.items:

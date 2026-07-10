@@ -101,7 +101,7 @@ func initiate_special_room()->void:
 		RoomContent.ROOM_TYPES.shop:
 			if !room_state.loot_items_data:
 				room_state.generate_item_box()
-			if !room_state.loot_items_data.items.is_empty():
+			if not room_state.loot_items_data.shop_exhausted():
 				loot_items_data = room_state.loot_items_data
 				var panel: ShopPanel = SHOP_PANEL.instantiate()
 				panel.z_index = 500
@@ -131,7 +131,7 @@ func _on_bonus_item_taken(item: BaseItem) -> void:
 func _spawn_free_item_panel() -> void:
 	if !room_state.loot_items_data:
 		room_state.generate_item_box(entry.content.item_pool_override)
-	if !room_state.loot_items_data.items.is_empty():
+	if not room_state.loot_items_data.free_pick_exhausted():
 		loot_items_data = room_state.loot_items_data
 		var panel: FreeItemPanel = FREE_ITEM_PANEL.instantiate()
 		panel.z_index = 500

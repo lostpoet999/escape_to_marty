@@ -15,6 +15,11 @@ const HOVER_PULSE_SECONDS: float = 0.22
 const ENTRY_PULSE_GROW: float = 1.15
 const ENTRY_PULSE_LIFT: float = 1.25
 const ENTRY_PULSE_SECONDS: float = 0.3
+const MANIFEST_STATES: Array[GameManager.GameState] = [
+	GameManager.GameState.CLICK_MODE,
+	GameManager.GameState.LEVEL_CLEARED,
+	GameManager.GameState.SPECIAL_ROOM,
+]
 
 var _cursor: Node2D
 var _star: Node2D
@@ -22,7 +27,7 @@ var _paddle_ghost: Node2D
 var _following: bool = false
 var _locking_mouse: bool = false
 var _lift_mouse_target: Vector2
-var _was_click_mode: bool = false
+var _was_manifested: bool = false
 var _tween: Tween
 var _gestures: MouseGestures
 var _star_rest_scale: Vector2
@@ -41,18 +46,31 @@ func _ready() -> void:
 	_star.modulate = STAR_REST_COLOR
 
 func _process(_delta: float) -> void:
-	var in_click: bool = GameManager.current_state == GameManager.GameState.CLICK_MODE
-	if in_click != _was_click_mode:
-		_was_click_mode = in_click
-		if in_click:
-			_enter_click_mode()
+	var manifested: bool = _should_manifest()
+	if manifested != _was_manifested:
+		_was_manifested = manifested
+		if manifested:
+			_manifest_cursor()
 		else:
-			_exit_click_mode()
+			_settle_cursor()
 	if _locking_mouse:
 		_warp_mouse_to(_lift_mouse_target)
 	elif _following:
+		if not DialogDirector.focused_active and Input.get_mouse_mode() != Input.MOUSE_MODE_HIDDEN:
+			Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 		_cursor.global_position = _aligned_cursor_position(_cursor.scale)
 		_update_hover()
+
+func _should_manifest() -> bool:
+	if _cutscene_running():
+		return false
+	return GameManager.current_state in MANIFEST_STATES
+
+func _cutscene_running() -> bool:
+	for node: Node in get_tree().get_nodes_in_group(&"cutscene"):
+		if node.get("active") == true:
+			return true
+	return false
 
 func _aligned_cursor_position(at_scale: Vector2) -> Vector2:
 	return get_global_mouse_position() - _star.position * at_scale
@@ -61,8 +79,9 @@ func _warp_mouse_to(world_pos: Vector2) -> void:
 	var viewport: Viewport = get_viewport()
 	Input.warp_mouse(viewport.get_screen_transform() * (viewport.get_canvas_transform() * world_pos))
 
-func _enter_click_mode() -> void:
-	_pulse_click_targets()
+func _manifest_cursor() -> void:
+	if GameManager.current_state == GameManager.GameState.CLICK_MODE:
+		_pulse_click_targets()
 	if not _resolve_paddle_ghost():
 		return
 	_following = false
@@ -88,7 +107,7 @@ func _begin_follow() -> void:
 	_locking_mouse = false
 	_following = true
 
-func _exit_click_mode() -> void:
+func _settle_cursor() -> void:
 	_following = false
 	_locking_mouse = false
 	_kill_tween()

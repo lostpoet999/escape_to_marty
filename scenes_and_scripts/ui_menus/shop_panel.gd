@@ -28,6 +28,9 @@ func _cost_label(i: int) -> Label:
 	return slots[i].get_node("CostLabel") as Label
 
 func _refresh() -> void:
+	if loot_items_data.shop_exhausted():
+		queue_free()
+		return
 	for i: int in slots.size():
 		if i < loot_items_data.items.size():
 			var item: BaseItem = loot_items_data.items[i]
