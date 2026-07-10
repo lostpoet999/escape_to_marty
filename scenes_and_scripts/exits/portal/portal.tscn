@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://bkhtnn7w30ek4"]
+
+[ext_resource type="Texture2D" uid="uid://dvido46f3a2i2" path="res://scenes_and_scripts/exits/portal/white_circle.png" id="1_4mev7"]
+[ext_resource type="Texture2D" uid="uid://y1apjap73qli" path="res://scenes_and_scripts/exits/portal/portal.png" id="1_qgdnc"]
+
+[sub_resource type="Curve" id="Curve_0s68d"]
+_limits = [0.0, 2.0, 0.0, 1.0]
+_data = [Vector2(0, 1.0898877), 0.0, 0.0, 0, 0, Vector2(1e-05, 0.4606743), 0.0, 0.0, 0, 0, Vector2(2e-05, 0), 0.0, 0.0, 0, 0, Vector2(0.21875003, 2), 0.0, 0.0, 0, 0, Vector2(1, 2), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_4mev7"]
+width = 64
+curve_y = SubResource("Curve_0s68d")
+
+[sub_resource type="Curve" id="Curve_4mev7"]
+_limits = [0.5, 1.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.5), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_amrnj"]
+curve = SubResource("Curve_4mev7")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_4mev7"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(1, 2, 1)
+emission_shape = 1
+emission_sphere_radius = 128.0
+directional_velocity_min = -5.000016
+directional_velocity_max = 4.999984
+directional_velocity_curve = SubResource("CurveXYZTexture_4mev7")
+orbit_velocity_min = -0.19999991
+orbit_velocity_max = 0.2000001
+radial_velocity_min = -10.000022
+radial_velocity_max = -5.0000224
+gravity = Vector3(0, 0, 0)
+radial_accel_min = 0.99999774
+radial_accel_max = 2.9999976
+tangential_accel_min = -5.000002
+tangential_accel_max = 4.9999976
+scale_min = 0.19999999
+scale_max = 0.5
+scale_curve = SubResource("CurveTexture_amrnj")
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kpk54"]
+radius = 23.0
+height = 110.0
+
+[node name="Portal" type="Node2D" unique_id=1481060535]
+metadata/_edit_vertical_guides_ = [32.0, -32.0]
+metadata/_edit_horizontal_guides_ = [-64.0, 64.0]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1225131280]
+position = Vector2(0.49999988, 1.000001)
+scale = Vector2(0.087643676, 0.140625)
+texture = ExtResource("1_qgdnc")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1034129853]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(0.49999988, 1.000001)
+scale = Vector2(0.087643676, 0.140625)
+amount = 500
+texture = ExtResource("1_4mev7")
+lifetime = 6.0
+preprocess = 5.0
+process_material = SubResource("ParticleProcessMaterial_4mev7")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1317150877]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=167434494]
+position = Vector2(1, 1)
+shape = SubResource("CapsuleShape2D_kpk54")
