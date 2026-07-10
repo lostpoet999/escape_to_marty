@@ -71,8 +71,9 @@ scale_curve = SubResource("CurveXYZTexture_c062d")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kat55"]
 transparency = 1
 shading_mode = 0
-albedo_color = Color(0.95, 0.88, 0.5, 0.2)
+albedo_color = Color(1, 1, 1, 0.06)
 disable_receive_shadows = true
+disable_fog = true
 use_fov_override = true
 fov_override = 120.0
 

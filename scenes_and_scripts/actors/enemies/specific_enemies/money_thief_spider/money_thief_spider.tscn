@@ -33,7 +33,7 @@ wall_side = 0
 emerge_time = 0.6
 escape_time = 24.0
 escape_run_speed = 0.7
-steal_reach = 280.0
+steal_reach = 420.0
 steal_span = 400.0
 eat_radius = 45.0
 

@@ -1,17 +1,53 @@
 class_name MoneyThiefSpider
 extends WallWalker
 
-@export var steal_reach: float = 280.0 ## How far the steal pocket reaches off the wall into the playfield.
+const BONUS_DROP: PackedScene = preload("res://scenes_and_scripts/collectibles/bonus_drop.tscn")
+const WALL_HALF_WIDTH: float = 32.0
+
+@export var steal_reach: float = 420.0 ## How far the steal pocket reaches off the wall into the playfield.
 @export var steal_span: float = 400.0 ## How wide the steal pocket is along the wall.
 @export var eat_radius: float = 45.0 ## Distance at which a pulled gold coin is consumed.
+@export var burst_scatter_min: float = 40.0 ## Closest a burst drop lands from the spider, into the playfield.
+@export var burst_scatter_max: float = 120.0 ## Farthest a burst drop lands from the spider, into the playfield.
+@export var exposed_fraction: float = 0.5 ## Fraction of the sprite hanging past the wall's inner face into the play area; the rest overlaps the wall.
 
-var hoard: int = 0
+var hoard: Array[BonusPayload] = []
 var _captured: Array[BonusDrop] = []
 @onready var _steal_zone: Area2D = get_node_or_null("StealZone")
 
 func _ready() -> void:
+	_apply_wall_pose()
 	super()
 	_configure_steal_zone()
+
+func _apply_wall_pose() -> void:
+	var sprite: Sprite2D = get_node_or_null("EnemySprite")
+	if sprite == null:
+		return
+	match wall_side:
+		WallSide.LEFT: sprite.rotation = -PI / 2
+		WallSide.RIGHT: sprite.rotation = PI / 2
+		_: sprite.rotation = 0.0
+	if sprite.texture == null:
+		return
+	var walls: Array = get_tree().get_nodes_in_group("walls")
+	if walls.is_empty():
+		return
+	var min_x: float = INF
+	var max_x: float = -INF
+	var min_y: float = INF
+	for wall: Area2D in walls:
+		min_x = minf(min_x, wall.global_position.x)
+		max_x = maxf(max_x, wall.global_position.x)
+		min_y = minf(min_y, wall.global_position.y)
+	var depth: float = (0.5 - exposed_fraction) * sprite.texture.get_height() * sprite.scale.y
+	match wall_side:
+		WallSide.LEFT:
+			global_position.x = min_x + WALL_HALF_WIDTH - depth
+		WallSide.RIGHT:
+			global_position.x = max_x - WALL_HALF_WIDTH + depth
+		_:
+			global_position.y = min_y + WALL_HALF_WIDTH - depth
 
 func _configure_steal_zone() -> void:
 	if _steal_zone == null:
@@ -54,11 +90,31 @@ func _on_steal_zone_area_entered(area: Area2D) -> void:
 
 func _eat(drop: BonusDrop) -> void:
 	drop.collected = true
-	hoard += (drop.payload as CurrencyPayload).value
+	hoard.append(drop.payload)
 	Signalbus.gold_collected.emit(-1)
 	add_escape_time(escape_time * 0.2)
 	drop.queue_free()
 	_eat_pulse()
+
+func _on_death(killed_by_damage: bool) -> void:
+	if not killed_by_damage:
+		return
+	for payload: BonusPayload in hoard:
+		var drop: BonusDrop = BONUS_DROP.instantiate()
+		drop.payload = payload
+		get_parent().add_child(drop)
+		drop.global_position = global_position + _scatter_offset()
+		Signalbus.gold_spawned.emit(1)
+	hoard.clear()
+
+func _scatter_offset() -> Vector2:
+	var inward: Vector2
+	match wall_side:
+		WallSide.TOP: inward = Vector2.DOWN
+		WallSide.LEFT: inward = Vector2.RIGHT
+		_: inward = Vector2.LEFT
+	var along: Vector2 = inward.orthogonal()
+	return inward * randf_range(burst_scatter_min, burst_scatter_max) + along * randf_range(-60.0, 60.0)
 
 func _eat_pulse() -> void:
 	var sprite: Node2D = get_node_or_null("EnemySprite")

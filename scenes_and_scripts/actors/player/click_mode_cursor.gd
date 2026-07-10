@@ -1,8 +1,10 @@
 class_name ClickModeCursor extends Node2D
 
 const CURSOR_SCENE: PackedScene = preload("res://scenes_and_scripts/actors/player/ghost_david.tscn")
+const ENTRY_FX_SCENE: PackedScene = preload("res://scenes_and_scripts/bricks/brick_vfx/brick_damage_fx.tscn")
 const CURSOR_SCALE_FACTOR: float = 0.80
 const CURSOR_Z_INDEX: int = 4095
+const CURSOR_LAYER: int = 200
 const TRANSITION_SECONDS: float = 0.144
 const RELEASE_LIFT: float = 150.0
 const GOLD_REST_COLOR: Color = Color("#ebede9")
@@ -12,9 +14,11 @@ const GOLD_HOVER_GROW: float = 1.5
 const GOLD_PULSE_PEAK: float = 1.7
 const HOVER_TRANSITION_SECONDS: float = 0.12
 const HOVER_PULSE_SECONDS: float = 0.22
-const ENTRY_PULSE_GROW: float = 1.15
+const ENTRY_PULSE_GROW: float = 1.10
 const ENTRY_PULSE_LIFT: float = 1.25
 const ENTRY_PULSE_SECONDS: float = 0.3
+const ENTRY_TELL_GROW: bool = true
+const ENTRY_TELL_DAMAGE_FX: bool = true
 const MANIFEST_STATES: Array[GameManager.GameState] = [
 	GameManager.GameState.CLICK_MODE,
 	GameManager.GameState.LEVEL_CLEARED,
@@ -36,11 +40,18 @@ var _hover_tween: Tween
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	## the cursor rides its own CanvasLayer so it draws above the HUD's CanvasLayer
+	## (base-canvas z_index can never win against a layer); follow_viewport keeps
+	## the layer on the world camera transform so all world-space math stays valid
+	var cursor_layer: CanvasLayer = CanvasLayer.new()
+	cursor_layer.layer = CURSOR_LAYER
+	cursor_layer.follow_viewport_enabled = true
+	add_child(cursor_layer)
 	_cursor = CURSOR_SCENE.instantiate()
 	_cursor.z_index = CURSOR_Z_INDEX
 	_cursor.z_as_relative = false
 	_cursor.visible = false
-	add_child(_cursor)
+	cursor_layer.add_child(_cursor)
 	_gold = _cursor.get_node("ParticleCartoonGold")
 	_gold_rest_scale = _gold.scale
 	_gold.modulate = GOLD_REST_COLOR
@@ -191,7 +202,18 @@ func _pulse_click_targets() -> void:
 		return
 	for node: Node in scene.find_children("*", "", true, false):
 		if node.has_method("accept_damage") and _gestures.is_gesture_target(node):
-			_pulse_target_sprite(node)
+			if ENTRY_TELL_GROW:
+				_pulse_target_sprite(node)
+			if ENTRY_TELL_DAMAGE_FX and node is BaseSeal:
+				_spawn_target_fx(node)
+
+func _spawn_target_fx(target: Node) -> void:
+	var target_2d: Node2D = target as Node2D
+	if target_2d == null:
+		return
+	var fx: Node2D = ENTRY_FX_SCENE.instantiate()
+	fx.position = target_2d.global_position
+	get_tree().current_scene.add_child(fx)
 
 func _pulse_target_sprite(target: Node) -> void:
 	var sprite: Node2D = _find_pulse_sprite(target)

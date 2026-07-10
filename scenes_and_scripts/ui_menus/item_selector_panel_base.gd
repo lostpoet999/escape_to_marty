@@ -43,6 +43,7 @@ func _make_slot_button(item: BaseItem) -> Button:
 	button.icon = _icon_for(item)
 	button.tooltip_text = item.powerup_name
 	button.set_meta(&"item", item)
+	button.set_meta(&"click_pickable", true)
 	BaseItem.style_button_with_rarity(button, item.rarity)
 	return button
 

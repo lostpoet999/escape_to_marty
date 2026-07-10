@@ -23,7 +23,7 @@ func _ready()->void:
 		self.modulate.a = .2	
 	Signalbus.jump_landed.connect(jump_land_shake)
 	Signalbus.level_cleared.connect(die)
-	if is_blocker: Signalbus.blocker_added.emit(self)
+	if is_blocker: _register_blocker.call_deferred()
 	var duped: Array[EnemyActions] = []
 	for action:EnemyActions in action_pool:
 		duped.append(action.duplicate(true))
@@ -32,8 +32,12 @@ func _ready()->void:
 		timer = Timer.new()
 		self.add_child(timer)
 	timer.timeout.connect(pick_action)
-	timer.wait_time = action_timer	
+	timer.wait_time = action_timer
 	start_action_timer()
+
+func _register_blocker() -> void:
+	if not is_queued_for_deletion():
+		Signalbus.blocker_added.emit(self)
 
 func accept_damage(_damage: float, _dmg_type: Array[GameManager.PhaseType])->void:
 	SFX.play_sound("enemy_hurt")

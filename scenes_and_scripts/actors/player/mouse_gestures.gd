@@ -159,6 +159,9 @@ func _get_target_under_mouse() -> Node:
 	return results[0].collider
 
 func get_hover_target() -> Node:
+	var hovered_control: Control = get_viewport().gui_get_hovered_control()
+	if _is_pickable_control(hovered_control):
+		return hovered_control
 	var results: Array[Dictionary] = _point_query_under_mouse()
 	results = results.filter(func(result: Dictionary) -> bool: return _is_hover_responsive(result.collider))
 	if results.is_empty():
@@ -170,6 +173,14 @@ func _is_hover_responsive(collider: Variant) -> bool:
 	if GameManager.current_state == GameManager.GameState.CLICK_MODE and is_gesture_target(collider):
 		return true
 	return collider.has_method("is_click_responsive") and collider.is_click_responsive()
+
+## GUI buttons opt into cursor hover feedback via the click_pickable meta;
+## a false meta value (shop item icons) or a disabled button means "can't pick right now".
+func _is_pickable_control(control: Control) -> bool:
+	var button: BaseButton = control as BaseButton
+	if button == null or button.disabled:
+		return false
+	return button.get_meta(&"click_pickable", false)
 
 func is_gesture_target(target: Variant) -> bool:
 	var seal: BaseSeal = target as BaseSeal

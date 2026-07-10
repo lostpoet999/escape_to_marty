@@ -3,6 +3,7 @@ extends Node
 
 @export var sounds: Array[SoundEntry] = []
 var sound_dict: Dictionary = {}
+var active_counts: Dictionary = {}
 
 func _ready() -> void:
 	for sound: SoundEntry in sounds:
@@ -17,6 +18,10 @@ func play_sound(sound_name: String) -> AudioStreamPlayer:
 		for child: Node in get_children():
 			if child.name == "loop_" + sound_name:
 				return child as AudioStreamPlayer
+	elif sound.max_concurrent > 0:
+		var active: int = active_counts.get(sound_name, 0)
+		if active >= sound.max_concurrent:
+			return null
 	var sfx_player: AudioStreamPlayer = AudioStreamPlayer.new()
 	sfx_player.name = "loop_" + sound_name if sound.loop_sound else sound_name
 	add_child(sfx_player)
@@ -34,7 +39,11 @@ func play_sound(sound_name: String) -> AudioStreamPlayer:
 				sfx_player.play()
 		)
 	else:
-		sfx_player.finished.connect(func() -> void: sfx_player.queue_free())
+		active_counts[sound_name] = int(active_counts.get(sound_name, 0)) + 1
+		sfx_player.finished.connect(func() -> void:
+			active_counts[sound_name] = maxi(int(active_counts.get(sound_name, 0)) - 1, 0)
+			sfx_player.queue_free()
+		)
 	return sfx_player
 
 func stop_looping_sound(sound_name: String) -> void:	

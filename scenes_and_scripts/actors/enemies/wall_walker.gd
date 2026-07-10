@@ -55,11 +55,16 @@ func _play_emerge() -> void:
 		return
 	var full_scale: Vector2 = sprite.scale
 	var start_scale: Vector2 = full_scale
+	var out_dir: Vector2
 	match wall_side:
-		WallSide.TOP:
-			start_scale.y = 0.0
-		_:
-			start_scale.x = 0.0
+		WallSide.TOP: out_dir = Vector2.DOWN
+		WallSide.LEFT: out_dir = Vector2.RIGHT
+		_: out_dir = Vector2.LEFT
+	var local_out: Vector2 = out_dir.rotated(-sprite.rotation)
+	if absf(local_out.x) >= absf(local_out.y):
+		start_scale.x = 0.0
+	else:
+		start_scale.y = 0.0
 	sprite.scale = start_scale
 	var emerge_tween: Tween = create_tween()
 	emerge_tween.tween_property(sprite, "scale", full_scale, emerge_time)\

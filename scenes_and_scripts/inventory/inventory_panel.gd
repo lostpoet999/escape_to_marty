@@ -73,6 +73,7 @@ func _make_trophy_slot(floor_index: int) -> Control:
 	button.custom_minimum_size = Vector2(ICON_SIZE, ICON_SIZE)
 	button.icon = item.inventory_icon if item and item.inventory_icon else PlayerInventory.PLACEHOLDER_TEX
 	button.tooltip_text = item.powerup_name if item else ""
+	button.set_meta(&"click_pickable", true)
 	if item:
 		BaseItem.style_button_with_rarity(button, item.rarity, 2, 4, 2.0)
 	return button
@@ -123,6 +124,7 @@ func init_button_for(item: Variant) -> Button:
 	button.icon = icon
 	button.tooltip_text = get_tooltip_for_item(item)
 	button.set_meta(&"Item", item) ## store the variant
+	button.set_meta(&"click_pickable", true)
 
 	button.flat = true ## change me if you decide to use a theme
 	if item is BaseItem:

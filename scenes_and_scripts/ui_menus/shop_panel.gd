@@ -12,10 +12,12 @@ func _ready() -> void:
 			slots.append(child)
 	for i: int in slots.size():
 		_buy_button(i).pressed.connect(_on_buy_pressed.bind(i))
+		_buy_button(i).set_meta(&"click_pickable", true)
 		_item_button(i).mouse_entered.connect(_on_mouse_entered_item.bind(i))
 		_buy_button(i).mouse_entered.connect(_on_mouse_entered_item.bind(i))
 		slots[i].mouse_entered.connect(_on_mouse_entered_item.bind(i))
 	reroll_button.pressed.connect(_on_reroll_pressed)
+	reroll_button.set_meta(&"click_pickable", true)
 	_refresh()
 
 func _item_button(i: int) -> Button:
@@ -43,7 +45,9 @@ func _refresh() -> void:
 			icon_btn.tooltip_text = item.powerup_name
 			BaseItem.style_button_with_rarity(icon_btn, item.rarity)
 			_cost_label(i).text = "%d" % item.cost
-			_buy_button(i).disabled = item.cost > PlayerData.gold_collected
+			var affordable: bool = item.cost <= PlayerData.gold_collected
+			_buy_button(i).disabled = not affordable
+			icon_btn.set_meta(&"click_pickable", affordable)
 		else:
 			slots[i].visible = false
 	_update_reroll()
