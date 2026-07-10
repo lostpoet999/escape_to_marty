@@ -162,12 +162,29 @@ func arm_denial_revert(full_health: float) -> void:
 func try_revert_denial(window_seconds: float) -> bool:
 	if dying or _denial_revert_armed_at_ms < 0:
 		return false
-	var expired: bool = Time.get_ticks_msec() - _denial_revert_armed_at_ms > int(window_seconds * 1000.0)
+	var armed: bool = _denial_revert_armed(window_seconds)
 	_denial_revert_armed_at_ms = -1
-	if expired:
+	if not armed:
 		return false
 	restore_denial(_denial_revert_max)
 	return true
+
+func _denial_revert_armed(window_seconds: float) -> bool:
+	if _denial_revert_armed_at_ms < 0:
+		return false
+	return Time.get_ticks_msec() - _denial_revert_armed_at_ms <= int(window_seconds * 1000.0)
+
+func responding_gestures(revert_window_seconds: float) -> Array[GameManager.PhaseType]:
+	var verbs: Array[GameManager.PhaseType] = []
+	if dying:
+		return verbs
+	if current_stage == GameManager.PhaseType.DENIAL or _denial_revert_armed(revert_window_seconds):
+		verbs.append(GameManager.PhaseType.DENIAL)
+	if current_stage == GameManager.PhaseType.ANGER:
+		verbs.append(GameManager.PhaseType.ANGER)
+	if current_stage == GameManager.PhaseType.BARGAINING:
+		verbs.append(GameManager.PhaseType.BARGAINING)
+	return verbs
 
 func restore_denial(full_health: float) -> void:
 	if dying:
