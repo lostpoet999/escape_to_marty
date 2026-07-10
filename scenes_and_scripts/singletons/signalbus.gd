@@ -57,14 +57,14 @@ signal level_cleared
 signal boss_defeated
 
 ## Emits: scenes_and_scripts/bricks/base_seal.gd -> _on_tween_finished()
-## Connects: scenes_and_scripts/levels/room_base.gd -> update_stars_in_level
+## Connects: scenes_and_scripts/levels/room_base.gd -> update_gold_in_level
 @warning_ignore("unused_signal")
-signal star_spawned(amount: int)
+signal gold_spawned(amount: int)
 
 ## Emits: scenes_and_scripts/collectibles/bonus_drop.gd -> _on_area_entered(), collect(); money_thief_spider.gd -> _eat()
-## Connects: scenes_and_scripts/levels/room_base.gd -> update_stars_in_level
+## Connects: scenes_and_scripts/levels/room_base.gd -> update_gold_in_level
 @warning_ignore("unused_signal")
-signal star_collected(amount: int)
+signal gold_collected(amount: int)
 
 ## Emits: scenes_and_scripts/bricks/base_seal.gd -> _on_tween_finished()
 ## Connects: scenes_and_scripts/levels/room_base.gd -> _on_brick_destroyed
@@ -85,10 +85,10 @@ signal floor_cleared
 ## PLAYER/UI SIGNALS
 ## =============================================================================
 
-## Emits: scenes_and_scripts/singletons/player_data.gd -> change_player_stars(), scenes_and_scripts/levels/room_base.gd -> _ready() (initial sync)
-## Connects: scenes_and_scripts/ui_level/main_ui.gd -> update_star_ui
+## Emits: scenes_and_scripts/singletons/player_data.gd -> change_player_gold(), scenes_and_scripts/levels/room_base.gd -> _ready() (initial sync)
+## Connects: scenes_and_scripts/ui_level/main_ui.gd -> update_gold_ui
 @warning_ignore("unused_signal")
-signal stars_updated
+signal gold_updated
 
 ## Emits: scenes_and_scripts/singletons/player_data.gd -> update_player_score(), scenes_and_scripts/levels/room_base.gd -> _ready() (initial sync)
 ## Connects: scenes_and_scripts/ui_level/main_ui.gd -> update_score_ui

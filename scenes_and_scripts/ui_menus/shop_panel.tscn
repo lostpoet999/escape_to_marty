@@ -21,7 +21,7 @@ layout_mode = 2
 
 [node name="PanelLabel" type="Label" parent="VBoxContainer" index="1" unique_id=1312995949]
 layout_mode = 2
-text = "Spend Your Stars:"
+text = "Spend Your Gold:"
 label_settings = ExtResource("2_title")
 horizontal_alignment = 1
 vertical_alignment = 1

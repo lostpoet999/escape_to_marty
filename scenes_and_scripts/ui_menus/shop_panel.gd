@@ -43,7 +43,7 @@ func _refresh() -> void:
 			icon_btn.tooltip_text = item.powerup_name
 			BaseItem.style_button_with_rarity(icon_btn, item.rarity)
 			_cost_label(i).text = "%d" % item.cost
-			_buy_button(i).disabled = item.cost > PlayerData.stars_collected
+			_buy_button(i).disabled = item.cost > PlayerData.gold_collected
 		else:
 			slots[i].visible = false
 	_update_reroll()
@@ -52,14 +52,14 @@ func _on_buy_pressed(i: int) -> void:
 	if i >= loot_items_data.items.size():
 		return
 	var item: BaseItem = loot_items_data.items[i]
-	if item.cost > PlayerData.stars_collected:
+	if item.cost > PlayerData.gold_collected:
 		return
-	PlayerData.change_player_stars(-item.cost)
+	PlayerData.change_player_gold(-item.cost)
 	PlayerData.inventory.add_item(item)
 	loot_items_data.items.erase(item)
 	_refresh()
 
-# restock + reroll: a voucher regenerates the full fresh shelf (never a star cost)
+# restock + reroll: a voucher regenerates the full fresh shelf (never a gold cost)
 func _on_reroll_pressed() -> void:
 	if not PlayerData.consume_shop_restock_voucher():
 		return

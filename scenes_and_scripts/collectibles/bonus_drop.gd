@@ -41,7 +41,7 @@ func _on_area_entered(area: Area2D) -> void:
 		return
 	if area.is_in_group(GameManager.DEATH_WALLS):
 		collected = true
-		Signalbus.star_collected.emit(-1)
+		Signalbus.gold_collected.emit(-1)
 		queue_free()
 	elif area.is_in_group("david"):
 		collect()
@@ -55,8 +55,8 @@ func collect() -> void:
 		return
 	collected = true
 	set_deferred("monitoring", false)
-	Signalbus.star_collected.emit(-1)
-	SFX.play_sound("star_collected")
+	Signalbus.gold_collected.emit(-1)
+	SFX.play_sound("gold_collected")
 	if payload:
 		payload.apply()
 	visible = false

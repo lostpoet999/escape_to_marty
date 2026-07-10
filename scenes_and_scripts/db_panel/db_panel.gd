@@ -89,8 +89,8 @@ func _on_enable_exits_btn_pressed() -> void:
 	hide()
 
 
-func _on_give_stars_btn_pressed() -> void:
-	PlayerData.change_player_stars(100)
+func _on_give_gold_btn_pressed() -> void:
+	PlayerData.change_player_gold(100)
 
 func populate_floor_warp() -> void:
 	for child: Node in floor_list.get_children():

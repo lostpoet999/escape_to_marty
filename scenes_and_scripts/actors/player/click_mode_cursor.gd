@@ -5,11 +5,11 @@ const CURSOR_SCALE_FACTOR: float = 0.80
 const CURSOR_Z_INDEX: int = 4095
 const TRANSITION_SECONDS: float = 0.144
 const RELEASE_LIFT: float = 150.0
-const STAR_REST_COLOR: Color = Color("#ebede9")
-const STAR_HOVER_COLOR: Color = Color("#75a743")
-const STAR_PULSE_COLOR: Color = Color("#a8ca58")
-const STAR_HOVER_GROW: float = 1.5
-const STAR_PULSE_PEAK: float = 1.7
+const GOLD_REST_COLOR: Color = Color("#ebede9")
+const GOLD_HOVER_COLOR: Color = Color("#75a743")
+const GOLD_PULSE_COLOR: Color = Color("#a8ca58")
+const GOLD_HOVER_GROW: float = 1.5
+const GOLD_PULSE_PEAK: float = 1.7
 const HOVER_TRANSITION_SECONDS: float = 0.12
 const HOVER_PULSE_SECONDS: float = 0.22
 const ENTRY_PULSE_GROW: float = 1.15
@@ -22,7 +22,7 @@ const MANIFEST_STATES: Array[GameManager.GameState] = [
 ]
 
 var _cursor: Node2D
-var _star: Node2D
+var _gold: Node2D
 var _paddle_ghost: Node2D
 var _following: bool = false
 var _locking_mouse: bool = false
@@ -30,7 +30,7 @@ var _lift_mouse_target: Vector2
 var _was_manifested: bool = false
 var _tween: Tween
 var _gestures: MouseGestures
-var _star_rest_scale: Vector2
+var _gold_rest_scale: Vector2
 var _hovering: bool = false
 var _hover_tween: Tween
 
@@ -41,9 +41,9 @@ func _ready() -> void:
 	_cursor.z_as_relative = false
 	_cursor.visible = false
 	add_child(_cursor)
-	_star = _cursor.get_node("ParticleCartoonStar")
-	_star_rest_scale = _star.scale
-	_star.modulate = STAR_REST_COLOR
+	_gold = _cursor.get_node("ParticleCartoonGold")
+	_gold_rest_scale = _gold.scale
+	_gold.modulate = GOLD_REST_COLOR
 
 func _process(_delta: float) -> void:
 	var manifested: bool = _should_manifest()
@@ -73,7 +73,7 @@ func _cutscene_running() -> bool:
 	return false
 
 func _aligned_cursor_position(at_scale: Vector2) -> Vector2:
-	return get_global_mouse_position() - _star.position * at_scale
+	return get_global_mouse_position() - _gold.position * at_scale
 
 func _warp_mouse_to(world_pos: Vector2) -> void:
 	var viewport: Viewport = get_viewport()
@@ -86,16 +86,16 @@ func _manifest_cursor() -> void:
 		return
 	_following = false
 	_kill_tween()
-	_reset_star_visuals()
+	_reset_gold_visuals()
 	_paddle_ghost.visible = false
 	_cursor.visible = true
-	_star.visible = true
+	_gold.visible = true
 	_cursor.global_position = _paddle_ghost.global_position
 	_cursor.scale = _paddle_ghost.scale
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	var target_scale: Vector2 = _paddle_ghost.scale * CURSOR_SCALE_FACTOR
 	var lift_origin: Vector2 = _paddle_ghost.global_position - Vector2(0, RELEASE_LIFT)
-	_lift_mouse_target = lift_origin + _star.position * target_scale
+	_lift_mouse_target = lift_origin + _gold.position * target_scale
 	_locking_mouse = true
 	_warp_mouse_to(_lift_mouse_target)
 	_tween = create_tween().set_parallel(true).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
@@ -111,7 +111,7 @@ func _settle_cursor() -> void:
 	_following = false
 	_locking_mouse = false
 	_kill_tween()
-	_reset_star_visuals()
+	_reset_gold_visuals()
 	if _paddle_ghost == null or not is_instance_valid(_paddle_ghost):
 		_settle_on_paddle()
 		return
@@ -122,7 +122,7 @@ func _settle_cursor() -> void:
 
 func _settle_on_paddle() -> void:
 	_cursor.visible = false
-	_star.visible = false
+	_gold.visible = false
 	if _paddle_ghost != null and is_instance_valid(_paddle_ghost):
 		_paddle_ghost.visible = true
 
@@ -161,25 +161,25 @@ func _resolve_gestures() -> bool:
 func _start_hover_visuals() -> void:
 	_kill_hover_tween()
 	_hover_tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	_hover_tween.tween_property(_star, "modulate", STAR_HOVER_COLOR, HOVER_TRANSITION_SECONDS)
-	_hover_tween.parallel().tween_property(_star, "scale", _star_rest_scale * STAR_HOVER_GROW, HOVER_TRANSITION_SECONDS)
-	_hover_tween.chain().tween_property(_star, "scale", _star_rest_scale * STAR_PULSE_PEAK, HOVER_PULSE_SECONDS)
-	_hover_tween.parallel().tween_property(_star, "modulate", STAR_PULSE_COLOR, HOVER_PULSE_SECONDS)
-	_hover_tween.chain().tween_property(_star, "scale", _star_rest_scale * STAR_HOVER_GROW, HOVER_PULSE_SECONDS)
-	_hover_tween.parallel().tween_property(_star, "modulate", STAR_HOVER_COLOR, HOVER_PULSE_SECONDS)
+	_hover_tween.tween_property(_gold, "modulate", GOLD_HOVER_COLOR, HOVER_TRANSITION_SECONDS)
+	_hover_tween.parallel().tween_property(_gold, "scale", _gold_rest_scale * GOLD_HOVER_GROW, HOVER_TRANSITION_SECONDS)
+	_hover_tween.chain().tween_property(_gold, "scale", _gold_rest_scale * GOLD_PULSE_PEAK, HOVER_PULSE_SECONDS)
+	_hover_tween.parallel().tween_property(_gold, "modulate", GOLD_PULSE_COLOR, HOVER_PULSE_SECONDS)
+	_hover_tween.chain().tween_property(_gold, "scale", _gold_rest_scale * GOLD_HOVER_GROW, HOVER_PULSE_SECONDS)
+	_hover_tween.parallel().tween_property(_gold, "modulate", GOLD_HOVER_COLOR, HOVER_PULSE_SECONDS)
 	_hover_tween.set_loops(0)
 
 func _end_hover_visuals() -> void:
 	_kill_hover_tween()
 	_hover_tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	_hover_tween.tween_property(_star, "modulate", STAR_REST_COLOR, HOVER_TRANSITION_SECONDS)
-	_hover_tween.parallel().tween_property(_star, "scale", _star_rest_scale, HOVER_TRANSITION_SECONDS)
+	_hover_tween.tween_property(_gold, "modulate", GOLD_REST_COLOR, HOVER_TRANSITION_SECONDS)
+	_hover_tween.parallel().tween_property(_gold, "scale", _gold_rest_scale, HOVER_TRANSITION_SECONDS)
 
-func _reset_star_visuals() -> void:
+func _reset_gold_visuals() -> void:
 	_kill_hover_tween()
 	_hovering = false
-	_star.modulate = STAR_REST_COLOR
-	_star.scale = _star_rest_scale
+	_gold.modulate = GOLD_REST_COLOR
+	_gold.scale = _gold_rest_scale
 
 func _kill_hover_tween() -> void:
 	if _hover_tween != null and _hover_tween.is_valid():

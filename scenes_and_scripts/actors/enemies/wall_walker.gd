@@ -82,7 +82,7 @@ func _on_death(_killed_by_damage: bool) -> void:
 	pass
 
 ## Extends the escape countdown, clamped to the original escape_time. MoneyThiefSpider
-## calls this on a steal so the player gets a window to reclaim the lost star.
+## calls this on a steal so the player gets a window to reclaim the lost gold.
 func add_escape_time(seconds: float) -> void:
 	if _escaping or _escape_timer == null:
 		return
@@ -113,7 +113,7 @@ func _finish_escape() -> void:
 	queue_free()
 
 ## Virtual hook fired when the escape run begins. MoneyThiefSpider releases captured
-## stars and disables its steal zone here in a later phase.
+## gold and disables its steal zone here in a later phase.
 func _on_escape_started() -> void:
 	pass
 

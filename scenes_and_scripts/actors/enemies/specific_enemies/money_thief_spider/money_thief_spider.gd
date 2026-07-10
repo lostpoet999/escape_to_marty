@@ -3,7 +3,7 @@ extends WallWalker
 
 @export var steal_reach: float = 280.0 ## How far the steal pocket reaches off the wall into the playfield.
 @export var steal_span: float = 400.0 ## How wide the steal pocket is along the wall.
-@export var eat_radius: float = 45.0 ## Distance at which a pulled star is consumed.
+@export var eat_radius: float = 45.0 ## Distance at which a pulled gold coin is consumed.
 
 var hoard: int = 0
 var _captured: Array[BonusDrop] = []
@@ -55,7 +55,7 @@ func _on_steal_zone_area_entered(area: Area2D) -> void:
 func _eat(drop: BonusDrop) -> void:
 	drop.collected = true
 	hoard += (drop.payload as CurrencyPayload).value
-	Signalbus.star_collected.emit(-1)
+	Signalbus.gold_collected.emit(-1)
 	add_escape_time(escape_time * 0.2)
 	drop.queue_free()
 	_eat_pulse()

@@ -8,9 +8,9 @@ const BONUS_ITEM_PANEL: PackedScene = preload("res://scenes_and_scripts/ui_menus
 
 const PLAYER_HURT_TRAUMA: float = 0.8
 
-var stars_cleared: bool = false
+var gold_cleared: bool = false
 var bricks_cleared: bool = false
-var stars_in_level: int = 0
+var gold_in_level: int = 0
 var bricks_in_level: int = 0
 @onready var game_state_lbl: Label = $PlayArea/GameState_Lbl
 @onready var current_room_lbl: Label = $PlayArea/CurrentRoom_Lbl
@@ -49,12 +49,12 @@ func _ready() -> void:
 	room_state.visited = true
 	bricks_in_level = get_tree().get_nodes_in_group("bricks").size()
 	current_room_lbl.text = "Current Room: " + GameManager.current_room_id
-	Signalbus.stars_updated.emit()
+	Signalbus.gold_updated.emit()
 	Signalbus.score_updated.emit()
 	Signalbus.player_health_updated.emit()
 	Signalbus.brick_destroyed.connect(_on_brick_destroyed)
-	Signalbus.star_collected.connect(update_stars_in_level)
-	Signalbus.star_spawned.connect(update_stars_in_level)
+	Signalbus.gold_collected.connect(update_gold_in_level)
+	Signalbus.gold_spawned.connect(update_gold_in_level)
 	Signalbus.enemy_requested.connect(_on_enemy_requested)
 	Signalbus.screen_flash.connect(flash_play_area)
 	Signalbus.player_damaged.connect(_on_player_damaged)
@@ -91,7 +91,7 @@ func _on_player_damaged(amount: int) -> void:
 func initiate_special_room()->void:
 	if entry.content.room_type in RoomContent.AUTO_CLEAR_ROOM_TYPES:
 		bricks_cleared = true
-		stars_cleared = true
+		gold_cleared = true
 		check_level_cleared()
 	match entry.content.room_type:
 		RoomContent.ROOM_TYPES.free_item:
@@ -142,7 +142,7 @@ func _init_memory_room() -> void:
 	if not SaveProgression.is_memory_seen(entry.content.memory_id()):
 		return
 	bricks_cleared = true
-	stars_cleared = true
+	gold_cleared = true
 	check_level_cleared()
 	_spawn_free_item_panel()
 
@@ -186,19 +186,19 @@ func _spawn_cap_group(config: EnemyConfig) -> StringName:
 
 func check_level_cleared() -> void: #let gamemanager know level is cleared
 	var max_clear:int = GameManager.get_current_floor_entry(GameManager.current_room_id).content.max_clears
-	if stars_cleared && bricks_cleared:
+	if gold_cleared && bricks_cleared:
 		Signalbus.level_cleared.emit()
 		room_state.clear_count +=1
 		if entry.content.max_clears == -1: return
 		if room_state.clear_count >= max_clear: room_state.cleared = true
 
-func update_stars_in_level(amount: int) -> void:
-	stars_in_level += amount
-	if stars_in_level <= 0:
-		stars_cleared = true
+func update_gold_in_level(amount: int) -> void:
+	gold_in_level += amount
+	if gold_in_level <= 0:
+		gold_cleared = true
 		check_level_cleared()
 	else:
-		stars_cleared = false
+		gold_cleared = false
 
 func _on_brick_destroyed() -> void:
 	bricks_in_level -= 1

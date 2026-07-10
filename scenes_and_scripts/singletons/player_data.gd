@@ -7,7 +7,7 @@ const MAX_HEALTH_CEILING: int = 25
 const MAX_FREE_MISS_SHIELDS: int = 1
 
 var score: int = 0
-var stars_collected: int = 0
+var gold_collected: int = 0
 var player_current_health: int = BASE_MAX_HEALTH
 var player_max_health: int = BASE_MAX_HEALTH
 var free_miss_shields: int = 0
@@ -21,7 +21,7 @@ var seen_dialog_trees: Array[StringName] = []
 var seen_cutscenes: Array[StringName] = []
 var dialog_trigger_counts: Dictionary[StringName, int] = {}
 
-var bankruptcy_stars_per_life_bonus: int = 0
+var bankruptcy_gold_per_life_bonus: int = 0
 var bankruptcy_damage_per_life_bonus: int = 0
 
 
@@ -50,7 +50,7 @@ func get_room_state(entry: RoomEntry)->RoomState:
 
 func initialize_player_data() -> void:
 	score = 0
-	stars_collected = 0
+	gold_collected = 0
 	player_current_health = BASE_MAX_HEALTH
 	player_max_health = BASE_MAX_HEALTH
 	free_miss_shields = 0
@@ -60,38 +60,38 @@ func initialize_player_data() -> void:
 	seen_dialog_trees.clear()
 	seen_cutscenes.clear()
 	dialog_trigger_counts.clear()
-	bankruptcy_stars_per_life_bonus = 0
+	bankruptcy_gold_per_life_bonus = 0
 	bankruptcy_damage_per_life_bonus = 0
 	if inventory: inventory.free()
 	inventory = PlayerInventory.new()
 	add_child(inventory)
 	GameManager.grant_memory_trophies()
 
-func change_player_stars(star_value: int) -> void:
-	stars_collected += star_value
-	Signalbus.stars_updated.emit()
+func change_player_gold(gold_value: int) -> void:
+	gold_collected += gold_value
+	Signalbus.gold_updated.emit()
 
 func pay_bargain_cost(cost: int) -> void:
-	if cost <= stars_collected:
-		change_player_stars(-cost)
+	if cost <= gold_collected:
+		change_player_gold(-cost)
 		return
 	_cover_bankrupt_deal(cost)
 
-func apply_bankruptcy_modifiers(stars_per_life_bonus: int, damage_per_life_bonus: int) -> void:
-	bankruptcy_stars_per_life_bonus = stars_per_life_bonus
+func apply_bankruptcy_modifiers(gold_per_life_bonus: int, damage_per_life_bonus: int) -> void:
+	bankruptcy_gold_per_life_bonus = gold_per_life_bonus
 	bankruptcy_damage_per_life_bonus = damage_per_life_bonus
 
 func _cover_bankrupt_deal(cost: int) -> void:
 	var active_floor: FloorData = GameManager.floor_data
 	if active_floor == null or not active_floor.bankruptcy_enabled:
-		change_player_stars(-mini(cost, stars_collected))
+		change_player_gold(-mini(cost, gold_collected))
 		return
-	var stars_per_life: int = maxi(active_floor.bankruptcy_stars_per_life + bankruptcy_stars_per_life_bonus, 1)
-	var lives_needed: int = ceili(float(cost - stars_collected) / stars_per_life)
+	var gold_per_life: int = maxi(active_floor.bankruptcy_gold_per_life + bankruptcy_gold_per_life_bonus, 1)
+	var lives_needed: int = ceili(float(cost - gold_collected) / gold_per_life)
 	var damage_per_life: int = maxi(active_floor.bankruptcy_damage_per_life + bankruptcy_damage_per_life_bonus, 0)
 	accept_damage(lives_needed * damage_per_life)
-	stars_collected += lives_needed * stars_per_life - cost
-	Signalbus.stars_updated.emit()
+	gold_collected += lives_needed * gold_per_life - cost
+	Signalbus.gold_updated.emit()
 
 
 func change_player_health(amount: int) -> void:
@@ -148,5 +148,5 @@ func consume_shop_restock_voucher() -> bool:
 func get_player_health() -> int:
 	return player_current_health
 
-func get_player_stars() -> int:
-	return stars_collected
+func get_player_gold() -> int:
+	return gold_collected

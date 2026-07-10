@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://ddf3es58leurn"
-path="res://.godot/imported/star.wav-816af61c7744f8a748a1e672687ee471.sample"
+path="res://.godot/imported/gold.wav-ce5c6fbc06c83517b2aa984269cb32b6.sample"
 
 [deps]
 
-source_file="res://sound_effects/working/star.wav"
-dest_files=["res://.godot/imported/star.wav-816af61c7744f8a748a1e672687ee471.sample"]
+source_file="res://sound_effects/working/gold.wav"
+dest_files=["res://.godot/imported/gold.wav-ce5c6fbc06c83517b2aa984269cb32b6.sample"]
 
 [params]
 

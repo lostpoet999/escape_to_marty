@@ -1,11 +1,11 @@
 [gd_resource type="Resource" script_class="CurrencyPayload" format=3 uid="uid://ccurrpld01"]
 
 [ext_resource type="Script" uid="uid://cekkrigmkw5yk" path="res://scenes_and_scripts/collectibles/bonus_drops/currency_payload.gd" id="1"]
-[ext_resource type="Texture2D" uid="uid://ba3bqnqxvm3dh" path="res://scenes_and_scripts/collectibles/particle_cartoon_star.png" id="1_0f8ar"]
+[ext_resource type="Texture2D" uid="uid://ba3bqnqxvm3dh" path="res://scenes_and_scripts/collectibles/particle_cartoon_gold.png" id="1_0f8ar"]
 
 [resource]
 script = ExtResource("1")
-label = "Star"
+label = "Gold"
 weight = 245.0
 is_rare = false
 drop_texture = ExtResource("1_0f8ar")

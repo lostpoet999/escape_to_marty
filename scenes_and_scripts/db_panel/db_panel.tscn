@@ -114,11 +114,11 @@ tooltip_text = "ALT+E (in level): Open the exits to the room you currently are i
 theme_override_styles/normal = SubResource("StyleBoxFlat_vy6bg")
 text = "Exits"
 
-[node name="give_stars_btn" type="Button" parent="Panel/HBoxContainer/TrackedVariables/VBoxContainer/GridContainer" unique_id=863765938]
+[node name="give_gold_btn" type="Button" parent="Panel/HBoxContainer/TrackedVariables/VBoxContainer/GridContainer" unique_id=863765938]
 layout_mode = 2
 tooltip_text = "Give 100 currency."
 theme_override_styles/normal = SubResource("StyleBoxFlat_vy6bg")
-text = "Stars"
+text = "Gold"
 
 [node name="TrackedVariable_lbl" type="Label" parent="Panel/HBoxContainer/TrackedVariables/VBoxContainer" unique_id=970531247]
 layout_mode = 2
@@ -131,4 +131,4 @@ layout_mode = 2
 layout_mode = 2
 
 [connection signal="pressed" from="Panel/HBoxContainer/TrackedVariables/VBoxContainer/GridContainer/enable_exits_btn" to="." method="_on_enable_exits_btn_pressed"]
-[connection signal="pressed" from="Panel/HBoxContainer/TrackedVariables/VBoxContainer/GridContainer/give_stars_btn" to="." method="_on_give_stars_btn_pressed"]
+[connection signal="pressed" from="Panel/HBoxContainer/TrackedVariables/VBoxContainer/GridContainer/give_gold_btn" to="." method="_on_give_gold_btn_pressed"]

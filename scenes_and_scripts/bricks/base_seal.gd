@@ -339,7 +339,7 @@ func _on_tween_finished(collider: Area2D) -> void:
 		var drop: Area2D = _make_drop()
 		collider.get_parent().add_child(drop)
 		drop.position = collider.position
-		Signalbus.star_spawned.emit(1)
+		Signalbus.gold_spawned.emit(1)
 		Signalbus.enemy_requested.emit(collider)
 		Signalbus.brick_destroyed.emit()
 

@@ -54,12 +54,12 @@ label_settings = ExtResource("1_utoos")
 [node name="spacer" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=1266625648]
 layout_mode = 2
 
-[node name="Star_lable" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=1425838457]
+[node name="Gold_label" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=1425838457]
 layout_mode = 2
-text = "Stars: "
+text = "Gold: "
 label_settings = SubResource("LabelSettings_5qwjd")
 
-[node name="Stars" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=358128666]
+[node name="Gold" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=358128666]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
