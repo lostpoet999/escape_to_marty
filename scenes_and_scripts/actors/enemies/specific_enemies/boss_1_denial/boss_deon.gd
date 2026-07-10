@@ -71,7 +71,7 @@ func accept_damage(damage: float, _dmg_type: Array[GameManager.PhaseType])->void
 				if core_health <= 0:
 					dying = true
 					die()
-					Signalbus.level_cleared.emit()
+					Signalbus.boss_defeated.emit()
 
 func pick_action()->void:
 	if !action_pool.is_empty():

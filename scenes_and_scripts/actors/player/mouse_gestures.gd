@@ -19,6 +19,7 @@ var mouse_down_time: float = 0.0
 var hold_indicator_radius: float = 0.0
 
 func _ready() -> void:
+	add_to_group(&"mouse_gestures")
 	click_behavior = HitBehavior.new()
 	click_behavior.targeting = DirectTarget.new()
 	hold_probe = CircleShape2D.new()
@@ -149,17 +150,33 @@ func _gesture_context(verb_type: GameManager.PhaseType, base: float) -> HitConte
 func _gesture_damage() -> float:
 	return PlayerInventory.get_instance().get_gesture_damage()
 
-func _get_target_under_mouse() -> Node:	
-	var space : PhysicsDirectSpaceState2D = get_viewport().get_world_2d().direct_space_state
-	var query : PhysicsPointQueryParameters2D = PhysicsPointQueryParameters2D.new()
-	query.position = get_viewport().get_mouse_position()
-	query.collide_with_areas = true
-	var results : Array[Dictionary] = space.intersect_point(query)
+func _get_target_under_mouse() -> Node:
+	var results: Array[Dictionary] = _point_query_under_mouse()
 	results = results.filter(func(result: Dictionary) -> bool: return result.collider.has_method("accept_damage"))
 	if results.is_empty():
 		return null
 	results.sort_custom(func(a: Dictionary, b: Dictionary) -> bool: return a.collider.z_index > b.collider.z_index)
 	return results[0].collider
+
+func get_hover_target() -> Node:
+	var results: Array[Dictionary] = _point_query_under_mouse()
+	results = results.filter(func(result: Dictionary) -> bool: return _is_hover_responsive(result.collider))
+	if results.is_empty():
+		return null
+	results.sort_custom(func(a: Dictionary, b: Dictionary) -> bool: return a.collider.z_index > b.collider.z_index)
+	return results[0].collider
+
+func _is_hover_responsive(collider: Variant) -> bool:
+	if collider.has_method("accept_damage"):
+		return true
+	return collider.has_method("is_click_responsive") and collider.is_click_responsive()
+
+func _point_query_under_mouse() -> Array[Dictionary]:
+	var space: PhysicsDirectSpaceState2D = get_viewport().get_world_2d().direct_space_state
+	var query: PhysicsPointQueryParameters2D = PhysicsPointQueryParameters2D.new()
+	query.position = get_viewport().get_mouse_position()
+	query.collide_with_areas = true
+	return space.intersect_point(query)
 
 func _is_bargain_target(target: Node) -> bool:
 	return target is BaseSeal and target.current_stage == GameManager.PhaseType.BARGAINING

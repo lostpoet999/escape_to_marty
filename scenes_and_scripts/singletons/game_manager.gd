@@ -2,6 +2,7 @@ extends Node
 
 #scene references
 const MAIN_MENU: PackedScene = preload("uid://djuj72c4lcukn")
+const CREDITS_SCENE: PackedScene = preload("res://scenes_and_scripts/ui_main_menu/credits_scene.tscn")
 
 #floor references — add floors by editing floor_registry.tres in the inspector
 const FLOOR_REGISTRY: FloorRegistry = preload("res://scenes_and_scripts/levels/floor_registry.tres")
@@ -110,9 +111,9 @@ func is_valid_state_transition(from_state: GameState, to_state: GameState) -> bo
 		GameState.GAME_OVER:
 			return to_state in [GameState.MAIN_MENU, GameState.PLAYING]
 		GameState.CLICK_MODE:
-			return to_state in [GameState.PLAYING, GameState.LEVEL_CLEARED,GameState.DEBUG_PANEL, GameState.BALL_ON_PADDLE, GameState.GAME_OVER]
+			return to_state in [GameState.PLAYING, GameState.LEVEL_CLEARED,GameState.DEBUG_PANEL, GameState.BALL_ON_PADDLE, GameState.GAME_OVER, GameState.MAIN_MENU]
 		GameState.LEVEL_CLEARED:
-			return to_state  in [GameState.BALL_ON_PADDLE, GameState.SPECIAL_ROOM,GameState.DEBUG_PANEL]
+			return to_state  in [GameState.BALL_ON_PADDLE, GameState.SPECIAL_ROOM,GameState.DEBUG_PANEL, GameState.MAIN_MENU]
 		GameState.SPECIAL_ROOM:
 			return to_state in [GameState.BALL_ON_PADDLE, GameState.PLAYING,GameState.DEBUG_PANEL]
 		GameState.DEBUG_PANEL:
@@ -218,9 +219,16 @@ func _ready() -> void:
 	start_floor()
 	
 func floor_cleared()->void:
+	if current_floor >= FLOOR_REGISTRY.floors.size():
+		win_game()
+		return
 	current_floor += 1
 	start_floor(false)
 	load_current_room()
+
+func win_game()->void:
+	change_state(GameState.MAIN_MENU)
+	load_scene(CREDITS_SCENE)
 
 func _configure_frame_rate() -> void:
 	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)	

@@ -4,12 +4,14 @@ extends Node
 
 var type_filter: String
 
-func pick_random_item(weights_override: SpawnWeights = null)->BaseItem:
+func pick_random_item(weights_override: SpawnWeights = null, candidates: Array[BaseItem] = [])->BaseItem:
+	var source_pool: Array[BaseItem] = candidates if not candidates.is_empty() else item_pool_data.item_pool
 	var tier: int = get_tier(weights_override)
-	var list_of_picked_tier: Array = item_pool_data.item_pool.filter(
+	var list_of_picked_tier: Array = source_pool.filter(
 		func(item: BaseItem)->bool: return item.rarity == tier
 	)
-
+	if list_of_picked_tier.is_empty() and not candidates.is_empty():
+		return candidates.pick_random()
 	var picked_item: BaseItem = list_of_picked_tier.pick_random()
 	return picked_item
 

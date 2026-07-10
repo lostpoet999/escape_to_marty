@@ -1,4 +1,4 @@
-extends Node2D
+class_name RoomBase extends Node2D
 
 const ESCAPED_SPIRIT: PackedScene = preload("uid://5j2pau7yvts4")
 const DAMAGE_NUMBER: PackedScene = preload("uid://bedvoohhfbi03")
@@ -40,7 +40,6 @@ func _ready() -> void:
 	visible = false
 	entry = GameManager.get_current_floor_entry(GameManager.current_room_id)
 	room_state = PlayerData.get_room_state(entry)
-	Signalbus.level_cleared.connect(_on_level_cleared_boss_extras)
 	if room_state.cleared:
 		supress_respawn_entities()
 		Signalbus.level_cleared.emit()
@@ -88,44 +87,6 @@ func _on_player_damaged(amount: int) -> void:
 	damage_number.position = paddle.david_global_position()
 	add_child(damage_number)
 	damage_number.show_damage("-" + str(amount), DamageNumber.COLOR_TAKEN)
-
-func _on_level_cleared_boss_extras() -> void:
-	if entry.content.room_type != RoomContent.ROOM_TYPES.boss:
-		return
-			
-	room_state.cleared = true
-	_despawn_boss_entities()
-	_spawn_boss_drop()
-	_activate_floor_portal()
-
-func _spawn_boss_drop() -> void:
-	var config: BossLootConfig = GameManager.floor_data.boss_loot_config
-	if config == null:
-		return
-	# first defeat: generate and persist; re-entry: reuse persisted (preserves unclaimed items)
-	if room_state.loot_items_data == null:
-		room_state.loot_items_data = LootItemsData.new()
-		room_state.loot_items_data.generate_boss_drop(config)
-	loot_items_data = room_state.loot_items_data
-	if loot_items_data.items.is_empty():
-		return
-	item_box = loot_items_data.instantiate_lootbox()
-	item_box.global_position = item_spawn_point.global_position
-	item_box.loot_items_data = loot_items_data
-	add_child(item_box)
-
-func _activate_floor_portal() -> void:
-	var portal: FloorPortal = find_child("FloorPortal", true, false) as FloorPortal
-	if portal != null:
-		portal.activate()
-
-func _despawn_boss_entities() -> void:
-	var cage: Node = find_child("BossDeonCage", true, false)
-	if cage != null and not cage.is_queued_for_deletion():
-		cage.queue_free()
-	var boss: Node = find_child("Boss1Denial", true, false)
-	if boss != null and not boss.is_queued_for_deletion():
-		boss.queue_free()
 
 func initiate_special_room()->void:
 	if entry.content.room_type in RoomContent.AUTO_CLEAR_ROOM_TYPES:
@@ -224,8 +185,6 @@ func _spawn_cap_group(config: EnemyConfig) -> StringName:
 	return StringName("seal_break_enemy_" + config.enemy_name)
 
 func check_level_cleared() -> void: #let gamemanager know level is cleared
-	if entry.content.room_type == RoomContent.ROOM_TYPES.boss:
-		return
 	var max_clear:int = GameManager.get_current_floor_entry(GameManager.current_room_id).content.max_clears
 	if stars_cleared && bricks_cleared:
 		Signalbus.level_cleared.emit()

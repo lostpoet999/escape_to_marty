@@ -69,7 +69,7 @@ color_ramp = SubResource("Gradient_d7lcn")
 
 [node name="ParticleCartoonStar" type="Sprite2D" parent="." unique_id=1212152946]
 visible = false
-modulate = Color(0.11372549, 0.9607843, 0.003921569, 1)
+modulate = Color(0.92156863, 0.92941177, 0.91372549, 1)
 position = Vector2(-29, -1)
 scale = Vector2(2.5, 2.5)
 texture = ExtResource("4_b4emf")

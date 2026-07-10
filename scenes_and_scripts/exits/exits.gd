@@ -100,6 +100,13 @@ func _on_exit_clicked()-> void:
 	GameManager.change_state(GameManager.GameState.BALL_ON_PADDLE)
 	get_tree().change_scene_to_packed(target_room.content.room_scene)
 
+func is_click_responsive()-> bool:
+	if _is_secret_unrevealed() or travel_locked:
+		return false
+	if _targets_bonus_room() and not _bonus_gate_open():
+		return true
+	return room_cleared and _target_id() != ""
+
 func _bonus_gate_open()-> bool:
 	var target_id: String = _target_id()
 	if target_id == "" or not room_ref.has(target_id):

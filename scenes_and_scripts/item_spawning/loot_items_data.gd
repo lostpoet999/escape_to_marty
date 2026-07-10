@@ -48,10 +48,11 @@ func generate_boss_drop(config: BossLootConfig)->void:
 	# guaranteed items first — bypass weights and owned-active filter
 	for guaranteed:BaseItem in config.guaranteed_items:
 		items.push_back(guaranteed)
+		pool.erase(guaranteed)
 	# weighted random rolls
 	for n:int in config.random_drop_count:
 		if pool.is_empty(): break
-		var rolled:BaseItem = ItemSpawner.pick_random_item(config.tier_weights)
+		var rolled:BaseItem = ItemSpawner.pick_random_item(config.tier_weights, pool)
 		if rolled != null:
 			items.push_back(rolled)
 			pool.erase(rolled)

@@ -46,10 +46,15 @@ signal db_panel_closed
 ## LEVEL/GAMEPLAY SIGNALS
 ## =============================================================================
 
-## Emits: scenes_and_scripts/levels/room_base.gd -> _ready(), check_level_cleared(), scenes_and_scripts/memories/memory_flame.gd -> close_memory(), scenes_and_scripts/db_panel/db_panel.gd -> _on_enable_exits_btn_pressed(), scenes_and_scripts/enemies/specific_enemies/boss_1_denial/boss_deon.gd -> accept_damage()
-## Connects: scenes_and_scripts/singletons/game_manager.gd -> set_state_to_cleared, scenes_and_scripts/ball/ball.gd -> remove_ball, scenes_and_scripts/exits/exits.gd -> enable_exits, scenes_and_scripts/levels/room_base.gd -> _on_level_cleared_boss_extras
+## Emits: scenes_and_scripts/levels/room_base.gd -> _ready(), check_level_cleared(), scenes_and_scripts/levels/encounter_room_base.gd -> clear_encounter(), scenes_and_scripts/memories/memory_flame.gd -> close_memory(), scenes_and_scripts/db_panel/db_panel.gd -> _on_enable_exits_btn_pressed()
+## Connects: scenes_and_scripts/singletons/game_manager.gd -> set_state_to_cleared, scenes_and_scripts/ball/ball.gd -> remove_ball, scenes_and_scripts/exits/exits.gd -> enable_exits
 @warning_ignore("unused_signal")
 signal level_cleared
+
+## Emits: scenes_and_scripts/actors/enemies/specific_enemies/boss_1_denial/boss_deon.gd -> accept_damage()
+## Connects: scenes_and_scripts/levels/deon_encounter_room.gd -> _ready() -> clear_encounter
+@warning_ignore("unused_signal")
+signal boss_defeated
 
 ## Emits: scenes_and_scripts/bricks/base_seal.gd -> _on_tween_finished()
 ## Connects: scenes_and_scripts/levels/room_base.gd -> update_stars_in_level

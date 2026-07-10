@@ -1,0 +1,74 @@
+class_name EncounterRoomBase extends RoomBase
+
+const CODEC_PLAYER: PackedScene = preload("uid://ccodecplayer")
+
+## Optional memory beat played once, right after the encounter clears and before loot.
+@export var post_encounter_tree: DialogTree
+
+var encounter_cleared: bool = false
+
+func _ready() -> void:
+	await super()
+	if room_state.cleared:
+		encounter_cleared = true
+		_restore_cleared_encounter()
+
+func check_level_cleared() -> void:
+	pass
+
+func clear_encounter() -> void:
+	if encounter_cleared:
+		return
+	encounter_cleared = true
+	room_state.cleared = true
+	Signalbus.level_cleared.emit()
+	_sweep_encounter()
+	await _play_post_encounter_beat()
+	if not is_inside_tree():
+		return
+	_spawn_encounter_loot()
+	_activate_floor_portal()
+
+func _restore_cleared_encounter() -> void:
+	_sweep_encounter()
+	_spawn_encounter_loot()
+	_activate_floor_portal()
+
+func _sweep_encounter() -> void:
+	var container: Node = find_child("Encounter", true, false)
+	if container == null:
+		return
+	for child: Node in container.get_children():
+		if not child.is_queued_for_deletion():
+			child.queue_free()
+
+func _play_post_encounter_beat() -> void:
+	if post_encounter_tree == null or post_encounter_tree.beats.is_empty():
+		return
+	var player: MemoryCodecPlayer = CODEC_PLAYER.instantiate()
+	player.memory_tree = post_encounter_tree
+	add_child(player)
+	await player.play()
+	if is_instance_valid(player):
+		player.queue_free()
+
+func _spawn_encounter_loot() -> void:
+	var config: BossLootConfig = GameManager.floor_data.boss_loot_config
+	if config == null:
+		return
+	# first defeat: generate and persist; re-entry: reuse persisted (preserves unclaimed items)
+	if room_state.loot_items_data == null:
+		room_state.loot_items_data = LootItemsData.new()
+		room_state.loot_items_data.generate_boss_drop(config)
+	loot_items_data = room_state.loot_items_data
+	if loot_items_data.items.is_empty():
+		return
+	item_box = loot_items_data.instantiate_lootbox()
+	item_box.global_position = item_spawn_point.global_position
+	item_box.loot_items_data = loot_items_data
+	add_child(item_box)
+
+func _activate_floor_portal() -> void:
+	var portal: FloorPortal = find_child("FloorPortal", true, false) as FloorPortal
+	if portal != null:
+		portal.activate()
