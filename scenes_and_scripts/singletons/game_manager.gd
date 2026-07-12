@@ -195,7 +195,6 @@ func restart_level() -> void:
 
 func start_floor(reset_player_data: bool = true) -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	MusicPlayer.execute_playlist("test_playlist")
 	print("current floor: ", current_floor, " of ", FLOOR_REGISTRY.floors.size())
 	var fd_variant: Variant = FLOOR_REGISTRY.floors[current_floor - 1]
 	floor_data = fd_variant
@@ -247,6 +246,7 @@ func load_scene(scene: PackedScene) -> void:
 	get_tree().change_scene_to_packed(scene)
 	
 func load_current_room()-> void:
+	MusicPlayer.play_song(floor_data.music, floor_data.music_volume_db)
 	get_tree().change_scene_to_packed(scene_ref)
 
 func _load_level_on_player_death() -> void:

@@ -11,6 +11,11 @@ func deactivate() -> void:
 	visible = false
 	input_pickable = false
 
+## Lights up the click-mode cursor on hover (see MouseGestures._is_hover_responsive);
+## pickable only after the encounter clears, so the tell matches clickability.
+func is_click_responsive() -> bool:
+	return input_pickable
+
 func _input_event(_viewport: Viewport, event: InputEvent, _shape_idx: int) -> void:
 	if not input_pickable:
 		return

@@ -1,5 +1,10 @@
 class_name FloorData extends Resource
 
+@export_category("Floor Music")
+## drag this floor's song here; it loops for the whole floor. Empty = no music on this floor
+@export var music: AudioStream
+@export var music_volume_db: float = -5.0
+
 @export_category("Item Spawn Rates:")
 @export var spawn_weight: SpawnWeights
 @export var boss_loot_config: BossLootConfig

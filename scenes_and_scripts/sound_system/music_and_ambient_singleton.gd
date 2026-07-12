@@ -28,6 +28,9 @@ func execute_playlist(playlist_name: String) -> void:
 		push_error("Playlist '%s' not found" % playlist_name)
 		return
 
+	if music_player.finished.is_connected(_on_song_finished):
+		music_player.finished.disconnect(_on_song_finished)
+
 	if current_playlist_name != playlist_name:
 		stop_playlist()
 
@@ -85,10 +88,45 @@ func _play_random() -> void:
 	played_tracks_indices.append(current_track_index)
 	play_current_track()
 
-func _on_track_finished() -> void:	
+func _on_track_finished() -> void:
 	if currently_playing_playlist.interval_between_tracks > 0:
 		await get_tree().create_timer(currently_playing_playlist.interval_between_tracks).timeout
+	if currently_playing_playlist == null:
+		return
 	execute_playlist(current_playlist_name)
+
+## play one song on loop (floor music via FloorData.music, menu music); replaces any running playlist.
+## null stream = silence whatever is playing
+func play_song(stream: AudioStream, volume_db: float = -5.0) -> void:
+	if stream == null:
+		stop_playlist()
+		stop_song()
+		return
+
+	if music_player.stream == stream and music_player.playing:
+		music_player.volume_db = volume_db
+		return
+
+	stop_playlist()
+	currently_playing_playlist = null
+	current_playlist_name = ""
+
+	music_player.stream = stream
+	music_player.volume_db = volume_db
+	music_player.bus = "Music"
+	music_player.pitch_scale = 1.0
+	music_player.play()
+
+	if not music_player.finished.is_connected(_on_song_finished):
+		music_player.finished.connect(_on_song_finished)
+
+func stop_song() -> void:
+	if music_player.finished.is_connected(_on_song_finished):
+		music_player.finished.disconnect(_on_song_finished)
+	music_player.stop()
+
+func _on_song_finished() -> void:
+	music_player.play()
 
 # --------- Ambient Sound System ---------
 

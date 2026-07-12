@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://flrportal001"]
+
+[ext_resource type="Script" uid="uid://c34ovqb27jyip" path="res://scenes_and_scripts/exits/floor_portal.gd" id="1_script"]
+[ext_resource type="PackedScene" uid="uid://bkhtnn7w30ek4" path="res://scenes_and_scripts/exits/portal/portal.tscn" id="2_visual"]
+[ext_resource type="Script" uid="uid://prtlvisual01" path="res://scenes_and_scripts/exits/portal/portal_visual.gd" id="3_visual_script"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_portal"]
+size = Vector2(160, 160)
+
+[node name="FloorPortal" type="Area2D" unique_id=728341906]
+script = ExtResource("1_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=728341907]
+shape = SubResource("RectangleShape2D_portal")
+
+[node name="Visual" parent="." unique_id=728341908 instance=ExtResource("2_visual")]
+scale = Vector2(1.25, 1.25)
+script = ExtResource("3_visual_script")

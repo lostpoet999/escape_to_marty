@@ -2,10 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bea1h3570swpu" path="res://scenes_and_scripts/levels/room_base.tscn" id="1_2lgxe"]
 [ext_resource type="PackedScene" uid="uid://dx6kegx4fg7yy" path="res://scenes_and_scripts/levels/floor_2_the_arena/rage_blob_king.tscn" id="3_cbao2"]
-[ext_resource type="Script" uid="uid://c34ovqb27jyip" path="res://scenes_and_scripts/exits/floor_portal.gd" id="5_08opq"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_portal"]
-size = Vector2(160, 160)
+[ext_resource type="PackedScene" uid="uid://flrportal001" path="res://scenes_and_scripts/exits/floor_portal.tscn" id="5_08opq"]
 
 [node name="BossRoom2" unique_id=565861230 instance=ExtResource("1_2lgxe")]
 
@@ -16,17 +13,8 @@ position = Vector2(288, 960)
 [node name="Background" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="1" unique_id=306947289]
 metadata/_edit_lock_ = true
 
-[node name="FloorPortal" type="Area2D" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="5" unique_id=1860885060]
-visible = false
+[node name="FloorPortal" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="5" unique_id=1860885060 instance=ExtResource("5_08opq")]
 position = Vector2(804, 540)
-script = ExtResource("5_08opq")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/FloorPortal" index="0" unique_id=1860885061]
-shape = SubResource("RectangleShape2D_portal")
-
-[node name="Visual" type="Polygon2D" parent="PlayArea/FloorPortal" index="1" unique_id=1860885062]
-color = Color(0.3, 0.8, 1, 1)
-polygon = PackedVector2Array(-80, -80, 80, -80, 80, 80, -80, 80)
 
 [node name="FlashOverlay" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="6" unique_id=443116914]
 metadata/_edit_lock_ = true

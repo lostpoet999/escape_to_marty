@@ -1,5 +1,10 @@
 extends Control
 
+@export_category("Menu Music")
+## drag the menu song here; it loops while the menu is up. Empty = silence
+@export var music: AudioStream
+@export var music_volume_db: float = -5.0
+
 const MAIN_MENU: PackedScene = preload("uid://djuj72c4lcukn")
 const CREDITS_SCENE: PackedScene = preload("res://scenes_and_scripts/ui_main_menu/credits_scene.tscn")
 const SETTINGS_SCENE: PackedScene = preload("res://scenes_and_scripts/ui_main_menu/settings_scene.tscn")
@@ -17,6 +22,7 @@ var _reset_holding: bool = false
 var _reset_hold_time: float = 0.0
 
 func _ready() -> void:
+	MusicPlayer.play_song(music, music_volume_db)
 	# Hide exit button on web (quit doesn't work in browsers)
 	if OS.has_feature("web"):
 		exit_button.hide()
