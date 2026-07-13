@@ -1,7 +1,13 @@
 extends Area2D
 
 const DEFAULT_REVEAL_VFX: PackedScene = preload("res://scenes_and_scripts/bricks/brick_vfx/brick_damage_fx.tscn")
-const SECRET_WALL_TELL: Color = Color(4.0, 0.3, 4.0)
+const SECRET_FLASH_COLOR: Color = Color(3.0, 3.0, 3.0)
+const SECRET_FLASH_IN_TIME: float = 0.1
+const SECRET_FLASH_OUT_TIME: float = 0.4
+const SECRET_FLASH_INTERVAL_MIN: float = 8.0
+const SECRET_FLASH_INTERVAL_MAX: float = 12.0
+const SECRET_FLASHES_PER_BARK_MIN: int = 3
+const SECRET_FLASHES_PER_BARK_MAX: int = 4
 const BONUS_DOOR_GOLD: Color = Color(1.0, 0.9, 0.2)
 const DIR_OFFSETS: Dictionary = {
 	"NorthExit": Vector2i(0, -1),
@@ -19,10 +25,18 @@ const DIR_OFFSETS: Dictionary = {
 
 var room_cleared: bool = false
 var travel_locked: bool = false
+var _flash_tween: Tween
+var _flashes_until_bark: int = 0
 
 func _ready() -> void:
 	Signalbus.level_cleared.connect(enable_exits)
+	Signalbus.wall_hit.connect(_on_wall_hit)
 	reconcile_exits()
+
+func _on_wall_hit(_source: Node2D, wall: Node2D, _damage: float, _dmg_types: Array) -> void:
+	if wall != self or travel_locked or not _is_secret_unrevealed():
+		return
+	_flash_secret_now()
 
 func tween_open_door()->void:
 	var tween: Tween = create_tween()
@@ -38,6 +52,7 @@ func set_travel_locked(locked: bool) -> void:
 	reconcile_exits()
 
 func reconcile_exits()-> void:
+	_stop_secret_flash()
 	var target_id: String = _target_id()
 	if target_id == "":
 		show_walls()
@@ -154,10 +169,44 @@ func show_open_door()-> void:
 
 func show_secret_wall()-> void:
 	walls_no_door.show()
-	walls_no_door.modulate = SECRET_WALL_TELL
+	walls_no_door.modulate = Color.WHITE
 	exit_barrier_closed.hide()
 	exit_barrier_open.hide()
 	self.input_pickable = true
+	if not travel_locked:
+		_start_secret_flash()
+
+func _start_secret_flash()-> void:
+	_flashes_until_bark = randi_range(SECRET_FLASHES_PER_BARK_MIN, SECRET_FLASHES_PER_BARK_MAX)
+	_queue_secret_flash()
+
+func _queue_secret_flash()-> void:
+	_flash_tween = create_tween()
+	_flash_tween.tween_interval(randf_range(SECRET_FLASH_INTERVAL_MIN, SECRET_FLASH_INTERVAL_MAX))
+	_chain_flash_steps()
+
+func _flash_secret_now()-> void:
+	_stop_secret_flash()
+	_flash_tween = create_tween()
+	_chain_flash_steps()
+
+func _chain_flash_steps()-> void:
+	_flash_tween.tween_callback(_on_secret_flash)
+	_flash_tween.tween_property(walls_no_door, "modulate", SECRET_FLASH_COLOR, SECRET_FLASH_IN_TIME)
+	_flash_tween.tween_property(walls_no_door, "modulate", Color.WHITE, SECRET_FLASH_OUT_TIME)
+	_flash_tween.tween_callback(_queue_secret_flash)
+
+func _on_secret_flash()-> void:
+	SFX.play_sound("secret_tell")
+	_flashes_until_bark -= 1
+	if _flashes_until_bark <= 0:
+		_flashes_until_bark = randi_range(SECRET_FLASHES_PER_BARK_MIN, SECRET_FLASHES_PER_BARK_MAX)
+		DialogDirector.play(&"secret_wall_suspicious")
+
+func _stop_secret_flash()-> void:
+	if _flash_tween and _flash_tween.is_valid():
+		_flash_tween.kill()
+	_flash_tween = null
 
 func show_walls()-> void:
 	walls_no_door.show()

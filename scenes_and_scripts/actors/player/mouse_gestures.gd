@@ -103,6 +103,8 @@ func _try_revert_denial(target: Node) -> bool:
 	return true
 
 func _place_depression_light(at: Vector2) -> void:
+	if not GameManager.floor_data.depression_lights_enabled:
+		return
 	if depression_lights.size() >= max_depression_lights:
 		return
 	if _point_over_wall(at):

@@ -14,6 +14,7 @@
 [ext_resource type="AudioStream" uid="uid://ctj1otxtjk7pa" path="res://sound_effects/dry (no reverb)/paddle-hit.wav" id="12_568ao"]
 [ext_resource type="AudioStream" uid="uid://c2jxnxb3ds2sc" path="res://sound_effects/dry (no reverb)/enemy-hit.wav" id="13_ehurt"]
 [ext_resource type="AudioStream" uid="uid://bgs46uheb4s4l" path="res://sound_effects/wet (with reverb)/powerup-consume.wav" id="14_3w05g"]
+[ext_resource type="AudioStream" uid="uid://83oafc804sr8" path="res://sound_effects/wet (with reverb)/ball-bounce-subtle.wav" id="15_sectl"]
 
 [sub_resource type="Resource" id="Resource_84rug"]
 script = ExtResource("2_3pagk")
@@ -106,6 +107,14 @@ pitch_scale = 1.5
 pitch_variance = 0.1
 metadata/_custom_type_script = "uid://2fgoca4drc17"
 
+[sub_resource type="Resource" id="Resource_secrettell"]
+script = ExtResource("2_3pagk")
+name = "secret_tell"
+audio = ExtResource("15_sectl")
+volume_db = -6.0
+pitch_scale = 0.7
+metadata/_custom_type_script = "uid://2fgoca4drc17"
+
 [node name="EntitySfx" type="Node" unique_id=529254853]
 script = ExtResource("1_mje1w")
-sounds = Array[ExtResource("2_3pagk")]([SubResource("Resource_84rug"), SubResource("Resource_w05wb"), SubResource("Resource_axa1s"), SubResource("Resource_hpigb"), SubResource("Resource_0gpy4"), SubResource("Resource_idfbx"), SubResource("Resource_568ao"), SubResource("Resource_7iehp"), SubResource("Resource_3w05g"), SubResource("Resource_18s1p"), SubResource("Resource_ehurt"), SubResource("Resource_raredrop")])
+sounds = Array[ExtResource("2_3pagk")]([SubResource("Resource_84rug"), SubResource("Resource_w05wb"), SubResource("Resource_axa1s"), SubResource("Resource_hpigb"), SubResource("Resource_0gpy4"), SubResource("Resource_idfbx"), SubResource("Resource_568ao"), SubResource("Resource_7iehp"), SubResource("Resource_3w05g"), SubResource("Resource_18s1p"), SubResource("Resource_ehurt"), SubResource("Resource_raredrop"), SubResource("Resource_secrettell")])

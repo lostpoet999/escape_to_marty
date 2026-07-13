@@ -15,6 +15,8 @@ class_name FloorData extends Resource
 @export var bankruptcy_damage_per_life: int = 1
 
 @export_category("Seal Config for Floor:")
+## enables the depression-light verb (click empty space in CLICK_MODE) on this floor; leave off everywhere except the depression floor
+@export var depression_lights_enabled: bool = false
 @export var seal_difficulty_rates: SealDifficulty
 @export var seal_phase_pool: Array[SealPhaseConfig] = []
 @export var seal_health_phase: SealPhaseConfig
