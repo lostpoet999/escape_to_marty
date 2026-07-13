@@ -3,21 +3,30 @@ extends PlacedEnemy
 
 enum WallSide { LEFT, RIGHT, TOP }
 
+const WALL_TILE_SIZE: float = 64.0
+const SHOCK_COOLDOWN_MS: int = 100
+
 @export var wall_side: WallSide ## Which wall this walker clings to; sets the emerge axis and the escape direction.
 @export var emerge_time: float ## Seconds for the sprite to grow out of the wall on spawn; the physics body never scales.
 @export var escape_time: float ## Seconds of active play before the walker flees; the timer only counts down during PLAYING.
 @export var escape_run_speed: float ## Seconds to sprint offscreen once the escape timer expires.
+@export var wall_shock_bricks: int = 3 ## A ball bounce or HEALTH-damage projectile hit on this walker's wall within this many tiles to either side counts as a hit on the walker; the tiles between the impact and the walker shake. 0 disables the shockwave.
+@export var max_health: float = 3.0 ## Real HP pool: HEALTH-type damage subtracts its actual amount. Replaces the base class's one-per-hit denial_health counting for wall walkers.
 
 @onready var _escape_bar: ProgressBar = get_node_or_null("EscapeIndicator")
 var _escape_timer: Timer
 var _escaping: bool = false
 var _blink_t: float = 0.0
+var _last_shock_ms: int = -SHOCK_COOLDOWN_MS
+var health: float
 
 func _ready() -> void:
+	health = max_health
 	super()
 	modulate = Color.WHITE
 	modulate.a = 1.0
 	timer.stop()
+	Signalbus.wall_hit.connect(_on_wall_hit)
 	_setup_escape()
 	_play_emerge()
 
@@ -71,23 +80,82 @@ func _play_emerge() -> void:
 		.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 	emerge_tween.tween_callback(start_action_timer)
 
+func accept_damage(damage: float, dmg_type: Array[GameManager.PhaseType]) -> void:
+	if not dmg_type.has(GameManager.PhaseType.HEALTH):
+		return
+	SFX.play_sound("enemy_hurt")
+	show_damage_number(roundi(damage))
+	health -= damage
+	if health <= 0.0:
+		die()
+
+func _on_wall_hit(_source: Node2D, wall: Node2D, damage: float, dmg_types: Array) -> void:
+	if wall_shock_bricks <= 0 or is_queued_for_deletion():
+		return
+	if not GameManager.PhaseType.HEALTH in dmg_types:
+		return
+	if Time.get_ticks_msec() - _last_shock_ms < SHOCK_COOLDOWN_MS:
+		return
+	var along: int = Vector2.AXIS_X if wall_side == WallSide.TOP else Vector2.AXIS_Y
+	var perp: int = Vector2.AXIS_Y if wall_side == WallSide.TOP else Vector2.AXIS_X
+	if absf(wall.global_position[perp] - global_position[perp]) > WALL_TILE_SIZE:
+		return
+	if absf(wall.global_position[along] - global_position[along]) > (float(wall_shock_bricks) + 0.5) * WALL_TILE_SIZE:
+		return
+	_last_shock_ms = Time.get_ticks_msec()
+	_shake_wall_run(wall, along, perp)
+	var typed_types: Array[GameManager.PhaseType] = []
+	for dmg_type: GameManager.PhaseType in dmg_types:
+		typed_types.append(dmg_type)
+	accept_damage(damage, typed_types)
+
+func _shake_wall_run(hit_wall: Node2D, along: int, perp: int) -> void:
+	var lo: float = minf(hit_wall.global_position[along], global_position[along]) - WALL_TILE_SIZE * 0.5
+	var hi: float = maxf(hit_wall.global_position[along], global_position[along]) + WALL_TILE_SIZE * 0.5
+	for tile_node: Node in get_tree().get_nodes_in_group("walls"):
+		var tile: Node2D = tile_node as Node2D
+		if tile == null or absf(tile.global_position[perp] - hit_wall.global_position[perp]) > WALL_TILE_SIZE * 0.5:
+			continue
+		if tile.global_position[along] < lo or tile.global_position[along] > hi:
+			continue
+		var delay: float = absf(tile.global_position[along] - hit_wall.global_position[along]) / WALL_TILE_SIZE * 0.04
+		_shake_tile(tile, delay)
+
+func _shake_tile(tile: Node2D, delay: float) -> void:
+	for child: Node in tile.find_children("*", "", true, false):
+		if not (child is TextureRect or child is Sprite2D):
+			continue
+		var origin: Vector2
+		var active: Tween = null
+		if child.has_meta(&"wall_shock_tween"):
+			active = child.get_meta(&"wall_shock_tween")
+		if active != null and active.is_valid() and active.is_running():
+			active.kill()
+			origin = child.get_meta(&"wall_shock_origin")
+		else:
+			origin = child.get("position")
+			child.set_meta(&"wall_shock_origin", origin)
+		var shake: Tween = tile.create_tween()
+		if delay > 0.0:
+			shake.tween_interval(delay)
+		for _i: int in 3:
+			var jitter: Vector2 = Vector2(randf_range(-5.0, 5.0), randf_range(-5.0, 5.0))
+			shake.tween_property(child, "position", origin + jitter, 0.05)
+		shake.tween_property(child, "position", origin, 0.06)
+		child.set_meta(&"wall_shock_tween", shake)
+
 func die() -> void:
 	if is_queued_for_deletion(): return
 	ready_to_remove.emit(self)
-	_on_death(denial_health <= -1)
+	_on_death(health <= 0.0)
 	@warning_ignore("unsafe_method_access")
 	get_viewport().get_camera_2d().add_trauma(0.5)
 	SFX.play_sound("enemy_hurt")
 	queue_free()
 
-## Virtual death hook. killed_by_damage == (denial_health <= -1): true means the ball
-## killed it (accept_damage drove health negative), false means the level_cleared sweep.
-## Subclasses (MoneyThiefSpider) override to burst the hoard only on a damage kill.
 func _on_death(_killed_by_damage: bool) -> void:
 	pass
 
-## Extends the escape countdown, clamped to the original escape_time. MoneyThiefSpider
-## calls this on a steal so the player gets a window to reclaim the lost gold.
 func add_escape_time(seconds: float) -> void:
 	if _escaping or _escape_timer == null:
 		return
@@ -117,8 +185,6 @@ func _finish_escape() -> void:
 	ready_to_remove.emit(self)
 	queue_free()
 
-## Virtual hook fired when the escape run begins. MoneyThiefSpider releases captured
-## gold and disables its steal zone here in a later phase.
 func _on_escape_started() -> void:
 	pass
 

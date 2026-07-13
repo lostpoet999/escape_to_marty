@@ -76,6 +76,11 @@ signal brick_destroyed
 @warning_ignore("unused_signal")
 signal enemy_requested(spawn_from: Area2D)
 
+## Emits: scenes_and_scripts/ball/ball.gd -> spawn_collision_feedback(), scenes_and_scripts/powerups_and_behaviors/paddle_active_powerups/projectile_base.gd -> _on_area_entered()
+## Connects: scenes_and_scripts/actors/enemies/wall_walker.gd -> _on_wall_hit
+@warning_ignore("unused_signal")
+signal wall_hit(source: Node2D, wall: Node2D, damage: float, dmg_types: Array)
+
 ## Emits: scenes_and_scripts/exits/floor_portal.gd -> _input_event()
 ## Connects: scenes_and_scripts/singletons/game_manager.gd -> floor_cleared
 @warning_ignore("unused_signal")

@@ -28,7 +28,6 @@ size = Vector2(280, 400)
 script = ExtResource("1_spdr0")
 action_pool = Array[ExtResource("2_abase")]([SubResource("Resource_crawl")])
 action_timer = 3.0
-denial_health = 2
 wall_side = 0
 emerge_time = 0.6
 escape_time = 24.0

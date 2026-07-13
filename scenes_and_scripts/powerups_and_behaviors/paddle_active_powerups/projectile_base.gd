@@ -38,6 +38,7 @@ func _on_area_entered(area: Area2D) -> void:
 		SFX.play_sound("hit-brick")
 		_register_hit()
 	elif area.is_in_group("walls"):
+		Signalbus.wall_hit.emit(self, area, float(damage), proj_dmg_type)
 		SFX.play_sound("bounce_1")
 		queue_free()
 
