@@ -5,13 +5,33 @@
 
 [sub_resource type="Resource" id="Resource_beat_1"]
 script = ExtResource("2_beat")
-text = "test post-encounter beat 1 of 2 -- replace with the authored crash-reveal memory tree."
+text = "Wait..I remember now.  I couln't be asleep--we were driving then there were headlights..."
+
+[sub_resource type="Resource" id="Resource_4rce3"]
+script = ExtResource("2_beat")
+text = "I"
+metadata/_custom_type_script = "uid://da86xmy7akvas"
+
+[sub_resource type="Resource" id="Resource_4c6x1"]
+script = ExtResource("2_beat")
+text = "THINK"
+metadata/_custom_type_script = "uid://da86xmy7akvas"
+
+[sub_resource type="Resource" id="Resource_ma4b5"]
+script = ExtResource("2_beat")
+text = "I'M"
+metadata/_custom_type_script = "uid://da86xmy7akvas"
+
+[sub_resource type="Resource" id="Resource_dk7jb"]
+script = ExtResource("2_beat")
+text = "DEAD!"
+metadata/_custom_type_script = "uid://da86xmy7akvas"
 
 [sub_resource type="Resource" id="Resource_beat_2"]
 script = ExtResource("2_beat")
-text = "test post-encounter beat 2 of 2 -- loot and the floor portal appear after this closes."
+text = "Nooooooooooo...what about Marty?  I'm so angry--I HAVE TO ESCAPE TO MARTY!"
 
 [resource]
 script = ExtResource("1_tree")
-beats = Array[ExtResource("2_beat")]([SubResource("Resource_beat_1"), SubResource("Resource_beat_2")])
+beats = Array[ExtResource("2_beat")]([SubResource("Resource_beat_1"), SubResource("Resource_4rce3"), SubResource("Resource_4c6x1"), SubResource("Resource_ma4b5"), SubResource("Resource_dk7jb"), SubResource("Resource_beat_2")])
 once_per_run = false
