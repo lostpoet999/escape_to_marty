@@ -107,6 +107,9 @@ func _on_death(killed_by_damage: bool) -> void:
 		Signalbus.gold_spawned.emit(1)
 	hoard.clear()
 
+func holds_player_gold() -> bool:
+	return not hoard.is_empty()
+
 func _scatter_offset() -> Vector2:
 	var inward: Vector2
 	match wall_side:

@@ -313,10 +313,12 @@ func spawn_collision_feedback(collider: Node2D) -> void:
 		SFX.play_sound("bounce_1")
 		PlayerData.update_player_score(wall_hit_score_value)
 		Signalbus.wall_hit.emit(self, collider, ball_dmg, ball_dmg_type)
+		TileShake.shake(collider, 0.0, TileShake.DIRECT_HIT_SCALE)
 	if collider.is_in_group("paddle"):
 		fx = paddle_bounce_particles.instantiate()
 		SFX.play_sound("hit-paddle")
 		PlayerData.update_player_score(paddle_hit_score_value)
+		(collider as Paddle).bounce_dip()
 	if fx != null:
 		fx.position = global_position
 		get_tree().current_scene.add_child(fx)

@@ -40,6 +40,7 @@ func _on_area_entered(area: Area2D) -> void:
 	elif area.is_in_group("walls"):
 		Signalbus.wall_hit.emit(self, area, float(damage), proj_dmg_type)
 		SFX.play_sound("bounce_1")
+		TileShake.shake(area, 0.0, TileShake.DIRECT_HIT_SCALE)
 		queue_free()
 
 func _make_hit_context() -> HitContext:

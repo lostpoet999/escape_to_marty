@@ -10,6 +10,7 @@ const PLAYER_HURT_TRAUMA: float = 0.8
 
 var gold_cleared: bool = false
 var bricks_cleared: bool = false
+var level_clear_emitted: bool = false
 var gold_in_level: int = 0
 var bricks_in_level: int = 0
 @onready var game_state_lbl: Label = $PlayArea/GameState_Lbl
@@ -56,6 +57,7 @@ func _ready() -> void:
 	Signalbus.gold_collected.connect(update_gold_in_level)
 	Signalbus.gold_spawned.connect(update_gold_in_level)
 	Signalbus.enemy_requested.connect(_on_enemy_requested)
+	Signalbus.wall_walker_removed.connect(_on_wall_walker_removed)
 	Signalbus.screen_flash.connect(flash_play_area)
 	Signalbus.player_damaged.connect(_on_player_damaged)
 	initiate_special_room()
@@ -185,12 +187,27 @@ func _spawn_cap_group(config: EnemyConfig) -> StringName:
 	return StringName("seal_break_enemy_" + config.enemy_name)
 
 func check_level_cleared() -> void: #let gamemanager know level is cleared
+	if level_clear_emitted:
+		return
 	var max_clear:int = GameManager.get_current_floor_entry(GameManager.current_room_id).content.max_clears
-	if gold_cleared && bricks_cleared:
+	if gold_cleared && bricks_cleared && _no_walker_holds_gold():
+		level_clear_emitted = true
 		Signalbus.level_cleared.emit()
 		room_state.clear_count +=1
 		if entry.content.max_clears == -1: return
 		if room_state.clear_count >= max_clear: room_state.cleared = true
+
+func _no_walker_holds_gold() -> bool:
+	for node: Node in get_tree().get_nodes_in_group("wall_walkers"):
+		var walker: WallWalker = node as WallWalker
+		if walker == null or walker.is_queued_for_deletion():
+			continue
+		if walker.holds_player_gold():
+			return false
+	return true
+
+func _on_wall_walker_removed(_walker: Node2D) -> void:
+	check_level_cleared()
 
 func update_gold_in_level(amount: int) -> void:
 	gold_in_level += amount

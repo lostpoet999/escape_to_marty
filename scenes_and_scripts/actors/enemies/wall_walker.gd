@@ -22,6 +22,7 @@ var health: float
 
 func _ready() -> void:
 	health = max_health
+	add_to_group(&"wall_walkers")
 	super()
 	modulate = Color.WHITE
 	modulate.a = 1.0
@@ -119,30 +120,7 @@ func _shake_wall_run(hit_wall: Node2D, along: int, perp: int) -> void:
 		if tile.global_position[along] < lo or tile.global_position[along] > hi:
 			continue
 		var delay: float = absf(tile.global_position[along] - hit_wall.global_position[along]) / WALL_TILE_SIZE * 0.04
-		_shake_tile(tile, delay)
-
-func _shake_tile(tile: Node2D, delay: float) -> void:
-	for child: Node in tile.find_children("*", "", true, false):
-		if not (child is TextureRect or child is Sprite2D):
-			continue
-		var origin: Vector2
-		var active: Tween = null
-		if child.has_meta(&"wall_shock_tween"):
-			active = child.get_meta(&"wall_shock_tween")
-		if active != null and active.is_valid() and active.is_running():
-			active.kill()
-			origin = child.get_meta(&"wall_shock_origin")
-		else:
-			origin = child.get("position")
-			child.set_meta(&"wall_shock_origin", origin)
-		var shake: Tween = tile.create_tween()
-		if delay > 0.0:
-			shake.tween_interval(delay)
-		for _i: int in 3:
-			var jitter: Vector2 = Vector2(randf_range(-5.0, 5.0), randf_range(-5.0, 5.0))
-			shake.tween_property(child, "position", origin + jitter, 0.05)
-		shake.tween_property(child, "position", origin, 0.06)
-		child.set_meta(&"wall_shock_tween", shake)
+		TileShake.shake(tile, delay)
 
 func die() -> void:
 	if is_queued_for_deletion(): return
@@ -152,9 +130,13 @@ func die() -> void:
 	get_viewport().get_camera_2d().add_trauma(0.5)
 	SFX.play_sound("enemy_hurt")
 	queue_free()
+	Signalbus.wall_walker_removed.emit(self)
 
 func _on_death(_killed_by_damage: bool) -> void:
 	pass
+
+func holds_player_gold() -> bool:
+	return false
 
 func add_escape_time(seconds: float) -> void:
 	if _escaping or _escape_timer == null:
@@ -184,6 +166,7 @@ func _on_escape_timeout() -> void:
 func _finish_escape() -> void:
 	ready_to_remove.emit(self)
 	queue_free()
+	Signalbus.wall_walker_removed.emit(self)
 
 func _on_escape_started() -> void:
 	pass

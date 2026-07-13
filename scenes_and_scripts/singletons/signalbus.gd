@@ -81,6 +81,11 @@ signal enemy_requested(spawn_from: Area2D)
 @warning_ignore("unused_signal")
 signal wall_hit(source: Node2D, wall: Node2D, damage: float, dmg_types: Array)
 
+## Emits: scenes_and_scripts/actors/enemies/wall_walker.gd -> die(), _finish_escape()
+## Connects: scenes_and_scripts/levels/room_base.gd -> _on_wall_walker_removed
+@warning_ignore("unused_signal")
+signal wall_walker_removed(walker: Node2D)
+
 ## Emits: scenes_and_scripts/exits/floor_portal.gd -> _input_event()
 ## Connects: scenes_and_scripts/singletons/game_manager.gd -> floor_cleared
 @warning_ignore("unused_signal")

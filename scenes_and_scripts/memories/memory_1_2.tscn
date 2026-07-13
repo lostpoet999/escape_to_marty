@@ -7,6 +7,9 @@
 
 [node name="memory_1_2" unique_id=565861230 instance=ExtResource("1_dyw35")]
 
+[node name="FlashOverlay" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="5" unique_id=443116914]
+metadata/_edit_lock_ = true
+
 [node name="RoomBeforeClick" parent="." index="7" unique_id=1974712734 instance=ExtResource("2_1c8ee")]
 
 [node name="MemoryCodecPlayer" parent="." index="8" unique_id=212795484 instance=ExtResource("3_codec")]

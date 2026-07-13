@@ -9,7 +9,7 @@
 [sub_resource type="Resource" id="Resource_crawl"]
 script = ExtResource("3_crawl")
 crawl_min = 130.0
-crawl_max = 900.0
+crawl_max = 750.0
 min_step = 80.0
 max_step = 200.0
 speed = 1.5

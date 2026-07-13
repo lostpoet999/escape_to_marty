@@ -4,11 +4,17 @@ extends CharacterBody2D
 const SHIELD_COLOR: Color = Color(0.5, 0.8, 1.0)
 const SHIELD_COLOR_BRIGHT: Color = Color(0.8, 0.95, 1.0)
 const SHIELD_PULSE_TIME: float = 0.45
+const DIP_DEPTH: float = 6.0
+const DIP_DOWN_TIME: float = 0.05
+const DIP_RETURN_TIME: float = 0.12
 
 @export var paddle_influence: float = 5.0
 
 var is_shielded: bool = false
 var shield_pulse_tween: Tween
+var _dip_tween: Tween
+var _sprite_base_y: float
+var _david_base_y: float
 var paddle_frozen: bool = false
 var paddle_click_dmg: float = 1.0
 
@@ -49,6 +55,8 @@ var blocker_enemies: Array[PlacedEnemy] #hold blocker enemies in paddle path
 func _ready() -> void:	
 	last_position = global_position
 	connect_signals()
+	_sprite_base_y = sprite.position.y
+	_david_base_y = david.position.y
 	base_scale_x = sprite.scale.x
 	base_shape_size_x = paddle_collision_shape.scale.x	
 	paddle_powerups = PlayerData.inventory.get_items_for_paddle()	
@@ -205,6 +213,17 @@ func hit_feedback() -> void:
 	tw_flash.tween_property(david, "modulate", _resting_david_color(), 0.22)
 	if is_shielded:
 		tw_flash.finished.connect(start_shield_pulse, CONNECT_ONE_SHOT)
+
+func bounce_dip() -> void:
+	if _dip_tween and _dip_tween.is_valid():
+		_dip_tween.kill()
+	sprite.position.y = _sprite_base_y
+	david.position.y = _david_base_y
+	_dip_tween = create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	_dip_tween.tween_property(sprite, "position:y", _sprite_base_y + DIP_DEPTH, DIP_DOWN_TIME)
+	_dip_tween.parallel().tween_property(david, "position:y", _david_base_y + DIP_DEPTH, DIP_DOWN_TIME)
+	_dip_tween.tween_property(sprite, "position:y", _sprite_base_y, DIP_RETURN_TIME)
+	_dip_tween.parallel().tween_property(david, "position:y", _david_base_y, DIP_RETURN_TIME)
 
 func _on_reflect_shield_changed(count: int) -> void:
 	is_shielded = count > 0

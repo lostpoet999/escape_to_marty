@@ -41,18 +41,26 @@ func _on_tracked_enemy_died(enemy: PlacedEnemy)->void:
 	active_enemies.erase(enemy)
 
 func get_random_config() -> EnemyConfig:
+	var eligible: Array[EnemyConfig] = enemies.filter(_config_can_spawn)
+	if eligible.is_empty():
+		return null
 	var total_weight: float = 0.0
-	for config: EnemyConfig in enemies:
+	for config: EnemyConfig in eligible:
 		total_weight += config.spawn_chance
-	
+
 	var roll : float = randf() * total_weight
 	var cumulative : float = 0.0
-	for config:EnemyConfig in enemies:
+	for config:EnemyConfig in eligible:
 		cumulative += config.spawn_chance
 		if roll < cumulative:
 			return config
-	
-	return enemies.back()
+
+	return eligible.back()
+
+func _config_can_spawn(config: EnemyConfig) -> bool:
+	if not config.requires_live_seals:
+		return true
+	return not get_tree().get_nodes_in_group("bricks").is_empty()
 
 	
 func instantiate_random_enemy(enemy_config: EnemyConfig) -> Node2D:
