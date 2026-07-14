@@ -241,6 +241,9 @@ func _draw() -> void:
 
 func _process(delta: float) -> void:
 	if bargain_active:
+		if GameManager.current_state != GameManager.GameState.CLICK_MODE:
+			_resolve_bargain()
+			return
 		bargain_bid = minf(bargain_bid + delta / bargain_sweep_duration, 1.0)
 		queue_redraw()
 		if bargain_bid >= 1.0:

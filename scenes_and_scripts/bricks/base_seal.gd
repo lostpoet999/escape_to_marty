@@ -47,6 +47,14 @@ var _denial_revert_armed_at_ms: int = -1
 @export var bargain_undercut_chance_near: float = 0.5
 @export var bargain_undercut_chance_mid: float = 0.2
 @export var bargain_undercut_chance_far: float = 0.1
+## On a sweet-spot DEAL, chance the deal pays the PLAYER instead of charging.
+@export var bargain_windfall_chance: float = 0.1
+## Fraction of the list price paid to the player on a windfall.
+@export var bargain_windfall_refund: float = 0.5
+## On a sweet-spot DEAL (rolled after windfall), chance the deal costs nothing.
+@export var bargain_free_chance: float = 0.3
+## Seconds the windfall payout takes to tick out coin-by-coin.
+@export var bargain_windfall_payout_time: float = 1.0
 
 var bargain_markup: int = 0
 var bargain_sweet_spot_bonus: float = 0.0
@@ -330,6 +338,15 @@ func resolve_bargain(bid: float) -> BargainOutcome:
 	if bid < sweet.x:
 		return _resolve_undercut(bid, sweet.x, price)
 	if bid <= sweet.y:
+		var roll: float = randf()
+		if roll < bargain_windfall_chance:
+			_settle_deal(0)
+			Signalbus.screen_flash.emit(Color.GOLD)
+			PlayerData.grant_gold_over_time(roundi(price * bargain_windfall_refund), bargain_windfall_payout_time)
+			return BargainOutcome.DEAL
+		if roll < bargain_windfall_chance + bargain_free_chance:
+			_settle_deal(0)
+			return BargainOutcome.DEAL
 		var discount: float = clampf(bargain_discount + bargain_discount_bonus, 0.0, 0.95)
 		_settle_deal(int(round(price * (1.0 - discount))))
 		return BargainOutcome.DEAL

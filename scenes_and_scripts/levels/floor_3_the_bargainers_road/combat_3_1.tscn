@@ -5,6 +5,9 @@
 [ext_resource type="PackedScene" uid="uid://b7m8vn6kumwyg" path="res://scenes_and_scripts/actors/enemies/enemy_spawner.tscn" id="3_qnki4"]
 [ext_resource type="Script" uid="uid://dm8qchhbo37mu" path="res://scenes_and_scripts/actors/enemies/enemy_config.gd" id="4_roht2"]
 [ext_resource type="PackedScene" uid="uid://c3bjgu70hca17" path="res://scenes_and_scripts/actors/enemies/specific_enemies/no_see_me_demon/deon.tscn" id="5_peiqh"]
+[ext_resource type="PackedScene" uid="uid://bmtspiderl001" path="res://scenes_and_scripts/actors/enemies/specific_enemies/money_thief_spider/money_thief_spider.tscn" id="6_spdrl"]
+[ext_resource type="PackedScene" uid="uid://bmtspiderr001" path="res://scenes_and_scripts/actors/enemies/specific_enemies/money_thief_spider/money_thief_spider_right.tscn" id="7_spdrr"]
+[ext_resource type="PackedScene" uid="uid://bmtspidert01" path="res://scenes_and_scripts/actors/enemies/specific_enemies/money_thief_spider/money_thief_spider_top.tscn" id="8_spdrt"]
 
 [sub_resource type="Resource" id="Resource_lsl0q"]
 script = ExtResource("4_roht2")
@@ -22,13 +25,42 @@ spawn_chance = 100.0
 x_offset = -96.0
 metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 
+[sub_resource type="Resource" id="Resource_spdrl"]
+script = ExtResource("4_roht2")
+enemy_name = "MoneyThiefSpider"
+scene_ref = ExtResource("6_spdrl")
+spawn_chance = 100.0
+requires_live_seals = true
+x_offset = -752.0
+y_offset = 628.0
+metadata/_custom_type_script = "uid://dm8qchhbo37mu"
+
+[sub_resource type="Resource" id="Resource_spdrr"]
+script = ExtResource("4_roht2")
+enemy_name = "MoneyThiefSpider"
+scene_ref = ExtResource("7_spdrr")
+spawn_chance = 100.0
+requires_live_seals = true
+x_offset = 752.0
+y_offset = 628.0
+metadata/_custom_type_script = "uid://dm8qchhbo37mu"
+
+[sub_resource type="Resource" id="Resource_spdrt"]
+script = ExtResource("4_roht2")
+enemy_name = "MoneyThiefSpider"
+scene_ref = ExtResource("8_spdrt")
+spawn_chance = 100.0
+requires_live_seals = true
+y_offset = 48.0
+metadata/_custom_type_script = "uid://dm8qchhbo37mu"
+
 [node name="combat_2_1" unique_id=565861230 instance=ExtResource("1_hg0a2")]
 
 [node name="OpenSeal2" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="0" unique_id=112920898 instance=ExtResource("2_vpeb0")]
 position = Vector2(1440, 640)
 initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({
-2: 10.0
+2: 5.0
 })
 
 [node name="OpenSeal7" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="1" unique_id=887021685 instance=ExtResource("2_vpeb0")]
@@ -77,35 +109,35 @@ stages = Dictionary[int, float]({
 position = Vector2(1312, 640)
 initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({
-2: 10.0
+2: 5.0
 })
 
 [node name="OpenSeal4" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="8" unique_id=2018441867 instance=ExtResource("2_vpeb0")]
 position = Vector2(1056, 640)
 initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({
-2: 10.0
+2: 5.0
 })
 
 [node name="OpenSeal5" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="9" unique_id=677646096 instance=ExtResource("2_vpeb0")]
 position = Vector2(1568, 640)
 initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({
-2: 10.0
+2: 5.0
 })
 
 [node name="OpenSeal8" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="10" unique_id=514079386 instance=ExtResource("2_vpeb0")]
 position = Vector2(800, 640)
 initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({
-2: 10.0
+2: 5.0
 })
 
 [node name="OpenSeal6" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="11" unique_id=1936305112 instance=ExtResource("2_vpeb0")]
 position = Vector2(928, 640)
 initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({
-2: 10.0
+2: 5.0
 })
 
 [node name="EnemySpawner" parent="No-Respawn/Spawners" parent_id_path=PackedInt32Array(1587044855) index="0" unique_id=740599083 instance=ExtResource("3_qnki4")]
@@ -123,3 +155,11 @@ spawn_an_enemy_chance = 45.0
 respawn_time = 10.0
 initial_spawn_time = 5.0
 max_spawns = 1
+
+[node name="SpiderSpawner" parent="No-Respawn/Spawners" parent_id_path=PackedInt32Array(1587044855) index="2" unique_id=991827364 instance=ExtResource("3_qnki4")]
+position = Vector2(1088, 32)
+enemies = Array[ExtResource("4_roht2")]([SubResource("Resource_spdrl"), SubResource("Resource_spdrr"), SubResource("Resource_spdrt")])
+spawn_an_enemy_chance = 100.0
+respawn_time = 13.0
+initial_spawn_time = 2.6
+max_spawns = 2

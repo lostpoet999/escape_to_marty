@@ -5,6 +5,9 @@
 [ext_resource type="PackedScene" uid="uid://b7m8vn6kumwyg" path="res://scenes_and_scripts/actors/enemies/enemy_spawner.tscn" id="3_hkc1k"]
 [ext_resource type="Script" uid="uid://dm8qchhbo37mu" path="res://scenes_and_scripts/actors/enemies/enemy_config.gd" id="4_xsesl"]
 [ext_resource type="PackedScene" uid="uid://c3bjgu70hca17" path="res://scenes_and_scripts/actors/enemies/specific_enemies/no_see_me_demon/deon.tscn" id="5_ssaou"]
+[ext_resource type="PackedScene" uid="uid://bmtspiderl001" path="res://scenes_and_scripts/actors/enemies/specific_enemies/money_thief_spider/money_thief_spider.tscn" id="6_spdrl"]
+[ext_resource type="PackedScene" uid="uid://bmtspiderr001" path="res://scenes_and_scripts/actors/enemies/specific_enemies/money_thief_spider/money_thief_spider_right.tscn" id="7_spdrr"]
+[ext_resource type="PackedScene" uid="uid://bmtspidert01" path="res://scenes_and_scripts/actors/enemies/specific_enemies/money_thief_spider/money_thief_spider_top.tscn" id="8_spdrt"]
 
 [sub_resource type="Resource" id="Resource_lsl0q"]
 script = ExtResource("4_xsesl")
@@ -22,26 +25,55 @@ spawn_chance = 100.0
 x_offset = -96.0
 metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 
+[sub_resource type="Resource" id="Resource_spdrl"]
+script = ExtResource("4_xsesl")
+enemy_name = "MoneyThiefSpider"
+scene_ref = ExtResource("6_spdrl")
+spawn_chance = 100.0
+requires_live_seals = true
+x_offset = -752.0
+y_offset = 628.0
+metadata/_custom_type_script = "uid://dm8qchhbo37mu"
+
+[sub_resource type="Resource" id="Resource_spdrr"]
+script = ExtResource("4_xsesl")
+enemy_name = "MoneyThiefSpider"
+scene_ref = ExtResource("7_spdrr")
+spawn_chance = 100.0
+requires_live_seals = true
+x_offset = 752.0
+y_offset = 628.0
+metadata/_custom_type_script = "uid://dm8qchhbo37mu"
+
+[sub_resource type="Resource" id="Resource_spdrt"]
+script = ExtResource("4_xsesl")
+enemy_name = "MoneyThiefSpider"
+scene_ref = ExtResource("8_spdrt")
+spawn_chance = 100.0
+requires_live_seals = true
+y_offset = 48.0
+metadata/_custom_type_script = "uid://dm8qchhbo37mu"
+
 [node name="combat_2_3" unique_id=565861230 instance=ExtResource("1_8gija")]
 
 [node name="OpenSeal" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="0" unique_id=887021685 instance=ExtResource("2_4285g")]
-position = Vector2(1760, 352)
+position = Vector2(1696, 352)
 brick_health = 2
 
 [node name="OpenSeal2" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="1" unique_id=2055408532 instance=ExtResource("2_4285g")]
-position = Vector2(864, 352)
+position = Vector2(832, 352)
 brick_health = 2
 
 [node name="OpenSeal3" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="2" unique_id=1397344597 instance=ExtResource("2_4285g")]
-position = Vector2(544, 448)
-brick_health = 2
-
-[node name="OpenSeal7" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="3" unique_id=1580935119 instance=ExtResource("2_4285g")]
 position = Vector2(544, 544)
 brick_health = 2
 
+[node name="OpenSeal7" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="3" unique_id=1580935119 instance=ExtResource("2_4285g")]
+position = Vector2(544, 608)
+brick_health = 2
+
 [node name="OpenSeal8" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="4" unique_id=1262458805 instance=ExtResource("2_4285g")]
-position = Vector2(544, 640)
+position = Vector2(544, 672)
 brick_health = 2
 
 [node name="OpenSeal9" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="5" unique_id=1527694363 instance=ExtResource("2_4285g")]
@@ -49,11 +81,11 @@ position = Vector2(544, 736)
 brick_health = 2
 
 [node name="OpenSeal10" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="6" unique_id=1112351374 instance=ExtResource("2_4285g")]
-position = Vector2(1536, 352)
+position = Vector2(1568, 352)
 brick_health = 2
 
 [node name="OpenSeal11" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="7" unique_id=134648069 instance=ExtResource("2_4285g")]
-position = Vector2(1440, 352)
+position = Vector2(1408, 384)
 brick_health = 2
 
 [node name="OpenSeal12" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="8" unique_id=654388278 instance=ExtResource("2_4285g")]
@@ -61,23 +93,23 @@ position = Vector2(1344, 352)
 brick_health = 2
 
 [node name="OpenSeal13" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="9" unique_id=512536577 instance=ExtResource("2_4285g")]
-position = Vector2(1760, 736)
+position = Vector2(1696, 640)
 brick_health = 2
 
 [node name="OpenSeal14" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="10" unique_id=462148445 instance=ExtResource("2_4285g")]
-position = Vector2(1760, 640)
+position = Vector2(1696, 576)
 brick_health = 2
 
 [node name="OpenSeal15" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="11" unique_id=256968440 instance=ExtResource("2_4285g")]
-position = Vector2(1760, 544)
+position = Vector2(1696, 512)
 brick_health = 2
 
 [node name="OpenSeal18" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="12" unique_id=1702242477 instance=ExtResource("2_4285g")]
-position = Vector2(1152, 352)
+position = Vector2(1120, 352)
 brick_health = 2
 
 [node name="OpenSeal21" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="13" unique_id=2062446417 instance=ExtResource("2_4285g")]
-position = Vector2(1248, 352)
+position = Vector2(1280, 352)
 brick_health = 2
 
 [node name="OpenSeal22" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="14" unique_id=472956597 instance=ExtResource("2_4285g")]
@@ -85,7 +117,7 @@ position = Vector2(1632, 352)
 brick_health = 2
 
 [node name="OpenSeal24" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="15" unique_id=671263517 instance=ExtResource("2_4285g")]
-position = Vector2(960, 352)
+position = Vector2(992, 384)
 brick_health = 2
 
 [node name="OpenSeal25" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="16" unique_id=767990171 instance=ExtResource("2_4285g")]
@@ -153,15 +185,15 @@ position = Vector2(1440, 736)
 brick_health = 2
 
 [node name="OpenSeal16" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="32" unique_id=390890085 instance=ExtResource("2_4285g")]
-position = Vector2(1760, 448)
+position = Vector2(1696, 448)
 brick_health = 2
 
 [node name="OpenSeal4" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="33" unique_id=948470160 instance=ExtResource("2_4285g")]
-position = Vector2(544, 352)
+position = Vector2(544, 416)
 brick_health = 2
 
 [node name="OpenSeal5" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="34" unique_id=107809509 instance=ExtResource("2_4285g")]
-position = Vector2(672, 352)
+position = Vector2(704, 352)
 brick_health = 2
 
 [node name="OpenSeal6" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="35" unique_id=1398468162 instance=ExtResource("2_4285g")]
@@ -169,15 +201,15 @@ position = Vector2(768, 352)
 brick_health = 2
 
 [node name="OpenSeal17" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="36" unique_id=1682720816 instance=ExtResource("2_4285g")]
-position = Vector2(864, 448)
+position = Vector2(832, 448)
 brick_health = 2
 
 [node name="OpenSeal19" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="37" unique_id=1299330279 instance=ExtResource("2_4285g")]
-position = Vector2(1536, 448)
+position = Vector2(1568, 448)
 brick_health = 2
 
 [node name="OpenSeal20" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="38" unique_id=966109862 instance=ExtResource("2_4285g")]
-position = Vector2(1440, 448)
+position = Vector2(1408, 448)
 brick_health = 2
 
 [node name="OpenSeal26" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="39" unique_id=715869191 instance=ExtResource("2_4285g")]
@@ -185,11 +217,11 @@ position = Vector2(1344, 448)
 brick_health = 2
 
 [node name="OpenSeal27" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="40" unique_id=1925448797 instance=ExtResource("2_4285g")]
-position = Vector2(1152, 448)
+position = Vector2(1120, 448)
 brick_health = 2
 
 [node name="OpenSeal28" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="41" unique_id=1002532150 instance=ExtResource("2_4285g")]
-position = Vector2(1248, 448)
+position = Vector2(1280, 448)
 brick_health = 2
 
 [node name="OpenSeal29" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="42" unique_id=1283522511 instance=ExtResource("2_4285g")]
@@ -197,7 +229,7 @@ position = Vector2(1632, 448)
 brick_health = 2
 
 [node name="OpenSeal30" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="43" unique_id=813161483 instance=ExtResource("2_4285g")]
-position = Vector2(960, 448)
+position = Vector2(992, 448)
 brick_health = 2
 
 [node name="OpenSeal31" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="44" unique_id=1873055863 instance=ExtResource("2_4285g")]
@@ -205,7 +237,7 @@ position = Vector2(1056, 448)
 brick_health = 2
 
 [node name="OpenSeal32" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="45" unique_id=1972800829 instance=ExtResource("2_4285g")]
-position = Vector2(672, 448)
+position = Vector2(704, 448)
 brick_health = 2
 
 [node name="OpenSeal33" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="46" unique_id=2059540564 instance=ExtResource("2_4285g")]
@@ -227,3 +259,11 @@ spawn_an_enemy_chance = 50.0
 respawn_time = 10.0
 initial_spawn_time = 2.0
 max_spawns = 1
+
+[node name="SpiderSpawner" parent="No-Respawn/Spawners" parent_id_path=PackedInt32Array(1587044855) index="2" unique_id=991827364 instance=ExtResource("3_hkc1k")]
+position = Vector2(1088, 32)
+enemies = Array[ExtResource("4_xsesl")]([SubResource("Resource_spdrl"), SubResource("Resource_spdrr"), SubResource("Resource_spdrt")])
+spawn_an_enemy_chance = 100.0
+respawn_time = 13.0
+initial_spawn_time = 2.6
+max_spawns = 2

@@ -24,6 +24,12 @@ var dialog_trigger_counts: Dictionary[StringName, int] = {}
 var bankruptcy_gold_per_life_bonus: int = 0
 var bankruptcy_damage_per_life_bonus: int = 0
 
+const GOLD_STREAK_WINDOW: float = 1.0
+const GOLD_STREAK_PITCH_STEP: float = 0.1
+const GOLD_STREAK_MAX: int = 12
+var _gold_streak: int = 0
+var _last_gold_pickup_ms: int = -100000
+
 
 func _ready() -> void:
 	Signalbus.inventory_changed.connect(recompute_max_health)
@@ -70,6 +76,28 @@ func initialize_player_data() -> void:
 func change_player_gold(gold_value: int) -> void:
 	gold_collected += gold_value
 	Signalbus.gold_updated.emit()
+
+func grant_gold_over_time(amount: int, duration: float) -> void:
+	if amount <= 0:
+		return
+	var interval: float = duration / amount
+	var tween: Tween = create_tween()
+	for i: int in amount:
+		tween.tween_callback(change_player_gold.bind(1))
+		tween.tween_callback(play_gold_pickup_sfx)
+		if i < amount - 1:
+			tween.tween_interval(interval)
+
+func play_gold_pickup_sfx() -> void:
+	var now: int = Time.get_ticks_msec()
+	if now - _last_gold_pickup_ms > roundi(GOLD_STREAK_WINDOW * 1000.0):
+		_gold_streak = 0
+	_last_gold_pickup_ms = now
+	var sfx_player: AudioStreamPlayer = SFX.play_sound("gold_collected")
+	if sfx_player != null:
+		var base_pitch: float = SFX.sound_dict["gold_collected"].pitch_scale
+		sfx_player.pitch_scale = base_pitch + GOLD_STREAK_PITCH_STEP * mini(_gold_streak, GOLD_STREAK_MAX)
+	_gold_streak += 1
 
 func pay_bargain_cost(cost: int) -> void:
 	if cost <= gold_collected:

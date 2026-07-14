@@ -56,7 +56,7 @@ func collect() -> void:
 	collected = true
 	set_deferred("monitoring", false)
 	Signalbus.gold_collected.emit(-1)
-	SFX.play_sound("gold_collected")
+	PlayerData.play_gold_pickup_sfx()
 	if payload:
 		payload.apply()
 	visible = false

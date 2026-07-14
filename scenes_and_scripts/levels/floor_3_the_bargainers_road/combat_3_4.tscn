@@ -5,6 +5,9 @@
 [ext_resource type="PackedScene" uid="uid://b7m8vn6kumwyg" path="res://scenes_and_scripts/actors/enemies/enemy_spawner.tscn" id="3_hkc1k"]
 [ext_resource type="Script" uid="uid://dm8qchhbo37mu" path="res://scenes_and_scripts/actors/enemies/enemy_config.gd" id="4_xsesl"]
 [ext_resource type="PackedScene" uid="uid://c3bjgu70hca17" path="res://scenes_and_scripts/actors/enemies/specific_enemies/no_see_me_demon/deon.tscn" id="5_ssaou"]
+[ext_resource type="PackedScene" uid="uid://bmtspiderl001" path="res://scenes_and_scripts/actors/enemies/specific_enemies/money_thief_spider/money_thief_spider.tscn" id="6_spdrl"]
+[ext_resource type="PackedScene" uid="uid://bmtspiderr001" path="res://scenes_and_scripts/actors/enemies/specific_enemies/money_thief_spider/money_thief_spider_right.tscn" id="7_spdrr"]
+[ext_resource type="PackedScene" uid="uid://bmtspidert01" path="res://scenes_and_scripts/actors/enemies/specific_enemies/money_thief_spider/money_thief_spider_top.tscn" id="8_spdrt"]
 
 [sub_resource type="Resource" id="Resource_lsl0q"]
 script = ExtResource("4_xsesl")
@@ -20,6 +23,35 @@ enemy_name = "Deon"
 scene_ref = ExtResource("5_ssaou")
 spawn_chance = 100.0
 x_offset = -96.0
+metadata/_custom_type_script = "uid://dm8qchhbo37mu"
+
+[sub_resource type="Resource" id="Resource_spdrl"]
+script = ExtResource("4_xsesl")
+enemy_name = "MoneyThiefSpider"
+scene_ref = ExtResource("6_spdrl")
+spawn_chance = 100.0
+requires_live_seals = true
+x_offset = -752.0
+y_offset = 628.0
+metadata/_custom_type_script = "uid://dm8qchhbo37mu"
+
+[sub_resource type="Resource" id="Resource_spdrr"]
+script = ExtResource("4_xsesl")
+enemy_name = "MoneyThiefSpider"
+scene_ref = ExtResource("7_spdrr")
+spawn_chance = 100.0
+requires_live_seals = true
+x_offset = 752.0
+y_offset = 628.0
+metadata/_custom_type_script = "uid://dm8qchhbo37mu"
+
+[sub_resource type="Resource" id="Resource_spdrt"]
+script = ExtResource("4_xsesl")
+enemy_name = "MoneyThiefSpider"
+scene_ref = ExtResource("8_spdrt")
+spawn_chance = 100.0
+requires_live_seals = true
+y_offset = 48.0
 metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 
 [node name="combat_2_4" unique_id=565861230 instance=ExtResource("1_8gija")]
@@ -303,3 +335,11 @@ spawn_an_enemy_chance = 50.0
 respawn_time = 10.0
 initial_spawn_time = 2.0
 max_spawns = 1
+
+[node name="SpiderSpawner" parent="No-Respawn/Spawners" parent_id_path=PackedInt32Array(1587044855) index="2" unique_id=991827364 instance=ExtResource("3_hkc1k")]
+position = Vector2(1088, 32)
+enemies = Array[ExtResource("4_xsesl")]([SubResource("Resource_spdrl"), SubResource("Resource_spdrr"), SubResource("Resource_spdrt")])
+spawn_an_enemy_chance = 100.0
+respawn_time = 13.0
+initial_spawn_time = 2.6
+max_spawns = 2
