@@ -52,6 +52,18 @@ var bargain_markup: int = 0
 var bargain_sweet_spot_bonus: float = 0.0
 var bargain_discount_bonus: float = 0.0
 
+@export_category("Juice")
+## Pixels the sprites lurch in the hit direction on a ball strike before settling back (0 disables). Sprites only — collision stays put.
+@export var knockback_distance: float = 6.0
+## Peak brightness of the idle glow breathe (1.0 disables). Rides on the gemstone's self_modulate, so the phase color set by setup_visuals is untouched.
+@export var glow_strength: float = 1.25
+## Seconds per full glow breath. Each seal randomizes this ±15% and starts at a random phase so the board never syncs up.
+@export var glow_period: float = 2.4
+var _juice_sprites: Array[Sprite2D] = []
+var _knockback_tween: Tween
+var _glow_tween: Tween
+var _visual_offset: Vector2 = Vector2.ZERO
+
 @export_category("Depression")
 ## Phase-HP per second the exposed DEPRESSION phase regrows while it sits unlit. Snuffing a light lets cleared progress melt back into the dark.
 @export var depression_regen_rate: float = 0.6
@@ -114,6 +126,37 @@ func _ready() -> void:
 	if damage_cracks_1: damage_cracks_1.visible = false
 	if damage_cracks_2: damage_cracks_2.visible = false
 	if damage_cracks_3: damage_cracks_3.visible = false
+	for sprite: Sprite2D in [gemstone_facets, damage_cracks_1, damage_cracks_2, damage_cracks_3]:
+		if sprite != null:
+			_juice_sprites.append(sprite)
+	_start_glow_breathe()
+
+func _start_glow_breathe() -> void:
+	if glow_strength <= 1.0:
+		return
+	var period: float = glow_period * randf_range(0.85, 1.15)
+	_glow_tween = create_tween().set_loops().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	_glow_tween.tween_method(_set_glow, 1.0, glow_strength, period * 0.5)
+	_glow_tween.tween_method(_set_glow, glow_strength, 1.0, period * 0.5)
+	_glow_tween.custom_step(randf() * period)
+
+func _set_glow(value: float) -> void:
+	gemstone_facets.self_modulate = Color(value, value, value)
+
+func hit_knockback(direction: Vector2) -> void:
+	if dying or knockback_distance <= 0.0 or direction.is_zero_approx():
+		return
+	if _knockback_tween != null:
+		_knockback_tween.kill()
+	var lurch: Vector2 = direction.normalized() * knockback_distance
+	_knockback_tween = create_tween()
+	_knockback_tween.tween_method(_set_visual_offset, _visual_offset, lurch, 0.05).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	_knockback_tween.tween_method(_set_visual_offset, lurch, Vector2.ZERO, 0.25).set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
+
+func _set_visual_offset(value: Vector2) -> void:
+	_visual_offset = value
+	for sprite: Sprite2D in _juice_sprites:
+		sprite.position = value
 
 func accept_damage(damage: float, damage_types: Array) -> void:
 	if dying:
@@ -326,6 +369,12 @@ func _settle_deal(cost: int) -> void:
 	_update_stage_label()
 
 func pop_tween() -> void:
+	if _knockback_tween != null:
+		_knockback_tween.kill()
+	if _glow_tween != null:
+		_glow_tween.kill()
+	_set_visual_offset(Vector2.ZERO)
+	_set_glow(1.0)
 	var tween: Tween = get_tree().create_tween()
 
 	tween.parallel().tween_property(self, "scale", Vector2(1.3, 1.3), 0.2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)

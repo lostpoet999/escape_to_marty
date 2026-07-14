@@ -1,10 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://bmtspiderl001"]
+[gd_scene load_steps=11 format=3 uid="uid://bmtspiderl001"]
 
 [ext_resource type="Script" uid="uid://dhjwmgoechoov" path="res://scenes_and_scripts/actors/enemies/specific_enemies/money_thief_spider/money_thief_spider.gd" id="1_spdr0"]
 [ext_resource type="PackedScene" uid="uid://b3j8yvc0658fc" path="res://scenes_and_scripts/actors/enemies/placed_enemy_base.tscn" id="1_base0"]
 [ext_resource type="Script" uid="uid://bbq2uibufrs08" path="res://scenes_and_scripts/actors/enemies/enemy_actions/enemy_action_base.gd" id="2_abase"]
 [ext_resource type="Script" uid="uid://cokw6vjrb4e8c" path="res://scenes_and_scripts/actors/enemies/enemy_actions/wall_crawl.gd" id="3_crawl"]
 [ext_resource type="Texture2D" uid="uid://sdfbl6kimb0q" path="res://scenes_and_scripts/actors/enemies/specific_enemies/money_thief_spider/placeholder_box.png" id="4_tex0"]
+[ext_resource type="Material" uid="uid://b6u55aep337u5" path="res://scenes_and_scripts/actors/enemies/specific_enemies/no_see_me_demon/whiteout_shader.tres" id="5_flash"]
+[ext_resource type="PackedScene" uid="uid://spiderfxg001" path="res://scenes_and_scripts/actors/enemies/specific_enemies/money_thief_spider/spider_destroy_fx.tscn" id="6_dfx"]
 
 [sub_resource type="Resource" id="Resource_crawl"]
 script = ExtResource("3_crawl")
@@ -29,6 +31,7 @@ script = ExtResource("1_spdr0")
 action_pool = Array[ExtResource("2_abase")]([SubResource("Resource_crawl")])
 action_timer = 3.0
 wall_side = 0
+destroy_fx = ExtResource("6_dfx")
 emerge_time = 0.6
 escape_time = 24.0
 escape_run_speed = 0.7
@@ -37,6 +40,7 @@ steal_span = 400.0
 eat_radius = 45.0
 
 [node name="EnemySprite" parent="." index="0" unique_id=2032254832]
+material = ExtResource("5_flash")
 texture = ExtResource("4_tex0")
 
 [node name="Foot1" type="Marker2D" parent="." index="1" unique_id=1838018458]

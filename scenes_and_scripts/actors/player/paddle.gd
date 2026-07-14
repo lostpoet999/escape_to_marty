@@ -9,6 +9,16 @@ const DIP_DOWN_TIME: float = 0.05
 const DIP_RETURN_TIME: float = 0.12
 
 @export var paddle_influence: float = 5.0
+## Paddle speed (px/s) below which David and the paddle stay upright — no lean.
+@export var lean_speed_threshold: float = 550.0
+## Paddle speed (px/s) at which the lean reaches its full angle.
+@export var lean_full_speed: float = 2600.0
+## Full lean angle for the paddle sprite, in degrees.
+@export var paddle_lean_degrees: float = 5.5
+## Full lean angle for David, in degrees — pivots near his head so his feet trail the motion.
+@export var david_lean_degrees: float = 13.0
+## How quickly the lean eases toward its target; higher = snappier.
+@export var lean_responsiveness: float = 10.0
 
 var is_shielded: bool = false
 var shield_pulse_tween: Tween
@@ -48,6 +58,9 @@ var _distance_accumulator: float = 0.0
 @export var active_paddle_powerup: PaddleActive #will type cast later
 @onready var projectiles: Node = $"../Projectiles"
 @onready var david: Node2D = $David
+@onready var ghost_david: Node2D = $David/GhostDavid
+
+var _lean_blend: float = 0.0
 
 var blocker_enemies: Array[PlacedEnemy] #hold blocker enemies in paddle path
 
@@ -266,6 +279,16 @@ func _track_committed_distance(prev_x: float) -> void:
 func reset_committed_distance() -> void:
 	_distance_accumulator = 0.0
 	committed_distance = 0.0
+
+func _process(delta: float) -> void:
+	var speed: float = 0.0 if paddle_frozen else current_speed
+	var lean_target: float = 0.0
+	if absf(speed) > lean_speed_threshold:
+		var ramp: float = (absf(speed) - lean_speed_threshold) / maxf(lean_full_speed - lean_speed_threshold, 1.0)
+		lean_target = signf(speed) * clampf(ramp, 0.0, 1.0)
+	_lean_blend = lerpf(_lean_blend, lean_target, 1.0 - exp(-lean_responsiveness * delta))
+	sprite.rotation = deg_to_rad(paddle_lean_degrees) * _lean_blend
+	ghost_david.rotation = deg_to_rad(david_lean_degrees) * _lean_blend
 
 func _physics_process(delta: float) -> void:
 	if abs(current_speed) <= 1500.0: reset_committed_distance()

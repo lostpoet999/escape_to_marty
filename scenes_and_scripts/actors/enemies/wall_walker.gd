@@ -12,6 +12,7 @@ const SHOCK_COOLDOWN_MS: int = 100
 @export var escape_run_speed: float ## Seconds to sprint offscreen once the escape timer expires.
 @export var wall_shock_bricks: int = 3 ## A ball bounce or HEALTH-damage projectile hit on this walker's wall within this many tiles to either side counts as a hit on the walker; the tiles between the impact and the walker shake. 0 disables the shockwave.
 @export var max_health: float = 3.0 ## Real HP pool: HEALTH-type damage subtracts its actual amount. Replaces the base class's one-per-hit denial_health counting for wall walkers.
+@export var destroy_fx: PackedScene ## Particle burst instanced at the walker's position when it dies (damage kill or level-cleared sweep, not escape). Empty = no burst.
 
 @onready var _escape_bar: ProgressBar = get_node_or_null("EscapeIndicator")
 var _escape_timer: Timer
@@ -86,9 +87,24 @@ func accept_damage(damage: float, dmg_type: Array[GameManager.PhaseType]) -> voi
 		return
 	SFX.play_sound("enemy_hurt")
 	show_damage_number(roundi(damage))
+	_flash_hit()
 	health -= damage
 	if health <= 0.0:
 		die()
+
+func _flash_hit() -> void:
+	var sprite: Sprite2D = get_node_or_null("EnemySprite")
+	if sprite == null:
+		return
+	var mat: ShaderMaterial = sprite.material as ShaderMaterial
+	if mat == null:
+		return
+	mat.set_shader_parameter("flash_amount", 1.0)
+	var flash_tween: Tween = create_tween()
+	flash_tween.tween_method(
+		func(v: float) -> void: mat.set_shader_parameter("flash_amount", v),
+		1.0, 0.0, 0.05
+	)
 
 func _on_wall_hit(_source: Node2D, wall: Node2D, damage: float, dmg_types: Array) -> void:
 	if wall_shock_bricks <= 0 or is_queued_for_deletion():
@@ -129,6 +145,10 @@ func die() -> void:
 	@warning_ignore("unsafe_method_access")
 	get_viewport().get_camera_2d().add_trauma(0.5)
 	SFX.play_sound("enemy_hurt")
+	if destroy_fx != null:
+		var fx: Node2D = destroy_fx.instantiate()
+		fx.position = global_position
+		get_tree().current_scene.add_child(fx)
 	queue_free()
 	Signalbus.wall_walker_removed.emit(self)
 
