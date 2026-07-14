@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="DefensivePowerup" format=3 uid="uid://mkyourbed01"]
+
+[ext_resource type="Script" uid="uid://bfi0bx0djqr18" path="res://scenes_and_scripts/powerups_and_behaviors/defensive_powerups/defensive_powerup.gd" id="1_mkbed"]
+
+[resource]
+script = ExtResource("1_mkbed")
+max_health_bonus = 1
+heal_on_pickup = 1
+powerup_name = "Make Your Bed"
+shop_description = "Increase health by 1."
+cost = 8
+metadata/_custom_type_script = "uid://bfi0bx0djqr18"

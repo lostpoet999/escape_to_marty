@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b6bu5r5mip114"
-path="res://.godot/imported/memory_temp_sprite.png-ffb4af559de9d2055dc632733599ab1e.ctex"
+path="res://.godot/imported/memory_temp_sprite.png-09459340049ed9bee5605452fe7f112e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes_and_scripts/memories/memory_temp_sprite.png"
-dest_files=["res://.godot/imported/memory_temp_sprite.png-ffb4af559de9d2055dc632733599ab1e.ctex"]
+source_file="res://scenes_and_scripts/levels/common_rooms/memory room/memory_temp_sprite.png"
+dest_files=["res://.godot/imported/memory_temp_sprite.png-09459340049ed9bee5605452fe7f112e.ctex"]
 
 [params]
 

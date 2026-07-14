@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://cgkr65l7x0huu"]
+
+[ext_resource type="PackedScene" uid="uid://pff3jyvmp4md" path="res://scenes_and_scripts/levels/common_rooms/memory room/memory_flame.tscn" id="3_o83dg"]
+
+[node name="RoomBeforeClick" type="Node2D" unique_id=1974712734]
+
+[node name="MemoryFlame" parent="." unique_id=1396234316 instance=ExtResource("3_o83dg")]
+position = Vector2(1088, 540)
+scale = Vector2(5, 5)

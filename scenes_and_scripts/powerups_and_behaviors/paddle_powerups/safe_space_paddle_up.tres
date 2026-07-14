@@ -9,5 +9,5 @@ paddle_length_mod = 1.2
 powerup_name = "Safe Space"
 shop_description = "Widens the paddle"
 inventory_icon = ExtResource("1_su1ya")
-cost = 5
+cost = 10
 metadata/_custom_type_script = "uid://b81b3hhkeuin4"

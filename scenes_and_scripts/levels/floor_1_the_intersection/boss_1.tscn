@@ -7,13 +7,11 @@
 [ext_resource type="PackedScene" uid="uid://dg0t0jrkytca7" path="res://scenes_and_scripts/bricks/boss_deon_seal.tscn" id="5_njqif"]
 [ext_resource type="PackedScene" uid="uid://flrportal001" path="res://scenes_and_scripts/exits/floor_portal.tscn" id="6_portal"]
 [ext_resource type="Script" uid="uid://deonencroom0" path="res://scenes_and_scripts/levels/deon_encounter_room.gd" id="7_deonroom"]
-[ext_resource type="Resource" uid="uid://tstpostenc00" path="res://scenes_and_scripts/memories/trees/post_encounter_placeholder.tres" id="8_beattree"]
+[ext_resource type="Resource" uid="uid://tstpostenc00" path="res://scenes_and_scripts/dialog/memory room trees/post_encounter_placeholder.tres" id="8_beattree"]
 
 [node name="BossRoom" unique_id=565861230 instance=ExtResource("1_u1v84")]
 script = ExtResource("7_deonroom")
 post_encounter_tree = ExtResource("8_beattree")
-
-[node name="Encounter" type="Node" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="5"]
 
 [node name="DeathWall" parent="PlayArea/Walls" parent_id_path=PackedInt32Array(76639453) index="0" unique_id=518440941]
 z_index = -100
@@ -22,7 +20,9 @@ position = Vector2(288, 960)
 [node name="Background" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="1" unique_id=306947289]
 metadata/_edit_lock_ = true
 
-[node name="BossDeonCage" type="Node" parent="PlayArea/Encounter" unique_id=1789205405]
+[node name="Encounter" type="Node" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="5" unique_id=1863128606]
+
+[node name="BossDeonCage" type="Node" parent="PlayArea/Encounter" index="0" unique_id=1789205405]
 script = ExtResource("2_njqif")
 
 [node name="BorderWall2" parent="PlayArea/Encounter/BossDeonCage" index="0" unique_id=1746791712 instance=ExtResource("4_th818")]
@@ -90,14 +90,14 @@ position = Vector2(1760, 288)
 [node name="BorderWall12" parent="PlayArea/Encounter/BossDeonCage" index="18" unique_id=915834336 instance=ExtResource("4_th818")]
 position = Vector2(1824, 288)
 
+[node name="Boss1Denial" parent="PlayArea/Encounter" index="1" unique_id=591023107 groups=["bounce_enemy"] instance=ExtResource("3_ndrbk")]
+position = Vector2(1633, 709)
+
 [node name="FloorPortal" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="6" unique_id=1860885060 instance=ExtResource("6_portal")]
 position = Vector2(804, 540)
 
 [node name="FlashOverlay" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="7" unique_id=443116914]
 metadata/_edit_lock_ = true
 
-[node name="item_spawn_point" parent="." index="8" unique_id=51076593]
+[node name="item_spawn_point" parent="." index="11" unique_id=51076593]
 position = Vector2(1079, 736)
-
-[node name="Boss1Denial" parent="PlayArea/Encounter" unique_id=591023107 groups=["bounce_enemy"] instance=ExtResource("3_ndrbk")]
-position = Vector2(1633, 709)

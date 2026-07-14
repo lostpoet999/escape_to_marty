@@ -23,8 +23,13 @@ const AUTO_CLEAR_ROOM_TYPES: Array[ROOM_TYPES] = [
 ## free-item/memory rooms only: a curated pool to draw the offered picks from instead of the
 ## floor's rarity-weighted master pool. when set, picks are flat-random so every listed item is equally likely
 @export var item_pool_override: ItemPool
+## memory rooms only: the codec sequence the flame plays. the cross-run save key
+## (memory_id) derives from this resource's filename
+@export var memory_tree: DialogTree
 
 func memory_id() -> StringName:
+	if memory_tree != null and not memory_tree.resource_path.is_empty():
+		return StringName(memory_tree.resource_path.get_file().get_basename())
 	if room_scene == null:
 		return &""
 	return StringName(room_scene.resource_path.get_file().get_basename())

@@ -6,5 +6,7 @@
 script = ExtResource("1_g7csf")
 reflect_reduction = 0.2
 powerup_name = "Self Forgiveness"
+rarity = 2
 shop_description = "You go easy on yourself.  Ball misses do 20% less damage."
+cost = 45
 metadata/_custom_type_script = "uid://bfi0bx0djqr18"
