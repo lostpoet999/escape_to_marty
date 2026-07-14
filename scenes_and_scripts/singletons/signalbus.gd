@@ -51,7 +51,7 @@ signal db_panel_closed
 @warning_ignore("unused_signal")
 signal level_cleared
 
-## Emits: scenes_and_scripts/actors/enemies/specific_enemies/boss_1_denial/boss_deon.gd -> accept_damage()
+## Emits: scenes_and_scripts/actors/enemies/specific_enemies/boss_1_denial/boss_deon.gd -> accept_damage(); scenes_and_scripts/levels/floor_2_the_arena/rage_blob_king.gd -> _die()
 ## Connects: scenes_and_scripts/levels/deon_encounter_room.gd -> _ready() -> clear_encounter
 @warning_ignore("unused_signal")
 signal boss_defeated

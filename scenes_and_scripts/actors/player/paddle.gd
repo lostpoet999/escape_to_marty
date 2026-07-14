@@ -10,13 +10,13 @@ const DIP_RETURN_TIME: float = 0.12
 
 @export var paddle_influence: float = 5.0
 ## Paddle speed (px/s) below which David and the paddle stay upright — no lean.
-@export var lean_speed_threshold: float = 550.0
+@export var lean_speed_threshold: float = 330.0
 ## Paddle speed (px/s) at which the lean reaches its full angle.
 @export var lean_full_speed: float = 2600.0
 ## Full lean angle for the paddle sprite, in degrees.
 @export var paddle_lean_degrees: float = 5.5
 ## Full lean angle for David, in degrees — pivots near his head so his feet trail the motion.
-@export var david_lean_degrees: float = 13.0
+@export var david_lean_degrees: float = 16.9
 ## How quickly the lean eases toward its target; higher = snappier.
 @export var lean_responsiveness: float = 10.0
 

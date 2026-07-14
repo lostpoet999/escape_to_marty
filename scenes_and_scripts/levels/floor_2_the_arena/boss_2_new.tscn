@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ry4i4dx13ype"]
 
 [ext_resource type="PackedScene" uid="uid://bea1h3570swpu" path="res://scenes_and_scripts/levels/room_base.tscn" id="1_2lgxe"]
-[ext_resource type="PackedScene" uid="uid://dx6kegx4fg7yy" path="res://scenes_and_scripts/levels/floor_2_the_arena/rage_blob_king.tscn" id="3_cbao2"]
+[ext_resource type="PackedScene" uid="uid://b1mku5iyrtraa" path="res://scenes_and_scripts/actors/enemies/specific_enemies/rage_blob/rage_blob.tscn" id="3_cbao2"]
 [ext_resource type="PackedScene" uid="uid://flrportal001" path="res://scenes_and_scripts/exits/floor_portal.tscn" id="5_08opq"]
 
 [node name="BossRoom2" unique_id=565861230 instance=ExtResource("1_2lgxe")]
@@ -23,15 +23,5 @@ metadata/_edit_lock_ = true
 position = Vector2(1079, 736)
 
 [node name="RageBlob" parent="." index="13" unique_id=1856740976 instance=ExtResource("3_cbao2")]
-position = Vector2(1069, 401)
-scale = Vector2(11.247438, 9.436229)
-
-[node name="RageBlob2" parent="." index="14" unique_id=1890529720 instance=ExtResource("3_cbao2")]
-position = Vector2(544, 786)
-
-[node name="RageBlob3" parent="." index="15" unique_id=1985814150 instance=ExtResource("3_cbao2")]
-position = Vector2(1636, 722)
-
-[node name="RageBlob4" parent="." index="16" unique_id=320427184 instance=ExtResource("3_cbao2")]
-position = Vector2(497, 312)
-metadata/_edit_lock_ = true
+position = Vector2(625, 457)
+scale = Vector2(8, 8)

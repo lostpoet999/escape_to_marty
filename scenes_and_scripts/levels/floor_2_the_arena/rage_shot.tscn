@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://rageshot01ts"]
+
+[ext_resource type="Script" uid="uid://rageshot01gd" path="res://scenes_and_scripts/levels/floor_2_the_arena/rage_shot.gd" id="1_shot"]
+[ext_resource type="Texture2D" uid="uid://dnrtc21p2irlg" path="res://scenes_and_scripts/actors/enemies/specific_enemies/rage_blob/rage_blob.png" id="2_tex"]
+[ext_resource type="PackedScene" uid="uid://rageblobfx01" path="res://scenes_and_scripts/actors/enemies/specific_enemies/rage_blob/rage_blob_destroy_fx.tscn" id="3_dfx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_shot"]
+radius = 24.020824
+
+[node name="RageShot" type="CharacterBody2D" unique_id=1856741101]
+script = ExtResource("1_shot")
+damage_min = 1
+damage_max = 1
+destroy_fx = ExtResource("3_dfx")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1389364990]
+texture = ExtResource("2_tex")
+hframes = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1489539601]
+position = Vector2(0, -2)
+shape = SubResource("CircleShape2D_shot")
+
+[node name="DeathWallDetector" type="Area2D" parent="." unique_id=1489539602]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeathWallDetector" unique_id=1489539603]
+position = Vector2(0, -2)
+shape = SubResource("CircleShape2D_shot")
