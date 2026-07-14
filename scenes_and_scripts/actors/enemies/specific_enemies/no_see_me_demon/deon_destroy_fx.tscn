@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://deonfxblk001"]
+
+[ext_resource type="PackedScene" uid="uid://dwqgc0eorwbcf" path="res://scenes_and_scripts/bricks/brick_vfx/brick_destroy_fx.tscn" id="1_parent"]
+
+[node name="DeonDestroyFX" instance=ExtResource("1_parent")]
+
+[node name="sparks" parent="." index="0"]
+color = Color(0, 0, 0, 1)
+
+[node name="shard1" parent="." index="2"]
+color = Color(0, 0, 0, 1)
+
+[node name="shard2" parent="." index="3"]
+color = Color(0, 0, 0, 1)
+
+[node name="shard3" parent="." index="4"]
+color = Color(0, 0, 0, 1)
+
+[node name="shard4" parent="." index="5"]
+color = Color(0, 0, 0, 1)
+
+[node name="shard5" parent="." index="6"]
+color = Color(0, 0, 0, 1)
+
+[node name="shard6" parent="." index="7"]
+color = Color(0, 0, 0, 1)

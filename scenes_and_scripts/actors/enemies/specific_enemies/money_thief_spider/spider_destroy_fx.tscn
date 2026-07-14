@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dwqgc0eorwbcf" path="res://scenes_and_scripts/bricks/brick_vfx/brick_destroy_fx.tscn" id="1_parent"]
 
 [node name="SpiderDestroyFX" instance=ExtResource("1_parent")]
-scale = Vector2(1.2, 1.2)
+scale = Vector2(0.96, 0.96)
 
 [node name="sparks" parent="." index="0"]
 color = Color(0.458824, 0.654902, 0.262745, 1)
