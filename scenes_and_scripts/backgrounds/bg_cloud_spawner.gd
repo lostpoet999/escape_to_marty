@@ -32,6 +32,12 @@ extends Node3D
 @export var jitter_frame_seconds: float = 0.3
 ## shared cloud material applied to each cloud sprite
 @export var sprite_material: Material = preload("res://scenes_and_scripts/backgrounds/BG Objects/mat_cloud_sprite.tres")
+## texture pool for normal clouds; one is picked at random per spawn (jitter clouds keep the scene's 2-frame sheet)
+@export var cloud_textures: Array[Texture2D] = [
+	preload("res://scenes_and_scripts/backgrounds/BG Objects/f1/cloud_2_64x64.png"),
+	preload("res://scenes_and_scripts/backgrounds/BG Objects/f1/cloud_3_64x64.png"),
+	preload("res://scenes_and_scripts/backgrounds/BG Objects/f1/cloud_4_64x64.png"),
+]
 ## cloud sprite opacity at depth_far; near clouds stay fully solid
 @export var opacity_far: float = 0.55
 ## bottom of the vertical placement band, as a fraction of the view half-height at spawn depth
@@ -55,6 +61,7 @@ class DriftingCloud:
 	var frame_timer: float
 
 var _clouds: Array[DriftingCloud] = []
+var _texture_materials: Array[ShaderMaterial] = []
 var _camera_base: Transform3D
 var _tan_half_fov: float
 var _aspect: float
@@ -63,6 +70,12 @@ var _target_count: int
 @onready var _camera: Camera3D = $"../Camera3D"
 
 func _ready() -> void:
+	var base_material: ShaderMaterial = sprite_material as ShaderMaterial
+	if base_material != null:
+		for texture: Texture2D in cloud_textures:
+			var variant_material: ShaderMaterial = base_material.duplicate() as ShaderMaterial
+			variant_material.set_shader_parameter(&"cloud_texture", texture)
+			_texture_materials.append(variant_material)
 	_camera_base = _camera.global_transform
 	_tan_half_fov = tan(deg_to_rad(_camera.fov) * 0.5)
 	var view_size: Vector2 = get_viewport().get_visible_rect().size
@@ -112,11 +125,17 @@ func _spawn_cloud(spread_across_view: bool, depth_band: int) -> void:
 	cloud.node.scale = Vector3.ONE * cloud_scale
 	cloud.node.rotation_degrees.z = randf_range(-roll_jitter_deg, roll_jitter_deg)
 	var sprite: Sprite3D = node.get_node_or_null(^"Sprite3D") as Sprite3D
-	if sprite != null:
-		sprite.flip_h = randf() < flip_chance
-		sprite.material_override = sprite_material
-		sprite.modulate = Color(1.0, 1.0, 1.0, lerpf(1.0, opacity_far, depth_t))
 	cloud.sprite = sprite
 	cloud.jitters = sprite != null and randf() < jitter_cloud_chance
+	if sprite != null:
+		sprite.flip_h = randf() < flip_chance
+		sprite.modulate = Color(1.0, 1.0, 1.0, lerpf(1.0, opacity_far, depth_t))
+		if cloud.jitters or _texture_materials.is_empty():
+			sprite.material_override = sprite_material
+		else:
+			var pick: int = randi_range(0, _texture_materials.size() - 1)
+			sprite.texture = cloud_textures[pick]
+			sprite.hframes = 1
+			sprite.material_override = _texture_materials[pick]
 	add_child(cloud.node)
 	_clouds.append(cloud)

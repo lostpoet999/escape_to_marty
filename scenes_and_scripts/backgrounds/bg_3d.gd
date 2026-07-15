@@ -1,12 +1,7 @@
 extends Node3D
 
 const parallax_rest: Vector2 = Vector2(1091, 923)
-var cloud_material: ShaderMaterial = preload("res://scenes_and_scripts/backgrounds/BG Objects/mat_cloud.tres")
 
-## how far the floor tint is darkened toward black before it becomes cloud albedo
-@export var bg3d_cloud_darken: float = 0.3
-## how far the floor tint is desaturated toward gray before it becomes cloud albedo
-@export var bg3d_cloud_desaturate: float = 0.15
 ## how far a derived key light is whitened toward neutral so it tints rather than washes
 @export var bg3d_key_whiten: float = 0.4
 
@@ -55,12 +50,6 @@ func _apply_floor_theme() -> void:
 	var fd: FloorData = GameManager.floor_data
 	if fd == null:
 		return
-	var albedo: Color
-	if fd.bg_cloud_color.a > 0.0:
-		albedo = fd.bg_cloud_color
-	else:
-		albedo = _cloud_albedo_from_tint(fd.wall_modulate, bg3d_cloud_darken, bg3d_cloud_desaturate)
-	cloud_material.set_shader_parameter("cloud_color", albedo)
 	if fd.bg_key_light_color.a > 0.0:
 		key_light.light_color = fd.bg_key_light_color
 	else:
@@ -86,11 +75,6 @@ func _apply_floor_theme() -> void:
 	if fd.bg_saturation >= 0.0:
 		env.adjustment_enabled = true
 		env.adjustment_saturation = fd.bg_saturation
-
-func _cloud_albedo_from_tint(tint: Color, darken: float, desaturate: float) -> Color:
-	var c: Color = tint.darkened(darken)
-	var gray: float = c.get_luminance()
-	return c.lerp(Color(gray, gray, gray, c.a), desaturate)
 
 func _process(_delta: float) -> void:
 	if not camera_3d: return

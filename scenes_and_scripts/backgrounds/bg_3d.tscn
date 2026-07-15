@@ -6,11 +6,11 @@
 [ext_resource type="Script" uid="uid://djyqs3netpwfe" path="res://scenes_and_scripts/backgrounds/bg_cloud_spawner.gd" id="4_cldsp"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ss3jj"]
-sky_top_color = Color(0.19095299, 0.1519762, 0.30743927, 1)
-sky_horizon_color = Color(0.1911475, 0.27601853, 0.38250917, 1)
+sky_top_color = Color(0.2509804, 0.15294118, 0.31764707, 1)
+sky_horizon_color = Color(0.23529412, 0.36862746, 0.54509807, 1)
 sky_curve = 0.34460923
-ground_bottom_color = Color(0.19095299, 0.1519762, 0.30743927, 1)
-ground_horizon_color = Color(0.1911475, 0.27601853, 0.38250917, 1)
+ground_bottom_color = Color(0.2509804, 0.15294118, 0.31764707, 1)
+ground_horizon_color = Color(0.23529412, 0.36862746, 0.54509807, 1)
 ground_curve = 0.033635926
 use_debanding = false
 
@@ -142,7 +142,7 @@ process_material = SubResource("ParticleProcessMaterial_l8dg0")
 draw_pass_1 = SubResource("BoxMesh_ngguw")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1553591780]
-transform = Transform3D(1, 0, 0, 0, 0.9063078, -0.42261827, 0, 0.42261827, 0.9063078, 0.831, 0.923, 0)
+transform = Transform3D(1, 0, 0, 0, 0.9682978, -0.24979907, 0, 0.24979907, 0.9682978, 0.831, 0.923, 0)
 
 [node name="FrameGuide" type="Node3D" parent="Camera3D" unique_id=13733052]
 
@@ -164,14 +164,14 @@ mesh = SubResource("BoxMesh_guidev")
 
 [node name="Sun" type="DirectionalLight3D" parent="." unique_id=1553591781]
 transform = Transform3D(1, 0, 0, 0, -0.8660254, -0.5, 0, 0.5, -0.8660254, 0, 0, 0)
-light_color = Color(1, 0.94, 0.82, 1)
+light_color = Color(0.9098039, 0.75686276, 0.4392157, 1)
 light_energy = 0.5
 
 [node name="CloudSpawner" type="Node3D" parent="." unique_id=147013607]
 script = ExtResource("4_cldsp")
 cloud_scene = ExtResource("3_ryyjo")
-min_clouds = 5
-max_clouds = 8
+min_clouds = 3
+max_clouds = 5
 depth_near = 2.0
 depth_far = 40.0
 speed_near = 0.35
