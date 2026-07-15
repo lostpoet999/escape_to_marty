@@ -7,7 +7,5 @@
 render_priority = 0
 shader = ExtResource("1_shdr")
 shader_parameter/cloud_texture = ExtResource("2_cloud")
-shader_parameter/core_opacity = 0.50000002375
-shader_parameter/feather = 8.0
+shader_parameter/cloud_tint = Color(0.8745098, 0.5176471, 0.64705884, 1)
 shader_parameter/base_glow = 0.35
-shader_parameter/scatter = 0.6

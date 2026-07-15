@@ -22,30 +22,24 @@ extends Node3D
 @export var scale_jitter_down: float = 0.45
 ## how far above the depth-derived scale the random multiplier can reach (1.2 = +120%)
 @export var scale_jitter_up: float = 1.2
-## random X-pitch in degrees applied per cloud for silhouette variety
-@export var pitch_jitter_deg: float = 30.0
 ## random Z-roll in degrees applied per cloud, both directions
 @export var roll_jitter_deg: float = 8.0
 ## chance a cloud's sprite spawns mirrored horizontally
 @export var flip_chance: float = 0.5
-## extra horizontal stretch per cloud (0.2 = width varies ±20% on top of scale)
-@export var width_stretch_jitter: float = 0.2
 ## chance a spawned cloud is a jitter cloud that flipbooks its two sheet frames
 @export var jitter_cloud_chance: float = 0.1
 ## seconds between frame swaps on a jitter cloud
 @export var jitter_frame_seconds: float = 0.3
-## shared soft-edge material applied to each cloud sprite
+## shared cloud material applied to each cloud sprite
 @export var sprite_material: Material = preload("res://scenes_and_scripts/backgrounds/BG Objects/mat_cloud_sprite.tres")
-## sprite tint at depth_near (light Apollo purple register)
-@export var color_near: Color = Color("#df84a5")
-## sprite tint at depth_far (dark Apollo purple register)
-@export var color_far: Color = Color("#402751")
+## cloud sprite opacity at depth_far; near clouds stay fully solid
+@export var opacity_far: float = 0.55
 ## bottom of the vertical placement band, as a fraction of the view half-height at spawn depth
 @export var band_bottom: float = -0.4
 ## top of the vertical placement band, as a fraction of the view half-height at spawn depth
 @export var band_top: float = 0.7
 ## half-width of one cloud at scale 1, used to keep spawns fully offscreen
-@export var cloud_half_width: float = 1.6
+@export var cloud_half_width: float = 0.35
 ## extra horizontal margin covering the camera's parallax sweep
 @export var edge_margin: float = 1.2
 ## start with clouds spread across the sky instead of an empty sky that fills in slowly
@@ -99,9 +93,8 @@ func _spawn_cloud(spread_across_view: bool, depth_band: int) -> void:
 	var depth_t: float = (depth_band + randf()) / _target_count
 	var depth: float = lerpf(depth_near, depth_far, depth_t)
 	var cloud_scale: float = lerpf(scale_near, scale_far, depth_t) * randf_range(1.0 - scale_jitter_down, 1.0 + scale_jitter_up)
-	var width_stretch: float = randf_range(1.0 - width_stretch_jitter, 1.0 + width_stretch_jitter)
 	var view_half_width: float = depth * _tan_half_fov * _aspect
-	var margin: float = edge_margin + cloud_half_width * cloud_scale * maxf(width_stretch, 1.0)
+	var margin: float = edge_margin + cloud_half_width * cloud_scale
 	var enter_x: float = _camera_base.origin.x - view_half_width - margin
 	var exit_x: float = _camera_base.origin.x + view_half_width + margin
 	var band_offset: float = randf_range(band_bottom, band_top) * depth * _tan_half_fov
@@ -116,14 +109,13 @@ func _spawn_cloud(spread_across_view: bool, depth_band: int) -> void:
 	cloud.exit_x = exit_x
 	cloud.depth_band = depth_band
 	cloud.node.position = spawn_pos
-	cloud.node.scale = Vector3(cloud_scale * width_stretch, cloud_scale, cloud_scale)
-	cloud.node.rotation_degrees.x = randf_range(0.0, pitch_jitter_deg)
+	cloud.node.scale = Vector3.ONE * cloud_scale
 	cloud.node.rotation_degrees.z = randf_range(-roll_jitter_deg, roll_jitter_deg)
 	var sprite: Sprite3D = node.get_node_or_null(^"Sprite3D") as Sprite3D
 	if sprite != null:
 		sprite.flip_h = randf() < flip_chance
 		sprite.material_override = sprite_material
-		sprite.modulate = color_near.lerp(color_far, depth_t)
+		sprite.modulate = Color(1.0, 1.0, 1.0, lerpf(1.0, opacity_far, depth_t))
 	cloud.sprite = sprite
 	cloud.jitters = sprite != null and randf() < jitter_cloud_chance
 	add_child(cloud.node)

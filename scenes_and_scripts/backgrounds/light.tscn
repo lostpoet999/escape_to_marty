@@ -18,7 +18,7 @@ is_hemisphere = true
 [node name="Light" type="Node3D" unique_id=1201690930]
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1970887794]
-omni_range = 25.0
+omni_range = 40.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=781147750]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
