@@ -249,4 +249,5 @@ bg_fog_color = Color(0.96474224, 0.96474224, 0.9647421, 0)
 bg_glow_intensity = 0.7
 bg_sky_top_color = Color(0.30980393, 0.5607843, 0.7294118, 1)
 bg_sky_horizon_color = Color(0.47843137, 0.21176471, 0.48235294, 1)
+bg_clouds_enabled = true
 metadata/_custom_type_script = "uid://bvs3ugvgbabkc"

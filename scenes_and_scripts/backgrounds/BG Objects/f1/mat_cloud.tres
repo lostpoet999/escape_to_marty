@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" format=3 uid="uid://vn7up1b8w6h7"]
 
-[ext_resource type="Shader" uid="uid://bco7jx4cekhx0" path="res://scenes_and_scripts/backgrounds/BG Objects/mat_cloud.gdshader" id="1_shad0"]
+[ext_resource type="Shader" uid="uid://bco7jx4cekhx0" path="res://scenes_and_scripts/backgrounds/BG Objects/f1/mat_cloud.gdshader" id="1_shad0"]
 
 [resource]
 render_priority = 0

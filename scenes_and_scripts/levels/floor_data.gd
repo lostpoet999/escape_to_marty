@@ -70,3 +70,9 @@ class_name FloorData extends Resource
 @export var bg_cloud_color: Color = Color(0, 0, 0, 0)
 ## 3D bg saturation via WorldEnvironment adjustments (1 = unchanged, <1 desaturates); negative = keep scene default
 @export var bg_saturation: float = -1.0
+## drifting clouds in the 3D backdrop; false = CloudSpawner stays empty on this floor
+@export var bg_clouds_enabled: bool = false
+## background prop scenes spawned into the 3D backdrop by BgItemSpawner; empty = no props on this floor
+@export var bg_item_scenes: Array[PackedScene] = []
+## how many background props are kept alive at once
+@export var bg_item_count: int = 3

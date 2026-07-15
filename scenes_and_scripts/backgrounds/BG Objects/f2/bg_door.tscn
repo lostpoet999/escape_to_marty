@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://bgdoorf2ab01"]
+
+[ext_resource type="Script" path="res://scenes_and_scripts/backgrounds/BG Objects/f2/bg_door.gd" id="1_door"]
+[ext_resource type="Texture2D" path="res://scenes_and_scripts/backgrounds/BG Objects/door_test_64x64.png" id="2_door"]
+[ext_resource type="Material" uid="uid://bgmatdorf2a1" path="res://scenes_and_scripts/backgrounds/BG Objects/f2/mat_prop_door.tres" id="3_door"]
+
+[node name="BgDoor" type="Node3D"]
+script = ExtResource("1_door")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+texture = ExtResource("2_door")
+texture_filter = 0
+material_override = ExtResource("3_door")

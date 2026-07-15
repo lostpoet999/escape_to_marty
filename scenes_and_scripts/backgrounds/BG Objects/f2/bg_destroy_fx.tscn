@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bgdstryfxf2a"]
+
+[ext_resource type="Script" path="res://scenes_and_scripts/backgrounds/BG Objects/f2/bg_destroy_fx.gd" id="1_fx"]
+
+[node name="BgDestroyFX" type="Node3D"]
+script = ExtResource("1_fx")

@@ -31,7 +31,7 @@ extends Node3D
 ## seconds between frame swaps on a jitter cloud
 @export var jitter_frame_seconds: float = 0.3
 ## shared cloud material applied to each cloud sprite
-@export var sprite_material: Material = preload("res://scenes_and_scripts/backgrounds/BG Objects/mat_cloud_sprite.tres")
+@export var sprite_material: Material = preload("res://scenes_and_scripts/backgrounds/BG Objects/f1/mat_cloud_sprite.tres")
 ## texture pool for normal clouds; one is picked at random per spawn (jitter clouds keep the scene's 2-frame sheet)
 @export var cloud_textures: Array[Texture2D] = [
 	preload("res://scenes_and_scripts/backgrounds/BG Objects/f1/cloud_2_64x64.png"),
@@ -70,6 +70,9 @@ var _target_count: int
 @onready var _camera: Camera3D = $"../Camera3D"
 
 func _ready() -> void:
+	var fd: FloorData = GameManager.floor_data
+	if fd == null or not fd.bg_clouds_enabled:
+		return
 	var base_material: ShaderMaterial = sprite_material as ShaderMaterial
 	if base_material != null:
 		for texture: Texture2D in cloud_textures:

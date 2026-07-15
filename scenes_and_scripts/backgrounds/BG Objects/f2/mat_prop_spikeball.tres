@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://bgmatspkf2a1"]
+
+[ext_resource type="Shader" uid="uid://1w6qea0e61sa" path="res://scenes_and_scripts/backgrounds/BG Objects/f1/mat_cloud_sprite.gdshader" id="1_shdr"]
+[ext_resource type="Texture2D" path="res://scenes_and_scripts/backgrounds/BG Objects/spikeball_test_64x64.png" id="2_tex"]
+
+[resource]
+shader = ExtResource("1_shdr")
+shader_parameter/cloud_texture = ExtResource("2_tex")
+shader_parameter/cloud_tint = Color(1, 1, 1, 1)
+shader_parameter/base_glow = 0.1
+shader_parameter/base_glow = 0.25

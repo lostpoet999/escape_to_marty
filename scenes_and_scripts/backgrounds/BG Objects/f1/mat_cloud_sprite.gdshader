@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode blend_mix, cull_back, depth_draw_never, shadows_disabled;
+render_mode blend_mix, cull_disabled, depth_draw_never, shadows_disabled;
 
 uniform sampler2D cloud_texture : source_color, filter_nearest;
 uniform vec4 cloud_tint : source_color = vec4(0.875, 0.518, 0.647, 1.0);

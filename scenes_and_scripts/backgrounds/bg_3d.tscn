@@ -2,8 +2,9 @@
 
 [ext_resource type="Script" uid="uid://csyqsr55dvuii" path="res://scenes_and_scripts/backgrounds/bg_3d.gd" id="1_kat55"]
 [ext_resource type="PackedScene" uid="uid://b5wsv1qakbmm" path="res://scenes_and_scripts/backgrounds/light.tscn" id="2_ss3jj"]
-[ext_resource type="PackedScene" uid="uid://dvh8mcakq6yax" path="res://scenes_and_scripts/backgrounds/BG Objects/bg_cloud.tscn" id="3_ryyjo"]
-[ext_resource type="Script" uid="uid://djyqs3netpwfe" path="res://scenes_and_scripts/backgrounds/bg_cloud_spawner.gd" id="4_cldsp"]
+[ext_resource type="PackedScene" uid="uid://dvh8mcakq6yax" path="res://scenes_and_scripts/backgrounds/BG Objects/f1/bg_cloud.tscn" id="3_ryyjo"]
+[ext_resource type="Script" uid="uid://djyqs3netpwfe" path="res://scenes_and_scripts/backgrounds/BG Objects/bg_cloud_spawner.gd" id="4_cldsp"]
+[ext_resource type="Script" path="res://scenes_and_scripts/backgrounds/BG Objects/bg_item_spawner.gd" id="5_bgitm"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ss3jj"]
 sky_top_color = Color(0.2509804, 0.15294118, 0.31764707, 1)
@@ -178,3 +179,6 @@ speed_near = 0.35
 speed_far = 0.1
 scale_near = 1.5
 scale_far = 20.0
+
+[node name="BgItemSpawner" type="Node3D" parent="." unique_id=1697042311]
+script = ExtResource("5_bgitm")
