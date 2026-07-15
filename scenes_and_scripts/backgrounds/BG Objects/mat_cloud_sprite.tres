@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://cw26rtvhu2l4g"]
+
+[ext_resource type="Shader" uid="uid://1w6qea0e61sa" path="res://scenes_and_scripts/backgrounds/BG Objects/mat_cloud_sprite.gdshader" id="1_shdr"]
+[ext_resource type="Texture2D" uid="uid://c6qxaqbctx71f" path="res://scenes_and_scripts/backgrounds/BG Objects/clouds_test_64x64.png" id="2_cloud"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_shdr")
+shader_parameter/cloud_texture = ExtResource("2_cloud")
+shader_parameter/core_opacity = 0.50000002375
+shader_parameter/feather = 8.0
+shader_parameter/base_glow = 0.35
+shader_parameter/scatter = 0.6

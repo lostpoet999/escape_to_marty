@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dvh8mcakq6yax"]
 
 [ext_resource type="Material" uid="uid://vn7up1b8w6h7" path="res://scenes_and_scripts/backgrounds/BG Objects/mat_cloud.tres" id="1_2oso8"]
+[ext_resource type="Texture2D" uid="uid://c6qxaqbctx71f" path="res://scenes_and_scripts/backgrounds/BG Objects/clouds_test_64x64.png" id="2_dv8em"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_44koe"]
 material = ExtResource("1_2oso8")
@@ -11,25 +12,34 @@ height = 0.8848877
 
 [node name="MeshInstance3D6" type="MeshInstance3D" parent="." unique_id=372358450]
 transform = Transform3D(-5.3300212e-08, 0, 1.0396885, 0.5188695, 0.8321677, 1.9338447e-08, -1.1034627, 0.3913013, -4.1126437e-08, -0.075415224, -0.1655096, 0.36301827)
+visible = false
 cast_shadow = 0
 mesh = SubResource("CapsuleMesh_44koe")
 
 [node name="MeshInstance3D7" type="MeshInstance3D" parent="." unique_id=1682358507]
 transform = Transform3D(-5.3300212e-08, 0, 1.0396885, 0.5188695, 0.8321677, 1.9338447e-08, -1.1034627, 0.3913013, -4.1126437e-08, 0.28253356, -0.1655096, 0.36301827)
+visible = false
 cast_shadow = 0
 mesh = SubResource("CapsuleMesh_44koe")
 
 [node name="MeshInstance3D8" type="MeshInstance3D" parent="." unique_id=694656092]
 transform = Transform3D(-5.3300212e-08, 0, 1.0396885, 0.5188695, 0.8321677, 1.9338447e-08, -1.1034627, 0.3913013, -4.1126437e-08, 0.28253356, -0.1655096, 0.36301827)
+visible = false
 cast_shadow = 0
 mesh = SubResource("CapsuleMesh_44koe")
 
 [node name="MeshInstance3D9" type="MeshInstance3D" parent="." unique_id=1976382262]
 transform = Transform3D(-5.3300212e-08, 0, 1.0396885, 0.5188695, 0.8321677, 1.9338447e-08, -1.1034627, 0.3913013, -4.1126437e-08, 0.7608185, 0.08478938, 0.36039495)
+visible = false
 cast_shadow = 0
 mesh = SubResource("CapsuleMesh_44koe")
 
 [node name="MeshInstance3D10" type="MeshInstance3D" parent="." unique_id=254762945]
 transform = Transform3D(-5.3300212e-08, 0, 1.0396885, 0.5188695, 0.8321677, 1.9338447e-08, -1.1034627, 0.3913013, -4.1126437e-08, 0.28253356, 0.11807321, 0.36301827)
+visible = false
 cast_shadow = 0
 mesh = SubResource("CapsuleMesh_44koe")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=658161339]
+texture = ExtResource("2_dv8em")
+hframes = 2

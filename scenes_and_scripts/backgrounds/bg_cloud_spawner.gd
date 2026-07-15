@@ -18,12 +18,28 @@ extends Node3D
 @export var scale_near: float = 1.3
 ## cloud scale at depth_far; larger than scale_near so distant clouds stay readable
 @export var scale_far: float = 7.0
-## how far below the depth-derived scale the random multiplier can dip (0.25 = -25%)
-@export var scale_jitter_down: float = 0.25
-## how far above the depth-derived scale the random multiplier can reach (0.6 = +60%)
-@export var scale_jitter_up: float = 0.6
+## how far below the depth-derived scale the random multiplier can dip (0.45 = -45%)
+@export var scale_jitter_down: float = 0.45
+## how far above the depth-derived scale the random multiplier can reach (1.2 = +120%)
+@export var scale_jitter_up: float = 1.2
 ## random X-pitch in degrees applied per cloud for silhouette variety
 @export var pitch_jitter_deg: float = 30.0
+## random Z-roll in degrees applied per cloud, both directions
+@export var roll_jitter_deg: float = 8.0
+## chance a cloud's sprite spawns mirrored horizontally
+@export var flip_chance: float = 0.5
+## extra horizontal stretch per cloud (0.2 = width varies ±20% on top of scale)
+@export var width_stretch_jitter: float = 0.2
+## chance a spawned cloud is a jitter cloud that flipbooks its two sheet frames
+@export var jitter_cloud_chance: float = 0.1
+## seconds between frame swaps on a jitter cloud
+@export var jitter_frame_seconds: float = 0.3
+## shared soft-edge material applied to each cloud sprite
+@export var sprite_material: Material = preload("res://scenes_and_scripts/backgrounds/BG Objects/mat_cloud_sprite.tres")
+## sprite tint at depth_near (light Apollo purple register)
+@export var color_near: Color = Color("#df84a5")
+## sprite tint at depth_far (dark Apollo purple register)
+@export var color_far: Color = Color("#402751")
 ## bottom of the vertical placement band, as a fraction of the view half-height at spawn depth
 @export var band_bottom: float = -0.4
 ## top of the vertical placement band, as a fraction of the view half-height at spawn depth
@@ -40,6 +56,9 @@ class DriftingCloud:
 	var speed: float
 	var exit_x: float
 	var depth_band: int
+	var sprite: Sprite3D
+	var jitters: bool
+	var frame_timer: float
 
 var _clouds: Array[DriftingCloud] = []
 var _camera_base: Transform3D
@@ -62,6 +81,11 @@ func _process(delta: float) -> void:
 	var finished: Array[DriftingCloud] = []
 	for cloud: DriftingCloud in _clouds:
 		cloud.node.position.x += cloud.speed * delta
+		if cloud.jitters:
+			cloud.frame_timer += delta
+			if cloud.frame_timer >= jitter_frame_seconds:
+				cloud.frame_timer -= jitter_frame_seconds
+				cloud.sprite.frame = 1 - cloud.sprite.frame
 		if cloud.node.position.x > cloud.exit_x:
 			finished.append(cloud)
 	for cloud: DriftingCloud in finished:
@@ -75,8 +99,9 @@ func _spawn_cloud(spread_across_view: bool, depth_band: int) -> void:
 	var depth_t: float = (depth_band + randf()) / _target_count
 	var depth: float = lerpf(depth_near, depth_far, depth_t)
 	var cloud_scale: float = lerpf(scale_near, scale_far, depth_t) * randf_range(1.0 - scale_jitter_down, 1.0 + scale_jitter_up)
+	var width_stretch: float = randf_range(1.0 - width_stretch_jitter, 1.0 + width_stretch_jitter)
 	var view_half_width: float = depth * _tan_half_fov * _aspect
-	var margin: float = edge_margin + cloud_half_width * cloud_scale
+	var margin: float = edge_margin + cloud_half_width * cloud_scale * maxf(width_stretch, 1.0)
 	var enter_x: float = _camera_base.origin.x - view_half_width - margin
 	var exit_x: float = _camera_base.origin.x + view_half_width + margin
 	var band_offset: float = randf_range(band_bottom, band_top) * depth * _tan_half_fov
@@ -91,7 +116,15 @@ func _spawn_cloud(spread_across_view: bool, depth_band: int) -> void:
 	cloud.exit_x = exit_x
 	cloud.depth_band = depth_band
 	cloud.node.position = spawn_pos
-	cloud.node.scale = Vector3.ONE * cloud_scale
+	cloud.node.scale = Vector3(cloud_scale * width_stretch, cloud_scale, cloud_scale)
 	cloud.node.rotation_degrees.x = randf_range(0.0, pitch_jitter_deg)
+	cloud.node.rotation_degrees.z = randf_range(-roll_jitter_deg, roll_jitter_deg)
+	var sprite: Sprite3D = node.get_node_or_null(^"Sprite3D") as Sprite3D
+	if sprite != null:
+		sprite.flip_h = randf() < flip_chance
+		sprite.material_override = sprite_material
+		sprite.modulate = color_near.lerp(color_far, depth_t)
+	cloud.sprite = sprite
+	cloud.jitters = sprite != null and randf() < jitter_cloud_chance
 	add_child(cloud.node)
 	_clouds.append(cloud)

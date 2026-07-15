@@ -31,7 +31,7 @@ glow_hdr_threshold = 0.5
 glow_hdr_scale = 0.36
 fog_enabled = true
 fog_light_color = Color(0.10253123, 0.09251962, 0.10349815, 1)
-fog_density = 0.045
+fog_density = 0.018
 fog_sky_affect = 0.0
 
 [sub_resource type="Curve" id="Curve_kat55"]
@@ -95,31 +95,31 @@ environment = SubResource("Environment_l8dg0")
 transform = Transform3D(1, 0, 0, 0, 0.9063078, -0.42261827, 0, 0.42261827, 0.9063078, 0, 30.428514, -65.25416)
 
 [node name="Light" parent="Lights" unique_id=1201690930 instance=ExtResource("2_ss3jj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -70, 35, 0)
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -70, 35, 0)
 
 [node name="Light2" parent="Lights" unique_id=193610191 instance=ExtResource("2_ss3jj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 30, 8)
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 60, 30, 8)
 
 [node name="Light3" parent="Lights" unique_id=1107630929 instance=ExtResource("2_ss3jj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -80, -35, 21)
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -80, -35, 21)
 
 [node name="Light4" parent="Lights" unique_id=208961803 instance=ExtResource("2_ss3jj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55, -40, 17)
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 55, -40, 17)
 
 [node name="Light5" parent="Lights" unique_id=2068392670 instance=ExtResource("2_ss3jj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 45, 26)
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 45, 26)
 
 [node name="Light6" parent="Lights" unique_id=270533980 instance=ExtResource("2_ss3jj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, -30, 3)
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -25, -30, 3)
 
 [node name="Light7" parent="Lights" unique_id=870270772 instance=ExtResource("2_ss3jj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -95, 5, 30)
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -95, 5, 30)
 
 [node name="Light8" parent="Lights" unique_id=1658634953 instance=ExtResource("2_ss3jj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 100, -10, 40)
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 100, -10, 40)
 
 [node name="Light9" parent="Lights" unique_id=1973024119 instance=ExtResource("2_ss3jj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 35)
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 10, 0, 35)
 
 [node name="World" type="Node3D" parent="." unique_id=1786207227]
 transform = Transform3D(1, 0, 0, 0, 0.9063078, -0.42261827, 0, 0.42261827, 0.9063078, 0, 0, 0)
@@ -172,9 +172,9 @@ script = ExtResource("4_cldsp")
 cloud_scene = ExtResource("3_ryyjo")
 min_clouds = 5
 max_clouds = 8
-depth_near = 4.0
-depth_far = 72.0
+depth_near = 2.0
+depth_far = 40.0
 speed_near = 0.35
 speed_far = 0.1
-scale_near = 2.0
-scale_far = 15.0
+scale_near = 1.5
+scale_far = 20.0
