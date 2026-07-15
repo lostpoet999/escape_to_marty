@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://dhjwmgoechoov" path="res://scenes_and_scripts/actors/enemies/specific_enemies/money_thief_spider/money_thief_spider.gd" id="1_spdr0"]
 [ext_resource type="Script" uid="uid://bbq2uibufrs08" path="res://scenes_and_scripts/actors/enemies/enemy_actions/enemy_action_base.gd" id="2_abase"]
 [ext_resource type="Script" uid="uid://cokw6vjrb4e8c" path="res://scenes_and_scripts/actors/enemies/enemy_actions/wall_crawl.gd" id="3_crawl"]
-[ext_resource type="Texture2D" uid="uid://sdfbl6kimb0q" path="res://scenes_and_scripts/actors/enemies/specific_enemies/money_thief_spider/placeholder_box.png" id="4_tex0"]
+[ext_resource type="Texture2D" uid="uid://sdfbl6kimb0q" path="res://scenes_and_scripts/actors/enemies/specific_enemies/money_thief_spider/spider_1.png" id="4_tex0"]
 [ext_resource type="Shader" uid="uid://gnsjmtflfbxt" path="res://scenes_and_scripts/actors/enemies/specific_enemies/no_see_me_demon/flash.gdshader" id="6_8m3e2"]
 [ext_resource type="PackedScene" uid="uid://spiderfxg001" path="res://scenes_and_scripts/actors/enemies/specific_enemies/money_thief_spider/spider_destroy_fx.tscn" id="6_dfx"]
 

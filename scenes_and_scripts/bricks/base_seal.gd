@@ -109,17 +109,17 @@ func pick_random_stage() -> void:
 func setup_visuals()->void:
 	match current_stage:
 		GameManager.PhaseType.DENIAL:
-			gemstone_facets.modulate = Color(0.58, 0.37, 0.81)
+			gemstone_facets.modulate = Color("7a367b")
 		GameManager.PhaseType.ANGER:
-			gemstone_facets.modulate = Color.RED
+			gemstone_facets.modulate = Color("a53030")
 		GameManager.PhaseType.BARGAINING:
-			gemstone_facets.modulate = Color.DARK_KHAKI
+			gemstone_facets.modulate = Color("de9e41")
 		GameManager.PhaseType.DEPRESSION:
-			gemstone_facets.modulate = Color.DARK_GRAY
+			gemstone_facets.modulate = Color("577277")
 		GameManager.PhaseType.ACCEPTANCE:
-			gemstone_facets.modulate = Color.LIME_GREEN
+			gemstone_facets.modulate = Color("75a743")
 		GameManager.PhaseType.HEALTH:
-			gemstone_facets.modulate = Color.BLUE
+			gemstone_facets.modulate = Color("4f8fba")
 			
 func _ready() -> void:	
 	if initialize_brick_on_leveldata: #default is populate stages based on level stats		
