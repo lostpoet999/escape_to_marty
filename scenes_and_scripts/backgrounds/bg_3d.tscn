@@ -5,12 +5,6 @@
 [ext_resource type="PackedScene" uid="uid://dvh8mcakq6yax" path="res://scenes_and_scripts/backgrounds/BG Objects/bg_cloud.tscn" id="3_ryyjo"]
 [ext_resource type="Script" uid="uid://djyqs3netpwfe" path="res://scenes_and_scripts/backgrounds/bg_cloud_spawner.gd" id="4_cldsp"]
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_nei6l"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_kat55"]
-noise = SubResource("FastNoiseLite_nei6l")
-seamless = true
-
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ss3jj"]
 sky_top_color = Color(0.19095299, 0.1519762, 0.30743927, 1)
 sky_horizon_color = Color(0.1911475, 0.27601853, 0.38250917, 1)
@@ -55,11 +49,8 @@ curve_y = SubResource("Curve_kat55")
 curve_z = SubResource("Curve_ss3jj")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_l8dg0"]
-lifetime_randomness = 0.0
-emission_shape_scale = Vector3(1, 1, 1)
 emission_shape = 3
 emission_box_extents = Vector3(40, 73, 30)
-direction = Vector3(1, 0, 0)
 spread = 0.0
 initial_velocity_min = 37.0
 initial_velocity_max = 37.0
@@ -71,9 +62,9 @@ scale_curve = SubResource("CurveXYZTexture_c062d")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kat55"]
 transparency = 1
 shading_mode = 0
+disable_fog = true
 albedo_color = Color(1, 1, 1, 0.06)
 disable_receive_shadows = true
-disable_fog = true
 use_fov_override = true
 fov_override = 120.0
 
