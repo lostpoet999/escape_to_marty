@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://cjcn0nk3vk8t5"]
+
+[ext_resource type="PackedScene" uid="uid://bea1h3570swpu" path="res://scenes_and_scripts/levels/room_base.tscn" id="1_ut01f"]
+[ext_resource type="PackedScene" uid="uid://cm1kspxv86400" path="res://scenes_and_scripts/bricks/open_seal.tscn" id="2_pxqpi"]
+
+[node name="combat_4_1" instance=ExtResource("1_ut01f")]
+
+[node name="CanvasModulate" type="CanvasModulate" parent="PlayArea"]
+color = Color(0.2, 0.2, 0.27, 1)
+
+[node name="OpenSeal" parent="No-Respawn/Bricks" instance=ExtResource("2_pxqpi")]
+position = Vector2(1056, 512)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+3: 3.0
+})
+
+[node name="OpenSeal2" parent="No-Respawn/Bricks" instance=ExtResource("2_pxqpi")]
+position = Vector2(1184, 512)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+3: 5.0
+})
+
+[node name="OpenSeal3" parent="No-Respawn/Bricks" instance=ExtResource("2_pxqpi")]
+position = Vector2(1312, 512)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+3: 3.0
+})
+
+[node name="OpenSeal4" parent="No-Respawn/Bricks" instance=ExtResource("2_pxqpi")]
+position = Vector2(1056, 640)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+3: 3.0
+})
+
+[node name="OpenSeal5" parent="No-Respawn/Bricks" instance=ExtResource("2_pxqpi")]
+position = Vector2(1184, 640)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+3: 5.0
+})
+
+[node name="OpenSeal6" parent="No-Respawn/Bricks" instance=ExtResource("2_pxqpi")]
+position = Vector2(1312, 640)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+3: 3.0
+})

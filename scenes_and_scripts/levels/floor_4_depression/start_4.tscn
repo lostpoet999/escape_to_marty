@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://f4start0001"]
+
+[ext_resource type="PackedScene" uid="uid://bea1h3570swpu" path="res://scenes_and_scripts/levels/room_base.tscn" id="1_rb4s"]
+[ext_resource type="FontFile" uid="uid://ce5jk1ok7f4r5" path="res://label_settings_and_fonts/fonts/PressStart2P-Regular.ttf" id="2_fnt4"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_f4st"]
+font = ExtResource("2_fnt4")
+
+[node name="start_4" instance=ExtResource("1_rb4s")]
+
+[node name="Label" type="Label" parent="PlayArea"]
+layout_mode = 0
+offset_left = 391.0
+offset_top = 288.0
+offset_right = 1223.0
+offset_bottom = 585.0
+text = "Floor 4 (placeholder start room)
+
+Head east. Short-click empty space in CLICK_MODE (TAB) to place a light near the gray seals."
+label_settings = SubResource("LabelSettings_f4st")
+autowrap_mode = 3

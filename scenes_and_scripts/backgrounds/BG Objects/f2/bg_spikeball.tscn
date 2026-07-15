@@ -1,14 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://bgspikef2a01"]
+[gd_scene format=3 uid="uid://bgspikef2a01"]
 
-[ext_resource type="Script" path="res://scenes_and_scripts/backgrounds/BG Objects/f2/bg_spikeball.gd" id="1_spike"]
-[ext_resource type="Texture2D" path="res://scenes_and_scripts/backgrounds/BG Objects/spikeball_test_64x64.png" id="2_spike"]
+[ext_resource type="Script" uid="uid://cn06kpxcc1ogc" path="res://scenes_and_scripts/backgrounds/BG Objects/f2/bg_spikeball.gd" id="1_spike"]
+[ext_resource type="Texture2D" uid="uid://030wkf7wo4ai" path="res://scenes_and_scripts/backgrounds/BG Objects/spikeball_test_64x64.png" id="2_spike"]
 [ext_resource type="Material" uid="uid://bgmatspkf2a1" path="res://scenes_and_scripts/backgrounds/BG Objects/f2/mat_prop_spikeball.tres" id="3_spike"]
 
-[node name="BgSpikeball" type="Node3D"]
+[node name="BgSpikeball" type="Node3D" unique_id=415291708]
 script = ExtResource("1_spike")
 
-[node name="Sprite3D" type="Sprite3D" parent="."]
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=140507776]
+material_override = ExtResource("3_spike")
+modulate = Color(0.64705884, 0.18823528, 0.18823528, 1)
+texture_filter = 0
 texture = ExtResource("2_spike")
 hframes = 2
-texture_filter = 0
-material_override = ExtResource("3_spike")
