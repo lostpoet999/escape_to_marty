@@ -16,7 +16,7 @@ func _ready() -> void:
 			sprite.texture = payload.drop_texture
 		sprite.modulate = payload.drop_modulate
 		if payload.is_rare:
-			SFX.play_sound("rare_drop")
+			SFX.play_sound("win_sting")
 	_fit_sprite()
 	var tween: Tween = create_tween()
 	tween.tween_property(self, "scale", Vector2(1.2, 1.2), 0.5)

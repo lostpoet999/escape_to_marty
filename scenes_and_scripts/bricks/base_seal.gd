@@ -109,13 +109,13 @@ func pick_random_stage() -> void:
 func setup_visuals()->void:
 	match current_stage:
 		GameManager.PhaseType.DENIAL:
-			gemstone_facets.modulate = Color("7a367b")
+			gemstone_facets.modulate = Color("a23e8c")
 		GameManager.PhaseType.ANGER:
 			gemstone_facets.modulate = Color("a53030")
 		GameManager.PhaseType.BARGAINING:
 			gemstone_facets.modulate = Color("de9e41")
 		GameManager.PhaseType.DEPRESSION:
-			gemstone_facets.modulate = Color("577277")
+			gemstone_facets.modulate = Color("394a50")
 		GameManager.PhaseType.ACCEPTANCE:
 			gemstone_facets.modulate = Color("75a743")
 		GameManager.PhaseType.HEALTH:
@@ -342,6 +342,7 @@ func resolve_bargain(bid: float) -> BargainOutcome:
 		if roll < bargain_windfall_chance:
 			_settle_deal(0)
 			Signalbus.screen_flash.emit(Color.GOLD)
+			SFX.play_sound("win_sting")
 			PlayerData.grant_gold_over_time(roundi(price * bargain_windfall_refund), bargain_windfall_payout_time)
 			return BargainOutcome.DEAL
 		if roll < bargain_windfall_chance + bargain_free_chance:

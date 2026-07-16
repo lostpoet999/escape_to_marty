@@ -18,9 +18,10 @@ var is_tweening_to_david: bool = false
 var dying: bool = false
 
 func _ready() -> void:
-	_setup_offscreen_cleanup()	
+	_setup_offscreen_cleanup()
 	falling = false
 	scale = Vector2.ONE * start_scale
+	SFX.play_sound("rage_spawn")
 	_setup_death_wall_detector()
 	var tween: Tween = create_tween()
 	tween.tween_property(self, "scale", Vector2.ONE, grow_time)
