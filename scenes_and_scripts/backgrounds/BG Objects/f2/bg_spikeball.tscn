@@ -9,7 +9,7 @@ script = ExtResource("1_spike")
 
 [node name="Sprite3D" type="Sprite3D" parent="." unique_id=140507776]
 material_override = ExtResource("3_spike")
-modulate = Color(0.64705884, 0.18823528, 0.18823528, 1)
+modulate = Color(0.64685506, 0.1897483, 0.1897483, 0.61)
 texture_filter = 0
 texture = ExtResource("2_spike")
 hframes = 2

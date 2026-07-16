@@ -1,28 +1,28 @@
 [gd_scene format=3 uid="uid://dx6kegx4fg7yy"]
 
 [ext_resource type="Script" uid="uid://rageking01gd" path="res://scenes_and_scripts/levels/floor_2_the_arena/rage_blob_king.gd" id="1_king"]
-[ext_resource type="Texture2D" uid="uid://dnrtc21p2irlg" path="res://scenes_and_scripts/actors/enemies/specific_enemies/rage_blob/rage_blob.png" id="2_w6lb0"]
 [ext_resource type="Material" uid="uid://b6u55aep337u5" path="res://scenes_and_scripts/actors/enemies/specific_enemies/no_see_me_demon/whiteout_shader.tres" id="3_flash"]
 [ext_resource type="PackedScene" uid="uid://rageblobfx01" path="res://scenes_and_scripts/actors/enemies/specific_enemies/rage_blob/rage_blob_destroy_fx.tscn" id="4_dfx"]
+[ext_resource type="Texture2D" uid="uid://ceqxjbc5rpo2y" path="res://scenes_and_scripts/actors/enemies/specific_enemies/rage_blob/rage_blob_BOSS_92x92.png" id="5_aqyyj"]
 [ext_resource type="PackedScene" uid="uid://rageshot01ts" path="res://scenes_and_scripts/levels/floor_2_the_arena/rage_shot.tscn" id="5_shot"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_king"]
-size = Vector2(48, 44)
+size = Vector2(76.8, 70.4)
 
 [node name="RageKing" type="CharacterBody2D" unique_id=1856740976 groups=["bounce_enemy"]]
 script = ExtResource("1_king")
 max_health = 90.0
+full_scale = 5.0
 volley_interval = 0.25
 shot_scene = ExtResource("5_shot")
 destroy_fx = ExtResource("4_dfx")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1389364872]
 material = ExtResource("3_flash")
-texture = ExtResource("2_w6lb0")
-hframes = 3
+texture = ExtResource("5_aqyyj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1489539475]
 shape = SubResource("RectangleShape2D_king")
 
 [node name="Mouth" type="Marker2D" parent="." unique_id=1489539478]
-position = Vector2(0, 14)
+position = Vector2(0, 22.4)

@@ -240,6 +240,8 @@ func resolve_frame_start_overlaps() -> void:
 		if pen_x <= 0.0 or pen_y <= 0.0:
 			continue
 		cancel_tween_to_nearest_brick()
+		if collider.is_in_group("bounce_enemy"):
+			apply_collider_effects(collider)
 		var dir_x: float = 1.0 if diff.x == 0.0 else signf(diff.x)
 		var dir_y: float = 1.0 if diff.y == 0.0 else signf(diff.y)
 		if pen_x < pen_y:
