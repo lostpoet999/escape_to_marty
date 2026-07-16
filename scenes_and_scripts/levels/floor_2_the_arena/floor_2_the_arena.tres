@@ -258,7 +258,6 @@ show_mini_map = true
 seal_break_enemies = Array[ExtResource("3_1wfy1")]([SubResource("Resource_1r2xy"), SubResource("Resource_a1chj")])
 wall_texture = ExtResource("21_a1chj")
 wall_modulate = Color(0.45882353, 0.14117648, 0.21960784, 1)
-wall_texture_filter = 1
 misty_background_enabled = false
 bg_fog_color = Color(0.25490195, 0.11372549, 0.19215687, 1)
 bg_sky_top_color = Color(0.45882353, 0.14117648, 0.21960784, 1)

@@ -111,9 +111,14 @@ signal score_updated
 signal player_health_updated
 
 ## Emits: scenes_and_scripts/singletons/player_data.gd -> accept_damage()
-## Connects: scenes_and_scripts/singletons/game_manager.gd -> _load_level_on_player_death
+## Connects: scenes_and_scripts/actors/player/paddle.gd -> _run_death_sequence
 @warning_ignore("unused_signal")
 signal player_died
+
+## Emits: scenes_and_scripts/actors/player/paddle.gd -> _run_death_sequence() (after the death cinematic)
+## Connects: scenes_and_scripts/singletons/game_manager.gd -> _load_level_on_player_death
+@warning_ignore("unused_signal")
+signal death_sequence_finished
 
 ## Emits: scenes_and_scripts/bricks/base_seal.gd -> _resolve_undercut() (GOLD on deal)
 ## Connects: scenes_and_scripts/levels/room_base.gd -> flash_play_area

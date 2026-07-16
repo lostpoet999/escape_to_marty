@@ -210,7 +210,7 @@ func start_floor(reset_player_data: bool = true) -> void:
 	
 
 func _ready() -> void:
-	Signalbus.player_died.connect(_load_level_on_player_death)
+	Signalbus.death_sequence_finished.connect(_load_level_on_player_death)
 	Signalbus.level_cleared.connect(set_state_to_cleared)
 	Signalbus.floor_cleared.connect(floor_cleared)
 	DP.track("Game State", DP, "old_state", GameState)

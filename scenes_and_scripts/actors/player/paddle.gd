@@ -1,6 +1,10 @@
 class_name Paddle
 extends CharacterBody2D
 
+const HEART_DESTROY_FX: PackedScene = preload("res://scenes_and_scripts/actors/player/heart_destroy_fx.tscn")
+const DEATH_SEAL_TEXTURE: Texture2D = preload("res://scenes_and_scripts/bricks/brick-gemstone-facets.png")
+const DEATH_SEAL_COLOR: Color = Color("a23e8c")
+
 const SHIELD_COLOR: Color = Color(0.5, 0.8, 1.0)
 const SHIELD_COLOR_BRIGHT: Color = Color(0.8, 0.95, 1.0)
 const SHIELD_PULSE_TIME: float = 0.45
@@ -20,7 +24,23 @@ const DIP_RETURN_TIME: float = 0.12
 ## How quickly the lean eases toward its target; higher = snappier.
 @export var lean_responsiveness: float = 10.0
 
+@export_category("Death Sequence")
+## Seconds the killing hit's feedback (red flash, damage number, screen shake) settles before the death sequence starts.
+@export var death_damage_settle: float = 0.6
+## Seconds of the bad_sting spent shaking David and shrinking him to a point; the catch-seal pops when this ends (sting is ~2.0s total).
+@export var death_shrink_time: float = 1.55
+## Peak pixels of David's death-shake jitter; ramps up as he shrinks.
+@export var death_shake_amount: float = 7.0
+## Seconds the catch-seal lingers after its pop before the run ends.
+@export var death_seal_hold: float = 0.8
+## Camera zoom multiplier during the death cinematic (1.0 = no zoom; Camera2D zoom >1 magnifies, framing David like he's speaking). The push toward David is clamped so the view never shows outside the world, exactly like the DialogDirector focus zoom.
+@export var death_zoom: float = 1.6
+## Seconds to ease the death zoom-in; runs during the settle beat so David is framed before his heart pops.
+@export var death_zoom_time: float = 0.55
+
 var is_shielded: bool = false
+var _death_running: bool = false
+var _ghost_base_pos: Vector2 = Vector2.ZERO
 var shield_pulse_tween: Tween
 var _dip_tween: Tween
 var _sprite_base_y: float
@@ -90,6 +110,7 @@ func connect_signals()->void:
 	Signalbus.game_state_special_room.connect(_on_game_state_click_mode)	
 	Signalbus.inventory_changed.connect(set_paddle_length_from_items)
 	
+	Signalbus.player_died.connect(_run_death_sequence)
 	Signalbus.blocker_added.connect(add_blocker_enemy)
 	Signalbus.blocker_removed.connect(remove_blocker_enemy)
 	Signalbus.blocker_moved.connect(_calculate_blockers_bounds)
@@ -263,6 +284,72 @@ func _resting_david_color() -> Color:
 
 func david_global_position() -> Vector2:
 	return david.global_position
+
+func _run_death_sequence() -> void:
+	if _death_running:
+		return
+	_death_running = true
+	paddle_frozen = true
+	Engine.time_scale = 1.0 * SettingsManager.game_speed
+	_zoom_camera_on_david()
+	var ball: Node = get_tree().get_first_node_in_group("ball")
+	if ball != null:
+		ball.call("remove_ball")
+	await get_tree().create_timer(death_damage_settle).timeout
+	stop_shield_pulse()
+	david.modulate = Color.WHITE
+	ghost_david.visible = true
+	ghost_david.rotation = 0.0
+	set_paddle_hidden(true)
+	_ghost_base_pos = ghost_david.position
+	var catch_pos: Vector2 = ghost_david.global_position
+	_pop_heart()
+	SFX.play_sound("bad_sting")
+	var shake_tween: Tween = create_tween()
+	shake_tween.tween_method(_death_shake, 0.0, 1.0, death_shrink_time)
+	var shrink_tween: Tween = create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	shrink_tween.tween_property(ghost_david, "scale", Vector2(0.02, 0.02), death_shrink_time)
+	await shrink_tween.finished
+	ghost_david.visible = false
+	_pop_death_seal(catch_pos)
+	await get_tree().create_timer(death_seal_hold).timeout
+	Signalbus.death_sequence_finished.emit()
+
+func _zoom_camera_on_david() -> void:
+	var cam: Camera2D = get_viewport().get_camera_2d()
+	if cam == null:
+		return
+	var base_zoom: Vector2 = cam.zoom
+	var base_center: Vector2 = cam.get_screen_center_position()
+	var max_shift: Vector2 = cam.get_viewport_rect().size * 0.5 / base_zoom * (1.0 - 1.0 / death_zoom)
+	var focus: Vector2 = (ghost_david.get_node("GhostSprite") as Node2D).global_position
+	var shift: Vector2 = (focus - base_center).clamp(-max_shift, max_shift)
+	var cam_tween: Tween = cam.create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	cam_tween.parallel().tween_property(cam, "zoom", base_zoom * death_zoom, death_zoom_time)
+	cam_tween.parallel().tween_property(cam, "global_position", cam.global_position + shift, death_zoom_time)
+
+func _pop_heart() -> void:
+	var orb: Node2D = david.get_node("DavidHitTarget/LifeForceOrb")
+	var fx: Node2D = HEART_DESTROY_FX.instantiate()
+	fx.position = orb.global_position
+	get_tree().current_scene.add_child(fx)
+	orb.visible = false
+
+func _death_shake(ramp: float) -> void:
+	ghost_david.position = _ghost_base_pos + Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)) * death_shake_amount * ramp
+
+func _pop_death_seal(catch_pos: Vector2) -> void:
+	var seal: Sprite2D = Sprite2D.new()
+	seal.texture = DEATH_SEAL_TEXTURE
+	seal.modulate = DEATH_SEAL_COLOR
+	seal.scale = Vector2.ZERO
+	get_tree().current_scene.add_child(seal)
+	seal.global_position = catch_pos
+	var pop: Tween = seal.create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	pop.tween_property(seal, "scale", Vector2.ONE, 0.25)
+	pop.tween_method(func(decay: float) -> void:
+		seal.global_position = catch_pos + Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)) * 4.0 * decay,
+		1.0, 0.0, 0.2)
 
 func get_movement_direction() -> float:
 	return current_speed

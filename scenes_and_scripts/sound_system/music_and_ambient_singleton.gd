@@ -7,6 +7,10 @@ class AmbientPlayerData:
 
 @export var music_playlists: Array[MusicPlaylist] = []
 @export var ambient_sets: Array[AmbienceSet] = []
+## Volume_db the music fades to while the game-over screen is up; restored when play resumes or the main menu loads.
+@export var game_over_music_db: float = -18.0
+## Seconds to fade the music down on game over (and back up when leaving it).
+@export var game_over_duck_time: float = 0.5
 var music_system: Dictionary = {}
 var ambient_system: Dictionary = {}
 var active_ambient_players: Dictionary = {}
@@ -16,12 +20,43 @@ var current_playlist_name: String
 var current_track_index: int = -1
 var played_tracks_indices: Array = []
 var current_ambient_set: AmbienceSet = null
+var _duck_tween: Tween
+var _pre_game_over_db: float = 0.0
+var _music_ducked: bool = false
 
 func _ready() -> void:
 	for playlist: MusicPlaylist in music_playlists:
 		music_system[playlist.playlist_name] = playlist
 	for ambient_set: AmbienceSet in ambient_sets:
 		ambient_system[ambient_set.ambience_set_name] = ambient_set
+	Signalbus.game_state_game_over.connect(_duck_music_for_game_over)
+	Signalbus.game_state_main_menu.connect(_restore_music_after_game_over)
+	Signalbus.game_state_playing.connect(_restore_music_after_game_over)
+
+func _duck_music_for_game_over() -> void:
+	if _music_ducked:
+		return
+	_music_ducked = true
+	_pre_game_over_db = music_player.volume_db
+	_tween_music_db(game_over_music_db)
+
+func _restore_music_after_game_over() -> void:
+	if not _music_ducked:
+		return
+	_music_ducked = false
+	_tween_music_db(_pre_game_over_db)
+
+func _tween_music_db(target_db: float) -> void:
+	if _duck_tween != null and _duck_tween.is_valid():
+		_duck_tween.kill()
+	_duck_tween = create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	_duck_tween.tween_property(music_player, "volume_db", target_db, game_over_duck_time)
+
+func _cancel_music_duck() -> void:
+	if _duck_tween != null and _duck_tween.is_valid():
+		_duck_tween.kill()
+	_duck_tween = null
+	_music_ducked = false
 
 func execute_playlist(playlist_name: String) -> void:
 	if not music_system.has(playlist_name):
@@ -44,7 +79,8 @@ func execute_playlist(playlist_name: String) -> void:
 			_play_random()
 
 func play_current_track() -> void:
-	var track: MusicSongEntry = currently_playing_playlist.tracks[current_track_index]	
+	_cancel_music_duck()
+	var track: MusicSongEntry = currently_playing_playlist.tracks[current_track_index]
 	music_player.stream = track.audio
 	music_player.volume_db = track.volume_db
 	music_player.bus = "Music"
@@ -98,6 +134,7 @@ func _on_track_finished() -> void:
 ## play one song on loop (floor music via FloorData.music, menu music); replaces any running playlist.
 ## null stream = silence whatever is playing
 func play_song(stream: AudioStream, volume_db: float = -5.0) -> void:
+	_cancel_music_duck()
 	if stream == null:
 		stop_playlist()
 		stop_song()

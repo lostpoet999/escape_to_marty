@@ -50,6 +50,7 @@ render_target_update_mode = 4
 [node name="HUDLayer" type="CanvasLayer" parent="." unique_id=494981744]
 
 [node name="UIArea" type="Control" parent="HUDLayer" unique_id=2088925402]
+z_index = -1000
 layout_mode = 3
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -57,18 +58,6 @@ offset_right = 280.0
 offset_bottom = 1080.0
 grow_vertical = 2
 scale = Vector2(0.9200008, 1)
-metadata/_edit_use_anchors_ = true
-
-[node name="ColorRect" type="ColorRect" parent="HUDLayer/UIArea" unique_id=1244292917]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = -0.35326055
-anchor_right = 0.8860245
-anchor_bottom = 0.5037037
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(1.0869579, 1)
-color = Color(0.0941176, 0.0392157, 0.0666667, 1)
 metadata/_edit_use_anchors_ = true
 
 [node name="Main_UI" parent="HUDLayer/UIArea" unique_id=563493114 instance=ExtResource("2_ujjt5")]
@@ -79,6 +68,15 @@ anchor_bottom = 0.0
 offset_bottom = 1077.0
 grow_vertical = 1
 metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1244292917]
+z_index = -1
+offset_left = -120.0
+offset_top = -60.0
+offset_right = 288.0
+offset_bottom = 1120.0
+mouse_filter = 2
+color = Color(0.0941176, 0.0392157, 0.0666667, 1)
 
 [node name="ClickModePrompt" type="CanvasLayer" parent="." unique_id=1590460842]
 script = ExtResource("15_ckmpt")
@@ -407,6 +405,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(1, 0, 0, 0)
+metadata/_edit_lock_ = true
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=627549441]
 position = Vector2(960, 540)
@@ -432,7 +431,7 @@ metadata/_edit_lock_ = true
 [node name="item_spawn_point" type="Marker2D" parent="." unique_id=51076593]
 position = Vector2(1058, 754)
 
-[node name="UI Popup Menus" type="Node" parent="." unique_id=927849858]
+[node name="UI Popup Menus" type="CanvasLayer" parent="." unique_id=927849858]
 
 [node name="EscapeMenu" parent="UI Popup Menus" unique_id=1133911884 instance=ExtResource("5_w74c6")]
 visible = false

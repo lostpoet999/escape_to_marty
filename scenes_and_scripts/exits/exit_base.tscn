@@ -13,7 +13,7 @@ offset_top = -32.0
 offset_right = 64.0
 offset_bottom = 32.0
 mouse_filter = 2
-color = Color(1, 0.38431373, 0.32156864, 0.5529412)
+color = Color(1, 0.38431373, 0.32156864, 1)
 
 [node name="ExitBarrier_open" type="ColorRect" parent="." unique_id=1579582079]
 visible = false
@@ -22,7 +22,7 @@ offset_top = -32.0
 offset_right = 64.0
 offset_bottom = 32.0
 mouse_filter = 2
-color = Color(0.101960786, 0.76862746, 0.32156864, 0.5529412)
+color = Color(0.101960786, 0.76862746, 0.32156864, 1)
 
 [node name="walls_no_door" type="Node2D" parent="." unique_id=1036666021]
 

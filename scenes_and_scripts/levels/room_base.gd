@@ -8,6 +8,13 @@ const BONUS_ITEM_PANEL: PackedScene = preload("res://scenes_and_scripts/ui_menus
 
 const PLAYER_HURT_TRAUMA: float = 0.8
 
+## The play area (every world-space child of this room) tints to this while the game-over screen is up; restored on exit. Menus and HUD sit on CanvasLayers, so they stay bright.
+@export var game_over_dim: Color = Color(0.35, 0.35, 0.4, 1.0)
+## Seconds to fade the play area to/from the game-over dim.
+@export var game_over_dim_time: float = 0.5
+var _dim_tween: Tween
+var _play_area_dimmed: bool = false
+
 var gold_cleared: bool = false
 var bricks_cleared: bool = false
 var level_clear_emitted: bool = false
@@ -60,6 +67,9 @@ func _ready() -> void:
 	Signalbus.wall_walker_removed.connect(_on_wall_walker_removed)
 	Signalbus.screen_flash.connect(flash_play_area)
 	Signalbus.player_damaged.connect(_on_player_damaged)
+	Signalbus.game_state_game_over.connect(_dim_play_area)
+	Signalbus.game_state_playing.connect(_restore_play_area)
+	Signalbus.game_state_main_menu.connect(_restore_play_area)
 	initiate_special_room()
 	if entry.content.room_type == RoomContent.ROOM_TYPES.combat:
 		DialogDirector.play(&"first_combat_room")
@@ -77,6 +87,24 @@ func flash_play_area(color: Color) -> void:
 	var tw: Tween = create_tween()
 	tw.tween_property(flash_overlay, "color:a", 0.45, 0.06)
 	tw.tween_property(flash_overlay, "color:a", 0.0, 0.35)
+
+func _dim_play_area() -> void:
+	if _play_area_dimmed:
+		return
+	_play_area_dimmed = true
+	_tween_room_modulate(game_over_dim)
+
+func _restore_play_area() -> void:
+	if not _play_area_dimmed:
+		return
+	_play_area_dimmed = false
+	_tween_room_modulate(Color.WHITE)
+
+func _tween_room_modulate(target: Color) -> void:
+	if _dim_tween != null and _dim_tween.is_valid():
+		_dim_tween.kill()
+	_dim_tween = create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	_dim_tween.tween_property(self, "modulate", target, game_over_dim_time)
 
 func _on_player_damaged(amount: int) -> void:
 	flash_play_area(Color.RED)

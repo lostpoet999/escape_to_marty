@@ -4,9 +4,14 @@ class_name BonusDrop extends Area2D
 @export var pull_speed: float = 320.0 ## Speed the drop curves toward a spider captor; it falls normally when uncaptured.
 @export var display_size: float = 32.0 ## On-screen size (longest side, px) every drop renders at, regardless of the source art's resolution.
 
+const COIN_MAX_FALL_PAUSE: float = 0.25
+const COIN_FALL_SPEED_VARIANCE_MIN: float = 0.85
+const COIN_FALL_SPEED_VARIANCE_MAX: float = 1.2
+
 var payload: BonusPayload
 var collected: bool = false
 var captor: Node2D
+var _fall_delay: float = 0.0
 
 @onready var sprite: Sprite2D = $Sprite2D
 
@@ -17,6 +22,9 @@ func _ready() -> void:
 		sprite.modulate = payload.drop_modulate
 		if payload.is_rare:
 			SFX.play_sound("win_sting")
+		if payload is CurrencyPayload:
+			fall_speed *= randf_range(COIN_FALL_SPEED_VARIANCE_MIN, COIN_FALL_SPEED_VARIANCE_MAX)
+			_fall_delay = randf_range(0.0, COIN_MAX_FALL_PAUSE)
 	_fit_sprite()
 	var tween: Tween = create_tween()
 	tween.tween_property(self, "scale", Vector2(1.2, 1.2), 0.5)
@@ -34,6 +42,9 @@ func _process(delta: float) -> void:
 	if captor != null and is_instance_valid(captor):
 		global_position = global_position.move_toward(captor.global_position, pull_speed * delta)
 	else:
+		if _fall_delay > 0.0:
+			_fall_delay -= delta
+			return
 		position.y += fall_speed * delta
 
 func _on_area_entered(area: Area2D) -> void:

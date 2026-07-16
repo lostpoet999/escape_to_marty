@@ -45,3 +45,4 @@ music_playlists = Array[ExtResource("2_2hmt8")]([SubResource("Resource_fmkea")])
 ambient_sets = Array[ExtResource("7_5toyy")]([SubResource("Resource_vuiio")])
 
 [node name="music_player" type="AudioStreamPlayer" parent="." unique_id=1593158861]
+process_mode = 3

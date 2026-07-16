@@ -5,6 +5,10 @@ const BONUS_DROP: PackedScene = preload("res://scenes_and_scripts/collectibles/b
 const BONUS_POOL: BonusDropPool = preload("res://scenes_and_scripts/collectibles/bonus_drops/bonus_drop_pool.tres")
 const DAMAGE_NUMBER: PackedScene = preload("uid://bedvoohhfbi03")
 
+const COIN_WINDFALL_CHANCE: float = 0.05
+const COIN_WINDFALL_COUNT: int = 3
+const COIN_WINDFALL_SCATTER: float = 14.0
+
 
 const PHASE_SCORES: Dictionary[GameManager.PhaseType, int] = {
 	GameManager.PhaseType.DENIAL: 100,
@@ -402,15 +406,25 @@ func pop_tween() -> void:
 #cleanup brick collision after tween finishes
 func _on_tween_finished(collider: Area2D) -> void:
 	if is_instance_valid(collider):
+		var parent: Node = collider.get_parent()
+		var spawn_position: Vector2 = collider.position
 		collider.queue_free()
-		var drop: Area2D = _make_drop()
-		collider.get_parent().add_child(drop)
-		drop.position = collider.position
-		Signalbus.gold_spawned.emit(1)
+		var payload: BonusPayload = BONUS_POOL.pick_weighted()
+		var count: int = 1
+		if payload is CurrencyPayload and randf() < COIN_WINDFALL_CHANCE:
+			count = COIN_WINDFALL_COUNT
+			SFX.play_sound("win_sting")
+		for i: int in count:
+			var drop: BonusDrop = _make_drop(payload)
+			parent.add_child(drop)
+			drop.position = spawn_position
+			if count > 1:
+				drop.position += Vector2(randf_range(-COIN_WINDFALL_SCATTER, COIN_WINDFALL_SCATTER), randf_range(-COIN_WINDFALL_SCATTER, COIN_WINDFALL_SCATTER))
+			Signalbus.gold_spawned.emit(1)
 		Signalbus.enemy_requested.emit(collider)
 		Signalbus.brick_destroyed.emit()
 
-func _make_drop() -> Area2D:
+func _make_drop(payload: BonusPayload) -> BonusDrop:
 	var bonus: BonusDrop = BONUS_DROP.instantiate()
-	bonus.payload = BONUS_POOL.pick_weighted()
+	bonus.payload = payload
 	return bonus

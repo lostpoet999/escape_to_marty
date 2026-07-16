@@ -3,6 +3,15 @@ class_name Ball extends Area2D
 
 const DEFAULT_BALL_DMG: int = 1
 
+const LIGHT_PULSE_BASE_FREQ: float = 3.0
+const LIGHT_PULSE_FREQ_PER_DMG: float = 0.7
+const LIGHT_PULSE_BASE_SIZE_AMP: float = 0.06
+const LIGHT_PULSE_SIZE_AMP_PER_DMG: float = 0.04
+const LIGHT_PULSE_MAX_SIZE_AMP: float = 0.6
+const LIGHT_PULSE_BASE_ENERGY: float = 1.0
+const LIGHT_PULSE_BASE_ENERGY_AMP: float = 0.15
+const LIGHT_PULSE_ENERGY_AMP_PER_DMG: float = 0.12
+
 @export var initial_speed: float = 500.0
 var current_speed: float = 500.0
 var max_speed: float = 1500.0
@@ -39,6 +48,7 @@ var old_y: float = 0.0
 
 var time : float = 0.0
 @onready var point_light_2d: PointLight2D = $PointLight2D
+@onready var _light_texture_radius: float = maxf(point_light_2d.texture.get_width() * 0.5, 1.0)
 
 @onready var paddle: Paddle = $"../Paddle"
 @onready var paddle_collision: CollisionShape2D = $"../Paddle/PaddleCollisionShape"
@@ -81,13 +91,22 @@ func _process(delta: float) -> void:
 	if not is_inside_tree():
 		return
 	time += delta
-	point_light_2d.energy = 1.0 + sin(time * 3.0) * 0.15
+	_update_ball_light()
 	flipped_x = false
 	flipped_y = false
 	if on_paddle:
 		position_ball_on_paddle()
 	else:
 		move_ball(delta)
+
+func _update_ball_light() -> void:
+	var dmg: float = maxf(ball_dmg, 1.0)
+	var base_scale: float = ball_half_height * sqrt(dmg) / _light_texture_radius
+	var throb: float = sin(time * (LIGHT_PULSE_BASE_FREQ + (dmg - 1.0) * LIGHT_PULSE_FREQ_PER_DMG))
+	var size_amp: float = minf(LIGHT_PULSE_BASE_SIZE_AMP + (dmg - 1.0) * LIGHT_PULSE_SIZE_AMP_PER_DMG, LIGHT_PULSE_MAX_SIZE_AMP)
+	var energy_amp: float = LIGHT_PULSE_BASE_ENERGY_AMP + (dmg - 1.0) * LIGHT_PULSE_ENERGY_AMP_PER_DMG
+	point_light_2d.texture_scale = maxf(base_scale * (1.0 + throb * size_amp), 0.01)
+	point_light_2d.energy = maxf(LIGHT_PULSE_BASE_ENERGY + throb * energy_amp, 0.0)
 
 func position_ball_on_paddle() -> void:
 	var offset: float = ball_half_height + get_paddle_half_height() + 1
@@ -410,4 +429,5 @@ func apply_damage_to(target: Node2D, amount: float, dmg_types: Array) -> void:
 			return
 		await tween_to_david(global_position)
 		PlayerData.accept_reflect_damage(amount)
-		position_ball_on_paddle()
+		if PlayerData.player_current_health > 0:
+			position_ball_on_paddle()
