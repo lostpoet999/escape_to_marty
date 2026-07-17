@@ -59,6 +59,15 @@ metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 [node name="SubViewportContainer" parent="." index="0" unique_id=1513724378]
 metadata/_edit_lock_ = true
 
+[node name="UIArea" parent="HUDLayer" parent_id_path=PackedInt32Array(494981744) index="0" unique_id=2088925402]
+scale = Vector2(0.9200008, 1)
+
+[node name="Main_UI" parent="HUDLayer/UIArea" index="0" unique_id=563493114]
+metadata/_edit_lock_ = true
+
+[node name="ColorRect" parent="." index="2" unique_id=1244292917]
+metadata/_edit_lock_ = true
+
 [node name="OpenSeal7" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="0" unique_id=1662763336 instance=ExtResource("2_4285g")]
 position = Vector2(960, 736)
 brick_health = 2

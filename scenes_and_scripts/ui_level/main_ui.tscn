@@ -10,7 +10,7 @@
 [sub_resource type="LabelSettings" id="LabelSettings_5qwjd"]
 font = ExtResource("2_8r8j7")
 font_size = 24
-font_color = Color(1, 1, 0.0784314, 1)
+font_color = Color(0.909804, 0.756863, 0.439216, 1)
 
 [node name="Main_UI" type="Control" unique_id=1289514780]
 layout_mode = 3

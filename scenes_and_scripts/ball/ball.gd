@@ -24,6 +24,10 @@ var flipped_y: bool = false
 
 @export var bounce_effect: BaseBounceEffect
 
+## Minimum angle in degrees between the ball's path and the horizontal after any bounce;
+## prevents near-flat trajectories that rattle along walls and stall the rally.
+@export var min_bounce_angle_deg: float = 15.0
+
 @export var powerup_array: Array[BallPassive]
 
 @export var ball_dmg_type: Array[GameManager.PhaseType]
@@ -223,6 +227,26 @@ func launch_ball() -> void:
 func update_velocity(velocity_ref: Vector2) -> void:
 	velocity = velocity_ref
 
+func enforce_min_bounce_angle() -> void:
+	var speed: float = velocity.length()
+	if speed == 0.0:
+		return
+	var min_vy: float = speed * sin(deg_to_rad(min_bounce_angle_deg))
+	if absf(velocity.y) >= min_vy:
+		return
+	var vy_sign: float = 1.0 if velocity.y == 0.0 else signf(velocity.y)
+	var vx_sign: float = 1.0 if velocity.x == 0.0 else signf(velocity.x)
+	var new_vy: float = min_vy * vy_sign
+	var new_vx: float = sqrt(maxf(speed * speed - new_vy * new_vy, 0.0)) * vx_sign
+	velocity = Vector2(new_vx, new_vy)
+
+func _bounce_axis_is_y(collider: Node2D) -> bool:
+	var half: Vector2 = get_collider_half_size(collider)
+	var diff: Vector2 = global_position - collider.global_position
+	var pen_x: float = half.x + ball_half_height - absf(diff.x)
+	var pen_y: float = half.y + ball_half_height - absf(diff.y)
+	return pen_y < pen_x
+
 func move_ball(delta: float) -> void:
 	if bounce_effect != null and not bounce_effect.pierce_brick:
 		resolve_frame_start_overlaps()
@@ -283,7 +307,11 @@ func move_ball_step(delta: float) -> void:
 				flipped_x = true
 		elif collider.is_in_group("bricks") or collider.is_in_group("walls") or collider.is_in_group("bounce_enemy"):
 			cancel_tween_to_nearest_brick()
-			if !flipped_x:
+			if _bounce_axis_is_y(collider):
+				if !flipped_y:
+					bounce_effect.handle_y_collision(self, collider)
+					flipped_y = true
+			elif !flipped_x:
 				bounce_effect.handle_x_collision(self, collider)
 				flipped_x = true
 
@@ -307,7 +335,11 @@ func move_ball_step(delta: float) -> void:
 				flipped_y = true
 		elif collider.is_in_group("bricks") or collider.is_in_group("walls") or collider.is_in_group("bounce_enemy"):
 			cancel_tween_to_nearest_brick()
-			if !flipped_y:
+			if not _bounce_axis_is_y(collider):
+				if !flipped_x:
+					bounce_effect.handle_x_collision(self, collider)
+					flipped_x = true
+			elif !flipped_y:
 				bounce_effect.handle_y_collision(self, collider)
 				flipped_y = true
 

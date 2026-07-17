@@ -132,7 +132,7 @@ size_flags_stretch_ratio = 2.0
 [node name="Yellow Title" type="Label" parent="VBoxContainer/TitleContainer" unique_id=640680555]
 layout_mode = 2
 size_flags_vertical = 8
-theme_override_colors/font_color = Color(1, 1, 0.0784314, 1)
+theme_override_colors/font_color = Color(0.909804, 0.756863, 0.439216, 1)
 theme_override_fonts/font = ExtResource("2_font")
 theme_override_font_sizes/font_size = 96
 text = "Escape to Marty"

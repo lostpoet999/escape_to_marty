@@ -12,6 +12,7 @@ func handle_paddle_collision(ball: Ball, paddle: Paddle) -> void:
 	new_vel = new_vel.normalized() * ball.current_speed
 	ball.current_speed = clampf(ball.current_speed * velocity_factor, 0.0, ball.max_speed)
 	ball.update_velocity(new_vel)
+	ball.enforce_min_bounce_angle()
 
 func handle_x_collision(ball: Ball, collider: Node2D) -> void:
 	if pierce_brick:
@@ -23,6 +24,7 @@ func handle_x_collision(ball: Ball, collider: Node2D) -> void:
 	ball.current_speed = clampf(ball.current_speed * velocity_factor, 0.0, ball.max_speed)
 	var leftover: float = maxf(absf(ball.move.x) - absf(ball.position.x - ball.old_x), 0.0)
 	ball.position.x += signf(ball.velocity.x) * leftover
+	ball.enforce_min_bounce_angle()
 
 func handle_y_collision(ball: Ball, collider: Node2D) -> void:
 	if pierce_brick:
@@ -34,3 +36,4 @@ func handle_y_collision(ball: Ball, collider: Node2D) -> void:
 	ball.current_speed = clampf(ball.current_speed * velocity_factor, 0.0, ball.max_speed)
 	var leftover: float = maxf(absf(ball.move.y) - absf(ball.position.y - ball.old_y), 0.0)
 	ball.position.y += signf(ball.velocity.y) * leftover
+	ball.enforce_min_bounce_angle()

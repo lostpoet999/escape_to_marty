@@ -5,6 +5,7 @@ class_name InventoryPanel extends MarginContainer
 const BADGE_FONT: FontFile = preload("uid://ce5jk1ok7f4r5") ## PressStart2P
 const BADGE_FONT_SIZE: int = 10
 const ICON_SIZE: int = 32 ## standard inventory icon dimension; buttons clamp to this so the badge anchors to the icon edge, not the button's padded edge
+const SLOT_SIZE: int = ICON_SIZE + 4 ## uniform button footprint: ICON_SIZE plus the rarity stylebox's 2px content margin per side; keeps mixed-size icon art rendering at exactly ICON_SIZE
 
 ## banked vouchers are PlayerData counters, not real inventory items — these display-only tickets render them
 ## as non-removable buttons slotted right after the base-ball anchor (index 1) so a held voucher is always visible.
@@ -52,17 +53,14 @@ func populate_trophies() -> void:
 	for child: Node in trophy_row.get_children():
 		child.queue_free()
 	for floor_index: int in range(1, MEMORY_TROPHY_SLOTS + 1):
-		var cell: CenterContainer = CenterContainer.new()
-		cell.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		cell.add_child(_make_trophy_slot(floor_index))
-		trophy_row.add_child(cell)
+		trophy_row.add_child(_make_trophy_slot(floor_index))
 
 func _make_trophy_slot(floor_index: int) -> Control:
 	var path: String = SaveProgression.memory_trophy_path(floor_index)
 	if path == "":
 		var number: Label = Label.new()
 		number.text = str(floor_index)
-		number.custom_minimum_size = Vector2(ICON_SIZE, ICON_SIZE)
+		number.custom_minimum_size = Vector2(SLOT_SIZE, SLOT_SIZE)
 		number.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		number.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		number.modulate = TROPHY_DIM
@@ -70,7 +68,8 @@ func _make_trophy_slot(floor_index: int) -> Control:
 	var item: BaseItem = load(path) as BaseItem
 	var button: Button = Button.new()
 	button.focus_mode = Control.FOCUS_NONE
-	button.custom_minimum_size = Vector2(ICON_SIZE, ICON_SIZE)
+	button.custom_minimum_size = Vector2(SLOT_SIZE, SLOT_SIZE)
+	button.expand_icon = true
 	button.icon = item.inventory_icon if item and item.inventory_icon else PlayerInventory.PLACEHOLDER_TEX
 	button.tooltip_text = item.powerup_name if item else ""
 	button.set_meta(&"click_pickable", true)
@@ -121,6 +120,8 @@ func populate_grid(grid: GridContainer, items: Array) -> void:
 func init_button_for(item: Variant) -> Button:
 	var icon: Texture2D = get_icon_for_item(item)
 	var button: Button = RarityTooltipButton.new()
+	button.custom_minimum_size = Vector2(SLOT_SIZE, SLOT_SIZE)
+	button.expand_icon = true
 	button.icon = icon
 	button.tooltip_text = get_tooltip_for_item(item)
 	button.set_meta(&"Item", item) ## store the variant

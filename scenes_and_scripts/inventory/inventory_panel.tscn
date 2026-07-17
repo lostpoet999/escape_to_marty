@@ -1,12 +1,12 @@
 [gd_scene format=3 uid="uid://do7j0ir4apgbd"]
 
 [ext_resource type="Script" uid="uid://u2qx74begf0" path="res://scenes_and_scripts/inventory/inventory_panel.gd" id="1_0u7gp"]
-[ext_resource type="LabelSettings" uid="uid://dx3lg2g7p81op" path="res://label_settings_and_fonts/yellow_48.tres" id="1_42un2"]
+[ext_resource type="LabelSettings" uid="uid://dggu2le3hh0p5" path="res://label_settings_and_fonts/yellow_40.tres" id="1_42un2"]
 
 [node name="InventoryPanel" type="MarginContainer" unique_id=1905574445]
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
+theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 20
 script = ExtResource("1_0u7gp")
 
@@ -15,7 +15,7 @@ layout_mode = 2
 
 [node name="Trophies_Lbl" type="Label" parent="HBoxContainer" unique_id=1010101010]
 layout_mode = 2
-text = "Memory Trophies: "
+text = "Memory Trophies:"
 label_settings = ExtResource("1_42un2")
 autowrap_mode = 2
 
@@ -30,7 +30,7 @@ theme_override_constants/separation = 8
 
 [node name="Core_Lbl" type="Label" parent="HBoxContainer" unique_id=880573060]
 layout_mode = 2
-text = "Core: "
+text = "Core:"
 label_settings = ExtResource("1_42un2")
 
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer" unique_id=1211225177]
@@ -46,7 +46,7 @@ columns = 4
 
 [node name="Inventory_lbl" type="Label" parent="HBoxContainer" unique_id=1826435928]
 layout_mode = 2
-text = "Inventory: "
+text = "Inventory:"
 label_settings = ExtResource("1_42un2")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer" unique_id=25135783]
@@ -58,7 +58,7 @@ horizontal_scroll_mode = 0
 
 [node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer/ScrollContainer" unique_id=1991737143]
 layout_mode = 2
-theme_override_constants/margin_left = 10
+theme_override_constants/margin_left = 6
 
 [node name="InventoryGrid" type="GridContainer" parent="HBoxContainer/ScrollContainer/MarginContainer2" unique_id=648838219]
 unique_name_in_owner = true

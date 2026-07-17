@@ -57,7 +57,6 @@ anchor_bottom = 1.0
 offset_right = 280.0
 offset_bottom = 1080.0
 grow_vertical = 2
-scale = Vector2(0.9200008, 1)
 metadata/_edit_use_anchors_ = true
 
 [node name="Main_UI" parent="HUDLayer/UIArea" unique_id=563493114 instance=ExtResource("2_ujjt5")]
