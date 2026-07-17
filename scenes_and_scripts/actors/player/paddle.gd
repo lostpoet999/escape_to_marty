@@ -33,6 +33,8 @@ const DIP_RETURN_TIME: float = 0.12
 @export var death_shake_amount: float = 7.0
 ## Seconds the catch-seal lingers after its pop before the run ends.
 @export var death_seal_hold: float = 0.8
+## Seconds the death seal takes to shrink away after the hold, right before the game-over menu shows.
+@export var death_seal_exit_time: float = 0.35
 ## Camera zoom multiplier during the death cinematic (1.0 = no zoom; Camera2D zoom >1 magnifies, framing David like he's speaking). The push toward David is clamped so the view never shows outside the world, exactly like the DialogDirector focus zoom.
 @export var death_zoom: float = 1.6
 ## Seconds to ease the death zoom-in; runs during the settle beat so David is framed before his heart pops.
@@ -311,8 +313,12 @@ func _run_death_sequence() -> void:
 	shrink_tween.tween_property(ghost_david, "scale", Vector2(0.02, 0.02), death_shrink_time)
 	await shrink_tween.finished
 	ghost_david.visible = false
-	_pop_death_seal(catch_pos)
+	var seal: Sprite2D = _pop_death_seal(catch_pos)
 	await get_tree().create_timer(death_seal_hold).timeout
+	var exit_tween: Tween = seal.create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN)
+	exit_tween.tween_property(seal, "scale", Vector2.ZERO, death_seal_exit_time)
+	await exit_tween.finished
+	seal.queue_free()
 	Signalbus.death_sequence_finished.emit()
 
 func _zoom_camera_on_david() -> void:
@@ -338,7 +344,7 @@ func _pop_heart() -> void:
 func _death_shake(ramp: float) -> void:
 	ghost_david.position = _ghost_base_pos + Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)) * death_shake_amount * ramp
 
-func _pop_death_seal(catch_pos: Vector2) -> void:
+func _pop_death_seal(catch_pos: Vector2) -> Sprite2D:
 	var seal: Sprite2D = Sprite2D.new()
 	seal.texture = DEATH_SEAL_TEXTURE
 	seal.modulate = DEATH_SEAL_COLOR
@@ -350,6 +356,7 @@ func _pop_death_seal(catch_pos: Vector2) -> void:
 	pop.tween_method(func(decay: float) -> void:
 		seal.global_position = catch_pos + Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)) * 4.0 * decay,
 		1.0, 0.0, 0.2)
+	return seal
 
 func get_movement_direction() -> float:
 	return current_speed

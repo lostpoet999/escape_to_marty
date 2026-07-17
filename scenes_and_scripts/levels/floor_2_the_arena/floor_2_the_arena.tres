@@ -62,7 +62,6 @@ script = ExtResource("1_4xv7i")
 room_coords = Vector2i(1, 2)
 content = SubResource("Resource_8y8xd")
 north_exit = true
-south_exit = true
 metadata/_custom_type_script = "uid://pnkwdspwmpwe"
 
 [sub_resource type="Resource" id="Resource_hg74c"]
@@ -74,7 +73,6 @@ room_type = 1
 script = ExtResource("1_4xv7i")
 room_coords = Vector2i(1, 3)
 content = SubResource("Resource_hg74c")
-north_exit = true
 south_exit = true
 east_exit = true
 metadata/_custom_type_script = "uid://pnkwdspwmpwe"

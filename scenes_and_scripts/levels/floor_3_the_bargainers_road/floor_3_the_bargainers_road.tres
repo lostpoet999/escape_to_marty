@@ -161,11 +161,6 @@ room_scene = ExtResource("11_dq6e1")
 room_type = 1
 metadata/_custom_type_script = "uid://roomcontent0"
 
-[sub_resource type="Resource" id="Resource_esy1d"]
-script = ExtResource("20_rc")
-room_scene = ExtResource("10_b4w9m")
-room_type = 1
-
 [sub_resource type="Resource" id="Resource_cpytq"]
 script = ExtResource("20_rc")
 room_scene = ExtResource("16_boss2")
@@ -245,7 +240,7 @@ seal_health_phase = SubResource("Resource_1wfy1")
 max_respawn = 3
 floor_name_id = "The Bargainer's Road"
 room_entries = Array[ExtResource("1_4xv7i")]([SubResource("Resource_3ap26"), SubResource("Resource_6uq4x"), SubResource("Resource_f0fcd"), SubResource("Resource_pj55k"), SubResource("Resource_stmn7"), SubResource("Resource_0470x"), SubResource("Resource_gdn6j"), SubResource("Resource_4snqw"), SubResource("Resource_eq3fe"), SubResource("Resource_ed0t6"), SubResource("Resource_uda4i"), SubResource("Resource_n42h2")])
-room_pool = Array[ExtResource("20_rc")]([SubResource("Resource_uo428"), SubResource("Resource_sp8dx"), SubResource("Resource_15g78"), SubResource("Resource_esy1d"), SubResource("Resource_cpytq"), SubResource("Resource_1nj78")])
+room_pool = Array[ExtResource("20_rc")]([SubResource("Resource_uo428"), SubResource("Resource_sp8dx"), SubResource("Resource_15g78"), SubResource("Resource_cpytq"), SubResource("Resource_1nj78")])
 show_mini_map = true
 seal_break_enemies = Array[ExtResource("3_1wfy1")]([SubResource("Resource_1r2xy"), SubResource("Resource_a1chj")])
 wall_texture = ExtResource("20_wwqpq")
