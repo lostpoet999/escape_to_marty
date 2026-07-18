@@ -195,7 +195,6 @@ func restart_level() -> void:
 
 func start_floor(reset_player_data: bool = true) -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	print("current floor: ", current_floor, " of ", FLOOR_REGISTRY.floors.size())
 	var fd_variant: Variant = FLOOR_REGISTRY.floors[current_floor - 1]
 	floor_data = fd_variant
 	get_floor_data()

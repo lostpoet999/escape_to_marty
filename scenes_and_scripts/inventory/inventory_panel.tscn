@@ -4,7 +4,7 @@
 [ext_resource type="LabelSettings" uid="uid://dggu2le3hh0p5" path="res://label_settings_and_fonts/yellow_40.tres" id="1_42un2"]
 
 [node name="InventoryPanel" type="MarginContainer" unique_id=1905574445]
-theme_override_constants/margin_left = 20
+theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 20
@@ -15,7 +15,7 @@ layout_mode = 2
 
 [node name="Trophies_Lbl" type="Label" parent="HBoxContainer" unique_id=1010101010]
 layout_mode = 2
-text = "Memory Trophies:"
+text = "Trophies:"
 label_settings = ExtResource("1_42un2")
 autowrap_mode = 2
 
@@ -23,10 +23,13 @@ autowrap_mode = 2
 layout_mode = 2
 theme_override_constants/margin_left = 10
 
-[node name="TrophyRow" type="HBoxContainer" parent="HBoxContainer/TrophyMargin" unique_id=3030303030]
+[node name="TrophyRow" type="HBoxContainer" parent="HBoxContainer/TrophyMargin" unique_id=-1264664266]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 8
+
+[node name="spacer" type="Label" parent="HBoxContainer" unique_id=1030303030]
+layout_mode = 2
 
 [node name="Core_Lbl" type="Label" parent="HBoxContainer" unique_id=880573060]
 layout_mode = 2
@@ -43,6 +46,9 @@ layout_mode = 2
 theme_override_constants/h_separation = 15
 theme_override_constants/v_separation = 10
 columns = 4
+
+[node name="spacer2" type="Label" parent="HBoxContainer" unique_id=1040404040]
+layout_mode = 2
 
 [node name="Inventory_lbl" type="Label" parent="HBoxContainer" unique_id=1826435928]
 layout_mode = 2

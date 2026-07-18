@@ -209,7 +209,6 @@ func get_paddle_half_height() -> float:
 
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("left_mouse") and on_paddle and GameManager.current_state == GameManager.GameState.BALL_ON_PADDLE:
-		print("mouse pressed")
 		launch_ball()
 	if Input.is_action_just_pressed("ball_activate_powerup"):
 		if has_homing_powerup and not on_paddle and GameManager.current_state == GameManager.GameState.PLAYING:

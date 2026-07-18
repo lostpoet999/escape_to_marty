@@ -6,7 +6,7 @@ const _ORB_TEXTURE_HALF_PX: float = 32.0
 
 @export_category("Reach & Damage")
 ## Radius (px) within which seals are lit (held safe from regrow/reseed) and DEPRESSION seals take tick damage.
-@export var radius: float = 96.0
+@export var radius: float = 105.6
 ## Seconds between damage ticks for a perfectly centered seal (the fast, rewarding cadence).
 @export var tick_interval_centered: float = 1.0
 ## Seconds between damage ticks for a seal at the very rim of the light (slow — the rim still chips away, it just drags).
@@ -158,7 +158,7 @@ func _seals_in_reach() -> Array[Node2D]:
 	ctx.collision_mask = collision_mask
 	return _targeting.select(ctx, null)
 
-## Snuff the light early (the future light-snuff enemy calls this). Depression then regrows in the dark.
+## Snuff the light early (the ShadowImp's final strike and replace-oldest placement call this). Depression then regrows in the dark.
 func extinguish() -> void:
 	if _extinguished:
 		return

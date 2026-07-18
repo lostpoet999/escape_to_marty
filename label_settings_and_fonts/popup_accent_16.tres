@@ -1,0 +1,8 @@
+[gd_resource type="LabelSettings" format=3 uid="uid://cpopupaccent"]
+
+[ext_resource type="FontFile" uid="uid://ce5jk1ok7f4r5" path="res://label_settings_and_fonts/fonts/PressStart2P-Regular.ttf" id="1_pbayt"]
+
+[resource]
+font = ExtResource("1_pbayt")
+font_size = 16
+font_color = Color(0.870588, 0.619608, 0.254902, 1)

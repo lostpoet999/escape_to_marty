@@ -6,6 +6,7 @@ func _ready() -> void:
 	_style_item_description()
 	_configure_grid()
 	_refresh()
+	_play_open_juice()
 
 func _refresh() -> void:
 	_clear_slots()

@@ -37,7 +37,7 @@ var bargain_seal: BaseSeal = null
 var bargain_bid: float = 0.0
 
 @export_category("Depression Config")
-## Max placed lights on screen at once; at the cap, placement is blocked until one burns out (or is snuffed) — the depression verb's light budget. No replacing.
+## Max placed lights on screen at once; placing at the cap snuffs the oldest light to make room — the depression verb's light budget.
 @export var max_depression_lights: int = 2
 var depression_lights: Array[Node2D] = []
 
@@ -105,10 +105,12 @@ func _try_revert_denial(target: Node) -> bool:
 func _place_depression_light(at: Vector2) -> void:
 	if not GameManager.floor_data.depression_lights_enabled:
 		return
-	if depression_lights.size() >= max_depression_lights:
-		return
 	if _point_over_wall(at):
 		return
+	if depression_lights.size() >= max_depression_lights:
+		var oldest: DepressionLight = depression_lights.pop_front() as DepressionLight
+		if oldest != null and is_instance_valid(oldest):
+			oldest.extinguish()
 	var light: Node2D = DEPRESSION_LIGHT.instantiate()
 	var host: Node = get_tree().current_scene
 	if host == null:

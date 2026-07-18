@@ -2,7 +2,7 @@ class_name ItemSelectorPanelBase extends Control
 
 const SLOT_MIN_SIZE: Vector2 = Vector2(200, 200)
 const SLOT_SEPARATION: int = 140
-const DESCRIPTION_SETTINGS: LabelSettings = preload("res://label_settings_and_fonts/yellow_40.tres")
+const DESCRIPTION_SETTINGS: LabelSettings = preload("res://label_settings_and_fonts/popup_body_16.tres")
 
 @onready var item_grid: GridContainer = $VBoxContainer/ItemGrid
 @onready var item_description_label: RichTextLabel = $VBoxContainer/ItemDescription
@@ -11,6 +11,13 @@ var loot_items_data: LootItemsData
 
 func setup(data: LootItemsData) -> void:
 	loot_items_data = data
+
+func _play_open_juice() -> void:
+	var open_tween: Tween = ApolloPalette.make_open_tween(self, false)
+	open_tween.finished.connect(_start_breathe)
+
+func _start_breathe() -> void:
+	ApolloPalette.make_breathe_tween(self, false)
 
 func _style_item_description() -> void:
 	item_description_label.add_theme_font_override(&"normal_font", DESCRIPTION_SETTINGS.font)
@@ -23,7 +30,6 @@ func _show_item_description(item: BaseItem) -> void:
 	item_description_label.text = "[center][color=#%s]%s (%s):[/color] %s[/center]" % [title_color, item.powerup_name, rarity_name, item.shop_description]
 
 func _configure_grid() -> void:
-	# hug the buttons' total width and center the group, so it doesn't touch the panel edges
 	item_grid.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	item_grid.add_theme_constant_override(&"h_separation", SLOT_SEPARATION)
 	item_grid.add_theme_constant_override(&"v_separation", SLOT_SEPARATION)

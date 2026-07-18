@@ -1,15 +1,8 @@
-[gd_scene format=3 uid="uid://chs4vfkn7cmgt"]
+[gd_scene load_steps=4 format=3 uid="uid://chs4vfkn7cmgt"]
 
 [ext_resource type="Script" uid="uid://d01coo5nu6uyw" path="res://scenes_and_scripts/ui_menus/game_over_menu.gd" id="1_brkfe"]
 [ext_resource type="Texture2D" uid="uid://cra2lcyy34b1x" path="res://scenes_and_scripts/ui_menus/edge_patch.png" id="2_htpki"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_y3oh4"]
-font_size = 85
-font_color = Color(0.909804, 0.756863, 0.439216, 1)
-outline_size = 3
-outline_color = Color(0.0509804, 0.0509804, 0, 0.909804)
-shadow_size = 10
-shadow_color = Color(0.121569, 0.121569, 0.121569, 0.835294)
+[ext_resource type="LabelSettings" uid="uid://cpopuptitle0" path="res://label_settings_and_fonts/popup_title_32.tres" id="3_title"]
 
 [node name="GameOverMenu" type="Control" unique_id=1064137318]
 top_level = true
@@ -35,12 +28,10 @@ offset_bottom = 104.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_htpki")
-patch_margin_left = 100
-patch_margin_top = 100
-patch_margin_right = 100
-patch_margin_bottom = 100
-axis_stretch_horizontal = 1
-axis_stretch_vertical = 1
+patch_margin_left = 48
+patch_margin_top = 48
+patch_margin_right = 48
+patch_margin_bottom = 48
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ColorRect" unique_id=1015844747]
 layout_mode = 1
@@ -50,18 +41,20 @@ anchor_bottom = 1.0
 offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 24
 alignment = 1
 
 [node name="MainMenuLabel" type="Label" parent="ColorRect/VBoxContainer" unique_id=1366498572]
 layout_mode = 2
 text = "Game Over"
-label_settings = SubResource("LabelSettings_y3oh4")
+label_settings = ExtResource("3_title")
 horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/VBoxContainer" unique_id=1141022542]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_override_constants/separation = 16
 
 [node name="MainMenu" type="Button" parent="ColorRect/VBoxContainer/HBoxContainer" unique_id=1723660939]
 custom_minimum_size = Vector2(200, 65)
@@ -73,9 +66,6 @@ custom_minimum_size = Vector2(200, 65)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Exit"
-
-[node name="Spacer" type="Label" parent="ColorRect/VBoxContainer" unique_id=1250367622]
-layout_mode = 2
 
 [connection signal="pressed" from="ColorRect/VBoxContainer/HBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]
 [connection signal="pressed" from="ColorRect/VBoxContainer/HBoxContainer/Exit Button" to="." method="_on_button_pressed"]

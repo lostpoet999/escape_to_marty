@@ -8,10 +8,10 @@ enum RarityType{
 }
 
 const RARITY_COLORS: Dictionary = {
-	RarityType.COMMON: Color("9aa0a6"),
-	RarityType.UNCOMMON: Color("57c84d"),
-	RarityType.RARE: Color("3d8bff"),
-	RarityType.VERY_RARE: Color("b061ff"),
+	RarityType.COMMON: Color("a8b5b2"),
+	RarityType.UNCOMMON: Color("75a743"),
+	RarityType.RARE: Color("4f8fba"),
+	RarityType.VERY_RARE: Color("c65197"),
 }
 const RARITY_NAMES: Dictionary = {
 	RarityType.COMMON: "Common",

@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://cshoppanel1"]
 
 [ext_resource type="PackedScene" uid="uid://cvun7uxdg3ly8" path="res://scenes_and_scripts/ui_menus/item_selector_panel.tscn" id="1_frame"]
-[ext_resource type="LabelSettings" uid="uid://dx3lg2g7p81op" path="res://label_settings_and_fonts/yellow_48.tres" id="2_title"]
+[ext_resource type="LabelSettings" uid="uid://cpopuptitle0" path="res://label_settings_and_fonts/popup_title_32.tres" id="2_title"]
 [ext_resource type="Script" uid="uid://b0gdq6w0ac67c" path="res://scenes_and_scripts/ui_menus/shop_panel.gd" id="3_shop"]
+[ext_resource type="LabelSettings" uid="uid://cpopupaccent" path="res://label_settings_and_fonts/popup_accent_16.tres" id="4_accent"]
 
 [node name="ShopPanel" unique_id=1777654044 instance=ExtResource("1_frame")]
 script = ExtResource("3_shop")
@@ -16,7 +17,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Spacer" type="Control" parent="VBoxContainer" index="0" unique_id=1960020018]
-custom_minimum_size = Vector2(0, 110)
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 
 [node name="PanelLabel" type="Label" parent="VBoxContainer" index="1" unique_id=1312995949]
@@ -32,63 +33,67 @@ layout_mode = 2
 
 [node name="ItemGrid" type="GridContainer" parent="VBoxContainer" index="3" unique_id=1482875820]
 layout_mode = 2
-size_flags_horizontal = 4
-theme_override_constants/h_separation = 140
 columns = 3
 
 [node name="Slot0" type="VBoxContainer" parent="VBoxContainer/ItemGrid" index="0" unique_id=491769111]
 layout_mode = 2
-theme_override_constants/separation = 12
+theme_override_constants/separation = 16
 
 [node name="CostLabel" type="Label" parent="VBoxContainer/ItemGrid/Slot0" index="0" unique_id=1875144879]
 layout_mode = 2
 text = "cost"
+label_settings = ExtResource("4_accent")
 horizontal_alignment = 1
 
 [node name="ItemButton" type="Button" parent="VBoxContainer/ItemGrid/Slot0" index="1" unique_id=595734254]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
+size_flags_horizontal = 4
 
 [node name="BuyButton" type="Button" parent="VBoxContainer/ItemGrid/Slot0" index="2" unique_id=290622446]
-custom_minimum_size = Vector2(120, 0)
+custom_minimum_size = Vector2(120, 48)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Buy"
 
 [node name="Slot1" type="VBoxContainer" parent="VBoxContainer/ItemGrid" index="1" unique_id=138223954]
 layout_mode = 2
-theme_override_constants/separation = 12
+theme_override_constants/separation = 16
 
 [node name="CostLabel" type="Label" parent="VBoxContainer/ItemGrid/Slot1" index="0" unique_id=1018180838]
 layout_mode = 2
 text = "cost"
+label_settings = ExtResource("4_accent")
 horizontal_alignment = 1
 
 [node name="ItemButton" type="Button" parent="VBoxContainer/ItemGrid/Slot1" index="1" unique_id=1579132957]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
+size_flags_horizontal = 4
 
 [node name="BuyButton" type="Button" parent="VBoxContainer/ItemGrid/Slot1" index="2" unique_id=1445793490]
-custom_minimum_size = Vector2(120, 0)
+custom_minimum_size = Vector2(120, 48)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Buy"
 
 [node name="Slot2" type="VBoxContainer" parent="VBoxContainer/ItemGrid" index="2" unique_id=1693332749]
 layout_mode = 2
-theme_override_constants/separation = 12
+theme_override_constants/separation = 16
 
 [node name="CostLabel" type="Label" parent="VBoxContainer/ItemGrid/Slot2" index="0" unique_id=1072876103]
 layout_mode = 2
 text = "cost"
+label_settings = ExtResource("4_accent")
 horizontal_alignment = 1
 
 [node name="ItemButton" type="Button" parent="VBoxContainer/ItemGrid/Slot2" index="1" unique_id=554177830]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
+size_flags_horizontal = 4
 
 [node name="BuyButton" type="Button" parent="VBoxContainer/ItemGrid/Slot2" index="2" unique_id=952746811]
-custom_minimum_size = Vector2(120, 0)
+custom_minimum_size = Vector2(120, 48)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Buy"
@@ -121,4 +126,6 @@ text = "Reroll"
 [node name="RerollCountLabel" type="Label" parent="VBoxContainer/Footer" index="1" unique_id=12298006]
 layout_mode = 2
 text = "x1"
+label_settings = ExtResource("4_accent")
+horizontal_alignment = 1
 vertical_alignment = 1

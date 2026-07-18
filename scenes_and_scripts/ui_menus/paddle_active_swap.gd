@@ -5,22 +5,32 @@ extends Control
 @onready var old_active_ref: PaddleActive
 @onready var new_active_ref: PaddleActive
 
-# Called when the node enters the scene tree for the first time.
+var _open_tween: Tween
+var _breathe_tween: Tween
+
 func _ready() -> void:
-	
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	hide()
 	Signalbus.paddle_active_swap_needed.connect(_on_swap_needed)
 
 
 func _on_swap_needed(old_item:PaddleActive, new_item: PaddleActive)->void:
 	old_active_ref = old_item
 	new_active_ref = new_item
-	process_mode = Node.PROCESS_MODE_ALWAYS
 	GameManager.pause_game()
 	setup_buttons()
+	if _open_tween != null and _open_tween.is_valid():
+		_open_tween.kill()
+	if _breathe_tween != null and _breathe_tween.is_valid():
+		_breathe_tween.kill()
 	show()
+	_open_tween = ApolloPalette.make_open_tween(self, true)
+	_open_tween.finished.connect(_start_breathe)
+
+func _start_breathe() -> void:
+	_breathe_tween = ApolloPalette.make_breathe_tween(self, true)
 
 func setup_buttons()->void:
-	#old button
 	if "inventory_icon" in old_active_ref:
 		old_item_btn.icon = old_active_ref.inventory_icon
 	else:
@@ -29,7 +39,6 @@ func setup_buttons()->void:
 	if old_active_ref is BaseItem:
 		BaseItem.style_button_with_rarity(old_item_btn, old_active_ref.rarity)
 
-	#new button
 	if "inventory_icon" in new_active_ref:
 		new_item_btn.icon = new_active_ref.inventory_icon
 	else:
@@ -39,11 +48,21 @@ func setup_buttons()->void:
 		BaseItem.style_button_with_rarity(new_item_btn, new_active_ref.rarity)
 
 func _on_old_item_pressed() -> void:
+	if _open_tween != null and _open_tween.is_valid():
+		_open_tween.kill()
+	if _breathe_tween != null and _breathe_tween.is_valid():
+		_breathe_tween.kill()
+	ApolloPalette.reset_popup(self)
 	hide()
 	GameManager.unpause_game()
 
 
 func _on_new_item_pressed() -> void:
+	if _open_tween != null and _open_tween.is_valid():
+		_open_tween.kill()
+	if _breathe_tween != null and _breathe_tween.is_valid():
+		_breathe_tween.kill()
+	ApolloPalette.reset_popup(self)
 	hide()
 	GameManager.unpause_game()
 	Signalbus.paddle_swap_resolved.emit(new_active_ref)

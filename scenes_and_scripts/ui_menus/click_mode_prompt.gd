@@ -1,14 +1,14 @@
 class_name ClickModePrompt extends CanvasLayer
 
-const PROMPT_FONT: FontFile = preload("res://label_settings_and_fonts/fonts/PressStart2P-Regular.ttf")
+const PROMPT_FONT: FontFile = ApolloPalette.POPUP_FONT
 const PROMPT_TEXT_PLAYING: String = "Press <TAB> for click mode"
 const PROMPT_TEXT_CLICK_MODE: String = "Press <TAB> to return to paddle"
 const PROMPT_LAYER: int = 100
 const PROMPT_MARGIN: float = 24.0
-const PROMPT_FONT_SIZE: int = 12
+const PROMPT_FONT_SIZE: int = ApolloPalette.FONT_SIZE_BODY
 const PROMPT_IDLE_ALPHA: float = 0.6
-const PROMPT_COLOR_PLAYING: Color = Color(1, 0.9, 0.4)
-const PROMPT_COLOR_CLICK_MODE: Color = Color(1, 0.3, 0.3)
+const PROMPT_COLOR_PLAYING: Color = ApolloPalette.TEXT_GOLD
+const PROMPT_COLOR_CLICK_MODE: Color = Color("#cf573c")
 const PROMPT_PULSE_AMPLITUDE: float = 0.03
 const PROMPT_PULSE_SECONDS: float = 2.6
 const PROMPT_WOBBLE_RADIANS: float = 0.03
@@ -76,8 +76,8 @@ func _animate_flash() -> void:
 		_label.add_theme_constant_override("outline_size", 0)
 		return
 	var flash: float = sin(PI * time_into_flash / PROMPT_FLASH_SECONDS)
-	_label.add_theme_color_override("font_color", _base_color.lerp(Color.WHITE, flash))
-	_label.add_theme_color_override("font_outline_color", Color(1, 1, 1, flash))
+	_label.add_theme_color_override("font_color", _base_color.lerp(ApolloPalette.TEXT_HOVER, flash))
+	_label.add_theme_color_override("font_outline_color", Color(ApolloPalette.TEXT_HOVER, flash))
 	_label.add_theme_constant_override("outline_size", int(round(flash * PROMPT_FLASH_GLOW_SIZE)))
 
 func _should_show() -> bool:

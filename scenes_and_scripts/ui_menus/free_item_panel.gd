@@ -6,8 +6,8 @@ func _ready() -> void:
 	_style_item_description()
 	_configure_grid()
 	_refresh()
+	_play_open_juice()
 
-# one free pick per room (spent on the first take), plus one extra pick per banked voucher
 func _picks_available() -> int:
 	return loot_items_data.free_picks_available()
 
@@ -28,7 +28,6 @@ func _refresh() -> void:
 func _on_slot_pressed(item: BaseItem) -> void:
 	if _picks_available() <= 0:
 		return
-	# base pick first; only consume a voucher once the free pick is gone (never wasted)
 	if loot_items_data.base_pick_used:
 		if not PlayerData.consume_pick2_voucher():
 			return

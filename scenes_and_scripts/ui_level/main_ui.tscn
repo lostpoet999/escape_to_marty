@@ -10,13 +10,17 @@
 [sub_resource type="LabelSettings" id="LabelSettings_5qwjd"]
 font = ExtResource("2_8r8j7")
 font_size = 24
-font_color = Color(0.909804, 0.756863, 0.439216, 1)
+font_color = Color(0.9098039, 0.75686276, 0.4392157, 1)
 
 [node name="Main_UI" type="Control" unique_id=1289514780]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 14.0
+offset_top = 8.0
+offset_right = 14.0
+offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_op5x6")
@@ -30,7 +34,7 @@ grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer" unique_id=1789650623]
 layout_mode = 2
-theme_override_constants/margin_left = 20
+theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20

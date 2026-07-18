@@ -7,18 +7,22 @@ var slots: Array[Control] = []
 
 func _ready() -> void:
 	_style_item_description()
+	_configure_grid()
 	for child: Node in item_grid.get_children():
 		if child is Control:
 			slots.append(child)
 	for i: int in slots.size():
 		_buy_button(i).pressed.connect(_on_buy_pressed.bind(i))
 		_buy_button(i).set_meta(&"click_pickable", true)
+		ApolloPalette.style_menu_button(_buy_button(i))
 		_item_button(i).mouse_entered.connect(_on_mouse_entered_item.bind(i))
 		_buy_button(i).mouse_entered.connect(_on_mouse_entered_item.bind(i))
 		slots[i].mouse_entered.connect(_on_mouse_entered_item.bind(i))
 	reroll_button.pressed.connect(_on_reroll_pressed)
 	reroll_button.set_meta(&"click_pickable", true)
+	ApolloPalette.style_menu_button(reroll_button)
 	_refresh()
+	_play_open_juice()
 
 func _item_button(i: int) -> Button:
 	return slots[i].get_node("ItemButton") as Button
@@ -63,7 +67,6 @@ func _on_buy_pressed(i: int) -> void:
 	loot_items_data.items.erase(item)
 	_refresh()
 
-# restock + reroll: a voucher regenerates the full fresh shelf (never a gold cost)
 func _on_reroll_pressed() -> void:
 	if not PlayerData.consume_shop_restock_voucher():
 		return

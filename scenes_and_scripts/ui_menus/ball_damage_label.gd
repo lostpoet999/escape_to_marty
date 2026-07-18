@@ -1,12 +1,12 @@
 class_name BallDamageLabel extends CanvasLayer
 
-const LABEL_FONT: FontFile = preload("res://label_settings_and_fonts/fonts/PressStart2P-Regular.ttf")
+const LABEL_FONT: FontFile = ApolloPalette.POPUP_FONT
 const LABEL_LAYER: int = 100
 const PLAY_AREA_LEFT: float = 281.0
 const LABEL_MARGIN: float = 24.0
-const LABEL_FONT_SIZE: int = 12
+const LABEL_FONT_SIZE: int = ApolloPalette.FONT_SIZE_BODY
 const LABEL_IDLE_ALPHA: float = 0.6
-const LABEL_COLOR: Color = Color(1, 0.9, 0.4)
+const LABEL_COLOR: Color = ApolloPalette.TEXT_GOLD
 const LABEL_PULSE_AMPLITUDE: float = 0.03
 const LABEL_PULSE_SECONDS: float = 2.6
 const LABEL_WOBBLE_RADIANS: float = 0.03
@@ -68,8 +68,8 @@ func _animate_flash() -> void:
 		_label.add_theme_constant_override("outline_size", 0)
 		return
 	var flash: float = sin(PI * time_into_flash / LABEL_FLASH_SECONDS)
-	_label.add_theme_color_override("font_color", LABEL_COLOR.lerp(Color.WHITE, flash))
-	_label.add_theme_color_override("font_outline_color", Color(1, 1, 1, flash))
+	_label.add_theme_color_override("font_color", LABEL_COLOR.lerp(ApolloPalette.TEXT_HOVER, flash))
+	_label.add_theme_color_override("font_outline_color", Color(ApolloPalette.TEXT_HOVER, flash))
 	_label.add_theme_constant_override("outline_size", int(round(flash * LABEL_FLASH_GLOW_SIZE)))
 
 func _should_show() -> bool:
