@@ -1,28 +1,30 @@
 [gd_scene format=3 uid="uid://csxt8ng8rhxo"]
 
 [ext_resource type="Script" uid="uid://bwqqfn8j70s1u" path="res://scenes_and_scripts/exits/exits.gd" id="1_gtbbh"]
+[ext_resource type="Texture2D" uid="uid://l0ey00u20cw1" path="res://scenes_and_scripts/exits/doors/closed-door.png" id="2_8onir"]
 [ext_resource type="Texture2D" uid="uid://nhuggym8gsmb" path="res://scenes_and_scripts/walls/1x1_brownish_wall.png" id="2_x23op"]
+[ext_resource type="Texture2D" uid="uid://60thxhsrfgat" path="res://scenes_and_scripts/exits/doors/open-door.png" id="3_njhhj"]
 
 [node name="exit_base" type="Area2D" unique_id=618575957 groups=["exits", "walls"]]
 script = ExtResource("1_gtbbh")
 
-[node name="ExitBarrier_closed" type="ColorRect" parent="." unique_id=902411008]
+[node name="ExitBarrier_closed" type="TextureRect" parent="." unique_id=1059702]
 visible = false
 offset_left = -64.0
 offset_top = -32.0
 offset_right = 64.0
 offset_bottom = 32.0
 mouse_filter = 2
-color = Color(1, 0.38431373, 0.32156864, 1)
+texture = ExtResource("2_8onir")
 
-[node name="ExitBarrier_open" type="ColorRect" parent="." unique_id=1579582079]
+[node name="ExitBarrier_open" type="TextureRect" parent="." unique_id=1415348688]
 visible = false
 offset_left = -64.0
 offset_top = -32.0
 offset_right = 64.0
 offset_bottom = 32.0
 mouse_filter = 2
-color = Color(0.101960786, 0.76862746, 0.32156864, 1)
+texture = ExtResource("3_njhhj")
 
 [node name="walls_no_door" type="Node2D" parent="." unique_id=1036666021]
 

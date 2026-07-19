@@ -18,8 +18,8 @@ const DIR_OFFSETS: Dictionary = {
 
 @onready var room_ref: Dictionary = GameManager.room_data_for_floor #dictionary of room entries
 @onready var walls_no_door: Node2D = $walls_no_door
-@onready var exit_barrier_closed: ColorRect = $ExitBarrier_closed
-@onready var exit_barrier_open: ColorRect = $ExitBarrier_open
+@onready var exit_barrier_closed: TextureRect = $ExitBarrier_closed
+@onready var exit_barrier_open: TextureRect = $ExitBarrier_open
 
 @export var reveal_vfx: PackedScene
 
@@ -77,8 +77,6 @@ func _show_bonus_door()-> void:
 	else:
 		show_closed_door()
 		self.input_pickable = true
-	exit_barrier_closed.color = BONUS_DOOR_GOLD
-	exit_barrier_open.color = BONUS_DOOR_GOLD
 
 func _targets_bonus_room()-> bool:
 	var target_id: String = _target_id()

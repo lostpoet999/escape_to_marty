@@ -263,6 +263,9 @@ func _apply_floor_wall_visuals() -> void:
 	for wall: Node in get_tree().get_nodes_in_group("walls"):
 		for child: Node in wall.find_children("*", "", true, false):
 			if (child is TextureRect or child is Sprite2D) and child.texture != null:
+				# avoid overriding door sprite
+				if (child is TextureRect) and (child as TextureRect).size == Vector2(128, 64):
+					continue
 				if fd.wall_texture != null:
 					child.texture = fd.wall_texture
 				child.self_modulate = _jittered(base_tint, fd.wall_brightness_jitter, rng)
