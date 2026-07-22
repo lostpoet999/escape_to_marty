@@ -11,6 +11,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8fbbk"]
 size = Vector2(122, 28)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_57qmd"]
+size = Vector2(20, 18.222221)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ireb1"]
 size = Vector2(68, 112)
 
@@ -28,6 +31,14 @@ region_rect = Rect2(0, 0, 288, 64)
 [node name="PaddleCollisionShape" type="CollisionShape2D" parent="." unique_id=305792111]
 position = Vector2(1.9073486e-06, -4)
 shape = SubResource("RectangleShape2D_8fbbk")
+
+[node name="Ball_Magnet_Radius" type="Area2D" parent="." unique_id=1823889109]
+position = Vector2(0, -32)
+
+[node name="CollisionField" type="CollisionShape2D" parent="Ball_Magnet_Radius" unique_id=1969270415]
+position = Vector2(0, -156)
+scale = Vector2(25, 18)
+shape = SubResource("RectangleShape2D_57qmd")
 
 [node name="spawn_center" type="Marker2D" parent="." unique_id=1386430533]
 position = Vector2(0, -18)
@@ -72,3 +83,6 @@ position = Vector2(1, 7)
 
 [node name="BG3DRemote" type="Node2D" parent="." unique_id=1203154544]
 script = ExtResource("7_0jjki")
+
+[connection signal="area_shape_entered" from="Ball_Magnet_Radius" to="." method="_on_ball_magnet_radius_area_shape_entered"]
+[connection signal="area_shape_exited" from="Ball_Magnet_Radius" to="." method="_on_ball_magnet_radius_area_shape_exited"]

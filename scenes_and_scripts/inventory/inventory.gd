@@ -148,6 +148,15 @@ func has_map_marker() -> bool:
 			return true
 	return false
 
+func has_ball_magnet() -> bool:
+	for item: BaseItem in items:
+		if item.powerup_name == "Ball Magnet":
+			return true
+	for item: BaseItem in core_items:
+		if item.powerup_name == "Ball Magnet":
+			return true
+	return false
+
 func get_gesture_damage() -> float:
 	var dmg: float = MouseGestures.DEFAULT_CLICK_DMG
 	var click_items: Array[ClickPowerUp] = get_items_for_click()

@@ -392,4 +392,11 @@ func _physics_process(delta: float) -> void:
 		current_speed = (global_position.x - last_position.x) / delta
 		last_position = global_position
 		_track_committed_distance(prev_x)
-	
+
+func _on_ball_magnet_radius_area_shape_entered(area_rid: RID, area: Area2D, area_shape_index: int, local_shape_index: int) -> void:
+	if area and area.name == "Ball":
+		BallMagnetDetection.ball_in_magnet_range.emit(true)
+
+func _on_ball_magnet_radius_area_shape_exited(area_rid: RID, area: Area2D, area_shape_index: int, local_shape_index: int) -> void:
+	if area and area.name == "Ball":
+		BallMagnetDetection.ball_in_magnet_range.emit(false)
