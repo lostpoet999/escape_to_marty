@@ -1,5 +1,6 @@
 [gd_resource type="Resource" script_class="BallPassive" format=3 uid="uid://dhuy7jly76eah"]
 
+[ext_resource type="Texture2D" uid="uid://ceakv24rw4cmi" path="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/longStretch.png" id="1_hbrwr"]
 [ext_resource type="Script" uid="uid://jwtisqgpmqvq" path="res://scenes_and_scripts/powerups_and_behaviors/ball_behaviors/hit_behavior.gd" id="1_r0841"]
 [ext_resource type="Script" uid="uid://dnkfaoggkglke" path="res://scenes_and_scripts/powerups_and_behaviors/ball_behaviors/targeting/shape_target.gd" id="2_om8wf"]
 [ext_resource type="Script" uid="uid://bryv4msdad7wu" path="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/ball_passive.gd" id="2_xud0i"]
@@ -47,5 +48,6 @@ on_hit = Array[ExtResource("1_r0841")]([SubResource("Resource_6slr1")])
 powerup_name = "Long Stretch"
 shop_description = "You stretch out and clear all seal phases for 50% of total ball damage."
 rarity = 3
+inventory_icon = ExtResource("1_hbrwr")
 cost = 65
 metadata/_custom_type_script = "uid://bryv4msdad7wu"

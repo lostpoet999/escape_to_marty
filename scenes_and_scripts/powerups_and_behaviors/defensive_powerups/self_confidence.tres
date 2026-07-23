@@ -1,13 +1,15 @@
 [gd_resource type="Resource" script_class="DefensivePowerup" format=3 uid="uid://t58lupaqmea4"]
 
 [ext_resource type="Script" uid="uid://bfi0bx0djqr18" path="res://scenes_and_scripts/powerups_and_behaviors/defensive_powerups/defensive_powerup.gd" id="1_l2ldj"]
+[ext_resource type="Texture2D" uid="uid://cuab0uheq7m4m" path="res://scenes_and_scripts/powerups_and_behaviors/defensive_powerups/selfConfidence.png" id="1_n4uur"]
 
 [resource]
 script = ExtResource("1_l2ldj")
 max_health_bonus = 5
 heal_on_pickup = 5
 powerup_name = "Self Confidence"
-rarity = 1
 shop_description = "You can take more hits before you give up.  Increase health by 5."
+rarity = 1
+inventory_icon = ExtResource("1_n4uur")
 cost = 20
 metadata/_custom_type_script = "uid://bfi0bx0djqr18"
