@@ -113,7 +113,7 @@ func is_valid_state_transition(from_state: GameState, to_state: GameState) -> bo
 		GameState.CLICK_MODE:
 			return to_state in [GameState.PLAYING, GameState.LEVEL_CLEARED,GameState.DEBUG_PANEL, GameState.BALL_ON_PADDLE, GameState.GAME_OVER, GameState.MAIN_MENU]
 		GameState.LEVEL_CLEARED:
-			return to_state  in [GameState.BALL_ON_PADDLE, GameState.SPECIAL_ROOM,GameState.DEBUG_PANEL, GameState.MAIN_MENU]
+			return to_state  in [GameState.BALL_ON_PADDLE, GameState.SPECIAL_ROOM,GameState.DEBUG_PANEL, GameState.MAIN_MENU, GameState.GAME_OVER]
 		GameState.SPECIAL_ROOM:
 			return to_state in [GameState.BALL_ON_PADDLE, GameState.PLAYING,GameState.DEBUG_PANEL]
 		GameState.DEBUG_PANEL:

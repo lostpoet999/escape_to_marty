@@ -217,6 +217,8 @@ func _spawn_cap_group(config: EnemyConfig) -> StringName:
 func check_level_cleared() -> void: #let gamemanager know level is cleared
 	if level_clear_emitted:
 		return
+	if PlayerData.player_current_health <= 0:
+		return
 	var max_clear:int = GameManager.get_current_floor_entry(GameManager.current_room_id).content.max_clears
 	if gold_cleared && bricks_cleared && _no_walker_holds_gold():
 		level_clear_emitted = true

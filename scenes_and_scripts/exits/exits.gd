@@ -9,6 +9,8 @@ const SECRET_FLASH_INTERVAL_MAX: float = 12.0
 const SECRET_FLASHES_PER_BARK_MIN: int = 3
 const SECRET_FLASHES_PER_BARK_MAX: int = 4
 const BONUS_DOOR_GOLD: Color = Color(1.0, 0.9, 0.2)
+const CLOSED_DOOR_TINT: Color = Color("#a53030")
+const OPEN_DOOR_TINT: Color = Color("#75a743")
 const DIR_OFFSETS: Dictionary = {
 	"NorthExit": Vector2i(0, -1),
 	"SouthExit": Vector2i(0, 1),
@@ -26,9 +28,12 @@ const DIR_OFFSETS: Dictionary = {
 var room_cleared: bool = false
 var travel_locked: bool = false
 var _flash_tween: Tween
+var _open_pulse_tween: Tween
 var _flashes_until_bark: int = 0
 
 func _ready() -> void:
+	exit_barrier_closed.modulate = CLOSED_DOOR_TINT
+	exit_barrier_open.modulate = OPEN_DOOR_TINT
 	Signalbus.level_cleared.connect(enable_exits)
 	Signalbus.wall_hit.connect(_on_wall_hit)
 	reconcile_exits()
@@ -39,10 +44,16 @@ func _on_wall_hit(_source: Node2D, wall: Node2D, _damage: float, _dmg_types: Arr
 	_flash_secret_now()
 
 func tween_open_door()->void:
-	var tween: Tween = create_tween()
-	tween.tween_property(self, "scale", Vector2(.95, .95), .5)
-	tween.tween_property(self, "scale", Vector2(1.0, 1.0), .5)
-	tween.set_loops(0)
+	_open_pulse_tween = create_tween()
+	_open_pulse_tween.tween_property(self, "scale", Vector2(.95, .95), .5)
+	_open_pulse_tween.tween_property(self, "scale", Vector2(1.0, 1.0), .5)
+	_open_pulse_tween.set_loops(0)
+
+func _stop_open_pulse()-> void:
+	if _open_pulse_tween and _open_pulse_tween.is_valid():
+		_open_pulse_tween.kill()
+	_open_pulse_tween = null
+	scale = Vector2.ONE
 
 ## Cutscenes lock travel without lying about the room: real doors show
 ## closed, solid walls stay walls, unrevealed secrets stay disguised (but
@@ -53,6 +64,7 @@ func set_travel_locked(locked: bool) -> void:
 
 func reconcile_exits()-> void:
 	_stop_secret_flash()
+	_stop_open_pulse()
 	var target_id: String = _target_id()
 	if target_id == "":
 		show_walls()
@@ -77,6 +89,8 @@ func _show_bonus_door()-> void:
 	else:
 		show_closed_door()
 		self.input_pickable = true
+	exit_barrier_closed.modulate = BONUS_DOOR_GOLD
+	exit_barrier_open.modulate = BONUS_DOOR_GOLD
 
 func _targets_bonus_room()-> bool:
 	var target_id: String = _target_id()
