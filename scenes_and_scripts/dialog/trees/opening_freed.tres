@@ -9,7 +9,7 @@ text = "Thanks, whoever you are! Not the creepy voice...that guy--erm thing suck
 
 [sub_resource type="Resource" id="Resource_beat_2"]
 script = ExtResource("2_beat")
-text = "Alright---time play this silly little game again."
+text = "Alright---time to play this silly little game again."
 
 [sub_resource type="Resource" id="Resource_beat_3"]
 script = ExtResource("2_beat")
