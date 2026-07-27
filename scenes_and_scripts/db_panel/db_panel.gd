@@ -54,9 +54,9 @@ func _input(event: InputEvent) -> void:
 
 func make_item_button(item: BaseItem)-> Button:
 	var icon: Texture2D = get_icon_for_item(item)
-	var button: Button = Button.new()
+	var button: Button = RarityTooltipButton.new()
 	button.icon = icon
-	button.tooltip_text = item.powerup_name
+	button.tooltip_text = get_tooltip_for_item(item)
 	button.set_meta(&"Item", item) ## store the variant
 	
 	button.flat = true ## change me if you decide to use a theme
@@ -68,6 +68,16 @@ func clear_buttons() -> void:
 	for button: Button in item_pool_panel.get_children():
 		if is_instance_valid(button):
 			button.queue_free()
+
+func get_tooltip_for_item(item: Variant) -> String:
+	if not item is BaseItem:
+		return ""
+	var title_color: String = BaseItem.rarity_color(item.rarity).to_html(false)
+	var header: String = "[color=#%s]%s (%s):[/color]" % [title_color, item.powerup_name, BaseItem.rarity_label(item.rarity)]
+	if item is BallPassive and not item.removable:
+		var dmg: float = PlayerInventory.get_instance().get_ball_damage()
+		return "%s %s\nBall Damage: %s" % [header, item.shop_description, snappedf(dmg, 0.01)]
+	return "%s %s" % [header, item.shop_description]
 
 func get_icon_for_item(item: Variant) -> Texture2D:
 	if "inventory_icon" in item:

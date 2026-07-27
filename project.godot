@@ -59,7 +59,7 @@ project/assembly_name="Escape to Marty"
 
 [editor_plugins]
 
-enabled=PackedStringArray()
+enabled=PackedStringArray("res://addons/etm_tools/plugin.cfg")
 
 [godot_idea_board]
 
