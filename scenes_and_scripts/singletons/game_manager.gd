@@ -194,9 +194,12 @@ func restart_level() -> void:
 	get_tree().reload_current_scene()
 
 func start_floor(reset_player_data: bool = true) -> void:
-	process_mode = Node.PROCESS_MODE_ALWAYS
 	var fd_variant: Variant = FLOOR_REGISTRY.floors[current_floor - 1]
-	floor_data = fd_variant
+	start_floor_with_data(fd_variant, reset_player_data)
+
+func start_floor_with_data(data: FloorData, reset_player_data: bool = true) -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	floor_data = data
 	get_floor_data()
 	var start_slot: RoomEntry = _find_starting_slot()
 	current_room_id = RoomEntry.make_key(start_slot.room_coords)
@@ -209,6 +212,7 @@ func start_floor(reset_player_data: bool = true) -> void:
 	
 
 func _ready() -> void:
+	Signalbus.player_died.connect(_cancel_click_mode_on_death)
 	Signalbus.death_sequence_finished.connect(_load_level_on_player_death)
 	Signalbus.level_cleared.connect(set_state_to_cleared)
 	Signalbus.floor_cleared.connect(floor_cleared)
@@ -247,6 +251,10 @@ func load_scene(scene: PackedScene) -> void:
 func load_current_room()-> void:
 	MusicPlayer.play_song(floor_data.music, floor_data.music_volume_db)
 	get_tree().change_scene_to_packed(scene_ref)
+
+func _cancel_click_mode_on_death() -> void:
+	if current_state == GameState.CLICK_MODE:
+		change_state(GameState.PLAYING)
 
 func _load_level_on_player_death() -> void:
 	GameManager.change_state(GameState.GAME_OVER)

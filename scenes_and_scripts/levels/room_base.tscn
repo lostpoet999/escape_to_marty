@@ -428,7 +428,7 @@ metadata/_edit_lock_ = true
 [node name="Spawners" type="Node2D" parent="No-Respawn" unique_id=1587044855]
 
 [node name="item_spawn_point" type="Marker2D" parent="." unique_id=51076593]
-position = Vector2(1058, 754)
+position = Vector2(1024, 768)
 
 [node name="UI Popup Menus" type="CanvasLayer" parent="." unique_id=927849858]
 

@@ -111,7 +111,7 @@ signal score_updated
 signal player_health_updated
 
 ## Emits: scenes_and_scripts/singletons/player_data.gd -> accept_damage()
-## Connects: scenes_and_scripts/actors/player/paddle.gd -> _run_death_sequence
+## Connects: scenes_and_scripts/singletons/game_manager.gd -> _cancel_click_mode_on_death (autoload connects first so click mode is exited before the paddle's cinematic starts), scenes_and_scripts/actors/player/paddle.gd -> _run_death_sequence
 @warning_ignore("unused_signal")
 signal player_died
 

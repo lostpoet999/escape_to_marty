@@ -292,7 +292,6 @@ func _run_death_sequence() -> void:
 		return
 	_death_running = true
 	paddle_frozen = true
-	Engine.time_scale = 1.0 * SettingsManager.game_speed
 	_zoom_camera_on_david()
 	var ball: Node = get_tree().get_first_node_in_group("ball")
 	if ball != null:

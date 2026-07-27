@@ -108,6 +108,11 @@ func populate_floor_warp() -> void:
 		btn.disabled = cutscene_active
 		btn.pressed.connect(warp_to_floor.bind(floor_num))
 		floor_list.add_child(btn)
+	var test_btn: Button = Button.new()
+	test_btn.text = "Test Floor"
+	test_btn.disabled = cutscene_active
+	test_btn.pressed.connect(warp_to_test_floor)
+	floor_list.add_child(test_btn)
 
 func _cutscene_active() -> bool:
 	for node: Node in get_tree().get_nodes_in_group("cutscene"):
@@ -124,6 +129,17 @@ func warp_to_floor(floor_num: int) -> void:
 	DialogDirector.force_reset()
 	GameManager.current_floor = floor_num
 	GameManager.start_floor(false)
+	hide()
+	Signalbus.db_panel_closed.emit()
+	GameManager.change_state(GameManager.GameState.BALL_ON_PADDLE)
+	GameManager.load_current_room()
+
+func warp_to_test_floor() -> void:
+	if _cutscene_active():
+		return
+	DialogDirector.force_reset()
+	var fd_variant: Variant = load("res://scenes_and_scripts/levels/test_floor/test_floor.tres")
+	GameManager.start_floor_with_data(fd_variant, false)
 	hide()
 	Signalbus.db_panel_closed.emit()
 	GameManager.change_state(GameManager.GameState.BALL_ON_PADDLE)

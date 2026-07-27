@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://tstflrroom03"]
+
+[ext_resource type="PackedScene" uid="uid://bea1h3570swpu" path="res://scenes_and_scripts/levels/room_base.tscn" id="1_rb"]
+[ext_resource type="Script" uid="uid://tstflrroomgd" path="res://scenes_and_scripts/levels/test_floor/test_floor_room.gd" id="2_tf"]
+[ext_resource type="PackedScene" uid="uid://cm1kspxv86400" path="res://scenes_and_scripts/bricks/open_seal.tscn" id="3_os"]
+[ext_resource type="PackedScene" uid="uid://b7m8vn6kumwyg" path="res://scenes_and_scripts/actors/enemies/enemy_spawner.tscn" id="4_sp"]
+[ext_resource type="Script" uid="uid://dm8qchhbo37mu" path="res://scenes_and_scripts/actors/enemies/enemy_config.gd" id="5_cf"]
+[ext_resource type="PackedScene" uid="uid://bmtspiderl001" path="res://scenes_and_scripts/actors/enemies/specific_enemies/money_thief_spider/money_thief_spider.tscn" id="6_sl"]
+[ext_resource type="PackedScene" uid="uid://bmtspiderr001" path="res://scenes_and_scripts/actors/enemies/specific_enemies/money_thief_spider/money_thief_spider_right.tscn" id="7_sr"]
+[ext_resource type="PackedScene" uid="uid://bmtspidert01" path="res://scenes_and_scripts/actors/enemies/specific_enemies/money_thief_spider/money_thief_spider_top.tscn" id="8_st"]
+
+[sub_resource type="Resource" id="Resource_cfg1"]
+script = ExtResource("5_cf")
+enemy_name = "MoneyThiefSpider"
+scene_ref = ExtResource("6_sl")
+spawn_chance = 100.0
+requires_live_seals = true
+x_offset = -752.0
+y_offset = 628.0
+metadata/_custom_type_script = "uid://dm8qchhbo37mu"
+
+[sub_resource type="Resource" id="Resource_cfg2"]
+script = ExtResource("5_cf")
+enemy_name = "MoneyThiefSpider"
+scene_ref = ExtResource("7_sr")
+spawn_chance = 100.0
+requires_live_seals = true
+x_offset = 752.0
+y_offset = 628.0
+metadata/_custom_type_script = "uid://dm8qchhbo37mu"
+
+[sub_resource type="Resource" id="Resource_cfg3"]
+script = ExtResource("5_cf")
+enemy_name = "MoneyThiefSpider"
+scene_ref = ExtResource("8_st")
+spawn_chance = 100.0
+requires_live_seals = true
+y_offset = 48.0
+metadata/_custom_type_script = "uid://dm8qchhbo37mu"
+
+[node name="test_room_3" instance=ExtResource("1_rb")]
+script = ExtResource("2_tf")
+mimic_floor_index = 3
+
+[node name="OpenSeal" parent="No-Respawn/Bricks" instance=ExtResource("3_os")]
+position = Vector2(1088, 512)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+2: 3.0,
+5: 3.0
+})
+
+[node name="SpiderSpawner" parent="No-Respawn/Spawners" instance=ExtResource("4_sp")]
+position = Vector2(1088, 32)
+enemies = Array[ExtResource("5_cf")]([SubResource("Resource_cfg1"), SubResource("Resource_cfg2"), SubResource("Resource_cfg3")])
+spawn_an_enemy_chance = 100.0
+respawn_time = 13.0
+initial_spawn_time = 2.6
+max_spawns = 2
