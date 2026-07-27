@@ -6,14 +6,14 @@
 [ext_resource type="Script" uid="uid://ccw8ssedjvd48" path="res://scenes_and_scripts/bricks/seal_difficulty.gd" id="4_1wfy1"]
 [ext_resource type="PackedScene" uid="uid://cm2bdw1o1sypc" path="res://scenes_and_scripts/actors/enemies/specific_enemies/dark_cage/dark_cage.tscn" id="4_hna8n"]
 [ext_resource type="Script" uid="uid://cqac2vv2p8oga" path="res://scenes_and_scripts/bricks/seal_phase_config.gd" id="4_tjbqt"]
-[ext_resource type="Resource" uid="uid://cmemtree0202" path="res://scenes_and_scripts/dialog/memory room trees/memory_2_2.tres" id="5_mtree22"]
 [ext_resource type="PackedScene" uid="uid://cuodqq58w45s5" path="res://scenes_and_scripts/levels/common_rooms/memory room/memory_base.tscn" id="5_tinj5"]
 [ext_resource type="PackedScene" uid="uid://68vub5lvtlyv" path="res://scenes_and_scripts/levels/floor_3_the_bargainers_road/combat_3_1.tscn" id="5_wwqpq"]
 [ext_resource type="Script" uid="uid://b1eqt2or38kw6" path="res://scenes_and_scripts/item_spawning/spawn_weights_resource.gd" id="6_tjbqt"]
-[ext_resource type="Resource" uid="uid://cmemtree0201" path="res://scenes_and_scripts/dialog/memory room trees/memory_2_1.tres" id="7_mtree21"]
+[ext_resource type="Resource" uid="uid://daii4mo84sibp" path="res://scenes_and_scripts/dialog/memory room trees/memory_3_1.tres" id="7_bxwwk"]
 [ext_resource type="PackedScene" uid="uid://ds323mh1ch3fa" path="res://scenes_and_scripts/levels/floor_3_the_bargainers_road/start_3.tscn" id="8_c5321"]
 [ext_resource type="PackedScene" uid="uid://c0x07to7sbcsg" path="res://scenes_and_scripts/levels/floor_3_the_bargainers_road/combat_3_3.tscn" id="9_c2t3r"]
 [ext_resource type="PackedScene" uid="uid://bsffs1ke5tucr" path="res://scenes_and_scripts/levels/floor_3_the_bargainers_road/combat_3_4.tscn" id="10_b4w9m"]
+[ext_resource type="Resource" uid="uid://bps81gtmi88hj" path="res://scenes_and_scripts/dialog/memory room trees/memory_3_2.tres" id="10_jvuri"]
 [ext_resource type="PackedScene" uid="uid://ca4psijkyih0g" path="res://scenes_and_scripts/levels/floor_3_the_bargainers_road/combat_3_5.tscn" id="11_dq6e1"]
 [ext_resource type="PackedScene" uid="uid://7vttec5plsdk" path="res://scenes_and_scripts/levels/common_rooms/powerup_1.tscn" id="12_pwrup"]
 [ext_resource type="PackedScene" uid="uid://bwuoolbwt8v67" path="res://scenes_and_scripts/levels/common_rooms/shop_1.tscn" id="13_shopc"]
@@ -111,7 +111,7 @@ script = ExtResource("20_rc")
 room_scene = ExtResource("5_tinj5")
 room_type = 3
 is_secret = true
-memory_tree = ExtResource("5_mtree22")
+memory_tree = ExtResource("7_bxwwk")
 
 [sub_resource type="Resource" id="Resource_ed0t6"]
 script = ExtResource("1_4xv7i")
@@ -135,7 +135,7 @@ east_exit = true
 script = ExtResource("20_rc")
 room_scene = ExtResource("5_tinj5")
 room_type = 3
-memory_tree = ExtResource("7_mtree21")
+memory_tree = ExtResource("10_jvuri")
 
 [sub_resource type="Resource" id="Resource_n42h2"]
 script = ExtResource("1_4xv7i")

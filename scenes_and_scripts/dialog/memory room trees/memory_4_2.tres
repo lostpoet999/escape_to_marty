@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="DialogTree" format=3 uid="uid://bl5nqu00ox20g"]
+
+[ext_resource type="Script" uid="uid://da86xmy7akvas" path="res://scenes_and_scripts/dialog/dialog_beat.gd" id="1_gvsqn"]
+[ext_resource type="Script" uid="uid://bkgp0oq7lrafl" path="res://scenes_and_scripts/dialog/dialog_tree.gd" id="2_27a3m"]
+
+[sub_resource type="Resource" id="Resource_ofgx3"]
+script = ExtResource("1_gvsqn")
+text = "We never forgot about her, but eventually the pain went away and we started doing things like play Nintendo together again."
+metadata/_custom_type_script = "uid://da86xmy7akvas"
+
+[resource]
+script = ExtResource("2_27a3m")
+beats = Array[ExtResource("1_gvsqn")]([SubResource("Resource_ofgx3")])
+metadata/_custom_type_script = "uid://bkgp0oq7lrafl"

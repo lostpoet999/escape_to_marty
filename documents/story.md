@@ -43,5 +43,6 @@
 	7. "When she died of cancer I was afraid I lost Marty too--he tried to be strong but I could see the pain in his eyes."**important** -F3
 	8. "For a while after she died, Marty would snap at other people...but never at me.  He always seemed so ashamed that I saw him do that."**important** -F4
 	9. "We never forgot about her, but eventually the pain went away and we started doing things like play Nintendo together again." -F4	
+	
 	10. "We were both proud of getting Scuba certified in the murky waters of Lake Ten Killer." -F5
 	11. "He had tears in his eyes, but smiled ear to ear when I told him I was proud of how strong he'd been."**important** -F5
