@@ -40,47 +40,47 @@ script = ExtResource("19_bossloot")
 tier_weights = SubResource("Resource_bossweights")
 metadata/_custom_type_script = "uid://cfvu47iaybkxv"
 
-[sub_resource type="Resource" id="Resource_hisw4"]
+[sub_resource type="Resource" id="Resource_u8qvh"]
 script = ExtResource("20_rc")
 room_scene = ExtResource("2_nrnxw")
 max_clears = -1
 metadata/_custom_type_script = "uid://roomcontent0"
 
-[sub_resource type="Resource" id="Resource_03adn"]
+[sub_resource type="Resource" id="Resource_egy6m"]
 script = ExtResource("1_hqd6g")
 room_coords = Vector2i(1, 3)
-content = SubResource("Resource_hisw4")
+content = SubResource("Resource_u8qvh")
 east_exit = true
 metadata/_custom_type_script = "uid://pnkwdspwmpwe"
 
-[sub_resource type="Resource" id="Resource_h20ci"]
+[sub_resource type="Resource" id="Resource_2l01o"]
 script = ExtResource("20_rc")
 room_scene = ExtResource("3_hqd6g")
 room_type = 1
 
-[sub_resource type="Resource" id="Resource_cqbj2"]
+[sub_resource type="Resource" id="Resource_o2ge4"]
 script = ExtResource("1_hqd6g")
 room_coords = Vector2i(2, 3)
-content = SubResource("Resource_h20ci")
+content = SubResource("Resource_2l01o")
 east_exit = true
 west_exit = true
 metadata/_custom_type_script = "uid://pnkwdspwmpwe"
 
-[sub_resource type="Resource" id="Resource_1wnuw"]
+[sub_resource type="Resource" id="Resource_8jg7j"]
 script = ExtResource("20_rc")
 room_scene = ExtResource("4_n2un6")
 room_type = 1
 
-[sub_resource type="Resource" id="Resource_u8qvh"]
+[sub_resource type="Resource" id="Resource_k2hde"]
 script = ExtResource("1_hqd6g")
 room_coords = Vector2i(3, 2)
-content = SubResource("Resource_1wnuw")
+content = SubResource("Resource_8jg7j")
 north_exit = true
 south_exit = true
 west_exit = true
 metadata/_custom_type_script = "uid://pnkwdspwmpwe"
 
-[sub_resource type="Resource" id="Resource_egy6m"]
+[sub_resource type="Resource" id="Resource_7vptp"]
 script = ExtResource("1_hqd6g")
 room_coords = Vector2i(4, 1)
 is_static = false
@@ -88,21 +88,21 @@ south_exit = true
 west_exit = true
 metadata/_custom_type_script = "uid://pnkwdspwmpwe"
 
-[sub_resource type="Resource" id="Resource_2l01o"]
+[sub_resource type="Resource" id="Resource_q2y8s"]
 script = ExtResource("20_rc")
 room_scene = ExtResource("6_1f751")
 room_type = 4
 item_pool_override = ExtResource("21_strtpool")
 
-[sub_resource type="Resource" id="Resource_o2ge4"]
+[sub_resource type="Resource" id="Resource_oxwhy"]
 script = ExtResource("1_hqd6g")
 room_coords = Vector2i(3, 3)
-content = SubResource("Resource_2l01o")
+content = SubResource("Resource_q2y8s")
 north_exit = true
 west_exit = true
 metadata/_custom_type_script = "uid://pnkwdspwmpwe"
 
-[sub_resource type="Resource" id="Resource_8jg7j"]
+[sub_resource type="Resource" id="Resource_0rv7n"]
 script = ExtResource("1_hqd6g")
 room_coords = Vector2i(4, 2)
 is_static = false
@@ -110,7 +110,7 @@ north_exit = true
 south_exit = true
 metadata/_custom_type_script = "uid://pnkwdspwmpwe"
 
-[sub_resource type="Resource" id="Resource_k2hde"]
+[sub_resource type="Resource" id="Resource_cs6uf"]
 script = ExtResource("20_rc")
 room_scene = ExtResource("8_d5n1e")
 room_type = 3
@@ -118,14 +118,14 @@ is_secret = true
 memory_tree = ExtResource("10_mtree11")
 metadata/_custom_type_script = "uid://roomcontent0"
 
-[sub_resource type="Resource" id="Resource_7vptp"]
+[sub_resource type="Resource" id="Resource_ov68d"]
 script = ExtResource("1_hqd6g")
 room_coords = Vector2i(2, 2)
-content = SubResource("Resource_k2hde")
+content = SubResource("Resource_cs6uf")
 east_exit = true
 metadata/_custom_type_script = "uid://pnkwdspwmpwe"
 
-[sub_resource type="Resource" id="Resource_q2y8s"]
+[sub_resource type="Resource" id="Resource_fk0ew"]
 script = ExtResource("1_hqd6g")
 room_coords = Vector2i(3, 1)
 is_static = false
@@ -133,7 +133,7 @@ south_exit = true
 east_exit = true
 metadata/_custom_type_script = "uid://pnkwdspwmpwe"
 
-[sub_resource type="Resource" id="Resource_oxwhy"]
+[sub_resource type="Resource" id="Resource_w4o8p"]
 script = ExtResource("1_hqd6g")
 room_coords = Vector2i(4, 3)
 is_static = false
@@ -142,51 +142,51 @@ south_exit = true
 east_exit = true
 metadata/_custom_type_script = "uid://pnkwdspwmpwe"
 
-[sub_resource type="Resource" id="Resource_0rv7n"]
+[sub_resource type="Resource" id="Resource_7l4m0"]
 script = ExtResource("20_rc")
 room_scene = ExtResource("8_d5n1e")
 room_type = 3
 is_secret = true
 memory_tree = ExtResource("10_mtree12")
 
-[sub_resource type="Resource" id="Resource_cs6uf"]
+[sub_resource type="Resource" id="Resource_fjkhb"]
 script = ExtResource("1_hqd6g")
 room_coords = Vector2i(4, 4)
-content = SubResource("Resource_0rv7n")
+content = SubResource("Resource_7l4m0")
 north_exit = true
 
-[sub_resource type="Resource" id="Resource_ov68d"]
+[sub_resource type="Resource" id="Resource_2new2"]
 script = ExtResource("20_rc")
 room_scene = ExtResource("12_03adn")
 room_type = 6
 bonus_item = ExtResource("12_h20ci")
 
-[sub_resource type="Resource" id="Resource_fk0ew"]
+[sub_resource type="Resource" id="Resource_j0qqo"]
 script = ExtResource("1_hqd6g")
 room_coords = Vector2i(5, 3)
-content = SubResource("Resource_ov68d")
+content = SubResource("Resource_2new2")
 west_exit = true
 
-[sub_resource type="Resource" id="Resource_w4o8p"]
+[sub_resource type="Resource" id="Resource_lgift"]
 script = ExtResource("20_rc")
 room_scene = ExtResource("5_3m4i2")
 room_type = 1
 metadata/_custom_type_script = "uid://roomcontent0"
 
-[sub_resource type="Resource" id="Resource_7l4m0"]
+[sub_resource type="Resource" id="Resource_47rds"]
 script = ExtResource("20_rc")
 room_scene = ExtResource("7_87kjy")
 room_type = 1
 metadata/_custom_type_script = "uid://roomcontent0"
 
-[sub_resource type="Resource" id="Resource_fjkhb"]
+[sub_resource type="Resource" id="Resource_tct8e"]
 script = ExtResource("20_rc")
 room_scene = ExtResource("9_kvvos")
 room_type = 2
 required = true
 metadata/_custom_type_script = "uid://roomcontent0"
 
-[sub_resource type="Resource" id="Resource_2new2"]
+[sub_resource type="Resource" id="Resource_8o1rm"]
 script = ExtResource("20_rc")
 room_scene = ExtResource("11_6jhxo")
 room_type = 5
@@ -237,8 +237,8 @@ seal_difficulty_rates = SubResource("Resource_d5n1e")
 seal_phase_pool = Array[ExtResource("13_rtyfa")]([SubResource("Resource_mwylx")])
 seal_health_phase = SubResource("Resource_74xxy")
 floor_name_id = "The Intersection"
-room_entries = Array[ExtResource("1_hqd6g")]([SubResource("Resource_03adn"), SubResource("Resource_cqbj2"), SubResource("Resource_u8qvh"), SubResource("Resource_egy6m"), SubResource("Resource_o2ge4"), SubResource("Resource_8jg7j"), SubResource("Resource_7vptp"), SubResource("Resource_q2y8s"), SubResource("Resource_oxwhy"), SubResource("Resource_cs6uf"), SubResource("Resource_fk0ew")])
-room_pool = Array[ExtResource("20_rc")]([SubResource("Resource_w4o8p"), SubResource("Resource_7l4m0"), SubResource("Resource_fjkhb"), SubResource("Resource_2new2")])
+room_entries = Array[ExtResource("1_hqd6g")]([SubResource("Resource_egy6m"), SubResource("Resource_o2ge4"), SubResource("Resource_k2hde"), SubResource("Resource_7vptp"), SubResource("Resource_oxwhy"), SubResource("Resource_0rv7n"), SubResource("Resource_ov68d"), SubResource("Resource_fk0ew"), SubResource("Resource_w4o8p"), SubResource("Resource_fjkhb"), SubResource("Resource_j0qqo")])
+room_pool = Array[ExtResource("20_rc")]([SubResource("Resource_lgift"), SubResource("Resource_47rds"), SubResource("Resource_tct8e"), SubResource("Resource_8o1rm")])
 show_mini_map = true
 seal_break_enemies = Array[ExtResource("13_74xxy")]([SubResource("Resource_w0og2")])
 wall_texture = ExtResource("18_6jhxo")

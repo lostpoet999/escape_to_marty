@@ -26,6 +26,9 @@ var active_volleys: int = 0
 func _ready()->void:
 	active_volleys = 0
 
+func can_activate_on_paddle() -> bool:
+	return false
+
 func activate(paddle: Paddle, projectile_node: Node) -> void:
 	if not ((active_volleys < max_spawn) or (max_spawn <= 0)):
 		return

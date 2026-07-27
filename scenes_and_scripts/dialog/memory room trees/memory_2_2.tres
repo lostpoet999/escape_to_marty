@@ -5,7 +5,7 @@
 
 [sub_resource type="Resource" id="Resource_beat_1"]
 script = ExtResource("2_beat")
-text = "placeholder memory text (floor 2 - memory 2) -- a text-only beat plays as pure voice on the dark stage."
+text = "He loved to squeeze the wind out of me when he gave hugs!"
 
 [resource]
 script = ExtResource("1_tree")

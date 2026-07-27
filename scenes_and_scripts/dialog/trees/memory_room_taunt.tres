@@ -6,27 +6,27 @@
 [sub_resource type="Resource" id="Resource_beat_1"]
 script = ExtResource("2_beat")
 speaker = 1
-text = "placeholder 1"
+text = "You going to cry now?"
 
 [sub_resource type="Resource" id="Resource_beat_2"]
 script = ExtResource("2_beat")
 speaker = 1
-text = "placeholder 2"
+text = "You will forget as quick as you remember!"
 
 [sub_resource type="Resource" id="Resource_beat_3"]
 script = ExtResource("2_beat")
 speaker = 1
-text = "placeholder 3"
+text = "You had a really boring life."
 
 [sub_resource type="Resource" id="Resource_beat_4"]
 script = ExtResource("2_beat")
 speaker = 1
-text = "placeholder 4"
+text = "They are probably better off without you..."
 
 [sub_resource type="Resource" id="Resource_beat_5"]
 script = ExtResource("2_beat")
 speaker = 1
-text = "placeholder 5"
+text = "Well--this one is sweet...NOT! HaHaHa!"
 
 [resource]
 script = ExtResource("1_tree")

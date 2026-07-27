@@ -15,7 +15,7 @@
 [ext_resource type="Resource" uid="uid://b8bqdgvahk8u" path="res://scenes_and_scripts/powerups_and_behaviors/defensive_powerups/self_forgiveness.tres" id="12_rtsd2"]
 [ext_resource type="Resource" uid="uid://dhuy7jly76eah" path="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/long_stretch.tres" id="13_mlme4"]
 [ext_resource type="Resource" uid="uid://mkyourbed01" path="res://scenes_and_scripts/powerups_and_behaviors/defensive_powerups/make_your_bed.tres" id="14_mkbed"]
-[ext_resource type="Resource" uid="uid://cweutbexogawp" path="res://scenes_and_scripts/powerups_and_behaviors/utility_powerups/ball_magnet.tres" id="15_mlme4"]
+[ext_resource type="Resource" uid="uid://cweutbexogawp" path="res://scenes_and_scripts/powerups_and_behaviors/paddle_active_powerups/support_system.tres" id="15_mlme4"]
 
 [resource]
 script = ExtResource("2_upo5x")

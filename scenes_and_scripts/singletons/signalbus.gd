@@ -145,6 +145,11 @@ signal pick2_vouchers_changed(count: int)
 @warning_ignore("unused_signal")
 signal shop_restock_vouchers_changed(count: int)
 
+## Emits: scenes_and_scripts/actors/player/paddle.gd -> _on_ball_magnet_radius_area_shape_entered(), _on_ball_magnet_radius_area_shape_exited()
+## Connects: scenes_and_scripts/ball/ball.gd -> set_ball_in_magnet_range
+@warning_ignore("unused_signal")
+signal ball_in_magnet_range(is_in_range: bool)
+
 ## =============================================================================
 ## Inventory Signals
 ## =============================================================================

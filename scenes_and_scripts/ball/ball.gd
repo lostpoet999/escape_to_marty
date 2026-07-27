@@ -35,9 +35,6 @@ var flipped_y: bool = false
 ## Gates the ball_activate_powerup input; stays false until the player owns the homing powerup.
 @export var has_homing_powerup: bool = false
 
-## Gates the ball_attract_to_paddle input similarly to the ball_activate_powerup input
-@export var has_ball_magnet_powerup: bool = false
-
 var ball_in_magnet_range: bool = false
 
 var velocity: Vector2 = Vector2.ZERO
@@ -74,7 +71,7 @@ func _ready() -> void:
 	Signalbus.game_state_special_room.connect(remove_ball)
 	Signalbus.floor_cleared.connect(remove_ball)
 	Signalbus.db_panel_closed.connect(repopulate_effects_from_inventory)
-	BallMagnetDetection.ball_in_magnet_range.connect(set_ball_in_magnet_range)
+	Signalbus.ball_in_magnet_range.connect(set_ball_in_magnet_range)
 
 func get_ball_dmg_types() -> void:
 	ball_dmg_type.clear()
@@ -217,12 +214,13 @@ func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("ball_activate_powerup"):
 		if has_homing_powerup and not on_paddle and GameManager.current_state == GameManager.GameState.PLAYING:
 			tween_to_nearest_brick()
-	if Input.is_action_just_pressed("ball_attract_to_paddle"):
-		if PlayerInventory.get_instance().has_ball_magnet() and not on_paddle and ball_in_magnet_range and GameManager.current_state == GameManager.GameState.PLAYING:
-			tween_to_david(global_position)
-			position_ball_on_paddle()
-		elif PlayerInventory.get_instance().has_ball_magnet() and on_paddle and GameManager.current_state == GameManager.GameState.BALL_ON_PADDLE:
-			launch_ball()
+
+func attract_to_paddle() -> void:
+	if not on_paddle and ball_in_magnet_range and GameManager.current_state == GameManager.GameState.PLAYING:
+		tween_to_david(global_position)
+		position_ball_on_paddle()
+	elif on_paddle and GameManager.current_state == GameManager.GameState.BALL_ON_PADDLE:
+		launch_ball()
 
 func set_ball_in_magnet_range(ball_in_range: bool):
 	if ball_in_range:

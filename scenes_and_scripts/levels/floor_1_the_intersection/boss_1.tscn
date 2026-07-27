@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dg0t0jrkytca7" path="res://scenes_and_scripts/bricks/boss_deon_seal.tscn" id="5_njqif"]
 [ext_resource type="PackedScene" uid="uid://flrportal001" path="res://scenes_and_scripts/exits/floor_portal.tscn" id="6_portal"]
 [ext_resource type="Script" uid="uid://deonencroom0" path="res://scenes_and_scripts/levels/deon_encounter_room.gd" id="7_deonroom"]
-[ext_resource type="Resource" uid="uid://tstpostenc00" path="res://scenes_and_scripts/dialog/memory room trees/post_encounter_placeholder.tres" id="8_beattree"]
+[ext_resource type="Resource" uid="uid://tstpostenc00" path="res://scenes_and_scripts/dialog/memory room trees/post_floor_1_encounter.tres" id="8_beattree"]
 
 [node name="BossRoom" unique_id=565861230 instance=ExtResource("1_u1v84")]
 script = ExtResource("7_deonroom")

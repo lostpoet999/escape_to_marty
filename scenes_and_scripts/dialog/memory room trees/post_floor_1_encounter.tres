@@ -29,7 +29,7 @@ metadata/_custom_type_script = "uid://da86xmy7akvas"
 
 [sub_resource type="Resource" id="Resource_beat_2"]
 script = ExtResource("2_beat")
-text = "Nooooooooooo...what about Marty?  I'm so angry--I HAVE TO ESCAPE TO MARTY!"
+text = "Nooooooooooo...what about Marty?  I'm so ANGRY--I HAVE TO ESCAPE TO MARTY!"
 
 [resource]
 script = ExtResource("1_tree")

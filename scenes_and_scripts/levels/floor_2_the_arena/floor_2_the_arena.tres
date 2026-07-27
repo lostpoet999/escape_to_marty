@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://cuodqq58w45s5" path="res://scenes_and_scripts/levels/common_rooms/memory room/memory_base.tscn" id="14_mem21"]
 [ext_resource type="Resource" uid="uid://cmemtree0201" path="res://scenes_and_scripts/dialog/memory room trees/memory_2_1.tres" id="15_mtree21"]
 [ext_resource type="Resource" uid="uid://cmemtree0202" path="res://scenes_and_scripts/dialog/memory room trees/memory_2_2.tres" id="15_mtree22"]
+[ext_resource type="Resource" uid="uid://c3n36kugnbvev" path="res://scenes_and_scripts/dialog/memory room trees/memory_2_3.tres" id="16_8xlg6"]
 [ext_resource type="PackedScene" uid="uid://dv7p2iafjnr4x" path="res://scenes_and_scripts/levels/floor_2_the_arena/boss_2.tscn" id="16_boss2"]
 [ext_resource type="PackedScene" uid="uid://b1mku5iyrtraa" path="res://scenes_and_scripts/actors/enemies/specific_enemies/rage_blob/rage_blob.tscn" id="16_tikq6"]
 [ext_resource type="Script" uid="uid://roomcontent0" path="res://scenes_and_scripts/levels/room_content.gd" id="20_rc"]
@@ -100,6 +101,7 @@ metadata/_custom_type_script = "uid://pnkwdspwmpwe"
 script = ExtResource("1_4xv7i")
 room_coords = Vector2i(4, 3)
 is_static = false
+north_exit = true
 south_exit = true
 west_exit = true
 metadata/_custom_type_script = "uid://pnkwdspwmpwe"
@@ -165,6 +167,18 @@ script = ExtResource("1_4xv7i")
 room_coords = Vector2i(1, 4)
 content = SubResource("Resource_sm70v")
 north_exit = true
+
+[sub_resource type="Resource" id="Resource_wa62o"]
+script = ExtResource("20_rc")
+room_scene = ExtResource("14_mem21")
+room_type = 3
+memory_tree = ExtResource("16_8xlg6")
+
+[sub_resource type="Resource" id="Resource_tkawe"]
+script = ExtResource("1_4xv7i")
+room_coords = Vector2i(4, 2)
+content = SubResource("Resource_wa62o")
+south_exit = true
 
 [sub_resource type="Resource" id="Resource_uo428"]
 script = ExtResource("20_rc")
@@ -252,7 +266,7 @@ seal_phase_pool = Array[ExtResource("4_tjbqt")]([SubResource("Resource_tjbqt"), 
 seal_health_phase = SubResource("Resource_1wfy1")
 max_respawn = 3
 floor_name_id = "The Arena"
-room_entries = Array[ExtResource("1_4xv7i")]([SubResource("Resource_opx4d"), SubResource("Resource_fee7e"), SubResource("Resource_8xlg6"), SubResource("Resource_mrhud"), SubResource("Resource_nmn04"), SubResource("Resource_wg6j7"), SubResource("Resource_gmptv"), SubResource("Resource_ls17h"), SubResource("Resource_d5syq"), SubResource("Resource_uvac1"), SubResource("Resource_6ycen")])
+room_entries = Array[ExtResource("1_4xv7i")]([SubResource("Resource_opx4d"), SubResource("Resource_fee7e"), SubResource("Resource_8xlg6"), SubResource("Resource_mrhud"), SubResource("Resource_nmn04"), SubResource("Resource_wg6j7"), SubResource("Resource_gmptv"), SubResource("Resource_ls17h"), SubResource("Resource_d5syq"), SubResource("Resource_uvac1"), SubResource("Resource_6ycen"), SubResource("Resource_tkawe")])
 room_pool = Array[ExtResource("20_rc")]([SubResource("Resource_uo428"), SubResource("Resource_sp8dx"), SubResource("Resource_82rfb"), SubResource("Resource_15g78")])
 show_mini_map = true
 seal_break_enemies = Array[ExtResource("3_1wfy1")]([SubResource("Resource_1r2xy"), SubResource("Resource_a1chj")])

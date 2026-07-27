@@ -232,8 +232,8 @@ func _input(event: InputEvent) -> void:
 		if mouse_event:
 			accumulated_mouse_movement_x += mouse_event.relative.x * mouse_sensitivity
 			accumulated_mouse_movement_x = clamp(accumulated_mouse_movement_x, left_bound, right_bound)
-	if Input.is_action_just_pressed("paddle_active_powerup") and GameManager.current_state != GameManager.GameState.BALL_ON_PADDLE and GameManager.current_state != GameManager.GameState.LEVEL_CLEARED and GameManager.current_state != GameManager.GameState.SPECIAL_ROOM:				
-		if active_paddle_powerup:
+	if Input.is_action_just_pressed("paddle_active_powerup") and GameManager.current_state != GameManager.GameState.LEVEL_CLEARED and GameManager.current_state != GameManager.GameState.SPECIAL_ROOM:
+		if active_paddle_powerup and (GameManager.current_state != GameManager.GameState.BALL_ON_PADDLE or active_paddle_powerup.can_activate_on_paddle()):
 			active_paddle_powerup.activate(self,projectiles)
 
 func hit_feedback() -> void:	
@@ -394,8 +394,8 @@ func _physics_process(delta: float) -> void:
 
 func _on_ball_magnet_radius_area_shape_entered(area_rid: RID, area: Area2D, area_shape_index: int, local_shape_index: int) -> void:
 	if area and area.name == "Ball":
-		BallMagnetDetection.ball_in_magnet_range.emit(true)
+		Signalbus.ball_in_magnet_range.emit(true)
 
 func _on_ball_magnet_radius_area_shape_exited(area_rid: RID, area: Area2D, area_shape_index: int, local_shape_index: int) -> void:
 	if area and area.name == "Ball":
-		BallMagnetDetection.ball_in_magnet_range.emit(false)
+		Signalbus.ball_in_magnet_range.emit(false)
