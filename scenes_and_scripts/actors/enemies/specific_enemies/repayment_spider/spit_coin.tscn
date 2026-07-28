@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://spitcoin0001"]
+
+[ext_resource type="PackedScene" uid="uid://cbonusdrop01" path="res://scenes_and_scripts/collectibles/bonus_drop.tscn" id="1_base"]
+[ext_resource type="Script" uid="uid://spitcoingd01" path="res://scenes_and_scripts/actors/enemies/specific_enemies/repayment_spider/spit_coin.gd" id="2_coin"]
+
+[node name="SpitCoin" unique_id=903312780 instance=ExtResource("1_base")]
+script = ExtResource("2_coin")

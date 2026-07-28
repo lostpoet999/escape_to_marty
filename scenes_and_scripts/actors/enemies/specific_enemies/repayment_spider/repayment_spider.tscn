@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://repspiderl01"]
+
+[ext_resource type="PackedScene" uid="uid://b3j8yvc0658fc" path="res://scenes_and_scripts/actors/enemies/placed_enemy_base.tscn" id="1_base0"]
+[ext_resource type="Script" uid="uid://repspidergd1" path="res://scenes_and_scripts/actors/enemies/specific_enemies/repayment_spider/repayment_spider.gd" id="1_spdr0"]
+[ext_resource type="Script" uid="uid://bbq2uibufrs08" path="res://scenes_and_scripts/actors/enemies/enemy_actions/enemy_action_base.gd" id="2_abase"]
+[ext_resource type="Script" uid="uid://cokw6vjrb4e8c" path="res://scenes_and_scripts/actors/enemies/enemy_actions/wall_crawl.gd" id="3_crawl"]
+[ext_resource type="Script" uid="uid://spidrspitgd1" path="res://scenes_and_scripts/actors/enemies/specific_enemies/repayment_spider/spider_spit.gd" id="4_spit"]
+[ext_resource type="Texture2D" uid="uid://sdfbl6kimb0q" path="res://scenes_and_scripts/actors/enemies/specific_enemies/money_thief_spider/spider_1.png" id="5_tex0"]
+[ext_resource type="Shader" uid="uid://gnsjmtflfbxt" path="res://scenes_and_scripts/actors/enemies/specific_enemies/no_see_me_demon/flash.gdshader" id="6_8m3e2"]
+[ext_resource type="PackedScene" uid="uid://spiderfxg001" path="res://scenes_and_scripts/actors/enemies/specific_enemies/money_thief_spider/spider_destroy_fx.tscn" id="6_dfx"]
+
+[sub_resource type="Resource" id="Resource_crawl"]
+script = ExtResource("3_crawl")
+crawl_min = 130.0
+crawl_max = 750.0
+min_step = 80.0
+max_step = 200.0
+speed = 1.5
+action_name = "WallCrawl"
+metadata/_custom_type_script = "uid://cokw6vjrb4e8c"
+
+[sub_resource type="Resource" id="Resource_spit"]
+script = ExtResource("4_spit")
+action_name = "SpiderSpit"
+action_type = 1
+metadata/_custom_type_script = "uid://spidrspitgd1"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2u0h4"]
+resource_local_to_scene = true
+shader = ExtResource("6_8m3e2")
+shader_parameter/flash_amount = 0.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_spdr0"]
+size = Vector2(77, 77)
+
+[node name="RepaymentSpider" unique_id=1755432198 groups=["bounce_enemy"] instance=ExtResource("1_base0")]
+scale = Vector2(1.5, 1.5)
+script = ExtResource("1_spdr0")
+steal_reach = 420.0
+steal_span = 400.0
+eat_radius = 45.0
+burst_scatter_min = 40.0
+burst_scatter_max = 120.0
+exposed_fraction = 0.35
+wall_side = 0
+emerge_time = 0.6
+escape_time = 6.0
+escape_run_speed = 0.7
+wall_shock_bricks = 3
+max_health = 3.0
+destroy_fx = ExtResource("6_dfx")
+action_pool = Array[ExtResource("2_abase")]([SubResource("Resource_crawl"), SubResource("Resource_spit")])
+action_timer = 4.0
+
+[node name="EnemySprite" parent="." index="0" unique_id=2032254832]
+material = SubResource("ShaderMaterial_2u0h4")
+texture = ExtResource("5_tex0")
+
+[node name="Foot1" type="Marker2D" parent="." index="1" unique_id=903312761]
+position = Vector2(-15, 91)
+
+[node name="Foot2" type="Marker2D" parent="." index="2" unique_id=903312762]
+position = Vector2(15, 91)
+
+[node name="CollisionShape2D" parent="." index="3" unique_id=1655691252]
+position = Vector2(0, 0)
+shape = SubResource("RectangleShape2D_spdr0")
+
+[node name="EscapeIndicator" type="ProgressBar" parent="." index="4" unique_id=903312763]
+z_index = 2000
+offset_left = -30.0
+offset_top = -60.0
+offset_right = 30.0
+offset_bottom = -48.0
+mouse_filter = 2
+show_percentage = false

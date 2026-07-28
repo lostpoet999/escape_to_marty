@@ -127,6 +127,10 @@ func _eat_pulse() -> void:
 	pulse.tween_property(sprite, "modulate", Color(1.6, 1.6, 1.6, 1.0), 0.06)
 	pulse.tween_property(sprite, "modulate", Color.WHITE, 0.12)
 
+func _finish_escape() -> void:
+	PlayerData.spider_stolen_gold += hoard.size()
+	super()
+
 func _on_escape_started() -> void:
 	if _steal_zone != null:
 		_steal_zone.set_deferred("monitoring", false)

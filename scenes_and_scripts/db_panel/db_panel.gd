@@ -102,6 +102,12 @@ func _on_enable_exits_btn_pressed() -> void:
 func _on_give_gold_btn_pressed() -> void:
 	PlayerData.change_player_gold(100)
 
+func _on_heal_btn_pressed() -> void:
+	PlayerData.change_player_health(5)
+
+func _on_stolen_gold_btn_pressed() -> void:
+	PlayerData.spider_stolen_gold += 5
+
 func populate_floor_warp() -> void:
 	for child: Node in floor_list.get_children():
 		child.queue_free()

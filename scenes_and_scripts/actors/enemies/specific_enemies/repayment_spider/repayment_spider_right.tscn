@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://repspiderr01"]
+
+[ext_resource type="PackedScene" uid="uid://repspiderl01" path="res://scenes_and_scripts/actors/enemies/specific_enemies/repayment_spider/repayment_spider.tscn" id="1_parent"]
+[ext_resource type="Shader" uid="uid://gnsjmtflfbxt" path="res://scenes_and_scripts/actors/enemies/specific_enemies/no_see_me_demon/flash.gdshader" id="2_eksy1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eksy1"]
+resource_local_to_scene = true
+shader = ExtResource("2_eksy1")
+shader_parameter/flash_amount = 0.0
+
+[node name="RepaymentSpider" unique_id=1755432199 instance=ExtResource("1_parent")]
+wall_side = 1
+
+[node name="EnemySprite" parent="." index="0" unique_id=2032254832]
+material = SubResource("ShaderMaterial_eksy1")
+flip_h = true

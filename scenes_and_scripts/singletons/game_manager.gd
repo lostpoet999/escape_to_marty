@@ -11,6 +11,7 @@ var floor_data: FloorData
 var room_data_for_floor: Dictionary = {}
 var scene_ref: PackedScene
 var current_room_id: String
+var test_floor_active: bool = false
 
 enum GameState {MAIN_MENU, BALL_ON_PADDLE, PLAYING, PAUSED, GAME_OVER, CLICK_MODE, LEVEL_CLEARED, SPECIAL_ROOM, DEBUG_PANEL} 
 enum PhaseType {DENIAL, ANGER, BARGAINING, DEPRESSION, ACCEPTANCE, HEALTH}
@@ -103,7 +104,7 @@ func is_valid_state_transition(from_state: GameState, to_state: GameState) -> bo
 		GameState.MAIN_MENU:
 			return to_state in [GameState.BALL_ON_PADDLE, GameState.SPECIAL_ROOM, GameState.DEBUG_PANEL]
 		GameState.BALL_ON_PADDLE:
-			return to_state in [GameState.PLAYING, GameState.PAUSED, GameState.LEVEL_CLEARED, GameState.SPECIAL_ROOM,GameState.DEBUG_PANEL]
+			return to_state in [GameState.PLAYING, GameState.PAUSED, GameState.LEVEL_CLEARED, GameState.SPECIAL_ROOM,GameState.DEBUG_PANEL, GameState.GAME_OVER]
 		GameState.PLAYING:
 			return to_state in [GameState.PAUSED, GameState.GAME_OVER, GameState.MAIN_MENU, GameState.CLICK_MODE, GameState.LEVEL_CLEARED, GameState.SPECIAL_ROOM, GameState.DEBUG_PANEL, GameState.BALL_ON_PADDLE]
 		GameState.PAUSED:
@@ -200,6 +201,7 @@ func start_floor(reset_player_data: bool = true) -> void:
 func start_floor_with_data(data: FloorData, reset_player_data: bool = true) -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	floor_data = data
+	test_floor_active = data.floor_name_id == "TEST"
 	get_floor_data()
 	var start_slot: RoomEntry = _find_starting_slot()
 	current_room_id = RoomEntry.make_key(start_slot.room_coords)
@@ -221,12 +223,28 @@ func _ready() -> void:
 	start_floor()
 	
 func floor_cleared()->void:
+	if test_floor_active:
+		_return_to_test_room()
+		return
 	if current_floor >= FLOOR_REGISTRY.floors.size():
 		win_game()
 		return
 	current_floor += 1
 	start_floor(false)
 	load_current_room()
+
+func _return_to_test_room() -> void:
+	var here: RoomEntry = room_data_for_floor[current_room_id]
+	var below_key: String = RoomEntry.make_key(here.room_coords + Vector2i(0, 1))
+	if not room_data_for_floor.has(below_key):
+		push_warning("test floor: no room below %s to return to" % current_room_id)
+		return
+	PlayerData.room_state.erase(current_room_id)
+	var target: RoomEntry = room_data_for_floor[below_key]
+	current_room_id = below_key
+	scene_ref = target.content.room_scene
+	change_state(GameState.BALL_ON_PADDLE)
+	get_tree().change_scene_to_packed(scene_ref)
 
 func win_game()->void:
 	change_state(GameState.MAIN_MENU)

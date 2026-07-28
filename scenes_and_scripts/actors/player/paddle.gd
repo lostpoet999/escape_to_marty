@@ -5,6 +5,10 @@ const HEART_DESTROY_FX: PackedScene = preload("res://scenes_and_scripts/actors/p
 const DEATH_SEAL_TEXTURE: Texture2D = preload("res://scenes_and_scripts/bricks/brick-gemstone-facets.png")
 const DEATH_SEAL_COLOR: Color = Color("a23e8c")
 
+const WEB_BOX_COLOR: Color = Color(0.87451, 0.517647, 0.647059, 0.85)
+const WEB_SHAKE_MIN_PIXELS: float = 6.0
+const WEB_BOX_MARGIN: Vector2 = Vector2(24.0, 48.0)
+
 const SHIELD_COLOR: Color = Color(0.5, 0.8, 1.0)
 const SHIELD_COLOR_BRIGHT: Color = Color(0.8, 0.95, 1.0)
 const SHIELD_PULSE_TIME: float = 0.45
@@ -49,6 +53,11 @@ var _sprite_base_y: float
 var _david_base_y: float
 var paddle_frozen: bool = false
 var paddle_click_dmg: float = 1.0
+var _webbed: bool = false
+var _web_shakes_needed: int = 0
+var _web_shakes: int = 0
+var _web_last_dir: float = 0.0
+var _web_box: ColorRect
 
 var freeze_timer : Timer
 
@@ -113,6 +122,7 @@ func connect_signals()->void:
 	Signalbus.inventory_changed.connect(set_paddle_length_from_items)
 	
 	Signalbus.player_died.connect(_run_death_sequence)
+	Signalbus.level_cleared.connect(_release_web)
 	Signalbus.blocker_added.connect(add_blocker_enemy)
 	Signalbus.blocker_removed.connect(remove_blocker_enemy)
 	Signalbus.blocker_moved.connect(_calculate_blockers_bounds)
@@ -226,8 +236,61 @@ func _on_freeze_timer_expire()->void:
 	if GameManager.current_state != GameManager.GameState.LEVEL_CLEARED:
 		paddle_frozen=false
 
+func apply_web(shakes_to_break: int) -> void:
+	if _webbed or _death_running:
+		return
+	_webbed = true
+	_web_shakes = 0
+	_web_shakes_needed = maxi(shakes_to_break, 1)
+	_web_last_dir = 0.0
+	_show_web_box()
+
+func _show_web_box() -> void:
+	_web_box = ColorRect.new()
+	_web_box.color = WEB_BOX_COLOR
+	_web_box.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_web_box.size = Vector2(_get_scaled_half_width() * 2.0 + WEB_BOX_MARGIN.x, WEB_BOX_MARGIN.y)
+	_web_box.position = -_web_box.size * 0.5
+	_web_box.pivot_offset = _web_box.size * 0.5
+	_web_box.z_index = 10
+	add_child(_web_box)
+
+func _count_web_shake(relative_x: float) -> void:
+	if absf(relative_x) < WEB_SHAKE_MIN_PIXELS:
+		return
+	var dir: float = signf(relative_x)
+	if dir == _web_last_dir:
+		return
+	if _web_last_dir != 0.0:
+		_web_shakes += 1
+		_jiggle_web_box()
+		if _web_shakes >= _web_shakes_needed:
+			_release_web()
+			return
+	_web_last_dir = dir
+
+func _jiggle_web_box() -> void:
+	if _web_box == null:
+		return
+	var jiggle: Tween = create_tween()
+	jiggle.tween_property(_web_box, "rotation", 0.12, 0.04)
+	jiggle.tween_property(_web_box, "rotation", 0.0, 0.08)
+
+func _release_web() -> void:
+	if not _webbed:
+		return
+	_webbed = false
+	accumulated_mouse_movement_x = clamp(position.x, left_bound, right_bound)
+	if _web_box != null:
+		_web_box.queue_free()
+		_web_box = null
+
 func _input(event: InputEvent) -> void:
-	if !paddle_frozen:
+	if _webbed:
+		var web_motion: InputEventMouseMotion = event as InputEventMouseMotion
+		if web_motion:
+			_count_web_shake(web_motion.relative.x)
+	elif !paddle_frozen:
 		var mouse_event: InputEventMouseMotion = event as InputEventMouseMotion
 		if mouse_event:
 			accumulated_mouse_movement_x += mouse_event.relative.x * mouse_sensitivity
@@ -291,6 +354,7 @@ func _run_death_sequence() -> void:
 	if _death_running:
 		return
 	_death_running = true
+	_release_web()
 	paddle_frozen = true
 	_zoom_camera_on_david()
 	var ball: Node = get_tree().get_first_node_in_group("ball")
@@ -385,7 +449,7 @@ func _process(delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	if abs(current_speed) <= 1500.0: reset_committed_distance()
-	if !paddle_frozen:
+	if !paddle_frozen and !_webbed:
 		var prev_x: float = position.x
 		position.x = accumulated_mouse_movement_x
 		current_speed = (global_position.x - last_position.x) / delta

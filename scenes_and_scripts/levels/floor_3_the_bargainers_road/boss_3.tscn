@@ -1,17 +1,44 @@
 [gd_scene format=3 uid="uid://c68d8tkbufo2s"]
 
 [ext_resource type="PackedScene" uid="uid://bea1h3570swpu" path="res://scenes_and_scripts/levels/room_base.tscn" id="1_u1v84"]
-[ext_resource type="Script" uid="uid://bp614icwl4d63" path="res://scenes_and_scripts/actors/enemies/specific_enemies/boss_1_denial/boss_deon_cage.gd" id="2_njqif"]
-[ext_resource type="PackedScene" uid="uid://cnv3n7yhiuywa" path="res://scenes_and_scripts/actors/enemies/specific_enemies/boss_1_denial/boss_1_denial.tscn" id="3_ndrbk"]
-[ext_resource type="PackedScene" uid="uid://nx78k65twjxc" path="res://scenes_and_scripts/walls/DeonBossWall.tscn" id="4_th818"]
-[ext_resource type="PackedScene" uid="uid://dg0t0jrkytca7" path="res://scenes_and_scripts/bricks/boss_deon_seal.tscn" id="5_njqif"]
 [ext_resource type="PackedScene" uid="uid://flrportal001" path="res://scenes_and_scripts/exits/floor_portal.tscn" id="6_portal"]
-[ext_resource type="Script" uid="uid://deonencroom0" path="res://scenes_and_scripts/levels/deon_encounter_room.gd" id="7_deonroom"]
+[ext_resource type="Script" uid="uid://spdrencroom1" path="res://scenes_and_scripts/levels/spider_encounter_room.gd" id="7_room"]
+[ext_resource type="PackedScene" uid="uid://b7m8vn6kumwyg" path="res://scenes_and_scripts/actors/enemies/enemy_spawner.tscn" id="8_spwn"]
+[ext_resource type="Script" uid="uid://spdrspawngd1" path="res://scenes_and_scripts/actors/enemies/specific_enemies/repayment_spider/spider_pool_spawner.gd" id="9_pspwn"]
+[ext_resource type="Script" uid="uid://dm8qchhbo37mu" path="res://scenes_and_scripts/actors/enemies/enemy_config.gd" id="10_ecfg"]
+[ext_resource type="PackedScene" uid="uid://repspiderl01" path="res://scenes_and_scripts/actors/enemies/specific_enemies/repayment_spider/repayment_spider.tscn" id="11_spdrl"]
+[ext_resource type="PackedScene" uid="uid://repspiderr01" path="res://scenes_and_scripts/actors/enemies/specific_enemies/repayment_spider/repayment_spider_right.tscn" id="12_spdrr"]
+[ext_resource type="PackedScene" uid="uid://repspidert01" path="res://scenes_and_scripts/actors/enemies/specific_enemies/repayment_spider/repayment_spider_top.tscn" id="13_spdrt"]
+
+[sub_resource type="Resource" id="Resource_rspdl"]
+script = ExtResource("10_ecfg")
+enemy_name = "RepaymentSpider"
+scene_ref = ExtResource("11_spdrl")
+spawn_chance = 100.0
+x_offset = -752.0
+y_offset = 628.0
+metadata/_custom_type_script = "uid://dm8qchhbo37mu"
+
+[sub_resource type="Resource" id="Resource_rspdr"]
+script = ExtResource("10_ecfg")
+enemy_name = "RepaymentSpider"
+scene_ref = ExtResource("12_spdrr")
+spawn_chance = 100.0
+x_offset = 752.0
+y_offset = 628.0
+metadata/_custom_type_script = "uid://dm8qchhbo37mu"
+
+[sub_resource type="Resource" id="Resource_rspdt"]
+script = ExtResource("10_ecfg")
+enemy_name = "RepaymentSpider"
+scene_ref = ExtResource("13_spdrt")
+spawn_chance = 100.0
+y_offset = 48.0
+metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 
 [node name="BossRoom2" unique_id=565861230 instance=ExtResource("1_u1v84")]
-script = ExtResource("7_deonroom")
-
-[node name="Encounter" type="Node" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="5"]
+script = ExtResource("7_room")
+post_encounter_tree = null
 
 [node name="DeathWall" parent="PlayArea/Walls" parent_id_path=PackedInt32Array(76639453) index="0" unique_id=518440941]
 z_index = -100
@@ -20,97 +47,37 @@ position = Vector2(288, 960)
 [node name="Background" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="1" unique_id=306947289]
 metadata/_edit_lock_ = true
 
-[node name="BossDeonCage" type="Node" parent="PlayArea/Encounter" unique_id=1789205405]
-script = ExtResource("2_njqif")
-
-[node name="BorderWall2" parent="PlayArea/Encounter/BossDeonCage" index="0" unique_id=1746791712 instance=ExtResource("4_th818")]
-position = Vector2(1376, 992)
-
-[node name="BorderWall" parent="PlayArea/Encounter/BossDeonCage" index="1" unique_id=88737804 instance=ExtResource("4_th818")]
-position = Vector2(1376, 928)
-
-[node name="BossDeonSeal" parent="PlayArea/Encounter/BossDeonCage" index="2" unique_id=887021685 instance=ExtResource("5_njqif")]
-position = Vector2(1376, 864)
-stages = Dictionary[int, float]({
-0: 1.0
-})
-
-[node name="BossDeonSeal2" parent="PlayArea/Encounter/BossDeonCage" index="3" unique_id=1214185130 instance=ExtResource("5_njqif")]
-position = Vector2(1376, 800)
-stages = Dictionary[int, float]({
-0: 1.0
-})
-
-[node name="BossDeonSeal3" parent="PlayArea/Encounter/BossDeonCage" index="4" unique_id=336911161 instance=ExtResource("5_njqif")]
-position = Vector2(1376, 736)
-stages = Dictionary[int, float]({
-0: 1.0
-})
-
-[node name="BossDeonSeal4" parent="PlayArea/Encounter/BossDeonCage" index="5" unique_id=2029771445 instance=ExtResource("5_njqif")]
-position = Vector2(1376, 672)
-stages = Dictionary[int, float]({
-0: 1.0
-})
-
-[node name="BossDeonSeal5" parent="PlayArea/Encounter/BossDeonCage" index="6" unique_id=1998331999 instance=ExtResource("5_njqif")]
-position = Vector2(1376, 608)
-stages = Dictionary[int, float]({
-0: 1.0
-})
-
-[node name="BossDeonSeal6" parent="PlayArea/Encounter/BossDeonCage" index="7" unique_id=884025061 instance=ExtResource("5_njqif")]
-position = Vector2(1376, 544)
-stages = Dictionary[int, float]({
-0: 1.0
-})
-
-[node name="BossDeonSeal7" parent="PlayArea/Encounter/BossDeonCage" index="8" unique_id=109674662 instance=ExtResource("5_njqif")]
-position = Vector2(1376, 480)
-stages = Dictionary[int, float]({
-0: 1.0
-})
-
-[node name="BossDeonSeal8" parent="PlayArea/Encounter/BossDeonCage" index="9" unique_id=1902180510 instance=ExtResource("5_njqif")]
-position = Vector2(1376, 416)
-stages = Dictionary[int, float]({
-0: 1.0
-})
-
-[node name="BorderWall3" parent="PlayArea/Encounter/BossDeonCage" index="10" unique_id=39085958 instance=ExtResource("4_th818")]
-position = Vector2(1376, 352)
-
-[node name="BorderWall5" parent="PlayArea/Encounter/BossDeonCage" index="11" unique_id=25702205 instance=ExtResource("4_th818")]
-position = Vector2(1376, 288)
-
-[node name="BorderWall6" parent="PlayArea/Encounter/BossDeonCage" index="12" unique_id=757830832 instance=ExtResource("4_th818")]
-position = Vector2(1440, 288)
-
-[node name="BorderWall7" parent="PlayArea/Encounter/BossDeonCage" index="13" unique_id=903218216 instance=ExtResource("4_th818")]
-position = Vector2(1504, 288)
-
-[node name="BorderWall8" parent="PlayArea/Encounter/BossDeonCage" index="14" unique_id=322610824 instance=ExtResource("4_th818")]
-position = Vector2(1568, 288)
-
-[node name="BorderWall9" parent="PlayArea/Encounter/BossDeonCage" index="15" unique_id=1423742524 instance=ExtResource("4_th818")]
-position = Vector2(1632, 288)
-
-[node name="BorderWall10" parent="PlayArea/Encounter/BossDeonCage" index="16" unique_id=704986998 instance=ExtResource("4_th818")]
-position = Vector2(1696, 288)
-
-[node name="BorderWall11" parent="PlayArea/Encounter/BossDeonCage" index="17" unique_id=545764881 instance=ExtResource("4_th818")]
-position = Vector2(1760, 288)
-
-[node name="BorderWall12" parent="PlayArea/Encounter/BossDeonCage" index="18" unique_id=915834336 instance=ExtResource("4_th818")]
-position = Vector2(1824, 288)
+[node name="Encounter" type="Node" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="5" unique_id=476387631]
 
 [node name="FloorPortal" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="6" unique_id=1860885060 instance=ExtResource("6_portal")]
 position = Vector2(804, 540)
 
-[node name="item_spawn_point" parent="." index="8" unique_id=51076593]
+[node name="SpiderSpawnerLeft" parent="No-Respawn/Spawners" parent_id_path=PackedInt32Array(1587044855) index="0" unique_id=991827365 instance=ExtResource("8_spwn")]
+position = Vector2(1088, 32)
+script = ExtResource("9_pspwn")
+enemies = Array[ExtResource("10_ecfg")]([SubResource("Resource_rspdl")])
+spawn_an_enemy_chance = 100.0
+respawn_time = 6.0
+initial_spawn_time = 2.0
+max_spawns = 3
+
+[node name="SpiderSpawnerRight" parent="No-Respawn/Spawners" parent_id_path=PackedInt32Array(1587044855) index="1" unique_id=991827366 instance=ExtResource("8_spwn")]
+position = Vector2(1088, 32)
+script = ExtResource("9_pspwn")
+enemies = Array[ExtResource("10_ecfg")]([SubResource("Resource_rspdr")])
+spawn_an_enemy_chance = 100.0
+respawn_time = 6.0
+initial_spawn_time = 3.0
+max_spawns = 3
+
+[node name="SpiderSpawnerTop" parent="No-Respawn/Spawners" parent_id_path=PackedInt32Array(1587044855) index="2" unique_id=991827367 instance=ExtResource("8_spwn")]
+position = Vector2(1088, 32)
+script = ExtResource("9_pspwn")
+enemies = Array[ExtResource("10_ecfg")]([SubResource("Resource_rspdt")])
+spawn_an_enemy_chance = 100.0
+respawn_time = 6.0
+initial_spawn_time = 4.0
+max_spawns = 3
+
+[node name="item_spawn_point" parent="." index="12" unique_id=51076593]
 position = Vector2(1079, 736)
-
-[node name="Boss1Denial" parent="PlayArea/Encounter" unique_id=591023107 groups=["bounce_enemy"] instance=ExtResource("3_ndrbk")]
-position = Vector2(1633, 709)
-
-[editable path="Boss1Denial"]

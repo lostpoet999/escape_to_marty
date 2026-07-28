@@ -47,7 +47,7 @@ signal db_panel_closed
 ## =============================================================================
 
 ## Emits: scenes_and_scripts/levels/room_base.gd -> _ready(), check_level_cleared(), scenes_and_scripts/levels/encounter_room_base.gd -> clear_encounter(), scenes_and_scripts/levels/common_rooms/memory room/memory_flame.gd -> close_memory(), scenes_and_scripts/db_panel/db_panel.gd -> _on_enable_exits_btn_pressed()
-## Connects: scenes_and_scripts/singletons/game_manager.gd -> set_state_to_cleared, scenes_and_scripts/ball/ball.gd -> remove_ball, scenes_and_scripts/exits/exits.gd -> enable_exits
+## Connects: scenes_and_scripts/singletons/game_manager.gd -> set_state_to_cleared, scenes_and_scripts/ball/ball.gd -> remove_ball, scenes_and_scripts/exits/exits.gd -> enable_exits, scenes_and_scripts/actors/player/paddle.gd -> _release_web
 @warning_ignore("unused_signal")
 signal level_cleared
 
@@ -56,12 +56,12 @@ signal level_cleared
 @warning_ignore("unused_signal")
 signal boss_defeated
 
-## Emits: scenes_and_scripts/bricks/base_seal.gd -> _on_tween_finished()
+## Emits: scenes_and_scripts/bricks/base_seal.gd -> _on_tween_finished(); money_thief_spider.gd -> _on_death(); repayment_spider.gd -> _spit_coin(), _on_death()
 ## Connects: scenes_and_scripts/levels/room_base.gd -> update_gold_in_level
 @warning_ignore("unused_signal")
 signal gold_spawned(amount: int)
 
-## Emits: scenes_and_scripts/collectibles/bonus_drop.gd -> _on_area_entered(), collect(); money_thief_spider.gd -> _eat()
+## Emits: scenes_and_scripts/collectibles/bonus_drop.gd -> _on_area_entered(), collect(); money_thief_spider.gd -> _eat(); repayment_spider/spit_coin.gd -> _process(), _on_area_entered(), _resolve_hurt_miss()
 ## Connects: scenes_and_scripts/levels/room_base.gd -> update_gold_in_level
 @warning_ignore("unused_signal")
 signal gold_collected(amount: int)
@@ -82,7 +82,7 @@ signal enemy_requested(spawn_from: Area2D)
 signal wall_hit(source: Node2D, wall: Node2D, damage: float, dmg_types: Array)
 
 ## Emits: scenes_and_scripts/actors/enemies/wall_walker.gd -> die(), _finish_escape()
-## Connects: scenes_and_scripts/levels/room_base.gd -> _on_wall_walker_removed
+## Connects: scenes_and_scripts/levels/room_base.gd -> _on_wall_walker_removed (spider_encounter_room.gd overrides the handler and rides this connection — do NOT re-connect in subclasses)
 @warning_ignore("unused_signal")
 signal wall_walker_removed(walker: Node2D)
 

@@ -43,6 +43,8 @@ func _sweep_encounter() -> void:
 			child.queue_free()
 
 func _play_post_encounter_beat() -> void:
+	if GameManager.test_floor_active:
+		return
 	if post_encounter_tree == null or post_encounter_tree.beats.is_empty():
 		return
 	var player: MemoryCodecPlayer = CODEC_PLAYER.instantiate()

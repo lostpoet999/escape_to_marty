@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://spiderweb001"]
+
+[ext_resource type="Script" uid="uid://spiderwebgd1" path="res://scenes_and_scripts/actors/enemies/specific_enemies/repayment_spider/spider_web.gd" id="1_web"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_web"]
+size = Vector2(44, 44)
+
+[node name="SpiderWeb" type="Area2D" unique_id=903312790]
+collision_layer = 2
+script = ExtResource("1_web")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=903312791]
+shape = SubResource("RectangleShape2D_web")
+
+[node name="WebBox" type="ColorRect" parent="." unique_id=903312792]
+offset_left = -22.0
+offset_top = -22.0
+offset_right = 22.0
+offset_bottom = 22.0
+mouse_filter = 2
+color = Color(0.87451, 0.517647, 0.647059, 0.85)

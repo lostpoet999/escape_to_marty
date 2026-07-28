@@ -88,6 +88,10 @@ var _lit_cooldown: float = 0.0
 var _depression_max: float = 0.0
 var _had_depression: bool = false
 var _reseed_timer: float = 0.0
+var _interrupted_stage: GameManager.PhaseType = GameManager.PhaseType.HEALTH
+var _interrupted_hp: float = 0.0
+var _interrupted_max: float = 0.0
+var _has_interrupted_stage: bool = false
 
 func pick_random_stage() -> void:
 	if stages.is_empty():
@@ -268,7 +272,10 @@ func _damage_current_stage(damage: float) -> void:
 			pop_tween()
 		else:
 			stages.erase(current_stage)
-			pick_random_stage()
+			if current_stage == GameManager.PhaseType.DEPRESSION and _has_interrupted_stage:
+				_restore_interrupted_stage()
+			else:
+				pick_random_stage()
 			_update_stage_label()
 	else:
 		# took damage but not yet destroyed
@@ -329,12 +336,25 @@ func _process(delta: float) -> void:
 
 func _reseed_depression() -> void:
 	_reseed_timer = 0.0
+	_interrupted_stage = current_stage
+	_interrupted_hp = health_temp
+	_interrupted_max = health_max
+	_has_interrupted_stage = true
 	stages[GameManager.PhaseType.DEPRESSION] = _depression_max
 	current_stage = GameManager.PhaseType.DEPRESSION
 	health_temp = _depression_max
+	health_max = _depression_max
 	_update_damage_cracks()
 	setup_visuals()
 	_update_stage_label()
+
+func _restore_interrupted_stage() -> void:
+	_has_interrupted_stage = false
+	current_stage = _interrupted_stage
+	health_temp = _interrupted_hp
+	health_max = _interrupted_max
+	_update_damage_cracks()
+	setup_visuals()
 
 func resolve_bargain(bid: float) -> BargainOutcome:
 	var sweet: Vector2 = bargain_sweet_range()

@@ -14,54 +14,84 @@ spawn_chance = 100.0
 requires_live_seals = true
 metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 
-[node name="combat_4_1" instance=ExtResource("1_rb4c")]
+[node name="combat_4_1" unique_id=1429051630 instance=ExtResource("1_rb4c")]
 
-[node name="CanvasModulate" type="CanvasModulate" parent="PlayArea"]
+[node name="CanvasModulate" type="CanvasModulate" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="6" unique_id=1038173789]
 color = Color(0.2, 0.2, 0.27, 1)
 
-[node name="OpenSeal" parent="No-Respawn/Bricks" instance=ExtResource("2_seal")]
-position = Vector2(1056, 512)
+[node name="OpenSeal" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="0" unique_id=2091754617 instance=ExtResource("2_seal")]
+position = Vector2(1024, 656)
 initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({
 3: 3.0
 })
+brick_health = 10
+depression_reseeds_when_dark = true
 
-[node name="OpenSeal2" parent="No-Respawn/Bricks" instance=ExtResource("2_seal")]
-position = Vector2(1184, 512)
+[node name="OpenSeal2" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="1" unique_id=1905392913 instance=ExtResource("2_seal")]
+position = Vector2(1088, 592)
 initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({
 3: 5.0
 })
+brick_health = 10
+depression_reseeds_when_dark = true
 
-[node name="OpenSeal3" parent="No-Respawn/Bricks" instance=ExtResource("2_seal")]
-position = Vector2(1312, 512)
+[node name="OpenSeal3" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="2" unique_id=967330405 instance=ExtResource("2_seal")]
+position = Vector2(1152, 592)
 initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({
 3: 3.0
 })
+brick_health = 10
+depression_reseeds_when_dark = true
 
-[node name="OpenSeal4" parent="No-Respawn/Bricks" instance=ExtResource("2_seal")]
-position = Vector2(1056, 640)
+[node name="OpenSeal4" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="3" unique_id=1177614680 instance=ExtResource("2_seal")]
+position = Vector2(1024, 592)
 initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({
 3: 3.0
 })
+brick_health = 10
+depression_reseeds_when_dark = true
 
-[node name="OpenSeal5" parent="No-Respawn/Bricks" instance=ExtResource("2_seal")]
-position = Vector2(1184, 640)
+[node name="OpenSeal5" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="4" unique_id=137807993 instance=ExtResource("2_seal")]
+position = Vector2(1152, 656)
 initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({
 3: 5.0
 })
+brick_health = 10
+depression_reseeds_when_dark = true
 
-[node name="OpenSeal6" parent="No-Respawn/Bricks" instance=ExtResource("2_seal")]
-position = Vector2(1312, 640)
+[node name="OpenSeal6" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="5" unique_id=1567518964 instance=ExtResource("2_seal")]
+position = Vector2(1152, 720)
 initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({
 3: 3.0
 })
+brick_health = 10
+depression_reseeds_when_dark = true
 
-[node name="ImpSpawner" parent="No-Respawn/Spawners" instance=ExtResource("3_impsp")]
+[node name="OpenSeal7" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="6" unique_id=887021685 instance=ExtResource("2_seal")]
+position = Vector2(1088, 720)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+3: 3.0
+})
+brick_health = 10
+depression_reseeds_when_dark = true
+
+[node name="OpenSeal8" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="7" unique_id=2134490379 instance=ExtResource("2_seal")]
+position = Vector2(1024, 720)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+3: 3.0
+})
+brick_health = 10
+depression_reseeds_when_dark = true
+
+[node name="ImpSpawner" parent="No-Respawn/Spawners" parent_id_path=PackedInt32Array(1587044855) index="0" unique_id=2013650000 instance=ExtResource("3_impsp")]
 position = Vector2(1088, 512)
 enemies = Array[ExtResource("4_impcf")]([SubResource("Resource_imp01")])
 spawn_an_enemy_chance = 100.0

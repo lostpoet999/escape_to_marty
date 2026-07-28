@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://repspidert01"]
+
+[ext_resource type="PackedScene" uid="uid://repspiderl01" path="res://scenes_and_scripts/actors/enemies/specific_enemies/repayment_spider/repayment_spider.tscn" id="1_parent"]
+[ext_resource type="Script" uid="uid://bbq2uibufrs08" path="res://scenes_and_scripts/actors/enemies/enemy_actions/enemy_action_base.gd" id="2_abase"]
+[ext_resource type="Script" uid="uid://cokw6vjrb4e8c" path="res://scenes_and_scripts/actors/enemies/enemy_actions/wall_crawl.gd" id="3_crawl"]
+[ext_resource type="Script" uid="uid://spidrspitgd1" path="res://scenes_and_scripts/actors/enemies/specific_enemies/repayment_spider/spider_spit.gd" id="4_spit"]
+[ext_resource type="Shader" uid="uid://gnsjmtflfbxt" path="res://scenes_and_scripts/actors/enemies/specific_enemies/no_see_me_demon/flash.gdshader" id="5_jjwmi"]
+
+[sub_resource type="Resource" id="Resource_crawltop"]
+script = ExtResource("3_crawl")
+crawl_min = 400.0
+crawl_max = 1776.0
+min_step = 80.0
+max_step = 200.0
+speed = 1.5
+action_name = "WallCrawl"
+metadata/_custom_type_script = "uid://cokw6vjrb4e8c"
+
+[sub_resource type="Resource" id="Resource_spittop"]
+script = ExtResource("4_spit")
+action_name = "SpiderSpit"
+action_type = 1
+metadata/_custom_type_script = "uid://spidrspitgd1"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jjwmi"]
+resource_local_to_scene = true
+shader = ExtResource("5_jjwmi")
+shader_parameter/flash_amount = 0.0
+
+[node name="RepaymentSpider" unique_id=1755432200 instance=ExtResource("1_parent")]
+wall_side = 2
+action_pool = Array[ExtResource("2_abase")]([SubResource("Resource_crawltop"), SubResource("Resource_spittop")])
+
+[node name="EnemySprite" parent="." index="0" unique_id=2032254832]
+material = SubResource("ShaderMaterial_jjwmi")
