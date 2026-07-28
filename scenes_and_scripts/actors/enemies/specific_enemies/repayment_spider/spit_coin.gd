@@ -60,6 +60,11 @@ func _resolve_hurt_miss() -> void:
 	collected = true
 	set_deferred("monitoring", false)
 	Signalbus.gold_collected.emit(-1)
+	var room: SpiderEncounterRoom = get_tree().current_scene as SpiderEncounterRoom
+	if room != null:
+		var delay: float = room.claim_heart_hit_delay()
+		if delay > 0.0:
+			await get_tree().create_timer(delay).timeout
 	await _arc_to_heart()
 	PlayerData.accept_damage(1)
 	await _drop_off_screen()
