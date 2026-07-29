@@ -1,8 +1,9 @@
 [gd_resource type="Resource" script_class="Pick2Payload" format=3 uid="uid://cpick2pld01"]
 
-[ext_resource type="Script" path="res://scenes_and_scripts/collectibles/bonus_drops/pick2_payload.gd" id="1"]
+[ext_resource type="Script" uid="uid://bpick2pld01" path="res://scenes_and_scripts/collectibles/bonus_drops/pick2_payload.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://kehm7n3uruy0" path="res://scenes_and_scripts/collectibles/bonus_drops/pick2_voucher.png" id="1_4j87m"]
 
 [resource]
 script = ExtResource("1")
 label = "Pick-2 Voucher"
-drop_modulate = Color(0.5, 1, 0.5, 1)
+drop_texture = ExtResource("1_4j87m")

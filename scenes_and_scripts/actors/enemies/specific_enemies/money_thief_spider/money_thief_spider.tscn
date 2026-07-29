@@ -18,7 +18,7 @@ speed = 1.5
 action_name = "WallCrawl"
 metadata/_custom_type_script = "uid://cokw6vjrb4e8c"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wod6q"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8m3e2"]
 resource_local_to_scene = true
 shader = ExtResource("6_8m3e2")
 shader_parameter/flash_amount = 0.0
@@ -49,7 +49,7 @@ action_pool = Array[ExtResource("2_abase")]([SubResource("Resource_crawl")])
 action_timer = 3.0
 
 [node name="EnemySprite" parent="." index="0" unique_id=2032254832]
-material = SubResource("ShaderMaterial_wod6q")
+material = SubResource("ShaderMaterial_8m3e2")
 texture = ExtResource("4_tex0")
 
 [node name="Foot1" type="Marker2D" parent="." index="1" unique_id=1838018458]
