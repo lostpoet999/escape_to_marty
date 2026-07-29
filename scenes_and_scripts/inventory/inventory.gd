@@ -148,6 +148,15 @@ func has_map_marker() -> bool:
 			return true
 	return false
 
+func get_barrier_clear() -> UtilityPowerup:
+	for item: BaseItem in items:
+		if item.clears_barriers:
+			return item as UtilityPowerup
+	for item: BaseItem in core_items:
+		if item.clears_barriers:
+			return item as UtilityPowerup
+	return null
+
 func get_gesture_damage() -> float:
 	var dmg: float = MouseGestures.DEFAULT_CLICK_DMG
 	var click_items: Array[ClickPowerUp] = get_items_for_click()

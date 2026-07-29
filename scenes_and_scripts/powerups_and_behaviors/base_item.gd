@@ -54,3 +54,4 @@ static func _rarity_box(color: Color, fill_alpha: float, border_width: int, corn
 @export var removable: bool = true 
 @export var reveals_adjacent_rooms: bool = false
 @export var enables_minimap: bool = false
+@export var clears_barriers: bool = false

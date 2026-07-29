@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://mtj7exkdy0ls" path="res://scenes_and_scripts/ball/new_ball.png" id="2_1rrwo"]
 [ext_resource type="PackedScene" uid="uid://rbv1v5vfqunm" path="res://scenes_and_scripts/ball/vfx/bounce_brick_particles.tscn" id="2_nxvvx"]
 [ext_resource type="PackedScene" uid="uid://csjala42gonuh" path="res://scenes_and_scripts/ball/vfx/bounce_wall_particles.tscn" id="3_2ucj3"]
+[ext_resource type="PackedScene" uid="uid://barrierbnce1" path="res://scenes_and_scripts/ball/vfx/bounce_barrier_particles.tscn" id="4_2ucj3"]
 [ext_resource type="PackedScene" uid="uid://cu8odfaqma1aj" path="res://scenes_and_scripts/ball/vfx/bounce_paddle_particles.tscn" id="4_q6nx1"]
 [ext_resource type="Script" uid="uid://cs82vpqerteng" path="res://scenes_and_scripts/ball/vfx/trail.gd" id="5_jlcqq"]
 [ext_resource type="Texture2D" uid="uid://befajfg1phsl6" path="res://scenes_and_scripts/actors/player/player_ghost_particles.png" id="7_nxvvx"]
@@ -45,6 +46,7 @@ script = ExtResource("1_oyq8w")
 ball_dmg = 5.0
 brick_bounce_particles = ExtResource("2_nxvvx")
 wall_bounce_particles = ExtResource("3_2ucj3")
+barrier_bounce_particles = ExtResource("4_2ucj3")
 paddle_bounce_particles = ExtResource("4_q6nx1")
 
 [node name="Trail" type="Line2D" parent="." unique_id=377429140]

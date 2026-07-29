@@ -35,6 +35,7 @@ lifetime = 14.0
 flicker_fractions = Array[float]([])
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
+shadow_enabled = true
 energy = 1.8
 texture = SubResource("GradientTexture2D_1")
 texture_scale = 0.8

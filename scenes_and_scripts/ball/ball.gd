@@ -16,6 +16,7 @@ var flipped_y: bool = false
 
 @export var brick_bounce_particles: PackedScene
 @export var wall_bounce_particles: PackedScene
+@export var barrier_bounce_particles: PackedScene
 @export var paddle_bounce_particles: PackedScene
 
 @export var brick_hit_score_value:int = 50
@@ -275,7 +276,7 @@ func move_ball(delta: float) -> void:
 
 func resolve_frame_start_overlaps() -> void:
 	for collider: Node2D in query_collisions():
-		if not (collider.is_in_group("bricks") or collider.is_in_group("walls") or collider.is_in_group("bounce_enemy")):
+		if not (collider.is_in_group("bricks") or collider.is_in_group("walls") or collider.is_in_group("bounce_enemy") or collider.is_in_group("barrier")):
 			continue
 		var half: Vector2 = get_collider_half_size(collider)
 		var diff: Vector2 = global_position - collider.global_position
@@ -318,7 +319,7 @@ func move_ball_step(delta: float) -> void:
 			if !flipped_x:
 				bounce_effect.handle_paddle_collision(self, collider as Paddle)
 				flipped_x = true
-		elif collider.is_in_group("bricks") or collider.is_in_group("walls") or collider.is_in_group("bounce_enemy"):
+		elif collider.is_in_group("bricks") or collider.is_in_group("walls") or collider.is_in_group("bounce_enemy") or collider.is_in_group("barrier"):
 			cancel_tween_to_nearest_brick()
 			if _bounce_axis_is_y(collider):
 				if !flipped_y:
@@ -346,7 +347,7 @@ func move_ball_step(delta: float) -> void:
 			if !flipped_y:
 				bounce_effect.handle_paddle_collision(self, collider as Paddle)
 				flipped_y = true
-		elif collider.is_in_group("bricks") or collider.is_in_group("walls") or collider.is_in_group("bounce_enemy"):
+		elif collider.is_in_group("bricks") or collider.is_in_group("walls") or collider.is_in_group("bounce_enemy") or collider.is_in_group("barrier"):
 			cancel_tween_to_nearest_brick()
 			if not _bounce_axis_is_y(collider):
 				if !flipped_x:
@@ -370,6 +371,9 @@ func spawn_collision_feedback(collider: Node2D) -> void:
 		PlayerData.update_player_score(wall_hit_score_value)
 		Signalbus.wall_hit.emit(self, collider, ball_dmg, ball_dmg_type)
 		TileShake.shake(collider, 0.0, TileShake.DIRECT_HIT_SCALE)
+	if collider.is_in_group("barrier"):
+		fx = barrier_bounce_particles.instantiate()
+		SFX.play_sound("bounce_barrier")
 	if collider.is_in_group("paddle"):
 		fx = paddle_bounce_particles.instantiate()
 		SFX.play_sound("hit-paddle")

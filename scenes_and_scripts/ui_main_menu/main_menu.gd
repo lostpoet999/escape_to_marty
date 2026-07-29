@@ -9,6 +9,8 @@ const MAIN_MENU: PackedScene = preload("uid://djuj72c4lcukn")
 const CREDITS_SCENE: PackedScene = preload("res://scenes_and_scripts/ui_main_menu/credits_scene.tscn")
 const SETTINGS_SCENE: PackedScene = preload("res://scenes_and_scripts/ui_main_menu/settings_scene.tscn")
 
+const DEV_LABEL_HOVER_COLOR: Color = Color(1.0, 1.0, 1.0)
+
 const RESET_HOLD_SECONDS: float = 1.5
 const RESET_IDLE_TEXT: String = "Reset Progress"
 const RESET_FILL_COLOR: Color = Color(1.0, 0.3, 0.3, 0.45)
@@ -16,16 +18,28 @@ const RESET_DONE_COLOR: Color = Color(0.4, 1.0, 0.4, 0.5)
 
 @onready var exit_button: Button = $VBoxContainer/ButtonContainer/"Exit Button"
 @onready var reset_button: Button = $"Reset Button"
+@onready var dev_build_label: Label = $Label
 
 var _reset_fill: ColorRect
 var _reset_holding: bool = false
 var _reset_hold_time: float = 0.0
+var _dev_label_base_color: Color
 
 func _ready() -> void:
 	MusicPlayer.play_song(music, music_volume_db)
 	# Hide exit button on web (quit doesn't work in browsers)
 	if OS.has_feature("web"):
 		exit_button.hide()
+	if OS.is_debug_build():
+		dev_build_label.mouse_filter = Control.MOUSE_FILTER_STOP
+		dev_build_label.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+		dev_build_label.tooltip_text = "click to enter test floor"
+		_dev_label_base_color = dev_build_label.label_settings.font_color
+		dev_build_label.gui_input.connect(_on_dev_build_label_gui_input)
+		dev_build_label.mouse_entered.connect(_on_dev_build_label_hover.bind(true))
+		dev_build_label.mouse_exited.connect(_on_dev_build_label_hover.bind(false))
+	else:
+		dev_build_label.hide()
 	_reset_fill = ColorRect.new()
 	_reset_fill.color = RESET_FILL_COLOR
 	_reset_fill.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -80,6 +94,20 @@ func _on_credits_button_pressed() -> void:
 func _on_exit_button_pressed() -> void:
 	print("exit button pressed")
 	get_tree().quit()
+
+func _on_dev_build_label_hover(hovering: bool) -> void:
+	dev_build_label.label_settings.font_color = DEV_LABEL_HOVER_COLOR if hovering else _dev_label_base_color
+
+func _on_dev_build_label_gui_input(event: InputEvent) -> void:
+	var click: InputEventMouseButton = event as InputEventMouseButton
+	if click != null and click.pressed and click.button_index == MOUSE_BUTTON_LEFT:
+		_warp_to_test_floor()
+
+func _warp_to_test_floor() -> void:
+	var fd_variant: Variant = load("res://scenes_and_scripts/levels/test_floor/test_floor.tres")
+	GameManager.start_floor_with_data(fd_variant)
+	GameManager.change_state(GameManager.GameState.BALL_ON_PADDLE)
+	GameManager.load_current_room()
 
 func _on_fullscreen_button_pressed() -> void:
 	print("fullscreen button pressed")

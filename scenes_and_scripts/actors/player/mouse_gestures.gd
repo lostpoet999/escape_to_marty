@@ -105,7 +105,7 @@ func _try_revert_denial(target: Node) -> bool:
 func _place_depression_light(at: Vector2) -> void:
 	if not GameManager.floor_data.depression_lights_enabled:
 		return
-	if _point_over_wall(at):
+	if _point_blocks_light(at):
 		return
 	if depression_lights.size() >= max_depression_lights:
 		var oldest: DepressionLight = depression_lights.pop_front() as DepressionLight
@@ -123,13 +123,16 @@ func _place_depression_light(at: Vector2) -> void:
 func _on_depression_light_freed(light: Node2D) -> void:
 	depression_lights.erase(light)
 
-func _point_over_wall(at: Vector2) -> bool:
+func _point_blocks_light(at: Vector2) -> bool:
 	var space: PhysicsDirectSpaceState2D = get_viewport().get_world_2d().direct_space_state
 	var query: PhysicsPointQueryParameters2D = PhysicsPointQueryParameters2D.new()
 	query.position = at
 	query.collide_with_areas = true
 	for result: Dictionary in space.intersect_point(query):
-		if result.collider is Node and (result.collider as Node).is_in_group("walls"):
+		var collider: Node = result.collider as Node
+		if collider == null:
+			continue
+		if collider.is_in_group("walls") or collider.is_in_group("barrier"):
 			return true
 	return false
 
