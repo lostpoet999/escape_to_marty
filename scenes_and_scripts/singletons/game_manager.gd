@@ -61,10 +61,9 @@ func _assign_pooled_content(open_slots: Array[RoomEntry]) -> void:
 	if assignment.size() < open_slots.size():
 		push_warning("floor pool under-supplies slots: %d content for %d open slots" % [assignment.size(), open_slots.size()])
 	open_slots.shuffle()
-	for i: int in range(open_slots.size()):
+	for i: int in range(mini(open_slots.size(), assignment.size())):
 		var resolved: RoomEntry = open_slots[i].duplicate()
-		if i < assignment.size():
-			resolved.content = assignment[i]
+		resolved.content = assignment[i]
 		room_data_for_floor[RoomEntry.make_key(resolved.room_coords)] = resolved
 
 func grant_memory_trophies() -> void:

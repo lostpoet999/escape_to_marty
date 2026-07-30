@@ -104,6 +104,12 @@ room_coords = Vector2i(5, 2)
 content = SubResource("Resource_tfc5")
 west_exit = true
 
+[sub_resource type="Resource" id="Resource_tftp"]
+script = ExtResource("1_re")
+room_coords = Vector2i(1, 3)
+is_static = false
+north_exit = true
+
 [sub_resource type="Resource" id="Resource_tfbe1"]
 script = ExtResource("1_re")
 room_coords = Vector2i(1, 1)
@@ -131,6 +137,6 @@ south_exit = true
 [resource]
 script = ExtResource("2_fd")
 floor_name_id = "TEST"
-room_entries = Array[ExtResource("1_re")]([SubResource("Resource_tfe1"), SubResource("Resource_tfe2"), SubResource("Resource_tfe3"), SubResource("Resource_tfe4"), SubResource("Resource_tfe5"), SubResource("Resource_tfbe1"), SubResource("Resource_tfbe2"), SubResource("Resource_tfbe3"), SubResource("Resource_tfbe4")])
-grid_size = Vector2i(5, 2)
+room_entries = Array[ExtResource("1_re")]([SubResource("Resource_tfe1"), SubResource("Resource_tfe2"), SubResource("Resource_tfe3"), SubResource("Resource_tfe4"), SubResource("Resource_tfe5"), SubResource("Resource_tfbe1"), SubResource("Resource_tfbe2"), SubResource("Resource_tfbe3"), SubResource("Resource_tfbe4"), SubResource("Resource_tftp")])
+grid_size = Vector2i(5, 3)
 metadata/_custom_type_script = "uid://bvs3ugvgbabkc"
