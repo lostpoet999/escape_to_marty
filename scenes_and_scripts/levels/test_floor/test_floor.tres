@@ -11,59 +11,14 @@
 [ext_resource type="PackedScene" uid="uid://brr0pi7naait7" path="res://scenes_and_scripts/levels/floor_1_the_intersection/boss_1.tscn" id="9_b1"]
 [ext_resource type="PackedScene" uid="uid://dv7p2iafjnr4x" path="res://scenes_and_scripts/levels/floor_2_the_arena/boss_2.tscn" id="10_b2"]
 [ext_resource type="PackedScene" uid="uid://c68d8tkbufo2s" path="res://scenes_and_scripts/levels/floor_3_the_bargainers_road/boss_3.tscn" id="11_b3"]
+[ext_resource type="PackedScene" uid="uid://qu8to7sj473k" path="res://scenes_and_scripts/levels/random_bricks.tscn" id="12_2bv3s"]
 [ext_resource type="PackedScene" uid="uid://f4combat001" path="res://scenes_and_scripts/levels/floor_4_depression/combat_4_1.tscn" id="12_c41"]
+[ext_resource type="Script" uid="uid://dm8qchhbo37mu" path="res://scenes_and_scripts/actors/enemies/enemy_config.gd" id="14_lwm00"]
+[ext_resource type="Script" uid="uid://cqac2vv2p8oga" path="res://scenes_and_scripts/bricks/seal_phase_config.gd" id="15_1rvhw"]
 
 [sub_resource type="Resource" id="Resource_tfc1"]
 script = ExtResource("3_rc")
 room_scene = ExtResource("4_r1")
-room_type = 1
-max_clears = -1
-
-[sub_resource type="Resource" id="Resource_tfc2"]
-script = ExtResource("3_rc")
-room_scene = ExtResource("5_r2")
-room_type = 1
-max_clears = -1
-
-[sub_resource type="Resource" id="Resource_tfc3"]
-script = ExtResource("3_rc")
-room_scene = ExtResource("6_r3")
-room_type = 1
-max_clears = -1
-
-[sub_resource type="Resource" id="Resource_tfc4"]
-script = ExtResource("3_rc")
-room_scene = ExtResource("7_r4")
-room_type = 1
-max_clears = -1
-
-[sub_resource type="Resource" id="Resource_tfc5"]
-script = ExtResource("3_rc")
-room_scene = ExtResource("8_r5")
-room_type = 1
-max_clears = -1
-
-[sub_resource type="Resource" id="Resource_tfb1"]
-script = ExtResource("3_rc")
-room_scene = ExtResource("9_b1")
-room_type = 5
-max_clears = -1
-
-[sub_resource type="Resource" id="Resource_tfb2"]
-script = ExtResource("3_rc")
-room_scene = ExtResource("10_b2")
-room_type = 5
-max_clears = -1
-
-[sub_resource type="Resource" id="Resource_tfb3"]
-script = ExtResource("3_rc")
-room_scene = ExtResource("11_b3")
-room_type = 5
-max_clears = -1
-
-[sub_resource type="Resource" id="Resource_tfb4"]
-script = ExtResource("3_rc")
-room_scene = ExtResource("12_c41")
 room_type = 1
 max_clears = -1
 
@@ -74,6 +29,12 @@ content = SubResource("Resource_tfc1")
 north_exit = true
 east_exit = true
 
+[sub_resource type="Resource" id="Resource_tfc2"]
+script = ExtResource("3_rc")
+room_scene = ExtResource("5_r2")
+room_type = 1
+max_clears = -1
+
 [sub_resource type="Resource" id="Resource_tfe2"]
 script = ExtResource("1_re")
 room_coords = Vector2i(2, 2)
@@ -81,6 +42,12 @@ content = SubResource("Resource_tfc2")
 north_exit = true
 east_exit = true
 west_exit = true
+
+[sub_resource type="Resource" id="Resource_tfc3"]
+script = ExtResource("3_rc")
+room_scene = ExtResource("6_r3")
+room_type = 1
+max_clears = -1
 
 [sub_resource type="Resource" id="Resource_tfe3"]
 script = ExtResource("1_re")
@@ -90,6 +57,12 @@ north_exit = true
 east_exit = true
 west_exit = true
 
+[sub_resource type="Resource" id="Resource_tfc4"]
+script = ExtResource("3_rc")
+room_scene = ExtResource("7_r4")
+room_type = 1
+max_clears = -1
+
 [sub_resource type="Resource" id="Resource_tfe4"]
 script = ExtResource("1_re")
 room_coords = Vector2i(4, 2)
@@ -98,17 +71,23 @@ north_exit = true
 east_exit = true
 west_exit = true
 
+[sub_resource type="Resource" id="Resource_tfc5"]
+script = ExtResource("3_rc")
+room_scene = ExtResource("8_r5")
+room_type = 1
+max_clears = -1
+
 [sub_resource type="Resource" id="Resource_tfe5"]
 script = ExtResource("1_re")
 room_coords = Vector2i(5, 2)
 content = SubResource("Resource_tfc5")
 west_exit = true
 
-[sub_resource type="Resource" id="Resource_tftp"]
-script = ExtResource("1_re")
-room_coords = Vector2i(1, 3)
-is_static = false
-north_exit = true
+[sub_resource type="Resource" id="Resource_tfb1"]
+script = ExtResource("3_rc")
+room_scene = ExtResource("9_b1")
+room_type = 5
+max_clears = -1
 
 [sub_resource type="Resource" id="Resource_tfbe1"]
 script = ExtResource("1_re")
@@ -116,11 +95,23 @@ room_coords = Vector2i(1, 1)
 content = SubResource("Resource_tfb1")
 south_exit = true
 
+[sub_resource type="Resource" id="Resource_tfb2"]
+script = ExtResource("3_rc")
+room_scene = ExtResource("10_b2")
+room_type = 5
+max_clears = -1
+
 [sub_resource type="Resource" id="Resource_tfbe2"]
 script = ExtResource("1_re")
 room_coords = Vector2i(2, 1)
 content = SubResource("Resource_tfb2")
 south_exit = true
+
+[sub_resource type="Resource" id="Resource_tfb3"]
+script = ExtResource("3_rc")
+room_scene = ExtResource("11_b3")
+room_type = 5
+max_clears = -1
 
 [sub_resource type="Resource" id="Resource_tfbe3"]
 script = ExtResource("1_re")
@@ -128,15 +119,34 @@ room_coords = Vector2i(3, 1)
 content = SubResource("Resource_tfb3")
 south_exit = true
 
+[sub_resource type="Resource" id="Resource_tfb4"]
+script = ExtResource("3_rc")
+room_scene = ExtResource("12_c41")
+room_type = 1
+max_clears = -1
+
 [sub_resource type="Resource" id="Resource_tfbe4"]
 script = ExtResource("1_re")
 room_coords = Vector2i(4, 1)
 content = SubResource("Resource_tfb4")
 south_exit = true
 
+[sub_resource type="Resource" id="Resource_tftp"]
+script = ExtResource("1_re")
+room_coords = Vector2i(1, 3)
+is_static = false
+north_exit = true
+
+[sub_resource type="Resource" id="Resource_10mlx"]
+script = ExtResource("3_rc")
+room_scene = ExtResource("12_2bv3s")
+room_type = 1
+metadata/_custom_type_script = "uid://roomcontent0"
+
 [resource]
 script = ExtResource("2_fd")
 floor_name_id = "TEST"
 room_entries = Array[ExtResource("1_re")]([SubResource("Resource_tfe1"), SubResource("Resource_tfe2"), SubResource("Resource_tfe3"), SubResource("Resource_tfe4"), SubResource("Resource_tfe5"), SubResource("Resource_tfbe1"), SubResource("Resource_tfbe2"), SubResource("Resource_tfbe3"), SubResource("Resource_tfbe4"), SubResource("Resource_tftp")])
+room_pool = Array[ExtResource("3_rc")]([SubResource("Resource_10mlx")])
 grid_size = Vector2i(5, 3)
 metadata/_custom_type_script = "uid://bvs3ugvgbabkc"
