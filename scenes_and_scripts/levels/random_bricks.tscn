@@ -1,0 +1,1043 @@
+[gd_scene format=3 uid="uid://qu8to7sj473k"]
+
+[ext_resource type="PackedScene" uid="uid://bea1h3570swpu" path="res://scenes_and_scripts/levels/room_base.tscn" id="1_0dlkf"]
+[ext_resource type="PackedScene" uid="uid://c3bjgu70hca17" path="res://scenes_and_scripts/actors/enemies/specific_enemies/no_see_me_demon/deon.tscn" id="2_2v71p"]
+[ext_resource type="PackedScene" uid="uid://cm1kspxv86400" path="res://scenes_and_scripts/bricks/open_seal.tscn" id="3_034hu"]
+
+[node name="room_base" unique_id=565861230 instance=ExtResource("1_0dlkf")]
+
+[node name="Deon" parent="." index="8" unique_id=1934117901 instance=ExtResource("2_2v71p")]
+visible = false
+position = Vector2(1792, 960)
+action_timer = 2.0
+
+[node name="Deon2" parent="." index="9" unique_id=186640633 instance=ExtResource("2_2v71p")]
+visible = false
+position = Vector2(384, 960)
+action_timer = 2.0
+
+[node name="OpenSeal" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="0" unique_id=887021685 instance=ExtResource("3_034hu")]
+position = Vector2(480, 284)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({})
+chance_it_exists = 25
+
+[node name="OpenSeal2" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="1" unique_id=939948933 instance=ExtResource("3_034hu")]
+position = Vector2(544, 284)
+initialize_brick_on_leveldata = false
+chance_it_exists = 25
+
+[node name="OpenSeal3" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="2" unique_id=1653960440 instance=ExtResource("3_034hu")]
+position = Vector2(608, 284)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal4" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="3" unique_id=1248334202 instance=ExtResource("3_034hu")]
+position = Vector2(672, 284)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal5" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="4" unique_id=1820102470 instance=ExtResource("3_034hu")]
+position = Vector2(736, 284)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal6" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="5" unique_id=1491939464 instance=ExtResource("3_034hu")]
+position = Vector2(800, 284)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal7" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="6" unique_id=1345066053 instance=ExtResource("3_034hu")]
+position = Vector2(864, 284)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal8" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="7" unique_id=1326873838 instance=ExtResource("3_034hu")]
+position = Vector2(928, 284)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal9" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="8" unique_id=521032508 instance=ExtResource("3_034hu")]
+position = Vector2(992, 284)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal10" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="9" unique_id=429332984 instance=ExtResource("3_034hu")]
+position = Vector2(1056, 284)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal11" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="10" unique_id=801965835 instance=ExtResource("3_034hu")]
+position = Vector2(1121, 284)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal12" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="11" unique_id=891638786 instance=ExtResource("3_034hu")]
+position = Vector2(1185, 284)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal13" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="12" unique_id=588701537 instance=ExtResource("3_034hu")]
+position = Vector2(1248, 284)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal14" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="13" unique_id=2127721237 instance=ExtResource("3_034hu")]
+position = Vector2(1312, 284)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal15" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="14" unique_id=1186885553 instance=ExtResource("3_034hu")]
+position = Vector2(1376, 284)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal16" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="15" unique_id=1537505350 instance=ExtResource("3_034hu")]
+position = Vector2(1440, 284)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal17" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="16" unique_id=1923080271 instance=ExtResource("3_034hu")]
+position = Vector2(1504, 284)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal18" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="17" unique_id=697939392 instance=ExtResource("3_034hu")]
+position = Vector2(1568, 284)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal19" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="18" unique_id=569120788 instance=ExtResource("3_034hu")]
+position = Vector2(1632, 284)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal20" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="19" unique_id=206222960 instance=ExtResource("3_034hu")]
+position = Vector2(1696, 284)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal21" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="20" unique_id=459677304 instance=ExtResource("3_034hu")]
+position = Vector2(1760, 284)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal22" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="21" unique_id=510858629 instance=ExtResource("3_034hu")]
+position = Vector2(1824, 284)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal23" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="22" unique_id=1344959197 instance=ExtResource("3_034hu")]
+position = Vector2(480, 346)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({})
+chance_it_exists = 25
+
+[node name="OpenSeal24" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="23" unique_id=316505209 instance=ExtResource("3_034hu")]
+position = Vector2(544, 346)
+initialize_brick_on_leveldata = false
+chance_it_exists = 25
+
+[node name="OpenSeal25" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="24" unique_id=32409756 instance=ExtResource("3_034hu")]
+position = Vector2(608, 346)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal26" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="25" unique_id=904403222 instance=ExtResource("3_034hu")]
+position = Vector2(672, 346)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal27" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="26" unique_id=798469905 instance=ExtResource("3_034hu")]
+position = Vector2(736, 346)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal28" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="27" unique_id=1436587249 instance=ExtResource("3_034hu")]
+position = Vector2(800, 346)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal29" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="28" unique_id=1888396871 instance=ExtResource("3_034hu")]
+position = Vector2(864, 346)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal30" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="29" unique_id=1399131141 instance=ExtResource("3_034hu")]
+position = Vector2(928, 346)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal31" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="30" unique_id=166492010 instance=ExtResource("3_034hu")]
+position = Vector2(992, 346)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal32" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="31" unique_id=1864127164 instance=ExtResource("3_034hu")]
+position = Vector2(1056, 346)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal33" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="32" unique_id=1101165358 instance=ExtResource("3_034hu")]
+position = Vector2(1121, 346)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal34" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="33" unique_id=507852913 instance=ExtResource("3_034hu")]
+position = Vector2(1185, 346)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal35" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="34" unique_id=780074275 instance=ExtResource("3_034hu")]
+position = Vector2(1248, 346)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal36" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="35" unique_id=70727027 instance=ExtResource("3_034hu")]
+position = Vector2(1312, 346)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal37" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="36" unique_id=594030115 instance=ExtResource("3_034hu")]
+position = Vector2(1376, 346)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal38" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="37" unique_id=239388007 instance=ExtResource("3_034hu")]
+position = Vector2(1440, 346)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal39" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="38" unique_id=864830771 instance=ExtResource("3_034hu")]
+position = Vector2(1504, 346)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal40" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="39" unique_id=1307687076 instance=ExtResource("3_034hu")]
+position = Vector2(1568, 346)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal41" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="40" unique_id=702315631 instance=ExtResource("3_034hu")]
+position = Vector2(1632, 346)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal42" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="41" unique_id=267176767 instance=ExtResource("3_034hu")]
+position = Vector2(1696, 346)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal43" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="42" unique_id=119750646 instance=ExtResource("3_034hu")]
+position = Vector2(1760, 346)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal44" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="43" unique_id=1912082514 instance=ExtResource("3_034hu")]
+position = Vector2(1824, 346)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal45" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="44" unique_id=355675006 instance=ExtResource("3_034hu")]
+position = Vector2(480, 411)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({})
+chance_it_exists = 25
+
+[node name="OpenSeal46" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="45" unique_id=1667316062 instance=ExtResource("3_034hu")]
+position = Vector2(544, 411)
+initialize_brick_on_leveldata = false
+chance_it_exists = 25
+
+[node name="OpenSeal47" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="46" unique_id=1255990285 instance=ExtResource("3_034hu")]
+position = Vector2(608, 411)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal48" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="47" unique_id=812110902 instance=ExtResource("3_034hu")]
+position = Vector2(672, 411)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal49" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="48" unique_id=309370172 instance=ExtResource("3_034hu")]
+position = Vector2(736, 411)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal50" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="49" unique_id=1551522504 instance=ExtResource("3_034hu")]
+position = Vector2(800, 411)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal51" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="50" unique_id=1144081371 instance=ExtResource("3_034hu")]
+position = Vector2(864, 411)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal52" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="51" unique_id=1549050813 instance=ExtResource("3_034hu")]
+position = Vector2(928, 411)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal53" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="52" unique_id=248170552 instance=ExtResource("3_034hu")]
+position = Vector2(992, 411)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal54" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="53" unique_id=999546824 instance=ExtResource("3_034hu")]
+position = Vector2(1056, 411)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal55" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="54" unique_id=1607751565 instance=ExtResource("3_034hu")]
+position = Vector2(1121, 411)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal56" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="55" unique_id=581685338 instance=ExtResource("3_034hu")]
+position = Vector2(1185, 411)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal57" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="56" unique_id=2048259355 instance=ExtResource("3_034hu")]
+position = Vector2(1248, 411)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal58" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="57" unique_id=1238330062 instance=ExtResource("3_034hu")]
+position = Vector2(1312, 411)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal59" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="58" unique_id=102203649 instance=ExtResource("3_034hu")]
+position = Vector2(1376, 411)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal60" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="59" unique_id=557156297 instance=ExtResource("3_034hu")]
+position = Vector2(1440, 411)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal61" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="60" unique_id=1390143344 instance=ExtResource("3_034hu")]
+position = Vector2(1504, 411)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal62" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="61" unique_id=1428486138 instance=ExtResource("3_034hu")]
+position = Vector2(1568, 411)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal63" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="62" unique_id=479193893 instance=ExtResource("3_034hu")]
+position = Vector2(1632, 411)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal64" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="63" unique_id=414614422 instance=ExtResource("3_034hu")]
+position = Vector2(1696, 411)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal65" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="64" unique_id=1566687899 instance=ExtResource("3_034hu")]
+position = Vector2(1760, 411)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal66" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="65" unique_id=1201419907 instance=ExtResource("3_034hu")]
+position = Vector2(1824, 411)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal67" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="66" unique_id=1074525784 instance=ExtResource("3_034hu")]
+position = Vector2(480, 473)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({})
+chance_it_exists = 25
+
+[node name="OpenSeal68" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="67" unique_id=2119241244 instance=ExtResource("3_034hu")]
+position = Vector2(544, 473)
+initialize_brick_on_leveldata = false
+chance_it_exists = 25
+
+[node name="OpenSeal69" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="68" unique_id=1634733460 instance=ExtResource("3_034hu")]
+position = Vector2(608, 473)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal70" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="69" unique_id=1402644176 instance=ExtResource("3_034hu")]
+position = Vector2(672, 473)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal71" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="70" unique_id=1435989155 instance=ExtResource("3_034hu")]
+position = Vector2(736, 473)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal72" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="71" unique_id=701961023 instance=ExtResource("3_034hu")]
+position = Vector2(800, 473)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal73" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="72" unique_id=642209091 instance=ExtResource("3_034hu")]
+position = Vector2(864, 473)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal74" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="73" unique_id=881556348 instance=ExtResource("3_034hu")]
+position = Vector2(928, 473)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal75" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="74" unique_id=1757217730 instance=ExtResource("3_034hu")]
+position = Vector2(992, 473)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal76" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="75" unique_id=929295227 instance=ExtResource("3_034hu")]
+position = Vector2(1056, 473)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal77" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="76" unique_id=1578376969 instance=ExtResource("3_034hu")]
+position = Vector2(1121, 473)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal78" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="77" unique_id=1654322591 instance=ExtResource("3_034hu")]
+position = Vector2(1185, 473)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal79" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="78" unique_id=1871121143 instance=ExtResource("3_034hu")]
+position = Vector2(1248, 473)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal80" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="79" unique_id=2049521078 instance=ExtResource("3_034hu")]
+position = Vector2(1312, 473)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal81" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="80" unique_id=112214521 instance=ExtResource("3_034hu")]
+position = Vector2(1376, 473)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal82" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="81" unique_id=1851997811 instance=ExtResource("3_034hu")]
+position = Vector2(1440, 473)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal83" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="82" unique_id=360572023 instance=ExtResource("3_034hu")]
+position = Vector2(1504, 473)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal84" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="83" unique_id=533716114 instance=ExtResource("3_034hu")]
+position = Vector2(1568, 473)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal85" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="84" unique_id=1155801790 instance=ExtResource("3_034hu")]
+position = Vector2(1632, 473)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal86" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="85" unique_id=986798688 instance=ExtResource("3_034hu")]
+position = Vector2(1696, 473)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal87" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="86" unique_id=231679709 instance=ExtResource("3_034hu")]
+position = Vector2(1760, 473)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal88" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="87" unique_id=213433338 instance=ExtResource("3_034hu")]
+position = Vector2(1824, 473)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal89" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="88" unique_id=1118184011 instance=ExtResource("3_034hu")]
+position = Vector2(480, 537)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({})
+chance_it_exists = 25
+
+[node name="OpenSeal90" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="89" unique_id=1042419484 instance=ExtResource("3_034hu")]
+position = Vector2(544, 537)
+initialize_brick_on_leveldata = false
+chance_it_exists = 25
+
+[node name="OpenSeal91" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="90" unique_id=2053273365 instance=ExtResource("3_034hu")]
+position = Vector2(608, 537)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal92" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="91" unique_id=1150431544 instance=ExtResource("3_034hu")]
+position = Vector2(672, 537)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal93" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="92" unique_id=644234340 instance=ExtResource("3_034hu")]
+position = Vector2(736, 537)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal94" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="93" unique_id=553968351 instance=ExtResource("3_034hu")]
+position = Vector2(800, 537)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal95" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="94" unique_id=128812035 instance=ExtResource("3_034hu")]
+position = Vector2(864, 537)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal96" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="95" unique_id=942155551 instance=ExtResource("3_034hu")]
+position = Vector2(928, 537)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal97" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="96" unique_id=2126273330 instance=ExtResource("3_034hu")]
+position = Vector2(992, 537)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal98" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="97" unique_id=1511828544 instance=ExtResource("3_034hu")]
+position = Vector2(1056, 537)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal99" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="98" unique_id=1244688394 instance=ExtResource("3_034hu")]
+position = Vector2(1121, 537)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal100" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="99" unique_id=662747348 instance=ExtResource("3_034hu")]
+position = Vector2(1185, 537)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal101" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="100" unique_id=952035622 instance=ExtResource("3_034hu")]
+position = Vector2(1248, 537)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal102" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="101" unique_id=1729415400 instance=ExtResource("3_034hu")]
+position = Vector2(1312, 537)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal103" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="102" unique_id=146369929 instance=ExtResource("3_034hu")]
+position = Vector2(1376, 537)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal104" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="103" unique_id=1412855801 instance=ExtResource("3_034hu")]
+position = Vector2(1440, 537)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal105" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="104" unique_id=88312164 instance=ExtResource("3_034hu")]
+position = Vector2(1504, 537)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal106" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="105" unique_id=990451734 instance=ExtResource("3_034hu")]
+position = Vector2(1568, 537)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal107" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="106" unique_id=2123688338 instance=ExtResource("3_034hu")]
+position = Vector2(1632, 537)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal108" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="107" unique_id=432682258 instance=ExtResource("3_034hu")]
+position = Vector2(1696, 537)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal109" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="108" unique_id=817799973 instance=ExtResource("3_034hu")]
+position = Vector2(1760, 537)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal110" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="109" unique_id=1876154120 instance=ExtResource("3_034hu")]
+position = Vector2(1824, 537)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal111" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="110" unique_id=1715738403 instance=ExtResource("3_034hu")]
+position = Vector2(480, 601)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({})
+chance_it_exists = 25
+
+[node name="OpenSeal112" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="111" unique_id=915438414 instance=ExtResource("3_034hu")]
+position = Vector2(544, 601)
+initialize_brick_on_leveldata = false
+chance_it_exists = 25
+
+[node name="OpenSeal113" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="112" unique_id=645508136 instance=ExtResource("3_034hu")]
+position = Vector2(608, 601)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal114" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="113" unique_id=254345008 instance=ExtResource("3_034hu")]
+position = Vector2(672, 601)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal115" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="114" unique_id=699929288 instance=ExtResource("3_034hu")]
+position = Vector2(736, 601)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal116" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="115" unique_id=431480296 instance=ExtResource("3_034hu")]
+position = Vector2(800, 601)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal117" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="116" unique_id=872079498 instance=ExtResource("3_034hu")]
+position = Vector2(864, 601)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal118" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="117" unique_id=2086840229 instance=ExtResource("3_034hu")]
+position = Vector2(928, 601)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal119" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="118" unique_id=1322433822 instance=ExtResource("3_034hu")]
+position = Vector2(992, 601)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal120" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="119" unique_id=1008274448 instance=ExtResource("3_034hu")]
+position = Vector2(1056, 601)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal121" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="120" unique_id=1557475759 instance=ExtResource("3_034hu")]
+position = Vector2(1121, 601)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal122" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="121" unique_id=458566614 instance=ExtResource("3_034hu")]
+position = Vector2(1185, 601)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal123" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="122" unique_id=570997997 instance=ExtResource("3_034hu")]
+position = Vector2(1248, 601)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal124" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="123" unique_id=994903169 instance=ExtResource("3_034hu")]
+position = Vector2(1312, 601)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal125" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="124" unique_id=706538447 instance=ExtResource("3_034hu")]
+position = Vector2(1376, 601)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal126" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="125" unique_id=1401704050 instance=ExtResource("3_034hu")]
+position = Vector2(1440, 601)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal127" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="126" unique_id=1971581237 instance=ExtResource("3_034hu")]
+position = Vector2(1504, 601)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal128" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="127" unique_id=4661876 instance=ExtResource("3_034hu")]
+position = Vector2(1568, 601)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal129" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="128" unique_id=2109319993 instance=ExtResource("3_034hu")]
+position = Vector2(1632, 601)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal130" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="129" unique_id=252908453 instance=ExtResource("3_034hu")]
+position = Vector2(1696, 601)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal131" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="130" unique_id=13971501 instance=ExtResource("3_034hu")]
+position = Vector2(1760, 601)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25
+
+[node name="OpenSeal132" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="131" unique_id=371590513 instance=ExtResource("3_034hu")]
+position = Vector2(1824, 601)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
+chance_it_exists = 25

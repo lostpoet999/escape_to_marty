@@ -44,6 +44,9 @@ var _denial_revert_armed_at_ms: int = -1
 @export var brick_damage_fx: PackedScene
 @export var brick_destroy_fx: PackedScene
 
+# handy for randomized levels: set to less than 100%
+@export var chance_it_exists: int = 100
+
 @export_category("Bargain")
 @export var bargain_sweet_spot: float = 0.5
 @export var bargain_sweet_spot_width: float = 0.128
@@ -130,6 +133,12 @@ func setup_visuals()->void:
 			gemstone_facets.modulate = Color("4f8fba")
 			
 func _ready() -> void:	
+	
+	if chance_it_exists < 100: 	# for random levels only
+		if randi_range(1,100) > chance_it_exists:
+			queue_free()
+			return
+	
 	if initialize_brick_on_leveldata: #default is populate stages based on level stats		
 		stages.clear()
 		stages = SealInitializer.initialize_seal()
