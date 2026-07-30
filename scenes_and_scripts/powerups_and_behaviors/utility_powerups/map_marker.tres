@@ -11,4 +11,5 @@ rarity = 1
 inventory_icon = ExtResource("2_icon")
 cost = 4
 enables_minimap = true
+trophy_floor = 1
 metadata/_custom_type_script = "uid://cscanutil01"

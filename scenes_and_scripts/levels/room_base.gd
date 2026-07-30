@@ -156,7 +156,8 @@ func _init_bonus_room() -> void:
 	$PlayArea.add_child(panel)
 
 func _on_bonus_item_taken(item: BaseItem) -> void:
-	SaveProgression.set_memory_trophy(GameManager.current_floor, item.resource_path)
+	var trophy_floor: int = item.trophy_floor if item.trophy_floor > 0 else GameManager.current_floor
+	SaveProgression.set_memory_trophy(trophy_floor, item.resource_path)
 
 func _spawn_free_item_panel() -> void:
 	if !room_state.loot_items_data:

@@ -55,3 +55,5 @@ static func _rarity_box(color: Color, fill_alpha: float, border_width: int, corn
 @export var reveals_adjacent_rooms: bool = false
 @export var enables_minimap: bool = false
 @export var clears_barriers: bool = false
+## which floor's memory-trophy slot this item owns; 0 = not a trophy
+@export var trophy_floor: int = 0

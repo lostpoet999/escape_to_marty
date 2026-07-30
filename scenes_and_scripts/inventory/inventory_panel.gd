@@ -46,7 +46,10 @@ func _non_trophy_items() -> Array:
 	var trophy_paths: Dictionary = _trophy_paths()
 	return PlayerInventory.get_instance().get_items().filter(
 		func(item: Variant) -> bool:
-			return not (item is BaseItem and trophy_paths.has(item.resource_path))
+			if not item is BaseItem:
+				return true
+			var base: BaseItem = item as BaseItem
+			return base.trophy_floor <= 0 and not trophy_paths.has(base.resource_path)
 	)
 
 func populate_trophies() -> void:
@@ -55,9 +58,20 @@ func populate_trophies() -> void:
 	for floor_index: int in range(1, MEMORY_TROPHY_SLOTS + 1):
 		trophy_row.add_child(_make_trophy_slot(floor_index))
 
+func _trophy_item_for_floor(floor_index: int) -> BaseItem:
+	var inventory: PlayerInventory = PlayerInventory.get_instance()
+	for entry: Variant in inventory.get_items() + inventory.get_core_items():
+		var held: BaseItem = entry as BaseItem
+		if held != null and held.trophy_floor == floor_index:
+			return held
+	var saved_path: String = SaveProgression.memory_trophy_path(floor_index)
+	if saved_path == "":
+		return null
+	return load(saved_path) as BaseItem
+
 func _make_trophy_slot(floor_index: int) -> Control:
-	var path: String = SaveProgression.memory_trophy_path(floor_index)
-	if path == "":
+	var trophy: BaseItem = _trophy_item_for_floor(floor_index)
+	if trophy == null:
 		var number: Label = Label.new()
 		number.text = str(floor_index)
 		number.custom_minimum_size = Vector2(SLOT_SIZE, SLOT_SIZE)
@@ -65,16 +79,14 @@ func _make_trophy_slot(floor_index: int) -> Control:
 		number.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		number.modulate = TROPHY_DIM
 		return number
-	var item: BaseItem = load(path) as BaseItem
 	var button: Button = Button.new()
 	button.focus_mode = Control.FOCUS_NONE
 	button.custom_minimum_size = Vector2(SLOT_SIZE, SLOT_SIZE)
 	button.expand_icon = true
-	button.icon = item.inventory_icon if item and item.inventory_icon else PlayerInventory.PLACEHOLDER_TEX
-	button.tooltip_text = item.powerup_name if item else ""
+	button.icon = trophy.inventory_icon if trophy.inventory_icon else PlayerInventory.PLACEHOLDER_TEX
+	button.tooltip_text = trophy.powerup_name
 	button.set_meta(&"click_pickable", true)
-	if item:
-		BaseItem.style_button_with_rarity(button, item.rarity, 2, 4, 2.0)
+	BaseItem.style_button_with_rarity(button, trophy.rarity, 2, 4, 2.0)
 	return button
 
 func _on_vouchers_changed(_count: int) -> void:
