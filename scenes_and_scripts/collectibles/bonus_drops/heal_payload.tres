@@ -7,4 +7,5 @@
 script = ExtResource("1")
 label = "Full Heal"
 drop_texture = ExtResource("1_bcsyh")
+drop_scale = 1.3
 metadata/_custom_type_script = "uid://cdal3omj7hrcp"

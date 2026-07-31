@@ -7,3 +7,4 @@
 script = ExtResource("1")
 label = "Pick-2 Voucher"
 drop_texture = ExtResource("1_4j87m")
+drop_scale = 1.3

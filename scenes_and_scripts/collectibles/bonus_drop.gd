@@ -12,13 +12,19 @@ var payload: BonusPayload
 var collected: bool = false
 var captor: Node2D
 var _fall_delay: float = 0.0
+var _anim_time: float = 0.0
 
 @onready var sprite: Sprite2D = $Sprite2D
+@onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
 func _ready() -> void:
 	if payload:
 		if payload.drop_texture:
 			sprite.texture = payload.drop_texture
+		sprite.hframes = maxi(payload.drop_hframes, 1)
+		if sprite.hframes > 1:
+			_anim_time = randf() * float(sprite.hframes)
+			sprite.frame = int(_anim_time) % sprite.hframes
 		sprite.modulate = payload.drop_modulate
 		if payload.is_rare:
 			SFX.play_sound("win_sting")
@@ -34,11 +40,30 @@ func _ready() -> void:
 func _fit_sprite() -> void:
 	if sprite.texture == null:
 		return
-	var longest: float = maxf(sprite.texture.get_width(), sprite.texture.get_height())
-	if longest > 0.0:
-		sprite.scale = Vector2.ONE * (display_size / longest)
+	var frame_width: float = float(sprite.texture.get_width()) / float(maxi(sprite.hframes, 1))
+	var frame_height: float = float(sprite.texture.get_height()) / float(maxi(sprite.vframes, 1))
+	var longest: float = maxf(frame_width, frame_height)
+	if longest <= 0.0:
+		return
+	var target: float = display_size * (payload.drop_scale if payload else 1.0)
+	sprite.scale = Vector2.ONE * (target / longest)
+	_fit_collision(Vector2(frame_width, frame_height) * sprite.scale)
+
+func _fit_collision(rendered_size: Vector2) -> void:
+	var box: RectangleShape2D = collision_shape.shape as RectangleShape2D
+	if box == null:
+		return
+	# shape is resource_local_to_scene in bonus_drop.tscn, so this resize stays on this drop
+	box.size = rendered_size
+
+func _advance_frame(delta: float) -> void:
+	if payload == null or sprite.hframes <= 1 or payload.drop_anim_fps <= 0.0:
+		return
+	_anim_time += delta * payload.drop_anim_fps
+	sprite.frame = int(_anim_time) % sprite.hframes
 
 func _process(delta: float) -> void:
+	_advance_frame(delta)
 	if captor != null and is_instance_valid(captor):
 		global_position = global_position.move_toward(captor.global_position, pull_speed * delta)
 	else:

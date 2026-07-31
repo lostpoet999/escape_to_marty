@@ -25,4 +25,4 @@ position = Vector2(1096, 336)
 position = Vector2(804, 540)
 
 [node name="item_spawn_point" parent="." index="11" unique_id=51076593]
-position = Vector2(1079, 736)
+position = Vector2(1021, 736)

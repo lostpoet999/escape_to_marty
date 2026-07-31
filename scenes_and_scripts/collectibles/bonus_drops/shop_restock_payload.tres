@@ -7,3 +7,4 @@
 script = ExtResource("1")
 label = "Shop Restock Voucher"
 drop_texture = ExtResource("1_nd8c2")
+drop_scale = 1.3

@@ -3,15 +3,16 @@
 [ext_resource type="Script" uid="uid://gpsmhdpvf66t" path="res://scenes_and_scripts/collectibles/bonus_drop.gd" id="1_bd"]
 [ext_resource type="Texture2D" uid="uid://d2w1mhn1msihb" path="res://scenes_and_scripts/bricks/brick_vfx/64x64-white-square.png" id="2_tex"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_bd"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bd"]
+resource_local_to_scene = true
+size = Vector2(32, 32)
 
 [node name="BonusDrop" type="Area2D" unique_id=134588890]
 collision_layer = 2
 script = ExtResource("1_bd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1778599556]
-scale = Vector2(1.72, 1.28)
-shape = SubResource("CircleShape2D_bd")
+shape = SubResource("RectangleShape2D_bd")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2069212955]
 texture = ExtResource("2_tex")

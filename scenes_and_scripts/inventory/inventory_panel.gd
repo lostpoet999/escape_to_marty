@@ -9,11 +9,9 @@ const SLOT_SIZE: int = ICON_SIZE + 4 ## uniform button footprint: ICON_SIZE plus
 
 ## banked vouchers are PlayerData counters, not real inventory items — these display-only tickets render them
 ## as non-removable buttons slotted right after the base-ball anchor (index 1) so a held voucher is always visible.
-## tint distinguishes them while real art is pending; mirrors each payload's drop_modulate.
+## each ticket carries the matching payload's drop art as its inventory_icon, so the falling pickup and the slot read the same.
 const PICK2_TICKET: BaseItem = preload("uid://cpick2tkt01")
 const SHOP_RESTOCK_TICKET: BaseItem = preload("uid://cshoprstkt1")
-const PICK2_TINT: Color = Color(0.5, 1, 0.5)
-const SHOP_RESTOCK_TINT: Color = Color(1, 0.7, 0.3)
 const TICKET_SLOT_START: int = 1 ## index 0 is the base-ball anchor; tickets follow it
 
 const MEMORY_TROPHY_SLOTS: int = 5
@@ -101,14 +99,13 @@ func repopulate_inventory() -> void:
 
 func add_voucher_tickets() -> void:
 	var slot: int = TICKET_SLOT_START
-	slot = _add_ticket(PICK2_TICKET, PlayerData.pick2_vouchers, PICK2_TINT, slot)
-	slot = _add_ticket(SHOP_RESTOCK_TICKET, PlayerData.shop_restock_vouchers, SHOP_RESTOCK_TINT, slot)
+	slot = _add_ticket(PICK2_TICKET, PlayerData.pick2_vouchers, slot)
+	slot = _add_ticket(SHOP_RESTOCK_TICKET, PlayerData.shop_restock_vouchers, slot)
 
-func _add_ticket(ticket: BaseItem, count: int, tint: Color, slot: int) -> int:
+func _add_ticket(ticket: BaseItem, count: int, slot: int) -> int:
 	if count <= 0:
 		return slot
 	var button: Button = init_button_for(ticket)
-	button.modulate = tint
 	if count > 1:
 		add_count_badge(button, count)
 	inv_grid_container.add_child(button)
