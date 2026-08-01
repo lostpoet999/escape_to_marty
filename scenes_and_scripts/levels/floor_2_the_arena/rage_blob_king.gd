@@ -4,7 +4,7 @@ extends FallingEnemy
 const RAGE_BLOB: PackedScene = preload("uid://b1mku5iyrtraa")
 const DAMAGE_NUMBER: PackedScene = preload("uid://bedvoohhfbi03")
 
-enum VolleyPattern {SWEEP, PINGPONG}
+enum VolleyPattern { SWEEP = 0, PINGPONG = 1 }
 
 @export var max_health: float = 35.0 ## Real HP pool: HEALTH-type damage subtracts its actual amount; at 0 the king dies and emits Signalbus.boss_defeated.
 @export var start_scale: float = 0.5 ## Uniform scale stamped at spawn, before the intro grow.

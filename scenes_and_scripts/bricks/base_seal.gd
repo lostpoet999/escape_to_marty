@@ -19,7 +19,7 @@ const PHASE_SCORES: Dictionary[GameManager.PhaseType, int] = {
 	GameManager.PhaseType.HEALTH: 500,
 }
 
-enum BargainOutcome { OVERPAY, DEAL, WHIFF, INSULT }
+enum BargainOutcome { OVERPAY = 0, DEAL = 1, WHIFF = 2, INSULT = 3 }
 
 @onready var brick_health_label: Label = $brick_health
 

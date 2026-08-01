@@ -1,7 +1,7 @@
 class_name WallWalker
 extends PlacedEnemy
 
-enum WallSide { LEFT, RIGHT, TOP }
+enum WallSide { LEFT = 0, RIGHT = 1, TOP = 2 }
 
 const WALL_TILE_SIZE: float = 64.0
 const SHOCK_COOLDOWN_MS: int = 100

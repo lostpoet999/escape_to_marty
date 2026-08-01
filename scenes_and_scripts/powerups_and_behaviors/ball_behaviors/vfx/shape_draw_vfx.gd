@@ -4,13 +4,13 @@ class_name ShapeDrawVfx extends VfxSpec
 
 enum BlendMode {
 	## Normal transparency.
-	MIX,
+	MIX = 0,
 	## Glow / fire / energy — author with bright colors; black is invisible.
-	ADD,
+	ADD = 1,
 	## Void / drain / scorch — a bright source darkens the scene.
-	SUBTRACT,
+	SUBTRACT = 2,
 	## Ink / stain / shadow — author with dark colors; white is invisible.
-	MULTIPLY,
+	MULTIPLY = 3,
 }
 
 ## Flat tint, used only when color_ramp is empty. The shape is drawn white, so this fully sets the look.

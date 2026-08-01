@@ -1,7 +1,7 @@
 class_name DialogBeat extends Resource
 
-enum Speaker {DAVID, COLLECTOR, LINGERING_SPIRIT, BOSS}
-enum PortraitSide {LEFT, RIGHT}
+enum Speaker { DAVID = 0, COLLECTOR = 1, LINGERING_SPIRIT = 2, BOSS = 3 }
+enum PortraitSide { LEFT = 0, RIGHT = 1 }
 
 ## Who is saying the line--positions box accordingly.
 @export var speaker: Speaker = Speaker.DAVID

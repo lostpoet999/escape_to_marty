@@ -1,7 +1,13 @@
 class_name ShadowImp
 extends PlacedEnemy
 
-enum ImpState { MATERIALIZE, WANDER, ATTACK, BROOD, HIDE }
+enum ImpState {
+	MATERIALIZE = 0,
+	WANDER = 1,
+	ATTACK = 2,
+	BROOD = 3,
+	HIDE = 4,
+	}
 
 @export var max_health: float = 20.0 ## Real HP pool: HEALTH-type damage subtracts its actual amount. Clicks and other verb types never hurt the imp.
 @export var materialize_time: float = 0.8 ## Seconds for the spawn fade-in at the random materialize point; the imp is already hittable while fading.
