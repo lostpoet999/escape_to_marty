@@ -1,16 +1,18 @@
 class_name DamageNumber
 extends Node2D
 
+const PREFAB_SCENE: String = "uid://bedvoohhfbi03"
+
 const COLOR_DEALT: Color = Color(1, 1, 0.3)
 const COLOR_TAKEN: Color = Color(1, 0.15, 0.15)
 
 func _ready()->void:
-	var tween = create_tween()
+	var tween: Tween = create_tween()
 	tween.parallel().tween_property(self, "modulate:a", 0, 1.0)
 	tween.parallel().tween_property($AllTextTypes, "position", Vector2(0, -100), 1.0)
 	tween.finished.connect(on_tween_finished)
 
-func on_tween_finished():
+func on_tween_finished() -> void:
 	queue_free()
 
 func show_damage(damage_string: String, color: Color = COLOR_TAKEN)->void:

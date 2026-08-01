@@ -3,7 +3,7 @@ extends Area2D
 
 const BONUS_DROP: PackedScene = preload("res://scenes_and_scripts/collectibles/bonus_drop.tscn")
 const BONUS_POOL: BonusDropPool = preload("res://scenes_and_scripts/collectibles/bonus_drops/bonus_drop_pool.tres")
-const DAMAGE_NUMBER: PackedScene = preload("uid://bedvoohhfbi03")
+const DAMAGE_NUMBER: PackedScene = preload(DamageNumber.PREFAB_SCENE)
 
 const COIN_WINDFALL_CHANCE: float = 0.05
 const COIN_WINDFALL_COUNT: int = 3
@@ -195,7 +195,7 @@ func accept_damage(damage: float, damage_types: Array) -> void:
 
 func _resolve_damage_feedback() -> void:
 	if not _feedback_damaged:
-		var damage_number = DAMAGE_NUMBER.instantiate()
+		var damage_number: DamageNumber = DAMAGE_NUMBER.instantiate()
 		damage_number.position = global_position
 		damage_number.show_damage("denied", DamageNumber.COLOR_DEALT)
 		get_tree().current_scene.add_child(damage_number)
@@ -299,9 +299,9 @@ func _damage_current_stage(damage: float) -> void:
 	_spawn_damage_number(damage)
 
 func _spawn_damage_number(damage: float) -> void:
-	var damage_number = DAMAGE_NUMBER.instantiate()
+	var damage_number: DamageNumber = DAMAGE_NUMBER.instantiate()
 	damage_number.position = global_position
-	damage_number.show_damage("-" + str(int(round(damage))), DamageNumber.COLOR_DEALT)
+	damage_number.show_damage("-" + str(int(roundi(damage))), DamageNumber.COLOR_DEALT)
 	get_tree().current_scene.add_child(damage_number)
 
 
@@ -382,9 +382,9 @@ func resolve_bargain(bid: float) -> BargainOutcome:
 			_settle_deal(0)
 			return BargainOutcome.DEAL
 		var discount: float = clampf(bargain_discount + bargain_discount_bonus, 0.0, 0.95)
-		_settle_deal(int(round(price * (1.0 - discount))))
+		_settle_deal(roundi(price * (1.0 - discount)))
 		return BargainOutcome.DEAL
-	_settle_deal(price + int(round((bid - sweet.y) * price)))
+	_settle_deal(price + roundi((bid - sweet.y) * price))
 	return BargainOutcome.OVERPAY
 
 func _resolve_undercut(bid: float, sweet_low: float, price: int) -> BargainOutcome:
@@ -401,7 +401,7 @@ func _resolve_undercut(bid: float, sweet_low: float, price: int) -> BargainOutco
 		chance = bargain_undercut_chance_far
 		penalty = 3
 	if randf() < chance:
-		_settle_deal(int(round(price * (1.0 - clampf(depth, 0.0, 0.9)))))
+		_settle_deal(roundi(price * (1.0 - clampf(depth, 0.0, 0.9))))
 		Signalbus.screen_flash.emit(Color.GOLD)
 		return BargainOutcome.DEAL
 	bargain_markup += penalty
