@@ -37,6 +37,7 @@ var flipped_y: bool = false
 @export var has_homing_powerup: bool = false
 
 var ball_in_magnet_range: bool = false
+var paddle_can_attract: bool = true
 
 var velocity: Vector2 = Vector2.ZERO
 var on_paddle: bool = true
@@ -53,6 +54,7 @@ var old_y: float = 0.0
 @onready var paddle_collision: CollisionShape2D = $"../Paddle/PaddleCollisionShape"
 @onready var ball_collision: CollisionShape2D = $bounce_collision_shape
 var is_tweening_to_david: bool = false
+var tween_from_magnet: bool = false
 var is_tweening_to_nearest_brick: bool = false
 var nearest_brick_tween: Tween = null
 
@@ -73,6 +75,7 @@ func _ready() -> void:
 	Signalbus.floor_cleared.connect(remove_ball)
 	Signalbus.db_panel_closed.connect(repopulate_effects_from_inventory)
 	Signalbus.ball_in_magnet_range.connect(set_ball_in_magnet_range)
+	Signalbus.magnet_refresh_timeout.connect(set_paddle_can_attract)
 
 func get_ball_dmg_types() -> void:
 	ball_dmg_type.clear()
@@ -217,9 +220,12 @@ func _input(_event: InputEvent) -> void:
 			tween_to_nearest_brick()
 
 func attract_to_paddle() -> void:
-	if not on_paddle and ball_in_magnet_range and GameManager.current_state == GameManager.GameState.PLAYING:
+	if not on_paddle and ball_in_magnet_range and paddle_can_attract and GameManager.current_state == GameManager.GameState.PLAYING:
 		tween_to_david(global_position)
 		position_ball_on_paddle()
+		tween_from_magnet = true
+		paddle_can_attract = false
+		Signalbus.reset_magnet_refresh.emit()
 	elif on_paddle and GameManager.current_state == GameManager.GameState.BALL_ON_PADDLE:
 		launch_ball()
 
@@ -228,6 +234,9 @@ func set_ball_in_magnet_range(ball_in_range: bool):
 		ball_in_magnet_range = true
 	else:
 		ball_in_magnet_range = false
+
+func set_paddle_can_attract():
+	paddle_can_attract = true
 
 func launch_ball() -> void:
 	on_paddle = false
@@ -465,6 +474,9 @@ func apply_damage_to(target: Node2D, amount: float, dmg_types: Array) -> void:
 		if is_tweening_to_david:
 			return
 		await tween_to_david(global_position)
-		PlayerData.accept_reflect_damage(amount)
+		if not tween_from_magnet:
+			PlayerData.accept_reflect_damage(amount)
+		else:
+			tween_from_magnet = false
 		if PlayerData.player_current_health > 0:
 			position_ball_on_paddle()

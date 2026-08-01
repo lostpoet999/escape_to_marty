@@ -150,6 +150,16 @@ signal shop_restock_vouchers_changed(count: int)
 @warning_ignore("unused_signal")
 signal ball_in_magnet_range(is_in_range: bool)
 
+## Emits: scenes_and_scripts/actors/player/paddle.gd -> _on_magnet_refresh_timeout()
+## Connects: scenes_and_scripts/ball/ball.gd -> set_paddle_can_attract
+@warning_ignore("unused_signal")
+signal magnet_refresh_timeout
+
+## Emits: scenes_and_scripts/actors/player/ball.gd -> _on_magnet_refresh_timeout()
+## Connects: scenes_and_scripts/ball/paddle.gd -> set_paddle_can_attract
+@warning_ignore("unused_signal")
+signal reset_magnet_refresh
+
 ## =============================================================================
 ## Inventory Signals
 ## =============================================================================
