@@ -85,7 +85,7 @@ var _visual_offset: Vector2 = Vector2.ZERO
 ## When true, a seal whose DEPRESSION was fully cleared slides BACK into depression if left dark too long (the snuff-trap). Off until the light-snuff enemy exists; flip on per-seal to feel it.
 @export var depression_reseeds_when_dark: bool = false
 ## Seconds a cleared seal must stay unlit before DEPRESSION reseeds (only when depression_reseeds_when_dark).
-@export var depression_reseed_delay: float = 3.0
+@export var depression_reseed_delay: float = 3.6
 const _LIT_GRACE: float = 0.12
 var _lit_cooldown: float = 0.0
 var _depression_max: float = 0.0
@@ -301,7 +301,7 @@ func _damage_current_stage(damage: float) -> void:
 func _spawn_damage_number(damage: float) -> void:
 	var damage_number: DamageNumber = DAMAGE_NUMBER.instantiate()
 	damage_number.position = global_position
-	damage_number.show_damage("-" + str(int(roundi(damage))), DamageNumber.COLOR_DEALT)
+	damage_number.show_damage("-" + DamageNumber.format_amount(damage), DamageNumber.COLOR_DEALT)
 	get_tree().current_scene.add_child(damage_number)
 
 
@@ -320,7 +320,7 @@ func _update_stage_label() -> void:
 	if current_stage == GameManager.PhaseType.BARGAINING:
 		brick_health_label.text = str(_bargain_price())
 	else:
-		brick_health_label.text = str(health_temp)
+		brick_health_label.text = DamageNumber.format_amount(health_temp)
 
 ## Called each frame by a DepressionLight covering this seal; holds back the dark.
 func illuminate(grace: float = _LIT_GRACE) -> void:
