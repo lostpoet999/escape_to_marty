@@ -158,7 +158,9 @@ func _seals_in_reach() -> Array[Node2D]:
 	ctx.collision_mask = collision_mask
 	return _targeting.select(ctx, null)
 
-## Snuff the light early (the ShadowImp's final strike and replace-oldest placement call this). Depression then regrows in the dark.
+func is_lit() -> bool:
+	return not _extinguished
+
 func extinguish() -> void:
 	if _extinguished:
 		return

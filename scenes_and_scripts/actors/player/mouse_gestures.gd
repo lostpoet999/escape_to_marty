@@ -39,7 +39,11 @@ var bargain_bid: float = 0.0
 @export_category("Depression Config")
 ## Max placed lights on screen at once; placing at the cap snuffs the oldest light to make room — the depression verb's light budget.
 @export var max_depression_lights: int = 2
+## Seconds of unbroken darkness (zero live lights, ball in flight) before the ShadowImps unlock their dive attack. Placing a light resets the clock; the clock only runs while PLAYING, so it starts at the initial launch and pauses whenever the ball is docked.
+@export var dark_arm_delay: float = 3.0
 var depression_lights: Array[Node2D] = []
+var _dark_time: float = 0.0
+var _ball_docked: bool = true
 
 
 func _input(event: InputEvent)->void:
@@ -123,6 +127,34 @@ func _place_depression_light(at: Vector2) -> void:
 func _on_depression_light_freed(light: Node2D) -> void:
 	depression_lights.erase(light)
 
+func live_light_count() -> int:
+	var count: int = 0
+	for light: Node2D in depression_lights:
+		var depression_light: DepressionLight = light as DepressionLight
+		if depression_light != null and is_instance_valid(depression_light) and depression_light.is_lit():
+			count += 1
+	return count
+
+## True once the room has sat dark long enough for the ShadowImps to dive at the player.
+func is_dark_armed() -> bool:
+	return _dark_time >= dark_arm_delay
+
+func _tick_darkness(delta: float) -> void:
+	var state: GameManager.GameState = GameManager.current_state
+	if state == GameManager.GameState.BALL_ON_PADDLE:
+		_ball_docked = true
+		_dark_time = 0.0
+		return
+	if state != GameManager.GameState.PLAYING:
+		return
+	if _ball_docked:
+		_ball_docked = false
+		_dark_time = 0.0
+	if live_light_count() > 0:
+		_dark_time = 0.0
+		return
+	_dark_time += delta
+
 func _point_blocks_light(at: Vector2) -> bool:
 	var space: PhysicsDirectSpaceState2D = get_viewport().get_world_2d().direct_space_state
 	var query: PhysicsPointQueryParameters2D = PhysicsPointQueryParameters2D.new()
@@ -132,7 +164,7 @@ func _point_blocks_light(at: Vector2) -> bool:
 		var collider: Node = result.collider as Node
 		if collider == null:
 			continue
-		if collider.is_in_group("walls") or collider.is_in_group("barrier"):
+		if collider.is_in_group("walls") or collider.is_in_group("barrier") or collider.is_in_group("bricks"):
 			return true
 	return false
 
@@ -159,11 +191,30 @@ func _gesture_damage() -> float:
 
 func _get_target_under_mouse() -> Node:
 	var results: Array[Dictionary] = _point_query_under_mouse()
-	results = results.filter(func(result: Dictionary) -> bool: return result.collider.has_method("accept_damage"))
+	results = results.filter(func(result: Dictionary) -> bool: return is_gesture_target(result.collider))
 	if results.is_empty():
 		return null
-	results.sort_custom(func(a: Dictionary, b: Dictionary) -> bool: return a.collider.z_index > b.collider.z_index)
+	results.sort_custom(_sort_by_gesture_priority)
 	return results[0].collider
+
+func _sort_by_gesture_priority(a: Dictionary, b: Dictionary) -> bool:
+	var rank_a: int = _gesture_rank(a.collider)
+	var rank_b: int = _gesture_rank(b.collider)
+	if rank_a != rank_b:
+		return rank_a > rank_b
+	var item_a: CanvasItem = a.collider as CanvasItem
+	var item_b: CanvasItem = b.collider as CanvasItem
+	if item_a == null or item_b == null:
+		return false
+	return item_a.z_index > item_b.z_index
+
+func _gesture_rank(collider: Variant) -> int:
+	var node: Node = collider as Node
+	if node == null:
+		return 0
+	if node.is_in_group("bricks") or node.is_in_group("barrier"):
+		return 0
+	return 1
 
 func get_hover_target() -> Node:
 	var hovered_control: Control = get_viewport().gui_get_hovered_control()
@@ -173,7 +224,7 @@ func get_hover_target() -> Node:
 	results = results.filter(func(result: Dictionary) -> bool: return _is_hover_responsive(result.collider))
 	if results.is_empty():
 		return null
-	results.sort_custom(func(a: Dictionary, b: Dictionary) -> bool: return a.collider.z_index > b.collider.z_index)
+	results.sort_custom(_sort_by_gesture_priority)
 	return results[0].collider
 
 func _is_hover_responsive(collider: Variant) -> bool:
@@ -245,6 +296,7 @@ func _draw() -> void:
 		draw_circle(to_local(get_global_mouse_position()), hold_indicator_radius, Color(0.5, 0.85, 1.0, 0.6))
 
 func _process(delta: float) -> void:
+	_tick_darkness(delta)
 	if bargain_active:
 		if GameManager.current_state != GameManager.GameState.CLICK_MODE:
 			_resolve_bargain()

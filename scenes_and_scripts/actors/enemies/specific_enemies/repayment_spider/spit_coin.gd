@@ -23,10 +23,12 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if _resolving_miss:
+		_advance_frame(delta)
 		return
 	if launch_velocity == Vector2.ZERO:
 		super(delta)
 		return
+	_advance_frame(delta)
 	launch_velocity.y += GRAVITY * delta
 	position += launch_velocity * delta
 	if global_position.y > STRAY_FLOOR_Y and not collected:

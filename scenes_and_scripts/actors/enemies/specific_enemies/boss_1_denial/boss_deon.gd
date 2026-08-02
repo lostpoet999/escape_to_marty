@@ -65,7 +65,7 @@ func accept_damage(damage: float, _dmg_type: Array[GameManager.PhaseType])->void
 			if _dmg_type.has(GameManager.PhaseType.HEALTH) and not dying:
 				SFX.play_sound("enemy_hurt")
 				core_health -= damage
-				show_damage_number(int(round(damage)))
+				show_damage_number(damage)
 				take_damage_fx()
 				_update_health_label()
 				if core_health <= 0:

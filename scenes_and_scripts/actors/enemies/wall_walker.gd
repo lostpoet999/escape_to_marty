@@ -86,7 +86,7 @@ func accept_damage(damage: float, dmg_type: Array[GameManager.PhaseType]) -> voi
 	if not dmg_type.has(GameManager.PhaseType.HEALTH):
 		return
 	SFX.play_sound("enemy_hurt")
-	show_damage_number(roundi(damage))
+	show_damage_number(damage)
 	_flash_hit()
 	health -= damage
 	if health <= 0.0:

@@ -13,6 +13,10 @@ func _ready()->void:
 func on_tween_finished():
 	queue_free()
 
+## At most one decimal place, rounded, with a bare ".0" trimmed off — the house format for damage popups and seal HP labels. Ball damage and depression regen are both fractional, so whole-number formatting was rounding the real value away.
+static func format_amount(amount: float) -> String:
+	return ("%.1f" % amount).trim_suffix(".0")
+
 func show_damage(damage_string: String, color: Color = COLOR_TAKEN)->void:
 	var outline_color: Color = Color.BLACK if color == COLOR_TAKEN else Color.WHITE
 	if damage_string == "denied":

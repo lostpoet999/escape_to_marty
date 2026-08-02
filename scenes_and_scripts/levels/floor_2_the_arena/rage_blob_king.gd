@@ -169,7 +169,7 @@ func accept_damage(damage: float, dmg_type: Array[GameManager.PhaseType]) -> voi
 	if not dmg_type.has(GameManager.PhaseType.HEALTH):
 		return
 	SFX.play_sound("enemy_hurt")
-	_show_damage_number(roundi(damage))
+	_show_damage_number(damage)
 	_flash_hit()
 	health -= damage
 	_update_health_label()
@@ -296,12 +296,12 @@ func _release_ball() -> void:
 func responding_gestures() -> Array[GameManager.PhaseType]:
 	return []
 
-func _show_damage_number(amount: int) -> void:
+func _show_damage_number(amount: float) -> void:
 	var dn: DamageNumber = DAMAGE_NUMBER.instantiate()
 	dn.position = global_position
 	dn.z_index = 2000
 	get_tree().current_scene.add_child(dn)
-	dn.show_damage("-" + str(amount), DamageNumber.COLOR_DEALT)
+	dn.show_damage("-" + DamageNumber.format_amount(amount), DamageNumber.COLOR_DEALT)
 
 func _flash_hit() -> void:
 	var mat: ShaderMaterial = $Sprite2D.material as ShaderMaterial

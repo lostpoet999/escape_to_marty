@@ -48,12 +48,12 @@ func accept_damage(_damage: float, _dmg_type: Array[GameManager.PhaseType])->voi
 		self.modulate.a = 1.0
 	elif denial_health <= -1: die()
 
-func show_damage_number(amount: int) -> void:
+func show_damage_number(amount: float) -> void:
 	var dn: DamageNumber = DAMAGE_NUMBER.instantiate()
 	dn.position = global_position
 	dn.z_index = 2000
 	get_tree().current_scene.add_child(dn)
-	dn.show_damage("-" + str(amount), DamageNumber.COLOR_DEALT)
+	dn.show_damage("-" + DamageNumber.format_amount(amount), DamageNumber.COLOR_DEALT)
 
 
 func die()->void:
