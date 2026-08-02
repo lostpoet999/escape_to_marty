@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://brr0pi7naait7" path="res://scenes_and_scripts/levels/floor_1_the_intersection/boss_1.tscn" id="9_b1"]
 [ext_resource type="PackedScene" uid="uid://dv7p2iafjnr4x" path="res://scenes_and_scripts/levels/floor_2_the_arena/boss_2.tscn" id="10_b2"]
 [ext_resource type="PackedScene" uid="uid://c68d8tkbufo2s" path="res://scenes_and_scripts/levels/floor_3_the_bargainers_road/boss_3.tscn" id="11_b3"]
-[ext_resource type="PackedScene" uid="uid://qu8to7sj473k" path="res://scenes_and_scripts/levels/random_bricks.tscn" id="12_2bv3s"]
+[ext_resource type="PackedScene" uid="uid://cjcn0nk3vk8t5" path="res://scenes_and_scripts/levels/floor_4_depression/combat_4_3.tscn" id="12_2bv3s"]
 [ext_resource type="PackedScene" uid="uid://f4combat001" path="res://scenes_and_scripts/levels/floor_4_depression/combat_4_1.tscn" id="12_c41"]
 [ext_resource type="Script" uid="uid://dm8qchhbo37mu" path="res://scenes_and_scripts/actors/enemies/enemy_config.gd" id="14_lwm00"]
 [ext_resource type="Script" uid="uid://cqac2vv2p8oga" path="res://scenes_and_scripts/bricks/seal_phase_config.gd" id="15_1rvhw"]
@@ -141,6 +141,7 @@ north_exit = true
 script = ExtResource("3_rc")
 room_scene = ExtResource("12_2bv3s")
 room_type = 1
+floor_flavor = 2
 metadata/_custom_type_script = "uid://roomcontent0"
 
 [resource]
@@ -148,5 +149,4 @@ script = ExtResource("2_fd")
 floor_name_id = "TEST"
 room_entries = Array[ExtResource("1_re")]([SubResource("Resource_tfe1"), SubResource("Resource_tfe2"), SubResource("Resource_tfe3"), SubResource("Resource_tfe4"), SubResource("Resource_tfe5"), SubResource("Resource_tfbe1"), SubResource("Resource_tfbe2"), SubResource("Resource_tfbe3"), SubResource("Resource_tfbe4"), SubResource("Resource_tftp")])
 room_pool = Array[ExtResource("3_rc")]([SubResource("Resource_10mlx")])
-grid_size = Vector2i(5, 3)
 metadata/_custom_type_script = "uid://bvs3ugvgbabkc"

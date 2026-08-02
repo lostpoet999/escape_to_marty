@@ -43,6 +43,18 @@ func _process(_delta: float) -> void:
 func supress_respawn_entities()->void:
 	no_respawn.queue_free()	
 
+func _enter_tree() -> void:
+	var flavored: RoomEntry = GameManager.get_current_floor_entry(GameManager.current_room_id)
+	if flavored == null or flavored.content == null:
+		return
+	if flavored.content.floor_flavor == RoomContent.FloorFlavor.INHERIT:
+		return
+	GameManager.adopt_floor_flavor(flavored.content.floor_flavor)
+	if not GameManager.floor_data.depression_lights_enabled:
+		var canvas_modulate: CanvasModulate = get_node_or_null(^"PlayArea/CanvasModulate") as CanvasModulate
+		if canvas_modulate != null:
+			canvas_modulate.color = Color.WHITE
+
 func _ready() -> void:
 
 	visible = false

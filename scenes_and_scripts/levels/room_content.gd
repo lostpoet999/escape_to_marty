@@ -19,8 +19,18 @@ const AUTO_CLEAR_ROOM_TYPES: Array[ROOM_TYPES] = [
 	ROOM_TYPES.bonus_room,
 ]
 
+enum FloorFlavor {
+	INHERIT = 0,
+	FLOOR_1 = 1,
+	FLOOR_2 = 2,
+	FLOOR_3 = 3,
+	FLOOR_4 = 4,
+	}
+
 @export var room_scene: PackedScene
 @export var room_type: ROOM_TYPES
+## test-floor helper: while this room is active it adopts the picked floor's FloorData wholesale (seal phases, enemy spawns, walls, 3D backdrop, verb gates). INHERIT = leave the current floor's data alone.
+@export var floor_flavor: FloorFlavor = FloorFlavor.INHERIT
 @export var is_secret: bool = false
 ## how many clears before the room is permanently cleared; -1 = never (replayable)
 @export var max_clears: int

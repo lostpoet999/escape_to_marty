@@ -40,6 +40,7 @@ enum ImpState {
 @export var dive_strike_time: float = 0.35 ## Seconds the committed arc takes. This is how long the player has to slide clear once the imp has locked on.
 @export var dive_hit_radius: float = 64.0 ## How far the paddle can be from the locked impact point and still get clipped. Roughly half a paddle width.
 @export var dive_arc_offset: float = 70.0 ## Sideways bow (px) of the committed strike, perpendicular to the dive line. Flip the sign to bow the other way; 0 makes it a straight drop.
+@export var dive_retreat_speed: float = 420.0 ## Climb speed (px/s) back to the top half of the flight box after a dive ends. Faster than wander so the exit reads as peeling away, slower than the strike so the ball can still tag it on the way out.
 @export var idle_tint: Color = Color(0.55, 0.55, 0.55) ## Sprite brightness multiplier the imp sits at when it is not diving. Below white on purpose: on the dark floor the imp should be hard to pick out until it commits. White = as bright as the sprite allows.
 @export var dive_reveal_tint: Color = Color(2.2, 2.2, 2.2) ## Sprite brightness multiplier held from the tell through the strike, so a dive stays readable even though the imp is dimmed the rest of the time. Set equal to idle_tint for no reveal.
 @export var dive_reveal_time: float = 0.25 ## Seconds the reveal takes to ramp up and to fade back out.
@@ -211,7 +212,17 @@ func _end_dive() -> void:
 	_dive_committed = false
 	_dive_cooldown_left = dive_cooldown
 	_play_reveal(idle_tint)
-	_decide()
+	_retreat_to_top()
+
+func _retreat_to_top() -> void:
+	_state = ImpState.WANDER
+	var mid_y: float = (flight_min_y + flight_max_y) * 0.5
+	var target: Vector2 = Vector2(randf_range(flight_min_x, flight_max_x), randf_range(flight_min_y, mid_y))
+	var travel: float = maxf(global_position.distance_to(target) / dive_retreat_speed, 0.05)
+	_behavior_tween = create_tween()
+	_behavior_tween.tween_property(self, "global_position", target, travel)\
+		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	_behavior_tween.tween_callback(_decide)
 
 func _abort_dive() -> void:
 	if _state != ImpState.DIVE:

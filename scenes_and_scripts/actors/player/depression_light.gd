@@ -6,7 +6,7 @@ const _ORB_TEXTURE_HALF_PX: float = 32.0
 
 @export_category("Reach & Damage")
 ## Radius (px) within which seals are lit (held safe from regrow/reseed) and DEPRESSION seals take tick damage.
-@export var radius: float = 105.6
+@export var radius: float = 137.28
 ## Seconds between damage ticks for a perfectly centered seal (the fast, rewarding cadence).
 @export var tick_interval_centered: float = 1.0
 ## Seconds between damage ticks for a seal at the very rim of the light (slow — the rim still chips away, it just drags).
@@ -35,7 +35,7 @@ const _ORB_TEXTURE_HALF_PX: float = 32.0
 
 @export_category("Look")
 ## PointLight2D brightness.
-@export var light_energy: float = 1.8
+@export var light_energy: float = 2.1
 ## PointLight2D tint.
 @export var light_color: Color = Color(1, 0.9, 0.68)
 ## Visual glow size relative to damage radius (1.0 = glow edge ~ damage edge).
