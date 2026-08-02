@@ -1,7 +1,13 @@
 class_name ShadowImp
 extends PlacedEnemy
 
-enum ImpState { MATERIALIZE, WANDER, ATTACK, BROOD, HIDE, DIVE }
+enum ImpState {
+	MATERIALIZE = 0,
+	WANDER = 1,
+	ATTACK = 2,
+	BROOD = 3,
+	HIDE = 4,
+	}
 
 @export var max_health: float = 20.0 ## Real HP pool: HEALTH-type damage subtracts its actual amount. Clicks and other verb types never hurt the imp.
 @export var materialize_time: float = 0.8 ## Seconds for the spawn fade-in at the random materialize point; the imp is already hittable while fading.
@@ -24,30 +30,12 @@ enum ImpState { MATERIALIZE, WANDER, ATTACK, BROOD, HIDE, DIVE }
 @export var flight_max_y: float = 880.0 ## Bottom bound (world) for the imp's center; stays above the paddle and the DeathWall band that starts near y 960.
 @export var destroy_fx: PackedScene ## Particle burst instanced at the imp's position when it dies. Empty = no burst.
 
-@export_category("Dive Attack")
-@export var dive_damage_min: int = 3 ## Low end of the player damage a landed dive deals.
-@export var dive_damage_max: int = 6 ## High end of the player damage a landed dive deals.
-@export var dive_cooldown: float = 7.0 ## Seconds after a dive ends (landed, whiffed, or interrupted) before this imp can dive again. Per-imp, not shared. The felt gap is longer: the dive only starts on the next _decide roll that picks it.
-@export var dive_track_speed: float = 260.0 ## Approach speed (px/s) while the imp is still homing on the paddle. Slower than the strike so the approach reads as a wind-up.
-@export var dive_commit_distance: float = 200.0 ## Distance (px) to the paddle at which the imp locks its impact point and stops tracking. This is the dodge window: move before it and the imp follows, move after it and the imp is committed to empty air.
-@export var dive_strike_time: float = 0.35 ## Seconds the committed arc takes. This is how long the player has to slide clear once the imp has locked on.
-@export var dive_hit_radius: float = 64.0 ## How far the paddle can be from the locked impact point and still get clipped. Roughly half a paddle width.
-@export var dive_arc_offset: float = 70.0 ## Sideways bow (px) of the committed strike, perpendicular to the dive line. Flip the sign to bow the other way; 0 makes it a straight drop.
-@export var idle_tint: Color = Color(0.55, 0.55, 0.55) ## Sprite brightness multiplier the imp sits at when it is not diving. Below white on purpose: on the dark floor the imp should be hard to pick out until it commits. White = as bright as the sprite allows.
-@export var dive_reveal_tint: Color = Color(2.2, 2.2, 2.2) ## Sprite brightness multiplier held from the tell through the strike, so a dive stays readable even though the imp is dimmed the rest of the time. Set equal to idle_tint for no reveal.
-@export var dive_reveal_time: float = 0.25 ## Seconds the reveal takes to ramp up and to fade back out.
-
 var health: float
 var _state: ImpState = ImpState.MATERIALIZE
 var _target_light: DepressionLight
 var _behavior_tween: Tween
 var _sprite_tween: Tween
 var _effect_tween: Tween
-var _reveal_tween: Tween
-var _dive_cooldown_left: float = 0.0
-var _dive_tracking: bool = false
-var _dive_committed: bool = false
-var _dive_impact: Vector2 = Vector2.ZERO
 
 @onready var _sprite: Sprite2D = $EnemySprite
 
@@ -57,16 +45,12 @@ func _ready() -> void:
 	modulate = Color.WHITE
 	modulate.a = 1.0
 	timer.stop()
-	_sprite.self_modulate = idle_tint
 	_sprite.modulate.a = 0.0
 	_materialize.call_deferred()
 
 func _physics_process(delta: float) -> void:
-	_dive_cooldown_left = maxf(_dive_cooldown_left - delta, 0.0)
 	if _state == ImpState.BROOD:
 		health = minf(health + brood_regen_rate * delta, max_health)
-	elif _state == ImpState.DIVE and _dive_tracking and not _dive_committed:
-		_track_dive(delta)
 
 func _materialize() -> void:
 	if is_queued_for_deletion():
@@ -88,8 +72,6 @@ func _decide() -> void:
 		choices.append(ImpState.ATTACK)
 	if health < max_health:
 		choices.append(ImpState.BROOD)
-	if _dive_ready():
-		choices.append(ImpState.DIVE)
 	var choice: ImpState = choices.pick_random()
 	match choice:
 		ImpState.ATTACK:
@@ -97,18 +79,8 @@ func _decide() -> void:
 			_start_attack(light)
 		ImpState.BROOD:
 			_start_brood()
-		ImpState.DIVE:
-			_start_dive()
 		_:
 			_start_wander()
-
-func _dive_ready() -> bool:
-	if _dive_cooldown_left > 0.0:
-		return false
-	if _david_hit_target() == null:
-		return false
-	var gestures: MouseGestures = _gestures()
-	return gestures != null and gestures.is_dark_armed()
 
 func _start_wander() -> void:
 	_state = ImpState.WANDER
@@ -156,82 +128,6 @@ func _finish_attack() -> void:
 	_target_light = null
 	_decide()
 
-func _start_dive() -> void:
-	_state = ImpState.DIVE
-	_dive_tracking = false
-	_dive_committed = false
-	_play_tell()
-	_play_reveal(dive_reveal_tint)
-	_behavior_tween = create_tween()
-	_behavior_tween.tween_interval(tell_duration + pause_duration)
-	_behavior_tween.tween_callback(func() -> void: _dive_tracking = true)
-
-func _track_dive(delta: float) -> void:
-	var david: Node2D = _david_hit_target()
-	if david == null:
-		_end_dive()
-		return
-	var target: Vector2 = david.global_position
-	global_position = global_position.move_toward(target, dive_track_speed * delta)
-	if global_position.distance_to(target) <= dive_commit_distance:
-		_commit_dive(target)
-
-func _commit_dive(target: Vector2) -> void:
-	_dive_tracking = false
-	_dive_committed = true
-	_dive_impact = target
-	_punch_sprite()
-	var start: Vector2 = global_position
-	var line: Vector2 = target - start
-	var perp: Vector2 = Vector2(-line.y, line.x).normalized()
-	var mid: Vector2 = (start + target) * 0.5 + perp * dive_arc_offset
-	_behavior_tween = create_tween()
-	_behavior_tween.tween_method(
-		func(t: float) -> void: global_position = _bezier(t, start, mid, target),
-		0.0, 1.0, dive_strike_time
-	).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
-	_behavior_tween.tween_callback(_resolve_dive)
-
-func _resolve_dive() -> void:
-	var david: Node2D = _david_hit_target()
-	if david != null and david.global_position.distance_to(_dive_impact) <= dive_hit_radius:
-		PlayerData.accept_damage(randi_range(dive_damage_min, dive_damage_max))
-	_punch_sprite()
-	_end_dive()
-
-func _end_dive() -> void:
-	_dive_tracking = false
-	_dive_committed = false
-	_dive_cooldown_left = dive_cooldown
-	_play_reveal(idle_tint)
-	_decide()
-
-func _abort_dive() -> void:
-	if _state != ImpState.DIVE:
-		return
-	_dive_tracking = false
-	_dive_committed = false
-	_dive_cooldown_left = dive_cooldown
-
-func _play_reveal(tint: Color) -> void:
-	if _reveal_tween != null and _reveal_tween.is_valid():
-		_reveal_tween.kill()
-	_reveal_tween = create_tween()
-	_reveal_tween.tween_property(_sprite, "self_modulate", tint, dive_reveal_time)
-
-func _bezier(t: float, p0: Vector2, p1: Vector2, p2: Vector2) -> Vector2:
-	var u: float = 1.0 - t
-	return u * u * p0 + 2.0 * u * t * p1 + t * t * p2
-
-func _gestures() -> MouseGestures:
-	return get_tree().get_first_node_in_group(&"mouse_gestures") as MouseGestures
-
-func _david_hit_target() -> Node2D:
-	var david: Node2D = get_tree().get_first_node_in_group(&"david") as Node2D
-	if david == null:
-		return null
-	return david.get_node_or_null("DavidHitTarget") as Node2D
-
 func _start_brood() -> void:
 	_state = ImpState.BROOD
 	var perch: Vector2 = _nearest_wall_point()
@@ -243,7 +139,6 @@ func _start_brood() -> void:
 	_behavior_tween.tween_callback(_decide)
 
 func _start_hide() -> void:
-	_abort_dive()
 	_kill_behavior_tweens()
 	_state = ImpState.HIDE
 	_target_light = null
@@ -297,19 +192,15 @@ func _kill_behavior_tweens() -> void:
 		_sprite_tween.kill()
 	if _effect_tween != null and _effect_tween.is_valid():
 		_effect_tween.kill()
-	if _reveal_tween != null and _reveal_tween.is_valid():
-		_reveal_tween.kill()
 	_sprite.position = Vector2.ZERO
 	_sprite.scale = Vector2.ONE
-	_sprite.self_modulate = idle_tint
-	modulate = Color(1.0, 1.0, 1.0, modulate.a)
 
 func accept_damage(damage: float, dmg_type: Array[GameManager.PhaseType]) -> void:
 	if not dmg_type.has(GameManager.PhaseType.HEALTH):
 		_start_hide()
 		return
 	SFX.play_sound("enemy_hurt")
-	show_damage_number(damage)
+	show_damage_number(roundi(damage))
 	_flash_hit()
 	health -= damage
 	if health <= 0.0:
@@ -328,7 +219,6 @@ func die() -> void:
 	queue_free()
 
 func stun_for_time(duration: float) -> void:
-	_abort_dive()
 	_kill_behavior_tweens()
 	_sprite.modulate.a = 1.0
 	_state = ImpState.WANDER
@@ -367,6 +257,6 @@ func _live_lights() -> Array[DepressionLight]:
 		return out
 	for light: Node2D in gestures.depression_lights:
 		var depression_light: DepressionLight = light as DepressionLight
-		if depression_light != null and not depression_light.is_queued_for_deletion() and depression_light.is_lit():
+		if depression_light != null and not depression_light.is_queued_for_deletion():
 			out.append(depression_light)
 	return out

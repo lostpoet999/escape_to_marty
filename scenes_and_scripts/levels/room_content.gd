@@ -1,6 +1,14 @@
 class_name RoomContent extends Resource
 
-enum ROOM_TYPES {starting_room, combat, shop, memory, free_item, boss, bonus_room}
+enum ROOM_TYPES {
+	starting_room = 0,
+	combat = 1,
+	shop = 2,
+	memory = 3,
+	free_item = 4,
+	boss = 5,
+	bonus_room = 6,
+	}
 
 ## room types with no combat objective — exits open on entry, and secret exits
 ## may be revealed by clicking while the room sits in LEVEL_CLEARED

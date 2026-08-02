@@ -1,10 +1,10 @@
 class_name BaseItem extends Resource
 
 enum RarityType{
-	COMMON,
-	UNCOMMON,
-	RARE,
-	VERY_RARE
+	COMMON = 0,
+	UNCOMMON = 1,
+	RARE = 2,
+	VERY_RARE = 3,
 }
 
 const RARITY_COLORS: Dictionary = {

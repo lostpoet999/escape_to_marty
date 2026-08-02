@@ -90,6 +90,7 @@ var _distance_accumulator: float = 0.0
 @onready var projectiles: Node = $"../Projectiles"
 @onready var david: Node2D = $David
 @onready var ghost_david: Node2D = $David/GhostDavid
+@onready var magnet_refresh: Timer = $Ball_Magnet_Radius/MagnetRefresh
 
 var _lean_blend: float = 0.0
 
@@ -127,8 +128,7 @@ func connect_signals()->void:
 	Signalbus.blocker_removed.connect(remove_blocker_enemy)
 	Signalbus.blocker_moved.connect(_calculate_blockers_bounds)
 	Signalbus.reflect_shield_changed.connect(_on_reflect_shield_changed)
-	
-	
+	Signalbus.reset_magnet_refresh.connect(reset_magnet_refresh_timer)
 
 func adjust_paddle_length(modify_by: float) -> void:
 	sprite.scale.x *= modify_by
@@ -297,7 +297,7 @@ func _input(event: InputEvent) -> void:
 			accumulated_mouse_movement_x = clamp(accumulated_mouse_movement_x, left_bound, right_bound)
 	if Input.is_action_just_pressed("paddle_active_powerup") and GameManager.current_state != GameManager.GameState.LEVEL_CLEARED and GameManager.current_state != GameManager.GameState.SPECIAL_ROOM:
 		if active_paddle_powerup and (GameManager.current_state != GameManager.GameState.BALL_ON_PADDLE or active_paddle_powerup.can_activate_on_paddle()):
-			active_paddle_powerup.activate(self,projectiles)
+			active_paddle_powerup.activate(self, projectiles)
 
 func hit_feedback() -> void:	
 	var base_scale: Vector2 = scale
@@ -463,3 +463,9 @@ func _on_ball_magnet_radius_area_shape_entered(area_rid: RID, area: Area2D, area
 func _on_ball_magnet_radius_area_shape_exited(area_rid: RID, area: Area2D, area_shape_index: int, local_shape_index: int) -> void:
 	if area and area.name == "Ball":
 		Signalbus.ball_in_magnet_range.emit(false)
+
+func _on_magnet_refresh_timeout() -> void:
+	Signalbus.magnet_refresh_timeout.emit()
+
+func reset_magnet_refresh_timer() -> void:
+	magnet_refresh.start()

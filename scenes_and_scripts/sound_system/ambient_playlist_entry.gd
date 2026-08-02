@@ -1,7 +1,12 @@
 extends Resource
 class_name AmbientPlaylist
 
-enum PlayMode {AMB_SEQUENTIAL, AMB_RANDOM_SINGLE, AMB_RANDOM_MULTI, AMB_PARALLEL_ALL}
+enum PlayMode {
+	AMB_SEQUENTIAL = 0,
+	AMB_RANDOM_SINGLE = 1,
+	AMB_RANDOM_MULTI = 2,
+	AMB_PARALLEL_ALL = 3,
+	}
 
 @export var playlist_name: String = "ambient_playlist"
 @export var tracks: Array[MusicSongEntry] = []  # reusing MusicSongEntry

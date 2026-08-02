@@ -13,8 +13,25 @@ var scene_ref: PackedScene
 var current_room_id: String
 var test_floor_active: bool = false
 
-enum GameState {MAIN_MENU, BALL_ON_PADDLE, PLAYING, PAUSED, GAME_OVER, CLICK_MODE, LEVEL_CLEARED, SPECIAL_ROOM, DEBUG_PANEL} 
-enum PhaseType {DENIAL, ANGER, BARGAINING, DEPRESSION, ACCEPTANCE, HEALTH}
+enum GameState {
+	MAIN_MENU = 0,
+	BALL_ON_PADDLE = 1,
+	PLAYING = 2,
+	PAUSED = 3,
+	GAME_OVER = 4,
+	CLICK_MODE = 5,
+	LEVEL_CLEARED = 6,
+	SPECIAL_ROOM = 7,
+	DEBUG_PANEL = 8,
+	} 
+enum PhaseType {
+	DENIAL = 0,
+	ANGER = 1,
+	BARGAINING = 2,
+	DEPRESSION = 3,
+	ACCEPTANCE = 4,
+	HEALTH = 5,
+	}
 var current_state: GameState = GameState.MAIN_MENU
 
 #const node group constants

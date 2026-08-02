@@ -1,7 +1,11 @@
 class_name EnemyActions
 extends Resource
 
-enum ActionTypes{Move, Damage, Stun}
+enum ActionTypes{
+	Move = 0,
+	Damage = 1,
+	Stun = 2,
+	}
 
 @export var action_name: String
 @export var action_type: ActionTypes

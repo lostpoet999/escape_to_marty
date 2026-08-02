@@ -5,7 +5,7 @@ class_name PhaseTarget extends TargetingStrategy
 # NEAREST = the closest `count` matches to the hit point
 # RADIUS  = matches within `radius` of the hit point
 
-enum Mode { ALL, NEAREST, RADIUS }
+enum Mode { ALL = 0, NEAREST = 1, RADIUS = 2 }
 
 @export var filter_phases: Array[GameManager.PhaseType]
 @export var mode: Mode = Mode.ALL

@@ -72,6 +72,7 @@ func _input(event: InputEvent)->void:
 				if _try_revert_denial(target):
 					pass
 				elif _is_bargain_target(target):
+					@warning_ignore("unsafe_call_argument") ## check is above
 					_begin_bargain(target)
 				else:
 					mouse_down = true

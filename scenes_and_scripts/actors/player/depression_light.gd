@@ -58,7 +58,7 @@ const _ORB_TEXTURE_HALF_PX: float = 32.0
 
 var _targeting: ShapeTarget
 var _age: float = 0.0
-var _tick_accum: Dictionary = {}
+var _tick_accum: Dictionary[int, float] = {}
 var _extinguished: bool = false
 var _orb_base_scale: Vector2 = Vector2.ONE
 
@@ -100,7 +100,7 @@ func _process(delta: float) -> void:
 			var id: int = node.get_instance_id()
 			live_ids[id] = true
 			var interval: float = _tick_interval_for(global_position.distance_to(node.global_position))
-			var accum: float = float(_tick_accum.get(id, 0.0)) + delta
+			var accum: float = (_tick_accum[id] if _tick_accum.has(id) else 0.0) + delta
 			if accum >= interval:
 				accum -= interval
 				node.accept_damage(damage_per_tick, DEPRESSION_TYPES)
