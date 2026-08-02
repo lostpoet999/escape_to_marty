@@ -14,6 +14,8 @@ var mouse_down_time: float = 0.0
 @export_category("Click & Hold Config")
 @export var click_vs_hold: float = 0.2
 @export var hold_duration_max: float = 3.0
+## Multiplier on how fast the anger hold accrues charge; >1 reaches full charge sooner.
+@export var anger_charge_rate: float = 1.3
 ## Seconds after a click clears a seal's DENIAL phase during which clicking that seal again reverts it to a fully healed DENIAL brick.
 @export var denial_revert_window: float = 1.0
 var hold_indicator_radius: float = 0.0
@@ -171,7 +173,7 @@ func _point_blocks_light(at: Vector2) -> bool:
 
 func _handle_anger_aoe()->void:
 	hold_probe.radius = maxf(hold_indicator_radius, 8.0)
-	var hold_charge: float = roundf(minf(mouse_down_time, hold_duration_max))
+	var hold_charge: float = roundf(minf(mouse_down_time * anger_charge_rate, hold_duration_max))
 	hold_behavior.apply(_gesture_context(GameManager.PhaseType.ANGER, _gesture_damage() * hold_charge), null)
 
 func _gesture_context(verb_type: GameManager.PhaseType, base: float) -> HitContext:
@@ -312,7 +314,7 @@ func _process(delta: float) -> void:
 		if mouse_down_time >= click_vs_hold and mouse_down_time - delta < click_vs_hold:
 			_reset_hold_visuals()
 		if mouse_down_time > click_vs_hold:
-			var pct : float = minf((mouse_down_time - click_vs_hold) / hold_duration_max, 1.0) #TODO: tie this to powerups for AE and  more anger dmg
+			var pct : float = minf((mouse_down_time - click_vs_hold) * anger_charge_rate / hold_duration_max, 1.0) #TODO: tie this to powerups for AE and  more anger dmg
 			hold_indicator_radius = ease(pct, 0.4) * 48.0
 			queue_redraw()
 	else:

@@ -107,9 +107,12 @@ func play_gold_pickup_sfx() -> void:
 		sfx_player.pitch_scale = base_pitch + GOLD_STREAK_PITCH_STEP * mini(_gold_streak, GOLD_STREAK_MAX)
 	_gold_streak += 1
 
-func pay_bargain_cost(cost: int) -> void:
+func pay_bargain_cost(cost: int, allow_damage: bool = true) -> void:
 	if cost <= gold_collected:
 		change_player_gold(-cost)
+		return
+	if not allow_damage:
+		change_player_gold(-mini(cost, gold_collected))
 		return
 	_cover_bankrupt_deal(cost)
 

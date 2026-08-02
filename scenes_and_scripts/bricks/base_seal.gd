@@ -298,6 +298,19 @@ func _damage_current_stage(damage: float) -> void:
 
 	_spawn_damage_number(damage)
 
+func force_clear() -> void:
+	if dying:
+		return
+	_collapse_stages_to_health()
+	accept_damage(health_temp, [GameManager.PhaseType.HEALTH])
+
+func _collapse_stages_to_health() -> void:
+	for stage: GameManager.PhaseType in stages.keys():
+		if stage != GameManager.PhaseType.HEALTH:
+			stages.erase(stage)
+	pick_random_stage()
+	_update_stage_label()
+
 func _spawn_damage_number(damage: float) -> void:
 	var damage_number: DamageNumber = DAMAGE_NUMBER.instantiate()
 	damage_number.position = global_position
@@ -373,16 +386,16 @@ func resolve_bargain(bid: float) -> BargainOutcome:
 	if bid <= sweet.y:
 		var roll: float = randf()
 		if roll < bargain_windfall_chance:
-			_settle_deal(0)
+			_settle_deal(0, false)
 			Signalbus.screen_flash.emit(Color.GOLD)
 			SFX.play_sound("win_sting")
 			PlayerData.grant_gold_over_time(roundi(price * bargain_windfall_refund), bargain_windfall_payout_time)
 			return BargainOutcome.DEAL
 		if roll < bargain_windfall_chance + bargain_free_chance:
-			_settle_deal(0)
+			_settle_deal(0, false)
 			return BargainOutcome.DEAL
 		var discount: float = clampf(bargain_discount + bargain_discount_bonus, 0.0, 0.95)
-		_settle_deal(roundi(price * (1.0 - discount)))
+		_settle_deal(roundi(price * (1.0 - discount)), false)
 		return BargainOutcome.DEAL
 	_settle_deal(price + roundi((bid - sweet.y) * price))
 	return BargainOutcome.OVERPAY
@@ -408,8 +421,8 @@ func _resolve_undercut(bid: float, sweet_low: float, price: int) -> BargainOutco
 	_update_stage_label()
 	return BargainOutcome.INSULT if penalty == 3 else BargainOutcome.WHIFF
 
-func _settle_deal(cost: int) -> void:
-	PlayerData.pay_bargain_cost(cost)
+func _settle_deal(cost: int, allow_damage: bool = true) -> void:
+	PlayerData.pay_bargain_cost(cost, allow_damage)
 	PlayerData.update_player_score(PHASE_SCORES[GameManager.PhaseType.BARGAINING])
 	var fx: Node2D = brick_damage_fx.instantiate()
 	if fx != null:

@@ -12,5 +12,6 @@ func timer_spawn_enemy() -> void:
 		super()
 		return
 	if room.zero_stolen and not _reward_wave_spawned:
-		_reward_wave_spawned = true
+		var before: int = active_enemies.size()
 		super()
+		_reward_wave_spawned = active_enemies.size() > before

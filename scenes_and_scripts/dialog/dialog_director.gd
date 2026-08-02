@@ -20,6 +20,7 @@ var focused_active: bool = false
 var _active_bubble: DialogBubble
 var _active_anchor: Node2D
 var _active_is_static: bool = false
+var _active_no_override: bool = false
 var _play_serial: int = 0
 var _active_catcher: ClickCatcher
 var _cancel_requested: bool = false
@@ -38,6 +39,8 @@ func play(tree_id: StringName, anchor: Node2D = null) -> bool:
 		return false
 	var tree: DialogTree = _load_tree(tree_id)
 	if tree == null or tree.beats.is_empty():
+		return false
+	if not tree.pauses_game and _no_override_active():
 		return false
 	if not _passes_trigger_threshold(tree_id, tree):
 		return false
@@ -105,6 +108,7 @@ func _play_timed(tree_id: StringName, tree: DialogTree, anchor: Node2D, serial: 
 	for beat: DialogBeat in _beats_to_play(tree):
 		if not _present_beat(beat, anchor):
 			break
+		_active_no_override = tree.no_override
 		await get_tree().create_timer(_beat_seconds(beat), false).timeout
 		if serial != _play_serial:
 			tree_finished.emit(tree_id)
@@ -288,12 +292,17 @@ func _beat_seconds(beat: DialogBeat) -> float:
 	return BASE_SECONDS_PER_BEAT + beat.text.length() * LINGER_SECONDS_PER_CHARACTER
 
 
+func _no_override_active() -> bool:
+	return _active_no_override and is_instance_valid(_active_bubble)
+
+
 func _dismiss_active_bubble() -> void:
 	if is_instance_valid(_active_bubble):
 		_active_bubble.queue_free()
 	_active_bubble = null
 	_active_anchor = null
 	_active_is_static = false
+	_active_no_override = false
 
 
 func _load_tree(tree_id: StringName) -> DialogTree:

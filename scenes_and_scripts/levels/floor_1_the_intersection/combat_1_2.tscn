@@ -27,9 +27,6 @@ metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 [node name="Background" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="1" unique_id=306947289]
 metadata/_edit_lock_ = true
 
-[node name="FlashOverlay" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="5" unique_id=443116914]
-metadata/_edit_lock_ = true
-
 [node name="OpenSeal" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="0" unique_id=887021685 instance=ExtResource("2_cbojn")]
 position = Vector2(416, 512)
 initialize_brick_on_leveldata = false

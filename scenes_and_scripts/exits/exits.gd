@@ -8,6 +8,7 @@ const SECRET_FLASH_INTERVAL_MIN: float = 8.0
 const SECRET_FLASH_INTERVAL_MAX: float = 12.0
 const SECRET_FLASHES_PER_BARK_MIN: int = 3
 const SECRET_FLASHES_PER_BARK_MAX: int = 4
+const SECRET_SOUND_BOOST_DB: float = 3.5
 const BONUS_DOOR_GOLD: Color = Color(1.0, 0.9, 0.2)
 const CLOSED_DOOR_TINT: Color = Color("#a53030")
 const OPEN_DOOR_TINT: Color = Color("#75a743")
@@ -163,7 +164,9 @@ func reveal_secret()-> void:
 	if dir not in state.revealed_exits:
 		state.revealed_exits.append(dir)
 	if SFX.sound_dict.has("secret_reveal"):
-		SFX.play_sound("secret_reveal")
+		var reveal_sound: AudioStreamPlayer = SFX.play_sound("secret_reveal")
+		if reveal_sound != null:
+			reveal_sound.volume_db += SECRET_SOUND_BOOST_DB
 	_spawn_reveal_vfx()
 	reconcile_exits()
 
@@ -209,7 +212,9 @@ func _chain_flash_steps()-> void:
 	_flash_tween.tween_callback(_queue_secret_flash)
 
 func _on_secret_flash()-> void:
-	SFX.play_sound("secret_tell")
+	var tell_sound: AudioStreamPlayer = SFX.play_sound("secret_tell")
+	if tell_sound != null:
+		tell_sound.volume_db += SECRET_SOUND_BOOST_DB
 	_flashes_until_bark -= 1
 	if _flashes_until_bark <= 0:
 		_flashes_until_bark = randi_range(SECRET_FLASHES_PER_BARK_MIN, SECRET_FLASHES_PER_BARK_MAX)

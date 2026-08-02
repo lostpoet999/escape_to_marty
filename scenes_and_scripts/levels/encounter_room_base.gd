@@ -8,6 +8,8 @@ const CODEC_PLAYER: PackedScene = preload("uid://ccodecplayer")
 var encounter_cleared: bool = false
 
 func _ready() -> void:
+	mercy_clear_enabled = false
+	seal_enemy_cooldown_enabled = false
 	await super()
 	if room_state.cleared:
 		encounter_cleared = true

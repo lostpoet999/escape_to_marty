@@ -5,6 +5,10 @@ const FRAME_FALL: int = 0
 const FRAME_SPLAT: int = 1
 const FRAME_EXPLODE: int = 2
 const SPLAT_TOP_FROM_CENTER: float = 19.0
+const SPAWN_SOUND_BOOST_DB: float = 3.5
+const SPAWN_FLASH_COLOR: Color = Color(3.0, 3.0, 3.0)
+const SPAWN_FLASH_TIME: float = 0.12
+const SPAWN_FLASH_COUNT: int = 2
 
 @export var grow_time: float = 1.5
 @export var start_scale: float = 0.5
@@ -21,7 +25,12 @@ func _ready() -> void:
 	_setup_offscreen_cleanup()
 	falling = false
 	scale = Vector2.ONE * start_scale
-	SFX.play_sound("rage_spawn")
+	var spawn_sound: AudioStreamPlayer = SFX.play_sound("rage_spawn")
+	if spawn_sound != null:
+		spawn_sound.volume_db += SPAWN_SOUND_BOOST_DB
+	var flash_tween: Tween = create_tween().set_loops(SPAWN_FLASH_COUNT)
+	flash_tween.tween_property(self, "modulate", SPAWN_FLASH_COLOR, SPAWN_FLASH_TIME)
+	flash_tween.tween_property(self, "modulate", Color.WHITE, SPAWN_FLASH_TIME)
 	_setup_death_wall_detector()
 	var tween: Tween = create_tween()
 	tween.tween_property(self, "scale", Vector2.ONE, grow_time)

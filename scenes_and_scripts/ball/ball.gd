@@ -7,7 +7,7 @@ const LIGHT_BASE_ENERGY: float = 1.0
 
 @export var initial_speed: float = 500.0
 var current_speed: float = 500.0
-var max_speed: float = 1500.0
+var max_speed: float = 1050.0
 @export var ball_dmg: float = DEFAULT_BALL_DMG
 var behaviors: Array[HitBehavior]
 
@@ -28,6 +28,19 @@ var flipped_y: bool = false
 ## Minimum angle in degrees between the ball's path and the horizontal after any bounce;
 ## prevents near-flat trajectories that rattle along walls and stall the rally.
 @export var min_bounce_angle_deg: float = 15.0
+
+## Below this |velocity.x| (px/s) a paddle bounce counts as a vertical serve.
+@export var vertical_serve_epsilon: float = 8.0
+## Consecutive vertical paddle bounces before the nudge fires; the trigger count is re-rolled
+## in this range on every reset so the loop never breaks on a predictable count.
+@export var vertical_serve_hits_min: int = 3
+@export var vertical_serve_hits_max: int = 6
+## Random rotation in degrees (random sign) applied to break a vertical serve loop.
+@export var vertical_nudge_min_deg: float = 4.0
+@export var vertical_nudge_max_deg: float = 9.0
+var _vertical_serve_hits: int = 0
+var _vertical_serve_threshold: int = 0
+var _vertical_serve_checked: bool = false
 
 @export var powerup_array: Array[BallPassive]
 
@@ -94,6 +107,7 @@ func _process(delta: float) -> void:
 	_update_ball_light()
 	flipped_x = false
 	flipped_y = false
+	_vertical_serve_checked = false
 	if on_paddle:
 		position_ball_on_paddle()
 	else:
@@ -240,6 +254,7 @@ func set_paddle_can_attract():
 
 func launch_ball() -> void:
 	on_paddle = false
+	_reset_vertical_serve()
 	var launch_speed: float = initial_speed * SettingsManager.difficulty_mult()
 	current_speed = launch_speed
 	GameManager.change_state(GameManager.GameState.PLAYING)
@@ -249,6 +264,26 @@ func launch_ball() -> void:
 
 func update_velocity(velocity_ref: Vector2) -> void:
 	velocity = velocity_ref
+
+func _reset_vertical_serve() -> void:
+	_vertical_serve_hits = 0
+	_vertical_serve_threshold = randi_range(vertical_serve_hits_min, vertical_serve_hits_max)
+
+func _check_vertical_serve() -> void:
+	if _vertical_serve_checked:
+		return
+	_vertical_serve_checked = true
+	if absf(velocity.x) >= vertical_serve_epsilon:
+		_reset_vertical_serve()
+		return
+	_vertical_serve_hits += 1
+	if _vertical_serve_hits < _vertical_serve_threshold:
+		return
+	var nudge_sign: float = -1.0 if randf() < 0.5 else 1.0
+	var nudge_rad: float = deg_to_rad(randf_range(vertical_nudge_min_deg, vertical_nudge_max_deg))
+	velocity = velocity.rotated(nudge_sign * nudge_rad)
+	enforce_min_bounce_angle()
+	_reset_vertical_serve()
 
 func enforce_min_bounce_angle() -> void:
 	var speed: float = velocity.length()
@@ -327,6 +362,7 @@ func move_ball_step(delta: float) -> void:
 		if collider.is_in_group("paddle"):
 			if !flipped_x:
 				bounce_effect.handle_paddle_collision(self, collider as Paddle)
+				_check_vertical_serve()
 				flipped_x = true
 		elif collider.is_in_group("bricks") or collider.is_in_group("walls") or collider.is_in_group("bounce_enemy") or collider.is_in_group("barrier"):
 			cancel_tween_to_nearest_brick()
@@ -355,6 +391,7 @@ func move_ball_step(delta: float) -> void:
 		if collider.is_in_group("paddle"):
 			if !flipped_y:
 				bounce_effect.handle_paddle_collision(self, collider as Paddle)
+				_check_vertical_serve()
 				flipped_y = true
 		elif collider.is_in_group("bricks") or collider.is_in_group("walls") or collider.is_in_group("bounce_enemy") or collider.is_in_group("barrier"):
 			cancel_tween_to_nearest_brick()

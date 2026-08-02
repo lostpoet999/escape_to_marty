@@ -15,6 +15,33 @@ const PLAYER_HURT_TRAUMA: float = 0.8
 var _dim_tween: Tween
 var _play_area_dimmed: bool = false
 
+const MERCY_FLASH_COLOR: Color = Color.GOLD
+
+## Fairness gate: once only one live seal remains, it clears itself after a random delay.
+## Encounter rooms switch it off; rooms that START with a single seal never arm it.
+@export var mercy_clear_enabled: bool = true
+## Random delay range in seconds between reaching one live seal and the mercy clear firing.
+@export var mercy_delay_min_s: float = 10.0
+@export var mercy_delay_max_s: float = 30.0
+var _mercy_room_eligible: bool = false
+var _mercy_timer_s: float = -1.0
+var _mercy_seal: BaseSeal = null
+var _mercy_pop_pending: bool = false
+
+## Fairness gate on seal-drop enemies; encounter rooms switch it off so boss pacing stays hand-tuned.
+@export var seal_enemy_cooldown_enabled: bool = true
+## Seconds the drop cluster stays open after the first actual enemy spawn; drops inside it roll normally.
+@export var seal_enemy_cluster_window_s: float = 3.0
+## Max seal-drop enemies per cluster; reaching it closes the window early and starts the cooldown.
+@export var seal_enemy_cluster_max: int = 2
+## Cooldown after a cluster closes is rolled between these two values; pops during it spawn spirits instead.
+@export var seal_enemy_cooldown_min_s: float = 8.0
+@export var seal_enemy_cooldown_max_s: float = 15.0
+var _seal_cluster_started_ms: int = -1
+var _seal_cluster_count: int = 0
+var _seal_cooldown_until_ms: int = -1
+var _first_launch_seen: bool = false
+
 var gold_cleared: bool = false
 var bricks_cleared: bool = false
 var level_clear_emitted: bool = false
@@ -36,8 +63,9 @@ var entry: RoomEntry
 
 
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	game_state_lbl.text = "Game State: " + GameManager.GameState.keys()[GameManager.current_state]
+	_tick_mercy_timer(delta)
 
 	
 func supress_respawn_entities()->void:
@@ -68,6 +96,7 @@ func _ready() -> void:
 	visible = true
 	room_state.visited = true
 	bricks_in_level = get_tree().get_nodes_in_group("bricks").size()
+	_mercy_room_eligible = mercy_clear_enabled and bricks_in_level > 1 and not room_state.cleared
 	current_room_lbl.text = "Current Room: " + GameManager.current_room_id
 	Signalbus.gold_updated.emit()
 	Signalbus.score_updated.emit()
@@ -191,19 +220,71 @@ func _init_memory_room() -> void:
 	_spawn_free_item_panel()
 
 func _on_enemy_requested(spawn_from: Area2D) -> void: # for brick break enemies
+	if _mercy_pop_pending:
+		_mercy_pop_pending = false
+		_spawn_escaped_spirit(spawn_from)
+		return
+	if _pre_first_launch():
+		_spawn_escaped_spirit(spawn_from)
+		return
+	if _seal_drop_on_cooldown():
+		_spawn_escaped_spirit(spawn_from)
+		return
 	var seal_break_enemies: Array[EnemyConfig] = GameManager.floor_data.seal_break_enemies
 	var config: EnemyConfig = pick_seal_break_config(seal_break_enemies)
-	
+
 	if config and not _config_at_spawn_cap(config):
 		var enemy: FallingEnemy = config.scene_ref.instantiate()
 		enemy.add_to_group(_spawn_cap_group(config))
 		spawn_from.get_parent().add_child(enemy)
 		enemy.position = spawn_from.position
+		_register_seal_drop_spawn()
 	else:#freed-spirit
-		var spirit: Node2D = ESCAPED_SPIRIT.instantiate()
-		spirit.position = spawn_from.position
-		spawn_from.get_parent().add_child(spirit)
-		DialogDirector.play(&"freed_spirit")
+		_spawn_escaped_spirit(spawn_from)
+
+func _spawn_escaped_spirit(spawn_from: Area2D) -> void:
+	var spirit: Node2D = ESCAPED_SPIRIT.instantiate()
+	spirit.position = spawn_from.position
+	spawn_from.get_parent().add_child(spirit)
+	DialogDirector.play(&"freed_spirit")
+
+func _pre_first_launch() -> bool:
+	if _first_launch_seen:
+		return false
+	var ball: Node = get_tree().get_first_node_in_group("ball")
+	if ball == null or not bool(ball.get("on_paddle")):
+		_first_launch_seen = true
+		return false
+	return true
+
+func _seal_drop_on_cooldown() -> bool:
+	if not seal_enemy_cooldown_enabled:
+		return false
+	var now: int = Time.get_ticks_msec()
+	_close_seal_cluster_if_expired(now)
+	return now < _seal_cooldown_until_ms
+
+func _register_seal_drop_spawn() -> void:
+	if not seal_enemy_cooldown_enabled:
+		return
+	if _seal_cluster_started_ms < 0:
+		_seal_cluster_started_ms = Time.get_ticks_msec()
+		_seal_cluster_count = 0
+	_seal_cluster_count += 1
+	if _seal_cluster_count >= seal_enemy_cluster_max:
+		_close_seal_cluster(Time.get_ticks_msec())
+
+func _close_seal_cluster_if_expired(now: int) -> void:
+	if _seal_cluster_started_ms < 0:
+		return
+	var close_ms: int = _seal_cluster_started_ms + int(seal_enemy_cluster_window_s * 1000.0)
+	if now >= close_ms:
+		_close_seal_cluster(close_ms)
+
+func _close_seal_cluster(close_ms: int) -> void:
+	_seal_cluster_started_ms = -1
+	_seal_cluster_count = 0
+	_seal_cooldown_until_ms = close_ms + int(randf_range(seal_enemy_cooldown_min_s, seal_enemy_cooldown_max_s) * 1000.0)
 
 func pick_seal_break_config(enemy_configs: Array[EnemyConfig]) -> EnemyConfig: #for brick break enemies
 	var mult: float = SettingsManager.difficulty_mult()
@@ -266,6 +347,53 @@ func _on_brick_destroyed() -> void:
 	if bricks_in_level <= 0:
 		bricks_cleared = true
 		check_level_cleared()
+	_update_mercy_state.call_deferred()
+
+func _update_mercy_state() -> void:
+	if not _mercy_room_eligible or level_clear_emitted:
+		_disarm_mercy()
+		return
+	var live: Array[BaseSeal] = _get_live_seals()
+	if live.size() != 1:
+		_disarm_mercy()
+		return
+	if _mercy_timer_s < 0.0 or _mercy_seal != live[0]:
+		_mercy_seal = live[0]
+		_mercy_timer_s = randf_range(mercy_delay_min_s, mercy_delay_max_s)
+
+func _tick_mercy_timer(delta: float) -> void:
+	if _mercy_timer_s < 0.0:
+		return
+	if GameManager.current_state != GameManager.GameState.PLAYING:
+		return
+	_mercy_timer_s -= delta
+	if _mercy_timer_s <= 0.0:
+		_fire_mercy_clear()
+
+func _fire_mercy_clear() -> void:
+	var seal: BaseSeal = _mercy_seal
+	_disarm_mercy()
+	if level_clear_emitted or not is_instance_valid(seal) or seal.dying:
+		return
+	var live: Array[BaseSeal] = _get_live_seals()
+	if live.size() != 1 or live[0] != seal:
+		return
+	DialogDirector.play(&"last_seal_mercy")
+	flash_play_area(MERCY_FLASH_COLOR)
+	_mercy_pop_pending = true
+	seal.force_clear()
+
+func _get_live_seals() -> Array[BaseSeal]:
+	var live: Array[BaseSeal] = []
+	for node: Node in get_tree().get_nodes_in_group("bricks"):
+		var seal: BaseSeal = node as BaseSeal
+		if seal != null and is_instance_valid(seal) and not seal.dying:
+			live.append(seal)
+	return live
+
+func _disarm_mercy() -> void:
+	_mercy_timer_s = -1.0
+	_mercy_seal = null
 
 func _apply_floor_wall_visuals() -> void:
 	var fd: FloorData = GameManager.floor_data
