@@ -3,7 +3,7 @@ class_name DefensivePowerup extends BaseItem
 @export_group("Reflect Mitigation")
 ## Fraction of ball-miss reflect damage removed. Stacks additively across owned defensive powerups, then clamps to PlayerData.MAX_REFLECT_REDUCTION.
 @export_range(0.0, 0.5, 0.01) var reflect_reduction: float = 0.0
-## Adds to the shield counter when added to the inventory
+## Rechargeable free-miss shield slots this item owns: spent before drop-granted shields on a ball miss, restored when a floor is cleared.
 @export var shields_provided: int = 0
 
 @export_group("Max Health")

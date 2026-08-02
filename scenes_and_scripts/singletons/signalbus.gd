@@ -130,8 +130,8 @@ signal screen_flash(color: Color)
 @warning_ignore("unused_signal")
 signal player_damaged(amount: int)
 
-## Emits: scenes_and_scripts/singletons/player_data.gd -> grant_free_miss_shield(), accept_reflect_damage()
-## Connects: scenes_and_scripts/player/paddle.gd -> _on_reflect_shield_changed
+## Emits: scenes_and_scripts/singletons/player_data.gd -> grant_free_miss_shield(), accept_reflect_damage(), recompute_max_health(), _on_floor_cleared(); scenes_and_scripts/levels/room_base.gd -> _ready()
+## Connects: scenes_and_scripts/actors/player/paddle.gd -> _on_reflect_shield_changed, scenes_and_scripts/ui_level/main_ui.gd -> update_player_shields
 @warning_ignore("unused_signal")
 signal reflect_shield_changed(count: int)
 
@@ -155,8 +155,8 @@ signal ball_in_magnet_range(is_in_range: bool)
 @warning_ignore("unused_signal")
 signal magnet_refresh_timeout
 
-## Emits: scenes_and_scripts/actors/player/ball.gd -> _on_magnet_refresh_timeout()
-## Connects: scenes_and_scripts/ball/paddle.gd -> set_paddle_can_attract
+## Emits: scenes_and_scripts/ball/ball.gd -> attract_to_paddle()
+## Connects: scenes_and_scripts/actors/player/paddle.gd -> reset_magnet_refresh_timer
 @warning_ignore("unused_signal")
 signal reset_magnet_refresh
 

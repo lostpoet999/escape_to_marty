@@ -11,6 +11,7 @@ var gold_collected: int = 0
 var player_current_health: int = BASE_MAX_HEALTH
 var player_max_health: int = BASE_MAX_HEALTH
 var free_miss_shields: int = 0
+var item_shields_spent: int = 0
 var pick2_vouchers: int = 0
 var shop_restock_vouchers: int = 0
 var spider_stolen_gold: int = 0
@@ -35,6 +36,7 @@ var _last_barrier_clear_ms: int = -100000
 
 func _ready() -> void:
 	Signalbus.inventory_changed.connect(recompute_max_health)
+	Signalbus.floor_cleared.connect(_on_floor_cleared)
 
 func recompute_max_health() -> void:
 	if inventory == null:
@@ -42,8 +44,7 @@ func recompute_max_health() -> void:
 	player_max_health = mini(BASE_MAX_HEALTH + inventory.get_max_health_bonus(), MAX_HEALTH_CEILING)
 	player_current_health = mini(player_current_health, player_max_health)
 	Signalbus.player_health_updated.emit()
-	free_miss_shields = inventory.get_shield_count()
-	Signalbus.reflect_shield_changed.emit(0)
+	Signalbus.reflect_shield_changed.emit(get_player_shields())
 
 func update_player_score(amount: int) -> void:
 	score += amount
@@ -64,6 +65,7 @@ func initialize_player_data() -> void:
 	player_current_health = BASE_MAX_HEALTH
 	player_max_health = BASE_MAX_HEALTH
 	free_miss_shields = 0
+	item_shields_spent = 0
 	pick2_vouchers = 0
 	shop_restock_vouchers = 0
 	spider_stolen_gold = 0
@@ -144,9 +146,13 @@ func accept_damage(damage: int) -> void:
 		Signalbus.player_died.emit()
 
 func accept_reflect_damage(amount: float) -> void:
+	if get_item_shields() > 0:
+		item_shields_spent += 1
+		Signalbus.reflect_shield_changed.emit(get_player_shields())
+		return
 	if free_miss_shields > 0:
 		free_miss_shields -= 1
-		Signalbus.reflect_shield_changed.emit(free_miss_shields)
+		Signalbus.reflect_shield_changed.emit(get_player_shields())
 		return
 	var reduction: float = inventory.get_reflect_reduction() if inventory else 0.0
 	var mitigated: float = amount * (1.0 - reduction)
@@ -155,7 +161,13 @@ func accept_reflect_damage(amount: float) -> void:
 
 func grant_free_miss_shield(count: int = 1) -> void:
 	free_miss_shields = mini(free_miss_shields + count, MAX_FREE_MISS_SHIELDS)
-	Signalbus.reflect_shield_changed.emit(free_miss_shields)
+	Signalbus.reflect_shield_changed.emit(get_player_shields())
+
+func _on_floor_cleared() -> void:
+	if item_shields_spent == 0:
+		return
+	item_shields_spent = 0
+	Signalbus.reflect_shield_changed.emit(get_player_shields())
 
 func grant_pick2_voucher(count: int = 1) -> void:
 	pick2_vouchers += count
@@ -191,8 +203,12 @@ func consume_barrier_clear() -> void:
 func get_player_health() -> int:
 	return player_current_health
 
+func get_item_shields() -> int:
+	var owned: int = inventory.get_shield_count() if inventory else 0
+	return maxi(owned - item_shields_spent, 0)
+
 func get_player_shields() -> int:
-	return free_miss_shields
+	return get_item_shields() + free_miss_shields
 
 func get_player_gold() -> int:
 	return gold_collected

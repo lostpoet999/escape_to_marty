@@ -41,7 +41,7 @@ scale = Vector2(25, 18)
 shape = SubResource("RectangleShape2D_57qmd")
 
 [node name="MagnetRefresh" type="Timer" parent="Ball_Magnet_Radius" unique_id=25279934]
-wait_time = 4.0
+wait_time = 12.0
 one_shot = true
 
 [node name="ColorRect" type="ColorRect" parent="Ball_Magnet_Radius" unique_id=384017294]

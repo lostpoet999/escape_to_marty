@@ -11,6 +11,8 @@ const WEB_BOX_MARGIN: Vector2 = Vector2(24.0, 48.0)
 
 const SHIELD_COLOR: Color = Color(0.5, 0.8, 1.0)
 const SHIELD_COLOR_BRIGHT: Color = Color(0.8, 0.95, 1.0)
+const SHIELD_COLOR_STRONG: Color = Color("3c5e8b")
+const SHIELD_COLOR_STRONG_BRIGHT: Color = Color("4f8fba")
 const SHIELD_PULSE_TIME: float = 0.45
 const DIP_DEPTH: float = 6.0
 const DIP_DOWN_TIME: float = 0.05
@@ -45,6 +47,7 @@ const DIP_RETURN_TIME: float = 0.12
 @export var death_zoom_time: float = 0.55
 
 var is_shielded: bool = false
+var _shield_count: int = 0
 var _death_running: bool = false
 var _ghost_base_pos: Vector2 = Vector2.ZERO
 var shield_pulse_tween: Tween
@@ -114,7 +117,7 @@ func _ready() -> void:
 	_update_magnet_outline()
 	# free-miss shields persist run-scoped on PlayerData; re-apply the glow on every paddle
 	# spawn (new room/floor) so the visual matches the banked count, not just live grants
-	_on_reflect_shield_changed(PlayerData.free_miss_shields)
+	_on_reflect_shield_changed(PlayerData.get_player_shields())
 
 func connect_signals()->void:	
 	Signalbus.game_state_click_mode.connect(_on_game_state_click_mode)
@@ -328,6 +331,7 @@ func bounce_dip() -> void:
 	_dip_tween.parallel().tween_property(david, "position:y", _david_base_y, DIP_RETURN_TIME)
 
 func _on_reflect_shield_changed(count: int) -> void:
+	_shield_count = count
 	is_shielded = count > 0
 	if is_shielded:
 		start_shield_pulse()
@@ -338,9 +342,10 @@ func _on_reflect_shield_changed(count: int) -> void:
 
 func start_shield_pulse() -> void:
 	stop_shield_pulse()
+	var bright: Color = SHIELD_COLOR_STRONG_BRIGHT if _shield_count >= 2 else SHIELD_COLOR_BRIGHT
 	shield_pulse_tween = create_tween().set_loops().set_trans(Tween.TRANS_SINE)
-	shield_pulse_tween.tween_property(david, "modulate", SHIELD_COLOR_BRIGHT, SHIELD_PULSE_TIME)
-	shield_pulse_tween.tween_property(david, "modulate", SHIELD_COLOR, SHIELD_PULSE_TIME)
+	shield_pulse_tween.tween_property(david, "modulate", bright, SHIELD_PULSE_TIME)
+	shield_pulse_tween.tween_property(david, "modulate", _resting_david_color(), SHIELD_PULSE_TIME)
 
 func stop_shield_pulse() -> void:
 	if shield_pulse_tween and shield_pulse_tween.is_valid():
@@ -348,7 +353,9 @@ func stop_shield_pulse() -> void:
 	shield_pulse_tween = null
 
 func _resting_david_color() -> Color:
-	return SHIELD_COLOR if is_shielded else Color.WHITE
+	if not is_shielded:
+		return Color.WHITE
+	return SHIELD_COLOR_STRONG if _shield_count >= 2 else SHIELD_COLOR
 
 func david_global_position() -> Vector2:
 	return david.global_position
@@ -441,6 +448,7 @@ func reset_committed_distance() -> void:
 	committed_distance = 0.0
 
 func _process(delta: float) -> void:
+	magnet_refresh.paused = GameManager.current_state != GameManager.GameState.PLAYING
 	var speed: float = 0.0 if paddle_frozen else current_speed
 	var lean_target: float = 0.0
 	if absf(speed) > lean_speed_threshold:
