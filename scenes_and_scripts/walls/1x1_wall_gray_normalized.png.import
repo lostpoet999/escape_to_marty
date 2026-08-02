@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b2hkb43f7tu4c"
-path.s3tc="res://.godot/imported/1x1_wall_gray_normalized.png-b69d84a495b6e365d3140d407c074295.s3tc.ctex"
+path="res://.godot/imported/1x1_wall_gray_normalized.png-b69d84a495b6e365d3140d407c074295.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://scenes_and_scripts/walls/1x1_wall_gray_normalized.png"
-dest_files=["res://.godot/imported/1x1_wall_gray_normalized.png-b69d84a495b6e365d3140d407c074295.s3tc.ctex"]
+dest_files=["res://.godot/imported/1x1_wall_gray_normalized.png-b69d84a495b6e365d3140d407c074295.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
@@ -24,7 +23,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
