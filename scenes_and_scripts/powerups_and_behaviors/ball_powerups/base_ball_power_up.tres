@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="BallPassive" format=3 uid="uid://ctjeqnpuca6lq"]
 
 [ext_resource type="Script" uid="uid://bryv4msdad7wu" path="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/ball_passive.gd" id="1_ball"]
+[ext_resource type="Texture2D" uid="uid://cyhkigh0sf6o0" path="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/ball.png" id="1_xqi03"]
 [ext_resource type="Script" uid="uid://jwtisqgpmqvq" path="res://scenes_and_scripts/powerups_and_behaviors/ball_behaviors/hit_behavior.gd" id="2_hb"]
 [ext_resource type="Script" uid="uid://bghf4s4u8hh5r" path="res://scenes_and_scripts/powerups_and_behaviors/ball_behaviors/targeting/direct_target.gd" id="3_dt"]
-[ext_resource type="Texture2D" uid="uid://mtj7exkdy0ls" path="res://scenes_and_scripts/ball/new_ball.png" id="4_icon"]
 
 [sub_resource type="Resource" id="DirectTarget_base"]
 script = ExtResource("3_dt")
@@ -19,6 +19,6 @@ script = ExtResource("1_ball")
 on_hit = Array[ExtResource("2_hb")]([SubResource("HitBehavior_base")])
 powerup_name = "Basic Ball"
 shop_description = "A ball that bounces off of walls"
-inventory_icon = ExtResource("4_icon")
+inventory_icon = ExtResource("1_xqi03")
 removable = false
 metadata/_custom_type_script = "uid://bryv4msdad7wu"
