@@ -42,6 +42,8 @@ func recompute_max_health() -> void:
 	player_max_health = mini(BASE_MAX_HEALTH + inventory.get_max_health_bonus(), MAX_HEALTH_CEILING)
 	player_current_health = mini(player_current_health, player_max_health)
 	Signalbus.player_health_updated.emit()
+	free_miss_shields = inventory.get_shield_count()
+	Signalbus.reflect_shield_changed.emit(0)
 
 func update_player_score(amount: int) -> void:
 	score += amount
@@ -188,6 +190,9 @@ func consume_barrier_clear() -> void:
 
 func get_player_health() -> int:
 	return player_current_health
+
+func get_player_shields() -> int:
+	return free_miss_shields
 
 func get_player_gold() -> int:
 	return gold_collected

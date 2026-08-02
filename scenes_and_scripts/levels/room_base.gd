@@ -60,6 +60,7 @@ func _ready() -> void:
 	Signalbus.gold_updated.emit()
 	Signalbus.score_updated.emit()
 	Signalbus.player_health_updated.emit()
+	Signalbus.reflect_shield_changed.emit(0)
 	Signalbus.brick_destroyed.connect(_on_brick_destroyed)
 	Signalbus.gold_collected.connect(update_gold_in_level)
 	Signalbus.gold_spawned.connect(update_gold_in_level)
