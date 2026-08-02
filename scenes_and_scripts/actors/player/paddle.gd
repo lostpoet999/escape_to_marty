@@ -91,6 +91,7 @@ var _distance_accumulator: float = 0.0
 @onready var david: Node2D = $David
 @onready var ghost_david: Node2D = $David/GhostDavid
 @onready var magnet_refresh: Timer = $Ball_Magnet_Radius/MagnetRefresh
+@onready var magnet_radius_outline: ColorRect = $Ball_Magnet_Radius/ColorRect
 
 var _lean_blend: float = 0.0
 
@@ -110,6 +111,7 @@ func _ready() -> void:
 	_calculate_bounds()
 	accumulated_mouse_movement_x = position.x
 	active_paddle_powerup = PlayerData.inventory.get_paddle_active()
+	_update_magnet_outline()
 	# free-miss shields persist run-scoped on PlayerData; re-apply the glow on every paddle
 	# spawn (new room/floor) so the visual matches the banked count, not just live grants
 	_on_reflect_shield_changed(PlayerData.free_miss_shields)
@@ -196,7 +198,8 @@ func _calculate_blockers_bounds() -> void:
 
 func _assign_active_powerup(item: PaddleActive)->void:
 	active_paddle_powerup = item
-	
+	_update_magnet_outline()
+
 
 func _get_scaled_half_width() -> float:	
 	var texture_width: float = sprite.texture.get_width()
@@ -466,6 +469,11 @@ func _on_ball_magnet_radius_area_shape_exited(area_rid: RID, area: Area2D, area_
 
 func _on_magnet_refresh_timeout() -> void:
 	Signalbus.magnet_refresh_timeout.emit()
+	_update_magnet_outline()
 
 func reset_magnet_refresh_timer() -> void:
 	magnet_refresh.start()
+	_update_magnet_outline()
+
+func _update_magnet_outline() -> void:
+	magnet_radius_outline.visible = active_paddle_powerup is SupportSystem and magnet_refresh.is_stopped()

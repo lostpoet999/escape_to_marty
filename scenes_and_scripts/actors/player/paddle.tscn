@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://c14m3ye4ihp6" path="res://scenes_and_scripts/actors/player/paddle.gd" id="1_ews1h"]
 [ext_resource type="Texture2D" uid="uid://ceqjt876orrnp" path="res://scenes_and_scripts/actors/player/basic_paddle.png" id="2_qicss"]
 [ext_resource type="PackedScene" uid="uid://ci3ujdi2gcmsw" path="res://scenes_and_scripts/actors/player/ghost_david.tscn" id="3_sflau"]
-[ext_resource type="Texture2D" uid="uid://cvpxyo70fvri" path="res://scenes_and_scripts/actors/player/Ball_Magnet_Radius_Sprite.png" id="4_55quk"]
 [ext_resource type="PackedScene" uid="uid://ck6fj7h722sbs" path="res://scenes_and_scripts/actors/player/mouse_gestures.tscn" id="4_ireb1"]
 [ext_resource type="Material" uid="uid://cdsatpdlmt0" path="res://scenes_and_scripts/actors/player/paddle_desaturate.tres" id="5_dsat0"]
 [ext_resource type="PackedScene" uid="uid://dlforceorb7x" path="res://scenes_and_scripts/actors/player/life_force_orb.tscn" id="6_lforb"]
@@ -41,14 +40,17 @@ position = Vector2(0, -156)
 scale = Vector2(25, 18)
 shape = SubResource("RectangleShape2D_57qmd")
 
-[node name="MagnetRadiusOutline" type="Sprite2D" parent="Ball_Magnet_Radius" unique_id=239941448]
-visible = false
-position = Vector2(0, -156)
-scale = Vector2(1.3200023, 1.2400006)
-texture = ExtResource("4_55quk")
-
 [node name="MagnetRefresh" type="Timer" parent="Ball_Magnet_Radius" unique_id=25279934]
 wait_time = 4.0
+one_shot = true
+
+[node name="ColorRect" type="ColorRect" parent="Ball_Magnet_Radius" unique_id=384017294]
+offset_left = -250.0
+offset_top = -321.0
+offset_right = 250.0
+offset_bottom = 8.0
+mouse_filter = 2
+color = Color(1, 1, 1, 0.052)
 
 [node name="spawn_center" type="Marker2D" parent="." unique_id=1386430533]
 position = Vector2(0, -18)
