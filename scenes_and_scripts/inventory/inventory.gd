@@ -130,6 +130,12 @@ func get_max_health_bonus() -> int:
 		total += powerup.max_health_bonus
 	return total
 
+func get_shield_count() -> int:
+	var total: int = 0
+	for powerup: DefensivePowerup in get_items_for_defense():
+		total += powerup.shields_provided
+	return total
+
 func has_room_scanner() -> bool:
 	for item: BaseItem in items:
 		if item.reveals_adjacent_rooms:
