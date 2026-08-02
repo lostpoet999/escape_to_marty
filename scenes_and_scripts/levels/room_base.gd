@@ -17,6 +17,26 @@ var _play_area_dimmed: bool = false
 
 const MERCY_FLASH_COLOR: Color = Color.GOLD
 
+const CELEBRATE_STING: String = "win_longer_sting"
+const CELEBRATE_FALLBACK_S: float = 3.5
+const CLEAR_POP_STING: String = "win_sting"
+const CLEAR_POP_FALLBACK_S: float = 1.2
+const CLEAR_POP_BURSTS: int = 3
+const CELEBRATE_TINT: Color = Color(1.14, 1.09, 0.92)
+const CELEBRATE_ZOOM_PUNCH: float = 1.03
+const CELEBRATE_FX: PackedScene = preload("res://scenes_and_scripts/bricks/brick_vfx/brick_destroy_fx.tscn")
+const CELEBRATE_FIELD: Rect2 = Rect2(345, 128, 1481, 704)
+const CELEBRATE_FIREWORK_COLORS: Array[Color] = [
+	Color("a23e8c"),
+	Color("a53030"),
+	Color("de9e41"),
+	Color("394a50"),
+	Color("75a743"),
+	Color("4f8fba"),
+]
+var _celebrate_running: bool = false
+var _room_had_bricks: bool = false
+
 ## Fairness gate: once only one live seal remains, it clears itself after a random delay.
 ## Encounter rooms switch it off; rooms that START with a single seal never arm it.
 @export var mercy_clear_enabled: bool = true
@@ -96,6 +116,7 @@ func _ready() -> void:
 	visible = true
 	room_state.visited = true
 	bricks_in_level = get_tree().get_nodes_in_group("bricks").size()
+	_room_had_bricks = bricks_in_level > 0
 	_mercy_room_eligible = mercy_clear_enabled and bricks_in_level > 1 and not room_state.cleared
 	current_room_lbl.text = "Current Room: " + GameManager.current_room_id
 	Signalbus.gold_updated.emit()
@@ -318,9 +339,90 @@ func check_level_cleared() -> void: #let gamemanager know level is cleared
 	if gold_cleared && bricks_cleared && _no_walker_holds_gold():
 		level_clear_emitted = true
 		Signalbus.level_cleared.emit()
+		if _room_had_bricks and entry.content.room_type == RoomContent.ROOM_TYPES.combat:
+			_play_clear_pop()
 		room_state.clear_count +=1
 		if entry.content.max_clears == -1: return
 		if room_state.clear_count >= max_clear: room_state.cleared = true
+
+func _play_room_celebrate() -> void:
+	if _celebrate_running:
+		return
+	_celebrate_running = true
+	var duration: float = CELEBRATE_FALLBACK_S
+	if SFX.sound_dict.has(CELEBRATE_STING):
+		var sting: AudioStreamPlayer = SFX.play_sound(CELEBRATE_STING)
+		if sting != null and sting.stream != null:
+			duration = maxf(sting.stream.get_length(), 1.0)
+	flash_play_area(Color.GOLD)
+	_celebrate_camera_punch()
+	_celebrate_confetti(duration, clampi(roundi(duration * 4.0), 6, 24))
+	_celebrate_paddle_bows()
+	var pulse: Tween = _celebrate_pulse(duration)
+	await get_tree().create_timer(duration, false).timeout
+	if pulse != null and pulse.is_valid():
+		pulse.kill()
+	if not _play_area_dimmed:
+		modulate = Color.WHITE
+	_celebrate_running = false
+
+func _celebrate_pulse(duration: float) -> Tween:
+	if _play_area_dimmed:
+		return null
+	var tw: Tween = create_tween().set_loops(maxi(1, floori(duration / 0.9)))
+	tw.tween_property(self, "modulate", CELEBRATE_TINT, 0.45).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tw.tween_property(self, "modulate", Color.WHITE, 0.45).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	return tw
+
+func _celebrate_camera_punch() -> void:
+	var cam: Camera2D = get_viewport().get_camera_2d()
+	if cam == null:
+		return
+	var base_zoom: Vector2 = cam.zoom
+	var tw: Tween = create_tween()
+	tw.tween_property(cam, "zoom", base_zoom * CELEBRATE_ZOOM_PUNCH, 0.18).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tw.tween_property(cam, "zoom", base_zoom, 0.45).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+
+func _play_clear_pop() -> void:
+	if _celebrate_running:
+		return
+	_celebrate_running = true
+	var duration: float = CLEAR_POP_FALLBACK_S
+	if SFX.sound_dict.has(CLEAR_POP_STING):
+		var sting: AudioStreamPlayer = SFX.play_sound(CLEAR_POP_STING)
+		if sting != null and sting.stream != null:
+			duration = maxf(sting.stream.get_length(), 0.6)
+	flash_play_area(Color.GOLD)
+	_celebrate_confetti(duration, CLEAR_POP_BURSTS)
+	await get_tree().create_timer(duration, false).timeout
+	_celebrate_running = false
+
+func _celebrate_confetti(duration: float, bursts: int) -> void:
+	var burst_times: Array[float] = []
+	for i: int in bursts:
+		burst_times.append(randf_range(0.15, duration * 0.92))
+	burst_times.sort()
+	var tw: Tween = create_tween()
+	var last_time: float = 0.0
+	for burst_time: float in burst_times:
+		tw.tween_interval(maxf(burst_time - last_time, 0.01))
+		tw.tween_callback(_spawn_celebrate_burst)
+		last_time = burst_time
+
+func _spawn_celebrate_burst() -> void:
+	var fx: Node2D = CELEBRATE_FX.instantiate()
+	fx.modulate = CELEBRATE_FIREWORK_COLORS.pick_random()
+	fx.position = Vector2(
+		randf_range(CELEBRATE_FIELD.position.x, CELEBRATE_FIELD.end.x),
+		randf_range(CELEBRATE_FIELD.position.y, CELEBRATE_FIELD.end.y))
+	add_child(fx)
+	SFX.play_sound("hit-brick")
+
+func _celebrate_paddle_bows() -> void:
+	var tw: Tween = create_tween()
+	for i: int in 3:
+		tw.tween_interval(0.5)
+		tw.tween_callback(paddle.bounce_dip)
 
 func _no_walker_holds_gold() -> bool:
 	for node: Node in get_tree().get_nodes_in_group("wall_walkers"):

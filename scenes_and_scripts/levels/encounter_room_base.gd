@@ -24,6 +24,7 @@ func clear_encounter() -> void:
 	encounter_cleared = true
 	room_state.cleared = true
 	Signalbus.level_cleared.emit()
+	await _play_room_celebrate()
 	_sweep_encounter()
 	await _play_post_encounter_beat()
 	if not is_inside_tree():

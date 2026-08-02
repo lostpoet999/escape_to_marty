@@ -24,15 +24,23 @@ signal _advanced
 @onready var beat_text: Label = $Root/TextPanel/MarginContainer/BeatText
 @onready var advance_indicator: Polygon2D = $Root/AdvanceIndicator
 
+const FADE_SECONDS: float = 0.25
+
 var _playing: bool = false
 var _reveal_tween: Tween
 var _animation_time: float = 0.0
 var _indicator_base_position: Vector2
+var _fade_rect: ColorRect
 
 
 func _ready() -> void:
 	beat_text.label_settings = beat_text.label_settings.duplicate()
 	_indicator_base_position = advance_indicator.position
+	_fade_rect = ColorRect.new()
+	_fade_rect.color = Color(0, 0, 0, 0)
+	_fade_rect.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_fade_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(_fade_rect)
 	if get_tree().current_scene == self:
 		play.call_deferred()
 
@@ -54,13 +62,23 @@ func play() -> void:
 		return
 	_playing = true
 	_reset_stage()
+	root_control.visible = false
 	visible = true
+	await _fade(1.0)
+	root_control.visible = true
+	await _fade(0.0)
 	for beat: DialogBeat in memory_tree.beats:
 		_present_beat(beat)
 		await _advanced
 	visible = false
 	_playing = false
 	finished.emit()
+
+
+func _fade(target_alpha: float) -> void:
+	var tw: Tween = create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	tw.tween_property(_fade_rect, "color:a", target_alpha, FADE_SECONDS)
+	await tw.finished
 
 
 func _on_root_gui_input(event: InputEvent) -> void:
