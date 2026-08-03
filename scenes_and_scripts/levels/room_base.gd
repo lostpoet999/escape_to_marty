@@ -25,6 +25,7 @@ const CLEAR_POP_BURSTS: int = 3
 const CELEBRATE_TINT: Color = Color(1.14, 1.09, 0.92)
 const CELEBRATE_ZOOM_PUNCH: float = 1.03
 const CELEBRATE_FX: PackedScene = preload("res://scenes_and_scripts/bricks/brick_vfx/brick_destroy_fx.tscn")
+const CELEBRATE_FX_SCALE: float = 2.0
 const CELEBRATE_FIELD: Rect2 = Rect2(345, 128, 1481, 704)
 const CELEBRATE_FIREWORK_COLORS: Array[Color] = [
 	Color("a23e8c"),
@@ -411,6 +412,7 @@ func _celebrate_confetti(duration: float, bursts: int) -> void:
 
 func _spawn_celebrate_burst() -> void:
 	var fx: Node2D = CELEBRATE_FX.instantiate()
+	fx.scale = Vector2.ONE * CELEBRATE_FX_SCALE
 	fx.modulate = CELEBRATE_FIREWORK_COLORS.pick_random()
 	fx.position = Vector2(
 		randf_range(CELEBRATE_FIELD.position.x, CELEBRATE_FIELD.end.x),
