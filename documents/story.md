@@ -30,6 +30,7 @@
 	"Why were those headlights in our lane---"
 	"NO. What if Marty was hurt---I HAVE TO ESCAPE TO MARTY!"
 
+
 	Then, turning toward Anger:
 	"I am so angry, they were swerving...I don't care--it's not fair, I still have to ESCAPE TO MARTY!"
 

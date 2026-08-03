@@ -10,7 +10,7 @@ var _pulse_tween: Tween
 @onready var texture_button: TextureButton = $TextureButton
 
 func _ready() -> void:
-	if SaveProgression.is_memory_seen(_memory_id()):
+	if PlayerData.is_memory_collected(_memory_id()):
 		room_before_click.hide()
 		return
 	if codec_player.memory_tree == null:
@@ -56,9 +56,13 @@ func _on_texture_button_pressed() -> void:
 	modulate = hover
 	DialogDirector.cancel_active()
 	await _tween_to_david()
-	room_before_click.hide()
+	codec_player.screen_covered.connect(_on_screen_covered)
 	await codec_player.play()
+	codec_player.screen_covered.disconnect(_on_screen_covered)
 	close_memory()
+
+func _on_screen_covered(opening: bool) -> void:
+	room_before_click.visible = not opening
 
 func _tween_to_david() -> void:
 	if _pulse_tween:
@@ -88,7 +92,7 @@ func close_memory() -> void:
 	room_before_click.show()
 	collect_flame()
 	memory_room_state().cleared = true
-	SaveProgression.mark_memory_seen(_memory_id())
+	PlayerData.collect_memory(_memory_id())
 	Signalbus.level_cleared.emit()
 
 func collect_flame() -> void:

@@ -21,9 +21,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -364.0
+offset_left = -488.0
 offset_top = -211.0
-offset_right = 364.0
+offset_right = 488.0
 offset_bottom = 104.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -56,6 +56,16 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 16
 
+[node name="Retry" type="Button" parent="ColorRect/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 65)
+layout_mode = 2
+text = "Retry Floor"
+
+[node name="RestartRun" type="Button" parent="ColorRect/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 65)
+layout_mode = 2
+text = "Restart Run"
+
 [node name="MainMenu" type="Button" parent="ColorRect/VBoxContainer/HBoxContainer" unique_id=1723660939]
 custom_minimum_size = Vector2(200, 65)
 layout_mode = 2
@@ -67,5 +77,6 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "Exit"
 
+[connection signal="pressed" from="ColorRect/VBoxContainer/HBoxContainer/Retry" to="." method="_on_retry_pressed"]
 [connection signal="pressed" from="ColorRect/VBoxContainer/HBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]
 [connection signal="pressed" from="ColorRect/VBoxContainer/HBoxContainer/Exit Button" to="." method="_on_button_pressed"]

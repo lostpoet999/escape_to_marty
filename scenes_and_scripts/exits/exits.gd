@@ -10,6 +10,8 @@ const SECRET_FLASHES_PER_BARK_MIN: int = 3
 const SECRET_FLASHES_PER_BARK_MAX: int = 4
 const SECRET_SOUND_BOOST_DB: float = 3.5
 const BONUS_DOOR_GOLD: Color = Color(1.0, 0.9, 0.2)
+const MEMORY_GLOW_COLOR: Color = Color(2.0, 2.0, 2.0)
+const MEMORY_GLOW_PULSE_SECONDS: float = 0.7
 const CLOSED_DOOR_TINT: Color = Color("#a53030")
 const OPEN_DOOR_TINT: Color = Color("#75a743")
 const DIR_OFFSETS: Dictionary = {
@@ -31,6 +33,7 @@ var travel_locked: bool = false
 var _flash_tween: Tween
 var _open_pulse_tween: Tween
 var _flashes_until_bark: int = 0
+var _memory_quip_sent: bool = false
 
 func _ready() -> void:
 	exit_barrier_closed.modulate = CLOSED_DOOR_TINT
@@ -78,8 +81,11 @@ func reconcile_exits()-> void:
 	elif _targets_bonus_room():
 		_show_bonus_door()
 	elif room_cleared:
-		show_open_door()
-		tween_open_door()
+		if _memory_lock_active() and not _targets_uncollected_memory():
+			show_closed_door()
+		else:
+			show_open_door()
+			tween_open_door()
 	else:
 		show_closed_door()
 
@@ -118,6 +124,9 @@ func _on_exit_clicked()-> void:
 	if !room_cleared:
 		return
 
+	if _memory_lock_active() and not _targets_uncollected_memory():
+		return
+
 	var target_id: String = _target_id()
 	if target_id == "":
 		return
@@ -133,6 +142,8 @@ func is_click_responsive()-> bool:
 		return false
 	if _targets_bonus_room() and not _bonus_gate_open():
 		return true
+	if _memory_lock_active() and not _targets_uncollected_memory():
+		return false
 	return room_cleared and _target_id() != ""
 
 func _bonus_gate_open()-> bool:
@@ -153,7 +164,9 @@ func _can_reveal_secret()-> bool:
 		return true
 	var here: RoomEntry = room_ref[GameManager.current_room_id]
 	if GameManager.current_state == GameManager.GameState.LEVEL_CLEARED:
-		return here.content.room_type in RoomContent.AUTO_CLEAR_ROOM_TYPES
+		if here.content.room_type in RoomContent.AUTO_CLEAR_ROOM_TYPES:
+			return true
+		return _targets_uncollected_memory()
 	if GameManager.current_state == GameManager.GameState.SPECIAL_ROOM:
 		return room_cleared and here.content.room_type == RoomContent.ROOM_TYPES.memory
 	return false
@@ -188,12 +201,26 @@ func show_secret_wall()-> void:
 	exit_barrier_closed.hide()
 	exit_barrier_open.hide()
 	self.input_pickable = true
-	if not travel_locked:
+	if travel_locked:
+		return
+	if room_cleared and _targets_uncollected_memory():
+		_start_memory_glow()
+	else:
 		_start_secret_flash()
 
 func _start_secret_flash()-> void:
 	_flashes_until_bark = randi_range(SECRET_FLASHES_PER_BARK_MIN, SECRET_FLASHES_PER_BARK_MAX)
 	_queue_secret_flash()
+
+func _start_memory_glow()-> void:
+	_flash_tween = create_tween().set_loops()
+	_flash_tween.set_trans(Tween.TRANS_SINE)
+	_flash_tween.set_ease(Tween.EASE_IN_OUT)
+	_flash_tween.tween_property(walls_no_door, "modulate", MEMORY_GLOW_COLOR, MEMORY_GLOW_PULSE_SECONDS)
+	_flash_tween.tween_property(walls_no_door, "modulate", Color.WHITE, MEMORY_GLOW_PULSE_SECONDS)
+	if not _memory_quip_sent:
+		_memory_quip_sent = true
+		DialogDirector.play(&"memory_wall_found")
 
 func _queue_secret_flash()-> void:
 	_flash_tween = create_tween()
@@ -258,6 +285,31 @@ func _target_id()-> String:
 
 func _current_room_state()-> RoomState:
 	return PlayerData.get_room_state(room_ref[GameManager.current_room_id])
+
+func _memory_lock_active()-> bool:
+	var here: RoomEntry = room_ref[GameManager.current_room_id]
+	for offset: Vector2i in DIR_OFFSETS.values():
+		var key: String = RoomEntry.make_key(here.room_coords + offset)
+		if not room_ref.has(key):
+			continue
+		if not (here.has_door(offset) or room_ref[key].has_door(-offset)):
+			continue
+		if _is_uncollected_memory(room_ref[key].content):
+			return true
+	return false
+
+func _targets_uncollected_memory()-> bool:
+	var target_id: String = _target_id()
+	if target_id == "":
+		return false
+	return _is_uncollected_memory(room_ref[target_id].content)
+
+func _is_uncollected_memory(content: RoomContent)-> bool:
+	if content == null or content.room_type != RoomContent.ROOM_TYPES.memory:
+		return false
+	if content.memory_tree == null:
+		return false
+	return not PlayerData.is_memory_collected(content.memory_id())
 
 func _is_secret_unrevealed()-> bool:
 	var target_id: String = _target_id()

@@ -15,6 +15,7 @@ func _ready() -> void:
 	ApolloPalette.style_menu_button(restart_button)
 	ApolloPalette.style_menu_button(main_menu_button)
 	ApolloPalette.style_menu_button(exit_button)
+	restart_button.hide()
 	_seed_sliders()
 	hide_menu()
 	Signalbus.game_state_paused.connect(show_menu)

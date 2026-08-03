@@ -180,7 +180,7 @@ func add_item(new_item) -> void:
 		var old_active: PaddleActive = null
 		if existing.is_empty():							
 			Signalbus.paddle_active_assigned.emit(new_item) #signal a new active is assiagned with reference to what was assigned
-			core_items.push_front(new_item)
+			core_items.push_back(new_item)
 			Signalbus.inventory_changed.emit()
 		elif existing.size() > 1:
 			assert(existing.size() <=1,"more than one paddle active found: there should only be one---kinda like highlander")
@@ -199,8 +199,9 @@ func add_item(new_item) -> void:
 	
 func replace_paddle_active(new_item: PaddleActive): #where item is replaced in player inventory
 	var index: int = core_items.find_custom(func(i): return i is PaddleActive)
-	core_items.remove_at(index)
-	core_items.push_front(new_item)
+	if index < 0:
+		return
+	core_items[index] = new_item
 	Signalbus.inventory_changed.emit()
 
 

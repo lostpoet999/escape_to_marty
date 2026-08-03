@@ -1,4 +1,4 @@
-extends Node2D
+class_name PortalVisual extends Node2D
 ## Runtime dressing for the contributor portal art (portal.tscn), attached as a
 ## script override on the Visual instance in floor_portal.tscn so the art scene
 ## stays untouched. Each swirl particle spawns as a random bright Apollo color;
@@ -15,13 +15,39 @@ const BRIGHT_APOLLO_COLORS: Array[Color] = [
 ]
 const CATEGORY_FADE_TIME: float = 1.6
 const PULSE_SCALE: float = 1.08
+const DORMANT_TINT: Color = Color(0.4, 0.4, 0.4)
+
+var _color_tween: Tween
+var _pulse_tween: Tween
+var _base_scale: Vector2
 
 @onready var _sprite: Sprite2D = $Sprite2D
 @onready var _particles: GPUParticles2D = $GPUParticles2D
 
 func _ready() -> void:
+	_base_scale = _sprite.scale
 	_color_particles()
 	_start_spiral_cycle()
+
+func set_dormant(dormant: bool) -> void:
+	if dormant:
+		_stop_spiral_cycle()
+		_particles.emitting = false
+		_sprite.modulate = DORMANT_TINT
+		_sprite.scale = _base_scale
+	else:
+		if _color_tween == null or not _color_tween.is_valid():
+			_start_spiral_cycle()
+		if not _particles.emitting:
+			_particles.restart()
+
+func _stop_spiral_cycle() -> void:
+	if _color_tween and _color_tween.is_valid():
+		_color_tween.kill()
+	if _pulse_tween and _pulse_tween.is_valid():
+		_pulse_tween.kill()
+	_color_tween = null
+	_pulse_tween = null
 
 func _color_particles() -> void:
 	var gradient: Gradient = Gradient.new()
@@ -41,11 +67,10 @@ func _color_particles() -> void:
 	_particles.restart()
 
 func _start_spiral_cycle() -> void:
-	var base_scale: Vector2 = _sprite.scale
-	var color_tween: Tween = create_tween().set_loops()
+	_color_tween = create_tween().set_loops()
 	for category_color in BRIGHT_APOLLO_COLORS:
-		color_tween.tween_property(_sprite, "modulate", category_color, CATEGORY_FADE_TIME)
-	var pulse_tween: Tween = create_tween().set_loops()
-	pulse_tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	pulse_tween.tween_property(_sprite, "scale", base_scale * PULSE_SCALE, CATEGORY_FADE_TIME * 0.5)
-	pulse_tween.tween_property(_sprite, "scale", base_scale, CATEGORY_FADE_TIME * 0.5)
+		_color_tween.tween_property(_sprite, "modulate", category_color, CATEGORY_FADE_TIME)
+	_pulse_tween = create_tween().set_loops()
+	_pulse_tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	_pulse_tween.tween_property(_sprite, "scale", _base_scale * PULSE_SCALE, CATEGORY_FADE_TIME * 0.5)
+	_pulse_tween.tween_property(_sprite, "scale", _base_scale, CATEGORY_FADE_TIME * 0.5)

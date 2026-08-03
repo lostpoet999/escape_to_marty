@@ -15,14 +15,20 @@ const RESET_HOLD_SECONDS: float = 1.5
 const RESET_IDLE_TEXT: String = "Reset Progress"
 const RESET_FILL_COLOR: Color = Color(1.0, 0.3, 0.3, 0.45)
 const RESET_DONE_COLOR: Color = Color(0.4, 1.0, 0.4, 0.5)
+const START_NEW_RUN_TEXT: String = "New Run"
 
 @onready var exit_button: Button = $VBoxContainer/ButtonContainer/"Exit Button"
 @onready var reset_button: Button = $"Reset Button"
 @onready var dev_build_label: Label = $Label
+@onready var start_button: Button = $VBoxContainer/ButtonContainer/"Start Button"
+@onready var continue_button: Button = $VBoxContainer/ButtonContainer/"Continue Button"
 
 var _reset_fill: ColorRect
 var _reset_holding: bool = false
 var _reset_hold_time: float = 0.0
+var _start_fill: ColorRect
+var _start_holding: bool = false
+var _start_hold_time: float = 0.0
 var _dev_label_base_color: Color
 
 func _ready() -> void:
@@ -48,8 +54,26 @@ func _ready() -> void:
 	reset_button.add_child(_reset_fill)
 	reset_button.button_down.connect(_on_reset_hold_started)
 	reset_button.button_up.connect(_on_reset_hold_released)
+	continue_button.visible = SaveProgression.has_run_checkpoint()
+	if SaveProgression.has_run_checkpoint():
+		start_button.text = START_NEW_RUN_TEXT
+		_start_fill = ColorRect.new()
+		_start_fill.color = RESET_FILL_COLOR
+		_start_fill.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		_start_fill.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		_start_fill.scale.x = 0.0
+		start_button.add_child(_start_fill)
+		start_button.button_down.connect(_on_start_hold_started)
+		start_button.button_up.connect(_on_start_hold_released)
 
 func _process(delta: float) -> void:
+	if _start_holding:
+		_start_hold_time += delta
+		if _start_hold_time >= RESET_HOLD_SECONDS:
+			_start_holding = false
+			_start_new_run()
+			return
+		_start_fill.scale.x = _start_hold_time / RESET_HOLD_SECONDS
 	if not _reset_holding:
 		return
 	_reset_hold_time += delta
@@ -74,14 +98,38 @@ func _on_reset_hold_released() -> void:
 func _execute_reset() -> void:
 	_reset_holding = false
 	SaveProgression.reset_progress()
+	continue_button.visible = false
+	start_button.text = "Start"
+	_start_holding = false
+	if _start_fill != null:
+		_start_fill.scale.x = 0.0
 	_reset_fill.color = RESET_DONE_COLOR
 	_reset_fill.scale.x = 1.0
 	reset_button.text = "Progress Reset!"
 
 func _on_start_button_pressed() -> void:
-	print("start button pressed")
-	GameManager.change_state(GameManager.GameState.BALL_ON_PADDLE)
+	if SaveProgression.has_run_checkpoint():
+		return
+	_start_new_run()
+
+func _start_new_run() -> void:
+	if not GameManager.change_state(GameManager.GameState.BALL_ON_PADDLE):
+		return
+	GameManager.write_run_checkpoint()
 	GameManager.load_current_room()
+
+func _on_continue_button_pressed() -> void:
+	GameManager.continue_run()
+
+func _on_start_hold_started() -> void:
+	_start_holding = true
+	_start_hold_time = 0.0
+	_start_fill.scale.x = 0.0
+
+func _on_start_hold_released() -> void:
+	_start_holding = false
+	if _start_fill != null:
+		_start_fill.scale.x = 0.0
 
 func _on_settings_button_pressed() -> void:
 	print("settings button pressed")

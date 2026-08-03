@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="DialogTree" format=3 uid="uid://dcrcem8twqrj1"]
+
+[ext_resource type="Script" uid="uid://da86xmy7akvas" path="res://scenes_and_scripts/dialog/dialog_beat.gd" id="1_4ck1h"]
+[ext_resource type="Script" uid="uid://bkgp0oq7lrafl" path="res://scenes_and_scripts/dialog/dialog_tree.gd" id="2_skw76"]
+
+[sub_resource type="Resource" id="Resource_02oti"]
+script = ExtResource("1_4ck1h")
+text = "\"He had tears in his eyes, but smiled ear to ear when I told him I was proud of how strong he'd been.\""
+metadata/_custom_type_script = "uid://da86xmy7akvas"
+
+[resource]
+script = ExtResource("2_skw76")
+beats = Array[ExtResource("1_4ck1h")]([SubResource("Resource_02oti")])
+metadata/_custom_type_script = "uid://bkgp0oq7lrafl"

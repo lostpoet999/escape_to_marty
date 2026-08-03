@@ -3,6 +3,8 @@ extends Node
 #scene references
 const MAIN_MENU: PackedScene = preload("uid://djuj72c4lcukn")
 const CREDITS_SCENE: PackedScene = preload("res://scenes_and_scripts/ui_main_menu/credits_scene.tscn")
+const RETRY_ROOM: PackedScene = preload("res://scenes_and_scripts/levels/common_rooms/retry_room/retry_room.tscn")
+const RETRY_ROOM_COORDS: Vector2i = Vector2i(99, 99)
 
 #floor references — add floors by editing floor_registry.tres in the inspector
 const FLOOR_REGISTRY: FloorRegistry = preload("res://scenes_and_scripts/levels/floor_registry.tres")
@@ -47,11 +49,12 @@ func _input(event: InputEvent) -> void:
 			change_state(GameState.PLAYING)
 
 #region gamestate functions
-func change_state(to_state: GameState) -> void:
-	if DialogDirector.focused_active: return
-	if not is_valid_state_transition(current_state, to_state): return
+func change_state(to_state: GameState) -> bool:
+	if DialogDirector.focused_active: return false
+	if not is_valid_state_transition(current_state, to_state): return false
 	exit_state(current_state)
 	enter_state(to_state)
+	return true
 	
 func get_floor_data()->void:
 	room_data_for_floor.clear()
@@ -91,7 +94,7 @@ func grant_memory_trophies() -> void:
 		if path == "":
 			continue
 		var item: Resource = load(path)
-		if item is BaseItem:
+		if item is BaseItem and not PlayerData.inventory.items.has(item) and not PlayerData.inventory.core_items.has(item):
 			PlayerData.inventory.add_item(item)
 
 func memories_complete_for_current_floor() -> bool:
@@ -101,9 +104,20 @@ func memories_complete_for_current_floor() -> bool:
 		if entry.content == null or entry.content.room_type != RoomContent.ROOM_TYPES.memory:
 			continue
 		found_memory = true
-		if not SaveProgression.is_memory_seen(entry.content.memory_id()):
+		if not PlayerData.is_memory_collected(entry.content.memory_id()):
 			return false
 	return found_memory
+
+func floor_memories_outstanding() -> bool:
+	for key: String in room_data_for_floor:
+		var entry: RoomEntry = room_data_for_floor[key]
+		if entry.content == null or entry.content.room_type != RoomContent.ROOM_TYPES.memory:
+			continue
+		if entry.content.memory_tree == null:
+			continue
+		if not PlayerData.is_memory_collected(entry.content.memory_id()):
+			return true
+	return false
 
 func _find_starting_slot() -> RoomEntry:
 	for room: RoomEntry in floor_data.room_entries:
@@ -126,7 +140,7 @@ func is_valid_state_transition(from_state: GameState, to_state: GameState) -> bo
 		GameState.PAUSED:
 			return to_state in [GameState.PLAYING, GameState.BALL_ON_PADDLE, GameState.MAIN_MENU]
 		GameState.GAME_OVER:
-			return to_state in [GameState.MAIN_MENU, GameState.PLAYING]
+			return to_state in [GameState.MAIN_MENU, GameState.PLAYING, GameState.BALL_ON_PADDLE, GameState.SPECIAL_ROOM]
 		GameState.CLICK_MODE:
 			return to_state in [GameState.PLAYING, GameState.LEVEL_CLEARED,GameState.DEBUG_PANEL, GameState.BALL_ON_PADDLE, GameState.GAME_OVER, GameState.MAIN_MENU]
 		GameState.LEVEL_CLEARED:
@@ -252,6 +266,7 @@ func floor_cleared()->void:
 		return
 	current_floor += 1
 	start_floor(false)
+	write_run_checkpoint()
 	load_current_room()
 
 func _return_to_test_room() -> void:
@@ -268,8 +283,63 @@ func _return_to_test_room() -> void:
 	get_tree().change_scene_to_packed(scene_ref)
 
 func win_game()->void:
+	SaveProgression.clear_run_checkpoint()
 	change_state(GameState.MAIN_MENU)
 	load_scene(CREDITS_SCENE)
+
+func write_run_checkpoint() -> void:
+	SaveProgression.save_run_checkpoint(current_floor, PlayerData.build_checkpoint())
+
+func retry_floor() -> void:
+	if not change_state(GameState.BALL_ON_PADDLE):
+		return
+	var player_state: Dictionary = SaveProgression.run_checkpoint_player()
+	if SaveProgression.has_run_checkpoint() and not player_state.is_empty():
+		PlayerData.restore_checkpoint(player_state)
+	PlayerData.retry_counts[current_floor] = PlayerData.retry_counts.get(current_floor, 0) + 1
+	PlayerData.refresh_for_retry()
+	start_floor(false)
+	var content: RoomContent = RoomContent.new()
+	content.room_type = RoomContent.ROOM_TYPES.free_item
+	content.room_scene = RETRY_ROOM
+	var entry: RoomEntry = RoomEntry.new()
+	entry.room_coords = RETRY_ROOM_COORDS
+	entry.content = content
+	room_data_for_floor[RoomEntry.make_key(RETRY_ROOM_COORDS)] = entry
+	current_room_id = RoomEntry.make_key(RETRY_ROOM_COORDS)
+	load_scene(RETRY_ROOM)
+
+func exit_retry_room() -> void:
+	if not change_state(GameState.BALL_ON_PADDLE):
+		return
+	var key: String = RoomEntry.make_key(RETRY_ROOM_COORDS)
+	room_data_for_floor.erase(key)
+	PlayerData.room_state.erase(key)
+	var start_slot: RoomEntry = _find_starting_slot()
+	current_room_id = RoomEntry.make_key(start_slot.room_coords)
+	load_current_room()
+
+func restart_run() -> void:
+	if not change_state(GameState.BALL_ON_PADDLE):
+		return
+	current_floor = 1
+	start_floor()
+	write_run_checkpoint()
+	load_current_room()
+
+func continue_run() -> void:
+	if not SaveProgression.has_run_checkpoint():
+		return
+	var player_state: Dictionary = SaveProgression.run_checkpoint_player()
+	if player_state.is_empty():
+		return
+	if not change_state(GameState.BALL_ON_PADDLE):
+		return
+	current_floor = clampi(SaveProgression.run_checkpoint_floor(), 1, FLOOR_REGISTRY.floors.size())
+	PlayerData.restore_checkpoint(player_state)
+	grant_memory_trophies()
+	start_floor(false)
+	load_current_room()
 
 func _configure_frame_rate() -> void:
 	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)	

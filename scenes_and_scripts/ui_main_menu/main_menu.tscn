@@ -156,6 +156,14 @@ size_flags_stretch_ratio = 3.0
 theme_override_constants/separation = 40
 alignment = 1
 
+[node name="Continue Button" type="Button" parent="VBoxContainer/ButtonContainer"]
+custom_minimum_size = Vector2(300, 120)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 36
+text = "Continue"
+
 [node name="Start Button" type="Button" parent="VBoxContainer/ButtonContainer" unique_id=761796766]
 custom_minimum_size = Vector2(300, 120)
 layout_mode = 2
@@ -228,6 +236,7 @@ size_flags_vertical = 4
 theme_override_font_sizes/font_size = 16
 text = "Reset Progress"
 
+[connection signal="pressed" from="VBoxContainer/ButtonContainer/Continue Button" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/ButtonContainer/Start Button" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/ButtonContainer/Settings Button" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/ButtonContainer/Fullscreen Button" to="." method="_on_fullscreen_button_pressed"]

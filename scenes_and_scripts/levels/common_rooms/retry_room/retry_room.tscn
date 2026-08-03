@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://cretryroom01"]
+
+[ext_resource type="PackedScene" uid="uid://bea1h3570swpu" path="res://scenes_and_scripts/levels/room_base.tscn" id="1_base"]
+[ext_resource type="Script" uid="uid://cretryrmgd1" path="res://scenes_and_scripts/levels/common_rooms/retry_room/retry_room.gd" id="2_script"]
+[ext_resource type="PackedScene" uid="uid://flrportal001" path="res://scenes_and_scripts/exits/floor_portal.tscn" id="3_portal"]
+
+[node name="RetryRoom" unique_id=565861230 instance=ExtResource("1_base")]
+script = ExtResource("2_script")
+
+[node name="FloorPortal" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="6" unique_id=1355726841 instance=ExtResource("3_portal")]
+position = Vector2(804, 540)
+advances_floor = false

@@ -1,6 +1,7 @@
 class_name MemoryCodecPlayer extends CanvasLayer
 
 signal finished
+signal screen_covered(opening: bool)
 signal _advanced
 
 ## This room's memory sequence. Layout is inferred per beat: central_image + text = inner voice, portraits = codec conversation, text only = pure voice on a dark stage.
@@ -65,11 +66,16 @@ func play() -> void:
 	root_control.visible = false
 	visible = true
 	await _fade(1.0)
+	screen_covered.emit(true)
 	root_control.visible = true
 	await _fade(0.0)
 	for beat: DialogBeat in memory_tree.beats:
 		_present_beat(beat)
 		await _advanced
+	await _fade(1.0)
+	root_control.visible = false
+	screen_covered.emit(false)
+	await _fade(0.0)
 	visible = false
 	_playing = false
 	finished.emit()

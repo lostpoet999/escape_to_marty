@@ -22,6 +22,8 @@ var item_box: Node2D
 var seen_dialog_trees: Array[StringName] = []
 var seen_cutscenes: Array[StringName] = []
 var dialog_trigger_counts: Dictionary[StringName, int] = {}
+var pending_memories: Array[StringName] = []
+var retry_counts: Dictionary[int, int] = {}
 
 var bankruptcy_gold_per_life_bonus: int = 0
 var bankruptcy_damage_per_life_bonus: int = 0
@@ -73,6 +75,8 @@ func initialize_player_data() -> void:
 	seen_dialog_trees.clear()
 	seen_cutscenes.clear()
 	dialog_trigger_counts.clear()
+	pending_memories.clear()
+	retry_counts.clear()
 	bankruptcy_gold_per_life_bonus = 0
 	bankruptcy_damage_per_life_bonus = 0
 	_last_barrier_clear_ms = -100000
@@ -167,10 +171,103 @@ func grant_free_miss_shield(count: int = 1) -> void:
 	Signalbus.reflect_shield_changed.emit(get_player_shields())
 
 func _on_floor_cleared() -> void:
+	commit_pending_memories()
 	if item_shields_spent == 0:
 		return
 	item_shields_spent = 0
 	Signalbus.reflect_shield_changed.emit(get_player_shields())
+
+func collect_memory(memory_id: StringName) -> void:
+	if memory_id not in pending_memories:
+		pending_memories.append(memory_id)
+
+func is_memory_collected(memory_id: StringName) -> bool:
+	return memory_id in pending_memories or SaveProgression.is_memory_seen(memory_id)
+
+func commit_pending_memories() -> void:
+	for memory_id: StringName in pending_memories:
+		SaveProgression.mark_memory_seen(memory_id)
+	pending_memories.clear()
+
+func refresh_for_retry() -> void:
+	pending_memories.clear()
+	item_shields_spent = 0
+	heal_to_full()
+	Signalbus.reflect_shield_changed.emit(get_player_shields())
+
+func build_checkpoint() -> Dictionary:
+	var trigger_counts: Dictionary = {}
+	for key: StringName in dialog_trigger_counts:
+		trigger_counts[String(key)] = dialog_trigger_counts[key]
+	var retries: Dictionary = {}
+	for floor_index: int in retry_counts:
+		retries[str(floor_index)] = retry_counts[floor_index]
+	return {
+		"score": score,
+		"gold": gold_collected,
+		"health": player_current_health,
+		"free_miss_shields": free_miss_shields,
+		"item_shields_spent": item_shields_spent,
+		"pick2_vouchers": pick2_vouchers,
+		"shop_restock_vouchers": shop_restock_vouchers,
+		"spider_stolen_gold": spider_stolen_gold,
+		"bankruptcy_gold_per_life_bonus": bankruptcy_gold_per_life_bonus,
+		"bankruptcy_damage_per_life_bonus": bankruptcy_damage_per_life_bonus,
+		"seen_dialog_trees": seen_dialog_trees.map(func(id: StringName) -> String: return String(id)),
+		"seen_cutscenes": seen_cutscenes.map(func(id: StringName) -> String: return String(id)),
+		"dialog_trigger_counts": trigger_counts,
+		"retry_counts": retries,
+		"items": _item_paths(inventory.items),
+		"core_items": _item_paths(inventory.core_items),
+	}
+
+func _item_paths(source: Array[BaseItem]) -> Array:
+	var paths: Array = []
+	for item: BaseItem in source:
+		if item.resource_path == "":
+			push_warning("checkpoint skips unsaved item: %s" % item)
+			continue
+		paths.append(item.resource_path)
+	return paths
+
+func restore_checkpoint(data: Dictionary) -> void:
+	score = int(data.get("score", 0))
+	gold_collected = int(data.get("gold", 0))
+	free_miss_shields = int(data.get("free_miss_shields", 0))
+	item_shields_spent = int(data.get("item_shields_spent", 0))
+	pick2_vouchers = int(data.get("pick2_vouchers", 0))
+	shop_restock_vouchers = int(data.get("shop_restock_vouchers", 0))
+	spider_stolen_gold = int(data.get("spider_stolen_gold", 0))
+	bankruptcy_gold_per_life_bonus = int(data.get("bankruptcy_gold_per_life_bonus", 0))
+	bankruptcy_damage_per_life_bonus = int(data.get("bankruptcy_damage_per_life_bonus", 0))
+	seen_dialog_trees.clear()
+	for id: String in data.get("seen_dialog_trees", []):
+		seen_dialog_trees.append(StringName(id))
+	seen_cutscenes.clear()
+	for id: String in data.get("seen_cutscenes", []):
+		seen_cutscenes.append(StringName(id))
+	dialog_trigger_counts.clear()
+	var trigger_counts: Dictionary = data.get("dialog_trigger_counts", {})
+	for key: String in trigger_counts:
+		dialog_trigger_counts[StringName(key)] = int(trigger_counts[key])
+	retry_counts.clear()
+	var retries: Dictionary = data.get("retry_counts", {})
+	for key: String in retries:
+		retry_counts[int(key)] = int(retries[key])
+	pending_memories.clear()
+	inventory.items.clear()
+	for path: String in data.get("items", []):
+		var item: BaseItem = load(path)
+		if item != null:
+			inventory.items.append(item)
+	inventory.core_items.clear()
+	for path: String in data.get("core_items", []):
+		var core_item: BaseItem = load(path)
+		if core_item != null:
+			inventory.core_items.append(core_item)
+	Signalbus.inventory_changed.emit()
+	player_current_health = clampi(int(data.get("health", BASE_MAX_HEALTH)), 1, player_max_health)
+	Signalbus.player_health_updated.emit()
 
 func grant_pick2_voucher(count: int = 1) -> void:
 	pick2_vouchers += count

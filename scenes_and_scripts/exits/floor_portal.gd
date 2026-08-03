@@ -1,11 +1,31 @@
 class_name FloorPortal extends Area2D
 
+signal portal_clicked
+
+## Off = antechamber mode: clicks only emit portal_clicked, never floor_cleared,
+## and the memory gate plus its locked-click bark are skipped.
+@export var advances_floor: bool = true
+
+var _travel_ready: bool = false
+
+@onready var _visual: PortalVisual = $Visual
+
 func _ready() -> void:
 	deactivate()
 
 func activate() -> void:
 	visible = true
 	input_pickable = true
+	set_travel_ready(not GameManager.floor_memories_outstanding())
+
+func show_dormant() -> void:
+	visible = true
+	input_pickable = true
+	set_travel_ready(false)
+
+func set_travel_ready(ready: bool) -> void:
+	_travel_ready = ready
+	_visual.set_dormant(not ready)
 
 func deactivate() -> void:
 	visible = false
@@ -22,4 +42,10 @@ func _input_event(_viewport: Viewport, event: InputEvent, _shape_idx: int) -> vo
 	if event is InputEventMouseButton:
 		var mb: InputEventMouseButton = event
 		if mb.pressed and mb.button_index == MOUSE_BUTTON_LEFT:
-			Signalbus.floor_cleared.emit()
+			if not _travel_ready:
+				if advances_floor:
+					DialogDirector.play(&"floor_portal_locked")
+				return
+			portal_clicked.emit()
+			if advances_floor:
+				Signalbus.floor_cleared.emit()

@@ -18,6 +18,10 @@ func _ready() -> void:
 	var revealed_ids: Dictionary = {}
 
 	for room_entry: RoomEntry in GameManager.room_data_for_floor.values():
+		if room_entry.room_coords.x < 1 or room_entry.room_coords.x > data.grid_size.x:
+			continue
+		if room_entry.room_coords.y < 1 or room_entry.room_coords.y > data.grid_size.y:
+			continue
 		var idx: int = (room_entry.room_coords.y - 1) * data.grid_size.x + (room_entry.room_coords.x - 1)
 		var room_state: RoomState = PlayerData.get_room_state(room_entry)
 		rooms[idx].room_entry = room_entry

@@ -234,12 +234,13 @@ func _spawn_free_item_panel() -> void:
 		$PlayArea.add_child(panel)
 
 func _init_memory_room() -> void:
-	if not SaveProgression.is_memory_seen(entry.content.memory_id()):
+	if not PlayerData.is_memory_collected(entry.content.memory_id()):
 		return
 	bricks_cleared = true
 	gold_cleared = true
 	check_level_cleared()
-	_spawn_free_item_panel()
+	if SaveProgression.is_memory_seen(entry.content.memory_id()):
+		_spawn_free_item_panel()
 
 func _on_enemy_requested(spawn_from: Area2D) -> void: # for brick break enemies
 	if _mercy_pop_pending:

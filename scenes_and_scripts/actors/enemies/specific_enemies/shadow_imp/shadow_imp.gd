@@ -12,6 +12,7 @@ enum ImpState {
 
 @export var max_health: float = 20.0 ## Real HP pool: HEALTH-type damage subtracts its actual amount. Clicks and other verb types never hurt the imp.
 @export var materialize_time: float = 0.8 ## Seconds for the spawn fade-in at the random materialize point; the imp is already hittable while fading.
+@export var bob_fps: float = 8.0 ## Idle bob animation speed in frames per second; the bob pauses during attack and dive runs.
 @export var decide_interval: float = 2.5 ## Target seconds per wander leg before the next behavior roll; travel shorter than this pads out with idle hover.
 @export var wander_range: float = 340.0 ## Max px offset from the current position when picking the next wander point.
 @export var wander_speed: float = 150.0 ## Cruise speed (px/s) for wandering and the brood retreat.
@@ -56,6 +57,7 @@ var _dive_cooldown_left: float = 0.0
 var _dive_tracking: bool = false
 var _dive_committed: bool = false
 var _dive_impact: Vector2 = Vector2.ZERO
+var _bob_time: float = 0.0
 
 @onready var _sprite: Sprite2D = $EnemySprite
 
@@ -75,6 +77,9 @@ func _physics_process(delta: float) -> void:
 		health = minf(health + brood_regen_rate * delta, max_health)
 	elif _state == ImpState.DIVE and _dive_tracking and not _dive_committed:
 		_track_dive(delta)
+	if _state != ImpState.ATTACK and _state != ImpState.DIVE:
+		_bob_time += delta
+		_sprite.frame = int(_bob_time * bob_fps) % _sprite.hframes
 
 func _materialize() -> void:
 	if is_queued_for_deletion():
@@ -132,6 +137,7 @@ func _start_wander() -> void:
 
 func _start_attack(light: DepressionLight) -> void:
 	_state = ImpState.ATTACK
+	_sprite.frame = 0
 	_target_light = light
 	_play_tell()
 	_behavior_tween = create_tween()
@@ -166,6 +172,7 @@ func _finish_attack() -> void:
 
 func _start_dive() -> void:
 	_state = ImpState.DIVE
+	_sprite.frame = 0
 	_dive_tracking = false
 	_dive_committed = false
 	_play_tell()

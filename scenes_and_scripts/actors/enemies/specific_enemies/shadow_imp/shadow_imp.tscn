@@ -5,32 +5,62 @@
 [ext_resource type="Shader" uid="uid://gnsjmtflfbxt" path="res://scenes_and_scripts/actors/enemies/specific_enemies/no_see_me_demon/flash.gdshader" id="3_flash"]
 [ext_resource type="Texture2D" uid="uid://bub1il0umnf22" path="res://scenes_and_scripts/actors/enemies/specific_enemies/shadow_imp/shadowimp_idle_spritesheet.png" id="4_sheet"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_imp01"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pl2lt"]
 resource_local_to_scene = true
 shader = ExtResource("3_flash")
 shader_parameter/flash_amount = 0.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_imp01"]
-atlas = ExtResource("4_sheet")
-region = Rect2(0, 0, 56, 112)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_imp01"]
 size = Vector2(56, 112)
 
-[node name="ShadowImp" groups=["bounce_enemy"] instance=ExtResource("1_base0")]
+[node name="ShadowImp" unique_id=1530090393 groups=["bounce_enemy"] instance=ExtResource("1_base0")]
 script = ExtResource("2_imp00")
+max_health = 20.0
+materialize_time = 0.8
+bob_fps = 8.0
+decide_interval = 2.5
+wander_range = 340.0
+wander_speed = 150.0
+attack_speed = 182.0
+tell_duration = 0.6
+pause_duration = 0.4
+strike_delay = 0.5
+strikes_to_break = 3
+flee_speed = 700.0
+hide_duration = 4.0
+hide_alpha = 0.15
+brood_duration = 4.0
+brood_regen_rate = 1.5
+flight_min_x = 352.0
+flight_max_x = 1824.0
+flight_min_y = 96.0
+flight_max_y = 880.0
+destroy_fx = null
+dive_damage_min = 3
+dive_damage_max = 6
+dive_cooldown = 7.0
+dive_track_speed = 260.0
+dive_commit_distance = 200.0
+dive_strike_time = 0.35
+dive_hit_radius = 64.0
+dive_arc_offset = 70.0
+dive_retreat_speed = 420.0
+idle_tint = Color(0.55, 0.55, 0.55, 1)
+dive_reveal_tint = Color(2.2, 2.2, 2.2, 1)
+dive_reveal_time = 0.25
 action_timer = 3.0
 
-[node name="EnemySprite" parent="." index="0"]
-material = SubResource("ShaderMaterial_imp01")
-texture = SubResource("AtlasTexture_imp01")
+[node name="EnemySprite" parent="." index="0" unique_id=2032254832]
+material = SubResource("ShaderMaterial_pl2lt")
+texture = ExtResource("4_sheet")
+hframes = 8
 
-[node name="Foot1" type="Marker2D" parent="." index="1"]
+[node name="Foot1" type="Marker2D" parent="." index="1" unique_id=1853007072]
 position = Vector2(-15, 56)
 
-[node name="Foot2" type="Marker2D" parent="." index="2"]
+[node name="Foot2" type="Marker2D" parent="." index="2" unique_id=923654422]
 position = Vector2(15, 56)
 
-[node name="CollisionShape2D" parent="." index="3"]
+[node name="CollisionShape2D" parent="." index="3" unique_id=1655691252]
 position = Vector2(0, 0)
 shape = SubResource("RectangleShape2D_imp01")
