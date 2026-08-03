@@ -13,6 +13,7 @@ enum ImpState {
 @export var max_health: float = 20.0 ## Real HP pool: HEALTH-type damage subtracts its actual amount. Clicks and other verb types never hurt the imp.
 @export var materialize_time: float = 0.8 ## Seconds for the spawn fade-in at the random materialize point; the imp is already hittable while fading.
 @export var bob_fps: float = 8.0 ## Idle bob animation speed in frames per second; the bob pauses during attack and dive runs.
+@export var facing_deadzone: float = 8.0 ## Horizontal distance (px) to the paddle inside which the imp keeps its current facing, so sitting directly overhead doesn't flip-flicker.
 @export var decide_interval: float = 2.5 ## Target seconds per wander leg before the next behavior roll; travel shorter than this pads out with idle hover.
 @export var wander_range: float = 340.0 ## Max px offset from the current position when picking the next wander point.
 @export var wander_speed: float = 150.0 ## Cruise speed (px/s) for wandering and the brood retreat.
@@ -46,6 +47,13 @@ enum ImpState {
 @export var dive_reveal_tint: Color = Color(2.2, 2.2, 2.2) ## Sprite brightness multiplier held from the tell through the strike, so a dive stays readable even though the imp is dimmed the rest of the time. Set equal to idle_tint for no reveal.
 @export var dive_reveal_time: float = 0.25 ## Seconds the reveal takes to ramp up and to fade back out.
 
+@export_category("Bite Animation")
+@export var bite_sheet: Texture2D ## Spritesheet swapped in for the committed dive: jaws open across the strike arc, snap shut on impact, recover during the retreat. Empty = the dive keeps the idle sheet.
+@export var bite_hframes: int = 12 ## Frame count of bite_sheet. Frames before bite_chomp_frame are the jaw-open run-up; the chomp frame and everything after are the clamped hold and recovery.
+@export var bite_chomp_frame: int = 4 ## First jaws-shut frame. Shown on the exact frame dive damage resolves; the run-up frames before it are spread evenly across dive_strike_time.
+@export var bite_recover_time: float = 0.45 ## Seconds the post-impact frames (bite_chomp_frame through the end) take before the idle sheet swaps back in.
+@export var bite_offset: Vector2 = Vector2(-21, 0) ## Sprite offset held while the bite sheet is active; the bite art sits right of frame center, so this lines its start pose up with the idle sheet and keeps the swap from popping sideways.
+
 var health: float
 var _state: ImpState = ImpState.MATERIALIZE
 var _target_light: DepressionLight
@@ -53,6 +61,10 @@ var _behavior_tween: Tween
 var _sprite_tween: Tween
 var _effect_tween: Tween
 var _reveal_tween: Tween
+var _bite_tween: Tween
+var _bite_active: bool = false
+var _idle_sheet: Texture2D
+var _idle_hframes: int = 1
 var _dive_cooldown_left: float = 0.0
 var _dive_tracking: bool = false
 var _dive_committed: bool = false
@@ -67,6 +79,8 @@ func _ready() -> void:
 	modulate = Color.WHITE
 	modulate.a = 1.0
 	timer.stop()
+	_idle_sheet = _sprite.texture
+	_idle_hframes = _sprite.hframes
 	_sprite.self_modulate = idle_tint
 	_sprite.modulate.a = 0.0
 	_materialize.call_deferred()
@@ -77,7 +91,9 @@ func _physics_process(delta: float) -> void:
 		health = minf(health + brood_regen_rate * delta, max_health)
 	elif _state == ImpState.DIVE and _dive_tracking and not _dive_committed:
 		_track_dive(delta)
-	if _state != ImpState.ATTACK and _state != ImpState.DIVE:
+	if not _dive_committed:
+		_update_facing()
+	if _state != ImpState.ATTACK and _state != ImpState.DIVE and not _bite_active:
 		_bob_time += delta
 		_sprite.frame = int(_bob_time * bob_fps) % _sprite.hframes
 
@@ -195,7 +211,9 @@ func _commit_dive(target: Vector2) -> void:
 	_dive_tracking = false
 	_dive_committed = true
 	_dive_impact = target
+	_face_toward(target.x)
 	_punch_sprite()
+	_start_bite()
 	var start: Vector2 = global_position
 	var line: Vector2 = target - start
 	var perp: Vector2 = Vector2(-line.y, line.x).normalized()
@@ -208,6 +226,7 @@ func _commit_dive(target: Vector2) -> void:
 	_behavior_tween.tween_callback(_resolve_dive)
 
 func _resolve_dive() -> void:
+	_chomp()
 	var david: Node2D = _david_hit_target()
 	if david != null and david.global_position.distance_to(_dive_impact) <= dive_hit_radius:
 		PlayerData.accept_damage(randi_range(dive_damage_min, dive_damage_max))
@@ -237,6 +256,68 @@ func _abort_dive() -> void:
 	_dive_tracking = false
 	_dive_committed = false
 	_dive_cooldown_left = dive_cooldown
+
+func _start_bite() -> void:
+	if bite_sheet == null:
+		return
+	_bite_active = true
+	_sprite.texture = bite_sheet
+	_sprite.hframes = bite_hframes
+	_apply_bite_offset()
+	_sprite.frame = 0
+	_kill_bite_tween()
+	_bite_tween = create_tween()
+	_bite_tween.tween_method(
+		func(f: float) -> void: _sprite.frame = mini(int(f), bite_chomp_frame - 1),
+		0.0, float(bite_chomp_frame), dive_strike_time
+	)
+
+func _chomp() -> void:
+	if not _bite_active:
+		return
+	_kill_bite_tween()
+	_sprite.frame = bite_chomp_frame
+	_bite_tween = create_tween()
+	_bite_tween.tween_method(
+		func(f: float) -> void: _sprite.frame = mini(int(f), bite_hframes - 1),
+		float(bite_chomp_frame), float(bite_hframes), bite_recover_time
+	)
+	_bite_tween.tween_callback(_restore_idle_sprite)
+
+func _update_facing() -> void:
+	if _state == ImpState.ATTACK and is_instance_valid(_target_light):
+		_face_toward(_target_light.global_position.x)
+		return
+	var david: Node2D = get_tree().get_first_node_in_group(&"david") as Node2D
+	if david == null:
+		return
+	_face_toward(david.global_position.x)
+
+func _face_toward(x: float) -> void:
+	var dx: float = x - global_position.x
+	if absf(dx) < facing_deadzone:
+		return
+	var flipped: bool = dx > 0.0
+	if flipped == _sprite.flip_h:
+		return
+	_sprite.flip_h = flipped
+	if _bite_active:
+		_apply_bite_offset()
+
+func _apply_bite_offset() -> void:
+	var flip_sign: float = -1.0 if _sprite.flip_h else 1.0
+	_sprite.offset = Vector2(bite_offset.x * flip_sign, bite_offset.y)
+
+func _restore_idle_sprite() -> void:
+	_bite_active = false
+	_sprite.texture = _idle_sheet
+	_sprite.hframes = _idle_hframes
+	_sprite.offset = Vector2.ZERO
+	_sprite.frame = 0
+
+func _kill_bite_tween() -> void:
+	if _bite_tween != null and _bite_tween.is_valid():
+		_bite_tween.kill()
 
 func _play_reveal(tint: Color) -> void:
 	if _reveal_tween != null and _reveal_tween.is_valid():
@@ -324,6 +405,9 @@ func _kill_behavior_tweens() -> void:
 		_effect_tween.kill()
 	if _reveal_tween != null and _reveal_tween.is_valid():
 		_reveal_tween.kill()
+	_kill_bite_tween()
+	if _bite_active:
+		_restore_idle_sprite()
 	_sprite.position = Vector2.ZERO
 	_sprite.scale = Vector2.ONE
 	_sprite.self_modulate = idle_tint

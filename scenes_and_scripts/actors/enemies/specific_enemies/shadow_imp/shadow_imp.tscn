@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://impscript001" path="res://scenes_and_scripts/actors/enemies/specific_enemies/shadow_imp/shadow_imp.gd" id="2_imp00"]
 [ext_resource type="Shader" uid="uid://gnsjmtflfbxt" path="res://scenes_and_scripts/actors/enemies/specific_enemies/no_see_me_demon/flash.gdshader" id="3_flash"]
 [ext_resource type="Texture2D" uid="uid://bub1il0umnf22" path="res://scenes_and_scripts/actors/enemies/specific_enemies/shadow_imp/shadowimp_idle_spritesheet.png" id="4_sheet"]
+[ext_resource type="Texture2D" uid="uid://co3ij0n81uwnl" path="res://scenes_and_scripts/actors/enemies/specific_enemies/shadow_imp/shadowimp_bite_spritesheet.png" id="5_bite"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pl2lt"]
 resource_local_to_scene = true
@@ -18,6 +19,7 @@ script = ExtResource("2_imp00")
 max_health = 20.0
 materialize_time = 0.8
 bob_fps = 8.0
+facing_deadzone = 8.0
 decide_interval = 2.5
 wander_range = 340.0
 wander_speed = 150.0
@@ -48,6 +50,11 @@ dive_retreat_speed = 420.0
 idle_tint = Color(0.55, 0.55, 0.55, 1)
 dive_reveal_tint = Color(2.2, 2.2, 2.2, 1)
 dive_reveal_time = 0.25
+bite_sheet = ExtResource("5_bite")
+bite_hframes = 12
+bite_chomp_frame = 4
+bite_recover_time = 0.45
+bite_offset = Vector2(-21, 0)
 action_timer = 3.0
 
 [node name="EnemySprite" parent="." index="0" unique_id=2032254832]
