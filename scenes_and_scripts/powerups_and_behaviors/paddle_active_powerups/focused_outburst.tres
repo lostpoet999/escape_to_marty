@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="PaddleActive" format=3 uid="uid://8rrbt0jirryc"]
 
-[ext_resource type="Texture2D" uid="uid://0q538vh4iwat" path="res://scenes_and_scripts/powerups_and_behaviors/paddle_active_powerups/focused_outburst.png" id="1_0rmrp"]
+[ext_resource type="Texture2D" uid="uid://dx1nema6klmmp" path="res://scenes_and_scripts/powerups_and_behaviors/paddle_active_powerups/focusedOutbursst.png" id="1_0rmrp"]
 [ext_resource type="Script" uid="uid://jwtisqgpmqvq" path="res://scenes_and_scripts/powerups_and_behaviors/ball_behaviors/hit_behavior.gd" id="2_ijb7f"]
 [ext_resource type="Script" uid="uid://dnkfaoggkglke" path="res://scenes_and_scripts/powerups_and_behaviors/ball_behaviors/targeting/shape_target.gd" id="3_8wnky"]
 [ext_resource type="Script" uid="uid://cshapedrvfx" path="res://scenes_and_scripts/powerups_and_behaviors/ball_behaviors/vfx/shape_draw_vfx.gd" id="4_gd8dq"]

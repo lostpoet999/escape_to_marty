@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="PaddleActive" format=3 uid="uid://ctgr6av7wt1l4"]
 
 [ext_resource type="PackedScene" uid="uid://wf32q64261vr" path="res://scenes_and_scripts/powerups_and_behaviors/paddle_active_powerups/white_projectile.tscn" id="1_0d1pg"]
-[ext_resource type="Texture2D" uid="uid://cqbg6wq1hq6mj" path="res://scenes_and_scripts/powerups_and_behaviors/paddle_active_powerups/quick_truth_denial_dam.png" id="1_bqolx"]
+[ext_resource type="Texture2D" uid="uid://y5r7ft601buu" path="res://scenes_and_scripts/powerups_and_behaviors/paddle_active_powerups/quicktruthDenial.png" id="1_skvdi"]
 [ext_resource type="Script" uid="uid://0q4ogral5cxt" path="res://scenes_and_scripts/powerups_and_behaviors/paddle_active_powerups/paddle_active_ability.gd" id="1_xvy62"]
 [ext_resource type="Script" uid="uid://jwtisqgpmqvq" path="res://scenes_and_scripts/powerups_and_behaviors/ball_behaviors/hit_behavior.gd" id="2_k24u5"]
 
@@ -15,6 +15,6 @@ projectile_dmg_type = Array[int]([0])
 powerup_name = "Quick Truth"
 shop_description = "Fires projectile that damages Seals of Denial"
 rarity = 1
-inventory_icon = ExtResource("1_bqolx")
+inventory_icon = ExtResource("1_skvdi")
 cost = 20
 metadata/_custom_type_script = "uid://0q4ogral5cxt"
