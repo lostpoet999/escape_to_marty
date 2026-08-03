@@ -34,15 +34,19 @@
 	"I am so angry, they were swerving...I don't care--it's not fair, I still have to ESCAPE TO MARTY!"
 
 **Here are the memories so far:**
-	1. "The day of the adoption was probably one of the happiest days of my life."**important** -F1
+	1. "The day of the adoption was probably one of the happiest days of my life."**important** -F1 ******can't miss*****
 	2. "She always made this grab-dip at family gatherings — Marty and I always fought over who got the last bite."**important** -F1
 	3. "Marty was so excited to play RC-ProAm and Mike Tyson's Punchout with me that entire afternoon."**important** -F2
 	4. "He loved to try and squeeze the wind out of me when he gave hugs!" -F2
 	5. "Marty loved to show me cat videos — but honestly I was always watching him more than the screen, waiting for that hissing laugh of his." -F2
 	6. "I never understood why she had to be crocheting or making jewelry while we watched t.v." -F3
-	7. "When she died of cancer I was afraid I lost Marty too--he tried to be strong but I could see the pain in his eyes."**important** -F3
+	7. "When she died of cancer I was afraid I lost Marty too--he tried to be strong but I could see the pain in his eyes."**important** -F3 **** cant miss*****
 	8. "For a while after she died, Marty would snap at other people...but never at me.  He always seemed so ashamed that I saw him do that."**important** -F4
+	
+	new: "He started leaving dishes and dirty clothes all over his room--but I just cleaned them up for him."
+	
 	9. "We never forgot about her, but eventually the pain went away and we started doing things like play Nintendo together again." -F4	
 	
 	10. "We were both proud of getting Scuba certified in the murky waters of Lake Ten Killer." -F5
-	11. "He had tears in his eyes, but smiled ear to ear when I told him I was proud of how strong he'd been."**important** -F5
+	11. "He had tears in his eyes, but smiled ear to ear when I told him I was proud of how strong he'd been."**important** -F5 **** cant miss****
+	

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bkgp0oq7lrafl" path="res://scenes_and_scripts/dialog/dialog_tree.gd" id="1_tree"]
 [ext_resource type="Script" uid="uid://da86xmy7akvas" path="res://scenes_and_scripts/dialog/dialog_beat.gd" id="2_beat"]
-[ext_resource type="Texture2D" uid="uid://b6bu5r5mip114" path="res://scenes_and_scripts/levels/common_rooms/memory room/memory_temp_sprite.png" id="3_img"]
+[ext_resource type="Texture2D" uid="uid://dhwpoxtoiyi0e" path="res://scenes_and_scripts/levels/common_rooms/memory room/memory_1_2_crab_dip_placeholder.png" id="3_img"]
 
 [sub_resource type="Resource" id="Resource_beat_1"]
 script = ExtResource("2_beat")
