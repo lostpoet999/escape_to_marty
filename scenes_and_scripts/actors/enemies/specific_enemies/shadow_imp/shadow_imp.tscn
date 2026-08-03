@@ -3,20 +3,16 @@
 [ext_resource type="PackedScene" uid="uid://b3j8yvc0658fc" path="res://scenes_and_scripts/actors/enemies/placed_enemy_base.tscn" id="1_base0"]
 [ext_resource type="Script" uid="uid://impscript001" path="res://scenes_and_scripts/actors/enemies/specific_enemies/shadow_imp/shadow_imp.gd" id="2_imp00"]
 [ext_resource type="Shader" uid="uid://gnsjmtflfbxt" path="res://scenes_and_scripts/actors/enemies/specific_enemies/no_see_me_demon/flash.gdshader" id="3_flash"]
+[ext_resource type="Texture2D" uid="uid://bub1il0umnf22" path="res://scenes_and_scripts/actors/enemies/specific_enemies/shadow_imp/shadowimp_idle_spritesheet.png" id="4_sheet"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_imp01"]
 resource_local_to_scene = true
 shader = ExtResource("3_flash")
 shader_parameter/flash_amount = 0.0
 
-[sub_resource type="Gradient" id="Gradient_imp01"]
-offsets = PackedFloat32Array(0, 1)
-colors = PackedColorArray(1, 0.4, 0.7, 1, 1, 0.4, 0.7, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_imp01"]
-gradient = SubResource("Gradient_imp01")
-width = 56
-height = 112
+[sub_resource type="AtlasTexture" id="AtlasTexture_imp01"]
+atlas = ExtResource("4_sheet")
+region = Rect2(0, 0, 56, 112)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_imp01"]
 size = Vector2(56, 112)
@@ -27,7 +23,7 @@ action_timer = 3.0
 
 [node name="EnemySprite" parent="." index="0"]
 material = SubResource("ShaderMaterial_imp01")
-texture = SubResource("GradientTexture2D_imp01")
+texture = SubResource("AtlasTexture_imp01")
 
 [node name="Foot1" type="Marker2D" parent="." index="1"]
 position = Vector2(-15, 56)
