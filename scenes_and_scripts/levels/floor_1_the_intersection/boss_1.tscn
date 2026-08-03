@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://flrportal001" path="res://scenes_and_scripts/exits/floor_portal.tscn" id="6_portal"]
 [ext_resource type="Script" uid="uid://deonencroom0" path="res://scenes_and_scripts/levels/deon_encounter_room.gd" id="7_deonroom"]
 [ext_resource type="Resource" uid="uid://tstpostenc00" path="res://scenes_and_scripts/dialog/memory room trees/post_floor_1_encounter.tres" id="8_beattree"]
+[ext_resource type="PackedScene" uid="uid://encprgbar01" path="res://scenes_and_scripts/ui_menus/encounter_progress_bar.tscn" id="9_epbar"]
 
 [node name="BossRoom" unique_id=565861230 instance=ExtResource("1_u1v84")]
 script = ExtResource("7_deonroom")
@@ -92,6 +93,9 @@ position = Vector2(1824, 288)
 
 [node name="Boss1Denial" parent="PlayArea/Encounter" index="1" unique_id=591023107 groups=["bounce_enemy"] instance=ExtResource("3_ndrbk")]
 position = Vector2(1633, 709)
+
+[node name="EncounterProgressBar" parent="PlayArea/Encounter" index="2" unique_id=1923026419 instance=ExtResource("9_epbar")]
+title = "Big Deon"
 
 [node name="FloorPortal" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="6" unique_id=1860885060 instance=ExtResource("6_portal")]
 position = Vector2(804, 540)

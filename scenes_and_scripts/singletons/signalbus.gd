@@ -56,6 +56,11 @@ signal level_cleared
 @warning_ignore("unused_signal")
 signal boss_defeated
 
+## Emits: scenes_and_scripts/actors/enemies/specific_enemies/boss_1_denial/boss_deon_cage.gd -> _ready(), _on_seal_cleared(); boss_deon.gd -> _emit_progress(); scenes_and_scripts/levels/floor_2_the_arena/rage_blob_king.gd -> _finish_intro(), accept_damage(); scenes_and_scripts/levels/spider_encounter_room.gd -> _ready(), _emit_progress()
+## Connects: scenes_and_scripts/ui_menus/encounter_progress_bar.gd -> _on_encounter_progress
+@warning_ignore("unused_signal")
+signal encounter_progress(stage: int, stage_count: int, stage_remaining: float, stage_max: float)
+
 ## Emits: scenes_and_scripts/bricks/base_seal.gd -> _on_tween_finished(); money_thief_spider.gd -> _on_death(); repayment_spider.gd -> _spit_coin(), _on_death()
 ## Connects: scenes_and_scripts/levels/room_base.gd -> update_gold_in_level
 @warning_ignore("unused_signal")

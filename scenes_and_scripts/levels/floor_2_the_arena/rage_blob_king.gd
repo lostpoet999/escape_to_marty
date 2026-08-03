@@ -62,7 +62,6 @@ var _careen_dir: Vector2 = Vector2.ZERO
 var _volley_index: int = 0
 var _spit_timer: Timer
 var _spit_blobs: Array[Node] = []
-var _health_label: Label
 
 func _ready() -> void:
 	health = max_health
@@ -77,9 +76,9 @@ func _ready() -> void:
 
 func _finish_intro() -> void:
 	_grown = true
+	Signalbus.encounter_progress.emit(1, 1, health, max_health)
 	$CollisionShape2D.set_deferred("disabled", false)
 	_set_player_frozen(false)
-	_setup_health_label()
 	_setup_spit_timer()
 
 func _setup_spit_timer() -> void:
@@ -172,7 +171,7 @@ func accept_damage(damage: float, dmg_type: Array[GameManager.PhaseType]) -> voi
 	_show_damage_number(damage)
 	_flash_hit()
 	health -= damage
-	_update_health_label()
+	Signalbus.encounter_progress.emit(1, 1, maxf(health, 0.0), max_health)
 	if health <= 0.0:
 		_die()
 		return
@@ -313,22 +312,6 @@ func _flash_hit() -> void:
 		func(v: float) -> void: mat.set_shader_parameter("flash_amount", v),
 		1.0, 0.0, 0.05
 	)
-
-func _setup_health_label() -> void:
-	_health_label = Label.new()
-	_health_label.scale = Vector2.ONE / full_scale
-	_health_label.position = Vector2(-20, -50) / full_scale
-	_health_label.z_index = 2000
-	_health_label.add_theme_color_override("font_color", Color.WHITE)
-	_health_label.add_theme_color_override("font_outline_color", Color.BLACK)
-	_health_label.add_theme_constant_override("outline_size", 8)
-	add_child(_health_label)
-	_update_health_label()
-
-func _update_health_label() -> void:
-	if _health_label == null:
-		return
-	_health_label.text = "HP: " + str(snappedf(health, 0.1))
 
 func _die() -> void:
 	dying = true

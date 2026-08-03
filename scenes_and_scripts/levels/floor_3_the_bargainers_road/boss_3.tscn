@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://repspiderl01" path="res://scenes_and_scripts/actors/enemies/specific_enemies/repayment_spider/repayment_spider.tscn" id="11_spdrl"]
 [ext_resource type="PackedScene" uid="uid://repspiderr01" path="res://scenes_and_scripts/actors/enemies/specific_enemies/repayment_spider/repayment_spider_right.tscn" id="12_spdrr"]
 [ext_resource type="PackedScene" uid="uid://repspidert01" path="res://scenes_and_scripts/actors/enemies/specific_enemies/repayment_spider/repayment_spider_top.tscn" id="13_spdrt"]
+[ext_resource type="PackedScene" uid="uid://encprgbar01" path="res://scenes_and_scripts/ui_menus/encounter_progress_bar.tscn" id="14_epbar"]
 
 [sub_resource type="Resource" id="Resource_rspdl"]
 script = ExtResource("10_ecfg")
@@ -38,6 +39,8 @@ metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 
 [node name="BossRoom2" unique_id=565861230 instance=ExtResource("1_u1v84")]
 script = ExtResource("7_room")
+max_live_red_coins = 3
+max_live_webs = 2
 post_encounter_tree = null
 
 [node name="DeathWall" parent="PlayArea/Walls" parent_id_path=PackedInt32Array(76639453) index="0" unique_id=518440941]
@@ -48,6 +51,9 @@ position = Vector2(288, 960)
 metadata/_edit_lock_ = true
 
 [node name="Encounter" type="Node" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="5" unique_id=476387631]
+
+[node name="EncounterProgressBar" parent="PlayArea/Encounter" index="0" unique_id=1617301406 instance=ExtResource("14_epbar")]
+title = "The Spider's Bargain"
 
 [node name="FloorPortal" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="6" unique_id=1860885060 instance=ExtResource("6_portal")]
 position = Vector2(804, 540)

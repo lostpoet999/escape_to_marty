@@ -16,11 +16,17 @@ var _live_spiders: int = 0
 var _live_coins: int = 0
 var _live_red_coins: int = 0
 var _spiders_spawned: int = 0
+var _initial_pool: int = 0
+var _resolved_coins: int = 0
+var _stage_two_max: int = 0
 
 func _ready() -> void:
 	_unallocated = TEST_STOLEN_GOLD if GameManager.test_floor_active else PlayerData.spider_stolen_gold
 	zero_stolen = _unallocated == 0
+	_initial_pool = _unallocated
 	await super()
+	if not zero_stolen and not encounter_cleared:
+		Signalbus.encounter_progress.emit.call_deferred(1, 2, float(_initial_pool), float(_initial_pool))
 
 func allocate_pouch() -> int:
 	var coins: int = mini(POUCH_SIZE, _unallocated)
@@ -55,12 +61,26 @@ func coin_resolved(hurts_on_miss: bool) -> void:
 	_live_coins -= 1
 	if hurts_on_miss:
 		_live_red_coins -= 1
+	_resolved_coins += 1
+	_emit_progress()
 	_check_encounter_done()
 
 func _on_wall_walker_removed(walker: Node2D) -> void:
 	super(walker)
 	_live_spiders -= 1
+	_emit_progress()
 	_check_encounter_done()
+
+func _emit_progress() -> void:
+	if zero_stolen or encounter_cleared:
+		return
+	var unresolved: int = _initial_pool - _resolved_coins
+	if unresolved > 0:
+		Signalbus.encounter_progress.emit(1, 2, float(unresolved), float(_initial_pool))
+		return
+	if _stage_two_max == 0:
+		_stage_two_max = maxi(_live_spiders, 1)
+	Signalbus.encounter_progress.emit(2, 2, float(maxi(_live_spiders, 0)), float(_stage_two_max))
 
 func _check_encounter_done() -> void:
 	if encounter_cleared or _spiders_spawned == 0:

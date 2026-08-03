@@ -4,8 +4,9 @@ extends Deon
 var stage: int = 1
 @export var core_health: float = 15.0
 var dying: bool = false
+var _denial_max: int = 0
+var _core_max: float = 0.0
 var darkcage_spawnpoints: Array[Marker2D]
-var health_label: Label
 @onready var cage_spawn_points: Node2D = $"../Cage_Spawn_Points"
 const DARK_CAGE: PackedScene = preload("uid://cm2bdw1o1sypc")
 
@@ -18,25 +19,13 @@ func _ready() -> void:
 	Signalbus.deon_boss_cage_cleared.connect(_on_cage_cleared)
 	Signalbus.deon_boss_spawn_cage.connect(_on_spawn_cage)
 	fill_spawn_points()
-	_setup_health_label()
+	_denial_max = denial_health
+	_core_max = core_health
 
-func _setup_health_label() -> void:
-	health_label = Label.new()
-	health_label.scale = Vector2.ONE / scale
-	health_label.position = Vector2(-20, -50)
-	health_label.z_index = 2000
-	health_label.add_theme_color_override("font_color", Color.WHITE)
-	health_label.add_theme_color_override("font_outline_color", Color.BLACK)
-	health_label.add_theme_constant_override("outline_size", 8)
-	add_child(health_label)
-	_update_health_label()
-
-func _update_health_label() -> void:
-	if health_label == null: return
+func _emit_progress() -> void:
 	match stage:
-		1: health_label.text = "CAGED"
-		2: health_label.text = "Shell: " + str(denial_health)
-		3: health_label.text = "HP: " + str(snappedf(core_health, 0.1))
+		2: Signalbus.encounter_progress.emit(2, 3, float(denial_health), float(_denial_max))
+		3: Signalbus.encounter_progress.emit(3, 3, maxf(core_health, 0.0), _core_max)
 
 func _on_spawn_cage(world_pos: Vector2)->void:
 	var cage: DarkCage = DARK_CAGE.instantiate()	
@@ -60,14 +49,14 @@ func accept_damage(damage: float, _dmg_type: Array[GameManager.PhaseType])->void
 					self.modulate = Color.WHITE
 					self.modulate.a = 1.0
 					stage += 1
-				_update_health_label()
+				_emit_progress()
 		3:
 			if _dmg_type.has(GameManager.PhaseType.HEALTH) and not dying:
 				SFX.play_sound("enemy_hurt")
 				core_health -= damage
 				show_damage_number(damage)
 				take_damage_fx()
-				_update_health_label()
+				_emit_progress()
 				if core_health <= 0:
 					dying = true
 					die()
@@ -94,4 +83,4 @@ func _on_cage_cleared()->void:
 	right_clamp_offset = 0
 	Signalbus.blocker_moved.emit()
 	stage += 1
-	_update_health_label()
+	_emit_progress()
