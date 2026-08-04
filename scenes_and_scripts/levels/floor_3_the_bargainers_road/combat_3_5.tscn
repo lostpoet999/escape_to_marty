@@ -113,8 +113,8 @@ brick_health = 2
 position = Vector2(1088, 288)
 brick_health = 2
 
-[node name="OpenSeal35" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="11" unique_id=2102547920 instance=ExtResource("2_4285g")]
-position = Vector2(416, 224)
+[node name="OpenSeal35" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="11" unique_id=552135242 instance=ExtResource("2_4285g")]
+position = Vector2(1088, 224)
 brick_health = 2
 
 [node name="OpenSeal38" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="12" unique_id=278438838 instance=ExtResource("2_4285g")]
@@ -226,4 +226,34 @@ initial_spawn_time = 2.6
 max_spawns = 2
 
 [node name="RectangleBarrier" parent="." index="14" unique_id=415634240 instance=ExtResource("9_sjfox")]
-position = Vector2(416, 64)
+position = Vector2(896, 784)
+
+[node name="RectangleBarrier2" parent="." index="15" unique_id=1536082631 instance=ExtResource("9_sjfox")]
+position = Vector2(960, 784)
+
+[node name="RectangleBarrier3" parent="." index="16" unique_id=820678634 instance=ExtResource("9_sjfox")]
+position = Vector2(1088, 784)
+
+[node name="RectangleBarrier4" parent="." index="17" unique_id=873128281 instance=ExtResource("9_sjfox")]
+position = Vector2(1152, 784)
+
+[node name="RectangleBarrier5" parent="." index="18" unique_id=169514977 instance=ExtResource("9_sjfox")]
+position = Vector2(960, 528)
+
+[node name="RectangleBarrier6" parent="." index="19" unique_id=829881056 instance=ExtResource("9_sjfox")]
+position = Vector2(1088, 528)
+
+[node name="RectangleBarrier7" parent="." index="20" unique_id=668855150 instance=ExtResource("9_sjfox")]
+position = Vector2(1152, 528)
+
+[node name="RectangleBarrier8" parent="." index="21" unique_id=1639400704 instance=ExtResource("9_sjfox")]
+position = Vector2(896, 208)
+
+[node name="RectangleBarrier9" parent="." index="22" unique_id=752660655 instance=ExtResource("9_sjfox")]
+position = Vector2(960, 208)
+
+[node name="RectangleBarrier10" parent="." index="23" unique_id=156294013 instance=ExtResource("9_sjfox")]
+position = Vector2(1088, 208)
+
+[node name="RectangleBarrier11" parent="." index="24" unique_id=1983015580 instance=ExtResource("9_sjfox")]
+position = Vector2(1152, 208)
