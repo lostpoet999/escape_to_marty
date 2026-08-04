@@ -1,6 +1,7 @@
 class_name MouseGestures extends Node2D
 
 const DEFAULT_CLICK_DMG: float = 1.0
+const BARGAIN_SWEEP_MAX_STEP: float = 1.0 / 30.0
 const DEPRESSION_LIGHT: PackedScene = preload("res://scenes_and_scripts/actors/player/depression_light.tscn")
 
 var click_behavior: HitBehavior
@@ -304,7 +305,7 @@ func _process(delta: float) -> void:
 		if GameManager.current_state != GameManager.GameState.CLICK_MODE:
 			_resolve_bargain()
 			return
-		bargain_bid = minf(bargain_bid + delta / bargain_sweep_duration, 1.0)
+		bargain_bid = minf(bargain_bid + minf(delta, BARGAIN_SWEEP_MAX_STEP) / bargain_sweep_duration, 1.0)
 		queue_redraw()
 		if bargain_bid >= 1.0:
 			_resolve_bargain()
