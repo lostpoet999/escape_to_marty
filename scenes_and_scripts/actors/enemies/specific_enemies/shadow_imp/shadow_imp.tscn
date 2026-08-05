@@ -2,11 +2,11 @@
 
 [ext_resource type="PackedScene" uid="uid://b3j8yvc0658fc" path="res://scenes_and_scripts/actors/enemies/placed_enemy_base.tscn" id="1_base0"]
 [ext_resource type="Script" uid="uid://impscript001" path="res://scenes_and_scripts/actors/enemies/specific_enemies/shadow_imp/shadow_imp.gd" id="2_imp00"]
-[ext_resource type="Shader" uid="uid://gnsjmtflfbxt" path="res://scenes_and_scripts/actors/enemies/specific_enemies/no_see_me_demon/flash.gdshader" id="3_flash"]
+[ext_resource type="Shader" uid="uid://gnsjmtflfbxt" path="res://scenes_and_scripts/actors/enemies/specific_enemies/no_see_me_demon(Deon)/flash.gdshader" id="3_flash"]
 [ext_resource type="Texture2D" uid="uid://bub1il0umnf22" path="res://scenes_and_scripts/actors/enemies/specific_enemies/shadow_imp/shadowimp_idle_spritesheet.png" id="4_sheet"]
 [ext_resource type="Texture2D" uid="uid://co3ij0n81uwnl" path="res://scenes_and_scripts/actors/enemies/specific_enemies/shadow_imp/shadowimp_bite_spritesheet.png" id="5_bite"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_pl2lt"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xtau2"]
 resource_local_to_scene = true
 shader = ExtResource("3_flash")
 shader_parameter/flash_amount = 0.0
@@ -58,7 +58,7 @@ bite_offset = Vector2(-21, 0)
 action_timer = 3.0
 
 [node name="EnemySprite" parent="." index="0" unique_id=2032254832]
-material = SubResource("ShaderMaterial_pl2lt")
+material = SubResource("ShaderMaterial_xtau2")
 texture = ExtResource("4_sheet")
 hframes = 8
 

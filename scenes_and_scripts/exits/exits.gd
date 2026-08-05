@@ -109,6 +109,8 @@ func handle_gesture_click() -> void:
 	_on_exit_clicked()
 
 func _on_exit_clicked()-> void:
+	if travel_locked:
+		return
 	if _is_secret_unrevealed():
 		if _can_reveal_secret():
 			reveal_secret()

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cnv3n7yhiuywa"]
 
-[ext_resource type="PackedScene" uid="uid://c3bjgu70hca17" path="res://scenes_and_scripts/actors/enemies/specific_enemies/no_see_me_demon/deon.tscn" id="1_rewjh"]
+[ext_resource type="PackedScene" uid="uid://c3bjgu70hca17" path="res://scenes_and_scripts/actors/enemies/specific_enemies/no_see_me_demon(Deon)/deon.tscn" id="1_rewjh"]
 [ext_resource type="Script" uid="uid://bbq2uibufrs08" path="res://scenes_and_scripts/actors/enemies/enemy_actions/enemy_action_base.gd" id="2_6c1wj"]
 [ext_resource type="Script" uid="uid://rg8egckoye8l" path="res://scenes_and_scripts/actors/enemies/specific_enemies/boss_1_denial/boss_deon.gd" id="2_641j3"]
 [ext_resource type="Script" uid="uid://bnes3pg7kfcj6" path="res://scenes_and_scripts/actors/enemies/enemy_actions/deon_boss_hop.gd" id="4_641j3"]

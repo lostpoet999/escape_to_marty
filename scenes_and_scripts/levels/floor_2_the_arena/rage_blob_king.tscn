@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dx6kegx4fg7yy"]
 
 [ext_resource type="Script" uid="uid://rageking01gd" path="res://scenes_and_scripts/levels/floor_2_the_arena/rage_blob_king.gd" id="1_king"]
-[ext_resource type="Material" uid="uid://b6u55aep337u5" path="res://scenes_and_scripts/actors/enemies/specific_enemies/no_see_me_demon/whiteout_shader.tres" id="3_flash"]
+[ext_resource type="Material" uid="uid://b6u55aep337u5" path="res://scenes_and_scripts/actors/enemies/specific_enemies/no_see_me_demon(Deon)/whiteout_shader.tres" id="3_flash"]
 [ext_resource type="PackedScene" uid="uid://rageblobfx01" path="res://scenes_and_scripts/actors/enemies/specific_enemies/rage_blob/rage_blob_destroy_fx.tscn" id="4_dfx"]
 [ext_resource type="Texture2D" uid="uid://ceqxjbc5rpo2y" path="res://scenes_and_scripts/actors/enemies/specific_enemies/rage_blob/rage_blob_BOSS_92x92.png" id="5_aqyyj"]
 [ext_resource type="PackedScene" uid="uid://rageshot01ts" path="res://scenes_and_scripts/levels/floor_2_the_arena/rage_shot.tscn" id="5_shot"]

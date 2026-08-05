@@ -152,6 +152,8 @@ func _run_cutscene_if_present() -> void:
 	for child: Node in get_children():
 		if child.is_in_group("cutscene") and child.has_method("run"):
 			child.call("run")
+			if child.get("active") == true:
+				GameManager.set_mouse_visible()
 			return
 
 func flash_play_area(color: Color) -> void:
