@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="BallPassive" format=3 uid="uid://csplashtst2"]
 
-[ext_resource type="Texture2D" uid="uid://bn0brx3dpkj28" path="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/support_group_radius_denial_ae.png" id="1_8hx5i"]
+[ext_resource type="Texture2D" uid="uid://d0unoiwhr7j4g" path="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/support_group.png" id="1_8hx5i"]
 [ext_resource type="Script" uid="uid://jwtisqgpmqvq" path="res://scenes_and_scripts/powerups_and_behaviors/ball_behaviors/hit_behavior.gd" id="2_7756e"]
 [ext_resource type="Script" uid="uid://dnkfaoggkglke" path="res://scenes_and_scripts/powerups_and_behaviors/ball_behaviors/targeting/shape_target.gd" id="3_6quxo"]
 [ext_resource type="Script" uid="uid://cshapedrvfx" path="res://scenes_and_scripts/powerups_and_behaviors/ball_behaviors/vfx/shape_draw_vfx.gd" id="4_4rv7b"]
