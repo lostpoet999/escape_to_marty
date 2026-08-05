@@ -198,6 +198,29 @@ max_value = 1.0
 step = 0.05
 value = 1.0
 
+[node name="MouseRow" type="HBoxContainer" parent="VBoxContainer/Settings Container/SettingsBox"]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="MouseLabel" type="Label" parent="VBoxContainer/Settings Container/SettingsBox/MouseRow"]
+custom_minimum_size = Vector2(360, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.909804, 0.756863, 0.439216, 1)
+theme_override_fonts/font = ExtResource("5_wuvxa")
+theme_override_font_sizes/font_size = 32
+text = "Mouse"
+vertical_alignment = 1
+
+[node name="MouseSlider" type="HSlider" parent="VBoxContainer/Settings Container/SettingsBox/MouseRow"]
+custom_minimum_size = Vector2(560, 48)
+layout_mode = 2
+size_flags_vertical = 4
+min_value = 0.5
+max_value = 2.0
+step = 0.05
+value = 1.0
+
 [node name="DifficultyRow" type="HBoxContainer" parent="VBoxContainer/Settings Container/SettingsBox"]
 layout_mode = 2
 theme_override_constants/separation = 30
@@ -261,6 +284,7 @@ text = "Main Menu"
 
 [connection signal="value_changed" from="VBoxContainer/Settings Container/SettingsBox/MusicRow/MusicSlider" to="." method="_on_music_slider_value_changed"]
 [connection signal="value_changed" from="VBoxContainer/Settings Container/SettingsBox/SfxRow/SfxSlider" to="." method="_on_sfx_slider_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/Settings Container/SettingsBox/MouseRow/MouseSlider" to="." method="_on_mouse_slider_value_changed"]
 [connection signal="pressed" from="VBoxContainer/Settings Container/SettingsBox/DifficultyRow/DifficultyButtons/EasyButton" to="." method="_on_easy_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Settings Container/SettingsBox/DifficultyRow/DifficultyButtons/NormalButton" to="." method="_on_normal_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Settings Container/SettingsBox/DifficultyRow/DifficultyButtons/HardButton" to="." method="_on_hard_button_pressed"]

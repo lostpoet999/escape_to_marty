@@ -9,6 +9,7 @@ var music_volume: float = 0.5
 var sfx_volume: float = 0.5
 var game_speed: float = 1.0
 var difficulty: int = 1
+var mouse_sensitivity: float = 1.0
 
 func _ready() -> void:
 	load_settings()
@@ -24,6 +25,7 @@ func save_settings() -> void:
 	settings_file.set_value("audio", "sfx_volume", sfx_volume)
 	settings_file.set_value("game", "game_speed", game_speed)
 	settings_file.set_value("game", "difficulty", difficulty)
+	settings_file.set_value("game", "mouse_sensitivity", mouse_sensitivity)
 	var error: int = settings_file.save(SETTINGS_PATH)
 	if error != OK: print("Disk error saving settings: ", error)
 
@@ -34,6 +36,7 @@ func load_settings() -> void:
 		sfx_volume = settings_file.get_value("audio", "sfx_volume", sfx_volume)
 		game_speed = settings_file.get_value("game", "game_speed", game_speed)
 		difficulty = settings_file.get_value("game", "difficulty", difficulty)
+		mouse_sensitivity = settings_file.get_value("game", "mouse_sensitivity", mouse_sensitivity)
 	else:
 		save_settings()
 	apply_settings()

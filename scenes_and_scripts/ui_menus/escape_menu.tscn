@@ -104,6 +104,30 @@ max_value = 1.0
 step = 0.05
 value = 1.0
 
+[node name="MouseRow" type="HBoxContainer" parent="ColorRect/VBoxContainer/SettingsBox"]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="MouseLabel" type="Label" parent="ColorRect/VBoxContainer/SettingsBox/MouseRow"]
+custom_minimum_size = Vector2(192, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.909804, 0.756863, 0.439216, 1)
+theme_override_fonts/font = ExtResource("4_font")
+theme_override_font_sizes/font_size = 32
+text = "Mouse"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="MouseSlider" type="HSlider" parent="ColorRect/VBoxContainer/SettingsBox/MouseRow"]
+custom_minimum_size = Vector2(560, 48)
+layout_mode = 2
+size_flags_vertical = 4
+min_value = 0.5
+max_value = 2.0
+step = 0.05
+value = 1.0
+
 [node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/VBoxContainer" unique_id=1141022542]
 layout_mode = 2
 size_flags_horizontal = 4
@@ -128,6 +152,7 @@ text = "Exit"
 
 [connection signal="value_changed" from="ColorRect/VBoxContainer/SettingsBox/MusicRow/MusicSlider" to="." method="_on_music_slider_value_changed"]
 [connection signal="value_changed" from="ColorRect/VBoxContainer/SettingsBox/SfxRow/SfxSlider" to="." method="_on_sfx_slider_value_changed"]
+[connection signal="value_changed" from="ColorRect/VBoxContainer/SettingsBox/MouseRow/MouseSlider" to="." method="_on_mouse_slider_value_changed"]
 [connection signal="pressed" from="ColorRect/VBoxContainer/HBoxContainer/Restart Button" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="ColorRect/VBoxContainer/HBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]
 [connection signal="pressed" from="ColorRect/VBoxContainer/HBoxContainer/Exit Button" to="." method="_on_button_pressed"]

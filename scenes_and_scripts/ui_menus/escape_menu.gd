@@ -5,6 +5,7 @@ extends Control
 @onready var exit_button: Button = $ColorRect/VBoxContainer/HBoxContainer/"Exit Button"
 @onready var music_slider: HSlider = $ColorRect/VBoxContainer/SettingsBox/MusicRow/MusicSlider
 @onready var sfx_slider: HSlider = $ColorRect/VBoxContainer/SettingsBox/SfxRow/SfxSlider
+@onready var mouse_slider: HSlider = $ColorRect/VBoxContainer/SettingsBox/MouseRow/MouseSlider
 
 var _open_tween: Tween
 var _breathe_tween: Tween
@@ -48,6 +49,7 @@ func hide_menu() -> void:
 func _seed_sliders() -> void:
 	music_slider.set_value_no_signal(SettingsManager.music_volume)
 	sfx_slider.set_value_no_signal(SettingsManager.sfx_volume)
+	mouse_slider.set_value_no_signal(SettingsManager.mouse_sensitivity)
 
 func _on_music_slider_value_changed(value: float) -> void:
 	SettingsManager.music_volume = value
@@ -57,6 +59,10 @@ func _on_music_slider_value_changed(value: float) -> void:
 func _on_sfx_slider_value_changed(value: float) -> void:
 	SettingsManager.sfx_volume = value
 	SettingsManager.apply_audio()
+	_settings_dirty = true
+
+func _on_mouse_slider_value_changed(value: float) -> void:
+	SettingsManager.mouse_sensitivity = value
 	_settings_dirty = true
 
 func _start_breathe() -> void:

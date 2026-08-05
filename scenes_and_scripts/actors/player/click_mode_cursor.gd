@@ -25,6 +25,8 @@ const MANIFEST_STATES: Array[GameManager.GameState] = [
 	GameManager.GameState.SPECIAL_ROOM,
 ]
 
+@export var mouse_sensitivity: float = 1.0
+
 var _cursor: Node2D
 var _gold: Node2D
 var _paddle_ghost: Node2D
@@ -84,8 +86,9 @@ func _input(event: InputEvent) -> void:
 		return
 	var motion: InputEventMouseMotion = event as InputEventMouseMotion
 	if motion != null:
-		_virtual_pos = _clamped_viewport_point(_virtual_pos + motion.relative)
-		_push_synthetic_motion(motion.relative)
+		var scaled: Vector2 = motion.relative * mouse_sensitivity * SettingsManager.mouse_sensitivity
+		_virtual_pos = _clamped_viewport_point(_virtual_pos + scaled)
+		_push_synthetic_motion(scaled)
 		_mark_input_handled()
 		return
 	var button: InputEventMouseButton = event as InputEventMouseButton
