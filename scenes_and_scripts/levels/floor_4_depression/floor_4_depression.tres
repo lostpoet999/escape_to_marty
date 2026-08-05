@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="FloorData" format=3 uid="uid://f4floor0001"]
 
 [ext_resource type="Script" uid="uid://pnkwdspwmpwe" path="res://scenes_and_scripts/levels/room_entry.gd" id="1_re4"]
-[ext_resource type="AudioStream" uid="uid://blht250753d37" path="res://music_and_ambient/depression.wav" id="1_xtsgx"]
+[ext_resource type="AudioStream" uid="uid://c76dbwab1g4bx" path="res://music_and_ambient/depression_ms_loop.wav" id="1_xtsgx"]
 [ext_resource type="Script" uid="uid://bvs3ugvgbabkc" path="res://scenes_and_scripts/levels/floor_data.gd" id="2_fd4"]
 [ext_resource type="Script" uid="uid://ccw8ssedjvd48" path="res://scenes_and_scripts/bricks/seal_difficulty.gd" id="3_sd4"]
 [ext_resource type="Script" uid="uid://cqac2vv2p8oga" path="res://scenes_and_scripts/bricks/seal_phase_config.gd" id="4_spc4"]

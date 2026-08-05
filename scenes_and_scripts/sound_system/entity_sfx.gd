@@ -5,9 +5,29 @@ extends Node
 var sound_dict: Dictionary = {}
 var active_counts: Dictionary = {}
 
+const UI_CLICK_SOUND: String = "ui_select"
+
 func _ready() -> void:
 	for sound: SoundEntry in sounds:
 		sound_dict[sound.name] = sound
+	get_tree().node_added.connect(_on_node_added)
+	_hook_existing_buttons(get_tree().root)
+
+func _hook_existing_buttons(node: Node) -> void:
+	_on_node_added(node)
+	for child: Node in node.get_children():
+		_hook_existing_buttons(child)
+
+func _on_node_added(node: Node) -> void:
+	var button: BaseButton = node as BaseButton
+	if button == null:
+		return
+	if button.pressed.is_connected(_on_button_pressed):
+		return
+	button.pressed.connect(_on_button_pressed)
+
+func _on_button_pressed() -> void:
+	play_sound(UI_CLICK_SOUND)
 
 func play_sound(sound_name: String) -> AudioStreamPlayer:	
 	if not sound_dict.has(sound_name):
@@ -24,6 +44,7 @@ func play_sound(sound_name: String) -> AudioStreamPlayer:
 			return null
 	var sfx_player: AudioStreamPlayer = AudioStreamPlayer.new()
 	sfx_player.name = "loop_" + sound_name if sound.loop_sound else sound_name
+	sfx_player.process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(sfx_player)
 	sfx_player.bus = "SFX"
 	sfx_player.stream = sound.audio
