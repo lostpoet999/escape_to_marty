@@ -162,8 +162,8 @@ metadata/_custom_type_script = "uid://2fgoca4drc17"
 script = ExtResource("2_3pagk")
 name = "ui_select"
 audio = ExtResource("20_uisel")
-volume_db = 8.0
-pitch_scale = 0.8
+volume_db = 20.0
+pitch_scale = 1.5
 pitch_variance = 0.2
 metadata/_custom_type_script = "uid://2fgoca4drc17"
 
