@@ -156,7 +156,7 @@ size_flags_stretch_ratio = 3.0
 theme_override_constants/separation = 40
 alignment = 1
 
-[node name="Continue Button" type="Button" parent="VBoxContainer/ButtonContainer"]
+[node name="Continue Button" type="Button" parent="VBoxContainer/ButtonContainer" unique_id=191054436]
 custom_minimum_size = Vector2(300, 120)
 layout_mode = 2
 size_flags_horizontal = 4

@@ -97,6 +97,8 @@ func _handle_clicks_and_hold()->void:
 	var seal: BaseSeal = target as BaseSeal
 	var was_denial: bool = seal != null and seal.current_stage == GameManager.PhaseType.DENIAL
 	var denial_max: float = seal.health_max if was_denial else 0.0
+	if seal != null:
+		SFX.play_sound("hit-brick")
 	click_behavior.apply(_gesture_context(GameManager.PhaseType.DENIAL, _gesture_damage()), target as Node2D)
 	if was_denial and is_instance_valid(seal) and not seal.dying and seal.current_stage != GameManager.PhaseType.DENIAL:
 		seal.arm_denial_revert(denial_max)
