@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://bvs3ugvgbabkc" path="res://scenes_and_scripts/levels/floor_data.gd" id="2_j7weq"]
 [ext_resource type="PackedScene" uid="uid://bhyu3nftn678w" path="res://scenes_and_scripts/levels/floor_1_the_intersection/start_1.tscn" id="2_nrnxw"]
 [ext_resource type="PackedScene" uid="uid://bordljimg38oq" path="res://scenes_and_scripts/levels/floor_1_the_intersection/combat_1_1.tscn" id="3_hqd6g"]
-[ext_resource type="AudioStream" uid="uid://cmhfefas60ff3" path="res://music_and_ambient/happy_ms.wav" id="4_egy6m"]
+[ext_resource type="AudioStream" uid="uid://djtgid4yjyhkk" path="res://music_and_ambient/happy_ms_loop.wav" id="4_egy6m"]
 [ext_resource type="PackedScene" uid="uid://b3skgrm0cpgc1" path="res://scenes_and_scripts/levels/floor_1_the_intersection/combat_1_2.tscn" id="4_n2un6"]
 [ext_resource type="PackedScene" uid="uid://bk4fir2rv0b7w" path="res://scenes_and_scripts/levels/floor_1_the_intersection/combat_1_3.tscn" id="5_3m4i2"]
 [ext_resource type="PackedScene" uid="uid://7vttec5plsdk" path="res://scenes_and_scripts/levels/common_rooms/powerup_1.tscn" id="6_1f751"]
