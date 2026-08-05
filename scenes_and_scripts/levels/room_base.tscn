@@ -83,9 +83,6 @@ script = ExtResource("15_ckmpt")
 [node name="BallDamageLabel" type="CanvasLayer" parent="." unique_id=2086239281]
 script = ExtResource("15_bdmlb")
 
-[node name="ClickModeCursor" type="Node2D" parent="." unique_id=1985007121]
-script = ExtResource("16_ckcur")
-
 [node name="PlayArea" type="Control" parent="." unique_id=87831636]
 layout_mode = 3
 anchors_preset = 0
@@ -462,3 +459,6 @@ offset_left = 158.0
 offset_top = -44.0
 offset_right = 158.0
 offset_bottom = -44.0
+
+[node name="ClickModeCursor" type="Node2D" parent="." unique_id=1985007121]
+script = ExtResource("16_ckcur")

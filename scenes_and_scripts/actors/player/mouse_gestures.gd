@@ -51,7 +51,7 @@ var _ball_docked: bool = true
 
 func _input(event: InputEvent)->void:
 	
-	if event.is_action_pressed("click_mode_toggle") and GameManager.current_state != GameManager.GameState.MAIN_MENU:		
+	if event.is_action_pressed("click_mode_toggle") and GameManager.current_state != GameManager.GameState.MAIN_MENU and PlayerData.player_current_health > 0:
 		if GameManager.current_state != GameManager.GameState.CLICK_MODE:
 			GameManager.change_state(GameManager.GameState.CLICK_MODE)
 		elif GameManager.current_state == GameManager.GameState.CLICK_MODE:

@@ -209,6 +209,8 @@ func _get_scaled_half_width() -> float:
 	return (texture_width * sprite.scale.x * scale.x) / 2.0
 	
 func _on_game_state_playing() -> void:
+	if _death_running:
+		return
 	paddle_frozen = false
 	_set_desaturate(0.0)
 
@@ -239,7 +241,7 @@ func freeze_paddle_for_time(time: float)->void:
 	paddle_frozen = true	
 	
 func _on_freeze_timer_expire()->void:
-	if GameManager.current_state != GameManager.GameState.LEVEL_CLEARED:
+	if GameManager.current_state != GameManager.GameState.LEVEL_CLEARED and not _death_running:
 		paddle_frozen=false
 
 func apply_web(shakes_to_break: int) -> void:
@@ -399,13 +401,29 @@ func _zoom_camera_on_david() -> void:
 	if cam == null:
 		return
 	var base_zoom: Vector2 = cam.zoom
-	var base_center: Vector2 = cam.get_screen_center_position()
-	var max_shift: Vector2 = cam.get_viewport_rect().size * 0.5 / base_zoom * (1.0 - 1.0 / death_zoom)
+	var base_center: Vector2 = cam.get_screen_center_position() - cam.offset
+	var base_half_view: Vector2 = cam.get_viewport_rect().size * 0.5 / base_zoom
+	var half_view: Vector2 = base_half_view / death_zoom
 	var focus: Vector2 = (ghost_david.get_node("GhostSprite") as Node2D).global_position
-	var shift: Vector2 = (focus - base_center).clamp(-max_shift, max_shift)
+	var base_view: Rect2 = Rect2(base_center - base_half_view, base_half_view * 2.0)
+	var bounds: Rect2 = base_view
+	var room: RoomBase = get_tree().current_scene as RoomBase
+	if room != null:
+		var left: float = maxf(room.play_area.get_global_rect().position.x, base_view.position.x)
+		bounds = Rect2(left, base_view.position.y, base_view.end.x - left, base_view.size.y)
+	var target: Vector2 = Vector2(
+		_clamp_view_axis(focus.x, bounds.position.x, bounds.end.x, half_view.x),
+		_clamp_view_axis(focus.y, bounds.position.y, bounds.end.y, half_view.y)
+	)
+	var shift: Vector2 = target - base_center
 	var cam_tween: Tween = cam.create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	cam_tween.parallel().tween_property(cam, "zoom", base_zoom * death_zoom, death_zoom_time)
 	cam_tween.parallel().tween_property(cam, "global_position", cam.global_position + shift, death_zoom_time)
+
+func _clamp_view_axis(value: float, rect_min: float, rect_max: float, half: float) -> float:
+	if rect_max - rect_min <= half * 2.0:
+		return (rect_min + rect_max) * 0.5
+	return clampf(value, rect_min + half, rect_max - half)
 
 func _pop_heart() -> void:
 	var orb: Node2D = david.get_node("DavidHitTarget/LifeForceOrb")

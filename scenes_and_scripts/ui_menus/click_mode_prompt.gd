@@ -22,12 +22,24 @@ var _label: Label
 var _applied_state: int = -1
 var _base_color: Color = PROMPT_COLOR_PLAYING
 var _animation_time: float = 0.0
+var _death_hidden: bool = false
 
 func _ready() -> void:
 	layer = PROMPT_LAYER
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_build_prompt()
 	_box.visible = false
+	Signalbus.player_died.connect(_on_player_died)
+	Signalbus.game_state_playing.connect(_on_death_window_closed)
+	Signalbus.game_state_main_menu.connect(_on_death_window_closed)
+
+func _on_player_died() -> void:
+	_death_hidden = true
+
+func _on_death_window_closed() -> void:
+	if PlayerData.player_current_health <= 0:
+		return
+	_death_hidden = false
 
 func _build_prompt() -> void:
 	_box = VBoxContainer.new()
@@ -81,6 +93,8 @@ func _animate_flash() -> void:
 	_label.add_theme_constant_override("outline_size", int(round(flash * PROMPT_FLASH_GLOW_SIZE)))
 
 func _should_show() -> bool:
+	if _death_hidden:
+		return false
 	if GameManager.current_state != GameManager.GameState.PLAYING and GameManager.current_state != GameManager.GameState.CLICK_MODE:
 		return false
 	if DialogDirector.focused_active:

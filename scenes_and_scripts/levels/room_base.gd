@@ -14,6 +14,9 @@ const PLAYER_HURT_TRAUMA: float = 0.8
 @export var game_over_dim_time: float = 0.5
 var _dim_tween: Tween
 var _play_area_dimmed: bool = false
+var _hud_tween: Tween
+var _hud_hidden: bool = false
+var _hud_prev_alpha: float = 1.0
 
 const MERCY_FLASH_COLOR: Color = Color.GOLD
 
@@ -77,6 +80,8 @@ var entry: RoomEntry
 @onready var loot_items_data: LootItemsData
 @onready var item_box: Itembox
 @onready var no_respawn: Node2D = $"No-Respawn"
+@onready var play_area: Control = $PlayArea
+@onready var hud_ui_area: Control = $HUDLayer/UIArea
 @onready var play_background: ColorRect = $PlayArea/Background
 @onready var flash_overlay: ColorRect = $PlayArea/FlashOverlay
 @onready var misty_background: Node2D = $"PlayArea/Misty-Background"
@@ -134,6 +139,9 @@ func _ready() -> void:
 	Signalbus.game_state_game_over.connect(_dim_play_area)
 	Signalbus.game_state_playing.connect(_restore_play_area)
 	Signalbus.game_state_main_menu.connect(_restore_play_area)
+	Signalbus.player_died.connect(_hide_hud_for_death)
+	Signalbus.game_state_playing.connect(_restore_hud_after_death)
+	Signalbus.game_state_main_menu.connect(_restore_hud_after_death)
 	initiate_special_room()
 	if entry.content.room_type == RoomContent.ROOM_TYPES.combat:
 		DialogDirector.play(&"first_combat_room")
@@ -169,6 +177,25 @@ func _tween_room_modulate(target: Color) -> void:
 		_dim_tween.kill()
 	_dim_tween = create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	_dim_tween.tween_property(self, "modulate", target, game_over_dim_time)
+
+func _hide_hud_for_death() -> void:
+	if _hud_hidden:
+		return
+	_hud_hidden = true
+	_hud_prev_alpha = hud_ui_area.modulate.a
+	_tween_hud_alpha(0.0, paddle.death_zoom_time)
+
+func _restore_hud_after_death() -> void:
+	if not _hud_hidden or PlayerData.player_current_health <= 0:
+		return
+	_hud_hidden = false
+	_tween_hud_alpha(_hud_prev_alpha, game_over_dim_time)
+
+func _tween_hud_alpha(target: float, duration: float) -> void:
+	if _hud_tween != null and _hud_tween.is_valid():
+		_hud_tween.kill()
+	_hud_tween = create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	_hud_tween.tween_property(hud_ui_area, "modulate:a", target, duration)
 
 func _on_player_damaged(amount: int) -> void:
 	flash_play_area(Color.RED)

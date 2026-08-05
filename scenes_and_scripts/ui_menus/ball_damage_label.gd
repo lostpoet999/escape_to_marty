@@ -19,11 +19,23 @@ var _box: VBoxContainer
 var _label: Label
 var _animation_time: float = 0.0
 var _shown_damage: float = -1.0
+var _death_hidden: bool = false
 
 func _ready() -> void:
 	layer = LABEL_LAYER
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_build_label()
+	Signalbus.player_died.connect(_on_player_died)
+	Signalbus.game_state_playing.connect(_on_death_window_closed)
+	Signalbus.game_state_main_menu.connect(_on_death_window_closed)
+
+func _on_player_died() -> void:
+	_death_hidden = true
+
+func _on_death_window_closed() -> void:
+	if PlayerData.player_current_health <= 0:
+		return
+	_death_hidden = false
 
 func _build_label() -> void:
 	_box = VBoxContainer.new()
@@ -73,4 +85,4 @@ func _animate_flash() -> void:
 	_label.add_theme_constant_override("outline_size", int(round(flash * LABEL_FLASH_GLOW_SIZE)))
 
 func _should_show() -> bool:
-	return PlayerInventory.instance != null
+	return PlayerInventory.instance != null and not _death_hidden
