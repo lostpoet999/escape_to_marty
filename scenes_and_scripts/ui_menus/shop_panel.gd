@@ -35,6 +35,7 @@ func _cost_label(i: int) -> Label:
 
 func _refresh() -> void:
 	if loot_items_data.shop_exhausted():
+		visible = false
 		queue_free()
 		return
 	for i: int in slots.size():
@@ -78,4 +79,6 @@ func _update_reroll() -> void:
 	reroll_button.disabled = PlayerData.shop_restock_vouchers <= 0
 
 func _on_mouse_entered_item(i: int) -> void:
+	if i >= loot_items_data.items.size():
+		return
 	_show_item_description(loot_items_data.items[i])
