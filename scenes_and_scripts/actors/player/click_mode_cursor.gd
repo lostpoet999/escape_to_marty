@@ -29,8 +29,11 @@ var _cursor: Node2D
 var _gold: Node2D
 var _paddle_ghost: Node2D
 var _following: bool = false
-var _locking_mouse: bool = false
-var _lift_mouse_target: Vector2
+var _transitioning: bool = false
+var _transition_elapsed: float = 0.0
+var _lift_start: Vector2
+var _virtual_pos: Vector2
+var _forwarding: bool = false
 var _was_manifested: bool = false
 var _tween: Tween
 var _gestures: MouseGestures
@@ -40,9 +43,7 @@ var _hover_tween: Tween
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	## the cursor rides its own CanvasLayer so it draws above the HUD's CanvasLayer
-	## (base-canvas z_index can never win against a layer); follow_viewport keeps
-	## the layer on the world camera transform so all world-space math stays valid
+	add_to_group(&"click_mode_cursor")
 	var cursor_layer: CanvasLayer = CanvasLayer.new()
 	cursor_layer.layer = CURSOR_LAYER
 	cursor_layer.follow_viewport_enabled = true
@@ -56,7 +57,7 @@ func _ready() -> void:
 	_gold_rest_scale = _gold.scale
 	_gold.modulate = GOLD_REST_COLOR
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	var manifested: bool = _should_manifest()
 	if manifested != _was_manifested:
 		_was_manifested = manifested
@@ -64,13 +65,73 @@ func _process(_delta: float) -> void:
 			_manifest_cursor()
 		else:
 			_settle_cursor()
-	if _locking_mouse:
-		_warp_mouse_to(_lift_mouse_target)
-	elif _following:
-		if not DialogDirector.focused_active and Input.get_mouse_mode() != Input.MOUSE_MODE_HIDDEN:
-			Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
-		_cursor.global_position = _aligned_cursor_position(_cursor.scale)
+	if _following:
+		if _transitioning:
+			_transition_elapsed += delta
+			var t: float = clampf(_transition_elapsed / TRANSITION_SECONDS, 0.0, 1.0)
+			var eased: float = 1.0 - (1.0 - t) * (1.0 - t)
+			_cursor.global_position = _lift_start.lerp(_aligned_cursor_position(_cursor.scale), eased)
+			if t >= 1.0:
+				_transitioning = false
+		else:
+			_cursor.global_position = _aligned_cursor_position(_cursor.scale)
 		_update_hover()
+
+func _input(event: InputEvent) -> void:
+	if _forwarding:
+		return
+	if not _following or DialogDirector.focused_active:
+		return
+	var motion: InputEventMouseMotion = event as InputEventMouseMotion
+	if motion != null:
+		_virtual_pos = _clamped_viewport_point(_virtual_pos + motion.relative)
+		_push_synthetic_motion(motion.relative)
+		_mark_input_handled()
+		return
+	var button: InputEventMouseButton = event as InputEventMouseButton
+	if button != null:
+		if button.pressed and Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED:
+			_virtual_pos = _clamped_viewport_point(button.position)
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		_push_synthetic_button(button)
+		_mark_input_handled()
+
+func _mark_input_handled() -> void:
+	var viewport: Viewport = get_viewport()
+	if viewport != null:
+		viewport.set_input_as_handled()
+
+func _push_synthetic_motion(rel: Vector2) -> void:
+	var ev: InputEventMouseMotion = InputEventMouseMotion.new()
+	ev.position = _virtual_pos
+	ev.global_position = _virtual_pos
+	ev.relative = rel
+	ev.screen_relative = rel
+	ev.button_mask = Input.get_mouse_button_mask()
+	_forward_event(ev)
+
+func _push_synthetic_button(source: InputEventMouseButton) -> void:
+	var ev: InputEventMouseButton = source.duplicate() as InputEventMouseButton
+	ev.position = _virtual_pos
+	ev.global_position = _virtual_pos
+	_forward_event(ev)
+
+func _forward_event(ev: InputEvent) -> void:
+	var viewport: Viewport = get_viewport()
+	if viewport == null:
+		return
+	_forwarding = true
+	viewport.push_input(ev, true)
+	_forwarding = false
+
+func pointer_active() -> bool:
+	return _following
+
+func pointer_viewport_position() -> Vector2:
+	return _virtual_pos
+
+func pointer_world_position() -> Vector2:
+	return _virtual_world()
 
 func _should_manifest() -> bool:
 	if _cutscene_running():
@@ -84,16 +145,20 @@ func _cutscene_running() -> bool:
 	return false
 
 func _aligned_cursor_position(at_scale: Vector2) -> Vector2:
-	return get_global_mouse_position() - _gold.position * at_scale
+	return _virtual_world() - _gold.position * at_scale
 
-func _warp_mouse_to(world_pos: Vector2) -> void:
-	var viewport: Viewport = get_viewport()
-	Input.warp_mouse(viewport.get_screen_transform() * (viewport.get_canvas_transform() * world_pos))
+func _virtual_world() -> Vector2:
+	return get_viewport().get_canvas_transform().affine_inverse() * _virtual_pos
+
+func _clamped_viewport_point(point: Vector2) -> Vector2:
+	var rect: Rect2 = get_viewport().get_visible_rect()
+	return point.clamp(rect.position, rect.end)
 
 func _manifest_cursor() -> void:
 	if GameManager.current_state == GameManager.GameState.CLICK_MODE:
 		_pulse_click_targets()
 	if not _resolve_paddle_ghost():
+		GameManager.set_mouse_visible()
 		return
 	_following = false
 	_kill_tween()
@@ -103,24 +168,21 @@ func _manifest_cursor() -> void:
 	_gold.visible = true
 	_cursor.global_position = _paddle_ghost.global_position
 	_cursor.scale = _paddle_ghost.scale
-	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	var target_scale: Vector2 = _paddle_ghost.scale * CURSOR_SCALE_FACTOR
 	var lift_origin: Vector2 = _paddle_ghost.global_position - Vector2(0, RELEASE_LIFT)
-	_lift_mouse_target = lift_origin + _gold.position * target_scale
-	_locking_mouse = true
-	_warp_mouse_to(_lift_mouse_target)
-	_tween = create_tween().set_parallel(true).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-	_tween.tween_property(_cursor, "global_position", lift_origin, TRANSITION_SECONDS)
-	_tween.tween_property(_cursor, "scale", target_scale, TRANSITION_SECONDS)
-	_tween.chain().tween_callback(_begin_follow)
-
-func _begin_follow() -> void:
-	_locking_mouse = false
+	_virtual_pos = _clamped_viewport_point(get_viewport().get_canvas_transform() * (lift_origin + _gold.position * target_scale))
+	_lift_start = _paddle_ghost.global_position
+	_transition_elapsed = 0.0
+	_transitioning = true
 	_following = true
+	_tween = create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	_tween.tween_property(_cursor, "scale", target_scale, TRANSITION_SECONDS)
+	_push_synthetic_motion(Vector2.ZERO)
 
 func _settle_cursor() -> void:
 	_following = false
-	_locking_mouse = false
+	_transitioning = false
 	_kill_tween()
 	_reset_gold_visuals()
 	if _paddle_ghost == null or not is_instance_valid(_paddle_ghost):

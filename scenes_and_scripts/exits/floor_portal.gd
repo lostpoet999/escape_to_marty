@@ -36,16 +36,13 @@ func deactivate() -> void:
 func is_click_responsive() -> bool:
 	return input_pickable
 
-func _input_event(_viewport: Viewport, event: InputEvent, _shape_idx: int) -> void:
+func handle_gesture_click() -> void:
 	if not input_pickable:
 		return
-	if event is InputEventMouseButton:
-		var mb: InputEventMouseButton = event
-		if mb.pressed and mb.button_index == MOUSE_BUTTON_LEFT:
-			if not _travel_ready:
-				if advances_floor:
-					DialogDirector.play(&"floor_portal_locked")
-				return
-			portal_clicked.emit()
-			if advances_floor:
-				Signalbus.floor_cleared.emit()
+	if not _travel_ready:
+		if advances_floor:
+			DialogDirector.play(&"floor_portal_locked")
+		return
+	portal_clicked.emit()
+	if advances_floor:
+		Signalbus.floor_cleared.emit()

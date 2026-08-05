@@ -91,7 +91,7 @@ signal wall_hit(source: Node2D, wall: Node2D, damage: float, dmg_types: Array)
 @warning_ignore("unused_signal")
 signal wall_walker_removed(walker: Node2D)
 
-## Emits: scenes_and_scripts/exits/floor_portal.gd -> _input_event()
+## Emits: scenes_and_scripts/exits/floor_portal.gd -> handle_gesture_click()
 ## Connects: scenes_and_scripts/singletons/game_manager.gd -> floor_cleared
 @warning_ignore("unused_signal")
 signal floor_cleared

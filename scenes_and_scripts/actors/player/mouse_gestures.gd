@@ -3,6 +3,11 @@ class_name MouseGestures extends Node2D
 const DEFAULT_CLICK_DMG: float = 1.0
 const BARGAIN_SWEEP_MAX_STEP: float = 1.0 / 30.0
 const DEPRESSION_LIGHT: PackedScene = preload("res://scenes_and_scripts/actors/player/depression_light.tscn")
+const EXIT_CLICK_STATES: Array[GameManager.GameState] = [
+	GameManager.GameState.CLICK_MODE,
+	GameManager.GameState.LEVEL_CLEARED,
+	GameManager.GameState.SPECIAL_ROOM,
+]
 
 var click_behavior: HitBehavior
 var hold_probe: CircleShape2D
@@ -10,6 +15,7 @@ var hold_behavior: HitBehavior
 
 var mouse_down: bool = false
 var mouse_down_time: float = 0.0
+var _click_cursor: ClickModeCursor
 
 @export var click_dmg_type: Array[GameManager.PhaseType] #gesture would impact this??
 @export_category("Click & Hold Config")
@@ -65,6 +71,11 @@ func _input(event: InputEvent)->void:
 			GameManager.change_state(GameManager.GameState.PLAYING)
 			
 	
+	if event is InputEventMouseButton and GameManager.current_state in EXIT_CLICK_STATES:
+		var exit_click: InputEventMouseButton = event
+		if exit_click.pressed and exit_click.button_index == MOUSE_BUTTON_LEFT:
+			_try_exit_click()
+
 	if GameManager.current_state == GameManager.GameState.CLICK_MODE:
 		if not event is InputEventMouseButton:
 			return
@@ -92,7 +103,7 @@ func _input(event: InputEvent)->void:
 func _handle_clicks_and_hold()->void:
 	var target: Node = _get_target_under_mouse()
 	if target == null:
-		_place_depression_light(get_global_mouse_position())
+		_place_depression_light(_pointer_world_position())
 		return
 	var seal: BaseSeal = target as BaseSeal
 	var was_denial: bool = seal != null and seal.current_stage == GameManager.PhaseType.DENIAL
@@ -182,7 +193,7 @@ func _handle_anger_aoe()->void:
 func _gesture_context(verb_type: GameManager.PhaseType, base: float) -> HitContext:
 	var ctx: HitContext = HitContext.new()
 	ctx.source = self
-	ctx.hit_point = get_global_mouse_position()
+	ctx.hit_point = _pointer_world_position()
 	ctx.collision_mask = 0xFFFFFFFF
 	ctx.base_damage = base
 	var verb_types: Array[GameManager.PhaseType] = [verb_type]
@@ -255,12 +266,38 @@ func is_gesture_target(target: Variant) -> bool:
 		return not verbs.is_empty()
 	return target.has_method("accept_damage")
 
+func _try_exit_click() -> void:
+	var hovered: Control = get_viewport().gui_get_hovered_control()
+	if hovered != null and hovered.mouse_filter == Control.MOUSE_FILTER_STOP:
+		return
+	for result: Dictionary in _point_query_under_mouse():
+		var node: Node = result.collider as Node
+		if node != null and node.has_method("handle_gesture_click"):
+			node.handle_gesture_click()
+			return
+
 func _point_query_under_mouse() -> Array[Dictionary]:
 	var space: PhysicsDirectSpaceState2D = get_viewport().get_world_2d().direct_space_state
 	var query: PhysicsPointQueryParameters2D = PhysicsPointQueryParameters2D.new()
-	query.position = get_viewport().get_mouse_position()
+	query.position = _pointer_query_position()
 	query.collide_with_areas = true
 	return space.intersect_point(query)
+
+func _pointer_query_position() -> Vector2:
+	if _resolve_click_cursor() and _click_cursor.pointer_active():
+		return _click_cursor.pointer_viewport_position()
+	return get_viewport().get_mouse_position()
+
+func _pointer_world_position() -> Vector2:
+	if _resolve_click_cursor() and _click_cursor.pointer_active():
+		return _click_cursor.pointer_world_position()
+	return get_global_mouse_position()
+
+func _resolve_click_cursor() -> bool:
+	if _click_cursor != null and is_instance_valid(_click_cursor):
+		return true
+	_click_cursor = get_tree().get_first_node_in_group(&"click_mode_cursor") as ClickModeCursor
+	return _click_cursor != null
 
 func _is_bargain_target(target: Node) -> bool:
 	return target is BaseSeal and target.current_stage == GameManager.PhaseType.BARGAINING
@@ -299,7 +336,7 @@ func _draw() -> void:
 		_draw_bargain()
 		return
 	if hold_indicator_radius > 0.0:
-		draw_circle(to_local(get_global_mouse_position()), hold_indicator_radius, Color(0.5, 0.85, 1.0, 0.6))
+		draw_circle(to_local(_pointer_world_position()), hold_indicator_radius, Color(0.5, 0.85, 1.0, 0.6))
 
 func _process(delta: float) -> void:
 	_tick_darkness(delta)

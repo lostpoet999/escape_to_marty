@@ -184,13 +184,10 @@ func enter_state(change_to_state: GameState) -> void:
 			pause_game()
 		GameState.CLICK_MODE:
 			Engine.time_scale = 0.5 * SettingsManager.game_speed
-			set_mouse_visible()
 			Signalbus.game_state_click_mode.emit()
-		GameState.LEVEL_CLEARED:			
-			set_mouse_visible()
+		GameState.LEVEL_CLEARED:
 			Signalbus.game_state_click_mode.emit()
 		GameState.SPECIAL_ROOM:
-			set_mouse_visible()
 			Signalbus.game_state_special_room.emit()
 		GameState.DEBUG_PANEL:
 			set_mouse_visible()

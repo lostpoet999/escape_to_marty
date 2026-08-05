@@ -105,11 +105,8 @@ func _targets_bonus_room()-> bool:
 		return false
 	return room_ref[target_id].content.room_type == RoomContent.ROOM_TYPES.bonus_room
 
-func _input_event(_viewport: Viewport, event: InputEvent, _shape_idx: int) -> void:
-	if event is InputEventMouseButton:
-		var mouse_event: InputEventMouseButton = event as InputEventMouseButton
-		if mouse_event.pressed and mouse_event.button_index == MOUSE_BUTTON_LEFT:
-			_on_exit_clicked()
+func handle_gesture_click() -> void:
+	_on_exit_clicked()
 
 func _on_exit_clicked()-> void:
 	if _is_secret_unrevealed():
