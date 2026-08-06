@@ -5,6 +5,8 @@ var decay_rate: float = 1.5
 var max_offset: float = 8.0
 
 func _process(delta: float) -> void:
+	if shake == 0.0:
+		return
 	shake = max(0.0, shake - decay_rate * delta)
 	var intensity: float = shake * shake
 	offset = Vector2(

@@ -90,7 +90,8 @@ var entry: RoomEntry
 
 
 func _process(delta: float) -> void:
-	game_state_lbl.text = "Game State: " + GameManager.GameState.keys()[GameManager.current_state]
+	if game_state_lbl.visible:
+		game_state_lbl.text = "Game State: " + GameManager.GameState.keys()[GameManager.current_state]
 	_tick_mercy_timer(delta)
 
 	
@@ -124,6 +125,7 @@ func _ready() -> void:
 	bricks_in_level = get_tree().get_nodes_in_group("bricks").size()
 	_room_had_bricks = bricks_in_level > 0
 	_mercy_room_eligible = mercy_clear_enabled and bricks_in_level > 1 and not room_state.cleared
+	game_state_lbl.visible = OS.is_debug_build()
 	current_room_lbl.text = "Current Room: " + GameManager.current_room_id
 	Signalbus.gold_updated.emit()
 	Signalbus.score_updated.emit()
@@ -553,6 +555,10 @@ func _apply_floor_wall_visuals() -> void:
 					child.flip_v = rng.randi() % 2 == 0
 	play_background.color = fd.background_color
 	misty_background.visible = fd.misty_background_enabled
+	for child: Node in misty_background.get_children():
+		var particles := child as CPUParticles2D
+		if particles != null:
+			particles.emitting = fd.misty_background_enabled
 
 func _jittered(base: Color, amount: float, rng: RandomNumberGenerator) -> Color:
 	if amount <= 0.0:

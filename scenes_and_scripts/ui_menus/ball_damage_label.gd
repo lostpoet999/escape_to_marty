@@ -20,6 +20,7 @@ var _label: Label
 var _animation_time: float = 0.0
 var _shown_damage: float = -1.0
 var _death_hidden: bool = false
+var _flash_active: bool = false
 
 func _ready() -> void:
 	layer = LABEL_LAYER
@@ -76,9 +77,12 @@ func _refresh_text() -> void:
 func _animate_flash() -> void:
 	var time_into_flash: float = fmod(_animation_time, LABEL_FLASH_INTERVAL)
 	if time_into_flash >= LABEL_FLASH_SECONDS:
-		_label.add_theme_color_override("font_color", LABEL_COLOR)
-		_label.add_theme_constant_override("outline_size", 0)
+		if _flash_active:
+			_flash_active = false
+			_label.add_theme_color_override("font_color", LABEL_COLOR)
+			_label.add_theme_constant_override("outline_size", 0)
 		return
+	_flash_active = true
 	var flash: float = sin(PI * time_into_flash / LABEL_FLASH_SECONDS)
 	_label.add_theme_color_override("font_color", LABEL_COLOR.lerp(ApolloPalette.TEXT_HOVER, flash))
 	_label.add_theme_color_override("font_outline_color", Color(ApolloPalette.TEXT_HOVER, flash))

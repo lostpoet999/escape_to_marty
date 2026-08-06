@@ -339,11 +339,15 @@ func continue_run() -> void:
 	load_current_room()
 
 func _configure_frame_rate() -> void:
-	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)	
+	if OS.has_feature("web"):
+		Engine.max_fps = 60
+		Engine.physics_ticks_per_second = 60
+		return
+	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
 	var refresh_rate: float = DisplayServer.screen_get_refresh_rate()
 	if refresh_rate <= 0:
 		refresh_rate = 60.0
-	
+
 	Engine.max_fps = int(minf(refresh_rate * 2.0, 300.0))
 	
 

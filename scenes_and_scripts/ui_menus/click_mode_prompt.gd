@@ -23,6 +23,7 @@ var _applied_state: int = -1
 var _base_color: Color = PROMPT_COLOR_PLAYING
 var _animation_time: float = 0.0
 var _death_hidden: bool = false
+var _flash_active: bool = false
 
 func _ready() -> void:
 	layer = PROMPT_LAYER
@@ -84,9 +85,12 @@ func _apply_state_style() -> void:
 func _animate_flash() -> void:
 	var time_into_flash: float = fmod(_animation_time, PROMPT_FLASH_INTERVAL)
 	if time_into_flash >= PROMPT_FLASH_SECONDS:
-		_label.add_theme_color_override("font_color", _base_color)
-		_label.add_theme_constant_override("outline_size", 0)
+		if _flash_active:
+			_flash_active = false
+			_label.add_theme_color_override("font_color", _base_color)
+			_label.add_theme_constant_override("outline_size", 0)
 		return
+	_flash_active = true
 	var flash: float = sin(PI * time_into_flash / PROMPT_FLASH_SECONDS)
 	_label.add_theme_color_override("font_color", _base_color.lerp(ApolloPalette.TEXT_HOVER, flash))
 	_label.add_theme_color_override("font_outline_color", Color(ApolloPalette.TEXT_HOVER, flash))
@@ -99,4 +103,4 @@ func _should_show() -> bool:
 		return false
 	if DialogDirector.focused_active:
 		return false
-	return get_tree().get_nodes_in_group(&"skip_prompt").is_empty()
+	return get_tree().get_first_node_in_group(&"skip_prompt") == null

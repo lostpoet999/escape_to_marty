@@ -73,7 +73,8 @@ func _physics_process(_delta: float) -> void:
 	var bodies: Array[Node2D] = _area.get_overlapping_bodies()
 	var found: bool = false
 	for body: Node2D in bodies:
-		p("overlapping %s" % body)
+		if DEBUG:
+			p("overlapping %s" % body)
 		if check(body):
 			p("it's a match!")
 			found = true
