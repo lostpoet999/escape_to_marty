@@ -71,8 +71,6 @@ var bricks_cleared: bool = false
 var level_clear_emitted: bool = false
 var gold_in_level: int = 0
 var bricks_in_level: int = 0
-@onready var game_state_lbl: Label = $PlayArea/GameState_Lbl
-@onready var current_room_lbl: Label = $PlayArea/CurrentRoom_Lbl
 @onready var item_spawn_point: Marker2D = $item_spawn_point
 
 var room_state: RoomState
@@ -90,8 +88,6 @@ var entry: RoomEntry
 
 
 func _process(delta: float) -> void:
-	if game_state_lbl.visible:
-		game_state_lbl.text = "Game State: " + GameManager.GameState.keys()[GameManager.current_state]
 	_tick_mercy_timer(delta)
 
 	
@@ -125,8 +121,6 @@ func _ready() -> void:
 	bricks_in_level = get_tree().get_nodes_in_group("bricks").size()
 	_room_had_bricks = bricks_in_level > 0
 	_mercy_room_eligible = mercy_clear_enabled and bricks_in_level > 1 and not room_state.cleared
-	game_state_lbl.visible = OS.is_debug_build()
-	current_room_lbl.text = "Current Room: " + GameManager.current_room_id
 	Signalbus.gold_updated.emit()
 	Signalbus.score_updated.emit()
 	Signalbus.player_health_updated.emit()

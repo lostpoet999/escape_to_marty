@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://f5collectts0"]
+
+[ext_resource type="Script" uid="uid://f5collectgd0" path="res://scenes_and_scripts/levels/floor_5_the_collector/collector.gd" id="1_coll"]
+[ext_resource type="Material" uid="uid://b6u55aep337u5" path="res://scenes_and_scripts/actors/enemies/specific_enemies/no_see_me_demon(Deon)/whiteout_shader.tres" id="2_flash"]
+[ext_resource type="Texture2D" uid="uid://dwrg8jy0fw6gq" path="res://character_design_files/collector_idle_spritesheet.png" id="3_idle"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_coll"]
+size = Vector2(150, 160)
+
+[node name="Collector" type="CharacterBody2D" unique_id=1856741201 groups=["bounce_enemy"]]
+script = ExtResource("1_coll")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1389364990]
+material = ExtResource("2_flash")
+texture = ExtResource("3_idle")
+hframes = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1489539601]
+shape = SubResource("RectangleShape2D_coll")

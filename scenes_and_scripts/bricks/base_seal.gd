@@ -269,7 +269,7 @@ func _damage_current_stage(damage: float) -> void:
 		if fx != null:
 			fx.position = global_position
 			get_tree().current_scene.add_child(fx)
-		PlayerData.update_player_score(PHASE_SCORES[current_stage])
+		_grant_score(current_stage)
 		if current_stage == GameManager.PhaseType.HEALTH:
 			dying = true
 			pop_tween()
@@ -304,6 +304,9 @@ func _collapse_stages_to_health() -> void:
 			stages.erase(stage)
 	pick_random_stage()
 	_update_stage_label()
+
+func _grant_score(stage: GameManager.PhaseType) -> void:
+	PlayerData.update_player_score(PHASE_SCORES[stage])
 
 func _spawn_damage_number(damage: float) -> void:
 	var damage_number: DamageNumber = DAMAGE_NUMBER.instantiate()
@@ -408,7 +411,7 @@ func _resolve_undercut(bid: float, sweet_low: float, price: int) -> BargainOutco
 
 func _settle_deal(cost: int, allow_damage: bool = true) -> void:
 	PlayerData.pay_bargain_cost(cost, allow_damage)
-	PlayerData.update_player_score(PHASE_SCORES[GameManager.PhaseType.BARGAINING])
+	_grant_score(GameManager.PhaseType.BARGAINING)
 	var fx: Node2D = brick_damage_fx.instantiate()
 	if fx != null:
 		fx.position = global_position

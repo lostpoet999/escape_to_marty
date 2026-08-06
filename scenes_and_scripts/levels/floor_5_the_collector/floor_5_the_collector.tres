@@ -1,0 +1,65 @@
+[gd_resource type="Resource" script_class="FloorData" format=3 uid="uid://f5floor0001"]
+
+[ext_resource type="Script" uid="uid://pnkwdspwmpwe" path="res://scenes_and_scripts/levels/room_entry.gd" id="1_re5"]
+[ext_resource type="AudioStream" uid="uid://c76dbwab1g4bx" path="res://music_and_ambient/depression_ms_loop.wav" id="1_mus5"]
+[ext_resource type="Script" uid="uid://bvs3ugvgbabkc" path="res://scenes_and_scripts/levels/floor_data.gd" id="2_fd5"]
+[ext_resource type="Script" uid="uid://ccw8ssedjvd48" path="res://scenes_and_scripts/bricks/seal_difficulty.gd" id="3_sd5"]
+[ext_resource type="Script" uid="uid://cqac2vv2p8oga" path="res://scenes_and_scripts/bricks/seal_phase_config.gd" id="4_spc5"]
+[ext_resource type="Script" uid="uid://b1eqt2or38kw6" path="res://scenes_and_scripts/item_spawning/spawn_weights_resource.gd" id="5_sw5"]
+[ext_resource type="Script" uid="uid://roomcontent0" path="res://scenes_and_scripts/levels/room_content.gd" id="6_rc5"]
+[ext_resource type="Texture2D" uid="uid://cqn6snt1p5bby" path="res://scenes_and_scripts/walls/1x1_wall_gray_avg.png" id="7_wt5"]
+[ext_resource type="PackedScene" uid="uid://f5boss00001" path="res://scenes_and_scripts/levels/floor_5_the_collector/boss_5.tscn" id="9_b5"]
+
+[sub_resource type="Resource" id="Resource_b5cont"]
+script = ExtResource("6_rc5")
+room_scene = ExtResource("9_b5")
+room_type = 5
+
+[sub_resource type="Resource" id="Resource_b5slot"]
+script = ExtResource("1_re5")
+room_coords = Vector2i(1, 1)
+content = SubResource("Resource_b5cont")
+
+[sub_resource type="Resource" id="Resource_f5diff"]
+script = ExtResource("3_sd5")
+super_easy = 30.0
+easy = 30.0
+medium = 20.0
+hard = 20.0
+metadata/_custom_type_script = "uid://ccw8ssedjvd48"
+
+[sub_resource type="Resource" id="Resource_f5hp"]
+script = ExtResource("4_spc5")
+phase_type = 5
+min_health = 10.0
+max_health = 25.0
+metadata/_custom_type_script = "uid://cqac2vv2p8oga"
+
+[sub_resource type="Resource" id="Resource_f5sw"]
+script = ExtResource("5_sw5")
+common = 45.0
+uncommon = 33.0
+rare = 15.0
+very_rare = 7.0
+metadata/_custom_type_script = "uid://b1eqt2or38kw6"
+
+[resource]
+script = ExtResource("2_fd5")
+music = ExtResource("1_mus5")
+spawn_weight = SubResource("Resource_f5sw")
+seal_difficulty_rates = SubResource("Resource_f5diff")
+seal_health_phase = SubResource("Resource_f5hp")
+max_respawn = 3
+floor_name_id = "The Collector"
+room_entries = Array[ExtResource("1_re5")]([SubResource("Resource_b5slot")])
+grid_size = Vector2i(1, 1)
+wall_texture = ExtResource("7_wt5")
+wall_modulate = Color(0.22352941, 0.2901961, 0.3137255, 1)
+background_color = Color(0.062745094, 0.078431375, 0.12156863, 1)
+bg_key_light_color = Color(0.34117648, 0.44705883, 0.46666667, 1)
+bg_fog_color = Color(0.08235294, 0.11372549, 0.15686275, 1)
+bg_glow_intensity = 0.15
+bg_sky_top_color = Color(0.062745094, 0.078431375, 0.12156863, 1)
+bg_sky_horizon_color = Color(0.1254902, 0.18039216, 0.21568628, 1)
+bg_saturation = 0.7
+metadata/_custom_type_script = "uid://bvs3ugvgbabkc"

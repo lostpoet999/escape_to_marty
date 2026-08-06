@@ -76,7 +76,7 @@ func _input(event: InputEvent)->void:
 		if exit_click.pressed and exit_click.button_index == MOUSE_BUTTON_LEFT:
 			_try_exit_click()
 
-	if GameManager.current_state == GameManager.GameState.CLICK_MODE:
+	if _gestures_active():
 		if not event is InputEventMouseButton:
 			return
 		var mouse_event: InputEventMouseButton = event
@@ -245,7 +245,7 @@ func get_hover_target() -> Node:
 	return results[0].collider
 
 func _is_hover_responsive(collider: Variant) -> bool:
-	if GameManager.current_state == GameManager.GameState.CLICK_MODE and is_gesture_target(collider):
+	if _gestures_active() and is_gesture_target(collider):
 		return true
 	return collider.has_method("is_click_responsive") and collider.is_click_responsive()
 
@@ -256,6 +256,12 @@ func _is_pickable_control(control: Control) -> bool:
 	if button == null or button.disabled:
 		return false
 	return button.get_meta(&"click_pickable", false)
+
+func _gestures_active() -> bool:
+	if GameManager.current_state == GameManager.GameState.CLICK_MODE:
+		return true
+	return GameManager.current_state == GameManager.GameState.SPECIAL_ROOM \
+			and get_tree().get_first_node_in_group(&"practice_seal") != null
 
 func is_gesture_target(target: Variant) -> bool:
 	var seal: BaseSeal = target as BaseSeal
@@ -341,7 +347,7 @@ func _draw() -> void:
 func _process(delta: float) -> void:
 	_tick_darkness(delta)
 	if bargain_active:
-		if GameManager.current_state != GameManager.GameState.CLICK_MODE:
+		if not _gestures_active():
 			_resolve_bargain()
 			return
 		bargain_bid = minf(bargain_bid + minf(delta, BARGAIN_SWEEP_MAX_STEP) / bargain_sweep_duration, 1.0)

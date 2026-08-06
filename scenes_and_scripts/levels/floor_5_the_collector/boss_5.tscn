@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://f5boss00001"]
+
+[ext_resource type="PackedScene" uid="uid://bea1h3570swpu" path="res://scenes_and_scripts/levels/room_base.tscn" id="1_u1v84"]
+[ext_resource type="PackedScene" uid="uid://f5collectts0" path="res://scenes_and_scripts/levels/floor_5_the_collector/collector.tscn" id="3_coll"]
+[ext_resource type="PackedScene" uid="uid://flrportal001" path="res://scenes_and_scripts/exits/floor_portal.tscn" id="6_portal"]
+[ext_resource type="Script" uid="uid://deonencroom0" path="res://scenes_and_scripts/levels/deon_encounter_room.gd" id="7_deonroom"]
+[ext_resource type="PackedScene" uid="uid://encprgbar01" path="res://scenes_and_scripts/ui_menus/encounter_progress_bar.tscn" id="8_epbar"]
+
+[node name="BossRoom5" unique_id=565861230 instance=ExtResource("1_u1v84")]
+script = ExtResource("7_deonroom")
+post_encounter_tree = null
+
+[node name="DeathWall" parent="PlayArea/Walls" parent_id_path=PackedInt32Array(76639453) index="0" unique_id=518440941]
+z_index = -100
+position = Vector2(288, 960)
+
+[node name="Background" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="1" unique_id=306947289]
+metadata/_edit_lock_ = true
+
+[node name="Encounter" type="Node" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="5" unique_id=1568655012]
+
+[node name="Collector" parent="PlayArea/Encounter" index="0" unique_id=1856741201 instance=ExtResource("3_coll")]
+position = Vector2(1096, 336)
+
+[node name="EncounterProgressBar" parent="PlayArea/Encounter" index="1" unique_id=1475231804 instance=ExtResource("8_epbar")]
+title = "The Collector"
+
+[node name="FloorPortal" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="6" unique_id=1860885060 instance=ExtResource("6_portal")]
+position = Vector2(804, 540)
+
+[node name="item_spawn_point" parent="." index="12" unique_id=51076593]
+position = Vector2(1021, 736)

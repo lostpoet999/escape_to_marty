@@ -376,21 +376,6 @@ color = Color(0.09411765, 0.039215688, 0.06666667, 1)
 [node name="Misty-Background" parent="PlayArea" unique_id=1449763183 instance=ExtResource("12_2ndtm")]
 position = Vector2(806, 544)
 
-[node name="GameState_Lbl" type="Label" parent="PlayArea" unique_id=793042494]
-layout_mode = 0
-offset_left = 53.0
-offset_top = 19.0
-offset_right = 93.0
-offset_bottom = 42.0
-
-[node name="CurrentRoom_Lbl" type="Label" parent="PlayArea" unique_id=443116913]
-layout_mode = 0
-offset_left = 418.0
-offset_top = 19.0
-offset_right = 526.0
-offset_bottom = 42.0
-text = "Current Floor:"
-
 [node name="FlashOverlay" type="ColorRect" parent="PlayArea" unique_id=443116914]
 z_index = 4096
 layout_mode = 1

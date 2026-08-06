@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bea1h3570swpu" path="res://scenes_and_scripts/levels/room_base.tscn" id="1_ydske"]
 [ext_resource type="FontFile" uid="uid://ce5jk1ok7f4r5" path="res://label_settings_and_fonts/fonts/PressStart2P-Regular.ttf" id="2_4xu00"]
 [ext_resource type="PackedScene" uid="uid://cm1kspxv86400" path="res://scenes_and_scripts/bricks/open_seal.tscn" id="3_m2r8p"]
+[ext_resource type="Script" uid="uid://practseal0gd" path="res://scenes_and_scripts/bricks/practice_seal.gd" id="4_prac"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_oufug"]
 font = ExtResource("2_4xu00")
@@ -19,7 +20,7 @@ offset_left = 391.0
 offset_top = 288.0
 offset_right = 1223.0
 offset_bottom = 585.0
-text = "1. Click the the green barrier to move to the first room.
+text = "1. Click the green barrier to move to the first room.
 
 2. In combat rooms you will have to clear seals to unlock the exits.
 
@@ -32,6 +33,7 @@ label_settings = SubResource("LabelSettings_oufug")
 autowrap_mode = 3
 
 [node name="OpenSeal2" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="4" unique_id=1038486442 instance=ExtResource("3_m2r8p")]
+script = ExtResource("4_prac")
 position = Vector2(679, 736)
 initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({
