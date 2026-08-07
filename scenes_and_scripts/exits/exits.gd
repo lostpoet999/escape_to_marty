@@ -6,6 +6,8 @@ const SECRET_FLASH_IN_TIME: float = 0.1
 const SECRET_FLASH_OUT_TIME: float = 0.4
 const SECRET_FLASH_INTERVAL_MIN: float = 8.0
 const SECRET_FLASH_INTERVAL_MAX: float = 12.0
+const SECRET_FLASH_FIRST_MIN: float = 1.5
+const SECRET_FLASH_FIRST_MAX: float = 3.0
 const SECRET_FLASHES_PER_BARK_MIN: int = 3
 const SECRET_FLASHES_PER_BARK_MAX: int = 4
 const SECRET_SOUND_BOOST_DB: float = 3.5
@@ -187,12 +189,14 @@ func show_closed_door()-> void:
 	exit_barrier_closed.show()
 	exit_barrier_open.hide()
 	self.input_pickable = false
+	_set_particles(_is_secret_revealed())
 
 func show_open_door()-> void:
 	walls_no_door.hide()
 	exit_barrier_closed.hide()
 	exit_barrier_open.show()
 	self.input_pickable = true
+	_set_particles(true)
 
 func show_secret_wall()-> void:
 	walls_no_door.show()
@@ -200,16 +204,29 @@ func show_secret_wall()-> void:
 	exit_barrier_closed.hide()
 	exit_barrier_open.hide()
 	self.input_pickable = true
+	_set_particles(false)
 	if travel_locked:
 		return
 	if room_cleared and _targets_uncollected_memory():
+		_set_particles(true)
 		_start_memory_glow()
 	else:
 		_start_secret_flash()
 
+# no-combat rooms have no ball hits to betray the wall, so the idle tell
+# fires fast there or nobody sees it before leaving
 func _start_secret_flash()-> void:
 	_flashes_until_bark = randi_range(SECRET_FLASHES_PER_BARK_MIN, SECRET_FLASHES_PER_BARK_MAX)
-	_queue_secret_flash()
+	if _in_no_combat_room():
+		_flash_tween = create_tween()
+		_flash_tween.tween_interval(randf_range(SECRET_FLASH_FIRST_MIN, SECRET_FLASH_FIRST_MAX))
+		_chain_flash_steps()
+	else:
+		_queue_secret_flash()
+
+func _in_no_combat_room()-> bool:
+	var here: RoomEntry = room_ref[GameManager.current_room_id]
+	return here.content.room_type in RoomContent.AUTO_CLEAR_ROOM_TYPES
 
 func _start_memory_glow()-> void:
 	_flash_tween = create_tween().set_loops()
@@ -257,6 +274,25 @@ func show_walls()-> void:
 	exit_barrier_closed.hide()
 	exit_barrier_open.hide()
 	self.input_pickable = false
+	_set_particles(false)
+
+func _set_particles(on: bool)-> void:
+	var particles: CPUParticles2D = get_node_or_null("exit_particles") as CPUParticles2D
+	if particles == null:
+		return
+	particles.emitting = on
+	var light: PointLight2D = particles.get_node_or_null("ExitLight") as PointLight2D
+	if light != null:
+		light.enabled = on and GameManager.floor_data != null \
+				and GameManager.floor_data.depression_lights_enabled
+
+func _is_secret_revealed()-> bool:
+	var target_id: String = _target_id()
+	if target_id == "" or not room_ref.has(target_id):
+		return false
+	if not room_ref[target_id].content.is_secret:
+		return false
+	return _direction_key() in _current_room_state().revealed_exits
 
 func enable_exits()-> void:
 	room_cleared = true

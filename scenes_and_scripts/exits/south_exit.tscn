@@ -9,7 +9,7 @@ size = Vector2(128, 64)
 [node name="SouthExit" unique_id=618575957 instance=ExtResource("1_jt87b")]
 
 [node name="exit_particles" parent="." index="0" unique_id=633668457 instance=ExtResource("2_bocl2")]
-position = Vector2(0, -64)
+position = Vector2(0, -128)
 rotation = -1.5707964
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1" unique_id=2121695436]

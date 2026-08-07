@@ -9,7 +9,7 @@ size = Vector2(64, 128)
 [node name="WestExit" unique_id=618575957 instance=ExtResource("1_2q54b")]
 
 [node name="exit_particles" parent="." index="0" unique_id=633668457 instance=ExtResource("2_ahksb")]
-position = Vector2(64, 0)
+position = Vector2(128, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1" unique_id=43937749]
 shape = SubResource("RectangleShape2D_2q54b")

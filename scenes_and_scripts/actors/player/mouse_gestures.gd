@@ -19,7 +19,7 @@ var _click_cursor: ClickModeCursor
 
 @export var click_dmg_type: Array[GameManager.PhaseType] #gesture would impact this??
 @export_category("Click & Hold Config")
-@export var click_vs_hold: float = 0.2
+@export var click_vs_hold: float = 0.1
 @export var hold_duration_max: float = 3.0
 ## Multiplier on how fast the anger hold accrues charge; >1 reaches full charge sooner.
 @export var anger_charge_rate: float = 1.3
