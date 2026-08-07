@@ -1,23 +1,27 @@
 [gd_scene format=3 uid="uid://dldewve8r7d7i"]
 
 [ext_resource type="PackedScene" uid="uid://csxt8ng8rhxo" path="res://scenes_and_scripts/exits/exit_base.tscn" id="1_2q54b"]
+[ext_resource type="PackedScene" uid="uid://feb8l5v61x11" path="res://scenes_and_scripts/exits/exit_particles.tscn" id="2_ahksb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2q54b"]
 size = Vector2(64, 128)
 
 [node name="WestExit" unique_id=618575957 instance=ExtResource("1_2q54b")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0" unique_id=43937749]
+[node name="exit_particles" parent="." index="0" unique_id=633668457 instance=ExtResource("2_ahksb")]
+position = Vector2(64, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1" unique_id=43937749]
 shape = SubResource("RectangleShape2D_2q54b")
 
-[node name="ExitBarrier_closed" parent="." index="1" unique_id=1059702]
+[node name="ExitBarrier_closed" parent="." index="2" unique_id=1059702]
 offset_left = -32.0
 offset_top = 64.0
 offset_right = 96.0
 offset_bottom = 128.0
 rotation = -1.5707964
 
-[node name="ExitBarrier_open" parent="." index="2" unique_id=1415348688]
+[node name="ExitBarrier_open" parent="." index="3" unique_id=1415348688]
 offset_left = -32.0
 offset_top = 64.0
 offset_right = 96.0

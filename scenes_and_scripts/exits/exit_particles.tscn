@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://feb8l5v61x11"]
+
+[ext_resource type="Texture2D" uid="uid://befajfg1phsl6" path="res://scenes_and_scripts/actors/player/player_ghost_particles.png" id="1_3jlfx"]
+
+[sub_resource type="Gradient" id="Gradient_kdu0b"]
+offsets = PackedFloat32Array(0.0028653145, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
+
+[node name="exit_particles" type="CPUParticles2D" unique_id=633668457]
+amount = 64
+texture = ExtResource("1_3jlfx")
+lifetime = 2.0
+emission_shape = 3
+emission_rect_extents = Vector2(1, 64)
+direction = Vector2(-16, 0)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 16.0
+initial_velocity_max = 32.0
+scale_amount_min = 0.01
+scale_amount_max = 0.02
+color_ramp = SubResource("Gradient_kdu0b")
