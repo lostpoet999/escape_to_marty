@@ -189,7 +189,7 @@ func show_closed_door()-> void:
 	exit_barrier_closed.show()
 	exit_barrier_open.hide()
 	self.input_pickable = false
-	_set_particles(_is_secret_revealed())
+	_set_particles(false)
 
 func show_open_door()-> void:
 	walls_no_door.hide()
@@ -285,14 +285,6 @@ func _set_particles(on: bool)-> void:
 	if light != null:
 		light.enabled = on and GameManager.floor_data != null \
 				and GameManager.floor_data.depression_lights_enabled
-
-func _is_secret_revealed()-> bool:
-	var target_id: String = _target_id()
-	if target_id == "" or not room_ref.has(target_id):
-		return false
-	if not room_ref[target_id].content.is_secret:
-		return false
-	return _direction_key() in _current_room_state().revealed_exits
 
 func enable_exits()-> void:
 	room_cleared = true
