@@ -1,11 +1,12 @@
 [gd_resource type="Resource" script_class="FloorData" format=3 uid="uid://f5floor0001"]
 
-[ext_resource type="Script" uid="uid://pnkwdspwmpwe" path="res://scenes_and_scripts/levels/room_entry.gd" id="1_re5"]
 [ext_resource type="AudioStream" uid="uid://c76dbwab1g4bx" path="res://music_and_ambient/depression_ms_loop.wav" id="1_mus5"]
+[ext_resource type="Script" uid="uid://pnkwdspwmpwe" path="res://scenes_and_scripts/levels/room_entry.gd" id="1_re5"]
 [ext_resource type="Script" uid="uid://bvs3ugvgbabkc" path="res://scenes_and_scripts/levels/floor_data.gd" id="2_fd5"]
 [ext_resource type="Script" uid="uid://ccw8ssedjvd48" path="res://scenes_and_scripts/bricks/seal_difficulty.gd" id="3_sd5"]
 [ext_resource type="Script" uid="uid://cqac2vv2p8oga" path="res://scenes_and_scripts/bricks/seal_phase_config.gd" id="4_spc5"]
 [ext_resource type="Script" uid="uid://b1eqt2or38kw6" path="res://scenes_and_scripts/item_spawning/spawn_weights_resource.gd" id="5_sw5"]
+[ext_resource type="Script" uid="uid://dm8qchhbo37mu" path="res://scenes_and_scripts/actors/enemies/enemy_config.gd" id="6_q7o34"]
 [ext_resource type="Script" uid="uid://roomcontent0" path="res://scenes_and_scripts/levels/room_content.gd" id="6_rc5"]
 [ext_resource type="Texture2D" uid="uid://cqn6snt1p5bby" path="res://scenes_and_scripts/walls/1x1_wall_gray_avg.png" id="7_wt5"]
 [ext_resource type="PackedScene" uid="uid://f5boss00001" path="res://scenes_and_scripts/levels/floor_5_the_collector/boss_5.tscn" id="9_b5"]
