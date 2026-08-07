@@ -21,6 +21,13 @@ func pick_random_stage() -> void:
 func _grant_score(_stage: GameManager.PhaseType) -> void:
 	pass
 
+func resolve_bargain(bid: float) -> BargainOutcome:
+	var sweet: Vector2 = bargain_sweet_range()
+	var outcome: BargainOutcome = super(bid)
+	if outcome == BargainOutcome.DEAL and bid >= sweet.x and bid <= sweet.y:
+		PlayerData.play_gold_pickup_sfx()
+	return outcome
+
 func _practice_poof() -> void:
 	dying = true
 	if brick_destroy_fx != null:

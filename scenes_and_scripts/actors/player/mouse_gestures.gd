@@ -260,8 +260,10 @@ func _is_pickable_control(control: Control) -> bool:
 func _gestures_active() -> bool:
 	if GameManager.current_state == GameManager.GameState.CLICK_MODE:
 		return true
-	return GameManager.current_state == GameManager.GameState.SPECIAL_ROOM \
-			and get_tree().get_first_node_in_group(&"practice_seal") != null
+	if GameManager.current_state != GameManager.GameState.LEVEL_CLEARED \
+			and GameManager.current_state != GameManager.GameState.SPECIAL_ROOM:
+		return false
+	return get_tree().get_first_node_in_group(&"practice_seal") != null
 
 func is_gesture_target(target: Variant) -> bool:
 	var seal: BaseSeal = target as BaseSeal
