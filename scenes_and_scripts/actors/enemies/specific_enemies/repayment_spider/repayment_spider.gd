@@ -14,8 +14,8 @@ const WEB_SPEED_MIN: float = 125.0
 const WEB_SPEED_MAX: float = 195.0
 const WALL_CLEARANCE: float = 130.0
 const SPREAD_ATTEMPTS: int = 14
-const HEALTH_MIN: float = 15.0
-const HEALTH_MAX: float = 25.0
+const HEALTH_MIN: float = 12.0
+const HEALTH_MAX: float = 20.0
 
 var _pays_out: bool = false
 var _room: SpiderEncounterRoom

@@ -2,15 +2,30 @@ class_name PracticeSeal
 extends BaseSeal
 
 @export var respawn_delay: float = 1.5
+## Starts invisible, uncollidable, and OUT of the practice_seal group until reveal() is called — for rooms where a cutscene owns the early clicks.
+@export var starts_hidden: bool = false
 
 var _practice_stages: Dictionary[GameManager.PhaseType, float]
 var _practice_armed: bool = false
 
+@onready var _practice_collision: CollisionShape2D = $CollisionShape2D
+
 func _ready() -> void:
-	add_to_group(&"practice_seal")
+	if not starts_hidden:
+		add_to_group(&"practice_seal")
 	super()
 	_practice_stages = stages.duplicate()
 	_practice_armed = true
+	if starts_hidden:
+		hide()
+		_practice_collision.set_deferred("disabled", true)
+
+func reveal() -> void:
+	if is_in_group(&"practice_seal"):
+		return
+	add_to_group(&"practice_seal")
+	show()
+	_practice_collision.set_deferred("disabled", false)
 
 func pick_random_stage() -> void:
 	if _practice_armed and stages.is_empty():

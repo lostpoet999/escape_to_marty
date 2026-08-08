@@ -126,12 +126,6 @@ tooltip_text = "Heal the player by 5, clamped to max health."
 theme_override_styles/normal = SubResource("StyleBoxFlat_vy6bg")
 text = "Heal"
 
-[node name="stolen_gold_btn" type="Button" parent="Panel/HBoxContainer/TrackedVariables/VBoxContainer/GridContainer" unique_id=863765940]
-layout_mode = 2
-tooltip_text = "Add 5 to the stolen-gold ledger the floor-3 climax pays back."
-theme_override_styles/normal = SubResource("StyleBoxFlat_vy6bg")
-text = "Stolen"
-
 [node name="TrackedVariable_lbl" type="Label" parent="Panel/HBoxContainer/TrackedVariables/VBoxContainer" unique_id=970531247]
 layout_mode = 2
 text = "Tracked Variables"
@@ -145,4 +139,3 @@ layout_mode = 2
 [connection signal="pressed" from="Panel/HBoxContainer/TrackedVariables/VBoxContainer/GridContainer/enable_exits_btn" to="." method="_on_enable_exits_btn_pressed"]
 [connection signal="pressed" from="Panel/HBoxContainer/TrackedVariables/VBoxContainer/GridContainer/give_gold_btn" to="." method="_on_give_gold_btn_pressed"]
 [connection signal="pressed" from="Panel/HBoxContainer/TrackedVariables/VBoxContainer/GridContainer/heal_btn" to="." method="_on_heal_btn_pressed"]
-[connection signal="pressed" from="Panel/HBoxContainer/TrackedVariables/VBoxContainer/GridContainer/stolen_gold_btn" to="." method="_on_stolen_gold_btn_pressed"]

@@ -14,7 +14,6 @@ var free_miss_shields: int = 0
 var item_shields_spent: int = 0
 var pick2_vouchers: int = 0
 var shop_restock_vouchers: int = 0
-var spider_stolen_gold: int = 0
 
 var inventory: PlayerInventory
 var room_state: Dictionary = {}
@@ -70,7 +69,6 @@ func initialize_player_data() -> void:
 	item_shields_spent = 0
 	pick2_vouchers = 0
 	shop_restock_vouchers = 0
-	spider_stolen_gold = 0
 	room_state.clear()
 	seen_dialog_trees.clear()
 	seen_cutscenes.clear()
@@ -210,7 +208,6 @@ func build_checkpoint() -> Dictionary:
 		"item_shields_spent": item_shields_spent,
 		"pick2_vouchers": pick2_vouchers,
 		"shop_restock_vouchers": shop_restock_vouchers,
-		"spider_stolen_gold": spider_stolen_gold,
 		"bankruptcy_gold_per_life_bonus": bankruptcy_gold_per_life_bonus,
 		"bankruptcy_damage_per_life_bonus": bankruptcy_damage_per_life_bonus,
 		"seen_dialog_trees": seen_dialog_trees.map(func(id: StringName) -> String: return String(id)),
@@ -237,7 +234,6 @@ func restore_checkpoint(data: Dictionary) -> void:
 	item_shields_spent = int(data.get("item_shields_spent", 0))
 	pick2_vouchers = int(data.get("pick2_vouchers", 0))
 	shop_restock_vouchers = int(data.get("shop_restock_vouchers", 0))
-	spider_stolen_gold = int(data.get("spider_stolen_gold", 0))
 	bankruptcy_gold_per_life_bonus = int(data.get("bankruptcy_gold_per_life_bonus", 0))
 	bankruptcy_damage_per_life_bonus = int(data.get("bankruptcy_damage_per_life_bonus", 0))
 	seen_dialog_trees.clear()

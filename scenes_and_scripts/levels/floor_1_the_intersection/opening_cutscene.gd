@@ -21,6 +21,8 @@ const SKIP_FLASH_GLOW_SIZE: int = 8
 
 ## The seal used in the opening scene.
 @export var seal: BaseSeal
+## The denial practice seal, revealed once the cutscene is over (or was already seen).
+@export var practice_seal: PracticeSeal
 
 var active: bool = false
 var _break_position: Vector2
@@ -41,6 +43,7 @@ func _ready() -> void:
 
 func run() -> void:
 	if PlayerData.seen_cutscenes.has(CUTSCENE_ID):
+		_reveal_practice_seal()
 		return
 	PlayerData.seen_cutscenes.append(CUTSCENE_ID)
 	active = true
@@ -69,6 +72,7 @@ func run() -> void:
 		return
 	_set_tutorial_visible(true)
 	_set_exits_locked(false)
+	_reveal_practice_seal()
 	_remove_skip_prompt()
 	active = false
 
@@ -99,6 +103,12 @@ func _skip_to_end() -> void:
 	paddle.set_paddle_hidden(false, true)
 	_set_tutorial_visible(true)
 	_set_exits_locked(false)
+	_reveal_practice_seal()
+
+
+func _reveal_practice_seal() -> void:
+	if practice_seal != null:
+		practice_seal.reveal()
 
 
 func _set_exits_locked(locked: bool) -> void:

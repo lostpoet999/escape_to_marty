@@ -8,6 +8,7 @@ const HEART_ARC_SAG: float = 40.0
 const OFFSCREEN_DROP_DISTANCE: float = 900.0
 const OFFSCREEN_DROP_TIME: float = 0.5
 const STRAY_FLOOR_Y: float = 1300.0
+const FACE_FRAME: int = 1
 
 @export var hurts_on_miss: bool = false ## Red spit coin: reaching the DeathWall arcs to David's heart for 1 damage before the coin is destroyed; off = a plain lost coin (death-burst drops).
 var launch_velocity: Vector2 = Vector2.ZERO
@@ -15,6 +16,7 @@ var _resolving_miss: bool = false
 
 func _ready() -> void:
 	super()
+	sprite.frame = FACE_FRAME
 	if hurts_on_miss:
 		sprite.modulate = MISS_TINT
 	var room: SpiderEncounterRoom = get_tree().current_scene as SpiderEncounterRoom
@@ -96,12 +98,14 @@ func _drop_off_screen() -> void:
 	tw.tween_property(self, "position:y", position.y + OFFSCREEN_DROP_DISTANCE, OFFSCREEN_DROP_TIME)
 	await tw.finished
 
+func _advance_frame(_delta: float) -> void:
+	pass
+
 func _bezier(t: float, p0: Vector2, p1: Vector2, p2: Vector2) -> Vector2:
 	var u: float = 1.0 - t
 	return u * u * p0 + 2.0 * u * t * p1 + t * t * p2
 
 func _notify_resolved() -> void:
-	PlayerData.spider_stolen_gold = maxi(PlayerData.spider_stolen_gold - 1, 0)
 	var room: SpiderEncounterRoom = get_tree().current_scene as SpiderEncounterRoom
 	if room != null:
 		room.coin_resolved(hurts_on_miss)

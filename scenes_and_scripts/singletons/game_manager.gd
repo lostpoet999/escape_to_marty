@@ -359,6 +359,7 @@ func load_scene(scene: PackedScene) -> void:
 	get_tree().change_scene_to_packed(scene)
 	
 func load_current_room()-> void:
+	LoadingScreen.raise()
 	MusicPlayer.play_song(floor_data.music, floor_data.music_volume_db)
 	get_tree().change_scene_to_packed(scene_ref)
 

@@ -3,6 +3,7 @@ class_name MouseGestures extends Node2D
 const DEFAULT_CLICK_DMG: float = 1.0
 const BARGAIN_SWEEP_MAX_STEP: float = 1.0 / 30.0
 const DEPRESSION_LIGHT: PackedScene = preload("res://scenes_and_scripts/actors/player/depression_light.tscn")
+const NO_SLOWMO_CLICK_SCALE: float = 2.0
 const EXIT_CLICK_STATES: Array[GameManager.GameState] = [
 	GameManager.GameState.CLICK_MODE,
 	GameManager.GameState.LEVEL_CLEARED,
@@ -75,6 +76,8 @@ func _input(event: InputEvent)->void:
 		var exit_click: InputEventMouseButton = event
 		if exit_click.pressed and exit_click.button_index == MOUSE_BUTTON_LEFT:
 			_try_exit_click()
+			if not is_inside_tree():
+				return
 
 	if _gestures_active():
 		if not event is InputEventMouseButton:
@@ -95,7 +98,7 @@ func _input(event: InputEvent)->void:
 				_resolve_bargain()
 			elif mouse_down: #released, detect click vs hold
 				mouse_down = false
-				if mouse_down_time <= click_vs_hold:
+				if mouse_down_time <= _click_window():
 					_handle_clicks_and_hold()
 				else:
 					_handle_anger_aoe()
@@ -257,6 +260,11 @@ func _is_pickable_control(control: Control) -> bool:
 		return false
 	return button.get_meta(&"click_pickable", false)
 
+func _click_window() -> float:
+	if GameManager.current_state == GameManager.GameState.CLICK_MODE:
+		return click_vs_hold
+	return click_vs_hold * NO_SLOWMO_CLICK_SCALE
+
 func _gestures_active() -> bool:
 	if GameManager.current_state == GameManager.GameState.CLICK_MODE:
 		return true
@@ -359,10 +367,11 @@ func _process(delta: float) -> void:
 		return
 	if mouse_down:
 		mouse_down_time += delta
-		if mouse_down_time >= click_vs_hold and mouse_down_time - delta < click_vs_hold:
+		var window: float = _click_window()
+		if mouse_down_time >= window and mouse_down_time - delta < window:
 			_reset_hold_visuals()
-		if mouse_down_time > click_vs_hold:
-			var pct : float = minf((mouse_down_time - click_vs_hold) * anger_charge_rate / hold_duration_max, 1.0) #TODO: tie this to powerups for AE and  more anger dmg
+		if mouse_down_time > window:
+			var pct : float = minf((mouse_down_time - window) * anger_charge_rate / hold_duration_max, 1.0) #TODO: tie this to powerups for AE and  more anger dmg
 			hold_indicator_radius = ease(pct, 0.4) * 48.0
 			queue_redraw()
 	else:

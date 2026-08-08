@@ -142,6 +142,7 @@ func _ready() -> void:
 	if entry.content.room_type == RoomContent.ROOM_TYPES.combat:
 		DialogDirector.play(&"first_combat_room")
 	_run_cutscene_if_present()
+	LoadingScreen.lower()
 
 
 func _run_cutscene_if_present() -> void:

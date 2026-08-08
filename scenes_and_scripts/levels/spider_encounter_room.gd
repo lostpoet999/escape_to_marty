@@ -2,14 +2,13 @@ class_name SpiderEncounterRoom
 extends EncounterRoomBase
 
 const POUCH_SIZE: int = 3
-const TEST_STOLEN_GOLD: int = 20
+const REPAYMENT_POOL: int = 25
 const HEART_HIT_SPACING_MIN: float = 0.25
 const HEART_HIT_SPACING_MAX: float = 0.4
 
 @export var max_live_red_coins: int = 3 ## Cap on red spit coins in flight at once, encounter-wide; spiders with a full board idle their spit tick instead.
 @export var max_live_webs: int = 2 ## Cap on webs in flight at once, encounter-wide; web-blocked spiders idle their spit tick instead.
 
-var zero_stolen: bool = false
 var _next_heart_hit_time: float = 0.0
 var _unallocated: int = 0
 var _live_spiders: int = 0
@@ -21,11 +20,10 @@ var _resolved_coins: int = 0
 var _stage_two_max: int = 0
 
 func _ready() -> void:
-	_unallocated = TEST_STOLEN_GOLD if GameManager.test_floor_active else PlayerData.spider_stolen_gold
-	zero_stolen = _unallocated == 0
+	_unallocated = REPAYMENT_POOL
 	_initial_pool = _unallocated
 	await super()
-	if not zero_stolen and not encounter_cleared:
+	if not encounter_cleared:
 		Signalbus.encounter_progress.emit.call_deferred(1, 2, float(_initial_pool), float(_initial_pool))
 
 func allocate_pouch() -> int:
@@ -72,7 +70,7 @@ func _on_wall_walker_removed(walker: Node2D) -> void:
 	_check_encounter_done()
 
 func _emit_progress() -> void:
-	if zero_stolen or encounter_cleared:
+	if encounter_cleared:
 		return
 	var unresolved: int = _initial_pool - _resolved_coins
 	if unresolved > 0:
