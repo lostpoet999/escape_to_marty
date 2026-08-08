@@ -1,18 +1,29 @@
 class_name FreeItemPanel extends ItemSelectorPanelBase
 
+signal closed
+
 @onready var footer_label: Label = $VBoxContainer/Footer
+@onready var exit_button: Button = $VBoxContainer/ExitButton
 
 func _ready() -> void:
 	_style_item_description()
 	_configure_grid()
+	exit_button.pressed.connect(_on_exit_pressed)
+	exit_button.set_meta(&"click_pickable", true)
+	ApolloPalette.style_menu_button(exit_button)
 	_refresh()
 	_play_open_juice()
+
+func _on_exit_pressed() -> void:
+	closed.emit()
+	queue_free()
 
 func _picks_available() -> int:
 	return loot_items_data.free_picks_available()
 
 func _refresh() -> void:
 	if loot_items_data.free_pick_exhausted():
+		closed.emit()
 		queue_free()
 		return
 	_clear_slots()

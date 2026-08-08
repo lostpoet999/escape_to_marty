@@ -1,12 +1,16 @@
 class_name PracticeSeal
 extends BaseSeal
 
+const LINGER_GRACE: float = 0.15
+const DEFAULT_REVERT_WINDOW: float = 1.0
+
 @export var respawn_delay: float = 1.5
 ## Starts invisible, uncollidable, and OUT of the practice_seal group until reveal() is called — for rooms where a cutscene owns the early clicks.
 @export var starts_hidden: bool = false
 
 var _practice_stages: Dictionary[GameManager.PhaseType, float]
 var _practice_armed: bool = false
+var _poof_tween: Tween
 
 @onready var _practice_collision: CollisionShape2D = $CollisionShape2D
 
@@ -28,10 +32,39 @@ func reveal() -> void:
 	_practice_collision.set_deferred("disabled", false)
 
 func pick_random_stage() -> void:
-	if _practice_armed and stages.is_empty():
-		_practice_poof()
-		return
 	super()
+	if _practice_armed and stages.is_empty():
+		_begin_practice_linger()
+
+func accept_damage(damage: float, damage_types: Array) -> void:
+	if _poof_pending() and damage_types.has(GameManager.PhaseType.HEALTH):
+		super(damage, [])
+		return
+	super(damage, damage_types)
+
+func restore_denial(full_health: float) -> void:
+	_kill_poof_tween()
+	super(full_health)
+
+func _begin_practice_linger() -> void:
+	_kill_poof_tween()
+	_poof_tween = create_tween()
+	_poof_tween.tween_interval(_revert_window() + LINGER_GRACE)
+	_poof_tween.tween_callback(_practice_poof)
+
+func _revert_window() -> float:
+	var gestures: MouseGestures = get_tree().get_first_node_in_group(&"mouse_gestures") as MouseGestures
+	if gestures == null:
+		return DEFAULT_REVERT_WINDOW
+	return gestures.denial_revert_window
+
+func _poof_pending() -> bool:
+	return _poof_tween != null and _poof_tween.is_valid()
+
+func _kill_poof_tween() -> void:
+	if _poof_pending():
+		_poof_tween.kill()
+	_poof_tween = null
 
 func _grant_score(_stage: GameManager.PhaseType) -> void:
 	pass
@@ -44,6 +77,7 @@ func resolve_bargain(bid: float) -> BargainOutcome:
 	return outcome
 
 func _practice_poof() -> void:
+	_poof_tween = null
 	dying = true
 	if brick_destroy_fx != null:
 		var fx: Node2D = brick_destroy_fx.instantiate()

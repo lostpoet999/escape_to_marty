@@ -81,10 +81,15 @@ is_static = false
 east_exit = true
 west_exit = true
 
+[sub_resource type="Resource" id="Resource_cpdgy"]
+script = ExtResource("6_rc4")
+room_scene = ExtResource("12_iuj7f")
+room_type = 5
+
 [sub_resource type="Resource" id="Resource_srliv"]
 script = ExtResource("1_re4")
 room_coords = Vector2i(3, 4)
-is_static = false
+content = SubResource("Resource_cpdgy")
 east_exit = true
 west_exit = true
 
@@ -177,12 +182,6 @@ script = ExtResource("6_rc4")
 room_scene = ExtResource("10_cpdgy")
 room_type = 1
 
-[sub_resource type="Resource" id="Resource_hf0is"]
-script = ExtResource("6_rc4")
-room_scene = ExtResource("12_iuj7f")
-room_type = 5
-required = true
-
 [sub_resource type="Resource" id="Resource_f4diff"]
 script = ExtResource("3_sd4")
 super_easy = 30.0
@@ -224,7 +223,7 @@ seal_health_phase = SubResource("Resource_f4hp")
 max_respawn = 3
 floor_name_id = "Depression"
 room_entries = Array[ExtResource("1_re4")]([SubResource("Resource_x6ruf"), SubResource("Resource_kew2q"), SubResource("Resource_lqd5x"), SubResource("Resource_x3rsl"), SubResource("Resource_mwmll"), SubResource("Resource_vy0kp"), SubResource("Resource_cbo82"), SubResource("Resource_srliv"), SubResource("Resource_y661q"), SubResource("Resource_whjs0"), SubResource("Resource_flvm3"), SubResource("Resource_bpkve"), SubResource("Resource_xtsgx")])
-room_pool = Array[ExtResource("6_rc4")]([SubResource("Resource_eyfyo"), SubResource("Resource_8ywr7"), SubResource("Resource_sg5nb"), SubResource("Resource_uw3ts"), SubResource("Resource_q3ugj"), SubResource("Resource_hf0is")])
+room_pool = Array[ExtResource("6_rc4")]([SubResource("Resource_eyfyo"), SubResource("Resource_8ywr7"), SubResource("Resource_sg5nb"), SubResource("Resource_uw3ts"), SubResource("Resource_q3ugj")])
 show_mini_map = true
 wall_texture = ExtResource("7_wt4")
 wall_modulate = Color(0.22352941, 0.2901961, 0.3137255, 1)

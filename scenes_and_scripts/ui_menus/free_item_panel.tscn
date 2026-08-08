@@ -28,7 +28,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Spacer2" type="Control" parent="VBoxContainer" index="2" unique_id=1263086415]
-custom_minimum_size = Vector2(0, 150)
+custom_minimum_size = Vector2(0, 105)
 layout_mode = 2
 
 [node name="ItemGrid" type="GridContainer" parent="VBoxContainer" index="3" unique_id=1946128147]
@@ -37,7 +37,7 @@ layout_mode = 2
 columns = 3
 
 [node name="Spacer3" type="Control" parent="VBoxContainer" index="4" unique_id=262400209]
-custom_minimum_size = Vector2(0, 40)
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
 [node name="ItemDescription" type="RichTextLabel" parent="VBoxContainer" index="5" unique_id=468371289]
@@ -49,7 +49,7 @@ fit_content = true
 scroll_active = false
 
 [node name="Spacer4" type="Control" parent="VBoxContainer" index="6" unique_id=402232831]
-custom_minimum_size = Vector2(0, 40)
+custom_minimum_size = Vector2(0, 12)
 layout_mode = 2
 
 [node name="Footer" type="Label" parent="VBoxContainer" index="7" unique_id=1016545299]
@@ -57,3 +57,13 @@ layout_mode = 2
 text = "x1 free pick + 0 pick tickets..."
 label_settings = ExtResource("4_accent")
 horizontal_alignment = 1
+
+[node name="Spacer5" type="Control" parent="VBoxContainer" index="8" unique_id=1755093604]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+
+[node name="ExitButton" type="Button" parent="VBoxContainer" index="9" unique_id=873415920]
+custom_minimum_size = Vector2(220, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Exit"

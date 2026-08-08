@@ -1,7 +1,10 @@
 class_name ShopPanel extends ItemSelectorPanelBase
 
+signal closed
+
 @onready var reroll_button: Button = $VBoxContainer/Footer/RerollButton
 @onready var reroll_count_label: Label = $VBoxContainer/Footer/RerollCountLabel
+@onready var exit_button: Button = $VBoxContainer/Footer/ExitShopButton
 
 var slots: Array[Control] = []
 
@@ -21,6 +24,9 @@ func _ready() -> void:
 	reroll_button.pressed.connect(_on_reroll_pressed)
 	reroll_button.set_meta(&"click_pickable", true)
 	ApolloPalette.style_menu_button(reroll_button)
+	exit_button.pressed.connect(_on_exit_pressed)
+	exit_button.set_meta(&"click_pickable", true)
+	ApolloPalette.style_menu_button(exit_button)
 	_refresh()
 	_play_open_juice()
 
@@ -36,6 +42,7 @@ func _cost_label(i: int) -> Label:
 func _refresh() -> void:
 	if loot_items_data.shop_exhausted():
 		visible = false
+		closed.emit()
 		queue_free()
 		return
 	for i: int in slots.size():
@@ -73,6 +80,10 @@ func _on_reroll_pressed() -> void:
 		return
 	loot_items_data.generate_item_box()
 	_refresh()
+
+func _on_exit_pressed() -> void:
+	closed.emit()
+	queue_free()
 
 func _update_reroll() -> void:
 	reroll_count_label.text = "x%d" % PlayerData.shop_restock_vouchers

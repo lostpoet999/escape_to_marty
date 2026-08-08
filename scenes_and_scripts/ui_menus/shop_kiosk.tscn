@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://cshopkiosk1"]
+
+[ext_resource type="Script" uid="uid://1ts0uvbkeqa7" path="res://scenes_and_scripts/ui_menus/room_kiosk.gd" id="1_kiosk"]
+[ext_resource type="Texture2D" uid="uid://c2voi4wgwq6wy" path="res://scenes_and_scripts/collectibles/shop.png" id="2_shop"]
+
+[node name="ShopKiosk" type="Node2D" unique_id=1610394877]
+z_index = 500
+script = ExtResource("1_kiosk")
+
+[node name="KioskButton" type="TextureButton" parent="." unique_id=904718352]
+offset_right = 32.0
+offset_bottom = 32.0
+texture_normal = ExtResource("2_shop")
+
+[node name="KioskLabel" type="RichTextLabel" parent="." unique_id=1466170052]
+offset_left = -560.0
+offset_top = -152.0
+offset_right = 560.0
+offset_bottom = -152.0
+mouse_filter = 2
+bbcode_enabled = true
+text = "Shop: Click to spend your gold!"
+fit_content = true
+scroll_active = false
+
+[connection signal="pressed" from="KioskButton" to="." method="_on_kiosk_button_pressed"]

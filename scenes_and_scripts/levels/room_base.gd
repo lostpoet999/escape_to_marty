@@ -4,6 +4,9 @@ const ESCAPED_SPIRIT: PackedScene = preload("uid://5j2pau7yvts4")
 const DAMAGE_NUMBER: PackedScene = preload("uid://bedvoohhfbi03")
 const FREE_ITEM_PANEL: PackedScene = preload("uid://ct8n40refigl7")
 const SHOP_PANEL: PackedScene = preload("uid://cshoppanel1")
+const SHOP_KIOSK: PackedScene = preload("uid://cshopkiosk1")
+const FREE_ITEM_KIOSK: PackedScene = preload("uid://cfreekiosk01")
+const KIOSK_POSITION: Vector2 = Vector2(804, 570)
 const BONUS_ITEM_PANEL: PackedScene = preload("res://scenes_and_scripts/ui_menus/bonus_item_panel.tscn")
 
 const PLAYER_HURT_TRAUMA: float = 0.8
@@ -223,12 +226,47 @@ func initiate_special_room()->void:
 				room_state.generate_item_box()
 			if not room_state.loot_items_data.shop_exhausted():
 				loot_items_data = room_state.loot_items_data
-				var panel: ShopPanel = SHOP_PANEL.instantiate()
-				panel.z_index = 500
-				panel.setup(loot_items_data)
-				$PlayArea.add_child(panel)
+				_spawn_kiosk(SHOP_KIOSK, _on_shop_kiosk_activated)
 		RoomContent.ROOM_TYPES.bonus_room:
 			_init_bonus_room()
+
+func _spawn_kiosk(scene: PackedScene, on_activated: Callable) -> void:
+	var kiosk: RoomKiosk = scene.instantiate()
+	kiosk.position = KIOSK_POSITION
+	kiosk.activated.connect(on_activated.bind(kiosk))
+	$PlayArea.add_child(kiosk)
+
+func _on_shop_kiosk_activated(kiosk: RoomKiosk) -> void:
+	kiosk.visible = false
+	var panel: ShopPanel = SHOP_PANEL.instantiate()
+	panel.z_index = 500
+	panel.setup(loot_items_data)
+	panel.closed.connect(_on_shop_panel_closed.bind(kiosk))
+	$PlayArea.add_child(panel)
+
+func _on_shop_panel_closed(kiosk: RoomKiosk) -> void:
+	if not is_instance_valid(kiosk):
+		return
+	if loot_items_data.shop_exhausted():
+		kiosk.queue_free()
+		return
+	kiosk.visible = true
+
+func _on_free_item_kiosk_activated(kiosk: RoomKiosk) -> void:
+	kiosk.visible = false
+	var panel: FreeItemPanel = FREE_ITEM_PANEL.instantiate()
+	panel.z_index = 500
+	panel.setup(loot_items_data)
+	panel.closed.connect(_on_free_item_panel_closed.bind(kiosk))
+	$PlayArea.add_child(panel)
+
+func _on_free_item_panel_closed(kiosk: RoomKiosk) -> void:
+	if not is_instance_valid(kiosk):
+		return
+	if loot_items_data.free_pick_exhausted():
+		kiosk.queue_free()
+		return
+	kiosk.visible = true
 
 func _init_bonus_room() -> void:
 	var content: RoomContent = entry.content
@@ -254,10 +292,7 @@ func _spawn_free_item_panel() -> void:
 		room_state.generate_item_box(entry.content.item_pool_override)
 	if not room_state.loot_items_data.free_pick_exhausted():
 		loot_items_data = room_state.loot_items_data
-		var panel: FreeItemPanel = FREE_ITEM_PANEL.instantiate()
-		panel.z_index = 500
-		panel.setup(loot_items_data)
-		$PlayArea.add_child(panel)
+		_spawn_kiosk(FREE_ITEM_KIOSK, _on_free_item_kiosk_activated)
 
 func _init_memory_room() -> void:
 	if not PlayerData.is_memory_collected(entry.content.memory_id()):
