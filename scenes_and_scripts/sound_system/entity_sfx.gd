@@ -12,6 +12,7 @@ func _ready() -> void:
 		sound_dict[sound.name] = sound
 	get_tree().node_added.connect(_on_node_added)
 	_hook_existing_buttons(get_tree().root)
+	Signalbus.game_state_main_menu.connect(stop_all_looping_sounds)
 
 func _hook_existing_buttons(node: Node) -> void:
 	_on_node_added(node)
@@ -67,10 +68,25 @@ func play_sound(sound_name: String) -> AudioStreamPlayer:
 		)
 	return sfx_player
 
-func stop_looping_sound(sound_name: String) -> void:	
+func is_looping(sound_name: String) -> bool:
+	for child: Node in get_children():
+		if child.name == "loop_" + sound_name:
+			return true
+	return false
+
+func stop_looping_sound(sound_name: String) -> void:
 	for child: Node in get_children():
 		if child.name == "loop_" + sound_name:
 			var player: AudioStreamPlayer = child as AudioStreamPlayer
 			player.stop()
+			remove_child(player)
 			player.queue_free()
 			break
+
+func stop_all_looping_sounds() -> void:
+	for child: Node in get_children():
+		if child.name.begins_with("loop_"):
+			var player: AudioStreamPlayer = child as AudioStreamPlayer
+			player.stop()
+			remove_child(player)
+			player.queue_free()

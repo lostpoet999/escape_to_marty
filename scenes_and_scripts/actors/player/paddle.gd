@@ -9,6 +9,10 @@ const WEB_BOX_COLOR: Color = Color(0.87451, 0.517647, 0.647059, 0.85)
 const WEB_SHAKE_MIN_PIXELS: float = 6.0
 const WEB_BOX_MARGIN: Vector2 = Vector2(24.0, 48.0)
 
+const MAGNET_START_SOUND: String = "magnet_start"
+const MAGNET_LOOP_SOUND: String = "magnet_loop"
+const MAGNET_STOP_SOUND: String = "magnet_stop"
+
 const SHIELD_COLOR: Color = Color(0.5, 0.8, 1.0)
 const SHIELD_COLOR_BRIGHT: Color = Color(0.8, 0.95, 1.0)
 const SHIELD_COLOR_STRONG: Color = Color("3c5e8b")
@@ -366,6 +370,7 @@ func _run_death_sequence() -> void:
 	if _death_running:
 		return
 	_death_running = true
+	SFX.stop_looping_sound(MAGNET_LOOP_SOUND)
 	_release_web()
 	paddle_frozen = true
 	_zoom_camera_on_david()
@@ -502,4 +507,17 @@ func reset_magnet_refresh_timer() -> void:
 	_update_magnet_outline()
 
 func _update_magnet_outline() -> void:
-	magnet_radius_outline.visible = active_paddle_powerup is SupportSystem and magnet_refresh.is_stopped()
+	var is_armed: bool = active_paddle_powerup is SupportSystem and magnet_refresh.is_stopped()
+	magnet_radius_outline.visible = is_armed
+	_update_magnet_audio(is_armed)
+
+func _update_magnet_audio(is_armed: bool) -> void:
+	# the loop lives on the SFX autoload, so it survives room swaps and doubles as the armed flag
+	if is_armed == SFX.is_looping(MAGNET_LOOP_SOUND):
+		return
+	if is_armed:
+		SFX.play_sound(MAGNET_START_SOUND)
+		SFX.play_sound(MAGNET_LOOP_SOUND)
+	else:
+		SFX.stop_looping_sound(MAGNET_LOOP_SOUND)
+		SFX.play_sound(MAGNET_STOP_SOUND)

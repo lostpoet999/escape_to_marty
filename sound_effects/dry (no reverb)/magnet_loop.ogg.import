@@ -12,7 +12,7 @@ dest_files=["res://.godot/imported/magnet_loop.ogg-c7e6ee62037c9363c21cf3071ce1f
 
 [params]
 
-loop=false
+loop=true
 loop_offset=0
 bpm=0
 beat_count=0

@@ -20,6 +20,9 @@
 [ext_resource type="AudioStream" uid="uid://dqx7lbk4sdv8w" path="res://music_and_ambient/bad_sting.wav" id="18_badstg"]
 [ext_resource type="AudioStream" uid="uid://ctchcpg8agxej" path="res://music_and_ambient/win_longer_sting.wav" id="19_wlstng"]
 [ext_resource type="AudioStream" uid="uid://4s2ub6igplqy" path="res://sound_effects/ui_select.wav" id="20_uisel"]
+[ext_resource type="AudioStream" uid="uid://j2rgbhwu8naf" path="res://sound_effects/dry (no reverb)/magnet_start.ogg" id="21_mgstart"]
+[ext_resource type="AudioStream" uid="uid://bchvqaascitwi" path="res://sound_effects/dry (no reverb)/magnet_loop.ogg" id="22_mgloop"]
+[ext_resource type="AudioStream" uid="uid://d1nm1lx8oiidw" path="res://sound_effects/dry (no reverb)/magnet_stop.ogg" id="23_mgstop"]
 
 [sub_resource type="Resource" id="Resource_84rug"]
 script = ExtResource("2_3pagk")
@@ -167,6 +170,31 @@ pitch_scale = 1.5
 pitch_variance = 0.2
 metadata/_custom_type_script = "uid://2fgoca4drc17"
 
+[sub_resource type="Resource" id="Resource_mgstart"]
+script = ExtResource("2_3pagk")
+name = "magnet_start"
+audio = ExtResource("21_mgstart")
+volume_db = 5.0
+pitch_scale = 0.5
+metadata/_custom_type_script = "uid://2fgoca4drc17"
+
+[sub_resource type="Resource" id="Resource_mgloop"]
+script = ExtResource("2_3pagk")
+name = "magnet_loop"
+audio = ExtResource("22_mgloop")
+volume_db = -3.1
+pitch_scale = 0.5
+loop_sound = true
+metadata/_custom_type_script = "uid://2fgoca4drc17"
+
+[sub_resource type="Resource" id="Resource_mgstop"]
+script = ExtResource("2_3pagk")
+name = "magnet_stop"
+audio = ExtResource("23_mgstop")
+volume_db = 5.0
+pitch_scale = 0.5
+metadata/_custom_type_script = "uid://2fgoca4drc17"
+
 [node name="EntitySfx" type="Node" unique_id=529254853]
 script = ExtResource("1_mje1w")
-sounds = Array[ExtResource("2_3pagk")]([SubResource("Resource_84rug"), SubResource("Resource_w05wb"), SubResource("Resource_axa1s"), SubResource("Resource_hpigb"), SubResource("Resource_0gpy4"), SubResource("Resource_idfbx"), SubResource("Resource_568ao"), SubResource("Resource_7iehp"), SubResource("Resource_3w05g"), SubResource("Resource_18s1p"), SubResource("Resource_ehurt"), SubResource("Resource_raredrop"), SubResource("Resource_secrettell"), SubResource("Resource_secretreveal"), SubResource("Resource_winsting"), SubResource("Resource_ragespawn"), SubResource("Resource_badsting"), SubResource("Resource_hbrwr"), SubResource("Resource_wlstng"), SubResource("Resource_uisel")])
+sounds = Array[ExtResource("2_3pagk")]([SubResource("Resource_84rug"), SubResource("Resource_w05wb"), SubResource("Resource_axa1s"), SubResource("Resource_hpigb"), SubResource("Resource_0gpy4"), SubResource("Resource_idfbx"), SubResource("Resource_568ao"), SubResource("Resource_7iehp"), SubResource("Resource_3w05g"), SubResource("Resource_18s1p"), SubResource("Resource_ehurt"), SubResource("Resource_raredrop"), SubResource("Resource_secrettell"), SubResource("Resource_secretreveal"), SubResource("Resource_winsting"), SubResource("Resource_ragespawn"), SubResource("Resource_badsting"), SubResource("Resource_hbrwr"), SubResource("Resource_wlstng"), SubResource("Resource_uisel"), SubResource("Resource_mgstart"), SubResource("Resource_mgloop"), SubResource("Resource_mgstop")])
