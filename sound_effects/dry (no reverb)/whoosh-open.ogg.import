@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dytafq40ev1xg"
+path="res://.godot/imported/whoosh-open.ogg-17e6dd531dd75e78dca2ac61838540cb.oggvorbisstr"
+
+[deps]
+
+source_file="res://sound_effects/dry (no reverb)/whoosh-open.ogg"
+dest_files=["res://.godot/imported/whoosh-open.ogg-17e6dd531dd75e78dca2ac61838540cb.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

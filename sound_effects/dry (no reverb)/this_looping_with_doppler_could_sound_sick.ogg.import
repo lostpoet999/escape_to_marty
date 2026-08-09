@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://csgrnvpkfw0gf"
+path="res://.godot/imported/this_looping_with_doppler_could_sound_sick.ogg-287e6f0dcb2e54d694dd824bb8a87333.oggvorbisstr"
+
+[deps]
+
+source_file="res://sound_effects/dry (no reverb)/this_looping_with_doppler_could_sound_sick.ogg"
+dest_files=["res://.godot/imported/this_looping_with_doppler_could_sound_sick.ogg-287e6f0dcb2e54d694dd824bb8a87333.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

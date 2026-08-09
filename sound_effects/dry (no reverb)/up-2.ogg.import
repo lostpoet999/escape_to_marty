@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://h2r5ssslwp5b"
+path="res://.godot/imported/up-2.ogg-a33fea76c301a9c6b17957a9424a67cf.oggvorbisstr"
+
+[deps]
+
+source_file="res://sound_effects/dry (no reverb)/up-2.ogg"
+dest_files=["res://.godot/imported/up-2.ogg-a33fea76c301a9c6b17957a9424a67cf.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dpi35f8vvagbc"
+path="res://.godot/imported/bite.ogg-e257955c824e4fee47460ae5b6b4a448.oggvorbisstr"
+
+[deps]
+
+source_file="res://sound_effects/dry (no reverb)/bite.ogg"
+dest_files=["res://.godot/imported/bite.ogg-e257955c824e4fee47460ae5b6b4a448.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cfjkkpp0a1wnw"
+path="res://.godot/imported/cry-1.ogg-db6acf7ebf17db5284f0c6b58e58169d.oggvorbisstr"
+
+[deps]
+
+source_file="res://sound_effects/dry (no reverb)/cry-1.ogg"
+dest_files=["res://.godot/imported/cry-1.ogg-db6acf7ebf17db5284f0c6b58e58169d.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

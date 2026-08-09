@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bchvqaascitwi"
+path="res://.godot/imported/magnet_loop.ogg-c7e6ee62037c9363c21cf3071ce1f9a6.oggvorbisstr"
+
+[deps]
+
+source_file="res://sound_effects/dry (no reverb)/magnet_loop.ogg"
+dest_files=["res://.godot/imported/magnet_loop.ogg-c7e6ee62037c9363c21cf3071ce1f9a6.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

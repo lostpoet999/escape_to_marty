@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dlflawcedrol8"
+path="res://.godot/imported/whoosh-closed.ogg-645e9ae075ca0e304c56a804c4a47f9c.oggvorbisstr"
+
+[deps]
+
+source_file="res://sound_effects/dry (no reverb)/whoosh-closed.ogg"
+dest_files=["res://.godot/imported/whoosh-closed.ogg-645e9ae075ca0e304c56a804c4a47f9c.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

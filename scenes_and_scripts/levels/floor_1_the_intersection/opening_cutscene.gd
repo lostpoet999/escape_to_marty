@@ -158,6 +158,8 @@ func _on_seal_input(_viewport: Node, event: InputEvent, _shape_idx: int) -> void
 func _shell_break() -> void:
 	while is_instance_valid(seal) and not seal.stages.is_empty():
 		await get_tree().process_frame
+		if not is_inside_tree():
+			return
 	if _skipped or not is_instance_valid(seal):
 		return
 	_break_position = seal.global_position
@@ -185,7 +187,7 @@ func _david_falls(paddle: Paddle) -> void:
 func _nag_loop() -> void:
 	while is_instance_valid(seal) and not seal.stages.is_empty():
 		await get_tree().create_timer(NAG_INTERVAL_SECONDS).timeout
-		if _skipped or not is_instance_valid(seal) or seal.stages.is_empty():
+		if not is_inside_tree() or _skipped or not is_instance_valid(seal) or seal.stages.is_empty():
 			return
 		DialogDirector.play(&"opening_nags", seal)
 
