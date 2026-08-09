@@ -9,7 +9,7 @@ extends Node
 ## Emits: scenes_and_scripts/singletons/game_manager.gd -> enter_state()
 ## Connects: scenes_and_scripts/ui_menus/escape_menu.gd -> show_menu
 @warning_ignore("unused_signal")
-signal game_state_paused
+signal game_state_pause_changed(paused: bool)
 
 ## Emits: scenes_and_scripts/singletons/game_manager.gd -> enter_state()
 ## Connects: scenes_and_scripts/ui_menus/escape_menu.gd -> hide_menu, scenes_and_scripts/player/paddle.gd -> _on_game_state_playing

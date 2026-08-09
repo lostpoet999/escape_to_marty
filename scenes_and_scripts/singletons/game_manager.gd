@@ -35,18 +35,22 @@ enum PhaseType {
 	HEALTH = 5,
 	}
 var current_state: GameState = GameState.MAIN_MENU
+var _unpaused_state: GameState
 
 #const node group constants
 const DEATH_WALLS: String = "DeathWalls"
 const BRICKS: String = "Brick"
 const PADDLE: String = "paddle"
 
-func _input(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	if (event.is_action_pressed("ui_cancel") or event.is_action_pressed("pause")) and current_state != GameState.MAIN_MENU:
-		if current_state != GameState.PAUSED:
-			change_state(GameState.PAUSED)
+		var _current_state: GameState = current_state
+		if _current_state != GameState.PAUSED:
+			var state_changed: bool = change_state(GameState.PAUSED)
+			if state_changed:
+				_unpaused_state = _current_state
 		else:
-			change_state(GameState.PLAYING)
+			change_state(_unpaused_state)
 
 #region gamestate functions
 func change_state(to_state: GameState) -> bool:
@@ -138,15 +142,15 @@ func is_valid_state_transition(from_state: GameState, to_state: GameState) -> bo
 		GameState.PLAYING:
 			return to_state in [GameState.PAUSED, GameState.GAME_OVER, GameState.MAIN_MENU, GameState.CLICK_MODE, GameState.LEVEL_CLEARED, GameState.SPECIAL_ROOM, GameState.DEBUG_PANEL, GameState.BALL_ON_PADDLE]
 		GameState.PAUSED:
-			return to_state in [GameState.PLAYING, GameState.BALL_ON_PADDLE, GameState.MAIN_MENU]
+			return to_state in [GameState.PLAYING, GameState.BALL_ON_PADDLE, GameState.MAIN_MENU, GameState.LEVEL_CLEARED, GameState.SPECIAL_ROOM]
 		GameState.GAME_OVER:
 			return to_state in [GameState.MAIN_MENU, GameState.PLAYING, GameState.BALL_ON_PADDLE, GameState.SPECIAL_ROOM]
 		GameState.CLICK_MODE:
 			return to_state in [GameState.PLAYING, GameState.LEVEL_CLEARED,GameState.DEBUG_PANEL, GameState.BALL_ON_PADDLE, GameState.GAME_OVER, GameState.MAIN_MENU]
 		GameState.LEVEL_CLEARED:
-			return to_state  in [GameState.BALL_ON_PADDLE, GameState.SPECIAL_ROOM,GameState.DEBUG_PANEL, GameState.MAIN_MENU, GameState.GAME_OVER]
+			return to_state  in [GameState.BALL_ON_PADDLE, GameState.SPECIAL_ROOM,GameState.DEBUG_PANEL, GameState.MAIN_MENU, GameState.GAME_OVER, GameState.PAUSED]
 		GameState.SPECIAL_ROOM:
-			return to_state in [GameState.BALL_ON_PADDLE, GameState.PLAYING,GameState.DEBUG_PANEL]
+			return to_state in [GameState.BALL_ON_PADDLE, GameState.PLAYING,GameState.DEBUG_PANEL, GameState.PAUSED]
 		GameState.DEBUG_PANEL:
 			return to_state in [GameState.BALL_ON_PADDLE, GameState.PLAYING, GameState.LEVEL_CLEARED, GameState.SPECIAL_ROOM, GameState.MAIN_MENU, GameState.CLICK_MODE]
 			
@@ -176,7 +180,7 @@ func enter_state(change_to_state: GameState) -> void:
 			Signalbus.game_state_playing.emit()
 		GameState.PAUSED:
 			set_mouse_visible()
-			Signalbus.game_state_paused.emit()
+			Signalbus.game_state_pause_changed.emit(true)
 			pause_game()
 		GameState.GAME_OVER:
 			set_mouse_visible()
@@ -202,6 +206,7 @@ func exit_state(close_state: GameState) -> void:
 			pass
 		GameState.PAUSED:
 			unpause_game()
+			Signalbus.game_state_pause_changed.emit(false)
 		GameState.GAME_OVER:
 			unpause_game()
 		GameState.DEBUG_PANEL:			
