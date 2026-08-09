@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://t38808n7kc0c"]
+[gd_scene format=3 uid="uid://t38808n7kc0c"]
 
 [ext_resource type="Script" uid="uid://cvswaeyov33c3" path="res://scenes_and_scripts/ui_menus/escape_menu.gd" id="1_1bvrl"]
 [ext_resource type="Texture2D" uid="uid://cra2lcyy34b1x" path="res://scenes_and_scripts/ui_menus/edge_patch.png" id="2_ub46b"]
 [ext_resource type="LabelSettings" uid="uid://cpopuptitle0" path="res://label_settings_and_fonts/popup_title_32.tres" id="3_title"]
 [ext_resource type="FontFile" uid="uid://ce5jk1ok7f4r5" path="res://label_settings_and_fonts/fonts/PressStart2P-Regular.ttf" id="4_font"]
+[ext_resource type="Script" uid="uid://dsi4srcwglrh1" path="res://scenes_and_scripts/ui_main_menu/fullscreen_button.gd" id="5_wuona"]
 
 [node name="EscapeMenu" type="Control" unique_id=1064137318]
 top_level = true
@@ -54,16 +55,16 @@ text = "Pause Menu"
 label_settings = ExtResource("3_title")
 horizontal_alignment = 1
 
-[node name="SettingsBox" type="VBoxContainer" parent="ColorRect/VBoxContainer"]
+[node name="SettingsBox" type="VBoxContainer" parent="ColorRect/VBoxContainer" unique_id=859182831]
 layout_mode = 2
 theme_override_constants/separation = 40
 
-[node name="MusicRow" type="HBoxContainer" parent="ColorRect/VBoxContainer/SettingsBox"]
+[node name="MusicRow" type="HBoxContainer" parent="ColorRect/VBoxContainer/SettingsBox" unique_id=1504167156]
 layout_mode = 2
 theme_override_constants/separation = 30
 alignment = 1
 
-[node name="MusicLabel" type="Label" parent="ColorRect/VBoxContainer/SettingsBox/MusicRow"]
+[node name="MusicLabel" type="Label" parent="ColorRect/VBoxContainer/SettingsBox/MusicRow" unique_id=536561078]
 custom_minimum_size = Vector2(192, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.909804, 0.756863, 0.439216, 1)
@@ -73,7 +74,7 @@ text = "Music"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="MusicSlider" type="HSlider" parent="ColorRect/VBoxContainer/SettingsBox/MusicRow"]
+[node name="MusicSlider" type="HSlider" parent="ColorRect/VBoxContainer/SettingsBox/MusicRow" unique_id=148230203]
 custom_minimum_size = Vector2(560, 48)
 layout_mode = 2
 size_flags_vertical = 4
@@ -81,12 +82,12 @@ max_value = 1.0
 step = 0.025
 value = 1.0
 
-[node name="SfxRow" type="HBoxContainer" parent="ColorRect/VBoxContainer/SettingsBox"]
+[node name="SfxRow" type="HBoxContainer" parent="ColorRect/VBoxContainer/SettingsBox" unique_id=1945070039]
 layout_mode = 2
 theme_override_constants/separation = 30
 alignment = 1
 
-[node name="SfxLabel" type="Label" parent="ColorRect/VBoxContainer/SettingsBox/SfxRow"]
+[node name="SfxLabel" type="Label" parent="ColorRect/VBoxContainer/SettingsBox/SfxRow" unique_id=105831659]
 custom_minimum_size = Vector2(192, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.909804, 0.756863, 0.439216, 1)
@@ -96,7 +97,7 @@ text = "Sounds"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="SfxSlider" type="HSlider" parent="ColorRect/VBoxContainer/SettingsBox/SfxRow"]
+[node name="SfxSlider" type="HSlider" parent="ColorRect/VBoxContainer/SettingsBox/SfxRow" unique_id=716848879]
 custom_minimum_size = Vector2(560, 48)
 layout_mode = 2
 size_flags_vertical = 4
@@ -104,12 +105,12 @@ max_value = 1.0
 step = 0.05
 value = 1.0
 
-[node name="MouseRow" type="HBoxContainer" parent="ColorRect/VBoxContainer/SettingsBox"]
+[node name="MouseRow" type="HBoxContainer" parent="ColorRect/VBoxContainer/SettingsBox" unique_id=1037461709]
 layout_mode = 2
 theme_override_constants/separation = 30
 alignment = 1
 
-[node name="MouseLabel" type="Label" parent="ColorRect/VBoxContainer/SettingsBox/MouseRow"]
+[node name="MouseLabel" type="Label" parent="ColorRect/VBoxContainer/SettingsBox/MouseRow" unique_id=2037168973]
 custom_minimum_size = Vector2(192, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.909804, 0.756863, 0.439216, 1)
@@ -119,7 +120,7 @@ text = "Mouse"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="MouseSlider" type="HSlider" parent="ColorRect/VBoxContainer/SettingsBox/MouseRow"]
+[node name="MouseSlider" type="HSlider" parent="ColorRect/VBoxContainer/SettingsBox/MouseRow" unique_id=560816573]
 custom_minimum_size = Vector2(560, 48)
 layout_mode = 2
 size_flags_vertical = 4
@@ -129,25 +130,37 @@ step = 0.05
 value = 1.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/VBoxContainer" unique_id=1141022542]
+custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
-size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 16
 
-[node name="Restart Button" type="Button" parent="ColorRect/VBoxContainer/HBoxContainer" unique_id=1723660939]
-custom_minimum_size = Vector2(200, 65)
+[node name="FullscreenButton" type="Button" parent="ColorRect/VBoxContainer/HBoxContainer" unique_id=1637181658]
 layout_mode = 2
+size_flags_horizontal = 3
+text = "Fullscreen
+(Windowed)"
+script = ExtResource("5_wuona")
+metadata/_custom_type_script = "uid://dsi4srcwglrh1"
+
+[node name="Spacer" type="Control" parent="ColorRect/VBoxContainer/HBoxContainer" unique_id=1179290079]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="Restart Button" type="Button" parent="ColorRect/VBoxContainer/HBoxContainer" unique_id=1723660939]
+layout_mode = 2
+size_flags_horizontal = 3
 text = "Restart"
 
 [node name="MainMenu" type="Button" parent="ColorRect/VBoxContainer/HBoxContainer" unique_id=1487556102]
-custom_minimum_size = Vector2(200, 65)
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Main Menu"
 
 [node name="Exit Button" type="Button" parent="ColorRect/VBoxContainer/HBoxContainer" unique_id=1326564837]
-custom_minimum_size = Vector2(200, 65)
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 3
 text = "Exit"
 
 [connection signal="value_changed" from="ColorRect/VBoxContainer/SettingsBox/MusicRow/MusicSlider" to="." method="_on_music_slider_value_changed"]

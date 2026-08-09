@@ -156,11 +156,3 @@ func _warp_to_test_floor() -> void:
 	GameManager.start_floor_with_data(fd_variant)
 	GameManager.change_state(GameManager.GameState.BALL_ON_PADDLE)
 	GameManager.load_current_room()
-
-func _on_fullscreen_button_pressed() -> void:
-	print("fullscreen button pressed")
-	var current_mode: DisplayServer.WindowMode = DisplayServer.window_get_mode()
-	if current_mode == DisplayServer.WINDOW_MODE_FULLSCREEN or current_mode == DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN:
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-	else:
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)

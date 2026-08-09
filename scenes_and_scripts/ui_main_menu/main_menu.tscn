@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://wi34v2345ihn" path="res://scenes_and_scripts/bricks/brick-gemstone-facets.png" id="3_jl0n4"]
 [ext_resource type="Texture2D" uid="uid://befajfg1phsl6" path="res://scenes_and_scripts/actors/player/player_ghost_particles.png" id="4_jl0n4"]
 [ext_resource type="PackedScene" uid="uid://ld8u6g3nsn62" path="res://scenes_and_scripts/ball/ball.tscn" id="5_78bc0"]
+[ext_resource type="Script" uid="uid://dsi4srcwglrh1" path="res://scenes_and_scripts/ui_main_menu/fullscreen_button.gd" id="7_s6e4g"]
 
 [sub_resource type="Gradient" id="Gradient_nf3nx"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
@@ -188,6 +189,8 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 36
 text = "Fullscreen"
+script = ExtResource("7_s6e4g")
+update_text = false
 
 [node name="Credits Button" type="Button" parent="VBoxContainer/ButtonContainer" unique_id=588404531]
 custom_minimum_size = Vector2(300, 120)
@@ -239,6 +242,5 @@ text = "Reset Progress"
 [connection signal="pressed" from="VBoxContainer/ButtonContainer/Continue Button" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/ButtonContainer/Start Button" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/ButtonContainer/Settings Button" to="." method="_on_settings_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/ButtonContainer/Fullscreen Button" to="." method="_on_fullscreen_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/ButtonContainer/Credits Button" to="." method="_on_credits_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/ButtonContainer/Exit Button" to="." method="_on_exit_button_pressed"]
