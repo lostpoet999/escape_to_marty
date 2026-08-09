@@ -13,6 +13,9 @@ const SCREEN_TOP: float = 0.0
 const ADVANCE_BOB_PIXELS: float = 4.0
 const ADVANCE_BOB_SECONDS: float = 0.9
 const TUTORIAL_PREFIX: String = "TUTORIAL:"
+const KEY_OPEN_TAG: String = "[k]"
+const KEY_CLOSE_TAG: String = "[/k]"
+const ADVANCE_LABEL_TEXT: String = "CLICK"
 
 @export var pulse_scale_amplitude: float = 0.012
 @export var pulse_seconds: float = 2.6
@@ -29,6 +32,12 @@ const TUTORIAL_PREFIX: String = "TUTORIAL:"
 @export var tutorial_text_color: Color = Color("ebede9")
 ## The "TUTORIAL:" prefix, matching the HUD gold of yellow_48.tres.
 @export var tutorial_prefix_color: Color = Color("e8c170")
+## A [k]key[/k] span in beat text. Deliberately not the prefix gold so the key reads as its own thing.
+@export var key_highlight_color: Color = Color("c65197")
+## Half-cycle frequency of the key pulse. 0 leaves the key a flat color.
+@export var key_pulse_frequency: float = 1.2
+## How far a key fades at the bottom of its pulse. 1.0 is no fade.
+@export_range(0.0, 1.0) var key_pulse_min_alpha: float = 0.45
 @export var collector_panel_color: Color = Color(1, 0.45, 0.45)
 @export var panel_opacity: float = 0.5
 @export var collector_side_anchor_ys: Array[float] = [210.0, 380.0, 540.0]
@@ -38,6 +47,7 @@ const TUTORIAL_PREFIX: String = "TUTORIAL:"
 @onready var bubble_panel: NinePatchRect = $BubblePanel
 @onready var tail_line: Line2D = $TailLine
 @onready var advance_indicator: Polygon2D = $BubblePanel/AdvanceIndicator
+@onready var advance_label: RichTextLabel = $BubblePanel/AdvanceLabel
 
 var focused: bool = false
 
@@ -53,6 +63,7 @@ var _panel_base_scale: Vector2 = Vector2.ONE
 var _panel_base_position: Vector2
 var _mirrored: bool = false
 var _indicator_base_position: Vector2
+var _advance_label_base_position: Vector2
 
 
 func setup(anchor: Node2D) -> void:
@@ -78,6 +89,10 @@ func _ready() -> void:
 	_tail_base_points = tail_line.points.duplicate()
 	_tail_base_transform = tail_line.transform
 	_indicator_base_position = advance_indicator.position
+	_advance_label_base_position = advance_label.position
+	advance_label.text = "[center]%s[/center]" % _highlight_keys(
+		KEY_OPEN_TAG + ADVANCE_LABEL_TEXT + KEY_CLOSE_TAG
+	)
 	_follow_anchor()
 	_update_side()
 
@@ -112,9 +127,20 @@ func show_beat(beat: DialogBeat, is_tutorial: bool = false) -> void:
 
 
 func _beat_markup(beat: DialogBeat, is_tutorial: bool) -> String:
+	var body: String = _highlight_keys(beat.text)
 	if not is_tutorial:
-		return beat.text
-	return "[color=#%s]%s[/color] %s" % [tutorial_prefix_color.to_html(false), TUTORIAL_PREFIX, beat.text]
+		return body
+	return "[color=#%s]%s[/color] %s" % [tutorial_prefix_color.to_html(false), TUTORIAL_PREFIX, body]
+
+
+func _highlight_keys(text: String) -> String:
+	var open_markup: String = "[color=#%s]" % key_highlight_color.to_html(false)
+	var close_markup: String = "[/color]"
+	if key_pulse_frequency > 0.0:
+		var dim: Color = Color(1.0, 1.0, 1.0, key_pulse_min_alpha)
+		open_markup += "[pulse freq=%.2f color=#%s]" % [key_pulse_frequency, dim.to_html(true)]
+		close_markup = "[/pulse]" + close_markup
+	return text.replace(KEY_OPEN_TAG, open_markup).replace(KEY_CLOSE_TAG, close_markup)
 
 
 func focus_point() -> Vector2:
@@ -133,9 +159,11 @@ func complete_reveal() -> void:
 
 func _update_advance_indicator() -> void:
 	advance_indicator.visible = focused and is_reveal_complete()
+	advance_label.visible = advance_indicator.visible
 	if advance_indicator.visible:
 		var bob: float = sin(TAU * _animation_time / ADVANCE_BOB_SECONDS) * ADVANCE_BOB_PIXELS
 		advance_indicator.position = _indicator_base_position + Vector2(0.0, bob)
+		advance_label.position = _advance_label_base_position + Vector2(0.0, bob)
 
 
 func _apply_speaker_style(speaker: DialogBeat.Speaker, is_tutorial: bool) -> void:

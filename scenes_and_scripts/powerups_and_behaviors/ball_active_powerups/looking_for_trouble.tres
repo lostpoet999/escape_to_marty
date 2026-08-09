@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="LookingForTrouble" format=3 uid="uid://blkfrtrouble1"]
+
+[ext_resource type="Script" uid="uid://cmf1ghlyv47kr" path="res://scenes_and_scripts/powerups_and_behaviors/ball_active_powerups/looking_for_trouble.gd" id="1_lft"]
+[ext_resource type="Texture2D" uid="uid://cn44s8tnj8dg2" path="res://scenes_and_scripts/inventory/placeholder_tex_32.tres" id="2_icon"]
+
+[resource]
+script = ExtResource("1_lft")
+cool_down_seconds = 5.0
+powerup_name = "Looking for Trouble"
+shop_description = "Find trouble in all the right places. Send the ball on a collision course for the nearest seal."
+rarity = 3
+inventory_icon = ExtResource("2_icon")
+cost = 65
+metadata/_custom_type_script = "uid://cmf1ghlyv47kr"

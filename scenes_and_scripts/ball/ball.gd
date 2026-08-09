@@ -46,8 +46,14 @@ var _vertical_serve_checked: bool = false
 
 @export var ball_dmg_type: Array[GameManager.PhaseType]
 
-## Gates the ball_activate_powerup input; stays false until the player owns the homing powerup.
-@export var has_homing_powerup: bool = false
+@export var active_ball_powerup: BallActive
+
+## Peak brightness of the sprite pulse that marks the ball active as armed. 1.0 disables the tell.
+@export var active_pulse_strength: float = 1.7
+## Seconds per full pulse of the armed tell.
+@export var active_pulse_period: float = 0.9
+var _active_cooldown_left: float = 0.0
+var _active_pulse_time: float = 0.0
 
 var ball_in_magnet_range: bool = false
 var paddle_can_attract: bool = true
@@ -66,10 +72,9 @@ var old_y: float = 0.0
 @onready var paddle: Paddle = $"../Paddle"
 @onready var paddle_collision: CollisionShape2D = $"../Paddle/PaddleCollisionShape"
 @onready var ball_collision: CollisionShape2D = $bounce_collision_shape
+@onready var sprite: Sprite2D = $Sprite2D
 var is_tweening_to_david: bool = false
 var tween_from_magnet: bool = false
-var is_tweening_to_nearest_brick: bool = false
-var nearest_brick_tween: Tween = null
 
 @onready var ball_half_height: float = (ball_collision.shape as CircleShape2D).radius
 
@@ -89,6 +94,14 @@ func _ready() -> void:
 	Signalbus.db_panel_closed.connect(repopulate_effects_from_inventory)
 	Signalbus.ball_in_magnet_range.connect(set_ball_in_magnet_range)
 	Signalbus.magnet_refresh_timeout.connect(set_paddle_can_attract)
+	active_ball_powerup = PlayerData.inventory.get_ball_active()
+	Signalbus.ball_active_assigned.connect(_assign_active_powerup)
+	Signalbus.ball_swap_resolved.connect(_assign_active_powerup)
+
+func _assign_active_powerup(item: BallActive) -> void:
+	active_ball_powerup = item
+	_active_cooldown_left = 0.0
+	_active_pulse_time = 0.0
 
 func get_ball_dmg_types() -> void:
 	ball_dmg_type.clear()
@@ -105,6 +118,7 @@ func _process(delta: float) -> void:
 	if not is_inside_tree():
 		return
 	_update_ball_light()
+	_update_active_pulse(delta)
 	flipped_x = false
 	flipped_y = false
 	_vertical_serve_checked = false
@@ -112,6 +126,17 @@ func _process(delta: float) -> void:
 		position_ball_on_paddle()
 	else:
 		move_ball(delta)
+
+func _update_active_pulse(delta: float) -> void:
+	if _active_cooldown_left > 0.0:
+		_active_cooldown_left = maxf(_active_cooldown_left - delta, 0.0)
+	if active_ball_powerup == null or _active_cooldown_left > 0.0 or active_pulse_strength <= 1.0:
+		sprite.self_modulate = Color.WHITE
+		return
+	_active_pulse_time += delta
+	var wave: float = 0.5 - cos(TAU * _active_pulse_time / active_pulse_period) * 0.5
+	var glow: float = lerpf(1.0, active_pulse_strength, wave)
+	sprite.self_modulate = Color(glow, glow, glow)
 
 func _update_ball_light() -> void:
 	var dmg: float = maxf(ball_dmg, 1.0)
@@ -126,7 +151,6 @@ func position_ball_on_paddle() -> void:
 	ball_collision.set_deferred("disabled", false)
 	set_physics_process(true)
 	is_tweening_to_david = false
-	cancel_tween_to_nearest_brick()
 	GameManager.change_state(GameManager.GameState.BALL_ON_PADDLE)
 	
 
@@ -152,53 +176,28 @@ func tween_to_david(hit_pos: Vector2) -> void:
 	)
 	await tw.finished
 
-func tween_to_nearest_brick() -> void:
-	if is_tweening_to_nearest_brick == true:
-		return
-	var nearest_brick: Node2D = get_nearest_brick()
-	if nearest_brick == null:
-		return
-	is_tweening_to_nearest_brick = true
-	set_physics_process(false)
-	var p0: Vector2 = position
-	var p2: Vector2 = nearest_brick.global_position
-	var mid: Vector2 = (p0 + p2) * 0.5
-	var sag: float = 20.0
-	var p1: Vector2 = mid + Vector2(sag, 0)
-	nearest_brick_tween = create_tween().set_trans(Tween.TRANS_SINE)
-	nearest_brick_tween.tween_method(
-		func(t: float) -> void:
-			if is_tweening_to_nearest_brick == false:
-				return
-			global_position = _bezier(t, p0, p1, p2),
-			0.0, 1.0, 0.3
-	)
-	nearest_brick_tween.finished.connect(cancel_tween_to_nearest_brick)
+func redirect_to_nearest_seal() -> bool:
+	var target: BaseSeal = get_nearest_seal()
+	if target == null:
+		return false
+	var heading: Vector2 = target.global_position - global_position
+	if heading.is_zero_approx():
+		return false
+	velocity = heading.normalized() * current_speed
+	return true
 
-func cancel_tween_to_nearest_brick() -> void:
-	if is_tweening_to_nearest_brick == false:
-		return
-	is_tweening_to_nearest_brick = false
-	if nearest_brick_tween != null and nearest_brick_tween.is_valid():
-		nearest_brick_tween.kill()
-	nearest_brick_tween = null
-	set_physics_process(true)
-
-func get_nearest_brick() -> Node2D:
-	var bricks: Array[Node] = get_tree().get_nodes_in_group("bricks")
-	if bricks.is_empty():
-		return null
-	var nearest_brick: Node2D = null
+func get_nearest_seal() -> BaseSeal:
+	var nearest_seal: BaseSeal = null
 	var nearest_dist: float = INF
-	for i: int in range(bricks.size()):
-		var brick: Node2D = bricks[i] as Node2D
-		if brick == null:
+	for brick: Node in get_tree().get_nodes_in_group("bricks"):
+		var seal: BaseSeal = brick as BaseSeal
+		if seal == null or seal.dying:
 			continue
-		var temp_dist: float = global_position.distance_to(brick.position)
+		var temp_dist: float = global_position.distance_squared_to(seal.global_position)
 		if temp_dist < nearest_dist:
 			nearest_dist = temp_dist
-			nearest_brick = brick
-	return nearest_brick
+			nearest_seal = seal
+	return nearest_seal
 
 func _bezier(t: float, p0: Vector2, p1: Vector2, p2: Vector2) -> Vector2:
 	var u: float = 1.0 - t
@@ -230,8 +229,16 @@ func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("left_mouse") and on_paddle and GameManager.current_state == GameManager.GameState.BALL_ON_PADDLE:
 		launch_ball()
 	if Input.is_action_just_pressed("ball_activate_powerup"):
-		if has_homing_powerup and not on_paddle and GameManager.current_state == GameManager.GameState.PLAYING:
-			tween_to_nearest_brick()
+		_try_activate_ball_powerup()
+
+func _try_activate_ball_powerup() -> void:
+	if active_ball_powerup == null or on_paddle or _active_cooldown_left > 0.0:
+		return
+	if GameManager.current_state != GameManager.GameState.PLAYING:
+		return
+	if active_ball_powerup.activate(self):
+		_active_cooldown_left = active_ball_powerup.cool_down_seconds
+		_active_pulse_time = 0.0
 
 func attract_to_paddle() -> void:
 	if not on_paddle and ball_in_magnet_range and paddle_can_attract and GameManager.current_state == GameManager.GameState.PLAYING:
@@ -261,6 +268,15 @@ func launch_ball() -> void:
 	set_process(true)
 	velocity = Vector2(float(paddle.current_speed), -launch_speed)
 	velocity = velocity.normalized() * launch_speed
+	_play_launch_tutorial_tips()
+
+func _play_launch_tutorial_tips() -> void:
+	if paddle.active_paddle_powerup != null:
+		await DialogDirector.play_and_wait(&"tutorial_paddle_active", paddle)
+		if not is_inside_tree():
+			return
+	if active_ball_powerup != null:
+		DialogDirector.play(&"tutorial_ball_active", self)
 
 func update_velocity(velocity_ref: Vector2) -> void:
 	velocity = velocity_ref
@@ -328,7 +344,6 @@ func resolve_frame_start_overlaps() -> void:
 		var pen_y: float = half.y + ball_half_height - absf(diff.y)
 		if pen_x <= 0.0 or pen_y <= 0.0:
 			continue
-		cancel_tween_to_nearest_brick()
 		if collider.is_in_group("bounce_enemy"):
 			apply_collider_effects(collider)
 		var dir_x: float = 1.0 if diff.x == 0.0 else signf(diff.x)
@@ -365,7 +380,6 @@ func move_ball_step(delta: float) -> void:
 				_check_vertical_serve()
 				flipped_x = true
 		elif collider.is_in_group("bricks") or collider.is_in_group("walls") or collider.is_in_group("bounce_enemy") or collider.is_in_group("barrier"):
-			cancel_tween_to_nearest_brick()
 			if _bounce_axis_is_y(collider):
 				if !flipped_y:
 					bounce_effect.handle_y_collision(self, collider)
@@ -394,7 +408,6 @@ func move_ball_step(delta: float) -> void:
 				_check_vertical_serve()
 				flipped_y = true
 		elif collider.is_in_group("bricks") or collider.is_in_group("walls") or collider.is_in_group("bounce_enemy") or collider.is_in_group("barrier"):
-			cancel_tween_to_nearest_brick()
 			if not _bounce_axis_is_y(collider):
 				if !flipped_x:
 					bounce_effect.handle_x_collision(self, collider)

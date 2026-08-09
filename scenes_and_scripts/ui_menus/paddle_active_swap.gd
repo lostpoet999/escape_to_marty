@@ -2,19 +2,31 @@ extends Control
 @onready var old_item_btn: Button = $OldItem
 @onready var new_item_btn: Button = $NewItem
 
-@onready var old_active_ref: PaddleActive
-@onready var new_active_ref: PaddleActive
+@onready var old_active_ref: BaseItem
+@onready var new_active_ref: BaseItem
 
 var _open_tween: Tween
 var _breathe_tween: Tween
+var _swap_is_ball: bool = false
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	hide()
 	Signalbus.paddle_active_swap_needed.connect(_on_swap_needed)
+	Signalbus.ball_active_swap_needed.connect(_on_ball_swap_needed)
 
 
 func _on_swap_needed(old_item:PaddleActive, new_item: PaddleActive)->void:
+	_swap_is_ball = false
+	_open_swap(old_item, new_item)
+
+
+func _on_ball_swap_needed(old_item: BallActive, new_item: BallActive) -> void:
+	_swap_is_ball = true
+	_open_swap(old_item, new_item)
+
+
+func _open_swap(old_item: BaseItem, new_item: BaseItem) -> void:
 	old_active_ref = old_item
 	new_active_ref = new_item
 	GameManager.pause_game()
@@ -65,4 +77,7 @@ func _on_new_item_pressed() -> void:
 	ApolloPalette.reset_popup(self)
 	hide()
 	GameManager.unpause_game()
-	Signalbus.paddle_swap_resolved.emit(new_active_ref)
+	if _swap_is_ball:
+		Signalbus.ball_swap_resolved.emit(new_active_ref as BallActive)
+	else:
+		Signalbus.paddle_swap_resolved.emit(new_active_ref as PaddleActive)

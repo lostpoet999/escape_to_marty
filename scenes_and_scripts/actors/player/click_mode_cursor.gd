@@ -139,6 +139,8 @@ func pointer_world_position() -> Vector2:
 func _should_manifest() -> bool:
 	if _cutscene_running() or DialogDirector.focused_active:
 		return false
+	if PlayerData.player_current_health <= 0:
+		return false
 	return GameManager.current_state in MANIFEST_STATES
 
 func _cutscene_running() -> bool:

@@ -6,7 +6,7 @@
 [sub_resource type="Resource" id="Resource_beat_1"]
 script = ExtResource("2_beat")
 speaker = 1
-text = "Push TAB to enter click mode! Some seals can only be cleared with different mouse gestures."
+text = "Push [k]TAB[/k] to enter click mode! Some seals can only be cleared with different mouse gestures."
 metadata/_custom_type_script = "uid://da86xmy7akvas"
 
 [resource]

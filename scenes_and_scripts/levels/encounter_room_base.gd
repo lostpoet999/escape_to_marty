@@ -24,6 +24,7 @@ func clear_encounter() -> void:
 	encounter_cleared = true
 	room_state.cleared = true
 	Signalbus.level_cleared.emit()
+	_clear_threats()
 	await _play_room_celebrate()
 	_sweep_encounter()
 	await _play_post_encounter_beat()
@@ -44,6 +45,24 @@ func _sweep_encounter() -> void:
 	for child: Node in container.get_children():
 		if not child.is_queued_for_deletion():
 			child.queue_free()
+
+func _clear_threats() -> void:
+	_free_threats_under(self)
+
+func _free_threats_under(node: Node) -> void:
+	for child: Node in node.get_children():
+		if child.is_queued_for_deletion():
+			continue
+		if _is_threat(child):
+			child.queue_free()
+			continue
+		_free_threats_under(child)
+
+func _is_threat(node: Node) -> bool:
+	var coin: SpitCoin = node as SpitCoin
+	if coin != null:
+		return coin.hurts_on_miss
+	return node is FallingEnemy
 
 func _play_post_encounter_beat() -> void:
 	if GameManager.test_floor_active:

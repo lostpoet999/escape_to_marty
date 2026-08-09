@@ -189,6 +189,21 @@ signal paddle_active_swap_needed(old_item: PaddleActive, new_item: PaddleActive)
 @warning_ignore("unused_signal")
 signal paddle_swap_resolved(item: PaddleActive)
 
+## Emits: scenes_and_scripts/inventory/inventory.gd -> add_item()
+## Connects: scenes_and_scripts/ball/ball.gd -> _assign_active_powerup
+@warning_ignore("unused_signal")
+signal ball_active_assigned(item: BallActive)
+
+## Emits: scenes_and_scripts/inventory/inventory.gd -> add_item()
+## Connects: scenes_and_scripts/ui_menus/paddle_active_swap.gd -> _on_ball_swap_needed
+@warning_ignore("unused_signal")
+signal ball_active_swap_needed(old_item: BallActive, new_item: BallActive)
+
+## Emits: scenes_and_scripts/ui_menus/paddle_active_swap.gd -> _on_new_item_pressed()
+## Connects: scenes_and_scripts/inventory/inventory.gd -> replace_ball_active, scenes_and_scripts/ball/ball.gd -> _assign_active_powerup
+@warning_ignore("unused_signal")
+signal ball_swap_resolved(item: BallActive)
+
 ## =============================================================================
 ## Enemy Signals
 ## =============================================================================

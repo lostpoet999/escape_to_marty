@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="DialogTree" format=3 uid="uid://ctutorlaunch"]
+[gd_resource type="Resource" script_class="DialogTree" format=3 uid="uid://ctknhslepoct0"]
 
 [ext_resource type="Script" uid="uid://bkgp0oq7lrafl" path="res://scenes_and_scripts/dialog/dialog_tree.gd" id="1_tree"]
 [ext_resource type="Script" uid="uid://da86xmy7akvas" path="res://scenes_and_scripts/dialog/dialog_beat.gd" id="2_beat"]
@@ -6,7 +6,7 @@
 [sub_resource type="Resource" id="Resource_beat_1"]
 script = ExtResource("2_beat")
 speaker = 1
-text = "[k]CLICK[/k] the mouse to launch the ball into play."
+text = "Push [k]SPACE[/k] to activate your active paddle power-up!"
 metadata/_custom_type_script = "uid://da86xmy7akvas"
 
 [resource]

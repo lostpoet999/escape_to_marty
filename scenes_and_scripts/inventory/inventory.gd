@@ -46,6 +46,7 @@ func _exit_tree() -> void:
 
 func _ready() -> void:
 	Signalbus.paddle_swap_resolved.connect(replace_paddle_active)
+	Signalbus.ball_swap_resolved.connect(replace_ball_active)
 	init_starting_items()
 
 func init_starting_items() ->void:
@@ -102,6 +103,12 @@ func get_paddle_active() -> PaddleActive:	#inventory logic prevents more than on
 	for item:BaseItem in core_items:
 		if item is PaddleActive:
 			return item
+	return null
+
+func get_ball_active() -> BallActive:
+	for item: BaseItem in core_items:
+		if item is BallActive:
+			return item as BallActive
 	return null
 
 func get_items_for_click() -> Array[ClickPowerUp]:
@@ -186,8 +193,20 @@ func add_item(new_item) -> void:
 			assert(existing.size() <=1,"more than one paddle active found: there should only be one---kinda like highlander")
 		else:
 			old_active = existing.front()
-			Signalbus.paddle_active_swap_needed.emit(old_active,new_item)			
+			Signalbus.paddle_active_swap_needed.emit(old_active,new_item)
 
+	elif new_item is BallActive:
+		if core_items.has(new_item):
+			return
+		var existing: Array = core_items.filter(func(i: BaseItem) -> bool: return i is BallActive)
+		if existing.is_empty():
+			Signalbus.ball_active_assigned.emit(new_item)
+			core_items.push_back(new_item)
+			Signalbus.inventory_changed.emit()
+		elif existing.size() > 1:
+			assert(existing.size() <= 1, "more than one ball active found: there should only be one")
+		else:
+			Signalbus.ball_active_swap_needed.emit(existing.front(), new_item)
 
 	elif new_item is BallPassive or new_item is PaddlePowerup or new_item is ClickPowerUp or new_item is DefensivePowerup or new_item is UtilityPowerup:
 			items.push_back(new_item) #this will move when we do quantity update from above
@@ -199,6 +218,13 @@ func add_item(new_item) -> void:
 	
 func replace_paddle_active(new_item: PaddleActive): #where item is replaced in player inventory
 	var index: int = core_items.find_custom(func(i): return i is PaddleActive)
+	if index < 0:
+		return
+	core_items[index] = new_item
+	Signalbus.inventory_changed.emit()
+
+func replace_ball_active(new_item: BallActive) -> void:
+	var index: int = core_items.find_custom(func(i: BaseItem) -> bool: return i is BallActive)
 	if index < 0:
 		return
 	core_items[index] = new_item

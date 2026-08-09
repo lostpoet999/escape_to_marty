@@ -17,8 +17,9 @@
 [ext_resource type="Resource" uid="uid://mkyourbed01" path="res://scenes_and_scripts/powerups_and_behaviors/defensive_powerups/make_your_bed.tres" id="14_mkbed"]
 [ext_resource type="Resource" uid="uid://cweutbexogawp" path="res://scenes_and_scripts/powerups_and_behaviors/paddle_active_powerups/support_system.tres" id="15_mlme4"]
 [ext_resource type="Resource" uid="uid://dbxegotjfvc1c" path="res://scenes_and_scripts/powerups_and_behaviors/defensive_powerups/second_chance.tres" id="16_gqarg"]
+[ext_resource type="Resource" uid="uid://blkfrtrouble1" path="res://scenes_and_scripts/powerups_and_behaviors/ball_active_powerups/looking_for_trouble.tres" id="17_lftrb"]
 
 [resource]
 script = ExtResource("2_upo5x")
-item_pool = Array[ExtResource("1_8japa")]([ExtResource("3_ee38i"), ExtResource("4_ee38i"), ExtResource("3_kfe0u"), ExtResource("5_ee38i"), ExtResource("6_oyjj8"), ExtResource("7_4n03o"), ExtResource("8_spls"), ExtResource("9_phsw"), ExtResource("10_clk"), ExtResource("11_2updi"), ExtResource("12_rtsd2"), ExtResource("13_mlme4"), ExtResource("14_mkbed"), ExtResource("15_mlme4"), ExtResource("16_gqarg")])
+item_pool = Array[ExtResource("1_8japa")]([ExtResource("3_ee38i"), ExtResource("4_ee38i"), ExtResource("3_kfe0u"), ExtResource("5_ee38i"), ExtResource("6_oyjj8"), ExtResource("7_4n03o"), ExtResource("8_spls"), ExtResource("9_phsw"), ExtResource("10_clk"), ExtResource("11_2updi"), ExtResource("12_rtsd2"), ExtResource("13_mlme4"), ExtResource("14_mkbed"), ExtResource("15_mlme4"), ExtResource("16_gqarg"), ExtResource("17_lftrb")])
 metadata/_custom_type_script = "uid://d2lueb6p5il1v"
