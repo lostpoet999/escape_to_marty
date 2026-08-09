@@ -193,6 +193,8 @@ func _resolve_damage_feedback() -> void:
 		damage_number.position = global_position
 		damage_number.show_damage("denied", DamageNumber.COLOR_DEALT)
 		get_tree().current_scene.add_child(damage_number)
+		if current_stage == GameManager.PhaseType.DENIAL:
+			DialogDirector.play(&"tutorial_click_mode", self)
 	_feedback_damaged = false
 	_feedback_pending = false
 

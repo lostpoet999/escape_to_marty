@@ -228,14 +228,14 @@ func _item_paths(source: Array[BaseItem]) -> Array:
 	return paths
 
 func restore_checkpoint(data: Dictionary) -> void:
-	score = int(data.get("score", 0))
-	gold_collected = int(data.get("gold", 0))
-	free_miss_shields = int(data.get("free_miss_shields", 0))
-	item_shields_spent = int(data.get("item_shields_spent", 0))
-	pick2_vouchers = int(data.get("pick2_vouchers", 0))
-	shop_restock_vouchers = int(data.get("shop_restock_vouchers", 0))
-	bankruptcy_gold_per_life_bonus = int(data.get("bankruptcy_gold_per_life_bonus", 0))
-	bankruptcy_damage_per_life_bonus = int(data.get("bankruptcy_damage_per_life_bonus", 0))
+	score = _saved_int(data, "score", 0)
+	gold_collected = _saved_int(data, "gold", 0)
+	free_miss_shields = _saved_int(data, "free_miss_shields", 0)
+	item_shields_spent = _saved_int(data, "item_shields_spent", 0)
+	pick2_vouchers = _saved_int(data, "pick2_vouchers", 0)
+	shop_restock_vouchers = _saved_int(data, "shop_restock_vouchers", 0)
+	bankruptcy_gold_per_life_bonus = _saved_int(data, "bankruptcy_gold_per_life_bonus", 0)
+	bankruptcy_damage_per_life_bonus = _saved_int(data, "bankruptcy_damage_per_life_bonus", 0)
 	seen_dialog_trees.clear()
 	for id: String in data.get("seen_dialog_trees", []):
 		seen_dialog_trees.append(StringName(id))
@@ -245,11 +245,11 @@ func restore_checkpoint(data: Dictionary) -> void:
 	dialog_trigger_counts.clear()
 	var trigger_counts: Dictionary = data.get("dialog_trigger_counts", {})
 	for key: String in trigger_counts:
-		dialog_trigger_counts[StringName(key)] = int(trigger_counts[key])
+		dialog_trigger_counts[StringName(key)] = _saved_int(trigger_counts, key, 0)
 	retry_counts.clear()
 	var retries: Dictionary = data.get("retry_counts", {})
 	for key: String in retries:
-		retry_counts[int(key)] = int(retries[key])
+		retry_counts[int(key)] = _saved_int(retries, key, 0)
 	pending_memories.clear()
 	inventory.items.clear()
 	for path: String in data.get("items", []):
@@ -262,8 +262,18 @@ func restore_checkpoint(data: Dictionary) -> void:
 		if core_item != null:
 			inventory.core_items.append(core_item)
 	Signalbus.inventory_changed.emit()
-	player_current_health = clampi(int(data.get("health", BASE_MAX_HEALTH)), 1, player_max_health)
+	player_current_health = clampi(_saved_int(data, "health", BASE_MAX_HEALTH), 1, player_max_health)
 	Signalbus.player_health_updated.emit()
+
+func _saved_int(source: Dictionary, key: String, fallback: int) -> int:
+	var value: Variant = source.get(key, fallback)
+	if value is int or value is float or value is bool:
+		var number: int = value
+		return number
+	if value is String:
+		var text: String = value
+		return text.to_int()
+	return fallback
 
 func grant_pick2_voucher(count: int = 1) -> void:
 	pick2_vouchers += count

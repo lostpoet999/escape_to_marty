@@ -123,6 +123,7 @@ func _try_revert_denial(target: Node) -> bool:
 		return false
 	if not seal.try_revert_denial(denial_revert_window):
 		return false
+	SFX.play_sound("hit-brick")
 	DialogDirector.play(&"denial_pushed_too_far")
 	return true
 
@@ -132,7 +133,8 @@ func _place_depression_light(at: Vector2) -> void:
 	if _point_blocks_light(at):
 		return
 	if depression_lights.size() >= max_depression_lights:
-		var oldest: DepressionLight = depression_lights.pop_front() as DepressionLight
+		var oldest_light: Node2D = depression_lights.pop_front()
+		var oldest: DepressionLight = oldest_light as DepressionLight
 		if oldest != null and is_instance_valid(oldest):
 			oldest.extinguish()
 	var light: Node2D = DEPRESSION_LIGHT.instantiate()
@@ -181,7 +183,7 @@ func _point_blocks_light(at: Vector2) -> bool:
 	query.position = at
 	query.collide_with_areas = true
 	for result: Dictionary in space.intersect_point(query):
-		var collider: Node = result.collider as Node
+		var collider: Node = result.collider
 		if collider == null:
 			continue
 		if collider.is_in_group("walls") or collider.is_in_group("barrier") or collider.is_in_group("bricks"):
@@ -222,14 +224,16 @@ func _sort_by_gesture_priority(a: Dictionary, b: Dictionary) -> bool:
 	var rank_b: int = _gesture_rank(b.collider)
 	if rank_a != rank_b:
 		return rank_a > rank_b
-	var item_a: CanvasItem = a.collider as CanvasItem
-	var item_b: CanvasItem = b.collider as CanvasItem
+	var node_a: Node = a.collider
+	var node_b: Node = b.collider
+	var item_a: CanvasItem = node_a as CanvasItem
+	var item_b: CanvasItem = node_b as CanvasItem
 	if item_a == null or item_b == null:
 		return false
 	return item_a.z_index > item_b.z_index
 
 func _gesture_rank(collider: Variant) -> int:
-	var node: Node = collider as Node
+	var node: Node = collider
 	if node == null:
 		return 0
 	if node.is_in_group("bricks") or node.is_in_group("barrier"):
@@ -274,7 +278,8 @@ func _gestures_active() -> bool:
 	return get_tree().get_first_node_in_group(&"practice_seal") != null
 
 func is_gesture_target(target: Variant) -> bool:
-	var seal: BaseSeal = target as BaseSeal
+	var node: Node = target
+	var seal: BaseSeal = node as BaseSeal
 	if seal != null:
 		return not seal.responding_gestures(denial_revert_window).is_empty()
 	if target.has_method("responding_gestures"):
@@ -287,7 +292,7 @@ func _try_exit_click() -> void:
 	if hovered != null and hovered.mouse_filter == Control.MOUSE_FILTER_STOP:
 		return
 	for result: Dictionary in _point_query_under_mouse():
-		var node: Node = result.collider as Node
+		var node: Node = result.collider
 		if node != null and node.has_method("handle_gesture_click"):
 			node.handle_gesture_click()
 			return
@@ -316,7 +321,8 @@ func _resolve_click_cursor() -> bool:
 	return _click_cursor != null
 
 func _is_bargain_target(target: Node) -> bool:
-	return target is BaseSeal and target.current_stage == GameManager.PhaseType.BARGAINING
+	var seal: BaseSeal = target as BaseSeal
+	return seal != null and seal.current_stage == GameManager.PhaseType.BARGAINING
 
 func _begin_bargain(seal: BaseSeal) -> void:
 	bargain_active = true

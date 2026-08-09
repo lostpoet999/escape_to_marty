@@ -12,6 +12,7 @@ const COLLECTOR_SIDE_FALLBACK_Y: float = 350.0
 const SCREEN_TOP: float = 0.0
 const ADVANCE_BOB_PIXELS: float = 4.0
 const ADVANCE_BOB_SECONDS: float = 0.9
+const TUTORIAL_PREFIX: String = "TUTORIAL:"
 
 @export var pulse_scale_amplitude: float = 0.012
 @export var pulse_seconds: float = 2.6
@@ -24,12 +25,16 @@ const ADVANCE_BOB_SECONDS: float = 0.9
 @export var collector_text_color: Color = Color(1, 0.9, 0.4)
 @export var spirit_text_color: Color = Color(0.75, 1, 0.8)
 @export var boss_text_color: Color = Color(1, 0.6, 0.6)
+## Body text of a tutorial tip, which speaks as the game rather than as a character.
+@export var tutorial_text_color: Color = Color("ebede9")
+## The "TUTORIAL:" prefix, matching the HUD gold of yellow_48.tres.
+@export var tutorial_prefix_color: Color = Color("e8c170")
 @export var collector_panel_color: Color = Color(1, 0.45, 0.45)
 @export var panel_opacity: float = 0.5
 @export var collector_side_anchor_ys: Array[float] = [210.0, 380.0, 540.0]
 @export var collector_top_anchor_fractions: Array[float] = [0.25, 0.5, 0.75]
 
-@onready var dialog_text: Label = $BubblePanel/MarginContainer/DialogText
+@onready var dialog_text: RichTextLabel = $BubblePanel/MarginContainer/DialogText
 @onready var bubble_panel: NinePatchRect = $BubblePanel
 @onready var tail_line: Line2D = $TailLine
 @onready var advance_indicator: Polygon2D = $BubblePanel/AdvanceIndicator
@@ -66,7 +71,6 @@ func _ready() -> void:
 	_make_mouse_transparent()
 	_panel_base_scale = bubble_panel.scale
 	bubble_panel.pivot_offset = bubble_panel.size / 2.0
-	dialog_text.label_settings = dialog_text.label_settings.duplicate()
 	if _collector_mode:
 		_configure_collector_layout()
 	else:
@@ -95,15 +99,22 @@ func _process(delta: float) -> void:
 	_update_advance_indicator()
 
 
-func show_beat(beat: DialogBeat) -> void:
-	_apply_speaker_style(beat.speaker)
-	dialog_text.text = beat.text
+func show_beat(beat: DialogBeat, is_tutorial: bool = false) -> void:
+	_apply_speaker_style(beat.speaker, is_tutorial)
+	dialog_text.text = _beat_markup(beat, is_tutorial)
 	dialog_text.visible_ratio = 0.0
 	if _reveal_tween:
 		_reveal_tween.kill()
 	_reveal_tween = create_tween()
-	var reveal_seconds: float = maxf(beat.text.length() / REVEAL_CHARACTERS_PER_SECOND, 0.1)
+	var visible_characters: int = dialog_text.get_total_character_count()
+	var reveal_seconds: float = maxf(visible_characters / REVEAL_CHARACTERS_PER_SECOND, 0.1)
 	_reveal_tween.tween_property(dialog_text, "visible_ratio", 1.0, reveal_seconds)
+
+
+func _beat_markup(beat: DialogBeat, is_tutorial: bool) -> String:
+	if not is_tutorial:
+		return beat.text
+	return "[color=#%s]%s[/color] %s" % [tutorial_prefix_color.to_html(false), TUTORIAL_PREFIX, beat.text]
 
 
 func focus_point() -> Vector2:
@@ -127,9 +138,11 @@ func _update_advance_indicator() -> void:
 		advance_indicator.position = _indicator_base_position + Vector2(0.0, bob)
 
 
-func _apply_speaker_style(speaker: DialogBeat.Speaker) -> void:
-	dialog_text.label_settings.font_color = _speaker_color(speaker)
-	var box_tint: Color = collector_panel_color if speaker == DialogBeat.Speaker.COLLECTOR else Color.WHITE
+func _apply_speaker_style(speaker: DialogBeat.Speaker, is_tutorial: bool) -> void:
+	var text_color: Color = tutorial_text_color if is_tutorial else _speaker_color(speaker)
+	dialog_text.add_theme_color_override(&"default_color", text_color)
+	var wears_collector_tint: bool = speaker == DialogBeat.Speaker.COLLECTOR and not is_tutorial
+	var box_tint: Color = collector_panel_color if wears_collector_tint else Color.WHITE
 	box_tint.a = panel_opacity
 	bubble_panel.self_modulate = box_tint
 	tail_line.modulate = box_tint

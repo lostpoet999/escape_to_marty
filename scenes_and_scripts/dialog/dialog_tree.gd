@@ -16,6 +16,11 @@ class_name DialogTree extends Resource
 ## ON: pick a random beat from the "pool" vs play all sequentially
 @export var pick_random_beat: bool = false
 
+## ON: a tutorial tip. Only plays while "Tutorial Tips" is enabled in settings, and the
+## bubble anchors to the node passed to play() even for the Collector, so it points at
+## the thing being taught instead of sitting at a screen edge.
+@export var tutorial_tip: bool = false
+
 ## ON: while this tree's ambient bubble is on screen, other ambient plays are
 ## discarded (their once_per_run is not burned). Focused trees still take over.
 @export var no_override: bool = false

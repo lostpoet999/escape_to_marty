@@ -143,11 +143,11 @@ func reset_paddle_length()->void:
 	sprite.scale.x = base_scale_x
 	paddle_collision_shape.scale.x = base_shape_size_x
 
-func set_paddle_hidden(hidden: bool, include_david: bool = false) -> void:
-	sprite.visible = not hidden
-	paddle_collision_shape.set_deferred("disabled", hidden)
+func set_paddle_hidden(is_hidden: bool, include_david: bool = false) -> void:
+	sprite.visible = not is_hidden
+	paddle_collision_shape.set_deferred("disabled", is_hidden)
 	if include_david:
-		david.visible = not hidden
+		david.visible = not is_hidden
 
 func set_paddle_length_from_items()->void:
 	paddle_powerups = PlayerData.inventory.get_items_for_paddle()  # refresh first
@@ -232,7 +232,7 @@ func freeze_paddle_for_time(time: float)->void:
 		freeze_timer.timeout.connect(_on_freeze_timer_expire)
 		add_child(freeze_timer)
 
-	var shake_effect = ShakeEffect.new()
+	var shake_effect: ShakeEffect = ShakeEffect.new()
 	shake_effect.shake_amount = 30
 	shake_effect.apply_to(self, sprite)
 		
@@ -485,11 +485,11 @@ func _physics_process(delta: float) -> void:
 		last_position = global_position
 		_track_committed_distance(prev_x)
 
-func _on_ball_magnet_radius_area_shape_entered(area_rid: RID, area: Area2D, area_shape_index: int, local_shape_index: int) -> void:
+func _on_ball_magnet_radius_area_shape_entered(_area_rid: RID, area: Area2D, _area_shape_index: int, _local_shape_index: int) -> void:
 	if area and area.name == "Ball":
 		Signalbus.ball_in_magnet_range.emit(true)
 
-func _on_ball_magnet_radius_area_shape_exited(area_rid: RID, area: Area2D, area_shape_index: int, local_shape_index: int) -> void:
+func _on_ball_magnet_radius_area_shape_exited(_area_rid: RID, area: Area2D, _area_shape_index: int, _local_shape_index: int) -> void:
 	if area and area.name == "Ball":
 		Signalbus.ball_in_magnet_range.emit(false)
 

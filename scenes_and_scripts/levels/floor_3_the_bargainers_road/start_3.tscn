@@ -39,6 +39,7 @@ autowrap_mode = 3
 position = Vector2(679, 736)
 script = ExtResource("4_prac")
 respawn_delay = 1.5
+starts_hidden = false
 initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({
 2: 5.0

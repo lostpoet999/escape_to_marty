@@ -18,6 +18,7 @@ offset_left = 391.0
 offset_top = 288.0
 offset_right = 1223.0
 offset_bottom = 585.0
+mouse_filter = 2
 theme_override_fonts/normal_font = ExtResource("2_45lsl")
 bbcode_enabled = true
 text = "1. In combat rooms you will have to clear [color=yellow]seals[/color] to unlock the exits.
@@ -46,7 +47,7 @@ stages = Dictionary[int, float]({
 0: 3.0
 })
 
-[node name="Label2" type="Label" parent="." index="6"]
+[node name="Label2" type="Label" parent="." index="6" groups=["opening_tutorial"]]
 offset_left = 1024.0
 offset_top = 704.0
 offset_right = 1280.0

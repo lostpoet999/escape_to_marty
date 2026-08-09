@@ -30,6 +30,7 @@ const CLEAR_POP_FALLBACK_S: float = 1.2
 const CLEAR_POP_BURSTS: int = 3
 const CELEBRATE_TINT: Color = Color(1.14, 1.09, 0.92)
 const CELEBRATE_ZOOM_PUNCH: float = 1.03
+const MINIMAP_TIP_OFFSET: Vector2 = Vector2(0, -100)
 const CELEBRATE_FX: PackedScene = preload("res://scenes_and_scripts/bricks/brick_vfx/brick_destroy_fx.tscn")
 const CELEBRATE_FX_SCALE: float = 2.0
 const CELEBRATE_FIELD: Rect2 = Rect2(345, 128, 1481, 704)
@@ -83,6 +84,7 @@ var entry: RoomEntry
 @onready var no_respawn: Node2D = $"No-Respawn"
 @onready var play_area: Control = $PlayArea
 @onready var hud_ui_area: Control = $HUDLayer/UIArea
+@onready var minimap: Control = $HUDLayer/UIArea/Main_UI/VBoxContainer/MinimapMargins/Minimap
 @onready var play_background: ColorRect = $PlayArea/Background
 @onready var flash_overlay: ColorRect = $PlayArea/FlashOverlay
 @onready var misty_background: Node2D = $"PlayArea/Misty-Background"
@@ -143,9 +145,25 @@ func _ready() -> void:
 	Signalbus.game_state_main_menu.connect(_restore_hud_after_death)
 	initiate_special_room()
 	if entry.content.room_type == RoomContent.ROOM_TYPES.combat:
-		DialogDirector.play(&"first_combat_room")
+		_play_combat_entry_dialog()
 	_run_cutscene_if_present()
 	LoadingScreen.lower()
+
+
+func _play_combat_entry_dialog() -> void:
+	while LoadingScreen.is_raised():
+		await get_tree().process_frame
+	await get_tree().create_timer(LoadingScreen.FADE_TIME, true).timeout
+	if not is_inside_tree():
+		return
+	await DialogDirector.play_and_wait(&"tutorial_launch", paddle)
+	if not is_inside_tree():
+		return
+	if DialogDirector.play_at_control(&"tutorial_minimap", minimap, MINIMAP_TIP_OFFSET):
+		await DialogDirector.tree_finished
+	if not is_inside_tree():
+		return
+	DialogDirector.play(&"first_combat_room")
 
 
 func _run_cutscene_if_present() -> void:
@@ -206,7 +224,7 @@ func _on_player_damaged(amount: int) -> void:
 		cam.add_trauma(PLAYER_HURT_TRAUMA)
 	SFX.play_sound("player_hurt")
 	paddle.hit_feedback()
-	var damage_number := DAMAGE_NUMBER.instantiate()
+	var damage_number: DamageNumber = DAMAGE_NUMBER.instantiate()
 	damage_number.position = paddle.david_global_position()
 	add_child(damage_number)
 	damage_number.show_damage("-" + str(amount), DamageNumber.COLOR_TAKEN)
@@ -335,8 +353,8 @@ func _spawn_escaped_spirit(spawn_from: Area2D) -> void:
 func _pre_first_launch() -> bool:
 	if _first_launch_seen:
 		return false
-	var ball: Node = get_tree().get_first_node_in_group("ball")
-	if ball == null or not bool(ball.get("on_paddle")):
+	var ball: Ball = get_tree().get_first_node_in_group("ball") as Ball
+	if ball == null or not ball.on_paddle:
 		_first_launch_seen = true
 		return false
 	return true
@@ -566,27 +584,46 @@ func _apply_floor_wall_visuals() -> void:
 	if fd == null:
 		return
 	# local RNG seeded by room id so jitter/flip stay stable across re-entries
-	var rng := RandomNumberGenerator.new()
+	var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 	rng.seed = hash(GameManager.current_room_id)
 	var base_tint: Color = fd.wall_modulate
 	base_tint.a *= fd.wall_alpha
 	for wall: Node in get_tree().get_nodes_in_group("walls"):
 		for child: Node in wall.find_children("*", "", true, false):
-			if (child is TextureRect or child is Sprite2D) and child.texture != null:
-				# avoid overriding door sprite
-				if (child is TextureRect) and (child as TextureRect).size == Vector2(128, 64):
+			var tex_rect: TextureRect = child as TextureRect
+			var sprite: Sprite2D = child as Sprite2D
+			if tex_rect != null:
+				if tex_rect.texture == null:
 					continue
-				if fd.wall_texture != null:
-					child.texture = fd.wall_texture
-				child.self_modulate = _jittered(base_tint, fd.wall_brightness_jitter, rng)
-				child.texture_filter = fd.wall_texture_filter
-				if fd.wall_random_flip:
-					child.flip_h = rng.randi() % 2 == 0
-					child.flip_v = rng.randi() % 2 == 0
+				# avoid overriding door sprite
+				if tex_rect.size == Vector2(128, 64):
+					continue
+			elif sprite != null:
+				if sprite.texture == null:
+					continue
+			else:
+				continue
+			var item: CanvasItem = child as CanvasItem
+			if fd.wall_texture != null:
+				if tex_rect != null:
+					tex_rect.texture = fd.wall_texture
+				else:
+					sprite.texture = fd.wall_texture
+			item.self_modulate = _jittered(base_tint, fd.wall_brightness_jitter, rng)
+			item.texture_filter = fd.wall_texture_filter
+			if fd.wall_random_flip:
+				var flip_h: bool = rng.randi() % 2 == 0
+				var flip_v: bool = rng.randi() % 2 == 0
+				if tex_rect != null:
+					tex_rect.flip_h = flip_h
+					tex_rect.flip_v = flip_v
+				else:
+					sprite.flip_h = flip_h
+					sprite.flip_v = flip_v
 	play_background.color = fd.background_color
 	misty_background.visible = fd.misty_background_enabled
 	for child: Node in misty_background.get_children():
-		var particles := child as CPUParticles2D
+		var particles: CPUParticles2D = child as CPUParticles2D
 		if particles != null:
 			particles.emitting = fd.misty_background_enabled
 

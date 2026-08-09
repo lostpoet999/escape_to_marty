@@ -5,7 +5,7 @@ extends Control
 @onready var health: Label = %health
 @onready var shields: Label = %shields
 
-var numberAnimDelay: float = 3/30 # of a second
+var numberAnimDelay: float = 3.0 / 30.0
 var numberDelayRemaining: float = 0
 
 var currentScore: int = 0

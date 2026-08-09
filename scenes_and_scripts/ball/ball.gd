@@ -155,7 +155,7 @@ func tween_to_david(hit_pos: Vector2) -> void:
 func tween_to_nearest_brick() -> void:
 	if is_tweening_to_nearest_brick == true:
 		return
-	var nearest_brick: Node = get_nearest_brick()
+	var nearest_brick: Node2D = get_nearest_brick()
 	if nearest_brick == null:
 		return
 	is_tweening_to_nearest_brick = true
@@ -184,16 +184,16 @@ func cancel_tween_to_nearest_brick() -> void:
 	nearest_brick_tween = null
 	set_physics_process(true)
 
-func get_nearest_brick() -> Node:
+func get_nearest_brick() -> Node2D:
 	var bricks: Array[Node] = get_tree().get_nodes_in_group("bricks")
 	if bricks.is_empty():
 		return null
-	var p0: Vector2 = position
-	var nearest_brick: Node = bricks[0]
-	var p1: Vector2 = nearest_brick.position
-	var nearest_dist: float = global_position.distance_to(nearest_brick.position)
-	for i in range (bricks.size()):
-		var brick = bricks[i]
+	var nearest_brick: Node2D = null
+	var nearest_dist: float = INF
+	for i: int in range(bricks.size()):
+		var brick: Node2D = bricks[i] as Node2D
+		if brick == null:
+			continue
 		var temp_dist: float = global_position.distance_to(brick.position)
 		if temp_dist < nearest_dist:
 			nearest_dist = temp_dist
@@ -243,13 +243,13 @@ func attract_to_paddle() -> void:
 	elif on_paddle and GameManager.current_state == GameManager.GameState.BALL_ON_PADDLE:
 		launch_ball()
 
-func set_ball_in_magnet_range(ball_in_range: bool):
+func set_ball_in_magnet_range(ball_in_range: bool) -> void:
 	if ball_in_range:
 		ball_in_magnet_range = true
 	else:
 		ball_in_magnet_range = false
 
-func set_paddle_can_attract():
+func set_paddle_can_attract() -> void:
 	paddle_can_attract = true
 
 func launch_ball() -> void:

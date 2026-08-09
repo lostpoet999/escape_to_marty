@@ -66,7 +66,8 @@ var _spit_blobs: Array[Node] = []
 func _ready() -> void:
 	health = max_health
 	scale = Vector2.ONE * start_scale
-	$CollisionShape2D.disabled = true
+	var hitbox: CollisionShape2D = $CollisionShape2D
+	hitbox.disabled = true
 	_bob_period = randf_range(bob_period_min, bob_period_max)
 	_bob_amp = _roll_bob_amp()
 	var tween: Tween = create_tween()
@@ -108,7 +109,8 @@ func _prune_spit_blobs() -> void:
 func _spit_blob() -> void:
 	var blob: RageBlob = RAGE_BLOB.instantiate()
 	blob.add_collision_exception_with(self)
-	blob.position = $Mouth.global_position
+	var mouth: Node2D = $Mouth
+	blob.position = mouth.global_position
 	get_parent().add_child(blob)
 	_spit_blobs.append(blob)
 
@@ -226,7 +228,8 @@ func _fire_shot(index: int, pattern: VolleyPattern) -> void:
 	var half_spread: float = deg_to_rad(volley_spread_degrees) * 0.5
 	var t: float = _shot_fan_position(index, pattern)
 	shot.direction = Vector2.DOWN.rotated(lerpf(-half_spread, half_spread, t))
-	shot.position = $Mouth.global_position
+	var mouth: Node2D = $Mouth
+	shot.position = mouth.global_position
 	get_parent().add_child(shot)
 
 func _shot_fan_position(index: int, pattern: VolleyPattern) -> float:
@@ -234,7 +237,9 @@ func _shot_fan_position(index: int, pattern: VolleyPattern) -> float:
 		return 0.5
 	if pattern == VolleyPattern.SWEEP:
 		return float(index) / float(volley_count - 1)
+	@warning_ignore("integer_division")
 	var pairs: int = maxi(1, (volley_count + 1) / 2 - 1)
+	@warning_ignore("integer_division")
 	var inward: float = float(index / 2) / float(pairs) * 0.45
 	return inward if index % 2 == 0 else 1.0 - inward
 
@@ -279,7 +284,8 @@ func _track_stuck_ball() -> void:
 	if not is_instance_valid(_stuck_ball):
 		_stuck_ball = null
 		return
-	_stuck_ball.global_position = global_position + _stuck_offset * $Sprite2D.scale.x
+	var sprite: Sprite2D = $Sprite2D
+	_stuck_ball.global_position = global_position + _stuck_offset * sprite.scale.x
 
 func _release_ball() -> void:
 	if _stuck_ball == null or not is_instance_valid(_stuck_ball):
@@ -303,7 +309,8 @@ func _show_damage_number(amount: float) -> void:
 	dn.show_damage("-" + DamageNumber.format_amount(amount), DamageNumber.COLOR_DEALT)
 
 func _flash_hit() -> void:
-	var mat: ShaderMaterial = $Sprite2D.material as ShaderMaterial
+	var sprite: Sprite2D = $Sprite2D
+	var mat: ShaderMaterial = sprite.material as ShaderMaterial
 	if mat == null:
 		return
 	mat.set_shader_parameter("flash_amount", 1.0)

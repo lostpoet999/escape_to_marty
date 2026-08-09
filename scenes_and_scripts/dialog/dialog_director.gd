@@ -40,6 +40,8 @@ func play(tree_id: StringName, anchor: Node2D = null) -> bool:
 	var tree: DialogTree = _load_tree(tree_id)
 	if tree == null or tree.beats.is_empty():
 		return false
+	if tree.tutorial_tip and not SettingsManager.show_tutorial_tips:
+		return false
 	if not tree.pauses_game and _no_override_active():
 		return false
 	if not _passes_trigger_threshold(tree_id, tree):
@@ -62,6 +64,21 @@ func play_and_wait(tree_id: StringName, anchor: Node2D = null) -> void:
 	var finished_id: StringName = await tree_finished
 	while finished_id != tree_id:
 		finished_id = await tree_finished
+
+
+func play_at_control(tree_id: StringName, control: Control, screen_offset: Vector2 = Vector2.ZERO) -> bool:
+	if not is_instance_valid(control):
+		return false
+	var tracker: ControlAnchor = ControlAnchor.new()
+	tracker.target = control
+	tracker.tree_id = tree_id
+	tracker.screen_offset = screen_offset
+	tracker.process_mode = Node.PROCESS_MODE_ALWAYS
+	get_tree().current_scene.add_child(tracker)
+	if not play(tree_id, tracker):
+		tracker.queue_free()
+		return false
+	return true
 
 
 ## Instantly ends whatever is playing (cutscene skip). An ambient bubble is
@@ -106,7 +123,7 @@ func _passes_trigger_threshold(tree_id: StringName, tree: DialogTree) -> bool:
 func _play_timed(tree_id: StringName, tree: DialogTree, anchor: Node2D, serial: int) -> void:
 	_dismiss_active_bubble()
 	for beat: DialogBeat in _beats_to_play(tree):
-		if not _present_beat(beat, anchor):
+		if not _present_beat(beat, anchor, tree.tutorial_tip):
 			break
 		_active_no_override = tree.no_override
 		await get_tree().create_timer(_beat_seconds(beat), false).timeout
@@ -133,11 +150,14 @@ func _play_focused(tree_id: StringName, tree: DialogTree, anchor: Node2D) -> voi
 	for beat: DialogBeat in _beats_to_play(tree):
 		if _cancel_requested:
 			break
-		if not _present_beat(beat, anchor):
+		if not _present_beat(beat, anchor, tree.tutorial_tip):
 			break
 		_active_bubble.process_mode = Node.PROCESS_MODE_ALWAYS
 		_active_bubble.focused = true
-		_retarget_focus_pull(_active_bubble.focus_point())
+		var pull_target: Vector2 = _active_bubble.focus_point()
+		if tree.tutorial_tip and is_instance_valid(anchor):
+			pull_target = anchor.global_position
+		_retarget_focus_pull(pull_target)
 		await _advance_click(catcher)
 		if not is_instance_valid(_active_bubble):
 			break
@@ -242,18 +262,18 @@ func _beats_to_play(tree: DialogTree) -> Array[DialogBeat]:
 	return tree.beats
 
 
-func _present_beat(beat: DialogBeat, anchor: Node2D) -> bool:
-	if beat.speaker == DialogBeat.Speaker.COLLECTOR:
-		_show_collector(beat)
+func _present_beat(beat: DialogBeat, anchor: Node2D, is_tutorial: bool = false) -> bool:
+	if beat.speaker == DialogBeat.Speaker.COLLECTOR and not (is_tutorial and is_instance_valid(anchor)):
+		_show_collector(beat, is_tutorial)
 		return true
 	var beat_anchor: Node2D = _resolve_anchor(beat, anchor)
 	if beat_anchor == null:
 		return false
-	_show_anchored(beat, beat_anchor)
+	_show_anchored(beat, beat_anchor, is_tutorial)
 	return true
 
 
-func _show_anchored(beat: DialogBeat, beat_anchor: Node2D) -> void:
+func _show_anchored(beat: DialogBeat, beat_anchor: Node2D, is_tutorial: bool) -> void:
 	var reusable: bool = is_instance_valid(_active_bubble) and not _active_is_static and _active_anchor == beat_anchor
 	if not reusable:
 		_dismiss_active_bubble()
@@ -263,10 +283,10 @@ func _show_anchored(beat: DialogBeat, beat_anchor: Node2D) -> void:
 		_active_bubble = bubble
 		_active_anchor = beat_anchor
 		_active_is_static = false
-	_active_bubble.show_beat(beat)
+	_active_bubble.show_beat(beat, is_tutorial)
 
 
-func _show_collector(beat: DialogBeat) -> void:
+func _show_collector(beat: DialogBeat, is_tutorial: bool) -> void:
 	var reusable: bool = is_instance_valid(_active_bubble) and _active_is_static
 	if not reusable:
 		_dismiss_active_bubble()
@@ -276,7 +296,7 @@ func _show_collector(beat: DialogBeat) -> void:
 		_active_bubble = bubble
 		_active_anchor = null
 		_active_is_static = true
-	_active_bubble.show_beat(beat)
+	_active_bubble.show_beat(beat, is_tutorial)
 
 
 func _resolve_anchor(beat: DialogBeat, provided_anchor: Node2D) -> Node2D:
@@ -311,6 +331,30 @@ func _load_tree(tree_id: StringName) -> DialogTree:
 		push_warning("DialogDirector: no dialog tree at %s" % path)
 		return null
 	return load(path) as DialogTree
+
+
+class ControlAnchor extends Node2D:
+	var target: Control
+	var tree_id: StringName
+	var screen_offset: Vector2 = Vector2.ZERO
+
+	func _ready() -> void:
+		DialogDirector.tree_finished.connect(_on_tree_finished)
+		_track()
+
+	func _on_tree_finished(finished_id: StringName) -> void:
+		if finished_id == tree_id:
+			queue_free()
+
+	func _process(_delta: float) -> void:
+		_track()
+
+	func _track() -> void:
+		if not is_instance_valid(target):
+			queue_free()
+			return
+		var screen_point: Vector2 = target.get_global_rect().get_center() + screen_offset
+		global_position = get_viewport().get_canvas_transform().affine_inverse() * screen_point
 
 
 class ClickCatcher extends Control:

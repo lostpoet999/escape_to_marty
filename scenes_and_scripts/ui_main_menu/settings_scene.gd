@@ -3,6 +3,7 @@ extends Control
 @onready var music_slider: HSlider = $"VBoxContainer/Settings Container/SettingsBox/MusicRow/MusicSlider"
 @onready var sfx_slider: HSlider = $"VBoxContainer/Settings Container/SettingsBox/SfxRow/SfxSlider"
 @onready var mouse_slider: HSlider = $"VBoxContainer/Settings Container/SettingsBox/MouseRow/MouseSlider"
+@onready var tips_check: CheckBox = $"VBoxContainer/Settings Container/SettingsBox/TipsRow/TipsCheck"
 @onready var easy_button: Button = $"VBoxContainer/Settings Container/SettingsBox/DifficultyRow/DifficultyButtons/EasyButton"
 @onready var normal_button: Button = $"VBoxContainer/Settings Container/SettingsBox/DifficultyRow/DifficultyButtons/NormalButton"
 @onready var hard_button: Button = $"VBoxContainer/Settings Container/SettingsBox/DifficultyRow/DifficultyButtons/HardButton"
@@ -11,6 +12,7 @@ func _ready() -> void:
 	music_slider.value = SettingsManager.music_volume
 	sfx_slider.value = SettingsManager.sfx_volume
 	mouse_slider.value = SettingsManager.mouse_sensitivity
+	tips_check.button_pressed = SettingsManager.show_tutorial_tips
 	match SettingsManager.difficulty:
 		0: easy_button.button_pressed = true
 		2: hard_button.button_pressed = true
@@ -26,6 +28,9 @@ func _on_sfx_slider_value_changed(value: float) -> void:
 
 func _on_mouse_slider_value_changed(value: float) -> void:
 	SettingsManager.mouse_sensitivity = value
+
+func _on_tips_check_toggled(toggled_on: bool) -> void:
+	SettingsManager.show_tutorial_tips = toggled_on
 
 func _on_easy_button_pressed() -> void:
 	SettingsManager.difficulty = 0
