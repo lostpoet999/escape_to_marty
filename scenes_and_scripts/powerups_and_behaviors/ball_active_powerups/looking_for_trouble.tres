@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource("1_lft")
+seek_speed_multiplier = 2.0
 cool_down_seconds = 5.0
 powerup_name = "Looking for Trouble"
 shop_description = "Find trouble in all the right places. Send the ball on a collision course for the nearest seal."

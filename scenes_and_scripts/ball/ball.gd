@@ -48,12 +48,12 @@ var _vertical_serve_checked: bool = false
 
 @export var active_ball_powerup: BallActive
 
-## Peak brightness of the sprite pulse that marks the ball active as armed. 1.0 disables the tell.
-@export var active_pulse_strength: float = 1.7
-## Seconds per full pulse of the armed tell.
+## Seconds per full white-swap cycle of the armed tell; the sprite spends half of it solid white.
 @export var active_pulse_period: float = 0.9
 var _active_cooldown_left: float = 0.0
 var _active_pulse_time: float = 0.0
+var _speed_before_boost: float = 0.0
+var _speed_boost_active: bool = false
 
 var ball_in_magnet_range: bool = false
 var paddle_can_attract: bool = true
@@ -130,13 +130,18 @@ func _process(delta: float) -> void:
 func _update_active_pulse(delta: float) -> void:
 	if _active_cooldown_left > 0.0:
 		_active_cooldown_left = maxf(_active_cooldown_left - delta, 0.0)
-	if active_ball_powerup == null or _active_cooldown_left > 0.0 or active_pulse_strength <= 1.0:
-		sprite.self_modulate = Color.WHITE
+	if active_ball_powerup == null or _active_cooldown_left > 0.0 or active_pulse_period <= 0.0:
+		_set_armed_flash(0.0)
 		return
 	_active_pulse_time += delta
-	var wave: float = 0.5 - cos(TAU * _active_pulse_time / active_pulse_period) * 0.5
-	var glow: float = lerpf(1.0, active_pulse_strength, wave)
-	sprite.self_modulate = Color(glow, glow, glow)
+	var phase: float = fposmod(_active_pulse_time, active_pulse_period)
+	_set_armed_flash(1.0 if phase < active_pulse_period * 0.5 else 0.0)
+
+func _set_armed_flash(amount: float) -> void:
+	var mat: ShaderMaterial = sprite.material as ShaderMaterial
+	if mat == null:
+		return
+	mat.set_shader_parameter("flash_amount", amount)
 
 func _update_ball_light() -> void:
 	var dmg: float = maxf(ball_dmg, 1.0)
@@ -151,6 +156,7 @@ func position_ball_on_paddle() -> void:
 	ball_collision.set_deferred("disabled", false)
 	set_physics_process(true)
 	is_tweening_to_david = false
+	end_speed_boost()
 	GameManager.change_state(GameManager.GameState.BALL_ON_PADDLE)
 	
 
@@ -176,15 +182,26 @@ func tween_to_david(hit_pos: Vector2) -> void:
 	)
 	await tw.finished
 
-func redirect_to_nearest_seal() -> bool:
+func redirect_to_nearest_seal(speed_multiplier: float = 1.0) -> bool:
 	var target: BaseSeal = get_nearest_seal()
 	if target == null:
 		return false
 	var heading: Vector2 = target.global_position - global_position
 	if heading.is_zero_approx():
 		return false
+	if not _speed_boost_active:
+		_speed_before_boost = current_speed
+		_speed_boost_active = true
+	current_speed = _speed_before_boost * speed_multiplier
 	velocity = heading.normalized() * current_speed
 	return true
+
+func end_speed_boost() -> void:
+	if not _speed_boost_active:
+		return
+	_speed_boost_active = false
+	current_speed = _speed_before_boost
+	velocity = velocity.normalized() * current_speed
 
 func get_nearest_seal() -> BaseSeal:
 	var nearest_seal: BaseSeal = null
@@ -344,6 +361,7 @@ func resolve_frame_start_overlaps() -> void:
 		var pen_y: float = half.y + ball_half_height - absf(diff.y)
 		if pen_x <= 0.0 or pen_y <= 0.0:
 			continue
+		end_speed_boost()
 		if collider.is_in_group("bounce_enemy"):
 			apply_collider_effects(collider)
 		var dir_x: float = 1.0 if diff.x == 0.0 else signf(diff.x)
@@ -374,6 +392,7 @@ func move_ball_step(delta: float) -> void:
 			if on_paddle:
 				return
 			spawn_collision_feedback(collider)
+			end_speed_boost()
 		if collider.is_in_group("paddle"):
 			if !flipped_x:
 				bounce_effect.handle_paddle_collision(self, collider as Paddle)
@@ -402,6 +421,7 @@ func move_ball_step(delta: float) -> void:
 			if on_paddle:
 				return
 			spawn_collision_feedback(collider)
+			end_speed_boost()
 		if collider.is_in_group("paddle"):
 			if !flipped_y:
 				bounce_effect.handle_paddle_collision(self, collider as Paddle)
