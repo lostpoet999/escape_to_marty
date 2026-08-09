@@ -19,11 +19,17 @@ func _ready() -> void:
 	restart_button.hide()
 	_seed_sliders()
 	hide_menu()
-	Signalbus.game_state_paused.connect(show_menu)
+	Signalbus.game_state_pause_changed.connect(_on_game_state_pause_changed)
 	Signalbus.game_state_playing.connect(hide_menu)
 
 	if OS.has_feature("web"):
 		exit_button.hide()
+
+func _on_game_state_pause_changed(paused: bool) -> void:
+	if paused:
+		show_menu()
+	else:
+		hide_menu()
 
 func show_menu() -> void:
 	if _open_tween != null and _open_tween.is_valid():
