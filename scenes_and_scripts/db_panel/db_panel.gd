@@ -36,7 +36,7 @@ func populate_tracked_variables() -> void:
 
 func _input(event: InputEvent) -> void:
 	if not (OS.has_feature("editor") or OS.has_feature("web")): return # temp: web allowed for devpod playtest, then back to editor-only
-	if event.is_action_pressed("activate_exits"):
+	if event.is_action_pressed("activate_exits") and OS.has_feature("editor"):
 		_on_enable_exits_btn_pressed()
 	if event.is_action_pressed("toggle_debug_panel"):
 		if visible:

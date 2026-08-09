@@ -1,5 +1,6 @@
 extends Control
 
+@onready var fullscreen_button: Button = $ColorRect/VBoxContainer/HBoxContainer/FullscreenButton
 @onready var restart_button: Button = $ColorRect/VBoxContainer/HBoxContainer/"Restart Button"
 @onready var main_menu_button: Button = $ColorRect/VBoxContainer/HBoxContainer/MainMenu
 @onready var exit_button: Button = $ColorRect/VBoxContainer/HBoxContainer/"Exit Button"
@@ -13,6 +14,7 @@ var _settings_dirty: bool = false
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	ApolloPalette.style_menu_button(fullscreen_button)
 	ApolloPalette.style_menu_button(restart_button)
 	ApolloPalette.style_menu_button(main_menu_button)
 	ApolloPalette.style_menu_button(exit_button)

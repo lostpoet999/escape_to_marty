@@ -5,6 +5,8 @@ const DEFAULT_BALL_DMG: int = 1
 
 const LIGHT_BASE_ENERGY: float = 1.0
 
+const ARMED_FLASH_SHADER: Shader = preload("uid://gnsjmtflfbxt")
+
 @export var initial_speed: float = 500.0
 var current_speed: float = 500.0
 var max_speed: float = 1050.0
@@ -73,6 +75,7 @@ var old_y: float = 0.0
 @onready var paddle_collision: CollisionShape2D = $"../Paddle/PaddleCollisionShape"
 @onready var ball_collision: CollisionShape2D = $bounce_collision_shape
 @onready var sprite: Sprite2D = $Sprite2D
+var _armed_material: ShaderMaterial
 var is_tweening_to_david: bool = false
 var tween_from_magnet: bool = false
 
@@ -80,6 +83,9 @@ var tween_from_magnet: bool = false
 
 func _ready() -> void:
 	add_to_group(&"ball")
+	_armed_material = ShaderMaterial.new()
+	_armed_material.shader = ARMED_FLASH_SHADER
+	_armed_material.set_shader_parameter("flash_amount", 1.0)
 	DP.track("Ball Velocity: ",self,"current_speed")
 	position_ball_on_paddle()
 	bounce_effect = null
@@ -131,17 +137,14 @@ func _update_active_pulse(delta: float) -> void:
 	if _active_cooldown_left > 0.0:
 		_active_cooldown_left = maxf(_active_cooldown_left - delta, 0.0)
 	if active_ball_powerup == null or _active_cooldown_left > 0.0 or active_pulse_period <= 0.0:
-		_set_armed_flash(0.0)
+		_set_armed_flash(false)
 		return
 	_active_pulse_time += delta
 	var phase: float = fposmod(_active_pulse_time, active_pulse_period)
-	_set_armed_flash(1.0 if phase < active_pulse_period * 0.5 else 0.0)
+	_set_armed_flash(phase < active_pulse_period * 0.5)
 
-func _set_armed_flash(amount: float) -> void:
-	var mat: ShaderMaterial = sprite.material as ShaderMaterial
-	if mat == null:
-		return
-	mat.set_shader_parameter("flash_amount", amount)
+func _set_armed_flash(white: bool) -> void:
+	sprite.material = _armed_material if white else null
 
 func _update_ball_light() -> void:
 	var dmg: float = maxf(ball_dmg, 1.0)

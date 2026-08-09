@@ -134,6 +134,7 @@ custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 16
+alignment = 1
 
 [node name="FullscreenButton" type="Button" parent="ColorRect/VBoxContainer/HBoxContainer" unique_id=1637181658]
 layout_mode = 2
@@ -142,11 +143,6 @@ text = "Fullscreen
 (Windowed)"
 script = ExtResource("5_wuona")
 metadata/_custom_type_script = "uid://dsi4srcwglrh1"
-
-[node name="Spacer" type="Control" parent="ColorRect/VBoxContainer/HBoxContainer" unique_id=1179290079]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.5
 
 [node name="Restart Button" type="Button" parent="ColorRect/VBoxContainer/HBoxContainer" unique_id=1723660939]
 layout_mode = 2
