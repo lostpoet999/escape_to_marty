@@ -23,6 +23,10 @@
 [ext_resource type="AudioStream" uid="uid://j2rgbhwu8naf" path="res://sound_effects/dry (no reverb)/magnet_start.ogg" id="21_mgstart"]
 [ext_resource type="AudioStream" uid="uid://bchvqaascitwi" path="res://sound_effects/dry (no reverb)/magnet_loop.ogg" id="22_mgloop"]
 [ext_resource type="AudioStream" uid="uid://d1nm1lx8oiidw" path="res://sound_effects/dry (no reverb)/magnet_stop.ogg" id="23_mgstop"]
+[ext_resource type="AudioStream" uid="uid://dytafq40ev1xg" path="res://sound_effects/dry (no reverb)/whoosh-open.ogg" id="24_whopen"]
+[ext_resource type="AudioStream" uid="uid://dlflawcedrol8" path="res://sound_effects/dry (no reverb)/whoosh-closed.ogg" id="25_whclosed"]
+[ext_resource type="AudioStream" uid="uid://cfjkkpp0a1wnw" path="res://sound_effects/dry (no reverb)/cry-1.ogg" id="26_bgearly"]
+[ext_resource type="AudioStream" uid="uid://k6lrodw2gd1" path="res://sound_effects/dry (no reverb)/cry-2.ogg" id="27_bgover"]
 
 [sub_resource type="Resource" id="Resource_84rug"]
 script = ExtResource("2_3pagk")
@@ -195,6 +199,37 @@ volume_db = 5.0
 pitch_scale = 0.5
 metadata/_custom_type_script = "uid://2fgoca4drc17"
 
+[sub_resource type="Resource" id="Resource_whopen"]
+script = ExtResource("2_3pagk")
+name = "whoosh_open"
+audio = ExtResource("24_whopen")
+volume_db = -4.1
+metadata/_custom_type_script = "uid://2fgoca4drc17"
+
+[sub_resource type="Resource" id="Resource_whclosed"]
+script = ExtResource("2_3pagk")
+name = "whoosh_closed"
+audio = ExtResource("25_whclosed")
+volume_db = 3.1
+pitch_scale = 1.3
+metadata/_custom_type_script = "uid://2fgoca4drc17"
+
+[sub_resource type="Resource" id="Resource_bgearly"]
+script = ExtResource("2_3pagk")
+name = "bargain_early"
+audio = ExtResource("26_bgearly")
+volume_db = -6.0
+pitch_scale = 1.5
+metadata/_custom_type_script = "uid://2fgoca4drc17"
+
+[sub_resource type="Resource" id="Resource_bgover"]
+script = ExtResource("2_3pagk")
+name = "bargain_overshot"
+audio = ExtResource("27_bgover")
+volume_db = -6.0
+pitch_scale = 1.5
+metadata/_custom_type_script = "uid://2fgoca4drc17"
+
 [node name="EntitySfx" type="Node" unique_id=529254853]
 script = ExtResource("1_mje1w")
-sounds = Array[ExtResource("2_3pagk")]([SubResource("Resource_84rug"), SubResource("Resource_w05wb"), SubResource("Resource_axa1s"), SubResource("Resource_hpigb"), SubResource("Resource_0gpy4"), SubResource("Resource_idfbx"), SubResource("Resource_568ao"), SubResource("Resource_7iehp"), SubResource("Resource_3w05g"), SubResource("Resource_18s1p"), SubResource("Resource_ehurt"), SubResource("Resource_raredrop"), SubResource("Resource_secrettell"), SubResource("Resource_secretreveal"), SubResource("Resource_winsting"), SubResource("Resource_ragespawn"), SubResource("Resource_badsting"), SubResource("Resource_hbrwr"), SubResource("Resource_wlstng"), SubResource("Resource_uisel"), SubResource("Resource_mgstart"), SubResource("Resource_mgloop"), SubResource("Resource_mgstop")])
+sounds = Array[ExtResource("2_3pagk")]([SubResource("Resource_84rug"), SubResource("Resource_w05wb"), SubResource("Resource_axa1s"), SubResource("Resource_hpigb"), SubResource("Resource_0gpy4"), SubResource("Resource_idfbx"), SubResource("Resource_568ao"), SubResource("Resource_7iehp"), SubResource("Resource_3w05g"), SubResource("Resource_18s1p"), SubResource("Resource_ehurt"), SubResource("Resource_raredrop"), SubResource("Resource_secrettell"), SubResource("Resource_secretreveal"), SubResource("Resource_winsting"), SubResource("Resource_ragespawn"), SubResource("Resource_badsting"), SubResource("Resource_hbrwr"), SubResource("Resource_wlstng"), SubResource("Resource_uisel"), SubResource("Resource_mgstart"), SubResource("Resource_mgloop"), SubResource("Resource_mgstop"), SubResource("Resource_whopen"), SubResource("Resource_whclosed"), SubResource("Resource_bgearly"), SubResource("Resource_bgover")])

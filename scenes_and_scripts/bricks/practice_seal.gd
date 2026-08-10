@@ -69,6 +69,9 @@ func _kill_poof_tween() -> void:
 func _grant_score(_stage: GameManager.PhaseType) -> void:
 	pass
 
+func _settle_deal(cost: int, _allow_damage: bool = true) -> void:
+	super(cost, false)
+
 func resolve_bargain(bid: float) -> BargainOutcome:
 	var sweet: Vector2 = bargain_sweet_range()
 	var outcome: BargainOutcome = super(bid)

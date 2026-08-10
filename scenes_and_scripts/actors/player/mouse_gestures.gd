@@ -4,6 +4,8 @@ const DEFAULT_CLICK_DMG: float = 1.0
 const BARGAIN_SWEEP_MAX_STEP: float = 1.0 / 30.0
 const DEPRESSION_LIGHT: PackedScene = preload("res://scenes_and_scripts/actors/player/depression_light.tscn")
 const NO_SLOWMO_CLICK_SCALE: float = 2.0
+const WHOOSH_OPEN_SOUND: String = "whoosh_open"
+const WHOOSH_CLOSED_SOUND: String = "whoosh_closed"
 const EXIT_CLICK_STATES: Array[GameManager.GameState] = [
 	GameManager.GameState.CLICK_MODE,
 	GameManager.GameState.LEVEL_CLEARED,
@@ -27,6 +29,7 @@ var _click_cursor: ClickModeCursor
 ## Seconds after a click clears a seal's DENIAL phase during which clicking that seal again reverts it to a fully healed DENIAL brick.
 @export var denial_revert_window: float = 1.0
 var hold_indicator_radius: float = 0.0
+var _whoosh_player: AudioStreamPlayer = null
 
 func _ready() -> void:
 	add_to_group(&"mouse_gestures")
@@ -69,6 +72,7 @@ func _input(event: InputEvent)->void:
 				mouse_down_time = 0.0
 				click_dmg_type.clear()
 				_reset_hold_visuals()
+				_stop_anger_whoosh()
 			GameManager.change_state(GameManager.GameState.PLAYING)
 			
 	
@@ -191,8 +195,10 @@ func _point_blocks_light(at: Vector2) -> bool:
 	return false
 
 func _handle_anger_aoe()->void:
+	_stop_anger_whoosh()
+	SFX.play_sound(WHOOSH_CLOSED_SOUND)
 	hold_probe.radius = maxf(hold_indicator_radius, 8.0)
-	var hold_charge: float = roundf(minf(mouse_down_time * anger_charge_rate, hold_duration_max))
+	var hold_charge: float = roundf(hold_duration_max * minf(mouse_down_time / _anger_charge_duration(), 1.0))
 	hold_behavior.apply(_gesture_context(GameManager.PhaseType.ANGER, _gesture_damage() * hold_charge), null)
 
 func _gesture_context(verb_type: GameManager.PhaseType, base: float) -> HitContext:
@@ -268,6 +274,17 @@ func _click_window() -> float:
 	if GameManager.current_state == GameManager.GameState.CLICK_MODE:
 		return click_vs_hold
 	return click_vs_hold * NO_SLOWMO_CLICK_SCALE
+
+func _bargain_sweep_duration() -> float:
+	if GameManager.current_state == GameManager.GameState.CLICK_MODE:
+		return bargain_sweep_duration
+	return bargain_sweep_duration * NO_SLOWMO_CLICK_SCALE
+
+func _anger_charge_duration() -> float:
+	var base: float = hold_duration_max / maxf(anger_charge_rate, 0.01)
+	if GameManager.current_state == GameManager.GameState.CLICK_MODE:
+		return base
+	return base * NO_SLOWMO_CLICK_SCALE
 
 func _gestures_active() -> bool:
 	if GameManager.current_state == GameManager.GameState.CLICK_MODE:
@@ -353,6 +370,24 @@ func _reset_hold_visuals()->void: #TODO: goal is for this to feel like a taking 
 	hold_indicator_radius = 0.0
 	queue_redraw()
 
+func _start_anger_whoosh()->void:
+	_stop_anger_whoosh()
+	_whoosh_player = SFX.play_sound(WHOOSH_OPEN_SOUND)
+	if _whoosh_player == null or _whoosh_player.stream == null:
+		return
+	var charge_time: float = _anger_charge_duration() / maxf(Engine.time_scale, 0.01)
+	var source_length: float = _whoosh_player.stream.get_length()
+	if source_length > 0.0 and charge_time > 0.0:
+		_whoosh_player.pitch_scale = maxf(source_length / charge_time, 0.01)
+
+func _stop_anger_whoosh()->void:
+	if is_instance_valid(_whoosh_player):
+		SFX.stop_sound(_whoosh_player, WHOOSH_OPEN_SOUND)
+	_whoosh_player = null
+
+func _exit_tree()->void:
+	_stop_anger_whoosh()
+
 func _draw() -> void:
 	if bargain_active and is_instance_valid(bargain_seal):
 		_draw_bargain()
@@ -366,7 +401,7 @@ func _process(delta: float) -> void:
 		if not _gestures_active():
 			_resolve_bargain()
 			return
-		bargain_bid = minf(bargain_bid + minf(delta, BARGAIN_SWEEP_MAX_STEP) / bargain_sweep_duration, 1.0)
+		bargain_bid = minf(bargain_bid + minf(delta, BARGAIN_SWEEP_MAX_STEP) / _bargain_sweep_duration(), 1.0)
 		queue_redraw()
 		if bargain_bid >= 1.0:
 			_resolve_bargain()
@@ -376,8 +411,9 @@ func _process(delta: float) -> void:
 		var window: float = _click_window()
 		if mouse_down_time >= window and mouse_down_time - delta < window:
 			_reset_hold_visuals()
+			_start_anger_whoosh()
 		if mouse_down_time > window:
-			var pct : float = minf((mouse_down_time - window) * anger_charge_rate / hold_duration_max, 1.0) #TODO: tie this to powerups for AE and  more anger dmg
+			var pct : float = minf((mouse_down_time - window) / _anger_charge_duration(), 1.0) #TODO: tie this to powerups for AE and  more anger dmg
 			hold_indicator_radius = ease(pct, 0.4) * 48.0
 			queue_redraw()
 	else:

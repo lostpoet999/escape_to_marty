@@ -68,6 +68,13 @@ func play_sound(sound_name: String) -> AudioStreamPlayer:
 		)
 	return sfx_player
 
+func stop_sound(player: AudioStreamPlayer, sound_name: String) -> void:
+	if not is_instance_valid(player) or player.is_queued_for_deletion():
+		return
+	player.stop()
+	active_counts[sound_name] = maxi(int(active_counts.get(sound_name, 0)) - 1, 0)
+	player.queue_free()
+
 func is_looping(sound_name: String) -> bool:
 	for child: Node in get_children():
 		if child.name == "loop_" + sound_name:

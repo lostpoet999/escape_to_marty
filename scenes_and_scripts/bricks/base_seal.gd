@@ -5,6 +5,9 @@ const BONUS_DROP: PackedScene = preload("res://scenes_and_scripts/collectibles/b
 const BONUS_POOL: BonusDropPool = preload("res://scenes_and_scripts/collectibles/bonus_drops/bonus_drop_pool.tres")
 const DAMAGE_NUMBER: PackedScene = preload(DamageNumber.PREFAB_SCENE)
 
+const BARGAIN_EARLY_SOUND: String = "bargain_early"
+const BARGAIN_OVERSHOT_SOUND: String = "bargain_overshot"
+
 const COIN_WINDFALL_CHANCE: float = 0.05
 const COIN_WINDFALL_COUNT: int = 3
 const COIN_WINDFALL_SCATTER: float = 14.0
@@ -388,6 +391,7 @@ func resolve_bargain(bid: float) -> BargainOutcome:
 		return BargainOutcome.DEAL
 	var discount: float = clampf(bargain_discount + bargain_discount_bonus, 0.0, 0.95)
 	_settle_deal(roundi((price + (bid - sweet.y) * price) * (1.0 - discount)))
+	SFX.play_sound(BARGAIN_OVERSHOT_SOUND)
 	return BargainOutcome.OVERPAY
 
 func _resolve_undercut(bid: float, sweet_low: float, price: int) -> BargainOutcome:
@@ -409,6 +413,7 @@ func _resolve_undercut(bid: float, sweet_low: float, price: int) -> BargainOutco
 		return BargainOutcome.DEAL
 	bargain_markup += penalty
 	_update_stage_label()
+	SFX.play_sound(BARGAIN_EARLY_SOUND)
 	return BargainOutcome.INSULT if penalty == 3 else BargainOutcome.WHIFF
 
 func _settle_deal(cost: int, allow_damage: bool = true) -> void:
