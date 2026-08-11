@@ -8,6 +8,7 @@ enum ImpState {
 	BROOD = 3,
 	HIDE = 4,
 	DIVE = 5,
+	DRAIN = 6,
 	}
 
 @export var max_health: float = 20.0 ## Real HP pool: HEALTH-type damage subtracts its actual amount. Clicks and other verb types never hurt the imp.
@@ -57,6 +58,7 @@ enum ImpState {
 var health: float
 var _state: ImpState = ImpState.MATERIALIZE
 var _target_light: DepressionLight
+var _target_statue: DepressionStatue
 var _behavior_tween: Tween
 var _sprite_tween: Tween
 var _effect_tween: Tween
@@ -93,7 +95,7 @@ func _physics_process(delta: float) -> void:
 		_track_dive(delta)
 	if not _dive_committed:
 		_update_facing()
-	if _state != ImpState.ATTACK and _state != ImpState.DIVE and not _bite_active:
+	if _state != ImpState.ATTACK and _state != ImpState.DRAIN and _state != ImpState.DIVE and not _bite_active:
 		_bob_time += delta
 		_sprite.frame = int(_bob_time * bob_fps) % _sprite.hframes
 
@@ -112,9 +114,12 @@ func _decide() -> void:
 	if GameManager.current_state == GameManager.GameState.LEVEL_CLEARED:
 		return
 	var lights: Array[DepressionLight] = _live_lights()
+	var statues: Array[DepressionStatue] = _drainable_statues()
 	var choices: Array[ImpState] = [ImpState.WANDER]
 	if not lights.is_empty():
 		choices.append(ImpState.ATTACK)
+	if not statues.is_empty():
+		choices.append(ImpState.DRAIN)
 	if health < max_health:
 		choices.append(ImpState.BROOD)
 	if _dive_ready():
@@ -124,6 +129,9 @@ func _decide() -> void:
 		ImpState.ATTACK:
 			var light: DepressionLight = lights.pick_random()
 			_start_attack(light)
+		ImpState.DRAIN:
+			var statue: DepressionStatue = statues.pick_random()
+			_start_drain(statue)
 		ImpState.BROOD:
 			_start_brood()
 		ImpState.DIVE:
@@ -185,6 +193,48 @@ func _strike(final: bool) -> void:
 func _finish_attack() -> void:
 	_target_light = null
 	_decide()
+
+func _start_drain(statue: DepressionStatue) -> void:
+	_state = ImpState.DRAIN
+	_sprite.frame = 0
+	_target_statue = statue
+	statue.claim_drain(self)
+	_play_tell()
+	_play_reveal(dive_reveal_tint)
+	_behavior_tween = create_tween()
+	_behavior_tween.tween_interval(tell_duration + pause_duration)
+	_behavior_tween.tween_callback(_fly_to_statue)
+
+func _fly_to_statue() -> void:
+	if not is_instance_valid(_target_statue):
+		_finish_drain()
+		return
+	var target: Vector2 = _clamp_to_flight(_target_statue.global_position)
+	var travel: float = maxf(global_position.distance_to(target) / attack_speed, 0.05)
+	_behavior_tween = create_tween()
+	_behavior_tween.tween_property(self, "global_position", target, travel)\
+		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	for i: int in strikes_to_break:
+		if i > 0:
+			_behavior_tween.tween_interval(strike_delay)
+		_behavior_tween.tween_callback(_drain_strike)
+	_behavior_tween.tween_callback(_finish_drain)
+
+func _drain_strike() -> void:
+	_punch_sprite()
+	if not is_instance_valid(_target_statue):
+		return
+	_target_statue.apply_imp_strike()
+
+func _finish_drain() -> void:
+	_release_statue()
+	_play_reveal(idle_tint)
+	_decide()
+
+func _release_statue() -> void:
+	if is_instance_valid(_target_statue):
+		_target_statue.release_drain(self)
+	_target_statue = null
 
 func _start_dive() -> void:
 	_state = ImpState.DIVE
@@ -285,6 +335,9 @@ func _chomp() -> void:
 	_bite_tween.tween_callback(_restore_idle_sprite)
 
 func _update_facing() -> void:
+	if _state == ImpState.DRAIN and is_instance_valid(_target_statue):
+		_face_toward(_target_statue.global_position.x)
+		return
 	if _state == ImpState.ATTACK and is_instance_valid(_target_light):
 		_face_toward(_target_light.global_position.x)
 		return
@@ -353,6 +406,7 @@ func _start_hide() -> void:
 	_kill_behavior_tweens()
 	_state = ImpState.HIDE
 	_target_light = null
+	_release_statue()
 	var refuge: Vector2 = _nearest_wall_point()
 	var travel: float = maxf(global_position.distance_to(refuge) / flee_speed, 0.05)
 	_behavior_tween = create_tween()
@@ -439,6 +493,7 @@ func die() -> void:
 func stun_for_time(duration: float) -> void:
 	_abort_dive()
 	_kill_behavior_tweens()
+	_release_statue()
 	_sprite.modulate.a = 1.0
 	_state = ImpState.WANDER
 	var original_modulate: Color = modulate
@@ -478,4 +533,12 @@ func _live_lights() -> Array[DepressionLight]:
 		var depression_light: DepressionLight = light as DepressionLight
 		if depression_light != null and not depression_light.is_queued_for_deletion() and depression_light.is_lit():
 			out.append(depression_light)
+	return out
+
+func _drainable_statues() -> Array[DepressionStatue]:
+	var out: Array[DepressionStatue] = []
+	for node: Node in get_tree().get_nodes_in_group(&"depression_statue"):
+		var statue: DepressionStatue = node as DepressionStatue
+		if statue != null and not statue.is_queued_for_deletion() and statue.is_drainable(self):
+			out.append(statue)
 	return out

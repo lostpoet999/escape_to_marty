@@ -18,9 +18,9 @@ func activate() -> void:
 	input_pickable = true
 	set_travel_ready(not GameManager.floor_memories_outstanding())
 
-func show_dormant() -> void:
+func show_dormant(pickable: bool = true) -> void:
 	visible = true
-	input_pickable = true
+	input_pickable = pickable
 	set_travel_ready(false)
 
 func set_travel_ready(ready: bool) -> void:
