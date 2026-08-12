@@ -48,6 +48,7 @@ brick_bounce_particles = ExtResource("2_nxvvx")
 wall_bounce_particles = ExtResource("3_2ucj3")
 barrier_bounce_particles = ExtResource("4_2ucj3")
 paddle_bounce_particles = ExtResource("4_q6nx1")
+enemy_bounce_particles = ExtResource("2_nxvvx")
 
 [node name="Trail" type="Line2D" parent="." unique_id=377429140]
 top_level = true

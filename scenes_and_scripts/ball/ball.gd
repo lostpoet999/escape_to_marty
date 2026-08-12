@@ -7,6 +7,8 @@ const LIGHT_BASE_ENERGY: float = 1.0
 
 const ARMED_FLASH_SHADER: Shader = preload("uid://gnsjmtflfbxt")
 
+const ENEMY_PUSH_COOLDOWN: float = 0.12
+
 @export var initial_speed: float = 500.0
 var current_speed: float = 500.0
 var max_speed: float = 1050.0
@@ -20,6 +22,7 @@ var flipped_y: bool = false
 @export var wall_bounce_particles: PackedScene
 @export var barrier_bounce_particles: PackedScene
 @export var paddle_bounce_particles: PackedScene
+@export var enemy_bounce_particles: PackedScene
 
 @export var brick_hit_score_value:int = 50
 @export var wall_hit_score_value:int = 1
@@ -63,6 +66,9 @@ var paddle_can_attract: bool = true
 var velocity: Vector2 = Vector2.ZERO
 var on_paddle: bool = true
 var _collision_set: Array[int] = []
+
+var _sim_time: float = 0.0
+var _push_block: Dictionary = {}
 
 var move: Vector2 = Vector2.ZERO
 var old_x: float = 0.0
@@ -123,6 +129,7 @@ func remove_ball() -> void:
 func _process(delta: float) -> void:
 	if not is_inside_tree():
 		return
+	_sim_time += delta
 	_update_ball_light()
 	_update_active_pulse(delta)
 	flipped_x = false
@@ -334,6 +341,22 @@ func enforce_min_bounce_angle() -> void:
 	var new_vx: float = sqrt(maxf(speed * speed - new_vy * new_vy, 0.0)) * vx_sign
 	velocity = Vector2(new_vx, new_vy)
 
+func _push_blocked(collider: Node2D) -> bool:
+	var id: int = collider.get_instance_id()
+	if not _push_block.has(id):
+		return false
+	if _sim_time - float(_push_block[id]) >= ENEMY_PUSH_COOLDOWN:
+		_push_block.erase(id)
+		return false
+	return true
+
+func _mark_pushed(collider: Node2D) -> void:
+	if _push_block.size() > 16:
+		for id: int in _push_block.keys():
+			if _sim_time - float(_push_block[id]) >= ENEMY_PUSH_COOLDOWN:
+				_push_block.erase(id)
+	_push_block[collider.get_instance_id()] = _sim_time
+
 func _bounce_axis_is_y(collider: Node2D) -> bool:
 	var half: Vector2 = get_collider_half_size(collider)
 	var diff: Vector2 = global_position - collider.global_position
@@ -365,8 +388,12 @@ func resolve_frame_start_overlaps() -> void:
 		if pen_x <= 0.0 or pen_y <= 0.0:
 			continue
 		end_speed_boost()
-		if collider.is_in_group("bounce_enemy"):
+		var is_enemy: bool = collider.is_in_group("bounce_enemy")
+		if is_enemy and _push_blocked(collider):
+			continue
+		if is_enemy:
 			apply_collider_effects(collider)
+			_mark_pushed(collider)
 		var dir_x: float = 1.0 if diff.x == 0.0 else signf(diff.x)
 		var dir_y: float = 1.0 if diff.y == 0.0 else signf(diff.y)
 		if pen_x < pen_y:
@@ -375,6 +402,8 @@ func resolve_frame_start_overlaps() -> void:
 		else:
 			position.y = collider.global_position.y + (half.y + ball_half_height + 0.5) * dir_y
 			velocity.y = absf(velocity.y) * dir_y
+		if is_enemy:
+			spawn_collision_feedback(collider)
 
 func move_ball_step(delta: float) -> void:
 	velocity = velocity.normalized() * current_speed
@@ -388,6 +417,10 @@ func move_ball_step(delta: float) -> void:
 	for collider: Node2D in x_collisions:
 		if collider.get_instance_id() in hit_this_step:
 			continue
+		if collider.is_in_group("bounce_enemy"):
+			if _push_blocked(collider):
+				continue
+			_mark_pushed(collider)
 		hit_this_step.append(collider.get_instance_id())
 		if collider.get_instance_id() not in effects_this_step:
 			effects_this_step.append(collider.get_instance_id())
@@ -417,6 +450,10 @@ func move_ball_step(delta: float) -> void:
 	for collider: Node2D in y_collisions:
 		if collider.get_instance_id() in hit_this_step:
 			continue
+		if collider.is_in_group("bounce_enemy"):
+			if _push_blocked(collider):
+				continue
+			_mark_pushed(collider)
 		hit_this_step.append(collider.get_instance_id())
 		if collider.get_instance_id() not in effects_this_step:
 			effects_this_step.append(collider.get_instance_id())
@@ -456,6 +493,8 @@ func spawn_collision_feedback(collider: Node2D) -> void:
 	if collider.is_in_group("barrier"):
 		fx = barrier_bounce_particles.instantiate()
 		SFX.play_sound("bounce_barrier")
+	if collider.is_in_group("bounce_enemy") and enemy_bounce_particles != null:
+		fx = enemy_bounce_particles.instantiate()
 	if collider.is_in_group("paddle"):
 		fx = paddle_bounce_particles.instantiate()
 		SFX.play_sound("hit-paddle")
