@@ -7,8 +7,8 @@ offsets = PackedFloat32Array(0.0028653145, 1)
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
 
 [sub_resource type="Gradient" id="Gradient_light"]
-offsets = PackedFloat32Array(0, 1)
-colors = PackedColorArray(1, 0.92, 0.72, 1, 1, 0.92, 0.72, 0)
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(1, 0.92, 0.72, 1, 1, 0.92, 0.72, 0.9, 1, 0.92, 0.72, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_light"]
 gradient = SubResource("Gradient_light")
@@ -34,6 +34,8 @@ scale_amount_max = 0.02
 color_ramp = SubResource("Gradient_kdu0b")
 
 [node name="ExitLight" type="PointLight2D" parent="." unique_id=633668458]
+position = Vector2(-64, 0)
 enabled = false
 energy = 1.3
 texture = SubResource("GradientTexture2D_light")
+texture_scale = 1.5

@@ -11,6 +11,8 @@ const SECRET_FLASH_FIRST_MAX: float = 3.0
 const SECRET_FLASHES_PER_BARK_MIN: int = 3
 const SECRET_FLASHES_PER_BARK_MAX: int = 4
 const SECRET_SOUND_BOOST_DB: float = 3.5
+const EXIT_LIGHT_ENERGY_OPEN: float = 2.2
+const EXIT_LIGHT_ENERGY_CLOSED: float = 1.2
 const BONUS_DOOR_GOLD: Color = Color(1.0, 0.9, 0.2)
 const MEMORY_GLOW_COLOR: Color = Color(2.0, 2.0, 2.0)
 const MEMORY_GLOW_PULSE_SECONDS: float = 0.7
@@ -190,6 +192,7 @@ func show_closed_door()-> void:
 	exit_barrier_open.hide()
 	self.input_pickable = false
 	_set_particles(false)
+	_set_exit_light(EXIT_LIGHT_ENERGY_CLOSED)
 
 func show_open_door()-> void:
 	walls_no_door.hide()
@@ -197,6 +200,7 @@ func show_open_door()-> void:
 	exit_barrier_open.show()
 	self.input_pickable = true
 	_set_particles(true)
+	_set_exit_light(EXIT_LIGHT_ENERGY_OPEN)
 
 func show_secret_wall()-> void:
 	walls_no_door.show()
@@ -205,10 +209,12 @@ func show_secret_wall()-> void:
 	exit_barrier_open.hide()
 	self.input_pickable = true
 	_set_particles(false)
+	_set_exit_light(0.0)
 	if travel_locked:
 		return
 	if room_cleared and _targets_uncollected_memory():
 		_set_particles(true)
+		_set_exit_light(EXIT_LIGHT_ENERGY_OPEN)
 		_start_memory_glow()
 	else:
 		_start_secret_flash()
@@ -275,16 +281,24 @@ func show_walls()-> void:
 	exit_barrier_open.hide()
 	self.input_pickable = false
 	_set_particles(false)
+	_set_exit_light(0.0)
 
 func _set_particles(on: bool)-> void:
 	var particles: CPUParticles2D = get_node_or_null("exit_particles") as CPUParticles2D
 	if particles == null:
 		return
 	particles.emitting = on
+
+func _set_exit_light(energy: float)-> void:
+	var particles: CPUParticles2D = get_node_or_null("exit_particles") as CPUParticles2D
+	if particles == null:
+		return
 	var light: PointLight2D = particles.get_node_or_null("ExitLight") as PointLight2D
-	if light != null:
-		light.enabled = on and GameManager.floor_data != null \
-				and GameManager.floor_data.depression_lights_enabled
+	if light == null:
+		return
+	light.enabled = energy > 0.0 and GameManager.floor_data != null \
+			and GameManager.floor_data.depression_lights_enabled
+	light.energy = energy
 
 func enable_exits()-> void:
 	room_cleared = true

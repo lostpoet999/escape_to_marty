@@ -5,7 +5,7 @@ extends Control
 @onready var health: Label = %health
 @onready var shields: Label = %shields
 
-var numberAnimDelay: float = 3.0 / 30.0
+var numberAnimDelay: float = 3.0 / 60.0
 var numberDelayRemaining: float = 0
 
 var currentScore: int = 0
@@ -22,6 +22,14 @@ func _ready() -> void:
 	Signalbus.score_updated.connect(update_score_ui)
 	Signalbus.player_health_updated.connect(update_player_health)
 	Signalbus.reflect_shield_changed.connect(update_player_shields)
+	currentScore = PlayerData.get_player_score()
+	currentGold = PlayerData.get_player_gold()
+	currentHealth = PlayerData.get_player_health()
+	currentShields = PlayerData.get_player_shields()
+	displayedScore = currentScore
+	displayedGold = currentGold
+	displayedHealth = currentHealth
+	displayedShields = currentShields
 	health.text = str(displayedHealth)
 	gold.text = str(displayedGold)
 	score.text = str(displayedScore)
