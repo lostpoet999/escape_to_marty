@@ -27,6 +27,9 @@
 [ext_resource type="AudioStream" uid="uid://dlflawcedrol8" path="res://sound_effects/dry (no reverb)/whoosh-closed.ogg" id="25_whclosed"]
 [ext_resource type="AudioStream" uid="uid://cfjkkpp0a1wnw" path="res://sound_effects/dry (no reverb)/cry-1.ogg" id="26_bgearly"]
 [ext_resource type="AudioStream" uid="uid://k6lrodw2gd1" path="res://sound_effects/dry (no reverb)/cry-2.ogg" id="27_bgover"]
+[ext_resource type="AudioStream" uid="uid://dihclh3sgm5qf" path="res://sound_effects/dry (no reverb)/down.ogg" id="28_impdown"]
+[ext_resource type="AudioStream" uid="uid://dpi35f8vvagbc" path="res://sound_effects/dry (no reverb)/bite.ogg" id="29_impbite"]
+[ext_resource type="AudioStream" uid="uid://cbshewcyc44uh" path="res://sound_effects/dry (no reverb)/bite-light.ogg" id="30_impbitelight"]
 
 [sub_resource type="Resource" id="Resource_84rug"]
 script = ExtResource("2_3pagk")
@@ -230,6 +233,54 @@ volume_db = -6.0
 pitch_scale = 1.5
 metadata/_custom_type_script = "uid://2fgoca4drc17"
 
+[sub_resource type="Resource" id="Resource_impdown"]
+script = ExtResource("2_3pagk")
+name = "imp_dive"
+audio = ExtResource("28_impdown")
+volume_db = -6.0
+pitch_variance = 0.08
+max_concurrent = 3
+metadata/_custom_type_script = "uid://2fgoca4drc17"
+
+[sub_resource type="Resource" id="Resource_impcry"]
+script = ExtResource("2_3pagk")
+name = "imp_cry"
+audio = ExtResource("26_bgearly")
+volume_db = -6.0
+pitch_scale = 1.2
+pitch_variance = 0.08
+max_concurrent = 3
+metadata/_custom_type_script = "uid://2fgoca4drc17"
+
+[sub_resource type="Resource" id="Resource_impbite"]
+script = ExtResource("2_3pagk")
+name = "imp_bite"
+audio = ExtResource("29_impbite")
+volume_db = -4.0
+pitch_variance = 0.08
+max_concurrent = 3
+metadata/_custom_type_script = "uid://2fgoca4drc17"
+
+[sub_resource type="Resource" id="Resource_impbitelight"]
+script = ExtResource("2_3pagk")
+name = "imp_bite_light"
+audio = ExtResource("30_impbitelight")
+volume_db = -2.5
+pitch_scale = 1.25
+pitch_variance = 0.1
+max_concurrent = 4
+metadata/_custom_type_script = "uid://2fgoca4drc17"
+
+[sub_resource type="Resource" id="Resource_impbitestatue"]
+script = ExtResource("2_3pagk")
+name = "imp_bite_statue"
+audio = ExtResource("30_impbitelight")
+volume_db = -2.5
+pitch_scale = 0.85
+pitch_variance = 0.1
+max_concurrent = 4
+metadata/_custom_type_script = "uid://2fgoca4drc17"
+
 [node name="EntitySfx" type="Node" unique_id=529254853]
 script = ExtResource("1_mje1w")
-sounds = Array[ExtResource("2_3pagk")]([SubResource("Resource_84rug"), SubResource("Resource_w05wb"), SubResource("Resource_axa1s"), SubResource("Resource_hpigb"), SubResource("Resource_0gpy4"), SubResource("Resource_idfbx"), SubResource("Resource_568ao"), SubResource("Resource_7iehp"), SubResource("Resource_3w05g"), SubResource("Resource_18s1p"), SubResource("Resource_ehurt"), SubResource("Resource_raredrop"), SubResource("Resource_secrettell"), SubResource("Resource_secretreveal"), SubResource("Resource_winsting"), SubResource("Resource_ragespawn"), SubResource("Resource_badsting"), SubResource("Resource_hbrwr"), SubResource("Resource_wlstng"), SubResource("Resource_uisel"), SubResource("Resource_mgstart"), SubResource("Resource_mgloop"), SubResource("Resource_mgstop"), SubResource("Resource_whopen"), SubResource("Resource_whclosed"), SubResource("Resource_bgearly"), SubResource("Resource_bgover")])
+sounds = Array[ExtResource("2_3pagk")]([SubResource("Resource_84rug"), SubResource("Resource_w05wb"), SubResource("Resource_axa1s"), SubResource("Resource_hpigb"), SubResource("Resource_0gpy4"), SubResource("Resource_idfbx"), SubResource("Resource_568ao"), SubResource("Resource_7iehp"), SubResource("Resource_3w05g"), SubResource("Resource_18s1p"), SubResource("Resource_ehurt"), SubResource("Resource_raredrop"), SubResource("Resource_secrettell"), SubResource("Resource_secretreveal"), SubResource("Resource_winsting"), SubResource("Resource_ragespawn"), SubResource("Resource_badsting"), SubResource("Resource_hbrwr"), SubResource("Resource_wlstng"), SubResource("Resource_uisel"), SubResource("Resource_mgstart"), SubResource("Resource_mgloop"), SubResource("Resource_mgstop"), SubResource("Resource_whopen"), SubResource("Resource_whclosed"), SubResource("Resource_bgearly"), SubResource("Resource_bgover"), SubResource("Resource_impdown"), SubResource("Resource_impcry"), SubResource("Resource_impbite"), SubResource("Resource_impbitelight"), SubResource("Resource_impbitestatue")])

@@ -5,6 +5,8 @@
 [ext_resource type="Shader" uid="uid://gnsjmtflfbxt" path="res://scenes_and_scripts/actors/enemies/specific_enemies/no_see_me_demon(Deon)/flash.gdshader" id="3_flash"]
 [ext_resource type="Texture2D" uid="uid://bub1il0umnf22" path="res://scenes_and_scripts/actors/enemies/specific_enemies/shadow_imp/shadowimp_idle_spritesheet.png" id="4_sheet"]
 [ext_resource type="Texture2D" uid="uid://co3ij0n81uwnl" path="res://scenes_and_scripts/actors/enemies/specific_enemies/shadow_imp/shadowimp_bite_spritesheet.png" id="5_bite"]
+[ext_resource type="AudioStream" uid="uid://qb1tyvtqk5h8" path="res://sound_effects/dry (no reverb)/wingflap.ogg" id="6_flap"]
+[ext_resource type="PackedScene" uid="uid://rbv1v5vfqunm" path="res://scenes_and_scripts/ball/vfx/bounce_brick_particles.tscn" id="7_hitfx"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xtau2"]
 resource_local_to_scene = true
@@ -40,7 +42,7 @@ flight_max_y = 880.0
 destroy_fx = null
 dive_damage_min = 3
 dive_damage_max = 6
-dive_cooldown = 7.0
+dive_cooldown = 10.0
 dive_track_speed = 260.0
 dive_commit_distance = 200.0
 dive_strike_time = 0.35
@@ -55,6 +57,11 @@ bite_hframes = 12
 bite_chomp_frame = 4
 bite_recover_time = 0.45
 bite_offset = Vector2(-21, 0)
+flap_pitch_min = 0.55
+flap_pitch_max = 0.75
+strike_shake = 0.08
+statue_hit_fx = ExtResource("7_hitfx")
+statue_hit_fx_tint = Color(1, 0.25, 0.25, 1)
 action_timer = 3.0
 
 [node name="EnemySprite" parent="." index="0" unique_id=2032254832]
@@ -71,3 +78,10 @@ position = Vector2(15, 56)
 [node name="CollisionShape2D" parent="." index="3" unique_id=1655691252]
 position = Vector2(0, 0)
 shape = SubResource("RectangleShape2D_imp01")
+
+[node name="WingFlap" type="AudioStreamPlayer2D" parent="." unique_id=1655691253]
+stream = ExtResource("6_flap")
+volume_db = -2.0
+max_distance = 4000.0
+attenuation = 0.7
+bus = &"SFX"

@@ -37,7 +37,7 @@ enum ImpState {
 @export_category("Dive Attack")
 @export var dive_damage_min: int = 3 ## Low end of the player damage a landed dive deals.
 @export var dive_damage_max: int = 6 ## High end of the player damage a landed dive deals.
-@export var dive_cooldown: float = 7.0 ## Seconds after a dive ends (landed, whiffed, or interrupted) before this imp can dive again. Per-imp, not shared. The felt gap is longer: the dive only starts on the next _decide roll that picks it.
+@export var dive_cooldown: float = 10.0 ## Seconds after a dive ends (landed, whiffed, or interrupted) before this imp can dive again. Per-imp, not shared. The felt gap is longer: the dive only starts on the next _decide roll that picks it.
 @export var dive_track_speed: float = 260.0 ## Approach speed (px/s) while the imp is still homing on the paddle. Slower than the strike so the approach reads as a wind-up.
 @export var dive_commit_distance: float = 200.0 ## Distance (px) to the paddle at which the imp locks its impact point and stops tracking. This is the dodge window: move before it and the imp follows, move after it and the imp is committed to empty air.
 @export var dive_strike_time: float = 0.35 ## Seconds the committed arc takes. This is how long the player has to slide clear once the imp has locked on.
@@ -47,12 +47,20 @@ enum ImpState {
 @export var idle_tint: Color = Color(0.55, 0.55, 0.55) ## Sprite brightness multiplier the imp sits at when it is not diving. Below white on purpose: on the dark floor the imp should be hard to pick out until it commits. White = as bright as the sprite allows.
 @export var dive_reveal_tint: Color = Color(2.2, 2.2, 2.2) ## Sprite brightness multiplier held from the tell through the strike, so a dive stays readable even though the imp is dimmed the rest of the time. Set equal to idle_tint for no reveal.
 @export var dive_reveal_time: float = 0.25 ## Seconds the reveal takes to ramp up and to fade back out.
+@export var dark_idle_tint: Color = Color(0.85, 0.3, 0.3) ## Resting tint while the room holds no live light. Red on purpose: the imp is dangerous only in the dark, so darkness has to be readable on the imp itself.
+@export var dark_reveal_tint: Color = Color(2.4, 0.9, 0.9) ## Reveal tint used in place of dive_reveal_tint while the room is dark, so an attack run stays red instead of washing to white.
+@export var dark_damage_multiplier: float = 1.5 ## Dive damage is multiplied by this when the room was dark at the moment the imp committed. 1.0 makes darkness cosmetic.
 
 @export_category("Bite Animation")
 @export var bite_sheet: Texture2D ## Spritesheet swapped in for the committed dive: jaws open across the strike arc, snap shut on impact, recover during the retreat. Empty = the dive keeps the idle sheet.
 @export var bite_hframes: int = 12 ## Frame count of bite_sheet. Frames before bite_chomp_frame are the jaw-open run-up; the chomp frame and everything after are the clamped hold and recovery.
 @export var bite_chomp_frame: int = 4 ## First jaws-shut frame. Shown on the exact frame dive damage resolves; the run-up frames before it are spread evenly across dive_strike_time.
 @export var bite_recover_time: float = 0.45 ## Seconds the post-impact frames (bite_chomp_frame through the end) take before the idle sheet swaps back in.
+@export var flap_pitch_min: float = 0.55 ## Low end of the per-imp wingflap pitch, rolled once at spawn. Below 1.0 slows the flap; much under 0.6 starts reading as something bigger than an imp.
+@export var flap_pitch_max: float = 0.75 ## High end of the per-imp wingflap pitch. The SPREAD between min and max is what stops four imps sounding like four clones of one sample; set both equal to disable the variation.
+@export var strike_shake: float = 0.08 ## Camera trauma added per strike on a light or a statue. Small on purpose: a three-strike run fires it three times and four imps can overlap. 0 = no shake.
+@export var statue_hit_fx: PackedScene ## Particle burst spawned on the statue each time this imp lands a drain strike. Empty = no burst.
+@export var statue_hit_fx_tint: Color = Color(1, 0.25, 0.25) ## Modulate applied to statue_hit_fx, so the shared brick-hit burst reads as damage rather than as a normal ball bounce.
 @export var bite_offset: Vector2 = Vector2(-21, 0) ## Sprite offset held while the bite sheet is active; the bite art sits right of frame center, so this lines its start pose up with the idle sheet and keeps the swap from popping sideways.
 
 var health: float
@@ -70,10 +78,12 @@ var _idle_hframes: int = 1
 var _dive_cooldown_left: float = 0.0
 var _dive_tracking: bool = false
 var _dive_committed: bool = false
+var _dive_in_dark: bool = false
 var _dive_impact: Vector2 = Vector2.ZERO
 var _bob_time: float = 0.0
 
 @onready var _sprite: Sprite2D = $EnemySprite
+@onready var _flap: AudioStreamPlayer2D = $WingFlap
 
 func _ready() -> void:
 	health = max_health
@@ -83,8 +93,11 @@ func _ready() -> void:
 	timer.stop()
 	_idle_sheet = _sprite.texture
 	_idle_hframes = _sprite.hframes
-	_sprite.self_modulate = idle_tint
+	_sprite.self_modulate = _resting_tint()
 	_sprite.modulate.a = 0.0
+	_flap.finished.connect(_on_flap_finished)
+	_flap.pitch_scale = maxf(randf_range(flap_pitch_min, flap_pitch_max), 0.01)
+	_flap.play(_random_flap_offset())
 	_materialize.call_deferred()
 
 func _physics_process(delta: float) -> void:
@@ -98,6 +111,9 @@ func _physics_process(delta: float) -> void:
 	if _state != ImpState.ATTACK and _state != ImpState.DRAIN and _state != ImpState.DIVE and not _bite_active:
 		_bob_time += delta
 		_sprite.frame = int(_bob_time * bob_fps) % _sprite.hframes
+	if _state != ImpState.DRAIN and _state != ImpState.DIVE and (_reveal_tween == null or not _reveal_tween.is_valid()):
+		_sprite.self_modulate = _resting_tint()
+	_update_flap()
 
 func _materialize() -> void:
 	if is_queued_for_deletion():
@@ -142,10 +158,38 @@ func _decide() -> void:
 func _dive_ready() -> bool:
 	if _dive_cooldown_left > 0.0:
 		return false
-	if _david_hit_target() == null:
+	return _david_hit_target() != null
+
+func _should_flap() -> bool:
+	if is_queued_for_deletion():
 		return false
+	return _state != ImpState.DIVE and _state != ImpState.ATTACK and _state != ImpState.DRAIN
+
+func _update_flap() -> void:
+	if _should_flap():
+		if not _flap.playing:
+			_flap.play()
+	elif _flap.playing:
+		_flap.stop()
+
+func _on_flap_finished() -> void:
+	if _should_flap():
+		_flap.play()
+
+func _random_flap_offset() -> float:
+	if _flap.stream == null:
+		return 0.0
+	return randf() * _flap.stream.get_length()
+
+func _room_is_dark() -> bool:
 	var gestures: MouseGestures = _gestures()
-	return gestures != null and gestures.is_dark_armed()
+	return gestures != null and gestures.live_light_count() == 0
+
+func _resting_tint() -> Color:
+	return dark_idle_tint if _room_is_dark() else idle_tint
+
+func _reveal_tint() -> Color:
+	return dark_reveal_tint if _room_is_dark() else dive_reveal_tint
 
 func _start_wander() -> void:
 	_state = ImpState.WANDER
@@ -184,6 +228,8 @@ func _fly_to_light() -> void:
 	_behavior_tween.tween_callback(_finish_attack)
 
 func _strike(final: bool) -> void:
+	SFX.play_sound("imp_bite_light")
+	_shake_camera(strike_shake)
 	_punch_sprite()
 	if not is_instance_valid(_target_light):
 		return
@@ -200,7 +246,7 @@ func _start_drain(statue: DepressionStatue) -> void:
 	_target_statue = statue
 	statue.claim_drain(self)
 	_play_tell()
-	_play_reveal(dive_reveal_tint)
+	_play_reveal(_reveal_tint())
 	_behavior_tween = create_tween()
 	_behavior_tween.tween_interval(tell_duration + pause_duration)
 	_behavior_tween.tween_callback(_fly_to_statue)
@@ -221,14 +267,36 @@ func _fly_to_statue() -> void:
 	_behavior_tween.tween_callback(_finish_drain)
 
 func _drain_strike() -> void:
+	SFX.play_sound("imp_bite_statue")
+	_shake_camera(strike_shake)
 	_punch_sprite()
 	if not is_instance_valid(_target_statue):
 		return
+	_spawn_statue_hit_fx(_target_statue.global_position)
 	_target_statue.apply_imp_strike()
+
+func _spawn_statue_hit_fx(at: Vector2) -> void:
+	if statue_hit_fx == null:
+		return
+	var fx: Node2D = statue_hit_fx.instantiate() as Node2D
+	if fx == null:
+		return
+	fx.position = at
+	fx.modulate = statue_hit_fx_tint
+	get_tree().current_scene.add_child(fx)
+
+func _shake_camera(amount: float) -> void:
+	if amount <= 0.0:
+		return
+	var camera: Camera2D = get_viewport().get_camera_2d()
+	if camera == null or not camera.has_method(&"add_trauma"):
+		return
+	@warning_ignore("unsafe_method_access")
+	camera.add_trauma(amount)
 
 func _finish_drain() -> void:
 	_release_statue()
-	_play_reveal(idle_tint)
+	_play_reveal(_resting_tint())
 	_decide()
 
 func _release_statue() -> void:
@@ -238,11 +306,12 @@ func _release_statue() -> void:
 
 func _start_dive() -> void:
 	_state = ImpState.DIVE
+	SFX.play_sound("imp_dive")
 	_sprite.frame = 0
 	_dive_tracking = false
 	_dive_committed = false
 	_play_tell()
-	_play_reveal(dive_reveal_tint)
+	_play_reveal(_reveal_tint())
 	_behavior_tween = create_tween()
 	_behavior_tween.tween_interval(tell_duration + pause_duration)
 	_behavior_tween.tween_callback(func() -> void: _dive_tracking = true)
@@ -260,9 +329,11 @@ func _track_dive(delta: float) -> void:
 func _commit_dive(target: Vector2) -> void:
 	_dive_tracking = false
 	_dive_committed = true
+	_dive_in_dark = _room_is_dark()
 	_dive_impact = target
 	_face_toward(target.x)
 	_punch_sprite()
+	SFX.play_sound("imp_cry")
 	_start_bite()
 	var start: Vector2 = global_position
 	var line: Vector2 = target - start
@@ -276,18 +347,23 @@ func _commit_dive(target: Vector2) -> void:
 	_behavior_tween.tween_callback(_resolve_dive)
 
 func _resolve_dive() -> void:
+	SFX.play_sound("imp_bite")
 	_chomp()
 	var david: Node2D = _david_hit_target()
 	if david != null and david.global_position.distance_to(_dive_impact) <= dive_hit_radius:
-		PlayerData.accept_damage(randi_range(dive_damage_min, dive_damage_max))
+		var damage: int = randi_range(dive_damage_min, dive_damage_max)
+		if _dive_in_dark:
+			damage = roundi(damage * dark_damage_multiplier)
+		PlayerData.accept_damage(damage)
 	_punch_sprite()
 	_end_dive()
 
 func _end_dive() -> void:
 	_dive_tracking = false
 	_dive_committed = false
+	_dive_in_dark = false
 	_dive_cooldown_left = dive_cooldown
-	_play_reveal(idle_tint)
+	_play_reveal(_resting_tint())
 	_retreat_to_top()
 
 func _retreat_to_top() -> void:
@@ -464,11 +540,13 @@ func _kill_behavior_tweens() -> void:
 		_restore_idle_sprite()
 	_sprite.position = Vector2.ZERO
 	_sprite.scale = Vector2.ONE
-	_sprite.self_modulate = idle_tint
+	_sprite.self_modulate = _resting_tint()
 	modulate = Color(1.0, 1.0, 1.0, modulate.a)
 
 func accept_damage(damage: float, dmg_type: Array[GameManager.PhaseType]) -> void:
 	if not dmg_type.has(GameManager.PhaseType.HEALTH):
+		if _dive_committed:
+			return
 		_start_hide()
 		return
 	SFX.play_sound("enemy_hurt")

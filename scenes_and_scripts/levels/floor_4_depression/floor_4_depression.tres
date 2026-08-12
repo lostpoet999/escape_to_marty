@@ -1,5 +1,6 @@
 [gd_resource type="Resource" script_class="FloorData" format=3 uid="uid://f4floor0001"]
 
+[ext_resource type="Script" uid="uid://c883xeifksqne" path="res://scenes_and_scripts/powerups_and_behaviors/base_item.gd" id="1_3acxg"]
 [ext_resource type="Script" uid="uid://pnkwdspwmpwe" path="res://scenes_and_scripts/levels/room_entry.gd" id="1_re4"]
 [ext_resource type="AudioStream" uid="uid://c76dbwab1g4bx" path="res://music_and_ambient/depression_ms_loop.wav" id="1_xtsgx"]
 [ext_resource type="Script" uid="uid://bvs3ugvgbabkc" path="res://scenes_and_scripts/levels/floor_data.gd" id="2_fd4"]
