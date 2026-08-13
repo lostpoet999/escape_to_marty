@@ -8,8 +8,6 @@ const SECRET_FLASH_INTERVAL_MIN: float = 8.0
 const SECRET_FLASH_INTERVAL_MAX: float = 12.0
 const SECRET_FLASH_FIRST_MIN: float = 1.5
 const SECRET_FLASH_FIRST_MAX: float = 3.0
-const SECRET_FLASHES_PER_BARK_MIN: int = 3
-const SECRET_FLASHES_PER_BARK_MAX: int = 4
 const SECRET_SOUND_BOOST_DB: float = 3.5
 const EXIT_LIGHT_ENERGY_OPEN: float = 2.2
 const EXIT_LIGHT_ENERGY_CLOSED: float = 1.2
@@ -36,7 +34,6 @@ var room_cleared: bool = false
 var travel_locked: bool = false
 var _flash_tween: Tween
 var _open_pulse_tween: Tween
-var _flashes_until_bark: int = 0
 var _memory_quip_sent: bool = false
 
 func _ready() -> void:
@@ -222,7 +219,6 @@ func show_secret_wall()-> void:
 # no-combat rooms have no ball hits to betray the wall, so the idle tell
 # fires fast there or nobody sees it before leaving
 func _start_secret_flash()-> void:
-	_flashes_until_bark = randi_range(SECRET_FLASHES_PER_BARK_MIN, SECRET_FLASHES_PER_BARK_MAX)
 	if _in_no_combat_room():
 		_flash_tween = create_tween()
 		_flash_tween.tween_interval(randf_range(SECRET_FLASH_FIRST_MIN, SECRET_FLASH_FIRST_MAX))
@@ -264,10 +260,6 @@ func _on_secret_flash()-> void:
 	var tell_sound: AudioStreamPlayer = SFX.play_sound("secret_tell")
 	if tell_sound != null:
 		tell_sound.volume_db += SECRET_SOUND_BOOST_DB
-	_flashes_until_bark -= 1
-	if _flashes_until_bark <= 0:
-		_flashes_until_bark = randi_range(SECRET_FLASHES_PER_BARK_MIN, SECRET_FLASHES_PER_BARK_MAX)
-		DialogDirector.play(&"secret_wall_suspicious")
 
 func _stop_secret_flash()-> void:
 	if _flash_tween and _flash_tween.is_valid():

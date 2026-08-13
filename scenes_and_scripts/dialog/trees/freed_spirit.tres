@@ -21,5 +21,5 @@ metadata/_custom_type_script = "uid://da86xmy7akvas"
 script = ExtResource("1_tree")
 beats = Array[ExtResource("2_beat")]([SubResource("Resource_beat_1"), SubResource("Resource_wtmx1"), SubResource("Resource_36tgn")])
 once_per_run = false
-trigger_threshold = 10
+trigger_threshold = 3
 pick_random_beat = true

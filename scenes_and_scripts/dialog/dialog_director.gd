@@ -32,6 +32,11 @@ var _focus_max_pull: Vector2
 var _focus_dim: ColorRect
 var _focus_tween: Tween
 var _focus_pull_tween: Tween
+var _clear_queue: Array[StringName] = []
+
+
+func _ready() -> void:
+	Signalbus.level_cleared.connect(_on_level_cleared)
 
 
 func play(tree_id: StringName, anchor: Node2D = null) -> bool:
@@ -81,6 +86,15 @@ func play_at_control(tree_id: StringName, control: Control, screen_offset: Vecto
 	return true
 
 
+func play_on_clear(tree_id: StringName) -> void:
+	_clear_queue.erase(tree_id)
+	_clear_queue.append(tree_id)
+
+
+func reset_clear_queue() -> void:
+	_clear_queue.clear()
+
+
 ## Instantly ends whatever is playing (cutscene skip). An ambient bubble is
 ## dismissed on the spot; a focused tree unwinds through its normal teardown
 ## (zoom-out, unpause, tree_finished) so nothing is left paused or dimmed.
@@ -95,6 +109,7 @@ func cancel_active() -> void:
 
 
 func force_reset() -> void:
+	_clear_queue.clear()
 	_play_serial += 1
 	_cancel_requested = true
 	_kill_focus_tween()
@@ -110,6 +125,14 @@ func force_reset() -> void:
 	if focused_active:
 		GameManager.unpause_game()
 		focused_active = false
+
+
+func _on_level_cleared() -> void:
+	if _clear_queue.is_empty():
+		return
+	var tree_id: StringName = _clear_queue[-1]
+	_clear_queue.clear()
+	play.call_deferred(tree_id)
 
 
 func _passes_trigger_threshold(tree_id: StringName, tree: DialogTree) -> bool:

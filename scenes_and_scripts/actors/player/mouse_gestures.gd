@@ -128,7 +128,6 @@ func _try_revert_denial(target: Node) -> bool:
 	if not seal.try_revert_denial(denial_revert_window):
 		return false
 	SFX.play_sound("hit-brick")
-	DialogDirector.play(&"denial_pushed_too_far")
 	return true
 
 func _place_depression_light(at: Vector2) -> void:

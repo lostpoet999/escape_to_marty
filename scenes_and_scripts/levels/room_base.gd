@@ -116,6 +116,7 @@ func _ready() -> void:
 	visible = false
 	entry = GameManager.get_current_floor_entry(GameManager.current_room_id)
 	room_state = PlayerData.get_room_state(entry)
+	DialogDirector.reset_clear_queue()
 	if room_state.cleared:
 		supress_respawn_entities()
 		Signalbus.level_cleared.emit()
@@ -348,7 +349,7 @@ func _spawn_escaped_spirit(spawn_from: Area2D) -> void:
 	var spirit: Node2D = ESCAPED_SPIRIT.instantiate()
 	spirit.position = spawn_from.position
 	spawn_from.get_parent().add_child(spirit)
-	DialogDirector.play(&"freed_spirit")
+	DialogDirector.play_on_clear(&"freed_spirit")
 
 func _pre_first_launch() -> bool:
 	if _first_launch_seen:
@@ -562,7 +563,7 @@ func _fire_mercy_clear() -> void:
 	var live: Array[BaseSeal] = _get_live_seals()
 	if live.size() != 1 or live[0] != seal:
 		return
-	DialogDirector.play(&"last_seal_mercy")
+	DialogDirector.play_on_clear(&"last_seal_mercy")
 	flash_play_area(MERCY_FLASH_COLOR)
 	_mercy_pop_pending = true
 	seal.force_clear()
