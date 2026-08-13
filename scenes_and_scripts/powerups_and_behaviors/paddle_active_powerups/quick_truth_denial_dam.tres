@@ -14,7 +14,6 @@ damage = 2
 projectile_dmg_type = Array[int]([0])
 powerup_name = "Quick Truth"
 shop_description = "Fires projectile that damages Seals of Denial"
-rarity = 1
 inventory_icon = ExtResource("1_skvdi")
 cost = 20
 metadata/_custom_type_script = "uid://0q4ogral5cxt"

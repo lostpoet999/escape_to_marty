@@ -9,6 +9,8 @@ const WEB_BOX_COLOR: Color = Color(0.87451, 0.517647, 0.647059, 0.85)
 const WEB_SHAKE_MIN_PIXELS: float = 6.0
 const WEB_BOX_MARGIN: Vector2 = Vector2(24.0, 48.0)
 
+const BONUS_DROPS_GROUP: StringName = &"bonus_drops"
+
 const MAGNET_START_SOUND: String = "magnet_start"
 const MAGNET_LOOP_SOUND: String = "magnet_loop"
 const MAGNET_STOP_SOUND: String = "magnet_stop"
@@ -101,6 +103,7 @@ var _distance_accumulator: float = 0.0
 @onready var magnet_radius_outline: ColorRect = $Ball_Magnet_Radius/ColorRect
 
 var _lean_blend: float = 0.0
+var _gold_magnet_radius_sq: float = 0.0
 
 var blocker_enemies: Array[PlacedEnemy] #hold blocker enemies in paddle path
 
@@ -155,12 +158,43 @@ func set_paddle_hidden(is_hidden: bool, include_david: bool = false) -> void:
 
 func set_paddle_length_from_items()->void:
 	paddle_powerups = PlayerData.inventory.get_items_for_paddle()  # refresh first
+	_update_gold_magnet()
 	if paddle_powerups.is_empty(): return
 	reset_paddle_length()
 	for item: BaseItem in paddle_powerups:
 		var paddle_item: PaddlePowerup = item
 		if paddle_item.paddle_length_mod > 0.0:
 			adjust_paddle_length(paddle_item.paddle_length_mod)
+
+func _update_gold_magnet()->void:
+	var base_radius: float = 0.0
+	var stack_bonus: float = 0.0
+	var max_radius: float = 0.0
+	var extra_copies: int = 0
+	for item: BaseItem in paddle_powerups:
+		var paddle_item: PaddlePowerup = item
+		if paddle_item.gold_magnet_radius <= 0.0:
+			continue
+		if base_radius <= 0.0:
+			base_radius = paddle_item.gold_magnet_radius
+			stack_bonus = paddle_item.gold_magnet_stack_bonus
+			max_radius = paddle_item.gold_magnet_max_radius
+		else:
+			extra_copies += 1
+	var radius: float = base_radius * (1.0 + stack_bonus * float(extra_copies))
+	if max_radius > 0.0:
+		radius = minf(radius, max_radius)
+	_gold_magnet_radius_sq = radius * radius
+
+func _capture_nearby_drops()->void:
+	if _gold_magnet_radius_sq <= 0.0:
+		return
+	for node: Node in get_tree().get_nodes_in_group(BONUS_DROPS_GROUP):
+		var drop: BonusDrop = node as BonusDrop
+		if drop == null or drop.collected or drop.captor != null:
+			continue
+		if drop.global_position.distance_squared_to(global_position) <= _gold_magnet_radius_sq:
+			drop.captor = self
 
 func _calculate_bounds() -> void:
 	var half_width: float = _get_scaled_half_width()
@@ -472,6 +506,7 @@ func reset_committed_distance() -> void:
 
 func _process(delta: float) -> void:
 	magnet_refresh.paused = GameManager.current_state != GameManager.GameState.PLAYING
+	_capture_nearby_drops()
 	var speed: float = 0.0 if paddle_frozen else current_speed
 	var lean_target: float = 0.0
 	if absf(speed) > lean_speed_threshold:

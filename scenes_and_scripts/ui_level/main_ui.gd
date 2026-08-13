@@ -7,6 +7,9 @@ extends Control
 
 var numberAnimDelay: float = 3.0 / 60.0
 var numberDelayRemaining: float = 0
+var numberAnimTicks: int = 12
+var goldStep: int = 1
+var scoreStep: int = 1
 
 var currentScore: int = 0
 var currentGold: int = 0
@@ -37,9 +40,11 @@ func _ready() -> void:
 
 func update_gold_ui() -> void:
 	currentGold = PlayerData.get_player_gold()
+	goldStep = maxi(1, ceili(absi(currentGold - displayedGold) / float(numberAnimTicks)))
 
 func update_score_ui() -> void:
 	currentScore = PlayerData.get_player_score()
+	scoreStep = maxi(1, ceili(absi(currentScore - displayedScore) / float(numberAnimTicks)))
 	
 func update_player_health() -> void:
 	currentHealth = PlayerData.get_player_health()
@@ -57,9 +62,7 @@ func _process(delta: float) -> void:
 	var healthChange: int = abs(displayedHealth-currentHealth)
 	var healthDelta: int = 1 # 10 if healthChange>10 else 1
 	var goldChange: int = abs(displayedGold-currentGold)
-	var goldDelta: int = 1 # 10 if goldChange>10 else 1
 	var scoreChange: int = abs(displayedScore-currentScore)
-	var scoreDelta: int = 50 if scoreChange>50 else 1 # go faster if big difference
 	var shieldDelta: int = abs(displayedShields-currentShields)
 	
 	if healthChange!=0:
@@ -67,12 +70,12 @@ func _process(delta: float) -> void:
 		if displayedHealth > currentHealth: displayedHealth -= healthDelta
 		health.text = str(displayedHealth)
 	if goldChange!=0:
-		if displayedGold < currentGold: displayedGold += goldDelta
-		if displayedGold > currentGold: displayedGold -= goldDelta
+		if displayedGold < currentGold: displayedGold = mini(displayedGold + goldStep, currentGold)
+		if displayedGold > currentGold: displayedGold = maxi(displayedGold - goldStep, currentGold)
 		gold.text = str(displayedGold)
 	if scoreChange!=0:
-		if displayedScore < currentScore: displayedScore += scoreDelta
-		if displayedScore > currentScore: displayedScore -= scoreDelta
+		if displayedScore < currentScore: displayedScore = mini(displayedScore + scoreStep, currentScore)
+		if displayedScore > currentScore: displayedScore = maxi(displayedScore - scoreStep, currentScore)
 		score.text = str(displayedScore)
 	if shieldDelta!=0:
 		if displayedShields < currentShields: displayedShields += shieldDelta

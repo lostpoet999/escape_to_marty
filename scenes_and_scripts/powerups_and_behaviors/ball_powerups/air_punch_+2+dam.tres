@@ -9,6 +9,7 @@ script = ExtResource("2_ball")
 global_bonus = 2.0
 powerup_name = "Air Punch"
 shop_description = "Adds 2 ball damage (before multipliers)"
+rarity = 1
 inventory_icon = ExtResource("1_47vjg")
 cost = 10
 metadata/_custom_type_script = "uid://bryv4msdad7wu"

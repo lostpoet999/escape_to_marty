@@ -11,6 +11,9 @@ enum ImpState {
 	DRAIN = 6,
 	}
 
+const SPOOK_PITCH_SCALE: float = 0.45
+const SPOOK_VOLUME_DROP_DB: float = -6.0
+
 @export var max_health: float = 20.0 ## Real HP pool: HEALTH-type damage subtracts its actual amount. Clicks and other verb types never hurt the imp.
 @export var materialize_time: float = 0.8 ## Seconds for the spawn fade-in at the random materialize point; the imp is already hittable while fading.
 @export var bob_fps: float = 8.0 ## Idle bob animation speed in frames per second; the bob pauses during attack and dive runs.
@@ -547,6 +550,10 @@ func accept_damage(damage: float, dmg_type: Array[GameManager.PhaseType]) -> voi
 	if not dmg_type.has(GameManager.PhaseType.HEALTH):
 		if _dive_committed:
 			return
+		var spook_sound: AudioStreamPlayer = SFX.play_sound("enemy_hurt")
+		if spook_sound != null:
+			spook_sound.pitch_scale = SPOOK_PITCH_SCALE
+			spook_sound.volume_db += SPOOK_VOLUME_DROP_DB
 		_start_hide()
 		return
 	SFX.play_sound("enemy_hurt")

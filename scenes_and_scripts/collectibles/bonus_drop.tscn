@@ -7,7 +7,7 @@
 resource_local_to_scene = true
 size = Vector2(32, 32)
 
-[node name="BonusDrop" type="Area2D" unique_id=134588890]
+[node name="BonusDrop" type="Area2D" groups=["bonus_drops"] unique_id=134588890]
 collision_layer = 2
 script = ExtResource("1_bd")
 

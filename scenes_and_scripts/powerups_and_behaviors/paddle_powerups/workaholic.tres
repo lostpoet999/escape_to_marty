@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="PaddlePowerup" format=3 uid="uid://workaholic01"]
+
+[ext_resource type="Script" uid="uid://b81b3hhkeuin4" path="res://scenes_and_scripts/powerups_and_behaviors/paddle_powerups/paddle_powerup.gd" id="1_pp"]
+[ext_resource type="Texture2D" uid="uid://cn44s8tnj8dg2" path="res://scenes_and_scripts/inventory/placeholder_tex_32.tres" id="2_icon"]
+
+[resource]
+script = ExtResource("1_pp")
+gold_magnet_radius = 270.0
+gold_magnet_stack_bonus = 0.2
+gold_magnet_max_radius = 540.0
+powerup_name = "Workaholic"
+shop_description = "You focus on your work and find it much easier to obtain gold.  Attract and collect nearby gold coins."
+rarity = 1
+inventory_icon = ExtResource("2_icon")
+cost = 20
+metadata/_custom_type_script = "uid://b81b3hhkeuin4"
