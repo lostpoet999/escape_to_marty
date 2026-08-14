@@ -11,6 +11,7 @@ enum ImpState {
 	DRAIN = 6,
 	}
 
+const FLYING_SOUND: String = "imp_flying"
 const SPOOK_PITCH_SCALE: float = 0.45
 const SPOOK_VOLUME_DROP_DB: float = -6.0
 
@@ -144,6 +145,8 @@ func _decide() -> void:
 	if _dive_ready():
 		choices.append(ImpState.DIVE)
 	var choice: ImpState = choices.pick_random()
+	if choice != ImpState.WANDER:
+		SFX.play_sound(FLYING_SOUND)
 	match choice:
 		ImpState.ATTACK:
 			var light: DepressionLight = lights.pick_random()

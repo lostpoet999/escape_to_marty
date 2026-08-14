@@ -136,7 +136,7 @@ signal screen_flash(color: Color)
 signal player_damaged(amount: int)
 
 ## Emits: scenes_and_scripts/singletons/player_data.gd -> grant_free_miss_shield(), accept_reflect_damage(), recompute_max_health(), _on_floor_cleared(); scenes_and_scripts/levels/room_base.gd -> _ready()
-## Connects: scenes_and_scripts/actors/player/paddle.gd -> _on_reflect_shield_changed, scenes_and_scripts/ui_level/main_ui.gd -> update_player_shields
+## Connects: scenes_and_scripts/actors/player/paddle.gd -> _on_reflect_shield_changed, scenes_and_scripts/ui_level/main_ui.gd -> update_player_shields, scenes_and_scripts/singletons/player_data.gd -> _on_reflect_shield_changed
 @warning_ignore("unused_signal")
 signal reflect_shield_changed(count: int)
 

@@ -5,6 +5,8 @@ const REFLECT_MISS_CAP_RATIO: float = 0.85
 const BASE_MAX_HEALTH: int = 10
 const MAX_HEALTH_CEILING: int = 25
 const MAX_FREE_MISS_SHIELDS: int = 1
+const SHIELD_GAINED_SOUND: String = "shield_gained"
+const SHIELD_LOST_SOUND: String = "shield_lost"
 
 var score: int = 0
 var gold_collected: int = 0
@@ -33,11 +35,20 @@ const GOLD_STREAK_MAX: int = 12
 var _gold_streak: int = 0
 var _last_gold_pickup_ms: int = -100000
 var _last_barrier_clear_ms: int = -100000
+var _last_shield_count: int = 0
 
 
 func _ready() -> void:
 	Signalbus.inventory_changed.connect(recompute_max_health)
 	Signalbus.floor_cleared.connect(_on_floor_cleared)
+	Signalbus.reflect_shield_changed.connect(_on_reflect_shield_changed)
+
+func _on_reflect_shield_changed(count: int) -> void:
+	if count > _last_shield_count:
+		SFX.play_sound(SHIELD_GAINED_SOUND)
+	elif count < _last_shield_count:
+		SFX.play_sound(SHIELD_LOST_SOUND)
+	_last_shield_count = count
 
 func recompute_max_health() -> void:
 	if inventory == null:
@@ -67,6 +78,7 @@ func initialize_player_data() -> void:
 	player_max_health = BASE_MAX_HEALTH
 	free_miss_shields = 0
 	item_shields_spent = 0
+	_last_shield_count = 0
 	pick2_vouchers = 0
 	shop_restock_vouchers = 0
 	room_state.clear()
@@ -261,6 +273,7 @@ func restore_checkpoint(data: Dictionary) -> void:
 		var core_item: BaseItem = load(path)
 		if core_item != null:
 			inventory.core_items.append(core_item)
+	_last_shield_count = get_player_shields()
 	Signalbus.inventory_changed.emit()
 	player_current_health = clampi(_saved_int(data, "health", BASE_MAX_HEALTH), 1, player_max_health)
 	Signalbus.player_health_updated.emit()

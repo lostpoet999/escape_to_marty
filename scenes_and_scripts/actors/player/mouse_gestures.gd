@@ -6,6 +6,7 @@ const DEPRESSION_LIGHT: PackedScene = preload("res://scenes_and_scripts/actors/p
 const NO_SLOWMO_CLICK_SCALE: float = 2.0
 const WHOOSH_OPEN_SOUND: String = "whoosh_open"
 const WHOOSH_CLOSED_SOUND: String = "whoosh_closed"
+const LIGHT_PLACED_SOUND: String = "light_placed"
 const EXIT_CLICK_STATES: Array[GameManager.GameState] = [
 	GameManager.GameState.CLICK_MODE,
 	GameManager.GameState.LEVEL_CLEARED,
@@ -128,6 +129,7 @@ func _try_revert_denial(target: Node) -> bool:
 	if not seal.try_revert_denial(denial_revert_window):
 		return false
 	SFX.play_sound("hit-brick")
+	SFX.play_sound("denial_revert")
 	return true
 
 func _place_depression_light(at: Vector2) -> void:
@@ -148,6 +150,7 @@ func _place_depression_light(at: Vector2) -> void:
 	light.global_position = at
 	depression_lights.append(light)
 	light.tree_exited.connect(_on_depression_light_freed.bind(light))
+	SFX.play_sound(LIGHT_PLACED_SOUND)
 
 func _on_depression_light_freed(light: Node2D) -> void:
 	depression_lights.erase(light)

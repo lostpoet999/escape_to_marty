@@ -30,6 +30,16 @@
 [ext_resource type="AudioStream" uid="uid://dihclh3sgm5qf" path="res://sound_effects/dry (no reverb)/down.ogg" id="28_impdown"]
 [ext_resource type="AudioStream" uid="uid://dpi35f8vvagbc" path="res://sound_effects/dry (no reverb)/bite.ogg" id="29_impbite"]
 [ext_resource type="AudioStream" uid="uid://cbshewcyc44uh" path="res://sound_effects/dry (no reverb)/bite-light.ogg" id="30_impbitelight"]
+[ext_resource type="AudioStream" uid="uid://cm5su4pevgx36" path="res://sound_effects/boss-fight-starts.wav" id="31_bossstart"]
+[ext_resource type="AudioStream" uid="uid://c1an0ludg24px" path="res://sound_effects/denial-revert-3.wav" id="32_denialrevert"]
+[ext_resource type="AudioStream" uid="uid://debg3t2cac0xu" path="res://sound_effects/depression-revert.wav" id="33_deprevert"]
+[ext_resource type="AudioStream" uid="uid://drktscecmiv54" path="res://sound_effects/homing-activation.wav" id="34_homingact"]
+[ext_resource type="AudioStream" uid="uid://yf50nq4php6y" path="res://sound_effects/light-placed.wav" id="35_lightplaced"]
+[ext_resource type="AudioStream" uid="uid://bs2uio2wwtfh2" path="res://sound_effects/light-burns-out.wav" id="36_lightout"]
+[ext_resource type="AudioStream" uid="uid://pvfuxjlo1nhi" path="res://sound_effects/imp-flying.wav" id="37_impflying"]
+[ext_resource type="AudioStream" uid="uid://bvkwpbb8lkky" path="res://sound_effects/shield-gained.wav" id="38_shieldgain"]
+[ext_resource type="AudioStream" uid="uid://bjkjc4qxnuhcm" path="res://sound_effects/shield-lost.wav" id="39_shieldlost"]
+[ext_resource type="AudioStream" uid="uid://mxxqgh2cdvmb" path="res://sound_effects/get-rare-drop.wav" id="40_raredrop"]
 
 [sub_resource type="Resource" id="Resource_84rug"]
 script = ExtResource("2_3pagk")
@@ -116,10 +126,9 @@ metadata/_custom_type_script = "uid://2fgoca4drc17"
 [sub_resource type="Resource" id="Resource_raredrop"]
 script = ExtResource("2_3pagk")
 name = "rare_drop"
-audio = ExtResource("14_3w05g")
-volume_db = 0.0
-pitch_scale = 1.5
-pitch_variance = 0.1
+audio = ExtResource("40_raredrop")
+volume_db = -5.0
+pitch_variance = 0.05
 metadata/_custom_type_script = "uid://2fgoca4drc17"
 
 [sub_resource type="Resource" id="Resource_secrettell"]
@@ -281,6 +290,73 @@ pitch_variance = 0.1
 max_concurrent = 4
 metadata/_custom_type_script = "uid://2fgoca4drc17"
 
+[sub_resource type="Resource" id="Resource_bossstart"]
+script = ExtResource("2_3pagk")
+name = "boss_fight_start"
+audio = ExtResource("31_bossstart")
+max_concurrent = 1
+metadata/_custom_type_script = "uid://2fgoca4drc17"
+
+[sub_resource type="Resource" id="Resource_denialrevert"]
+script = ExtResource("2_3pagk")
+name = "denial_revert"
+audio = ExtResource("32_denialrevert")
+max_concurrent = 2
+metadata/_custom_type_script = "uid://2fgoca4drc17"
+
+[sub_resource type="Resource" id="Resource_deprevert"]
+script = ExtResource("2_3pagk")
+name = "depression_revert"
+audio = ExtResource("33_deprevert")
+max_concurrent = 2
+metadata/_custom_type_script = "uid://2fgoca4drc17"
+
+[sub_resource type="Resource" id="Resource_homingact"]
+script = ExtResource("2_3pagk")
+name = "homing_activation"
+audio = ExtResource("34_homingact")
+max_concurrent = 1
+metadata/_custom_type_script = "uid://2fgoca4drc17"
+
+[sub_resource type="Resource" id="Resource_lightplaced"]
+script = ExtResource("2_3pagk")
+name = "light_placed"
+audio = ExtResource("35_lightplaced")
+max_concurrent = 2
+metadata/_custom_type_script = "uid://2fgoca4drc17"
+
+[sub_resource type="Resource" id="Resource_lightout"]
+script = ExtResource("2_3pagk")
+name = "light_burns_out"
+audio = ExtResource("36_lightout")
+volume_db = -13.0
+pitch_scale = 1.2
+max_concurrent = 2
+metadata/_custom_type_script = "uid://2fgoca4drc17"
+
+[sub_resource type="Resource" id="Resource_impflying"]
+script = ExtResource("2_3pagk")
+name = "imp_flying"
+audio = ExtResource("37_impflying")
+volume_db = -6.0
+pitch_variance = 0.08
+max_concurrent = 2
+metadata/_custom_type_script = "uid://2fgoca4drc17"
+
+[sub_resource type="Resource" id="Resource_shieldgain"]
+script = ExtResource("2_3pagk")
+name = "shield_gained"
+audio = ExtResource("38_shieldgain")
+max_concurrent = 1
+metadata/_custom_type_script = "uid://2fgoca4drc17"
+
+[sub_resource type="Resource" id="Resource_shieldlost"]
+script = ExtResource("2_3pagk")
+name = "shield_lost"
+audio = ExtResource("39_shieldlost")
+max_concurrent = 1
+metadata/_custom_type_script = "uid://2fgoca4drc17"
+
 [node name="EntitySfx" type="Node" unique_id=529254853]
 script = ExtResource("1_mje1w")
-sounds = Array[ExtResource("2_3pagk")]([SubResource("Resource_84rug"), SubResource("Resource_w05wb"), SubResource("Resource_axa1s"), SubResource("Resource_hpigb"), SubResource("Resource_0gpy4"), SubResource("Resource_idfbx"), SubResource("Resource_568ao"), SubResource("Resource_7iehp"), SubResource("Resource_3w05g"), SubResource("Resource_18s1p"), SubResource("Resource_ehurt"), SubResource("Resource_raredrop"), SubResource("Resource_secrettell"), SubResource("Resource_secretreveal"), SubResource("Resource_winsting"), SubResource("Resource_ragespawn"), SubResource("Resource_badsting"), SubResource("Resource_hbrwr"), SubResource("Resource_wlstng"), SubResource("Resource_uisel"), SubResource("Resource_mgstart"), SubResource("Resource_mgloop"), SubResource("Resource_mgstop"), SubResource("Resource_whopen"), SubResource("Resource_whclosed"), SubResource("Resource_bgearly"), SubResource("Resource_bgover"), SubResource("Resource_impdown"), SubResource("Resource_impcry"), SubResource("Resource_impbite"), SubResource("Resource_impbitelight"), SubResource("Resource_impbitestatue")])
+sounds = Array[ExtResource("2_3pagk")]([SubResource("Resource_84rug"), SubResource("Resource_w05wb"), SubResource("Resource_axa1s"), SubResource("Resource_hpigb"), SubResource("Resource_0gpy4"), SubResource("Resource_idfbx"), SubResource("Resource_568ao"), SubResource("Resource_7iehp"), SubResource("Resource_3w05g"), SubResource("Resource_18s1p"), SubResource("Resource_ehurt"), SubResource("Resource_raredrop"), SubResource("Resource_secrettell"), SubResource("Resource_secretreveal"), SubResource("Resource_winsting"), SubResource("Resource_ragespawn"), SubResource("Resource_badsting"), SubResource("Resource_hbrwr"), SubResource("Resource_wlstng"), SubResource("Resource_uisel"), SubResource("Resource_mgstart"), SubResource("Resource_mgloop"), SubResource("Resource_mgstop"), SubResource("Resource_whopen"), SubResource("Resource_whclosed"), SubResource("Resource_bgearly"), SubResource("Resource_bgover"), SubResource("Resource_impdown"), SubResource("Resource_impcry"), SubResource("Resource_impbite"), SubResource("Resource_impbitelight"), SubResource("Resource_impbitestatue"), SubResource("Resource_bossstart"), SubResource("Resource_denialrevert"), SubResource("Resource_deprevert"), SubResource("Resource_homingact"), SubResource("Resource_lightplaced"), SubResource("Resource_lightout"), SubResource("Resource_impflying"), SubResource("Resource_shieldgain"), SubResource("Resource_shieldlost")])

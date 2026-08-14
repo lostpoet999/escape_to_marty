@@ -7,6 +7,7 @@ const DAMAGE_NUMBER: PackedScene = preload(DamageNumber.PREFAB_SCENE)
 
 const BARGAIN_EARLY_SOUND: String = "bargain_early"
 const BARGAIN_OVERSHOT_SOUND: String = "bargain_overshot"
+const DEPRESSION_REVERT_SOUND: String = "depression_revert"
 
 const COIN_WINDFALL_CHANCE: float = 0.05
 const COIN_WINDFALL_COUNT: int = 3
@@ -360,6 +361,7 @@ func _process(delta: float) -> void:
 
 func _reseed_depression() -> void:
 	_reseed_timer = 0.0
+	SFX.play_sound(DEPRESSION_REVERT_SOUND)
 	_interrupted_stage = current_stage
 	_interrupted_hp = health_temp
 	_interrupted_max = health_max

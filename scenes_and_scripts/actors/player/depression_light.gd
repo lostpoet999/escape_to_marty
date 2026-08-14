@@ -1,6 +1,7 @@
 class_name DepressionLight extends Node2D
 
 const DEPRESSION_TYPES: Array[GameManager.PhaseType] = [GameManager.PhaseType.DEPRESSION]
+const BURNS_OUT_SOUND: String = "light_burns_out"
 const _TEXTURE_HALF_PX: float = 128.0
 const _ORB_TEXTURE_HALF_PX: float = 32.0
 
@@ -165,6 +166,7 @@ func extinguish() -> void:
 	if _extinguished:
 		return
 	_extinguished = true
+	SFX.play_sound(BURNS_OUT_SOUND)
 	var tween: Tween = get_tree().create_tween()
 	if point_light != null:
 		tween.tween_property(point_light, "energy", 0.0, 0.25)

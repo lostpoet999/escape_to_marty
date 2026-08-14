@@ -26,7 +26,7 @@ func _ready() -> void:
 			_anim_time = randf() * float(sprite.hframes)
 			sprite.frame = int(_anim_time) % sprite.hframes
 		sprite.modulate = payload.drop_modulate
-		if payload.is_rare:
+		if payload.is_rare and not payload is ShieldPayload:
 			SFX.play_sound("rare_drop")
 		if payload is CurrencyPayload:
 			fall_speed *= randf_range(COIN_FALL_SPEED_VARIANCE_MIN, COIN_FALL_SPEED_VARIANCE_MAX)

@@ -1,6 +1,7 @@
 class_name EncounterRoomBase extends RoomBase
 
 const CODEC_PLAYER: PackedScene = preload("uid://ccodecplayer")
+const BOSS_START_SOUND: String = "boss_fight_start"
 
 ## Optional memory beat played once, right after the encounter clears and before loot.
 @export var post_encounter_tree: DialogTree
@@ -14,6 +15,8 @@ func _ready() -> void:
 	if room_state.cleared:
 		encounter_cleared = true
 		_restore_cleared_encounter()
+	else:
+		SFX.play_sound(BOSS_START_SOUND)
 
 func check_level_cleared() -> void:
 	pass
