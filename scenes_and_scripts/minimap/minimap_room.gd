@@ -22,7 +22,18 @@ const TYPE_COLORS: Dictionary = {
 	RoomContent.ROOM_TYPES.boss: Color(0.9, 0.2, 0.2),
 	RoomContent.ROOM_TYPES.bonus_room: Color(0.35, 0.85, 0.9),
 }
+const TYPE_TITLES: Dictionary = {
+	RoomContent.ROOM_TYPES.starting_room: "Start Room",
+	RoomContent.ROOM_TYPES.combat: "Combat Room",
+	RoomContent.ROOM_TYPES.shop: "Shop",
+	RoomContent.ROOM_TYPES.memory: "Memory Room",
+	RoomContent.ROOM_TYPES.free_item: "Free Item",
+	RoomContent.ROOM_TYPES.boss: "Boss Room",
+	RoomContent.ROOM_TYPES.bonus_room: "Trophy Room",
+}
 const REVEALED_BLANK_GLYPH: String = "·"
+const BLINK_SECONDS: float = 0.9
+const BLINK_MIN_ALPHA: float = 0.3
 
 @onready var background: ColorRect = $RoomBackground
 @onready var player_indicator: TextureRect = $PlayerIndicator
@@ -60,6 +71,8 @@ const REVEALED_BLANK_GLYPH: String = "·"
 		labels_enabled = v
 		_refresh()
 
+var _blink_tween: Tween
+
 
 func _ready() -> void:
 	_refresh()
@@ -69,8 +82,11 @@ func _refresh() -> void:
 	if room_entry:
 		var discovered: bool = is_visited or is_current
 		var letter: String = TYPE_LETTERS.get(room_entry.content.room_type, "") if labels_enabled else ""
+		var title: String = TYPE_TITLES.get(room_entry.content.room_type, "") if labels_enabled and discovered else ""
 		background.visible = discovered
 		player_indicator.visible = is_current
+		if is_current and _blink_tween == null and not Engine.is_editor_hint():
+			_start_blink()
 		modulate = Color.WHITE if discovered or is_revealed else UNVISITED_ROOMS_MOD
 		north_exit.visible = discovered and _exit_tick_visible(&"north", Vector2i(0, -1))
 		south_exit.visible = discovered and _exit_tick_visible(&"south", Vector2i(0, 1))
@@ -82,7 +98,9 @@ func _refresh() -> void:
 		type_label.visible = (discovered or is_revealed) and glyph != ""
 		type_label.text = glyph
 		type_label.add_theme_color_override("font_color", TYPE_COLORS.get(room_entry.content.room_type, Color.WHITE))
+		tooltip_text = title
 	else:
+		tooltip_text = ""
 		background.hide()
 		player_indicator.hide()
 		north_exit.hide()
@@ -90,6 +108,13 @@ func _refresh() -> void:
 		east_exit.hide()
 		west_exit.hide()
 		type_label.hide()
+
+
+func _start_blink() -> void:
+	_blink_tween = create_tween().set_loops()
+	_blink_tween.set_trans(Tween.TRANS_SINE)
+	_blink_tween.tween_property(player_indicator, "modulate:a", BLINK_MIN_ALPHA, BLINK_SECONDS)
+	_blink_tween.tween_property(player_indicator, "modulate:a", 1.0, BLINK_SECONDS)
 
 
 func _exit_tick_visible(direction: StringName, offset: Vector2i) -> bool:

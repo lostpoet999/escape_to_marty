@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://4eufsb4yiay4" path="res://scenes_and_scripts/minimap/minimap_room.gd" id="1_bbyvs"]
 
 [node name="MinimapRoom" type="Control" unique_id=851394853]
+process_mode = 3
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 3
 anchors_preset = 0
@@ -21,11 +22,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0.2784314, 0.039215688, 0.015686275, 1)
 
 [node name="PlayerIndicator" type="TextureRect" parent="." unique_id=1350128295]
 visible = false
-modulate = Color(0.61960787, 0.5294118, 0.7137255, 1)
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -36,6 +37,7 @@ offset_right = -4.0
 offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("1_b6trt")
 stretch_mode = 5
 
@@ -50,6 +52,7 @@ offset_left = -4.0
 offset_top = -4.0
 offset_bottom = 4.0
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0.7631019, 0.18095887, 0.107912056, 1)
 
 [node name="ExitEast" type="ColorRect" parent="." unique_id=1092331345]
@@ -65,6 +68,7 @@ offset_top = -4.0
 offset_right = 4.0
 offset_bottom = 4.0
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0.7631019, 0.18095887, 0.107912056, 1)
 
 [node name="ExitNorth" type="ColorRect" parent="." unique_id=2066328354]
@@ -78,6 +82,7 @@ offset_left = -4.0
 offset_top = -4.0
 offset_right = 4.0
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0.7631019, 0.18095887, 0.107912056, 1)
 
 [node name="ExitSouth" type="ColorRect" parent="." unique_id=1547166696]
@@ -93,6 +98,7 @@ offset_left = -4.0
 offset_right = 4.0
 offset_bottom = 4.0
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0.7631019, 0.18095887, 0.107912056, 1)
 
 [node name="TypeLabel" type="Label" parent="."]

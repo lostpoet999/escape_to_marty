@@ -22,10 +22,10 @@ offset_left = -32.0
 offset_top = -16.0
 offset_right = 32.0
 offset_bottom = 16.0
-color = Color(0.74509805, 0.46666667, 0.16862746, 1)
+color = Color(0.47843137, 0.28235295, 0.25490195, 1)
 
 [node name="TextureRect" type="ColorRect" parent="." unique_id=505564993]
-modulate = Color(0.9098039, 0.75686276, 0.4392157, 1)
+modulate = Color(0.30196077, 0.16862746, 0.19607843, 1)
 offset_left = -31.0
 offset_top = -15.0
 offset_right = 31.0

@@ -26,7 +26,6 @@
 
 [sub_resource type="Resource" id="Resource_f4bossweights"]
 script = ExtResource("5_sw4")
-common = 0.0
 uncommon = 12.0
 rare = 45.0
 very_rare = 43.0

@@ -18,7 +18,6 @@ metadata/_custom_type_script = "uid://dnkfaoggkglke"
 script = ExtResource("1_hit")
 targeting = SubResource("ShapeTarget_column")
 trigger_groups = Array[StringName]([&"bricks"])
-local_multi = 1.0
 center_on_brick = true
 metadata/_custom_type_script = "uid://jwtisqgpmqvq"
 
