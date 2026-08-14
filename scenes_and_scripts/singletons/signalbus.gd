@@ -47,7 +47,7 @@ signal db_panel_closed
 ## =============================================================================
 
 ## Emits: scenes_and_scripts/levels/room_base.gd -> _ready(), check_level_cleared(), scenes_and_scripts/levels/encounter_room_base.gd -> clear_encounter(), scenes_and_scripts/levels/common_rooms/memory room/memory_flame.gd -> close_memory(), scenes_and_scripts/db_panel/db_panel.gd -> _on_enable_exits_btn_pressed()
-## Connects: scenes_and_scripts/singletons/game_manager.gd -> set_state_to_cleared, scenes_and_scripts/ball/ball.gd -> remove_ball, scenes_and_scripts/exits/exits.gd -> enable_exits, scenes_and_scripts/actors/player/paddle.gd -> _release_web
+## Connects: scenes_and_scripts/singletons/game_manager.gd -> set_state_to_cleared, scenes_and_scripts/ball/ball.gd -> remove_ball, scenes_and_scripts/exits/exits.gd -> enable_exits, scenes_and_scripts/actors/player/paddle.gd -> _release_web, scenes_and_scripts/dialog/dialog_director.gd -> _on_level_cleared
 @warning_ignore("unused_signal")
 signal level_cleared
 
