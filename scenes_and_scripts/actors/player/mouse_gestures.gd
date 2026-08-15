@@ -52,7 +52,7 @@ var bargain_bid: float = 0.0
 
 @export_category("Depression Config")
 ## Max placed lights on screen at once; placing at the cap snuffs the oldest light to make room — the depression verb's light budget.
-@export var max_depression_lights: int = 2
+@export var max_depression_lights: int = 3
 ## Seconds of unbroken darkness (zero live lights, ball in flight) before the ShadowImps unlock their dive attack. Placing a light resets the clock; the clock only runs while PLAYING, so it starts at the initial launch and pauses whenever the ball is docked.
 @export var dark_arm_delay: float = 3.0
 var depression_lights: Array[Node2D] = []

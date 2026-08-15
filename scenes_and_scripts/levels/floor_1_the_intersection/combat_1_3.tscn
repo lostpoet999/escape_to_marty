@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c3bjgu70hca17" path="res://scenes_and_scripts/actors/enemies/specific_enemies/no_see_me_demon(Deon)/deon.tscn" id="4_vyv6p"]
 [ext_resource type="Script" uid="uid://bgbyjws8op2if" path="res://scenes_and_scripts/ui_level/hint.gd" id="6_e6fxt"]
 [ext_resource type="LabelSettings" uid="uid://x1nhefjv38q7" path="res://label_settings_and_fonts/level_hint.tres" id="7_e6fxt"]
+[ext_resource type="PackedScene" uid="uid://brectbarr01" path="res://scenes_and_scripts/bricks/rectangle_barrier.tscn" id="8_u58d3"]
 
 [sub_resource type="Resource" id="Resource_lsl0q"]
 script = ExtResource("3_51qpg")
@@ -29,7 +30,10 @@ size = Vector2(140, 100)
 
 [node name="combat_1_3" unique_id=565861230 instance=ExtResource("1_nty3w")]
 
-[node name="FlashOverlay" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="5" unique_id=443116914]
+[node name="SubViewport" parent="SubViewportContainer" parent_id_path=PackedInt32Array(1513724378) index="0" unique_id=1272984319]
+size = Vector2i(830, 540)
+
+[node name="FlashOverlay" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="3" unique_id=443116914]
 metadata/_edit_lock_ = true
 
 [node name="OpenSeal" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="0" unique_id=887021685 instance=ExtResource("2_l6wtj")]
@@ -113,7 +117,6 @@ brick_health = 5
 [node name="OpenSeal22" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="13" unique_id=609328664 instance=ExtResource("2_l6wtj")]
 position = Vector2(1088, 768)
 initialize_brick_on_leveldata = false
-stages = Dictionary[int, float]({})
 brick_health = 5
 
 [node name="OpenSeal26" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="14" unique_id=1551079726 instance=ExtResource("2_l6wtj")]
@@ -130,7 +133,6 @@ brick_health = 5
 [node name="OpenSeal24" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="16" unique_id=649769270 instance=ExtResource("2_l6wtj")]
 position = Vector2(1088, 448)
 initialize_brick_on_leveldata = false
-stages = Dictionary[int, float]({})
 brick_health = 5
 
 [node name="OpenSeal25" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="17" unique_id=2131111150 instance=ExtResource("2_l6wtj")]
@@ -189,15 +191,15 @@ brick_health = 5
 [node name="EnemySpawner" parent="No-Respawn/Spawners" parent_id_path=PackedInt32Array(1587044855) index="0" unique_id=740599083 instance=ExtResource("2_ytukl")]
 position = Vector2(288, 960)
 enemies = Array[ExtResource("3_51qpg")]([SubResource("Resource_lsl0q")])
-respawn_time = 10.0
-initial_spawn_time = 2.0
+spawn_check_interval = 10.0
+first_spawn_delay = 2.0
 max_spawns = 1
 
 [node name="EnemySpawner2" parent="No-Respawn/Spawners" parent_id_path=PackedInt32Array(1587044855) index="1" unique_id=963468 instance=ExtResource("2_ytukl")]
 position = Vector2(1888, 960)
 enemies = Array[ExtResource("3_51qpg")]([SubResource("Resource_8n0fq")])
-respawn_time = 10.0
-initial_spawn_time = 2.0
+spawn_check_interval = 10.0
+first_spawn_delay = 2.0
 max_spawns = 1
 
 [node name="Hint" type="Node2D" parent="No-Respawn" parent_id_path=PackedInt32Array(34663887) index="2" unique_id=491808151]
@@ -344,3 +346,36 @@ monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="No-Respawn/Hint/Area2D8" index="0" unique_id=1730108394]
 shape = SubResource("RectangleShape2D_t4x8m")
+
+[node name="Label9" type="Label" parent="No-Respawn/Hint" index="16" unique_id=996511323]
+offset_left = -280.0
+offset_top = -220.0
+offset_right = -279.0
+offset_bottom = -197.0
+text = "Try pressing TAB to release mouse control,
+then try clicking on the Enemy!"
+label_settings = ExtResource("7_e6fxt")
+
+[node name="Area2D9" type="Area2D" parent="No-Respawn/Hint" index="17" unique_id=842162320]
+collision_layer = 0
+input_pickable = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="No-Respawn/Hint/Area2D9" index="0" unique_id=34546730]
+shape = SubResource("RectangleShape2D_t4x8m")
+
+[node name="RectangleBarrier10" parent="." index="14" unique_id=227055808 instance=ExtResource("8_u58d3")]
+position = Vector2(1072, 640)
+rotation = 1.5707964
+
+[node name="RectangleBarrier11" parent="." index="15" unique_id=415634240 instance=ExtResource("8_u58d3")]
+position = Vector2(1072, 576)
+rotation = 1.5707964
+
+[node name="RectangleBarrier12" parent="." index="16" unique_id=1764591176 instance=ExtResource("8_u58d3")]
+position = Vector2(1072, 384)
+rotation = 1.5707964
+
+[node name="RectangleBarrier13" parent="." index="17" unique_id=182397640 instance=ExtResource("8_u58d3")]
+position = Vector2(1072, 320)
+rotation = 1.5707964

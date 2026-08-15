@@ -545,7 +545,11 @@ func push_out_y(collider: Node2D, _move_y: float) -> void:
 func get_collider_half_size(collider: Node2D) -> Vector2:
 	var col_shape: CollisionShape2D = collider.get_node("CollisionShape2D")
 	var shape: RectangleShape2D = col_shape.shape as RectangleShape2D
-	return (shape.size * col_shape.scale * collider.global_scale).abs() / 2.0
+	var half: Vector2 = (shape.size * col_shape.scale * collider.global_scale).abs() / 2.0
+	var rot: float = collider.global_rotation + col_shape.rotation
+	if absf(sin(rot)) > absf(cos(rot)):
+		half = Vector2(half.y, half.x)
+	return half
 
 # --- Collision tracking ---
 

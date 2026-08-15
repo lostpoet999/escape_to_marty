@@ -2,7 +2,7 @@ class_name SpiderPoolSpawner
 extends EnemySpawner
 
 func timer_spawn_enemy() -> void:
-	enemy_spawn_timer.wait_time = respawn_time
+	enemy_spawn_timer.wait_time = spawn_check_interval
 	var room: SpiderEncounterRoom = get_tree().current_scene as SpiderEncounterRoom
 	if room == null or room.encounter_cleared:
 		return

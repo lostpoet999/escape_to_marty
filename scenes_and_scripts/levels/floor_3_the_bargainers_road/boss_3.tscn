@@ -63,8 +63,8 @@ position = Vector2(1088, 32)
 script = ExtResource("9_pspwn")
 enemies = Array[ExtResource("10_ecfg")]([SubResource("Resource_rspdl")])
 spawn_an_enemy_chance = 100.0
-respawn_time = 6.0
-initial_spawn_time = 2.0
+spawn_check_interval = 6.0
+first_spawn_delay = 2.0
 max_spawns = 3
 
 [node name="SpiderSpawnerRight" parent="No-Respawn/Spawners" parent_id_path=PackedInt32Array(1587044855) index="1" unique_id=991827366 instance=ExtResource("8_spwn")]
@@ -72,8 +72,8 @@ position = Vector2(1088, 32)
 script = ExtResource("9_pspwn")
 enemies = Array[ExtResource("10_ecfg")]([SubResource("Resource_rspdr")])
 spawn_an_enemy_chance = 100.0
-respawn_time = 6.0
-initial_spawn_time = 3.0
+spawn_check_interval = 6.0
+first_spawn_delay = 3.0
 max_spawns = 3
 
 [node name="SpiderSpawnerTop" parent="No-Respawn/Spawners" parent_id_path=PackedInt32Array(1587044855) index="2" unique_id=991827367 instance=ExtResource("8_spwn")]
@@ -81,8 +81,8 @@ position = Vector2(1088, 32)
 script = ExtResource("9_pspwn")
 enemies = Array[ExtResource("10_ecfg")]([SubResource("Resource_rspdt")])
 spawn_an_enemy_chance = 100.0
-respawn_time = 6.0
-initial_spawn_time = 4.0
+spawn_check_interval = 6.0
+first_spawn_delay = 4.0
 max_spawns = 3
 
 [node name="item_spawn_point" parent="." index="12" unique_id=51076593]

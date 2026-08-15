@@ -83,8 +83,8 @@ position = Vector2(1088, 512)
 script = ExtResource("11_sispwn")
 enemies = Array[ExtResource("12_ecfg")]([SubResource("Resource_f4impcfg")])
 spawn_an_enemy_chance = 100.0
-respawn_time = 2.5
-initial_spawn_time = 3.0
+spawn_check_interval = 2.5
+first_spawn_delay = 3.0
 max_spawns = 8
 live_imp_target = 4
 

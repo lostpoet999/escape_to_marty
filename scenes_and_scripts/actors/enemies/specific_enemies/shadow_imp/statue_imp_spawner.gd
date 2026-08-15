@@ -1,13 +1,13 @@
 class_name StatueImpSpawner
 extends EnemySpawner
 
-## Live imps the encounter maintains at Normal; one spawns per respawn_time tick until the room holds this many. Scaled by the difficulty setting, so Easy fights fewer and Hard fights more.
+## Live imps the encounter maintains at Normal; one spawns per spawn_check_interval tick until the room holds this many. Scaled by the difficulty setting, so Easy fights fewer and Hard fights more.
 @export var live_imp_target: int = 4
 
 var _spawning_stopped: bool = false
 
 func timer_spawn_enemy() -> void:
-	enemy_spawn_timer.wait_time = respawn_time
+	enemy_spawn_timer.wait_time = spawn_check_interval
 	if _spawning_stopped:
 		return
 	var room: StatueEncounterRoom = get_tree().current_scene as StatueEncounterRoom

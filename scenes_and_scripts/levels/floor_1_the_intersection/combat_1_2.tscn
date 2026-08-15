@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bea1h3570swpu" path="res://scenes_and_scripts/levels/room_base.tscn" id="1_o7dia"]
 [ext_resource type="PackedScene" uid="uid://cm1kspxv86400" path="res://scenes_and_scripts/bricks/open_seal.tscn" id="2_cbojn"]
 [ext_resource type="PackedScene" uid="uid://b7m8vn6kumwyg" path="res://scenes_and_scripts/actors/enemies/enemy_spawner.tscn" id="2_umu5g"]
+[ext_resource type="PackedScene" uid="uid://brectbarr01" path="res://scenes_and_scripts/bricks/rectangle_barrier.tscn" id="3_4x5w2"]
 [ext_resource type="Script" uid="uid://dm8qchhbo37mu" path="res://scenes_and_scripts/actors/enemies/enemy_config.gd" id="3_5jp3l"]
 [ext_resource type="PackedScene" uid="uid://c3bjgu70hca17" path="res://scenes_and_scripts/actors/enemies/specific_enemies/no_see_me_demon(Deon)/deon.tscn" id="4_i0iwg"]
 
@@ -24,127 +25,137 @@ metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 
 [node name="combat_1_2" unique_id=565861230 instance=ExtResource("1_o7dia")]
 
+[node name="SubViewport" parent="SubViewportContainer" parent_id_path=PackedInt32Array(1513724378) index="0" unique_id=1272984319]
+size = Vector2i(830, 540)
+
 [node name="Background" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="1" unique_id=306947289]
 metadata/_edit_lock_ = true
 
 [node name="OpenSeal" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="0" unique_id=887021685 instance=ExtResource("2_cbojn")]
-position = Vector2(416, 512)
+position = Vector2(1344, 704)
 initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({})
 brick_health = 2
 
 [node name="OpenSeal2" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="1" unique_id=460625779 instance=ExtResource("2_cbojn")]
-position = Vector2(480, 512)
+position = Vector2(960, 704)
 initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({})
 brick_health = 2
 
 [node name="OpenSeal3" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="2" unique_id=853523313 instance=ExtResource("2_cbojn")]
-position = Vector2(544, 512)
+position = Vector2(1152, 432)
 initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({})
 brick_health = 2
 
 [node name="OpenSeal4" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="3" unique_id=2075701391 instance=ExtResource("2_cbojn")]
-position = Vector2(608, 512)
+position = Vector2(1472, 384)
 initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({})
 brick_health = 2
 
 [node name="OpenSeal5" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="4" unique_id=925570230 instance=ExtResource("2_cbojn")]
-position = Vector2(672, 512)
+position = Vector2(832, 384)
 initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({})
 brick_health = 2
 
 [node name="OpenSeal6" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="5" unique_id=525809879 instance=ExtResource("2_cbojn")]
-position = Vector2(736, 512)
+position = Vector2(1408, 384)
 initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({})
 brick_health = 2
 
 [node name="OpenSeal7" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="6" unique_id=1521310526 instance=ExtResource("2_cbojn")]
-position = Vector2(800, 512)
+position = Vector2(896, 384)
 initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({})
 brick_health = 2
 
 [node name="OpenSeal8" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="7" unique_id=809707481 instance=ExtResource("2_cbojn")]
-position = Vector2(864, 512)
+position = Vector2(960, 384)
 initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({})
 brick_health = 2
 
 [node name="OpenSeal9" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="8" unique_id=322519578 instance=ExtResource("2_cbojn")]
-position = Vector2(928, 512)
+position = Vector2(1024, 448)
 initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({})
 brick_health = 2
 
 [node name="OpenSeal10" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="9" unique_id=182598472 instance=ExtResource("2_cbojn")]
-position = Vector2(992, 512)
+position = Vector2(1024, 704)
 initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({})
 brick_health = 2
 
 [node name="OpenSeal11" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="10" unique_id=1920308316 instance=ExtResource("2_cbojn")]
-position = Vector2(1056, 512)
+position = Vector2(1088, 512)
 initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({})
 brick_health = 2
 
 [node name="OpenSeal12" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="11" unique_id=2129793700 instance=ExtResource("2_cbojn")]
-position = Vector2(1120, 512)
+position = Vector2(1152, 576)
 initialize_brick_on_leveldata = false
-stages = Dictionary[int, float]({})
 brick_health = 2
 
 [node name="OpenSeal13" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="12" unique_id=281459544 instance=ExtResource("2_cbojn")]
-position = Vector2(1184, 512)
+position = Vector2(1216, 512)
 initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({})
 brick_health = 2
 
 [node name="OpenSeal14" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="13" unique_id=1100230135 instance=ExtResource("2_cbojn")]
-position = Vector2(1248, 512)
+position = Vector2(1088, 640)
 initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({})
 brick_health = 2
 
 [node name="OpenSeal15" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="14" unique_id=1166926414 instance=ExtResource("2_cbojn")]
-position = Vector2(1312, 512)
+position = Vector2(1216, 640)
 initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({})
 brick_health = 2
 
 [node name="OpenSeal16" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="15" unique_id=1054357399 instance=ExtResource("2_cbojn")]
-position = Vector2(1376, 512)
+position = Vector2(1280, 448)
 initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({})
 brick_health = 2
 
 [node name="OpenSeal17" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="16" unique_id=1099188122 instance=ExtResource("2_cbojn")]
-position = Vector2(1440, 512)
+position = Vector2(1344, 384)
 initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({})
 brick_health = 2
 
 [node name="OpenSeal18" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="17" unique_id=1397137007 instance=ExtResource("2_cbojn")]
-position = Vector2(1504, 512)
+position = Vector2(1280, 704)
 initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({})
 brick_health = 2
 
+[node name="RectangleBarrier" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="18" unique_id=415634240 instance=ExtResource("3_4x5w2")]
+position = Vector2(1104, 576)
+rotation = 1.5707964
+
+[node name="RectangleBarrier2" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="19" unique_id=1590961042 instance=ExtResource("3_4x5w2")]
+position = Vector2(1200, 576)
+rotation = 1.5707964
+
 [node name="EnemySpawner" parent="No-Respawn/Spawners" parent_id_path=PackedInt32Array(1587044855) index="0" unique_id=740599083 instance=ExtResource("2_umu5g")]
 position = Vector2(288, 960)
 enemies = Array[ExtResource("3_5jp3l")]([SubResource("Resource_lsl0q")])
-respawn_time = 10.0
-initial_spawn_time = 2.0
+spawn_check_interval = 10.0
+first_spawn_delay = 2.0
 max_spawns = 1
 
 [node name="EnemySpawner2" parent="No-Respawn/Spawners" parent_id_path=PackedInt32Array(1587044855) index="1" unique_id=18242075 instance=ExtResource("2_umu5g")]
 position = Vector2(1888, 960)
 enemies = Array[ExtResource("3_5jp3l")]([SubResource("Resource_8n0fq")])
-respawn_time = 10.0
-initial_spawn_time = 2.0
+spawn_check_interval = 10.0
+first_spawn_delay = 2.0
 max_spawns = 1

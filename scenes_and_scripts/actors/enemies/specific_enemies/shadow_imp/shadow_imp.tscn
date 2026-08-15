@@ -17,6 +17,7 @@ shader_parameter/flash_amount = 0.0
 size = Vector2(56, 112)
 
 [node name="ShadowImp" unique_id=1530090393 groups=["bounce_enemy"] instance=ExtResource("1_base0")]
+z_index = 50
 script = ExtResource("2_imp00")
 max_health = 20.0
 materialize_time = 0.8

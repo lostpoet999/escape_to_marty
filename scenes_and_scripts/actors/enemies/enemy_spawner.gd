@@ -3,8 +3,14 @@ extends Node2D
 
 @export var enemies: Array[EnemyConfig]
 @export var spawn_an_enemy_chance: float
-@export var respawn_time: float
-@export var initial_spawn_time: float
+## Seconds between spawn checks. Every tick the spawner rolls spawn_an_enemy_chance and tests max_spawns; it is the polling cadence, not a delay tied to any one enemy.
+@export var spawn_check_interval: float
+## Seconds before the very first spawn check. Applies once, at _ready.
+@export var first_spawn_delay: float
+## Shortest gap, in seconds, before a killed enemy may be replaced. Zero or negative disables the whole post-kill delay and leaves the polling cadence alone.
+@export var respawn_delay_after_kill_min: float = -1.0
+## Longest gap, in seconds, before a killed enemy may be replaced; each kill rolls uniformly between the two. Leave at or below the min for a fixed delay.
+@export var respawn_delay_after_kill_max: float = -1.0
 var active_enemies: Array[PlacedEnemy]
 @export var max_spawns: int
 ## Seconds after spawn within which killing a Deon counts as a quick kill.
@@ -26,7 +32,7 @@ func _ready()->void:
 		enemy_spawn_timer.timeout.connect(timer_spawn_enemy)
 		
 	# Shorten wait time for the first enemy for quicker debugging
-	enemy_spawn_timer.wait_time = initial_spawn_time
+	enemy_spawn_timer.wait_time = first_spawn_delay
 	enemy_spawn_timer.start()
 
 func timer_spawn_enemy() -> void:
@@ -38,7 +44,7 @@ func timer_spawn_enemy() -> void:
 	_clear_lockout_indicator()
 	var mult: float = SettingsManager.difficulty_mult()
 	if randf_range(0,100) >= spawn_an_enemy_chance * mult or active_enemies.size() >= roundi(max_spawns * mult):
-		enemy_spawn_timer.wait_time = respawn_time
+		enemy_spawn_timer.wait_time = spawn_check_interval
 		return
 	var enemy_config:EnemyConfig = get_random_config()
 	if enemy_config:
@@ -50,11 +56,21 @@ func timer_spawn_enemy() -> void:
 		active_enemies.push_back(enemy)
 		enemy.ready_to_remove.connect(_on_tracked_enemy_died)
 	# Space out time between enemies
-	enemy_spawn_timer.wait_time = respawn_time
+	enemy_spawn_timer.wait_time = spawn_check_interval
 
 func _on_tracked_enemy_died(enemy: PlacedEnemy)->void:
 	active_enemies.erase(enemy)
 	_check_quick_kill(enemy)
+	_delay_next_spawn_after_kill()
+
+func _delay_next_spawn_after_kill() -> void:
+	if respawn_delay_after_kill_min <= 0.0:
+		return
+	if enemy_spawn_timer == null or enemy_spawn_timer.is_stopped():
+		return
+	var high: float = maxf(respawn_delay_after_kill_max, respawn_delay_after_kill_min)
+	enemy_spawn_timer.wait_time = randf_range(respawn_delay_after_kill_min, high)
+	enemy_spawn_timer.start()
 
 func _in_encounter_room() -> bool:
 	return get_tree().current_scene is EncounterRoomBase

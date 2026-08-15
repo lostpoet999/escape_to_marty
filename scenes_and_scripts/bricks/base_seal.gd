@@ -83,7 +83,7 @@ var _visual_offset: Vector2 = Vector2.ZERO
 ## When true, a seal whose DEPRESSION was fully cleared slides BACK into depression if left dark too long (the snuff-trap). Off until the light-snuff enemy exists; flip on per-seal to feel it.
 @export var depression_reseeds_when_dark: bool = false
 ## Seconds a cleared seal must stay unlit before DEPRESSION reseeds (only when depression_reseeds_when_dark).
-@export var depression_reseed_delay: float = 3.6
+@export var depression_reseed_delay: float = 4.32
 const _LIT_GRACE: float = 0.12
 var _lit_cooldown: float = 0.0
 var _depression_max: float = 0.0
