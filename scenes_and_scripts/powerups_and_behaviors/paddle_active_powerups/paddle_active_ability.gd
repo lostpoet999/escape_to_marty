@@ -1,5 +1,7 @@
 class_name PaddleActive extends BaseItem
 
+const BALL_DAMAGE_SHARE: float = 0.2
+
 const SPAWN_MARKERS: Array[StringName] = [
 	&"spawn_center",
 	&"spawn_left",
@@ -37,9 +39,14 @@ func activate(paddle: Paddle, projectile_node: Node) -> void:
 		return
 	active_volleys += 1
 	var remaining: Array[int] = [shots.size()]
+	var shot_damage: float = _shot_damage()
 	for shot: Transform2D in shots:
-		_fire(shot, projectile_node, remaining)
+		_fire(shot, projectile_node, remaining, shot_damage)
 	SFX.play_sound("shot_fired")
+
+func _shot_damage() -> float:
+	var share: float = PlayerInventory.get_instance().get_ball_damage() * BALL_DAMAGE_SHARE
+	return maxf(float(damage), share)
 
 func _volley_transforms(paddle: Paddle) -> Array[Transform2D]:
 	var markers: Array[StringName] = _selected_markers()
@@ -59,9 +66,9 @@ func _selected_markers() -> Array[StringName]:
 			result.append(SPAWN_MARKERS[i])
 	return result
 
-func _fire(shot: Transform2D, projectile_node: Node, remaining: Array[int]) -> void:
+func _fire(shot: Transform2D, projectile_node: Node, remaining: Array[int], shot_damage: float) -> void:
 	var projectile: Projectile = projectile_ref.instantiate() as Projectile
-	projectile.initialize_shot(speed_modifier, damage, self, projectile_dmg_type, on_hit, pierce)
+	projectile.initialize_shot(speed_modifier, shot_damage, self, projectile_dmg_type, on_hit, pierce)
 	projectile_node.add_child(projectile)
 	projectile.global_position = shot.origin
 	projectile.global_rotation = shot.get_rotation()

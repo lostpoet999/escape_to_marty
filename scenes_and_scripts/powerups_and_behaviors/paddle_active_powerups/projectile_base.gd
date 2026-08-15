@@ -1,13 +1,13 @@
 class_name Projectile extends Area2D
 
 @export var speed: float = 800
-@export var damage: int
+@export var damage: float
 var proj_dmg_type: Array[GameManager.PhaseType]
 var spawner: PaddleActive
 var behaviors: Array[HitBehavior]
 var pierce_remaining: int = 0
 
-func initialize_shot(speed_mod: float, damage_ref: int, spawner_ref: PaddleActive, projectile_dmg_types: Array[GameManager.PhaseType], on_hit: Array[HitBehavior], pierce: int)->void:
+func initialize_shot(speed_mod: float, damage_ref: float, spawner_ref: PaddleActive, projectile_dmg_types: Array[GameManager.PhaseType], on_hit: Array[HitBehavior], pierce: int)->void:
 	speed *= speed_mod
 	damage = damage_ref
 	spawner = spawner_ref
@@ -32,16 +32,25 @@ func _process(delta: float) -> void:
 
 func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group("bricks"):
-		var ctx: HitContext = _make_hit_context()
-		for behavior: HitBehavior in behaviors:
-			behavior.apply(ctx, area)
+		_apply_behaviors(area)
 		SFX.play_sound("hit-brick")
 		_register_hit()
 	elif area.is_in_group("walls"):
-		Signalbus.wall_hit.emit(self, area, float(damage), proj_dmg_type)
+		Signalbus.wall_hit.emit(self, area, damage, proj_dmg_type)
 		SFX.play_sound("bounce_1")
 		TileShake.shake(area, 0.0, TileShake.DIRECT_HIT_SCALE)
 		queue_free()
+
+# enemies are CharacterBody2D, so they arrive here and never through area_entered
+func _on_body_entered(body: Node2D) -> void:
+	if body.is_in_group("bounce_enemy"):
+		_apply_behaviors(body)
+		_register_hit()
+
+func _apply_behaviors(target: Node2D) -> void:
+	var ctx: HitContext = _make_hit_context()
+	for behavior: HitBehavior in behaviors:
+		behavior.apply(ctx, target)
 
 func _make_hit_context() -> HitContext:
 	var ctx: HitContext = HitContext.new()

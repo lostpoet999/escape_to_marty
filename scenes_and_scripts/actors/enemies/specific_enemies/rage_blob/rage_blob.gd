@@ -45,6 +45,10 @@ func _on_detector_area_entered(area: Area2D) -> void:
 		on_hit_death_wall(area)
 	elif area is Ball:
 		_die_showing(FRAME_EXPLODE, "deon_die")
+	elif area is Projectile:
+		var shot: Projectile = area as Projectile
+		if shot.proj_dmg_type.has(GameManager.PhaseType.ANGER):
+			_die_showing(FRAME_EXPLODE, "deon_die")
 
 func tick_movement(delta: float) -> void:
 	if falling:

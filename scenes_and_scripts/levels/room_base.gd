@@ -292,6 +292,7 @@ func _init_bonus_room() -> void:
 	if content.bonus_item == null:
 		return
 	if SaveProgression.has_memory_trophy(GameManager.current_floor):
+		_play_trophy_taken_dialog()
 		return
 	var data: LootItemsData = LootItemsData.new()
 	var single: Array[BaseItem] = [content.bonus_item]
@@ -301,6 +302,14 @@ func _init_bonus_room() -> void:
 	panel.setup(data)
 	panel.item_taken.connect(_on_bonus_item_taken)
 	$PlayArea.add_child(panel)
+
+func _play_trophy_taken_dialog() -> void:
+	while LoadingScreen.is_raised():
+		await get_tree().process_frame
+	await get_tree().create_timer(LoadingScreen.FADE_TIME, true).timeout
+	if not is_inside_tree():
+		return
+	DialogDirector.play(&"trophy_already_taken")
 
 func _on_bonus_item_taken(item: BaseItem) -> void:
 	var trophy_floor: int = item.trophy_floor if item.trophy_floor > 0 else GameManager.current_floor
@@ -349,7 +358,6 @@ func _spawn_escaped_spirit(spawn_from: Area2D) -> void:
 	var spirit: Node2D = ESCAPED_SPIRIT.instantiate()
 	spirit.position = spawn_from.position
 	spawn_from.get_parent().add_child(spirit)
-	DialogDirector.play_on_clear(&"freed_spirit")
 
 func _pre_first_launch() -> bool:
 	if _first_launch_seen:
@@ -563,7 +571,7 @@ func _fire_mercy_clear() -> void:
 	var live: Array[BaseSeal] = _get_live_seals()
 	if live.size() != 1 or live[0] != seal:
 		return
-	DialogDirector.play_on_clear(&"last_seal_mercy")
+	DialogDirector.play(&"last_seal_mercy")
 	flash_play_area(MERCY_FLASH_COLOR)
 	_mercy_pop_pending = true
 	seal.force_clear()

@@ -25,7 +25,6 @@ metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 [node name="combat_1_4" unique_id=565861230 instance=ExtResource("1_7tba3")]
 
 [node name="SubViewport" parent="SubViewportContainer" parent_id_path=PackedInt32Array(1513724378) index="0" unique_id=1272984319]
-size = Vector2i(830, 540)
 
 [node name="FlashOverlay" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="3" unique_id=443116914]
 offset_left = -105.0

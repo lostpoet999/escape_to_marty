@@ -25,7 +25,6 @@ metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 [node name="combat_1_1" unique_id=565861230 instance=ExtResource("1_eysly")]
 
 [node name="SubViewport" parent="SubViewportContainer" parent_id_path=PackedInt32Array(1513724378) index="0" unique_id=1272984319]
-size = Vector2i(830, 540)
 
 [node name="Main_UI" parent="HUDLayer/UIArea" parent_id_path=PackedInt32Array(2088925402) index="0" unique_id=563493114]
 anchor_right = 1.0791916
