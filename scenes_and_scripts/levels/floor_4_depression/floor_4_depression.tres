@@ -22,6 +22,7 @@
 [ext_resource type="Resource" uid="uid://dcrcem8twqrj1" path="res://scenes_and_scripts/dialog/memory room trees/memory_4_3.tres" id="10_jk5xo"]
 [ext_resource type="PackedScene" uid="uid://f4boss00001" path="res://scenes_and_scripts/levels/floor_4_depression/boss_4.tscn" id="12_iuj7f"]
 [ext_resource type="Script" uid="uid://dm8qchhbo37mu" path="res://scenes_and_scripts/actors/enemies/enemy_config.gd" id="13_8oxqp"]
+[ext_resource type="PackedScene" uid="uid://ckmyc5m42icnr" path="res://scenes_and_scripts/levels/floor_4_depression/combat_4_6.tscn" id="19_8oxqp"]
 [ext_resource type="Script" uid="uid://cfvu47iaybkxv" path="res://scenes_and_scripts/item_spawning/boss_loot_config.gd" id="22_bossloot"]
 
 [sub_resource type="Resource" id="Resource_f4bossweights"]
@@ -172,11 +173,6 @@ room_coords = Vector2i(5, 2)
 content = SubResource("Resource_jk5xo")
 south_exit = true
 
-[sub_resource type="Resource" id="Resource_eyfyo"]
-script = ExtResource("6_rc4")
-room_scene = ExtResource("9_c41")
-room_type = 1
-
 [sub_resource type="Resource" id="Resource_8ywr7"]
 script = ExtResource("6_rc4")
 room_scene = ExtResource("5_jhtvj")
@@ -196,6 +192,11 @@ room_type = 1
 [sub_resource type="Resource" id="Resource_q3ugj"]
 script = ExtResource("6_rc4")
 room_scene = ExtResource("10_cpdgy")
+room_type = 1
+
+[sub_resource type="Resource" id="Resource_eyfyo"]
+script = ExtResource("6_rc4")
+room_scene = ExtResource("19_8oxqp")
 room_type = 1
 
 [sub_resource type="Resource" id="Resource_f4diff"]
@@ -240,7 +241,7 @@ seal_health_phase = SubResource("Resource_f4hp")
 max_respawn = 3
 floor_name_id = "Depression"
 room_entries = Array[ExtResource("1_re4")]([SubResource("Resource_x6ruf"), SubResource("Resource_kew2q"), SubResource("Resource_lqd5x"), SubResource("Resource_x3rsl"), SubResource("Resource_mwmll"), SubResource("Resource_vy0kp"), SubResource("Resource_cbo82"), SubResource("Resource_srliv"), SubResource("Resource_y661q"), SubResource("Resource_whjs0"), SubResource("Resource_flvm3"), SubResource("Resource_bpkve"), SubResource("Resource_xtsgx")])
-room_pool = Array[ExtResource("6_rc4")]([SubResource("Resource_eyfyo"), SubResource("Resource_8ywr7"), SubResource("Resource_sg5nb"), SubResource("Resource_uw3ts"), SubResource("Resource_q3ugj")])
+room_pool = Array[ExtResource("6_rc4")]([SubResource("Resource_8ywr7"), SubResource("Resource_sg5nb"), SubResource("Resource_uw3ts"), SubResource("Resource_q3ugj"), SubResource("Resource_eyfyo")])
 show_mini_map = true
 wall_texture = ExtResource("7_wt4")
 wall_modulate = Color(0.22352941, 0.2901961, 0.3137255, 1)

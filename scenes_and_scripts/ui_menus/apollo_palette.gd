@@ -15,10 +15,15 @@ const BUTTON_BORDER_DISABLED: Color = Color("#577277")
 const POPUP_FONT: FontFile = preload("res://label_settings_and_fonts/fonts/PressStart2P-Regular.ttf")
 const FONT_SIZE_TITLE: int = 32
 const FONT_SIZE_BODY: int = 16
+const FONT_SIZE_SMALL: int = 10
 
 const BUTTON_BORDER_WIDTH: int = 4
 const BUTTON_CORNER_RADIUS: int = 10
 const BUTTON_CONTENT_MARGIN: float = 8.0
+
+const SMALL_BUTTON_BORDER_WIDTH: int = 2
+const SMALL_BUTTON_CORNER_RADIUS: int = 6
+const SMALL_BUTTON_CONTENT_MARGIN: float = 4.0
 
 const POPUP_OPEN_SECONDS: float = 0.18
 const POPUP_OPEN_START_SCALE: float = 0.9
@@ -39,6 +44,15 @@ static func style_menu_button(button: Button) -> void:
 	button.add_theme_stylebox_override(&"pressed", _menu_box(BUTTON_FILL_PRESSED, BUTTON_BORDER_HOVER))
 	button.add_theme_stylebox_override(&"focus", _menu_box(Color(BUTTON_FILL.r, BUTTON_FILL.g, BUTTON_FILL.b, 0.0), BUTTON_BORDER_HOVER))
 	button.add_theme_stylebox_override(&"disabled", _menu_box(BUTTON_FILL, BUTTON_BORDER_DISABLED))
+
+static func style_small_menu_button(button: Button) -> void:
+	style_menu_button(button)
+	button.add_theme_font_size_override(&"font_size", FONT_SIZE_SMALL)
+	button.add_theme_stylebox_override(&"normal", _small_box(BUTTON_FILL, BUTTON_BORDER))
+	button.add_theme_stylebox_override(&"hover", _small_box(BUTTON_FILL, BUTTON_BORDER_HOVER))
+	button.add_theme_stylebox_override(&"pressed", _small_box(BUTTON_FILL_PRESSED, BUTTON_BORDER_HOVER))
+	button.add_theme_stylebox_override(&"focus", _small_box(Color(BUTTON_FILL.r, BUTTON_FILL.g, BUTTON_FILL.b, 0.0), BUTTON_BORDER_HOVER))
+	button.add_theme_stylebox_override(&"disabled", _small_box(BUTTON_FILL, BUTTON_BORDER_DISABLED))
 
 static func make_open_tween(popup: Control, during_pause: bool) -> Tween:
 	popup.pivot_offset = _popup_pivot(popup)
@@ -81,4 +95,13 @@ static func _menu_box(fill: Color, border: Color) -> StyleBoxFlat:
 	box.border_color = border
 	box.set_corner_radius_all(BUTTON_CORNER_RADIUS)
 	box.set_content_margin_all(BUTTON_CONTENT_MARGIN)
+	return box
+
+static func _small_box(fill: Color, border: Color) -> StyleBoxFlat:
+	var box: StyleBoxFlat = StyleBoxFlat.new()
+	box.bg_color = fill
+	box.set_border_width_all(SMALL_BUTTON_BORDER_WIDTH)
+	box.border_color = border
+	box.set_corner_radius_all(SMALL_BUTTON_CORNER_RADIUS)
+	box.set_content_margin_all(SMALL_BUTTON_CONTENT_MARGIN)
 	return box

@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://ckmyc5m42icnr"]
+
+[ext_resource type="PackedScene" uid="uid://bea1h3570swpu" path="res://scenes_and_scripts/levels/room_base.tscn" id="1_tel84"]
+[ext_resource type="PackedScene" uid="uid://cm1kspxv86400" path="res://scenes_and_scripts/bricks/open_seal.tscn" id="2_epoiu"]
+[ext_resource type="PackedScene" uid="uid://b7m8vn6kumwyg" path="res://scenes_and_scripts/actors/enemies/enemy_spawner.tscn" id="3_8kcjh"]
+[ext_resource type="Script" uid="uid://dm8qchhbo37mu" path="res://scenes_and_scripts/actors/enemies/enemy_config.gd" id="4_668b6"]
+[ext_resource type="PackedScene" uid="uid://impshadow001" path="res://scenes_and_scripts/actors/enemies/specific_enemies/shadow_imp/shadow_imp.tscn" id="5_su5ss"]
+
+[sub_resource type="Resource" id="Resource_imp01"]
+script = ExtResource("4_668b6")
+enemy_name = "ShadowImp"
+scene_ref = ExtResource("5_su5ss")
+spawn_chance = 100.0
+requires_live_seals = true
+metadata/_custom_type_script = "uid://dm8qchhbo37mu"
+
+[node name="combat_4_1" instance=ExtResource("1_tel84")]
+
+[node name="CanvasModulate" type="CanvasModulate" parent="PlayArea"]
+color = Color(0.2, 0.2, 0.27, 1)
+
+[node name="OpenSeal" parent="No-Respawn/Bricks" instance=ExtResource("2_epoiu")]
+position = Vector2(1056, 512)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+3: 3.0
+})
+
+[node name="OpenSeal2" parent="No-Respawn/Bricks" instance=ExtResource("2_epoiu")]
+position = Vector2(1184, 512)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+3: 5.0
+})
+
+[node name="OpenSeal3" parent="No-Respawn/Bricks" instance=ExtResource("2_epoiu")]
+position = Vector2(1312, 512)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+3: 3.0
+})
+
+[node name="OpenSeal4" parent="No-Respawn/Bricks" instance=ExtResource("2_epoiu")]
+position = Vector2(1056, 640)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+3: 3.0
+})
+
+[node name="OpenSeal5" parent="No-Respawn/Bricks" instance=ExtResource("2_epoiu")]
+position = Vector2(1184, 640)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+3: 5.0
+})
+
+[node name="OpenSeal6" parent="No-Respawn/Bricks" instance=ExtResource("2_epoiu")]
+position = Vector2(1312, 640)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+3: 3.0
+})
+
+[node name="ImpSpawner" parent="No-Respawn/Spawners" instance=ExtResource("3_8kcjh")]
+position = Vector2(1088, 512)
+enemies = Array[ExtResource("4_668b6")]([SubResource("Resource_imp01")])
+spawn_an_enemy_chance = 100.0
+spawn_check_interval = 12.0
+first_spawn_delay = 3.0
+respawn_delay_after_kill_min = 9.0
+respawn_delay_after_kill_max = 12.0
+max_spawns = 2

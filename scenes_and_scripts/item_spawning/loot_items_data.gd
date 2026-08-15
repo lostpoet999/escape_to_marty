@@ -6,6 +6,7 @@ var max_items: int = 0
 var items: Array [BaseItem] = []
 var pool: Array[BaseItem]
 var base_pick_used: bool = false
+var flat_pick: bool = false
 const ITEM_BOX: PackedScene = preload("uid://165yx2m2saao")
 
 
@@ -30,6 +31,7 @@ func filter_owned_actives()->void:
 func generate_item_box(pool_override: ItemPool = null)->void:
 	items.clear()
 	max_items = ITEMS_PER_ROOM
+	flat_pick = pool_override != null
 	if pool_override != null:
 		pool = pool_override.item_pool.duplicate()
 	else:
@@ -38,18 +40,31 @@ func generate_item_box(pool_override: ItemPool = null)->void:
 	filter_owned_actives()
 	for n:int in max_items:
 		if pool.is_empty(): break
-		var item: BaseItem
-		if pool_override != null:
-			item = pool.pick_random()
-		else:
-			# weight by the floor's rarity tiers, but pick from the filtered pool so
-			# owned-active filtering and no-duplicates still hold. fall back to a flat
-			# pick if the rolled tier has no remaining items.
-			var tier: int = ItemSpawner.get_tier(GameManager.floor_data.spawn_weight)
-			var tier_pool: Array = pool.filter(func(i: BaseItem) -> bool: return i.rarity == tier)
-			item = tier_pool.pick_random() if not tier_pool.is_empty() else pool.pick_random()
+		var item: BaseItem = draw_one()
 		items.push_back(item)
 		pool.erase(item)
+
+func draw_one() -> BaseItem:
+	if pool.is_empty():
+		return null
+	if flat_pick:
+		return pool.pick_random()
+	# weight by the floor's rarity tiers, but pick from the filtered pool so
+	# owned-active filtering and no-duplicates still hold. fall back to a flat
+	# pick if the rolled tier has no remaining items.
+	var tier: int = ItemSpawner.get_tier(GameManager.floor_data.spawn_weight)
+	var tier_pool: Array = pool.filter(func(i: BaseItem) -> bool: return i.rarity == tier)
+	return tier_pool.pick_random() if not tier_pool.is_empty() else pool.pick_random()
+
+func reroll_slot(index: int) -> bool:
+	if index < 0 or index >= items.size():
+		return false
+	var item: BaseItem = draw_one()
+	if item == null:
+		return false
+	items[index] = item
+	pool.erase(item)
+	return true
 
 func generate_boss_drop(config: BossLootConfig)->void:
 	items.clear()

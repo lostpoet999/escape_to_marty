@@ -21,6 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://bwuoolbwt8v67" path="res://scenes_and_scripts/levels/common_rooms/shop_1.tscn" id="13_shopc"]
 [ext_resource type="PackedScene" uid="uid://c68d8tkbufo2s" path="res://scenes_and_scripts/levels/floor_3_the_bargainers_road/boss_3.tscn" id="16_boss2"]
 [ext_resource type="PackedScene" uid="uid://b1mku5iyrtraa" path="res://scenes_and_scripts/actors/enemies/specific_enemies/rage_blob/rage_blob.tscn" id="16_tikq6"]
+[ext_resource type="PackedScene" uid="uid://c5ysa5k2ea1k6" path="res://scenes_and_scripts/levels/floor_3_the_bargainers_road/combat_3_2.tscn" id="19_uptko"]
 [ext_resource type="Script" uid="uid://roomcontent0" path="res://scenes_and_scripts/levels/room_content.gd" id="20_rc"]
 [ext_resource type="Texture2D" uid="uid://cqn6snt1p5bby" path="res://scenes_and_scripts/walls/1x1_wall_gray_avg.png" id="20_wwqpq"]
 [ext_resource type="PackedScene" uid="uid://bgdoorf2ab01" path="res://scenes_and_scripts/backgrounds/BG Objects/f2/bg_door.tscn" id="21_bgdor"]
@@ -188,6 +189,11 @@ script = ExtResource("20_rc")
 room_scene = ExtResource("12_pwrup")
 room_type = 4
 
+[sub_resource type="Resource" id="Resource_tdi16"]
+script = ExtResource("20_rc")
+room_scene = ExtResource("19_uptko")
+room_type = 1
+
 [sub_resource type="Resource" id="Resource_1r2xy"]
 script = ExtResource("3_1wfy1")
 enemy_name = "Dark Cage"
@@ -258,7 +264,7 @@ seal_health_phase = SubResource("Resource_1wfy1")
 max_respawn = 3
 floor_name_id = "The Bargainer's Road"
 room_entries = Array[ExtResource("1_4xv7i")]([SubResource("Resource_3ap26"), SubResource("Resource_6uq4x"), SubResource("Resource_f0fcd"), SubResource("Resource_pj55k"), SubResource("Resource_stmn7"), SubResource("Resource_0470x"), SubResource("Resource_gdn6j"), SubResource("Resource_4snqw"), SubResource("Resource_eq3fe"), SubResource("Resource_ed0t6"), SubResource("Resource_uda4i"), SubResource("Resource_n42h2")])
-room_pool = Array[ExtResource("20_rc")]([SubResource("Resource_uo428"), SubResource("Resource_sp8dx"), SubResource("Resource_15g78"), SubResource("Resource_1nj78")])
+room_pool = Array[ExtResource("20_rc")]([SubResource("Resource_uo428"), SubResource("Resource_sp8dx"), SubResource("Resource_15g78"), SubResource("Resource_1nj78"), SubResource("Resource_tdi16")])
 show_mini_map = true
 seal_break_enemies = Array[ExtResource("3_1wfy1")]([SubResource("Resource_1r2xy"), SubResource("Resource_a1chj")])
 wall_texture = ExtResource("20_wwqpq")

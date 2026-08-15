@@ -2,6 +2,14 @@ class_name RectangleBarrier extends Area2D
 
 const CLEAR_FX: PackedScene = preload("res://scenes_and_scripts/ball/vfx/bounce_barrier_particles.tscn")
 
+## Percent chance this barrier exists at all, rolled once per node on spawn. Set under 100 for randomized layouts. Credit to Christer for this idea!
+@export var chance_it_exists: int = 100
+
+func _ready() -> void:
+	if chance_it_exists < 100:
+		if randi_range(1, 100) > chance_it_exists:
+			queue_free()
+
 func responding_gestures() -> Array[GameManager.PhaseType]:
 	var verbs: Array[GameManager.PhaseType] = []
 	if PlayerData.barrier_clear_ready():
