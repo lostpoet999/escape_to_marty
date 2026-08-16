@@ -4,14 +4,18 @@
 [ext_resource type="PackedScene" uid="uid://flrportal001" path="res://scenes_and_scripts/exits/floor_portal.tscn" id="6_portal"]
 [ext_resource type="Texture2D" uid="uid://dcssfujywku3e" path="res://scenes_and_scripts/actors/other/denial_statue.png" id="6_qk2dm"]
 [ext_resource type="Texture2D" uid="uid://bv3ylfo65ifvk" path="res://scenes_and_scripts/actors/other/anger_statue.png" id="7_ig8ql"]
+[ext_resource type="Texture2D" uid="uid://k50goy1jxuif" path="res://scenes_and_scripts/actors/other/denial_charged_statue.png" id="7_nitvl"]
 [ext_resource type="Script" uid="uid://v6a54pco8ylk" path="res://scenes_and_scripts/levels/statue_encounter_room.gd" id="7_room"]
 [ext_resource type="Texture2D" uid="uid://dgeld43se0ea" path="res://scenes_and_scripts/actors/other/bargaining_statue.png" id="8_2yg7d"]
 [ext_resource type="PackedScene" uid="uid://dprstatuesc" path="res://scenes_and_scripts/actors/other/depression_statue.tscn" id="8_statue"]
 [ext_resource type="PackedScene" uid="uid://encprgbar01" path="res://scenes_and_scripts/ui_menus/encounter_progress_bar.tscn" id="9_epbar"]
 [ext_resource type="Texture2D" uid="uid://b8jn4leddpow1" path="res://scenes_and_scripts/actors/other/depression_statue.png" id="9_ig8ql"]
+[ext_resource type="Texture2D" uid="uid://qb70hfi3t1q1" path="res://scenes_and_scripts/actors/other/anger_charged_statue.png" id="9_tww6j"]
 [ext_resource type="PackedScene" uid="uid://b7m8vn6kumwyg" path="res://scenes_and_scripts/actors/enemies/enemy_spawner.tscn" id="10_spwn"]
+[ext_resource type="Texture2D" uid="uid://ci4fmdyv361ij" path="res://scenes_and_scripts/actors/other/bargaining_charged_statue.png" id="11_gl0iw"]
 [ext_resource type="Script" uid="uid://5qvjg5fxg1m7" path="res://scenes_and_scripts/actors/enemies/specific_enemies/shadow_imp/statue_imp_spawner.gd" id="11_sispwn"]
 [ext_resource type="Script" uid="uid://dm8qchhbo37mu" path="res://scenes_and_scripts/actors/enemies/enemy_config.gd" id="12_ecfg"]
+[ext_resource type="Texture2D" uid="uid://c36762kab8jxm" path="res://scenes_and_scripts/actors/other/depression_charged_statue.png" id="13_646pt"]
 [ext_resource type="PackedScene" uid="uid://impshadow001" path="res://scenes_and_scripts/actors/enemies/specific_enemies/shadow_imp/shadow_imp.tscn" id="13_imp"]
 
 [sub_resource type="Resource" id="Resource_f4impcfg"]
@@ -55,6 +59,7 @@ scale = Vector2(2, 2)
 phase_color = Color(0.635294, 0.243137, 0.54902, 1)
 locks_when_charged = false
 statue_texture = ExtResource("6_qk2dm")
+charged_texture = ExtResource("7_nitvl")
 
 [node name="StatueTopRight(anger)" parent="PlayArea/Ritual" index="1" unique_id=810000033 instance=ExtResource("8_statue")]
 z_index = -1
@@ -64,6 +69,7 @@ charge_seconds = 15.0
 phase_color = Color(0.647059, 0.188235, 0.188235, 1)
 locks_when_charged = false
 statue_texture = ExtResource("7_ig8ql")
+charged_texture = ExtResource("9_tww6j")
 
 [node name="StatueBottomLeft(bargaining)" parent="PlayArea/Ritual" index="2" unique_id=810000034 instance=ExtResource("8_statue")]
 z_index = -1
@@ -73,6 +79,7 @@ charge_seconds = 22.0
 phase_color = Color(0.870588, 0.619608, 0.254902, 1)
 locks_when_charged = false
 statue_texture = ExtResource("8_2yg7d")
+charged_texture = ExtResource("11_gl0iw")
 
 [node name="StatueBottomRight(depression)" parent="PlayArea/Ritual" index="3" unique_id=810000035 instance=ExtResource("8_statue")]
 z_index = -1
@@ -82,6 +89,7 @@ charge_seconds = 30.0
 phase_color = Color(0.223529, 0.290196, 0.313725, 1)
 locks_when_charged = false
 statue_texture = ExtResource("9_ig8ql")
+charged_texture = ExtResource("13_646pt")
 
 [node name="ImpSpawner" parent="No-Respawn/Spawners" parent_id_path=PackedInt32Array(1587044855) index="0" unique_id=810000036 instance=ExtResource("10_spwn")]
 position = Vector2(1088, 512)
