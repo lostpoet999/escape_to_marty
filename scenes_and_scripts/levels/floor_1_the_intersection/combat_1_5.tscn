@@ -24,7 +24,32 @@ metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 
 [node name="combat_1_4" unique_id=565861230 instance=ExtResource("1_xvuyn")]
 
-[node name="SubViewport" parent="SubViewportContainer" parent_id_path=PackedInt32Array(1513724378) index="0" unique_id=1272984319]
+[node name="RectangleBarrier" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="0" unique_id=415634240 instance=ExtResource("6_flv73")]
+position = Vector2(807, 272)
+
+[node name="RectangleBarrier2" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="1" unique_id=707958393 instance=ExtResource("6_flv73")]
+position = Vector2(743, 304)
+
+[node name="RectangleBarrier4" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="2" unique_id=1787868003 instance=ExtResource("6_flv73")]
+position = Vector2(679, 336)
+
+[node name="RectangleBarrier7" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="3" unique_id=486213514 instance=ExtResource("6_flv73")]
+position = Vector2(615, 368)
+
+[node name="RectangleBarrier8" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="4" unique_id=2066889385 instance=ExtResource("6_flv73")]
+position = Vector2(551, 400)
+
+[node name="RectangleBarrier5" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="5" unique_id=1907112397 instance=ExtResource("6_flv73")]
+position = Vector2(935, 336)
+
+[node name="RectangleBarrier6" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="6" unique_id=185506476 instance=ExtResource("6_flv73")]
+position = Vector2(999, 368)
+
+[node name="RectangleBarrier9" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="7" unique_id=1093770231 instance=ExtResource("6_flv73")]
+position = Vector2(1063, 400)
+
+[node name="RectangleBarrier3" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="8" unique_id=49169049 instance=ExtResource("6_flv73")]
+position = Vector2(871, 304)
 
 [node name="OpenSeal" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="0" unique_id=887021685 instance=ExtResource("2_2rqkd")]
 position = Vector2(1120, 672)
@@ -153,30 +178,3 @@ enemies = Array[ExtResource("4_4ddss")]([SubResource("Resource_8n0fq")])
 spawn_check_interval = 10.0
 first_spawn_delay = 2.0
 max_spawns = 1
-
-[node name="RectangleBarrier" parent="." index="14" unique_id=415634240 instance=ExtResource("6_flv73")]
-position = Vector2(1088, 272)
-
-[node name="RectangleBarrier2" parent="." index="15" unique_id=707958393 instance=ExtResource("6_flv73")]
-position = Vector2(1024, 304)
-
-[node name="RectangleBarrier4" parent="." index="16" unique_id=1787868003 instance=ExtResource("6_flv73")]
-position = Vector2(960, 336)
-
-[node name="RectangleBarrier7" parent="." index="17" unique_id=486213514 instance=ExtResource("6_flv73")]
-position = Vector2(896, 368)
-
-[node name="RectangleBarrier8" parent="." index="18" unique_id=2066889385 instance=ExtResource("6_flv73")]
-position = Vector2(832, 400)
-
-[node name="RectangleBarrier5" parent="." index="19" unique_id=1907112397 instance=ExtResource("6_flv73")]
-position = Vector2(1216, 336)
-
-[node name="RectangleBarrier6" parent="." index="20" unique_id=185506476 instance=ExtResource("6_flv73")]
-position = Vector2(1280, 368)
-
-[node name="RectangleBarrier9" parent="." index="21" unique_id=1093770231 instance=ExtResource("6_flv73")]
-position = Vector2(1344, 400)
-
-[node name="RectangleBarrier3" parent="." index="22" unique_id=49169049 instance=ExtResource("6_flv73")]
-position = Vector2(1152, 304)

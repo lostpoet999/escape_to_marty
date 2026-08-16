@@ -86,4 +86,4 @@ first_spawn_delay = 4.0
 max_spawns = 3
 
 [node name="item_spawn_point" parent="." index="12" unique_id=51076593]
-position = Vector2(1021, 736)
+position = Vector2(1085, 800)

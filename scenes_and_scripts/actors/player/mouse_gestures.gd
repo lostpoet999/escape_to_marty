@@ -21,7 +21,6 @@ var mouse_down: bool = false
 var mouse_down_time: float = 0.0
 var _click_cursor: ClickModeCursor
 
-@export var click_dmg_type: Array[GameManager.PhaseType] #gesture would impact this??
 @export_category("Click & Hold Config")
 @export var click_vs_hold: float = 0.1
 @export var hold_duration_max: float = 3.0
@@ -43,6 +42,8 @@ func _ready() -> void:
 	hold_shape.filter_phases = anger_only
 	hold_behavior = HitBehavior.new()
 	hold_behavior.targeting = hold_shape
+	Signalbus.player_damaged.connect(_on_player_damaged)
+	Signalbus.player_shield_spent.connect(_cancel_anger_hold)
 
 @export_category("Bargain Config")
 @export var bargain_sweep_duration: float = 0.37
@@ -68,12 +69,7 @@ func _input(event: InputEvent)->void:
 		elif GameManager.current_state == GameManager.GameState.CLICK_MODE:
 			if bargain_active:
 				_resolve_bargain()
-			if mouse_down:
-				mouse_down = false
-				mouse_down_time = 0.0
-				click_dmg_type.clear()
-				_reset_hold_visuals()
-				_stop_anger_whoosh()
+			_cancel_anger_hold()
 			GameManager.change_state(GameManager.GameState.PLAYING)
 			
 	
@@ -367,6 +363,17 @@ func _draw_bargain() -> void:
 	draw_line(origin + Vector2(track_width * sweet.x, 0.0), origin + Vector2(track_width * sweet.y, 0.0), Color(0.4, 1.0, 0.5, 0.95), 6.0)
 	var needle: Vector2 = origin + Vector2(track_width * bargain_bid, 0.0)
 	draw_line(needle + Vector2(0.0, -9.0), needle + Vector2(0.0, 9.0), Color.WHITE, 2.0)
+
+func _on_player_damaged(_amount: int) -> void:
+	_cancel_anger_hold()
+
+func _cancel_anger_hold() -> void:
+	if not mouse_down:
+		return
+	mouse_down = false
+	mouse_down_time = 0.0
+	_reset_hold_visuals()
+	_stop_anger_whoosh()
 
 func _reset_hold_visuals()->void: #TODO: goal is for this to feel like a taking a deep breathe
 	hold_indicator_radius = 0.0

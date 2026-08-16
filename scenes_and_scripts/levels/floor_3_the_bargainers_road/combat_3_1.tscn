@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bmtspiderl001" path="res://scenes_and_scripts/actors/enemies/specific_enemies/money_thief_spider/money_thief_spider.tscn" id="6_spdrl"]
 [ext_resource type="PackedScene" uid="uid://bmtspiderr001" path="res://scenes_and_scripts/actors/enemies/specific_enemies/money_thief_spider/money_thief_spider_right.tscn" id="7_spdrr"]
 [ext_resource type="PackedScene" uid="uid://bmtspidert01" path="res://scenes_and_scripts/actors/enemies/specific_enemies/money_thief_spider/money_thief_spider_top.tscn" id="8_spdrt"]
+[ext_resource type="PackedScene" uid="uid://brectbarr01" path="res://scenes_and_scripts/bricks/rectangle_barrier.tscn" id="9_1yde0"]
 
 [sub_resource type="Resource" id="Resource_lsl0q"]
 script = ExtResource("4_roht2")
@@ -163,3 +164,14 @@ spawn_an_enemy_chance = 100.0
 spawn_check_interval = 13.0
 first_spawn_delay = 2.6
 max_spawns = 2
+
+[node name="RectangleBarrier" parent="." index="14" unique_id=415634240 instance=ExtResource("9_1yde0")]
+position = Vector2(1120, 208)
+
+[node name="RectangleBarrier2" parent="." index="15" unique_id=1650853685 instance=ExtResource("9_1yde0")]
+position = Vector2(1552, 512)
+rotation = 1.5707964
+
+[node name="RectangleBarrier3" parent="." index="16" unique_id=1241586029 instance=ExtResource("9_1yde0")]
+position = Vector2(688, 512)
+rotation = 1.5707964

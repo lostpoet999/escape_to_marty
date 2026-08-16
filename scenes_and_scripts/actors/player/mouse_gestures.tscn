@@ -5,4 +5,3 @@
 [node name="MouseGestures" type="Node2D" unique_id=662497496]
 z_index = 500
 script = ExtResource("1_wgaec")
-click_dmg_type = Array[int]([0, 5])

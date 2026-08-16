@@ -1,7 +1,8 @@
-[gd_scene format=3 uid="uid://dh03r65knxyfb"]
+[gd_scene format=3 uid="uid://g548cxb8b4py"]
 
 [ext_resource type="PackedScene" uid="uid://bea1h3570swpu" path="res://scenes_and_scripts/levels/room_base.tscn" id="1_8gija"]
 [ext_resource type="PackedScene" uid="uid://cm1kspxv86400" path="res://scenes_and_scripts/bricks/open_seal.tscn" id="2_4285g"]
+[ext_resource type="PackedScene" uid="uid://brectbarr01" path="res://scenes_and_scripts/bricks/rectangle_barrier.tscn" id="3_cxk2r"]
 [ext_resource type="PackedScene" uid="uid://b7m8vn6kumwyg" path="res://scenes_and_scripts/actors/enemies/enemy_spawner.tscn" id="3_hkc1k"]
 [ext_resource type="Script" uid="uid://dm8qchhbo37mu" path="res://scenes_and_scripts/actors/enemies/enemy_config.gd" id="4_xsesl"]
 [ext_resource type="PackedScene" uid="uid://c3bjgu70hca17" path="res://scenes_and_scripts/actors/enemies/specific_enemies/no_see_me_demon(Deon)/deon.tscn" id="5_ssaou"]
@@ -22,55 +23,187 @@ spawn_chance = 100.0
 x_offset = -96.0
 metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 
-[node name="combat_2_2" unique_id=565861230 instance=ExtResource("1_8gija")]
+[node name="combat_2_1" unique_id=565861230 instance=ExtResource("1_8gija")]
 
-[node name="Background" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="1" unique_id=306947289]
-offset_top = -60.0
-offset_bottom = 74.0
+[node name="OpenSeal2" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="0" unique_id=112920898 instance=ExtResource("2_4285g")]
+position = Vector2(1152, 736)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
 
-[node name="OpenSeal4" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="0" unique_id=948470160 instance=ExtResource("2_4285g")]
-position = Vector2(1152, 544)
-brick_health = 2
+[node name="OpenSeal7" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="1" unique_id=887021685 instance=ExtResource("2_4285g")]
+position = Vector2(1216, 736)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
 
-[node name="OpenSeal5" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="1" unique_id=107809509 instance=ExtResource("2_4285g")]
-position = Vector2(1216, 544)
-brick_health = 2
+[node name="OpenSeal3" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="2" unique_id=1589963747 instance=ExtResource("2_4285g")]
+position = Vector2(1088, 736)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
 
-[node name="OpenSeal6" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="2" unique_id=1398468162 instance=ExtResource("2_4285g")]
-position = Vector2(1088, 544)
-brick_health = 2
+[node name="OpenSeal4" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="3" unique_id=2018441867 instance=ExtResource("2_4285g")]
+position = Vector2(1088, 672)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
 
-[node name="OpenSeal10" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="3" unique_id=2067314573 instance=ExtResource("2_4285g")]
-position = Vector2(960, 544)
-brick_health = 2
+[node name="OpenSeal5" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="4" unique_id=677646096 instance=ExtResource("2_4285g")]
+position = Vector2(1216, 672)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
 
-[node name="OpenSeal11" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="4" unique_id=1411547878 instance=ExtResource("2_4285g")]
-position = Vector2(1024, 544)
-brick_health = 2
+[node name="OpenSeal6" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="5" unique_id=1936305112 instance=ExtResource("2_4285g")]
+position = Vector2(1152, 672)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+1: 3.0
+})
 
-[node name="OpenSeal19" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="5" unique_id=1490236782 instance=ExtResource("2_4285g")]
-position = Vector2(896, 480)
-brick_health = 2
+[node name="OpenSeal8" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="6" unique_id=1247527281 instance=ExtResource("2_4285g")]
+position = Vector2(1344, 608)
+stages = Dictionary[int, float]({
+1: 1.0
+})
+chance_it_exists = 75
 
-[node name="OpenSeal20" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="6" unique_id=2019167097 instance=ExtResource("2_4285g")]
-position = Vector2(896, 608)
-brick_health = 2
-
-[node name="OpenSeal21" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="7" unique_id=456834334 instance=ExtResource("2_4285g")]
-position = Vector2(1408, 480)
-brick_health = 2
-
-[node name="OpenSeal23" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="8" unique_id=338690007 instance=ExtResource("2_4285g")]
+[node name="OpenSeal9" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="7" unique_id=1343428166 instance=ExtResource("2_4285g")]
 position = Vector2(1408, 608)
-brick_health = 2
+stages = Dictionary[int, float]({
+1: 1.0
+})
+chance_it_exists = 75
 
-[node name="OpenSeal16" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="9" unique_id=642171185 instance=ExtResource("2_4285g")]
-position = Vector2(1344, 544)
-brick_health = 2
+[node name="OpenSeal10" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="8" unique_id=1436460367 instance=ExtResource("2_4285g")]
+position = Vector2(1280, 608)
+stages = Dictionary[int, float]({
+1: 1.0
+})
+chance_it_exists = 75
 
-[node name="OpenSeal18" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="10" unique_id=236963144 instance=ExtResource("2_4285g")]
+[node name="OpenSeal11" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="9" unique_id=538991852 instance=ExtResource("2_4285g")]
 position = Vector2(1280, 544)
-brick_health = 2
+stages = Dictionary[int, float]({
+1: 1.0
+})
+chance_it_exists = 75
+
+[node name="OpenSeal12" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="10" unique_id=2037854915 instance=ExtResource("2_4285g")]
+position = Vector2(1408, 544)
+stages = Dictionary[int, float]({
+1: 1.0
+})
+chance_it_exists = 75
+
+[node name="OpenSeal13" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="11" unique_id=1541714268 instance=ExtResource("2_4285g")]
+position = Vector2(1344, 544)
+stages = Dictionary[int, float]({
+1: 1.0
+})
+chance_it_exists = 75
+
+[node name="OpenSeal14" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="12" unique_id=1700820589 instance=ExtResource("2_4285g")]
+position = Vector2(960, 608)
+stages = Dictionary[int, float]({
+1: 1.0
+})
+chance_it_exists = 75
+
+[node name="OpenSeal15" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="13" unique_id=1290374879 instance=ExtResource("2_4285g")]
+position = Vector2(1024, 608)
+stages = Dictionary[int, float]({
+1: 1.0
+})
+chance_it_exists = 75
+
+[node name="OpenSeal16" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="14" unique_id=378099107 instance=ExtResource("2_4285g")]
+position = Vector2(896, 608)
+stages = Dictionary[int, float]({
+1: 1.0
+})
+chance_it_exists = 75
+
+[node name="OpenSeal17" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="15" unique_id=1788871543 instance=ExtResource("2_4285g")]
+position = Vector2(896, 544)
+stages = Dictionary[int, float]({
+1: 1.0
+})
+chance_it_exists = 75
+
+[node name="OpenSeal18" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="16" unique_id=361688356 instance=ExtResource("2_4285g")]
+position = Vector2(1024, 544)
+stages = Dictionary[int, float]({
+1: 1.0
+})
+chance_it_exists = 75
+
+[node name="OpenSeal19" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="17" unique_id=1775044606 instance=ExtResource("2_4285g")]
+position = Vector2(960, 544)
+stages = Dictionary[int, float]({
+1: 1.0
+})
+chance_it_exists = 75
+
+[node name="RectangleBarrier" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="18" unique_id=415634240 instance=ExtResource("3_cxk2r")]
+position = Vector2(1088, 784)
+chance_it_exists = 75
+
+[node name="RectangleBarrier2" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="19" unique_id=1225684072 instance=ExtResource("3_cxk2r")]
+position = Vector2(1152, 784)
+chance_it_exists = 75
+
+[node name="RectangleBarrier3" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="20" unique_id=122573865 instance=ExtResource("3_cxk2r")]
+position = Vector2(1216, 784)
+chance_it_exists = 75
+
+[node name="RectangleBarrier4" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="21" unique_id=2007345311 instance=ExtResource("3_cxk2r")]
+position = Vector2(896, 656)
+chance_it_exists = 75
+
+[node name="RectangleBarrier10" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="22" unique_id=1290001421 instance=ExtResource("3_cxk2r")]
+position = Vector2(832, 496)
+
+[node name="RectangleBarrier11" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="23" unique_id=1866083876 instance=ExtResource("3_cxk2r")]
+position = Vector2(768, 464)
+
+[node name="RectangleBarrier12" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="24" unique_id=316284428 instance=ExtResource("3_cxk2r")]
+position = Vector2(704, 432)
+
+[node name="RectangleBarrier15" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="25" unique_id=656044144 instance=ExtResource("3_cxk2r")]
+position = Vector2(1600, 432)
+
+[node name="RectangleBarrier14" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="26" unique_id=277316288 instance=ExtResource("3_cxk2r")]
+position = Vector2(1536, 464)
+
+[node name="RectangleBarrier13" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="27" unique_id=522039705 instance=ExtResource("3_cxk2r")]
+position = Vector2(1472, 496)
+
+[node name="RectangleBarrier5" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="28" unique_id=1726647078 instance=ExtResource("3_cxk2r")]
+position = Vector2(960, 656)
+chance_it_exists = 75
+
+[node name="RectangleBarrier6" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="29" unique_id=1055983148 instance=ExtResource("3_cxk2r")]
+position = Vector2(1024, 656)
+chance_it_exists = 75
+
+[node name="RectangleBarrier7" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="30" unique_id=1906886633 instance=ExtResource("3_cxk2r")]
+position = Vector2(1280, 656)
+chance_it_exists = 75
+
+[node name="RectangleBarrier8" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="31" unique_id=353703590 instance=ExtResource("3_cxk2r")]
+position = Vector2(1344, 656)
+chance_it_exists = 75
+
+[node name="RectangleBarrier9" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="32" unique_id=294375828 instance=ExtResource("3_cxk2r")]
+position = Vector2(1408, 656)
+chance_it_exists = 75
 
 [node name="EnemySpawner" parent="No-Respawn/Spawners" parent_id_path=PackedInt32Array(1587044855) index="0" unique_id=740599083 instance=ExtResource("3_hkc1k")]
 position = Vector2(288, 960)
@@ -80,10 +213,10 @@ spawn_check_interval = 10.0
 first_spawn_delay = 5.0
 max_spawns = 1
 
-[node name="EnemySpawner2" parent="No-Respawn/Spawners" parent_id_path=PackedInt32Array(1587044855) index="1" unique_id=18242075 instance=ExtResource("3_hkc1k")]
+[node name="EnemySpawner2" parent="No-Respawn/Spawners" parent_id_path=PackedInt32Array(1587044855) index="1" unique_id=600490071 instance=ExtResource("3_hkc1k")]
 position = Vector2(1888, 960)
 enemies = Array[ExtResource("4_xsesl")]([SubResource("Resource_8n0fq")])
-spawn_an_enemy_chance = 50.0
+spawn_an_enemy_chance = 45.0
 spawn_check_interval = 10.0
-first_spawn_delay = 2.0
+first_spawn_delay = 5.0
 max_spawns = 1

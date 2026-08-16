@@ -7,8 +7,16 @@ var shop_generated: bool = false
 var clear_count: int = 0
 var revealed_exits: Array[StringName] = [] #directions (e.g. &"north") whose secret exit the player has revealed this run
 var  loot_items_data: LootItemsData
+var spawn_rolls: Dictionary[String, bool] = {}
 
 func generate_item_box(pool_override: ItemPool = null)->void:
 	if !loot_items_data:
 		loot_items_data = LootItemsData.new()
 		loot_items_data.generate_item_box(pool_override)
+
+func should_exist(key: String, chance: int) -> bool:
+	if chance >= 100:
+		return true
+	if !spawn_rolls.has(key):
+		spawn_rolls[key] = randi_range(1, 100) <= chance
+	return spawn_rolls[key]

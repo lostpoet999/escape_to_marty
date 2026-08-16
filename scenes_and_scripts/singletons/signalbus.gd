@@ -131,7 +131,7 @@ signal death_sequence_finished
 signal screen_flash(color: Color)
 
 ## Emits: scenes_and_scripts/singletons/player_data.gd -> accept_damage()
-## Connects: scenes_and_scripts/levels/room_base.gd -> _on_player_damaged
+## Connects: scenes_and_scripts/levels/room_base.gd -> _on_player_damaged, scenes_and_scripts/actors/player/mouse_gestures.gd -> _on_player_damaged
 @warning_ignore("unused_signal")
 signal player_damaged(amount: int)
 
@@ -139,6 +139,11 @@ signal player_damaged(amount: int)
 ## Connects: scenes_and_scripts/actors/player/paddle.gd -> _on_reflect_shield_changed, scenes_and_scripts/ui_level/main_ui.gd -> update_player_shields, scenes_and_scripts/singletons/player_data.gd -> _on_reflect_shield_changed
 @warning_ignore("unused_signal")
 signal reflect_shield_changed(count: int)
+
+## Emits: scenes_and_scripts/singletons/player_data.gd -> accept_reflect_damage()
+## Connects: scenes_and_scripts/actors/player/mouse_gestures.gd -> _cancel_anger_hold
+@warning_ignore("unused_signal")
+signal player_shield_spent
 
 ## Emits: scenes_and_scripts/singletons/player_data.gd -> grant_pick2_voucher(), consume_pick2_voucher()
 ## Connects: scenes_and_scripts/ui_menus/free_item_panel.gd -> _update_footer (planned: inventory ticket UI)

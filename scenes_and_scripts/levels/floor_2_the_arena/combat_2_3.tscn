@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://b7m8vn6kumwyg" path="res://scenes_and_scripts/actors/enemies/enemy_spawner.tscn" id="3_hkc1k"]
 [ext_resource type="Script" uid="uid://dm8qchhbo37mu" path="res://scenes_and_scripts/actors/enemies/enemy_config.gd" id="4_xsesl"]
 [ext_resource type="PackedScene" uid="uid://c3bjgu70hca17" path="res://scenes_and_scripts/actors/enemies/specific_enemies/no_see_me_demon(Deon)/deon.tscn" id="5_ssaou"]
+[ext_resource type="PackedScene" uid="uid://brectbarr01" path="res://scenes_and_scripts/bricks/rectangle_barrier.tscn" id="6_ewbdg"]
 
 [sub_resource type="Resource" id="Resource_lsl0q"]
 script = ExtResource("4_xsesl")
@@ -24,6 +25,9 @@ metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 
 [node name="combat_2_3" unique_id=565861230 instance=ExtResource("1_8gija")]
 
+[node name="FlashOverlay" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="3" unique_id=443116914]
+metadata/_edit_lock_ = true
+
 [node name="OpenSeal" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="0" unique_id=887021685 instance=ExtResource("2_4285g")]
 position = Vector2(1344, 342)
 brick_health = 2
@@ -37,7 +41,7 @@ position = Vector2(960, 438)
 brick_health = 2
 
 [node name="OpenSeal7" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="3" unique_id=1580935119 instance=ExtResource("2_4285g")]
-position = Vector2(960, 534)
+position = Vector2(960, 528)
 brick_health = 2
 
 [node name="OpenSeal8" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="4" unique_id=1262458805 instance=ExtResource("2_4285g")]
@@ -69,15 +73,15 @@ position = Vector2(1344, 630)
 brick_health = 2
 
 [node name="OpenSeal15" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="11" unique_id=256968440 instance=ExtResource("2_4285g")]
-position = Vector2(1344, 534)
+position = Vector2(1344, 528)
 brick_health = 2
 
 [node name="OpenSeal18" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="12" unique_id=1702242477 instance=ExtResource("2_4285g")]
-position = Vector2(1440, 534)
+position = Vector2(1440, 528)
 brick_health = 2
 
 [node name="OpenSeal21" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="13" unique_id=2062446417 instance=ExtResource("2_4285g")]
-position = Vector2(864, 534)
+position = Vector2(864, 528)
 brick_health = 2
 
 [node name="OpenSeal22" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="14" unique_id=472956597 instance=ExtResource("2_4285g")]
@@ -127,3 +131,17 @@ spawn_an_enemy_chance = 50.0
 spawn_check_interval = 10.0
 first_spawn_delay = 2.0
 max_spawns = 1
+
+[node name="RectangleBarrier2" parent="." index="14" unique_id=415634240 instance=ExtResource("6_ewbdg")]
+position = Vector2(1424, 400)
+rotation = 1.5707964
+
+[node name="RectangleBarrier5" parent="." index="15" unique_id=449681083 instance=ExtResource("6_ewbdg")]
+position = Vector2(752, 400)
+rotation = 1.5707964
+
+[node name="RectangleBarrier3" parent="." index="16" unique_id=2128755007 instance=ExtResource("6_ewbdg")]
+position = Vector2(992, 736)
+
+[node name="RectangleBarrier4" parent="." index="17" unique_id=1142217973 instance=ExtResource("6_ewbdg")]
+position = Vector2(1184, 736)

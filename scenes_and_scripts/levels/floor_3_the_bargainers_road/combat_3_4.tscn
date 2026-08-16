@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bea1h3570swpu" path="res://scenes_and_scripts/levels/room_base.tscn" id="1_8gija"]
 [ext_resource type="PackedScene" uid="uid://cm1kspxv86400" path="res://scenes_and_scripts/bricks/open_seal.tscn" id="2_4285g"]
+[ext_resource type="PackedScene" uid="uid://brectbarr01" path="res://scenes_and_scripts/bricks/rectangle_barrier.tscn" id="2_p3ta7"]
 [ext_resource type="PackedScene" uid="uid://b7m8vn6kumwyg" path="res://scenes_and_scripts/actors/enemies/enemy_spawner.tscn" id="3_hkc1k"]
 [ext_resource type="Script" uid="uid://dm8qchhbo37mu" path="res://scenes_and_scripts/actors/enemies/enemy_config.gd" id="4_xsesl"]
 [ext_resource type="PackedScene" uid="uid://c3bjgu70hca17" path="res://scenes_and_scripts/actors/enemies/specific_enemies/no_see_me_demon(Deon)/deon.tscn" id="5_ssaou"]
@@ -55,6 +56,36 @@ y_offset = 48.0
 metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 
 [node name="combat_2_4" unique_id=565861230 instance=ExtResource("1_8gija")]
+
+[node name="RectangleBarrier" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="0" unique_id=415634240 instance=ExtResource("2_p3ta7")]
+position = Vector2(135, 624)
+
+[node name="RectangleBarrier2" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="1" unique_id=1316690962 instance=ExtResource("2_p3ta7")]
+position = Vector2(71, 656)
+
+[node name="RectangleBarrier3" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="2" unique_id=276193643 instance=ExtResource("2_p3ta7")]
+position = Vector2(1479, 624)
+
+[node name="RectangleBarrier4" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="3" unique_id=489312840 instance=ExtResource("2_p3ta7")]
+position = Vector2(1543, 656)
+
+[node name="RectangleBarrier5" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="4" unique_id=1000381616 instance=ExtResource("2_p3ta7")]
+position = Vector2(327, 240)
+
+[node name="RectangleBarrier6" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="5" unique_id=670972501 instance=ExtResource("2_p3ta7")]
+position = Vector2(391, 240)
+
+[node name="RectangleBarrier7" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="6" unique_id=2050372327 instance=ExtResource("2_p3ta7")]
+position = Vector2(775, 240)
+
+[node name="RectangleBarrier8" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="7" unique_id=812837247 instance=ExtResource("2_p3ta7")]
+position = Vector2(839, 240)
+
+[node name="RectangleBarrier9" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="8" unique_id=1862781763 instance=ExtResource("2_p3ta7")]
+position = Vector2(1223, 240)
+
+[node name="RectangleBarrier10" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="9" unique_id=49072485 instance=ExtResource("2_p3ta7")]
+position = Vector2(1287, 240)
 
 [node name="OpenSeal3" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="0" unique_id=1397344597 instance=ExtResource("2_4285g")]
 position = Vector2(544, 544)

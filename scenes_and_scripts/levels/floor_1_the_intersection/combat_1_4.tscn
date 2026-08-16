@@ -24,13 +24,85 @@ metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 
 [node name="combat_1_4" unique_id=565861230 instance=ExtResource("1_7tba3")]
 
-[node name="SubViewport" parent="SubViewportContainer" parent_id_path=PackedInt32Array(1513724378) index="0" unique_id=1272984319]
-
 [node name="FlashOverlay" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="3" unique_id=443116914]
 offset_left = -105.0
 offset_top = 128.0
 offset_right = -50.0
 offset_bottom = 136.0
+
+[node name="RectangleBarrier4" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="0" unique_id=1787868003 instance=ExtResource("6_bsov6")]
+position = Vector2(711, 624)
+
+[node name="RectangleBarrier5" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="1" unique_id=415634240 instance=ExtResource("6_bsov6")]
+position = Vector2(903, 624)
+
+[node name="RectangleBarrier22" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="2" unique_id=2106118326 instance=ExtResource("6_bsov6")]
+position = Vector2(711, 144)
+
+[node name="RectangleBarrier23" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="3" unique_id=717278513 instance=ExtResource("6_bsov6")]
+position = Vector2(775, 144)
+
+[node name="RectangleBarrier24" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="4" unique_id=435417037 instance=ExtResource("6_bsov6")]
+position = Vector2(839, 144)
+
+[node name="RectangleBarrier25" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="5" unique_id=912742087 instance=ExtResource("6_bsov6")]
+position = Vector2(903, 144)
+
+[node name="RectangleBarrier7" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="6" unique_id=399565694 instance=ExtResource("6_bsov6")]
+position = Vector2(951, 576)
+rotation = 1.5707964
+
+[node name="RectangleBarrier8" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="7" unique_id=1177621416 instance=ExtResource("6_bsov6")]
+position = Vector2(951, 512)
+rotation = 1.5707964
+
+[node name="RectangleBarrier9" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="8" unique_id=1958587539 instance=ExtResource("6_bsov6")]
+position = Vector2(951, 448)
+rotation = 1.5707964
+
+[node name="RectangleBarrier10" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="9" unique_id=1427752243 instance=ExtResource("6_bsov6")]
+position = Vector2(951, 384)
+rotation = 1.5707964
+
+[node name="RectangleBarrier11" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="10" unique_id=1098031560 instance=ExtResource("6_bsov6")]
+position = Vector2(951, 320)
+rotation = 1.5707964
+
+[node name="RectangleBarrier12" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="11" unique_id=23010954 instance=ExtResource("6_bsov6")]
+position = Vector2(951, 256)
+rotation = 1.5707964
+
+[node name="RectangleBarrier13" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="12" unique_id=439028773 instance=ExtResource("6_bsov6")]
+position = Vector2(951, 192)
+rotation = 1.5707964
+
+[node name="RectangleBarrier15" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="13" unique_id=995143189 instance=ExtResource("6_bsov6")]
+position = Vector2(663, 576)
+rotation = 1.5707964
+
+[node name="RectangleBarrier16" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="14" unique_id=964686442 instance=ExtResource("6_bsov6")]
+position = Vector2(663, 512)
+rotation = 1.5707964
+
+[node name="RectangleBarrier17" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="15" unique_id=236667125 instance=ExtResource("6_bsov6")]
+position = Vector2(663, 448)
+rotation = 1.5707964
+
+[node name="RectangleBarrier18" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="16" unique_id=1909250222 instance=ExtResource("6_bsov6")]
+position = Vector2(663, 384)
+rotation = 1.5707964
+
+[node name="RectangleBarrier19" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="17" unique_id=1563999467 instance=ExtResource("6_bsov6")]
+position = Vector2(663, 320)
+rotation = 1.5707964
+
+[node name="RectangleBarrier20" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="18" unique_id=1219517544 instance=ExtResource("6_bsov6")]
+position = Vector2(663, 256)
+rotation = 1.5707964
+
+[node name="RectangleBarrier21" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="19" unique_id=1552988156 instance=ExtResource("6_bsov6")]
+position = Vector2(663, 192)
+rotation = 1.5707964
 
 [node name="OpenSeal" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="0" unique_id=887021685 instance=ExtResource("2_pu6mi")]
 position = Vector2(1056, 384)
@@ -106,80 +178,6 @@ brick_health = 5
 position = Vector2(1120, 320)
 stages = Dictionary[int, float]({})
 brick_health = 5
-
-[node name="RectangleBarrier4" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="16" unique_id=1787868003 instance=ExtResource("6_bsov6")]
-position = Vector2(1056, 752)
-
-[node name="RectangleBarrier5" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="17" unique_id=415634240 instance=ExtResource("6_bsov6")]
-position = Vector2(1248, 752)
-
-[node name="RectangleBarrier22" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="18" unique_id=2106118326 instance=ExtResource("6_bsov6")]
-position = Vector2(1056, 272)
-
-[node name="RectangleBarrier23" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="19" unique_id=717278513 instance=ExtResource("6_bsov6")]
-position = Vector2(1120, 272)
-
-[node name="RectangleBarrier24" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="20" unique_id=435417037 instance=ExtResource("6_bsov6")]
-position = Vector2(1184, 272)
-
-[node name="RectangleBarrier25" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="21" unique_id=912742087 instance=ExtResource("6_bsov6")]
-position = Vector2(1248, 272)
-
-[node name="RectangleBarrier7" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="22" unique_id=399565694 instance=ExtResource("6_bsov6")]
-position = Vector2(1296, 704)
-rotation = 1.5707964
-
-[node name="RectangleBarrier8" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="23" unique_id=1177621416 instance=ExtResource("6_bsov6")]
-position = Vector2(1296, 640)
-rotation = 1.5707964
-
-[node name="RectangleBarrier9" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="24" unique_id=1958587539 instance=ExtResource("6_bsov6")]
-position = Vector2(1296, 576)
-rotation = 1.5707964
-
-[node name="RectangleBarrier10" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="25" unique_id=1427752243 instance=ExtResource("6_bsov6")]
-position = Vector2(1296, 512)
-rotation = 1.5707964
-
-[node name="RectangleBarrier11" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="26" unique_id=1098031560 instance=ExtResource("6_bsov6")]
-position = Vector2(1296, 448)
-rotation = 1.5707964
-
-[node name="RectangleBarrier12" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="27" unique_id=23010954 instance=ExtResource("6_bsov6")]
-position = Vector2(1296, 384)
-rotation = 1.5707964
-
-[node name="RectangleBarrier13" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="28" unique_id=439028773 instance=ExtResource("6_bsov6")]
-position = Vector2(1296, 320)
-rotation = 1.5707964
-
-[node name="RectangleBarrier15" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="29" unique_id=995143189 instance=ExtResource("6_bsov6")]
-position = Vector2(1008, 704)
-rotation = 1.5707964
-
-[node name="RectangleBarrier16" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="30" unique_id=964686442 instance=ExtResource("6_bsov6")]
-position = Vector2(1008, 640)
-rotation = 1.5707964
-
-[node name="RectangleBarrier17" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="31" unique_id=236667125 instance=ExtResource("6_bsov6")]
-position = Vector2(1008, 576)
-rotation = 1.5707964
-
-[node name="RectangleBarrier18" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="32" unique_id=1909250222 instance=ExtResource("6_bsov6")]
-position = Vector2(1008, 512)
-rotation = 1.5707964
-
-[node name="RectangleBarrier19" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="33" unique_id=1563999467 instance=ExtResource("6_bsov6")]
-position = Vector2(1008, 448)
-rotation = 1.5707964
-
-[node name="RectangleBarrier20" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="34" unique_id=1219517544 instance=ExtResource("6_bsov6")]
-position = Vector2(1008, 384)
-rotation = 1.5707964
-
-[node name="RectangleBarrier21" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="35" unique_id=1552988156 instance=ExtResource("6_bsov6")]
-position = Vector2(1008, 320)
-rotation = 1.5707964
 
 [node name="EnemySpawner" parent="No-Respawn/Spawners" parent_id_path=PackedInt32Array(1587044855) index="0" unique_id=740599083 instance=ExtResource("3_u5l1q")]
 position = Vector2(288, 960)

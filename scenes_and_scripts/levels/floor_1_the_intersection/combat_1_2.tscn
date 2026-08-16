@@ -25,10 +25,16 @@ metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 
 [node name="combat_1_2" unique_id=565861230 instance=ExtResource("1_o7dia")]
 
-[node name="SubViewport" parent="SubViewportContainer" parent_id_path=PackedInt32Array(1513724378) index="0" unique_id=1272984319]
-
 [node name="Background" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="1" unique_id=306947289]
 metadata/_edit_lock_ = true
+
+[node name="RectangleBarrier" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="0" unique_id=415634240 instance=ExtResource("3_4x5w2")]
+position = Vector2(759, 448)
+rotation = 1.5707964
+
+[node name="RectangleBarrier2" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="1" unique_id=1590961042 instance=ExtResource("3_4x5w2")]
+position = Vector2(855, 448)
+rotation = 1.5707964
 
 [node name="OpenSeal" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="0" unique_id=887021685 instance=ExtResource("2_cbojn")]
 position = Vector2(1344, 704)
@@ -136,14 +142,6 @@ position = Vector2(1280, 704)
 initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({})
 brick_health = 2
-
-[node name="RectangleBarrier" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="18" unique_id=415634240 instance=ExtResource("3_4x5w2")]
-position = Vector2(1104, 576)
-rotation = 1.5707964
-
-[node name="RectangleBarrier2" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="19" unique_id=1590961042 instance=ExtResource("3_4x5w2")]
-position = Vector2(1200, 576)
-rotation = 1.5707964
 
 [node name="EnemySpawner" parent="No-Respawn/Spawners" parent_id_path=PackedInt32Array(1587044855) index="0" unique_id=740599083 instance=ExtResource("2_umu5g")]
 position = Vector2(288, 960)

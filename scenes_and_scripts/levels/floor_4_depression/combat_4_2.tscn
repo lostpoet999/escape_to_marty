@@ -19,8 +19,18 @@ metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 [node name="SubViewportContainer" parent="." index="0" unique_id=1513724378]
 metadata/_edit_lock_ = true
 
-[node name="CanvasModulate" type="CanvasModulate" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="6" unique_id=948305531]
+[node name="CanvasModulate" type="CanvasModulate" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="5" unique_id=948305531]
 color = Color(0.2, 0.2, 0.27, 1)
+
+[node name="ImpSpawner" parent="No-Respawn/Spawners" parent_id_path=PackedInt32Array(1587044855) index="0" unique_id=1495481611 instance=ExtResource("90_impsp")]
+position = Vector2(1088, 512)
+enemies = Array[ExtResource("91_impcf")]([SubResource("Resource_imp01")])
+spawn_an_enemy_chance = 100.0
+spawn_check_interval = 12.0
+first_spawn_delay = 3.0
+respawn_delay_after_kill_min = 9.0
+respawn_delay_after_kill_max = 12.0
+max_spawns = 2
 
 [node name="OpenSeal" parent="." index="14" unique_id=887021685 instance=ExtResource("2_4o0bc")]
 position = Vector2(704, 432)
@@ -246,6 +256,7 @@ depression_reseeds_when_dark = true
 
 [node name="OpenSeal27" parent="." index="40" unique_id=505020921 instance=ExtResource("2_4o0bc")]
 position = Vector2(1088, 592)
+initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({
 3: 3.0
 })
@@ -254,6 +265,7 @@ depression_reseeds_when_dark = true
 
 [node name="OpenSeal28" parent="." index="41" unique_id=1131213282 instance=ExtResource("2_4o0bc")]
 position = Vector2(960, 592)
+initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({
 3: 3.0
 })
@@ -271,6 +283,7 @@ depression_reseeds_when_dark = true
 
 [node name="OpenSeal30" parent="." index="43" unique_id=17240052 instance=ExtResource("2_4o0bc")]
 position = Vector2(1088, 720)
+initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({
 3: 3.0
 })
@@ -288,18 +301,9 @@ depression_reseeds_when_dark = true
 
 [node name="OpenSeal32" parent="." index="45" unique_id=1684103943 instance=ExtResource("2_4o0bc")]
 position = Vector2(960, 720)
+initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({
 3: 3.0
 })
 brick_health = 10
 depression_reseeds_when_dark = true
-
-[node name="ImpSpawner" parent="No-Respawn/Spawners" instance=ExtResource("90_impsp")]
-position = Vector2(1088, 512)
-enemies = Array[ExtResource("91_impcf")]([SubResource("Resource_imp01")])
-spawn_an_enemy_chance = 100.0
-spawn_check_interval = 12.0
-first_spawn_delay = 3.0
-respawn_delay_after_kill_min = 9.0
-respawn_delay_after_kill_max = 12.0
-max_spawns = 2

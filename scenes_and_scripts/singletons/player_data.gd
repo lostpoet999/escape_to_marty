@@ -165,10 +165,12 @@ func accept_damage(damage: int) -> void:
 func accept_reflect_damage(amount: float) -> void:
 	if get_item_shields() > 0:
 		item_shields_spent += 1
+		Signalbus.player_shield_spent.emit()
 		Signalbus.reflect_shield_changed.emit(get_player_shields())
 		return
 	if free_miss_shields > 0:
 		free_miss_shields -= 1
+		Signalbus.player_shield_spent.emit()
 		Signalbus.reflect_shield_changed.emit(get_player_shields())
 		return
 	var reduction: float = inventory.get_reflect_reduction() if inventory else 0.0

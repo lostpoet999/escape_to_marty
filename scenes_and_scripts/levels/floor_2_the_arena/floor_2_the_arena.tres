@@ -3,10 +3,10 @@
 [ext_resource type="Script" uid="uid://pnkwdspwmpwe" path="res://scenes_and_scripts/levels/room_entry.gd" id="1_4xv7i"]
 [ext_resource type="Script" uid="uid://c883xeifksqne" path="res://scenes_and_scripts/powerups_and_behaviors/base_item.gd" id="2_hg74c"]
 [ext_resource type="Script" uid="uid://bvs3ugvgbabkc" path="res://scenes_and_scripts/levels/floor_data.gd" id="2_yjxva"]
-[ext_resource type="PackedScene" uid="uid://g548cxb8b4py" path="res://scenes_and_scripts/levels/floor_2_the_arena/combat_2_1.tscn" id="3_1r2xy"]
+[ext_resource type="PackedScene" uid="uid://dh03r65knxyfb" path="res://scenes_and_scripts/levels/floor_2_the_arena/combat_2_1.tscn" id="3_1r2xy"]
 [ext_resource type="Script" uid="uid://dm8qchhbo37mu" path="res://scenes_and_scripts/actors/enemies/enemy_config.gd" id="3_1wfy1"]
 [ext_resource type="Script" uid="uid://ccw8ssedjvd48" path="res://scenes_and_scripts/bricks/seal_difficulty.gd" id="4_1wfy1"]
-[ext_resource type="PackedScene" uid="uid://dh03r65knxyfb" path="res://scenes_and_scripts/levels/floor_2_the_arena/combat_2_2.tscn" id="4_6son4"]
+[ext_resource type="PackedScene" uid="uid://g548cxb8b4py" path="res://scenes_and_scripts/levels/floor_2_the_arena/combat_2_2.tscn" id="4_6son4"]
 [ext_resource type="PackedScene" uid="uid://cm2bdw1o1sypc" path="res://scenes_and_scripts/actors/enemies/specific_enemies/dark_cage/dark_cage.tscn" id="4_hna8n"]
 [ext_resource type="Script" uid="uid://cqac2vv2p8oga" path="res://scenes_and_scripts/bricks/seal_phase_config.gd" id="4_tjbqt"]
 [ext_resource type="AudioStream" uid="uid://ddqc7nobjwn66" path="res://music_and_ambient/anger_ms_loop.wav" id="5_nmn04"]
@@ -69,15 +69,10 @@ north_exit = true
 south_exit = true
 metadata/_custom_type_script = "uid://pnkwdspwmpwe"
 
-[sub_resource type="Resource" id="Resource_hg74c"]
-script = ExtResource("20_rc")
-room_scene = ExtResource("4_6son4")
-room_type = 1
-
 [sub_resource type="Resource" id="Resource_8xlg6"]
 script = ExtResource("1_4xv7i")
 room_coords = Vector2i(1, 3)
-content = SubResource("Resource_hg74c")
+is_static = false
 north_exit = true
 south_exit = true
 east_exit = true
@@ -221,6 +216,11 @@ room_scene = ExtResource("11_dq6e1")
 room_type = 1
 metadata/_custom_type_script = "uid://roomcontent0"
 
+[sub_resource type="Resource" id="Resource_cy5vi"]
+script = ExtResource("20_rc")
+room_scene = ExtResource("4_6son4")
+room_type = 1
+
 [sub_resource type="Resource" id="Resource_1r2xy"]
 script = ExtResource("3_1wfy1")
 enemy_name = "Dark Cage"
@@ -283,7 +283,7 @@ seal_health_phase = SubResource("Resource_1wfy1")
 max_respawn = 3
 floor_name_id = "The Arena"
 room_entries = Array[ExtResource("1_4xv7i")]([SubResource("Resource_opx4d"), SubResource("Resource_fee7e"), SubResource("Resource_8xlg6"), SubResource("Resource_mrhud"), SubResource("Resource_nmn04"), SubResource("Resource_wg6j7"), SubResource("Resource_gmptv"), SubResource("Resource_ls17h"), SubResource("Resource_d5syq"), SubResource("Resource_uvac1"), SubResource("Resource_6ycen"), SubResource("Resource_tkawe"), SubResource("Resource_7rlaw")])
-room_pool = Array[ExtResource("20_rc")]([SubResource("Resource_uo428"), SubResource("Resource_sp8dx"), SubResource("Resource_82rfb"), SubResource("Resource_15g78")])
+room_pool = Array[ExtResource("20_rc")]([SubResource("Resource_uo428"), SubResource("Resource_sp8dx"), SubResource("Resource_82rfb"), SubResource("Resource_15g78"), SubResource("Resource_cy5vi")])
 show_mini_map = true
 seal_break_enemies = Array[ExtResource("3_1wfy1")]([SubResource("Resource_1r2xy"), SubResource("Resource_a1chj")])
 wall_texture = ExtResource("21_a1chj")

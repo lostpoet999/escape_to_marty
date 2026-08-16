@@ -249,11 +249,12 @@ func initiate_special_room()->void:
 		RoomContent.ROOM_TYPES.bonus_room:
 			_init_bonus_room()
 
-func _spawn_kiosk(scene: PackedScene, on_activated: Callable) -> void:
+func _spawn_kiosk(scene: PackedScene, on_activated: Callable) -> RoomKiosk:
 	var kiosk: RoomKiosk = scene.instantiate()
 	kiosk.position = KIOSK_POSITION
 	kiosk.activated.connect(on_activated.bind(kiosk))
 	$PlayArea.add_child(kiosk)
+	return kiosk
 
 func _on_shop_kiosk_activated(kiosk: RoomKiosk) -> void:
 	kiosk.visible = false

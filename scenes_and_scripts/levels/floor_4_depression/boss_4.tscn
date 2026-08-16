@@ -89,4 +89,4 @@ max_spawns = 8
 live_imp_target = 4
 
 [node name="item_spawn_point" parent="." index="11" unique_id=51076593]
-position = Vector2(1021, 736)
+position = Vector2(1088, 800)

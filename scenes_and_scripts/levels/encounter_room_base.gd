@@ -83,17 +83,14 @@ func _spawn_encounter_loot() -> void:
 	var config: BossLootConfig = GameManager.floor_data.boss_loot_config
 	if config == null:
 		return
-	# first defeat: generate and persist; re-entry: reuse persisted (preserves unclaimed items)
 	if room_state.loot_items_data == null:
 		room_state.loot_items_data = LootItemsData.new()
 		room_state.loot_items_data.generate_boss_drop(config)
 	loot_items_data = room_state.loot_items_data
-	if loot_items_data.items.is_empty():
+	if loot_items_data.free_pick_exhausted():
 		return
-	item_box = loot_items_data.instantiate_lootbox()
-	item_box.global_position = item_spawn_point.global_position
-	item_box.loot_items_data = loot_items_data
-	add_child(item_box)
+	var kiosk: RoomKiosk = _spawn_kiosk(FREE_ITEM_KIOSK, _on_free_item_kiosk_activated)
+	kiosk.global_position = item_spawn_point.global_position
 
 func _activate_floor_portal() -> void:
 	var portal: FloorPortal = find_child("FloorPortal", true, false) as FloorPortal
