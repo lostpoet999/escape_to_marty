@@ -10,9 +10,6 @@
 [ext_resource type="Script" uid="uid://dm8qchhbo37mu" path="res://scenes_and_scripts/actors/enemies/enemy_config.gd" id="12_ecfg"]
 [ext_resource type="PackedScene" uid="uid://impshadow001" path="res://scenes_and_scripts/actors/enemies/specific_enemies/shadow_imp/shadow_imp.tscn" id="13_imp"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_f4portal"]
-size = Vector2(320, 320)
-
 [sub_resource type="Resource" id="Resource_f4impcfg"]
 script = ExtResource("12_ecfg")
 enemy_name = "ShadowImp"
@@ -33,60 +30,53 @@ metadata/_edit_lock_ = true
 
 [node name="Encounter" type="Node" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="5" unique_id=1568655012]
 
+[node name="EncounterProgressBar" parent="PlayArea/Encounter" index="0" unique_id=810000031 instance=ExtResource("9_epbar")]
+
 [node name="FloorPortal" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="6" unique_id=1860885060 instance=ExtResource("6_portal")]
 z_index = -1
 position = Vector2(807, 544)
 
-[node name="CollisionShape2D" parent="PlayArea/FloorPortal" index="0" unique_id=810000037]
-shape = SubResource("RectangleShape2D_f4portal")
-
-[node name="Visual" parent="PlayArea/FloorPortal" index="1" unique_id=810000038]
-scale = Vector2(2.5, 2.5)
-
 [node name="CanvasModulate" type="CanvasModulate" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="7" unique_id=810000030]
 color = Color(0.2, 0.2, 0.27, 1)
 
-[node name="EncounterProgressBar" parent="PlayArea/Encounter" index="0" unique_id=810000031 instance=ExtResource("9_epbar")]
-
 [node name="Ritual" type="Node" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="8" unique_id=810000039]
 
-[node name="StatueTopLeft" parent="PlayArea/Ritual" index="0" unique_id=810000032 instance=ExtResource("8_statue")]
+[node name="StatueTopLeft(denial)" parent="PlayArea/Ritual" index="0" unique_id=810000032 instance=ExtResource("8_statue")]
 z_index = -1
 position = Vector2(896, 336)
-charge_seconds = 10.0
-locks_when_charged = false
 phase_color = Color(0.635294, 0.243137, 0.54902, 1)
+locks_when_charged = false
 
-[node name="StatueTopRight" parent="PlayArea/Ritual" index="1" unique_id=810000033 instance=ExtResource("8_statue")]
+[node name="StatueTopRight(anger)" parent="PlayArea/Ritual" index="1" unique_id=810000033 instance=ExtResource("8_statue")]
 z_index = -1
 position = Vector2(1280, 336)
 charge_seconds = 15.0
-locks_when_charged = false
 phase_color = Color(0.647059, 0.188235, 0.188235, 1)
+locks_when_charged = false
 
-[node name="StatueBottomLeft" parent="PlayArea/Ritual" index="2" unique_id=810000034 instance=ExtResource("8_statue")]
+[node name="StatueBottomLeft(bargaining)" parent="PlayArea/Ritual" index="2" unique_id=810000034 instance=ExtResource("8_statue")]
 z_index = -1
 position = Vector2(896, 752)
 charge_seconds = 22.0
-locks_when_charged = false
 phase_color = Color(0.870588, 0.619608, 0.254902, 1)
+locks_when_charged = false
 
-[node name="StatueBottomRight" parent="PlayArea/Ritual" index="3" unique_id=810000035 instance=ExtResource("8_statue")]
+[node name="StatueBottomRight(depression)" parent="PlayArea/Ritual" index="3" unique_id=810000035 instance=ExtResource("8_statue")]
 z_index = -1
 position = Vector2(1280, 752)
 charge_seconds = 30.0
-locks_when_charged = false
 phase_color = Color(0.223529, 0.290196, 0.313725, 1)
+locks_when_charged = false
 
 [node name="ImpSpawner" parent="No-Respawn/Spawners" parent_id_path=PackedInt32Array(1587044855) index="0" unique_id=810000036 instance=ExtResource("10_spwn")]
 position = Vector2(1088, 512)
 script = ExtResource("11_sispwn")
+live_imp_target = 4
 enemies = Array[ExtResource("12_ecfg")]([SubResource("Resource_f4impcfg")])
 spawn_an_enemy_chance = 100.0
 spawn_check_interval = 2.5
 first_spawn_delay = 3.0
 max_spawns = 8
-live_imp_target = 4
 
 [node name="item_spawn_point" parent="." index="11" unique_id=51076593]
 position = Vector2(1088, 800)
