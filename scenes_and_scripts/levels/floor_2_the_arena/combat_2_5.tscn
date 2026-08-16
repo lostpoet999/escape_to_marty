@@ -25,6 +25,18 @@ metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 
 [node name="combat_2_5" unique_id=565861230 instance=ExtResource("1_8gija")]
 
+[node name="RectangleBarrier" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="0" unique_id=415634240 instance=ExtResource("6_hgfc3")]
+position = Vector2(551, 656)
+
+[node name="RectangleBarrier3" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="1" unique_id=286099549 instance=ExtResource("6_hgfc3")]
+position = Vector2(551, 496)
+
+[node name="RectangleBarrier2" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="2" unique_id=1897485774 instance=ExtResource("6_hgfc3")]
+position = Vector2(807, 656)
+
+[node name="RectangleBarrier4" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="3" unique_id=958492244 instance=ExtResource("6_hgfc3")]
+position = Vector2(807, 496)
+
 [node name="OpenSeal7" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="0" unique_id=1662763336 instance=ExtResource("2_4285g")]
 position = Vector2(896, 672)
 brick_health = 2
@@ -108,15 +120,3 @@ spawn_an_enemy_chance = 50.0
 spawn_check_interval = 10.0
 first_spawn_delay = 2.0
 max_spawns = 1
-
-[node name="RectangleBarrier" parent="." index="14" unique_id=415634240 instance=ExtResource("6_hgfc3")]
-position = Vector2(832, 656)
-
-[node name="RectangleBarrier3" parent="." index="15" unique_id=286099549 instance=ExtResource("6_hgfc3")]
-position = Vector2(832, 496)
-
-[node name="RectangleBarrier2" parent="." index="16" unique_id=1897485774 instance=ExtResource("6_hgfc3")]
-position = Vector2(1088, 656)
-
-[node name="RectangleBarrier4" parent="." index="17" unique_id=958492244 instance=ExtResource("6_hgfc3")]
-position = Vector2(1088, 496)

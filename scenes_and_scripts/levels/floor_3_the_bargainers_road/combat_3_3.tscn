@@ -57,6 +57,33 @@ metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 
 [node name="combat_2_3" unique_id=565861230 instance=ExtResource("1_8gija")]
 
+[node name="RectangleBarrier" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="0" unique_id=415634240 instance=ExtResource("3_thy7h")]
+position = Vector2(1351, 240)
+
+[node name="RectangleBarrier2" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="1" unique_id=394295243 instance=ExtResource("3_thy7h")]
+position = Vector2(1351, 272)
+
+[node name="RectangleBarrier4" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="2" unique_id=1712929648 instance=ExtResource("3_thy7h")]
+position = Vector2(1351, 176)
+
+[node name="RectangleBarrier6" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="3" unique_id=116304571 instance=ExtResource("3_thy7h")]
+position = Vector2(1351, 144)
+
+[node name="RectangleBarrier5" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="4" unique_id=976928735 instance=ExtResource("3_thy7h")]
+position = Vector2(1351, 208)
+
+[node name="RectangleBarrier3" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="5" unique_id=897105961 instance=ExtResource("3_thy7h")]
+position = Vector2(199, 176)
+
+[node name="RectangleBarrier7" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="6" unique_id=1827309778 instance=ExtResource("3_thy7h")]
+position = Vector2(199, 144)
+
+[node name="RectangleBarrier8" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="7" unique_id=1293896398 instance=ExtResource("3_thy7h")]
+position = Vector2(199, 112)
+
+[node name="RectangleBarrier9" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="8" unique_id=1264558188 instance=ExtResource("3_thy7h")]
+position = Vector2(199, 80)
+
 [node name="OpenSeal3" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="0" unique_id=1397344597 instance=ExtResource("2_4285g")]
 position = Vector2(544, 544)
 brick_health = 2
@@ -239,33 +266,6 @@ brick_health = 2
 [node name="OpenSeal33" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="40" unique_id=2059540564 instance=ExtResource("2_4285g")]
 position = Vector2(768, 448)
 brick_health = 2
-
-[node name="RectangleBarrier" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="41" unique_id=415634240 instance=ExtResource("3_thy7h")]
-position = Vector2(1696, 368)
-
-[node name="RectangleBarrier2" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="42" unique_id=394295243 instance=ExtResource("3_thy7h")]
-position = Vector2(1696, 400)
-
-[node name="RectangleBarrier4" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="43" unique_id=1712929648 instance=ExtResource("3_thy7h")]
-position = Vector2(1696, 304)
-
-[node name="RectangleBarrier6" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="44" unique_id=116304571 instance=ExtResource("3_thy7h")]
-position = Vector2(1696, 272)
-
-[node name="RectangleBarrier5" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="45" unique_id=976928735 instance=ExtResource("3_thy7h")]
-position = Vector2(1696, 336)
-
-[node name="RectangleBarrier3" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="46" unique_id=897105961 instance=ExtResource("3_thy7h")]
-position = Vector2(544, 304)
-
-[node name="RectangleBarrier7" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="47" unique_id=1827309778 instance=ExtResource("3_thy7h")]
-position = Vector2(544, 272)
-
-[node name="RectangleBarrier8" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="48" unique_id=1293896398 instance=ExtResource("3_thy7h")]
-position = Vector2(544, 240)
-
-[node name="RectangleBarrier9" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="49" unique_id=1264558188 instance=ExtResource("3_thy7h")]
-position = Vector2(544, 208)
 
 [node name="EnemySpawner" parent="No-Respawn/Spawners" parent_id_path=PackedInt32Array(1587044855) index="0" unique_id=740599083 instance=ExtResource("3_hkc1k")]
 position = Vector2(288, 960)

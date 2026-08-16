@@ -25,6 +25,60 @@ metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 
 [node name="combat_2_1" unique_id=565861230 instance=ExtResource("1_8gija")]
 
+[node name="RectangleBarrier" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="0" unique_id=415634240 instance=ExtResource("3_cxk2r")]
+position = Vector2(743, 656)
+chance_it_exists = 75
+
+[node name="RectangleBarrier2" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="1" unique_id=1225684072 instance=ExtResource("3_cxk2r")]
+position = Vector2(807, 656)
+chance_it_exists = 75
+
+[node name="RectangleBarrier3" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="2" unique_id=122573865 instance=ExtResource("3_cxk2r")]
+position = Vector2(871, 656)
+chance_it_exists = 75
+
+[node name="RectangleBarrier4" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="3" unique_id=2007345311 instance=ExtResource("3_cxk2r")]
+position = Vector2(551, 528)
+chance_it_exists = 75
+
+[node name="RectangleBarrier10" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="4" unique_id=1290001421 instance=ExtResource("3_cxk2r")]
+position = Vector2(487, 368)
+
+[node name="RectangleBarrier11" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="5" unique_id=1866083876 instance=ExtResource("3_cxk2r")]
+position = Vector2(423, 336)
+
+[node name="RectangleBarrier12" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="6" unique_id=316284428 instance=ExtResource("3_cxk2r")]
+position = Vector2(359, 304)
+
+[node name="RectangleBarrier15" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="7" unique_id=656044144 instance=ExtResource("3_cxk2r")]
+position = Vector2(1255, 304)
+
+[node name="RectangleBarrier14" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="8" unique_id=277316288 instance=ExtResource("3_cxk2r")]
+position = Vector2(1191, 336)
+
+[node name="RectangleBarrier13" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="9" unique_id=522039705 instance=ExtResource("3_cxk2r")]
+position = Vector2(1127, 368)
+
+[node name="RectangleBarrier5" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="10" unique_id=1726647078 instance=ExtResource("3_cxk2r")]
+position = Vector2(615, 528)
+chance_it_exists = 75
+
+[node name="RectangleBarrier6" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="11" unique_id=1055983148 instance=ExtResource("3_cxk2r")]
+position = Vector2(679, 528)
+chance_it_exists = 75
+
+[node name="RectangleBarrier7" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="12" unique_id=1906886633 instance=ExtResource("3_cxk2r")]
+position = Vector2(935, 528)
+chance_it_exists = 75
+
+[node name="RectangleBarrier8" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="13" unique_id=353703590 instance=ExtResource("3_cxk2r")]
+position = Vector2(999, 528)
+chance_it_exists = 75
+
+[node name="RectangleBarrier9" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="14" unique_id=294375828 instance=ExtResource("3_cxk2r")]
+position = Vector2(1063, 528)
+chance_it_exists = 75
+
 [node name="OpenSeal2" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="0" unique_id=112920898 instance=ExtResource("2_4285g")]
 position = Vector2(1152, 736)
 initialize_brick_on_leveldata = false
@@ -149,60 +203,6 @@ position = Vector2(960, 544)
 stages = Dictionary[int, float]({
 1: 1.0
 })
-chance_it_exists = 75
-
-[node name="RectangleBarrier" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="18" unique_id=415634240 instance=ExtResource("3_cxk2r")]
-position = Vector2(1088, 784)
-chance_it_exists = 75
-
-[node name="RectangleBarrier2" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="19" unique_id=1225684072 instance=ExtResource("3_cxk2r")]
-position = Vector2(1152, 784)
-chance_it_exists = 75
-
-[node name="RectangleBarrier3" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="20" unique_id=122573865 instance=ExtResource("3_cxk2r")]
-position = Vector2(1216, 784)
-chance_it_exists = 75
-
-[node name="RectangleBarrier4" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="21" unique_id=2007345311 instance=ExtResource("3_cxk2r")]
-position = Vector2(896, 656)
-chance_it_exists = 75
-
-[node name="RectangleBarrier10" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="22" unique_id=1290001421 instance=ExtResource("3_cxk2r")]
-position = Vector2(832, 496)
-
-[node name="RectangleBarrier11" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="23" unique_id=1866083876 instance=ExtResource("3_cxk2r")]
-position = Vector2(768, 464)
-
-[node name="RectangleBarrier12" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="24" unique_id=316284428 instance=ExtResource("3_cxk2r")]
-position = Vector2(704, 432)
-
-[node name="RectangleBarrier15" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="25" unique_id=656044144 instance=ExtResource("3_cxk2r")]
-position = Vector2(1600, 432)
-
-[node name="RectangleBarrier14" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="26" unique_id=277316288 instance=ExtResource("3_cxk2r")]
-position = Vector2(1536, 464)
-
-[node name="RectangleBarrier13" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="27" unique_id=522039705 instance=ExtResource("3_cxk2r")]
-position = Vector2(1472, 496)
-
-[node name="RectangleBarrier5" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="28" unique_id=1726647078 instance=ExtResource("3_cxk2r")]
-position = Vector2(960, 656)
-chance_it_exists = 75
-
-[node name="RectangleBarrier6" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="29" unique_id=1055983148 instance=ExtResource("3_cxk2r")]
-position = Vector2(1024, 656)
-chance_it_exists = 75
-
-[node name="RectangleBarrier7" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="30" unique_id=1906886633 instance=ExtResource("3_cxk2r")]
-position = Vector2(1280, 656)
-chance_it_exists = 75
-
-[node name="RectangleBarrier8" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="31" unique_id=353703590 instance=ExtResource("3_cxk2r")]
-position = Vector2(1344, 656)
-chance_it_exists = 75
-
-[node name="RectangleBarrier9" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="32" unique_id=294375828 instance=ExtResource("3_cxk2r")]
-position = Vector2(1408, 656)
 chance_it_exists = 75
 
 [node name="EnemySpawner" parent="No-Respawn/Spawners" parent_id_path=PackedInt32Array(1587044855) index="0" unique_id=740599083 instance=ExtResource("3_hkc1k")]
