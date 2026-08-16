@@ -2,6 +2,7 @@ class_name EncounterRoomBase extends RoomBase
 
 const CODEC_PLAYER: PackedScene = preload("uid://ccodecplayer")
 const BOSS_START_SOUND: String = "boss_fight_start"
+const BOSS_CHEST_DRAW_SIZE: float = 128.0
 
 ## Optional memory beat played once, right after the encounter clears and before loot.
 @export var post_encounter_tree: DialogTree
@@ -89,7 +90,7 @@ func _spawn_encounter_loot() -> void:
 	loot_items_data = room_state.loot_items_data
 	if loot_items_data.free_pick_exhausted():
 		return
-	var kiosk: RoomKiosk = _spawn_kiosk(FREE_ITEM_KIOSK, _on_free_item_kiosk_activated)
+	var kiosk: RoomKiosk = _spawn_kiosk(FREE_ITEM_KIOSK, _on_free_item_kiosk_activated, BOSS_CHEST_DRAW_SIZE)
 	kiosk.global_position = item_spawn_point.global_position
 
 func _activate_floor_portal() -> void:

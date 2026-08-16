@@ -26,6 +26,8 @@ signal activated
 @onready var kiosk_button: TextureButton = $KioskButton
 @onready var kiosk_label: RichTextLabel = $KioskLabel
 
+var draw_size: float = DRAW_SIZE
+
 var _rest_scale: Vector2
 var _hover_outline: TextureRect
 
@@ -84,7 +86,7 @@ func _fit_button() -> void:
 	kiosk_button.size = art
 	kiosk_button.position = -art * 0.5
 	kiosk_button.pivot_offset = art * 0.5
-	_rest_scale = Vector2.ONE * maxf(1.0, roundf(DRAW_SIZE / art.x))
+	_rest_scale = Vector2.ONE * maxf(1.0, roundf(draw_size / art.x))
 	kiosk_button.scale = _rest_scale
 
 func _start_breathe() -> void:
