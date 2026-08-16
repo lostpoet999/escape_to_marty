@@ -7,12 +7,11 @@
 [ext_resource type="PackedScene" uid="uid://tstflrroom02" path="res://scenes_and_scripts/levels/test_floor/test_room_2.tscn" id="5_r2"]
 [ext_resource type="PackedScene" uid="uid://tstflrroom03" path="res://scenes_and_scripts/levels/test_floor/test_room_3.tscn" id="6_r3"]
 [ext_resource type="PackedScene" uid="uid://tstflrroom04" path="res://scenes_and_scripts/levels/test_floor/test_room_4.tscn" id="7_r4"]
-[ext_resource type="PackedScene" uid="uid://tstflrroom05" path="res://scenes_and_scripts/levels/test_floor/test_room_5.tscn" id="8_r5"]
 [ext_resource type="PackedScene" uid="uid://brr0pi7naait7" path="res://scenes_and_scripts/levels/floor_1_the_intersection/boss_1.tscn" id="9_b1"]
 [ext_resource type="PackedScene" uid="uid://dv7p2iafjnr4x" path="res://scenes_and_scripts/levels/floor_2_the_arena/boss_2.tscn" id="10_b2"]
 [ext_resource type="PackedScene" uid="uid://c68d8tkbufo2s" path="res://scenes_and_scripts/levels/floor_3_the_bargainers_road/boss_3.tscn" id="11_b3"]
 [ext_resource type="PackedScene" uid="uid://cjcn0nk3vk8t5" path="res://scenes_and_scripts/levels/floor_4_depression/combat_4_3.tscn" id="12_2bv3s"]
-[ext_resource type="PackedScene" uid="uid://f4combat001" path="res://scenes_and_scripts/levels/floor_4_depression/combat_4_1.tscn" id="12_c41"]
+[ext_resource type="PackedScene" uid="uid://f4boss00001" path="res://scenes_and_scripts/levels/floor_4_depression/boss_4.tscn" id="13_b4"]
 [ext_resource type="Script" uid="uid://dm8qchhbo37mu" path="res://scenes_and_scripts/actors/enemies/enemy_config.gd" id="14_lwm00"]
 [ext_resource type="Script" uid="uid://cqac2vv2p8oga" path="res://scenes_and_scripts/bricks/seal_phase_config.gd" id="15_1rvhw"]
 
@@ -68,19 +67,6 @@ script = ExtResource("1_re")
 room_coords = Vector2i(4, 2)
 content = SubResource("Resource_tfc4")
 north_exit = true
-east_exit = true
-west_exit = true
-
-[sub_resource type="Resource" id="Resource_tfc5"]
-script = ExtResource("3_rc")
-room_scene = ExtResource("8_r5")
-room_type = 1
-max_clears = -1
-
-[sub_resource type="Resource" id="Resource_tfe5"]
-script = ExtResource("1_re")
-room_coords = Vector2i(5, 2)
-content = SubResource("Resource_tfc5")
 west_exit = true
 
 [sub_resource type="Resource" id="Resource_tfb1"]
@@ -121,8 +107,9 @@ south_exit = true
 
 [sub_resource type="Resource" id="Resource_tfb4"]
 script = ExtResource("3_rc")
-room_scene = ExtResource("12_c41")
-room_type = 1
+room_scene = ExtResource("13_b4")
+room_type = 5
+floor_flavor = 4
 max_clears = -1
 
 [sub_resource type="Resource" id="Resource_tfbe4"]
@@ -141,12 +128,12 @@ north_exit = true
 script = ExtResource("3_rc")
 room_scene = ExtResource("12_2bv3s")
 room_type = 1
-floor_flavor = 2
+floor_flavor = 4
 metadata/_custom_type_script = "uid://roomcontent0"
 
 [resource]
 script = ExtResource("2_fd")
 floor_name_id = "TEST"
-room_entries = Array[ExtResource("1_re")]([SubResource("Resource_tfe1"), SubResource("Resource_tfe2"), SubResource("Resource_tfe3"), SubResource("Resource_tfe4"), SubResource("Resource_tfe5"), SubResource("Resource_tfbe1"), SubResource("Resource_tfbe2"), SubResource("Resource_tfbe3"), SubResource("Resource_tfbe4"), SubResource("Resource_tftp")])
+room_entries = Array[ExtResource("1_re")]([SubResource("Resource_tfe1"), SubResource("Resource_tfe2"), SubResource("Resource_tfe3"), SubResource("Resource_tfe4"), SubResource("Resource_tfbe1"), SubResource("Resource_tfbe2"), SubResource("Resource_tfbe3"), SubResource("Resource_tfbe4"), SubResource("Resource_tftp")])
 room_pool = Array[ExtResource("3_rc")]([SubResource("Resource_10mlx")])
 metadata/_custom_type_script = "uid://bvs3ugvgbabkc"
