@@ -6,6 +6,7 @@
 [resource]
 script = ExtResource("1")
 powerup_name = "Pick-2 Ticket"
+shop_description = "Enable another pick in free-item rooms."
 rarity = 0
 min_floor = 0
 inventory_icon = ExtResource("2")

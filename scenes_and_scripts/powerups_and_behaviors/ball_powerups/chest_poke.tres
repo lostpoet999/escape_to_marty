@@ -7,6 +7,7 @@
 script = ExtResource("1_ball")
 global_multi = 1.75
 powerup_name = "Chest Poke"
+shop_description = "Get their attention with a chest poke. Ball damage is multiplied by 1.75."
 rarity = 2
 inventory_icon = ExtResource("2_icon")
 cost = 45

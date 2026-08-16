@@ -16,6 +16,7 @@ const TICKET_SLOT_START: int = 1 ## index 0 is the base-ball anchor; tickets fol
 
 const MEMORY_TROPHY_SLOTS: int = 5
 const TROPHY_DIM: Color = Color(0.35, 0.35, 0.35)
+const TROPHY_RARITY: BaseItem.RarityType = BaseItem.RarityType.VERY_RARE
 
 var buttons: Array[Button]
 
@@ -77,14 +78,15 @@ func _make_trophy_slot(floor_index: int) -> Control:
 		number.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		number.modulate = TROPHY_DIM
 		return number
-	var button: Button = Button.new()
+	var button: RarityTooltipButton = RarityTooltipButton.new()
 	button.focus_mode = Control.FOCUS_NONE
 	button.custom_minimum_size = Vector2(SLOT_SIZE, SLOT_SIZE)
 	button.expand_icon = true
 	button.icon = trophy.inventory_icon if trophy.inventory_icon else PlayerInventory.PLACEHOLDER_TEX
-	button.tooltip_text = trophy.powerup_name
+	button.tooltip_text = get_tooltip_for_item(trophy, TROPHY_RARITY)
+	button.set_meta(&"Item", trophy)
 	button.set_meta(&"click_pickable", true)
-	BaseItem.style_button_with_rarity(button, trophy.rarity, 2, 4, 2.0)
+	BaseItem.style_button_with_rarity(button, TROPHY_RARITY, 2, 4, 2.0)
 	return button
 
 func _on_vouchers_changed(_count: int) -> void:
@@ -146,11 +148,12 @@ func init_button_for(item: Variant) -> Button:
 	buttons.push_back(button)
 	return button
 
-func get_tooltip_for_item(item: Variant) -> String:
+func get_tooltip_for_item(item: Variant, rarity_override: int = -1) -> String:
 	if not item is BaseItem:
 		return ""
-	var title_color: String = BaseItem.rarity_color(item.rarity).to_html(false)
-	var header: String = "[color=#%s]%s (%s):[/color]" % [title_color, item.powerup_name, BaseItem.rarity_label(item.rarity)]
+	var rarity: BaseItem.RarityType = item.rarity if rarity_override < 0 else rarity_override as BaseItem.RarityType
+	var title_color: String = BaseItem.rarity_color(rarity).to_html(false)
+	var header: String = "[color=#%s]%s (%s):[/color]" % [title_color, item.powerup_name, BaseItem.rarity_label(rarity)]
 	## the basic ball is the one non-removable ball passive — report live ball damage on hover
 	if item is BallPassive and not item.removable:
 		var dmg: float = PlayerInventory.get_instance().get_ball_damage()

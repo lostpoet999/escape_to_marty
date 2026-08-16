@@ -26,6 +26,7 @@ script = ExtResource("3_ball")
 global_bonus = 1.0
 on_hit = Array[ExtResource("1_hit")]([SubResource("HitBehavior_column")])
 powerup_name = "Flip the Bird"
+shop_description = "Let 'em know how you feel: +1 to ball damage and hit seals above and below the seal struck."
 inventory_icon = ExtResource("4_icon")
 cost = 10
 metadata/_custom_type_script = "uid://bryv4msdad7wu"

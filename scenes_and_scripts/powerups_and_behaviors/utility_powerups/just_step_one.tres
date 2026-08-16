@@ -6,6 +6,7 @@
 [resource]
 script = ExtResource("1_util")
 powerup_name = "Just Step One"
+shop_description = "Clear rectangle barriers one step at a time."
 rarity = 1
 inventory_icon = ExtResource("1_yn7l0")
 cost = 4
