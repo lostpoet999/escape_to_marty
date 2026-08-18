@@ -1,7 +1,8 @@
 [gd_resource type="Resource" script_class="BallPassive" format=3 uid="uid://chestpoke01"]
 
 [ext_resource type="Script" uid="uid://bryv4msdad7wu" path="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/ball_passive.gd" id="1_ball"]
-[ext_resource type="Texture2D" uid="uid://cn44s8tnj8dg2" path="res://scenes_and_scripts/inventory/placeholder_tex_32.tres" id="2_icon"]
+[ext_resource type="Texture2D" uid="uid://ckdjfmo6g26e7" path="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/chest_poke.png" id="1_ukav0"]
+[ext_resource type="Script" uid="uid://jwtisqgpmqvq" path="res://scenes_and_scripts/powerups_and_behaviors/ball_behaviors/hit_behavior.gd" id="2_s2x2k"]
 
 [resource]
 script = ExtResource("1_ball")
@@ -9,6 +10,6 @@ global_multi = 1.75
 powerup_name = "Chest Poke"
 shop_description = "Get their attention with a chest poke. Ball damage is multiplied by 1.75."
 rarity = 2
-inventory_icon = ExtResource("2_icon")
+inventory_icon = ExtResource("1_ukav0")
 cost = 45
 metadata/_custom_type_script = "uid://bryv4msdad7wu"

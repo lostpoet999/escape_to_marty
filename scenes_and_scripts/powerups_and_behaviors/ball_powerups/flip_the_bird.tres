@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="BallPassive" format=3 uid="uid://flipbird001"]
 
 [ext_resource type="Script" uid="uid://jwtisqgpmqvq" path="res://scenes_and_scripts/powerups_and_behaviors/ball_behaviors/hit_behavior.gd" id="1_hit"]
+[ext_resource type="Texture2D" uid="uid://lw2b8i80ol52" path="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/flip_the_bird.png" id="1_rxkku"]
 [ext_resource type="Script" uid="uid://dnkfaoggkglke" path="res://scenes_and_scripts/powerups_and_behaviors/ball_behaviors/targeting/shape_target.gd" id="2_shape"]
 [ext_resource type="Script" uid="uid://bryv4msdad7wu" path="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/ball_passive.gd" id="3_ball"]
-[ext_resource type="Texture2D" uid="uid://cn44s8tnj8dg2" path="res://scenes_and_scripts/inventory/placeholder_tex_32.tres" id="4_icon"]
 
 [sub_resource type="RectangleShape2D" id="Rect_column"]
 size = Vector2(16, 160)
@@ -27,6 +27,6 @@ global_bonus = 1.0
 on_hit = Array[ExtResource("1_hit")]([SubResource("HitBehavior_column")])
 powerup_name = "Flip the Bird"
 shop_description = "Let 'em know how you feel: +1 to ball damage and hit seals above and below the seal struck."
-inventory_icon = ExtResource("4_icon")
+inventory_icon = ExtResource("1_rxkku")
 cost = 10
 metadata/_custom_type_script = "uid://bryv4msdad7wu"
