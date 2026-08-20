@@ -28,6 +28,7 @@ metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 [node name="BossRoom4" unique_id=565861230 instance=ExtResource("1_u1v84")]
 script = ExtResource("7_room")
 post_encounter_tree = null
+standalone_floor = 4
 
 [node name="DeathWall" parent="PlayArea/Walls" parent_id_path=PackedInt32Array(76639453) index="0" unique_id=518440941]
 z_index = -100

@@ -16,6 +16,7 @@ var room_data_for_floor: Dictionary = {}
 var scene_ref: PackedScene
 var current_room_id: String
 var test_floor_active: bool = false
+var standalone_room_active: bool = false
 
 enum GameState {
 	MAIN_MENU = 0,
@@ -339,6 +340,15 @@ func adopt_floor_flavor(floor_index: int) -> void:
 	var fd_variant: Variant = FLOOR_REGISTRY.floors[idx - 1]
 	floor_data = fd_variant
 
+func start_standalone_room(floor_flavor: int, standalone_entry: RoomEntry) -> void:
+	standalone_room_active = true
+	current_floor = clampi(floor_flavor, 1, FLOOR_REGISTRY.floors.size())
+	var fd_variant: Variant = FLOOR_REGISTRY.floors[current_floor - 1]
+	floor_data = fd_variant
+	room_data_for_floor.clear()
+	current_room_id = RoomEntry.make_key(standalone_entry.room_coords)
+	room_data_for_floor[current_room_id] = standalone_entry
+
 func start_floor_with_data(data: FloorData, reset_player_data: bool = true) -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	floor_data = data
@@ -361,9 +371,18 @@ func _ready() -> void:
 	Signalbus.floor_cleared.connect(floor_cleared)
 	DP.track("Game State", DP, "old_state", GameState)
 	DP.track("Current Room:", self, "current_room_id")
-	start_floor()
+	if standalone_room_active:
+		process_mode = Node.PROCESS_MODE_ALWAYS
+		PlayerData.initialize_player_data()
+		_configure_frame_rate()
+		MusicPlayer.play_song(floor_data.music, floor_data.music_volume_db)
+	else:
+		start_floor()
 	
 func floor_cleared()->void:
+	if standalone_room_active:
+		restart_level()
+		return
 	if test_floor_active:
 		_return_to_test_room()
 		return

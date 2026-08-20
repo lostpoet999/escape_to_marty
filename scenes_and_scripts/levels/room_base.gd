@@ -8,6 +8,7 @@ const SHOP_KIOSK: PackedScene = preload("uid://cshopkiosk1")
 const FREE_ITEM_KIOSK: PackedScene = preload("uid://cfreekiosk01")
 const KIOSK_POSITION: Vector2 = Vector2(804, 570)
 const BONUS_ITEM_PANEL: PackedScene = preload("res://scenes_and_scripts/ui_menus/bonus_item_panel.tscn")
+const FLOOR_PORTAL: PackedScene = preload("res://scenes_and_scripts/exits/floor_portal.tscn")
 
 const PLAYER_HURT_TRAUMA: float = 0.8
 
@@ -81,6 +82,8 @@ var _practice_nudge_timer_s: float = -1.0
 var _practice_nudge_cooldown_s: float = 0.0
 var _cutscene: Node = null
 
+@export_enum("Floor 1:1", "Floor 2:2", "Floor 3:3", "Floor 4:4") var standalone_floor: int = 1
+
 var gold_cleared: bool = false
 var bricks_cleared: bool = false
 var level_clear_emitted: bool = false
@@ -110,6 +113,30 @@ func _process(delta: float) -> void:
 	
 func supress_respawn_entities()->void:
 	no_respawn.queue_free()	
+
+func _notification(what: int) -> void:
+	if what != NOTIFICATION_ENTER_TREE:
+		return
+	if GameManager.scene_ref != null and GameManager.scene_ref.resource_path == scene_file_path:
+		return
+	_enter_standalone()
+
+func _enter_standalone() -> void:
+	var content: RoomContent = RoomContent.new()
+	var scene_variant: Variant = load(scene_file_path)
+	content.room_scene = scene_variant
+	content.room_type = RoomContent.ROOM_TYPES.combat
+	content.max_clears = -1
+	var standalone_entry: RoomEntry = RoomEntry.new()
+	standalone_entry.room_coords = Vector2i(1, 1)
+	standalone_entry.content = content
+	GameManager.start_standalone_room(standalone_floor, standalone_entry)
+
+func _spawn_standalone_portal() -> void:
+	var portal: FloorPortal = FLOOR_PORTAL.instantiate()
+	portal.position = item_spawn_point.position
+	add_child(portal)
+	portal.activate()
 
 func _enter_tree() -> void:
 	var flavored: RoomEntry = GameManager.get_current_floor_entry(GameManager.current_room_id)
@@ -159,6 +186,8 @@ func _ready() -> void:
 	Signalbus.game_state_main_menu.connect(_restore_hud_after_death)
 	Signalbus.practice_seal_cleared.connect(_on_practice_seal_cleared)
 	Signalbus.practice_exit_blocked.connect(_on_practice_exit_blocked)
+	if GameManager.standalone_room_active:
+		Signalbus.level_cleared.connect(_spawn_standalone_portal)
 	initiate_special_room()
 	if entry.content.room_type == RoomContent.ROOM_TYPES.combat:
 		_play_combat_entry_dialog()
