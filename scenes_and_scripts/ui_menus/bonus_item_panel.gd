@@ -17,7 +17,8 @@ func _refresh() -> void:
 		item_grid.add_child(button)
 
 func _on_slot_pressed(item: BaseItem) -> void:
+	if not await PlayerData.inventory.add_item(item):
+		return
 	loot_items_data.items.erase(item)
-	PlayerData.inventory.add_item(item)
 	item_taken.emit(item)
 	_refresh()

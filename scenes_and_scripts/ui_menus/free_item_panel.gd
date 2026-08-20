@@ -39,13 +39,14 @@ func _refresh() -> void:
 func _on_slot_pressed(item: BaseItem) -> void:
 	if _picks_available() <= 0:
 		return
+	if not await PlayerData.inventory.add_item(item):
+		return
 	if loot_items_data.base_pick_used:
 		if not PlayerData.consume_pick2_voucher():
 			return
 	else:
 		loot_items_data.base_pick_used = true
 	loot_items_data.items.erase(item)
-	PlayerData.inventory.add_item(item)
 	_refresh()
 
 func _update_footer() -> void:

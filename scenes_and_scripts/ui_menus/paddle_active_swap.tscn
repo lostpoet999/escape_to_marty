@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dfjaux5aex6xv" path="res://scenes_and_scripts/ui_menus/paddle_active_swap.gd" id="1_nym03"]
 [ext_resource type="Texture2D" uid="uid://cra2lcyy34b1x" path="res://scenes_and_scripts/ui_menus/edge_patch.png" id="2_prmox"]
 [ext_resource type="LabelSettings" uid="uid://cpopupbody16" path="res://label_settings_and_fonts/popup_body_16.tres" id="3_body"]
+[ext_resource type="Script" uid="uid://cljaqa2xpi4w7" path="res://scenes_and_scripts/ui_menus/rarity_tooltip_button.gd" id="4_rtbtn"]
 
 [node name="PaddleActiveSwap" type="Control" unique_id=1064137318]
 top_level = true
@@ -51,6 +52,7 @@ offset_right = -70.0
 offset_bottom = 143.0
 icon_alignment = 1
 expand_icon = true
+script = ExtResource("4_rtbtn")
 
 [node name="NewItem" type="Button" parent="." unique_id=696498289]
 custom_minimum_size = Vector2(200, 65)
@@ -61,6 +63,7 @@ offset_right = 270.0
 offset_bottom = 143.0
 icon_alignment = 1
 expand_icon = true
+script = ExtResource("4_rtbtn")
 
 [node name="currently_equipped_lbl" type="Label" parent="." unique_id=1112120023]
 layout_mode = 0

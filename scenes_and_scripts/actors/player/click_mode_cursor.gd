@@ -42,6 +42,7 @@ var _gestures: MouseGestures
 var _gold_rest_scale: Vector2
 var _hovering: bool = false
 var _hover_tween: Tween
+var _target_scale: Vector2
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -58,8 +59,11 @@ func _ready() -> void:
 	_gold = _cursor.get_node("ParticleCartoonGold")
 	_gold_rest_scale = _gold.scale
 	_gold.modulate = GOLD_REST_COLOR
+	Signalbus.game_state_pause_changed.connect(_on_game_state_pause_changed)
 
 func _process(delta: float) -> void:
+	if GameManager.current_state == GameManager.GameState.PAUSED:
+		return
 	var manifested: bool = _should_manifest()
 	if manifested != _was_manifested:
 		_was_manifested = manifested
@@ -82,6 +86,8 @@ func _process(delta: float) -> void:
 func _input(event: InputEvent) -> void:
 	if _forwarding:
 		return
+	if GameManager.current_state == GameManager.GameState.PAUSED:
+		return
 	if not _following or DialogDirector.focused_active:
 		return
 	var motion: InputEventMouseMotion = event as InputEventMouseMotion
@@ -94,7 +100,6 @@ func _input(event: InputEvent) -> void:
 	var button: InputEventMouseButton = event as InputEventMouseButton
 	if button != null:
 		if button.pressed and Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED:
-			_virtual_pos = _clamped_viewport_point(button.position)
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		_push_synthetic_button(button)
 		_mark_input_handled()
@@ -174,16 +179,33 @@ func _manifest_cursor() -> void:
 	_cursor.global_position = _paddle_ghost.global_position
 	_cursor.scale = _paddle_ghost.scale
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	var target_scale: Vector2 = _paddle_ghost.scale * CURSOR_SCALE_FACTOR
+	_target_scale = _paddle_ghost.scale * CURSOR_SCALE_FACTOR
 	var lift_origin: Vector2 = _paddle_ghost.global_position - Vector2(0, RELEASE_LIFT)
-	_virtual_pos = _clamped_viewport_point(get_viewport().get_canvas_transform() * (lift_origin + _gold.position * target_scale))
+	_virtual_pos = _clamped_viewport_point(get_viewport().get_canvas_transform() * (lift_origin + _gold.position * _target_scale))
 	_lift_start = _paddle_ghost.global_position
 	_transition_elapsed = 0.0
 	_transitioning = true
 	_following = true
 	_tween = create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-	_tween.tween_property(_cursor, "scale", target_scale, TRANSITION_SECONDS)
+	_tween.tween_property(_cursor, "scale", _target_scale, TRANSITION_SECONDS)
 	_push_synthetic_motion(Vector2.ZERO)
+
+func _on_game_state_pause_changed(paused: bool) -> void:
+	if not _following:
+		return
+	if paused:
+		_freeze_in_place()
+		return
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+func _freeze_in_place() -> void:
+	_kill_tween()
+	if _transitioning:
+		_transitioning = false
+		_transition_elapsed = 0.0
+		_cursor.scale = _target_scale
+		_cursor.global_position = _aligned_cursor_position(_target_scale)
+	_reset_gold_visuals()
 
 func _settle_cursor() -> void:
 	_following = false

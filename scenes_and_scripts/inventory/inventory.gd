@@ -179,42 +179,52 @@ func get_gesture_damage() -> float:
 		dmg *= power.global_multi
 	return dmg
 
-func add_item(new_item) -> void:	
+func add_item(new_item) -> bool:	
 	if new_item is PaddleActive:
 		if core_items.has(new_item):#:TODO already has exactly this active
-			return
+			return false
 		var existing: Array = core_items.filter(func(i: BaseItem) -> bool: return i is PaddleActive)
 		var old_active: PaddleActive = null
 		if existing.is_empty():							
 			Signalbus.paddle_active_assigned.emit(new_item) #signal a new active is assiagned with reference to what was assigned
 			core_items.push_back(new_item)
 			Signalbus.inventory_changed.emit()
-		elif existing.size() > 1:
+			return true
+		if existing.size() > 1:
 			assert(existing.size() <=1,"more than one paddle active found: there should only be one---kinda like highlander")
-		else:
-			old_active = existing.front()
-			Signalbus.paddle_active_swap_needed.emit(old_active,new_item)
+			return false
+		old_active = existing.front()
+		if not Signalbus.paddle_active_swap_needed.has_connections():
+			return false
+		Signalbus.paddle_active_swap_needed.emit.call_deferred(old_active,new_item)
+		return await Signalbus.active_swap_closed
 
-	elif new_item is BallActive:
+	if new_item is BallActive:
 		if core_items.has(new_item):
-			return
+			return false
 		var existing: Array = core_items.filter(func(i: BaseItem) -> bool: return i is BallActive)
 		if existing.is_empty():
 			Signalbus.ball_active_assigned.emit(new_item)
 			core_items.push_back(new_item)
 			Signalbus.inventory_changed.emit()
-		elif existing.size() > 1:
+			return true
+		if existing.size() > 1:
 			assert(existing.size() <= 1, "more than one ball active found: there should only be one")
-		else:
-			Signalbus.ball_active_swap_needed.emit(existing.front(), new_item)
+			return false
+		if not Signalbus.ball_active_swap_needed.has_connections():
+			return false
+		Signalbus.ball_active_swap_needed.emit.call_deferred(existing.front(), new_item)
+		return await Signalbus.active_swap_closed
 
-	elif new_item is BallPassive or new_item is PaddlePowerup or new_item is ClickPowerUp or new_item is DefensivePowerup or new_item is UtilityPowerup:
+	if new_item is BallPassive or new_item is PaddlePowerup or new_item is ClickPowerUp or new_item is DefensivePowerup or new_item is UtilityPowerup:
 			items.push_back(new_item) #this will move when we do quantity update from above
 			Signalbus.inventory_changed.emit()
 			if new_item is DefensivePowerup:
 				var defense: DefensivePowerup = new_item
 				if defense.heal_on_pickup > 0:
 					PlayerData.change_player_health(defense.heal_on_pickup)
+			return true
+	return false
 	
 func replace_paddle_active(new_item: PaddleActive): #where item is replaced in player inventory
 	var index: int = core_items.find_custom(func(i): return i is PaddleActive)

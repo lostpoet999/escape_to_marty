@@ -7,7 +7,7 @@ extends Node
 ## =============================================================================
 
 ## Emits: scenes_and_scripts/singletons/game_manager.gd -> enter_state()
-## Connects: scenes_and_scripts/ui_menus/escape_menu.gd -> show_menu
+## Connects: scenes_and_scripts/ui_menus/escape_menu.gd -> _on_game_state_pause_changed, scenes_and_scripts/actors/player/click_mode_cursor.gd -> _on_game_state_pause_changed, scenes_and_scripts/actors/player/mouse_gestures.gd -> _on_game_state_pause_changed
 @warning_ignore("unused_signal")
 signal game_state_pause_changed(paused: bool)
 
@@ -208,6 +208,11 @@ signal ball_active_swap_needed(old_item: BallActive, new_item: BallActive)
 ## Connects: scenes_and_scripts/inventory/inventory.gd -> replace_ball_active, scenes_and_scripts/ball/ball.gd -> _assign_active_powerup
 @warning_ignore("unused_signal")
 signal ball_swap_resolved(item: BallActive)
+
+## Emits: scenes_and_scripts/ui_menus/paddle_active_swap.gd -> _on_old_item_pressed(), _on_new_item_pressed()
+## Connects: scenes_and_scripts/inventory/inventory.gd -> add_item (awaited); false means the pick was declined and must not be charged
+@warning_ignore("unused_signal")
+signal active_swap_closed(kept_new: bool)
 
 ## =============================================================================
 ## Enemy Signals

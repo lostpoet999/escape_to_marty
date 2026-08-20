@@ -10,7 +10,8 @@ func _on_loot_box_pressed() -> void:
 		queue_free()
 		return
 	var item: BaseItem = loot_items_data.items.pick_random()
+	if not await PlayerData.inventory.add_item(item):
+		return
 	loot_items_data.items.erase(item)
-	PlayerData.inventory.add_item(item)
 	if loot_items_data.items.is_empty():
 		queue_free()

@@ -52,7 +52,7 @@ color = Color(0.2, 0.2, 0.27, 1)
 [node name="StatueTopLeft(denial)" parent="PlayArea/Ritual" index="0" unique_id=810000032 instance=ExtResource("8_statue")]
 z_index = -1
 position = Vector2(896, 336)
-scale = Vector2(2, 2)
+scale = Vector2(1.7, 1.7)
 phase_color = Color(0.635294, 0.243137, 0.54902, 1)
 locks_when_charged = false
 statue_texture = ExtResource("6_qk2dm")
@@ -61,7 +61,7 @@ charged_texture = ExtResource("7_nitvl")
 [node name="StatueTopRight(anger)" parent="PlayArea/Ritual" index="1" unique_id=810000033 instance=ExtResource("8_statue")]
 z_index = -1
 position = Vector2(1280, 336)
-scale = Vector2(2, 2)
+scale = Vector2(1.7, 1.7)
 charge_seconds = 15.0
 phase_color = Color(0.647059, 0.188235, 0.188235, 1)
 locks_when_charged = false
@@ -71,7 +71,7 @@ charged_texture = ExtResource("9_tww6j")
 [node name="StatueBottomLeft(bargaining)" parent="PlayArea/Ritual" index="2" unique_id=810000034 instance=ExtResource("8_statue")]
 z_index = -1
 position = Vector2(896, 752)
-scale = Vector2(2, 2)
+scale = Vector2(1.7, 1.7)
 charge_seconds = 22.0
 phase_color = Color(0.870588, 0.619608, 0.254902, 1)
 locks_when_charged = false
@@ -81,7 +81,7 @@ charged_texture = ExtResource("11_gl0iw")
 [node name="StatueBottomRight(depression)" parent="PlayArea/Ritual" index="3" unique_id=810000035 instance=ExtResource("8_statue")]
 z_index = -1
 position = Vector2(1280, 752)
-scale = Vector2(2, 2)
+scale = Vector2(1.7, 1.7)
 charge_seconds = 30.0
 phase_color = Color(0.223529, 0.290196, 0.313725, 1)
 locks_when_charged = false

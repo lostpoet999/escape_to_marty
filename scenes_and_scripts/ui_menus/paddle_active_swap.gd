@@ -1,6 +1,6 @@
 extends Control
-@onready var old_item_btn: Button = $OldItem
-@onready var new_item_btn: Button = $NewItem
+@onready var old_item_btn: RarityTooltipButton = $OldItem
+@onready var new_item_btn: RarityTooltipButton = $NewItem
 
 @onready var old_active_ref: BaseItem
 @onready var new_active_ref: BaseItem
@@ -47,17 +47,17 @@ func setup_buttons()->void:
 		old_item_btn.icon = old_active_ref.inventory_icon
 	else:
 		old_item_btn.icon = PlayerData.inventory.PLACEHOLDER_TEX
-	old_item_btn.tooltip_text = old_active_ref.powerup_name
+	old_item_btn.tooltip_text = BaseItem.rarity_tooltip(old_active_ref)
 	if old_active_ref is BaseItem:
-		BaseItem.style_button_with_rarity(old_item_btn, old_active_ref.rarity)
+		BaseItem.style_button_with_rarity(old_item_btn, old_active_ref.rarity, 4, 10, 8.0, true)
 
 	if "inventory_icon" in new_active_ref:
 		new_item_btn.icon = new_active_ref.inventory_icon
 	else:
 		new_item_btn.icon = PlayerData.inventory.PLACEHOLDER_TEX
-	new_item_btn.tooltip_text = new_active_ref.powerup_name
+	new_item_btn.tooltip_text = BaseItem.rarity_tooltip(new_active_ref)
 	if new_active_ref is BaseItem:
-		BaseItem.style_button_with_rarity(new_item_btn, new_active_ref.rarity)
+		BaseItem.style_button_with_rarity(new_item_btn, new_active_ref.rarity, 4, 10, 8.0, true)
 
 func _on_old_item_pressed() -> void:
 	if _open_tween != null and _open_tween.is_valid():
@@ -67,6 +67,7 @@ func _on_old_item_pressed() -> void:
 	ApolloPalette.reset_popup(self)
 	hide()
 	GameManager.unpause_game()
+	Signalbus.active_swap_closed.emit(false)
 
 
 func _on_new_item_pressed() -> void:
@@ -81,3 +82,4 @@ func _on_new_item_pressed() -> void:
 		Signalbus.ball_swap_resolved.emit(new_active_ref as BallActive)
 	else:
 		Signalbus.paddle_swap_resolved.emit(new_active_ref as PaddleActive)
+	Signalbus.active_swap_closed.emit(true)

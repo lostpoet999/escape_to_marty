@@ -44,6 +44,7 @@ func _ready() -> void:
 	hold_behavior.targeting = hold_shape
 	Signalbus.player_damaged.connect(_on_player_damaged)
 	Signalbus.player_shield_spent.connect(_cancel_anger_hold)
+	Signalbus.game_state_pause_changed.connect(_on_game_state_pause_changed)
 
 @export_category("Bargain Config")
 @export var bargain_sweep_duration: float = 0.37
@@ -363,6 +364,13 @@ func _draw_bargain() -> void:
 	draw_line(origin + Vector2(track_width * sweet.x, 0.0), origin + Vector2(track_width * sweet.y, 0.0), Color(0.4, 1.0, 0.5, 0.95), 6.0)
 	var needle: Vector2 = origin + Vector2(track_width * bargain_bid, 0.0)
 	draw_line(needle + Vector2(0.0, -9.0), needle + Vector2(0.0, 9.0), Color.WHITE, 2.0)
+
+func _on_game_state_pause_changed(paused: bool) -> void:
+	if not paused:
+		return
+	if bargain_active:
+		_resolve_bargain()
+	_cancel_anger_hold()
 
 func _on_player_damaged(_amount: int) -> void:
 	_cancel_anger_hold()

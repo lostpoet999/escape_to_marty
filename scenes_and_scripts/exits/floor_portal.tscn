@@ -8,6 +8,7 @@
 size = Vector2(160, 160)
 
 [node name="FloorPortal" type="Area2D" unique_id=728341906]
+scale = Vector2(3, 2)
 script = ExtResource("1_script")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=728341907]

@@ -74,7 +74,7 @@ func _refresh() -> void:
 			icon_btn.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
 			icon_btn.vertical_icon_alignment = VERTICAL_ALIGNMENT_CENTER
 			icon_btn.tooltip_text = item.powerup_name
-			BaseItem.style_button_with_rarity(icon_btn, item.rarity)
+			BaseItem.style_button_with_rarity(icon_btn, item.rarity, 4, 10, 8.0, item is BallActive or item is PaddleActive)
 			_cost_label(i).text = "%dG" % item.cost
 			var affordable: bool = item.cost <= PlayerData.gold_collected
 			_buy_button(i).disabled = not affordable
@@ -97,8 +97,9 @@ func _on_buy_pressed(i: int) -> void:
 	var item: BaseItem = loot_items_data.items[i]
 	if item.cost > PlayerData.gold_collected:
 		return
+	if not await PlayerData.inventory.add_item(item):
+		return
 	PlayerData.change_player_gold(-item.cost)
-	PlayerData.inventory.add_item(item)
 	loot_items_data.items.erase(item)
 	_refresh()
 

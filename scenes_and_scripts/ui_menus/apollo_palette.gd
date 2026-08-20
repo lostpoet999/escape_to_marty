@@ -30,6 +30,11 @@ const POPUP_OPEN_START_SCALE: float = 0.9
 const POPUP_BREATHE_SCALE: float = 1.008
 const POPUP_BREATHE_SECONDS: float = 1.3
 
+const SHAKE_ANGLE_DEG: float = 5.0
+const SHAKE_STEP_SECONDS: float = 0.05
+const SHAKE_WOBBLES: int = 5
+const IDLE_SHAKE_META: StringName = &"idle_shake_tween"
+
 static func style_menu_button(button: Button) -> void:
 	button.flat = false
 	button.add_theme_font_override(&"font", POPUP_FONT)
@@ -74,6 +79,39 @@ static func make_breathe_tween(popup: Control, during_pause: bool) -> Tween:
 	tween.tween_property(popup, "scale", Vector2.ONE * POPUP_BREATHE_SCALE, POPUP_BREATHE_SECONDS).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	tween.tween_property(popup, "scale", Vector2.ONE, POPUP_BREATHE_SECONDS).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	return tween
+
+static func start_idle_shake(control: Control, interval_min: float, interval_max: float, first_delay: float) -> void:
+	stop_idle_shake(control)
+	_queue_idle_shake(control, first_delay, interval_min, interval_max)
+
+static func stop_idle_shake(control: Control) -> void:
+	if control.has_meta(IDLE_SHAKE_META):
+		var running: Tween = control.get_meta(IDLE_SHAKE_META) as Tween
+		if running != null and running.is_valid():
+			running.kill()
+		control.remove_meta(IDLE_SHAKE_META)
+	control.rotation = 0.0
+
+static func _queue_idle_shake(control: Control, delay: float, interval_min: float, interval_max: float) -> void:
+	if not is_instance_valid(control) or not control.is_inside_tree():
+		return
+	var tween: Tween = control.create_tween()
+	tween.set_trans(Tween.TRANS_SINE)
+	tween.tween_interval(delay)
+	tween.tween_callback(_center_pivot.bind(control))
+	for i: int in SHAKE_WOBBLES:
+		var decay: float = 1.0 - float(i) / float(SHAKE_WOBBLES)
+		var angle: float = deg_to_rad(SHAKE_ANGLE_DEG) * decay
+		tween.tween_property(control, "rotation", angle if i % 2 == 0 else -angle, SHAKE_STEP_SECONDS)
+	tween.tween_property(control, "rotation", 0.0, SHAKE_STEP_SECONDS)
+	tween.tween_callback(_requeue_idle_shake.bind(control, interval_min, interval_max))
+	control.set_meta(IDLE_SHAKE_META, tween)
+
+static func _requeue_idle_shake(control: Control, interval_min: float, interval_max: float) -> void:
+	_queue_idle_shake(control, randf_range(interval_min, interval_max), interval_min, interval_max)
+
+static func _center_pivot(control: Control) -> void:
+	control.pivot_offset = control.size / 2.0
 
 static func _popup_pivot(popup: Control) -> Vector2:
 	if popup.size != Vector2.ZERO:

@@ -18,11 +18,19 @@ const MEMORY_TROPHY_SLOTS: int = 5
 const TROPHY_DIM: Color = Color(0.35, 0.35, 0.35)
 const TROPHY_RARITY: BaseItem.RarityType = BaseItem.RarityType.VERY_RARE
 
+const REMOVE_HOLD_SECONDS: float = 1.5
+
 var buttons: Array[Button]
 
 @onready var inv_grid_container: GridContainer = %InventoryGrid
 @onready var core_grid_container: GridContainer = %CoreGrid
 @onready var trophy_row: HBoxContainer = %TrophyRow
+@onready var remove_hold_prompt: Control = %RemoveHoldPrompt
+@onready var remove_hold_name: Label = %RemoveHoldPrompt/ItemName
+@onready var remove_hold_bar: ProgressBar = %RemoveHoldPrompt/Bar
+
+var _hold_tween: Tween
+var _hold_button: Button
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -140,11 +148,12 @@ func init_button_for(item: Variant) -> Button:
 
 	button.flat = true ## change me if you decide to use a theme
 	if item is BaseItem:
-		BaseItem.style_button_with_rarity(button, item.rarity, 2, 4, 2.0)
+		BaseItem.style_button_with_rarity(button, item.rarity, 2, 4, 2.0, item is BallActive or item is PaddleActive)
 
 	## essential items (basic ball, single-slot bounce) can't be clicked away — skip the use hook
 	if item.removable:
-		button.pressed.connect(_on_button_pressed.bind(button))
+		button.button_down.connect(_on_remove_hold_started.bind(button))
+		button.button_up.connect(_cancel_remove_hold)
 	buttons.push_back(button)
 	return button
 
@@ -193,6 +202,30 @@ func clear_buttons() -> void:
 		if is_instance_valid(button):
 			button.queue_free()
 
-func _on_button_pressed(button: Button) -> void:
-	var item: BaseItem = button.get_meta(&"Item")
-	PlayerInventory.get_instance().use_item(item)
+func _on_remove_hold_started(button: Button) -> void:
+	_cancel_remove_hold()
+	_hold_button = button
+	remove_hold_bar.value = 0.0
+	var item: BaseItem = button.get_meta(&"Item") as BaseItem
+	remove_hold_name.text = item.powerup_name
+	remove_hold_name.add_theme_color_override(&"font_color", BaseItem.rarity_color(item.rarity))
+	remove_hold_prompt.visible = true
+	_hold_tween = create_tween()
+	_hold_tween.tween_property(remove_hold_bar, "value", 1.0, REMOVE_HOLD_SECONDS)
+	_hold_tween.tween_callback(_finish_remove_hold)
+
+func _cancel_remove_hold() -> void:
+	if _hold_tween != null and _hold_tween.is_valid():
+		_hold_tween.kill()
+	_hold_tween = null
+	_hold_button = null
+	remove_hold_prompt.visible = false
+
+func _finish_remove_hold() -> void:
+	var button: Button = _hold_button
+	_hold_tween = null
+	_hold_button = null
+	remove_hold_prompt.visible = false
+	if button == null or not is_instance_valid(button):
+		return
+	PlayerInventory.get_instance().use_item(button.get_meta(&"Item"))

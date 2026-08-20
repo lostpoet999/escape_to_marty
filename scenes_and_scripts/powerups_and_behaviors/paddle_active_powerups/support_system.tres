@@ -2,11 +2,12 @@
 
 [ext_resource type="Texture2D" uid="uid://cgrn4rw80ceih" path="res://scenes_and_scripts/powerups_and_behaviors/paddle_active_powerups/support_system.png" id="1_wr6as"]
 [ext_resource type="Script" uid="uid://csupportsys1" path="res://scenes_and_scripts/powerups_and_behaviors/paddle_active_powerups/support_system.gd" id="2_3tmc2"]
+[ext_resource type="Script" uid="uid://jwtisqgpmqvq" path="res://scenes_and_scripts/powerups_and_behaviors/ball_behaviors/hit_behavior.gd" id="2_ekymk"]
 
 [resource]
 script = ExtResource("2_3tmc2")
 powerup_name = "Support System"
-shop_description = "Activate to stop the ball from failing and be attracted and attached to the paddle."
+shop_description = "[Paddle Active] Activate to stop the ball from failing and be attracted and attached to the paddle."
 rarity = 3
 inventory_icon = ExtResource("1_wr6as")
 cost = 4
