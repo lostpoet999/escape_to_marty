@@ -291,10 +291,13 @@ func _pulse_click_targets() -> void:
 		return
 	for node: Node in scene.find_children("*", "", true, false):
 		if node.has_method("accept_damage") and _gestures.is_gesture_target(node):
-			if ENTRY_TELL_GROW:
-				_pulse_target_sprite(node)
-			if ENTRY_TELL_DAMAGE_FX and node is BaseSeal:
-				_spawn_target_fx(node)
+			pulse_target(node)
+
+func pulse_target(target: Node) -> void:
+	if ENTRY_TELL_GROW:
+		_pulse_target_sprite(target)
+	if ENTRY_TELL_DAMAGE_FX and target is BaseSeal:
+		_spawn_target_fx(target)
 
 func _spawn_target_fx(target: Node) -> void:
 	var target_2d: Node2D = target as Node2D

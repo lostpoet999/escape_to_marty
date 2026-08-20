@@ -96,6 +96,16 @@ signal wall_walker_removed(walker: Node2D)
 @warning_ignore("unused_signal")
 signal floor_cleared
 
+## Emits: scenes_and_scripts/bricks/practice_seal.gd -> _begin_practice_linger()
+## Connects: scenes_and_scripts/levels/room_base.gd -> _on_practice_seal_cleared
+@warning_ignore("unused_signal")
+signal practice_seal_cleared
+
+## Emits: scenes_and_scripts/exits/exits.gd -> _on_exit_clicked()
+## Connects: scenes_and_scripts/levels/room_base.gd -> _on_practice_exit_blocked
+@warning_ignore("unused_signal")
+signal practice_exit_blocked
+
 ## =============================================================================
 ## PLAYER/UI SIGNALS
 ## =============================================================================

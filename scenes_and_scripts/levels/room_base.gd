@@ -70,6 +70,17 @@ var _seal_cluster_count: int = 0
 var _seal_cooldown_until_ms: int = -1
 var _first_launch_seen: bool = false
 
+## Tutorial gate: a start room keeps its doors shut until the practice seal is popped once.
+## Seconds idling with it still unpopped before David quips about practicing.
+@export var practice_nudge_delay_s: float = 8.0
+## Seconds before the quip repeats; also the cooldown a clicked-exit quip burns, so the door click and the idle timer can't double up.
+@export var practice_nudge_repeat_s: float = 20.0
+const PRACTICE_NUDGE_TREE: StringName = &"practice_before_leaving"
+var _practice_gate_active: bool = false
+var _practice_nudge_timer_s: float = -1.0
+var _practice_nudge_cooldown_s: float = 0.0
+var _cutscene: Node = null
+
 var gold_cleared: bool = false
 var bricks_cleared: bool = false
 var level_clear_emitted: bool = false
@@ -94,6 +105,7 @@ var entry: RoomEntry
 
 func _process(delta: float) -> void:
 	_tick_mercy_timer(delta)
+	_tick_practice_nudge(delta)
 
 	
 func supress_respawn_entities()->void:
@@ -116,6 +128,7 @@ func _ready() -> void:
 	visible = false
 	entry = GameManager.get_current_floor_entry(GameManager.current_room_id)
 	room_state = PlayerData.get_room_state(entry)
+	_init_practice_gate()
 	DialogDirector.reset_clear_queue()
 	if room_state.cleared:
 		supress_respawn_entities()
@@ -144,6 +157,8 @@ func _ready() -> void:
 	Signalbus.player_died.connect(_hide_hud_for_death)
 	Signalbus.game_state_playing.connect(_restore_hud_after_death)
 	Signalbus.game_state_main_menu.connect(_restore_hud_after_death)
+	Signalbus.practice_seal_cleared.connect(_on_practice_seal_cleared)
+	Signalbus.practice_exit_blocked.connect(_on_practice_exit_blocked)
 	initiate_special_room()
 	if entry.content.room_type == RoomContent.ROOM_TYPES.combat:
 		_play_combat_entry_dialog()
@@ -170,10 +185,69 @@ func _play_combat_entry_dialog() -> void:
 func _run_cutscene_if_present() -> void:
 	for child: Node in get_children():
 		if child.is_in_group("cutscene") and child.has_method("run"):
+			_cutscene = child
 			child.call("run")
 			if child.get("active") == true:
 				GameManager.set_mouse_visible()
 			return
+
+func _init_practice_gate() -> void:
+	if entry.content.room_type != RoomContent.ROOM_TYPES.starting_room:
+		return
+	if room_state.practice_cleared:
+		return
+	if not SettingsManager.show_tutorial_tips or find_children("*", "PracticeSeal", true, false).is_empty():
+		room_state.practice_cleared = true
+		return
+	_practice_gate_active = true
+	_practice_nudge_timer_s = practice_nudge_delay_s
+
+func _tick_practice_nudge(delta: float) -> void:
+	if not _practice_gate_active:
+		return
+	if _practice_nudge_cooldown_s > 0.0:
+		_practice_nudge_cooldown_s -= delta
+	if _practice_nudge_suppressed():
+		_practice_nudge_timer_s = practice_nudge_delay_s
+		return
+	_practice_nudge_timer_s -= delta
+	if _practice_nudge_timer_s <= 0.0:
+		_play_practice_nudge()
+
+func _practice_nudge_suppressed() -> bool:
+	if DialogDirector.focused_active:
+		return true
+	return _cutscene != null and is_instance_valid(_cutscene) and _cutscene.get("active") == true
+
+func _play_practice_nudge() -> void:
+	_practice_nudge_timer_s = practice_nudge_repeat_s
+	if _practice_nudge_cooldown_s > 0.0:
+		return
+	_practice_nudge_cooldown_s = practice_nudge_repeat_s
+	DialogDirector.play(PRACTICE_NUDGE_TREE)
+	_pulse_practice_seal()
+
+func _pulse_practice_seal() -> void:
+	var seal: Node = get_tree().get_first_node_in_group(&"practice_seal")
+	if seal == null:
+		return
+	var cursor: ClickModeCursor = get_tree().get_first_node_in_group(&"click_mode_cursor") as ClickModeCursor
+	if cursor == null:
+		return
+	cursor.pulse_target(seal)
+
+func _on_practice_exit_blocked() -> void:
+	if not _practice_gate_active:
+		return
+	_play_practice_nudge()
+
+func _on_practice_seal_cleared() -> void:
+	room_state.practice_cleared = true
+	_practice_gate_active = false
+	_practice_nudge_timer_s = -1.0
+	for room_exit: Node in get_tree().get_nodes_in_group(&"exits"):
+		if room_exit.has_method(&"reconcile_exits"):
+			room_exit.call(&"reconcile_exits")
 
 func flash_play_area(color: Color) -> void:
 	flash_overlay.color = Color(color.r, color.g, color.b, 0.0)

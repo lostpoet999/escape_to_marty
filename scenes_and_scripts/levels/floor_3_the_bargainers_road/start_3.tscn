@@ -53,6 +53,6 @@ offset_left = 1023.0
 offset_top = 691.0
 offset_right = 1279.0
 offset_bottom = 783.0
-text = "TIP: Click and hold the seal to make an offer. Release in the green."
+text = "Practice: Click and hold the seal to make an offer. Release in the green."
 label_settings = SubResource("LabelSettings_cefam")
 autowrap_mode = 3

@@ -79,6 +79,9 @@ func reconcile_exits()-> void:
 			self.input_pickable = false
 	elif travel_locked:
 		show_closed_door()
+	elif _practice_lock_active():
+		show_closed_door()
+		self.input_pickable = true
 	elif _targets_bonus_room():
 		_show_bonus_door()
 	elif room_cleared:
@@ -117,6 +120,10 @@ func _on_exit_clicked()-> void:
 			reveal_secret()
 		return
 
+	if _practice_lock_active():
+		Signalbus.practice_exit_blocked.emit()
+		return
+
 	if _targets_bonus_room() and not _bonus_gate_open():
 		DialogDirector.play(&"bonus_door_locked")
 		return
@@ -140,11 +147,19 @@ func _on_exit_clicked()-> void:
 func is_click_responsive()-> bool:
 	if _is_secret_unrevealed() or travel_locked:
 		return false
+	if _practice_lock_active():
+		return _target_id() != ""
 	if _targets_bonus_room() and not _bonus_gate_open():
 		return true
 	if _memory_lock_active() and not _targets_uncollected_memory():
 		return false
 	return room_cleared and _target_id() != ""
+
+func _practice_lock_active()-> bool:
+	var here: RoomEntry = room_ref[GameManager.current_room_id]
+	if here.content.room_type != RoomContent.ROOM_TYPES.starting_room:
+		return false
+	return not _current_room_state().practice_cleared
 
 func _bonus_gate_open()-> bool:
 	var target_id: String = _target_id()

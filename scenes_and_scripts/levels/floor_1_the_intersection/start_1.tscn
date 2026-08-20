@@ -52,7 +52,7 @@ offset_left = 1024.0
 offset_top = 704.0
 offset_right = 1280.0
 offset_bottom = 763.0
-text = "TIP: Click to break the \"Shells of Denial\""
+text = "Practice: Click to break the \"Shells of Denial\""
 label_settings = SubResource("LabelSettings_f1tip")
 autowrap_mode = 3
 

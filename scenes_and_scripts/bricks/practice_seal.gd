@@ -47,6 +47,7 @@ func restore_denial(full_health: float) -> void:
 	super(full_health)
 
 func _begin_practice_linger() -> void:
+	Signalbus.practice_seal_cleared.emit()
 	_kill_poof_tween()
 	_poof_tween = create_tween()
 	_poof_tween.tween_interval(_revert_window() + LINGER_GRACE)
