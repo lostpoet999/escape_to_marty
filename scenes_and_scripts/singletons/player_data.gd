@@ -19,6 +19,7 @@ var shop_restock_vouchers: int = 0
 
 var inventory: PlayerInventory
 var room_state: Dictionary = {}
+var hidden_alcove_picks: Dictionary = {}
 var item_box: Node2D
 var seen_dialog_trees: Array[StringName] = []
 var seen_cutscenes: Array[StringName] = []
@@ -82,6 +83,7 @@ func initialize_player_data() -> void:
 	pick2_vouchers = 0
 	shop_restock_vouchers = 0
 	room_state.clear()
+	hidden_alcove_picks.clear()
 	seen_dialog_trees.clear()
 	seen_cutscenes.clear()
 	dialog_trigger_counts.clear()
@@ -214,6 +216,12 @@ func build_checkpoint() -> Dictionary:
 	var retries: Dictionary = {}
 	for floor_index: int in retry_counts:
 		retries[str(floor_index)] = retry_counts[floor_index]
+	var alcove_picks: Dictionary = {}
+	for floor_index: int in hidden_alcove_picks:
+		var pick: Dictionary = hidden_alcove_picks[floor_index]
+		var host: Vector2i = pick["host"]
+		var cell: Vector2i = pick["cell"]
+		alcove_picks[str(floor_index)] = [host.x, host.y, cell.x, cell.y]
 	return {
 		"score": score,
 		"gold": gold_collected,
@@ -228,6 +236,7 @@ func build_checkpoint() -> Dictionary:
 		"seen_cutscenes": seen_cutscenes.map(func(id: StringName) -> String: return String(id)),
 		"dialog_trigger_counts": trigger_counts,
 		"retry_counts": retries,
+		"alcove_picks": alcove_picks,
 		"items": _item_paths(inventory.items),
 		"core_items": _item_paths(inventory.core_items),
 	}
@@ -264,6 +273,16 @@ func restore_checkpoint(data: Dictionary) -> void:
 	var retries: Dictionary = data.get("retry_counts", {})
 	for key: String in retries:
 		retry_counts[int(key)] = _saved_int(retries, key, 0)
+	hidden_alcove_picks.clear()
+	var alcove_picks: Dictionary = data.get("alcove_picks", {})
+	for key: String in alcove_picks:
+		var coords: Array = alcove_picks[key]
+		if coords.size() != 4:
+			continue
+		hidden_alcove_picks[int(key)] = {
+			"host": Vector2i(int(coords[0]), int(coords[1])),
+			"cell": Vector2i(int(coords[2]), int(coords[3])),
+		}
 	pending_memories.clear()
 	inventory.items.clear()
 	for path: String in data.get("items", []):

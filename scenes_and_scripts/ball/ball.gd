@@ -28,6 +28,9 @@ var flipped_y: bool = false
 @export var wall_hit_score_value:int = 1
 @export var paddle_hit_score_value:int = 1
 
+@export var seal_hit_trauma: float = 0.2
+@export var barrier_hit_trauma: float = 0.26
+
 @export var bounce_effect: BaseBounceEffect
 
 ## Minimum angle in degrees between the ball's path and the horizontal after any bounce;
@@ -484,6 +487,7 @@ func spawn_collision_feedback(collider: Node2D) -> void:
 		PlayerData.update_player_score(brick_hit_score_value)
 		if collider.has_method("hit_knockback"):
 			collider.call("hit_knockback", velocity.normalized())
+		_add_hit_trauma(seal_hit_trauma)
 	if collider.is_in_group("walls"):
 		fx = wall_bounce_particles.instantiate()
 		SFX.play_sound("bounce_1")
@@ -493,6 +497,7 @@ func spawn_collision_feedback(collider: Node2D) -> void:
 	if collider.is_in_group("barrier"):
 		fx = barrier_bounce_particles.instantiate()
 		SFX.play_sound("bounce_barrier")
+		_add_hit_trauma(barrier_hit_trauma)
 	if collider.is_in_group("bounce_enemy") and enemy_bounce_particles != null:
 		fx = enemy_bounce_particles.instantiate()
 	if collider.is_in_group("paddle"):
@@ -503,6 +508,15 @@ func spawn_collision_feedback(collider: Node2D) -> void:
 	if fx != null:
 		fx.position = global_position
 		get_tree().current_scene.add_child(fx)
+
+func _add_hit_trauma(amount: float) -> void:
+	if amount <= 0.0:
+		return
+	var camera: Camera2D = get_viewport().get_camera_2d()
+	if camera == null or not camera.has_method(&"add_trauma"):
+		return
+	@warning_ignore("unsafe_method_access")
+	camera.add_trauma(amount)
 
 # --- Collision query ---
 

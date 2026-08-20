@@ -105,6 +105,12 @@ func _on_give_gold_btn_pressed() -> void:
 func _on_heal_btn_pressed() -> void:
 	PlayerData.change_player_health(5)
 
+func _on_give_pick_ticket_btn_pressed() -> void:
+	PlayerData.grant_pick2_voucher()
+
+func _on_give_reroll_ticket_btn_pressed() -> void:
+	PlayerData.grant_shop_restock_voucher()
+
 func populate_floor_warp() -> void:
 	for child: Node in floor_list.get_children():
 		child.queue_free()

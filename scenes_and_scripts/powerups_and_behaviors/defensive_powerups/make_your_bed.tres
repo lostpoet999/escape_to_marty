@@ -10,5 +10,4 @@ heal_on_pickup = 1
 powerup_name = "Make Your Bed"
 shop_description = "Increase health by 1."
 inventory_icon = ExtResource("1_jx2o4")
-cost = 8
 metadata/_custom_type_script = "uid://bfi0bx0djqr18"

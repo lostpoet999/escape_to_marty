@@ -126,6 +126,18 @@ tooltip_text = "Heal the player by 5, clamped to max health."
 theme_override_styles/normal = SubResource("StyleBoxFlat_vy6bg")
 text = "Heal"
 
+[node name="give_pick_ticket_btn" type="Button" parent="Panel/HBoxContainer/TrackedVariables/VBoxContainer/GridContainer"]
+layout_mode = 2
+tooltip_text = "Give 1 pick ticket (extra pick on free-item panels)."
+theme_override_styles/normal = SubResource("StyleBoxFlat_vy6bg")
+text = "Pick Tkt"
+
+[node name="give_reroll_ticket_btn" type="Button" parent="Panel/HBoxContainer/TrackedVariables/VBoxContainer/GridContainer"]
+layout_mode = 2
+tooltip_text = "Give 1 restock ticket (free shop Restock All)."
+theme_override_styles/normal = SubResource("StyleBoxFlat_vy6bg")
+text = "Reroll Tkt"
+
 [node name="TrackedVariable_lbl" type="Label" parent="Panel/HBoxContainer/TrackedVariables/VBoxContainer" unique_id=970531247]
 layout_mode = 2
 text = "Tracked Variables"
@@ -139,3 +151,5 @@ layout_mode = 2
 [connection signal="pressed" from="Panel/HBoxContainer/TrackedVariables/VBoxContainer/GridContainer/enable_exits_btn" to="." method="_on_enable_exits_btn_pressed"]
 [connection signal="pressed" from="Panel/HBoxContainer/TrackedVariables/VBoxContainer/GridContainer/give_gold_btn" to="." method="_on_give_gold_btn_pressed"]
 [connection signal="pressed" from="Panel/HBoxContainer/TrackedVariables/VBoxContainer/GridContainer/heal_btn" to="." method="_on_heal_btn_pressed"]
+[connection signal="pressed" from="Panel/HBoxContainer/TrackedVariables/VBoxContainer/GridContainer/give_pick_ticket_btn" to="." method="_on_give_pick_ticket_btn_pressed"]
+[connection signal="pressed" from="Panel/HBoxContainer/TrackedVariables/VBoxContainer/GridContainer/give_reroll_ticket_btn" to="." method="_on_give_reroll_ticket_btn_pressed"]

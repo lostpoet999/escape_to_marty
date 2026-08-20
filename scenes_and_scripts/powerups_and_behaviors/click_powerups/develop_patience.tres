@@ -10,5 +10,4 @@ powerup_name = "Develop Patience"
 shop_description = "Adds two click damage"
 rarity = 1
 inventory_icon = ExtResource("1_tripy")
-cost = 45
 metadata/_custom_type_script = "uid://cqk3m8x2n5p1"

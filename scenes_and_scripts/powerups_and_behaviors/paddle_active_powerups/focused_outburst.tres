@@ -39,5 +39,4 @@ powerup_name = "Focused Outburst"
 shop_description = "[Paddle Active] Fires projectile that damages seals and Pent Rage"
 rarity = 3
 inventory_icon = ExtResource("1_0rmrp")
-cost = 65
 metadata/_custom_type_script = "uid://0q4ogral5cxt"

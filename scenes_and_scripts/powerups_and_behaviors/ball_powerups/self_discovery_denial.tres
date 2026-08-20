@@ -25,5 +25,4 @@ powerup_name = "Self Discovery"
 shop_description = "Damages all Seals of Denial"
 rarity = 2
 inventory_icon = ExtResource("1_50aic")
-cost = 65
 metadata/_custom_type_script = "uid://bryv4msdad7wu"

@@ -9,5 +9,4 @@ powerup_name = "Looking for Trouble"
 shop_description = "[Ball Active] Find trouble in all the right places. Send the ball on a collision course for the nearest seal."
 rarity = 3
 inventory_icon = ExtResource("1_v7lvv")
-cost = 65
 metadata/_custom_type_script = "uid://cmf1ghlyv47kr"

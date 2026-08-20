@@ -10,6 +10,5 @@ shop_description = "Enable another pick in free-item rooms."
 rarity = 0
 min_floor = 0
 inventory_icon = ExtResource("2")
-cost = 0
 removable = false
 metadata/_custom_type_script = "uid://c883xeifksqne"

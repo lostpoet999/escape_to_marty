@@ -10,5 +10,4 @@ powerup_name = "Support System"
 shop_description = "[Paddle Active] Activate to stop the ball from failing and be attracted and attached to the paddle."
 rarity = 3
 inventory_icon = ExtResource("1_wr6as")
-cost = 4
 metadata/_custom_type_script = "uid://csupportsys1"

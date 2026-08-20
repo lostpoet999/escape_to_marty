@@ -19,6 +19,12 @@ const RARITY_NAMES: Dictionary = {
 	RarityType.RARE: "Rare",
 	RarityType.VERY_RARE: "Very Rare",
 }
+const RARITY_COSTS: Dictionary = {
+	RarityType.COMMON: 10,
+	RarityType.UNCOMMON: 20,
+	RarityType.RARE: 45,
+	RarityType.VERY_RARE: 65,
+}
 
 const PULSE_SECONDS: float = 0.4
 const SHAKE_FIRST_DELAY: float = 0.4
@@ -106,10 +112,13 @@ static func _rarity_box(color: Color, fill_alpha: float, border_width: int, corn
 @export var rarity: RarityType
 @export var min_floor: int
 @export var inventory_icon: Texture2D
-@export var cost: int
 @export var removable: bool = true 
 @export var reveals_adjacent_rooms: bool = false
 @export var enables_minimap: bool = false
 @export var clears_barriers: bool = false
 ## which floor's memory-trophy slot this item owns; 0 = not a trophy
 @export var trophy_floor: int = 0
+
+var cost: int:
+	get:
+		return RARITY_COSTS.get(rarity, RARITY_COSTS[RarityType.COMMON])

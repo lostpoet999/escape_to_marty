@@ -12,10 +12,12 @@ const SLOT_REROLL_DESCRIPTION: String = "Reroll: swap this item for another, %d 
 
 var slots: Array[Control] = []
 var slot_reroll_buttons: Array[Button] = []
+var default_description_text: String = ""
 
 func _ready() -> void:
 	_style_item_description()
 	_configure_grid()
+	default_description_text = item_description_label.text
 	for child: Node in item_grid.get_children():
 		if child is Control:
 			slots.append(child)
@@ -26,6 +28,9 @@ func _ready() -> void:
 		_item_button(i).mouse_entered.connect(_on_mouse_entered_item.bind(i))
 		_buy_button(i).mouse_entered.connect(_on_mouse_entered_item.bind(i))
 		slots[i].mouse_entered.connect(_on_mouse_entered_item.bind(i))
+		_item_button(i).mouse_exited.connect(_on_mouse_exited_item)
+		_buy_button(i).mouse_exited.connect(_on_mouse_exited_item)
+		slots[i].mouse_exited.connect(_on_mouse_exited_item)
 		slot_reroll_buttons.append(_make_slot_reroll_button(i))
 	reroll_button.text = "Restock All"
 	reroll_button.pressed.connect(_on_reroll_pressed)
@@ -47,6 +52,7 @@ func _make_slot_reroll_button(i: int) -> Button:
 	ApolloPalette.style_small_menu_button(button)
 	button.pressed.connect(_on_slot_reroll_pressed.bind(i))
 	button.mouse_entered.connect(_on_mouse_entered_slot_reroll)
+	button.mouse_exited.connect(_on_mouse_exited_item)
 	return button
 
 func _item_button(i: int) -> Button:
@@ -135,3 +141,6 @@ func _on_mouse_entered_item(i: int) -> void:
 
 func _on_mouse_entered_slot_reroll() -> void:
 	item_description_label.text = "[center]%s[/center]" % (SLOT_REROLL_DESCRIPTION % SLOT_REROLL_COST)
+
+func _on_mouse_exited_item() -> void:
+	item_description_label.text = default_description_text

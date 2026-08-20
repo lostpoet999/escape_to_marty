@@ -75,7 +75,6 @@ func run() -> void:
 	_set_exits_locked(false)
 	_reveal_practice_seal()
 	_remove_skip_prompt()
-	await _play_exit_tip()
 	active = false
 
 
@@ -104,28 +103,6 @@ func _skip_to_end() -> void:
 	_set_tutorial_visible(true)
 	_set_exits_locked(false)
 	_reveal_practice_seal()
-	_play_exit_tip()
-
-
-func _play_exit_tip() -> void:
-	while DialogDirector.focused_active:
-		await get_tree().process_frame
-	if not is_inside_tree():
-		return
-	var door: Node2D = _first_open_exit()
-	if door == null:
-		return
-	await DialogDirector.play_and_wait(&"tutorial_exit", door)
-
-
-func _first_open_exit() -> Node2D:
-	for node: Node in get_tree().get_nodes_in_group(&"exits"):
-		var door: Node2D = node as Node2D
-		if door == null or not door.has_method("is_click_responsive"):
-			continue
-		if door.call("is_click_responsive") == true:
-			return door
-	return null
 
 
 func _clear_shell() -> void:

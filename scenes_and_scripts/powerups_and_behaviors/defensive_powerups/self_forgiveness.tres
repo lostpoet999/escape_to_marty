@@ -10,5 +10,4 @@ powerup_name = "Self Forgiveness"
 shop_description = "You go easy on yourself.  Ball misses do 20% less damage."
 rarity = 1
 inventory_icon = ExtResource("1_sape8")
-cost = 45
 metadata/_custom_type_script = "uid://bfi0bx0djqr18"

@@ -5,6 +5,8 @@ const MAIN_MENU: PackedScene = preload("uid://djuj72c4lcukn")
 const CREDITS_SCENE: PackedScene = preload("res://scenes_and_scripts/ui_main_menu/credits_scene.tscn")
 const RETRY_ROOM: PackedScene = preload("res://scenes_and_scripts/levels/common_rooms/retry_room/retry_room.tscn")
 const RETRY_ROOM_COORDS: Vector2i = Vector2i(99, 99)
+const ALCOVE_ROOM: PackedScene = preload("res://scenes_and_scripts/levels/common_rooms/powerup_1.tscn")
+const CARDINAL_OFFSETS: Array[Vector2i] = [Vector2i(0, -1), Vector2i(0, 1), Vector2i(1, 0), Vector2i(-1, 0)]
 
 #floor references — add floors by editing floor_registry.tres in the inspector
 const FLOOR_REGISTRY: FloorRegistry = preload("res://scenes_and_scripts/levels/floor_registry.tres")
@@ -69,6 +71,7 @@ func get_floor_data()->void:
 		else:
 			open_slots.append(slot)
 	_assign_pooled_content(open_slots)
+	_apply_trophy_alcove()
 
 func _assign_pooled_content(open_slots: Array[RoomEntry]) -> void:
 	var assignment: Array[RoomContent] = []
@@ -89,6 +92,107 @@ func _assign_pooled_content(open_slots: Array[RoomEntry]) -> void:
 		var resolved: RoomEntry = open_slots[i].duplicate()
 		resolved.content = assignment[i]
 		room_data_for_floor[RoomEntry.make_key(resolved.room_coords)] = resolved
+
+func _apply_trophy_alcove() -> void:
+	if not _alcove_mode_active():
+		return
+	_seal_memory_doors()
+	_inject_alcove()
+
+func _alcove_mode_active() -> bool:
+	if not SaveProgression.has_memory_trophy(current_floor):
+		return false
+	var found_memory: bool = false
+	for key: String in room_data_for_floor:
+		var entry: RoomEntry = room_data_for_floor[key]
+		if entry.content == null or entry.content.room_type != RoomContent.ROOM_TYPES.memory:
+			continue
+		if entry.content.memory_tree == null:
+			continue
+		found_memory = true
+		if not SaveProgression.is_memory_seen(entry.content.memory_id()):
+			return false
+	return found_memory
+
+func _seal_memory_doors() -> void:
+	for key: String in room_data_for_floor.keys():
+		var entry: RoomEntry = room_data_for_floor[key]
+		if entry.content == null or entry.content.room_type != RoomContent.ROOM_TYPES.memory:
+			continue
+		var sealed: RoomEntry = entry.duplicate()
+		for offset: Vector2i in CARDINAL_OFFSETS:
+			sealed.set_door(offset, false)
+		room_data_for_floor[key] = sealed
+		for offset: Vector2i in CARDINAL_OFFSETS:
+			var neighbor_key: String = RoomEntry.make_key(entry.room_coords + offset)
+			if not room_data_for_floor.has(neighbor_key):
+				continue
+			var neighbor: RoomEntry = room_data_for_floor[neighbor_key]
+			if not neighbor.has_door(-offset):
+				continue
+			var cut: RoomEntry = neighbor.duplicate()
+			cut.set_door(-offset, false)
+			room_data_for_floor[neighbor_key] = cut
+
+func _inject_alcove() -> void:
+	var pick: Dictionary = PlayerData.hidden_alcove_picks.get(current_floor, {})
+	if pick.is_empty() or not _alcove_pick_valid(pick):
+		pick = _roll_alcove_pick()
+		if pick.is_empty():
+			return
+		PlayerData.hidden_alcove_picks[current_floor] = pick
+	var host: Vector2i = pick["host"]
+	var cell: Vector2i = pick["cell"]
+	var content: RoomContent = RoomContent.new()
+	content.room_scene = ALCOVE_ROOM
+	content.room_type = RoomContent.ROOM_TYPES.free_item
+	content.is_secret = true
+	var entry: RoomEntry = RoomEntry.new()
+	entry.room_coords = cell
+	entry.content = content
+	entry.set_door(host - cell, true)
+	room_data_for_floor[RoomEntry.make_key(cell)] = entry
+
+func _alcove_pick_valid(pick: Dictionary) -> bool:
+	var host: Vector2i = pick["host"]
+	var cell: Vector2i = pick["cell"]
+	if cell - host not in CARDINAL_OFFSETS:
+		return false
+	var host_key: String = RoomEntry.make_key(host)
+	if not room_data_for_floor.has(host_key):
+		return false
+	var host_entry: RoomEntry = room_data_for_floor[host_key]
+	if host_entry.content == null or host_entry.content.room_type != RoomContent.ROOM_TYPES.combat:
+		return false
+	return not room_data_for_floor.has(RoomEntry.make_key(cell))
+
+func _roll_alcove_pick() -> Dictionary:
+	var hosts: Array[RoomEntry] = []
+	for key: String in room_data_for_floor:
+		var entry: RoomEntry = room_data_for_floor[key]
+		if entry.content == null or entry.content.room_type != RoomContent.ROOM_TYPES.combat:
+			continue
+		if not _open_cells_beside(entry.room_coords).is_empty():
+			hosts.append(entry)
+	if hosts.is_empty():
+		return {}
+	var host: RoomEntry = hosts.pick_random()
+	var cells: Array[Vector2i] = _open_cells_beside(host.room_coords)
+	var cell: Vector2i = cells.pick_random()
+	return {"host": host.room_coords, "cell": cell}
+
+func _open_cells_beside(coords: Vector2i) -> Array[Vector2i]:
+	var cells: Array[Vector2i] = []
+	for offset: Vector2i in CARDINAL_OFFSETS:
+		var cell: Vector2i = coords + offset
+		if cell.x < 1 or cell.x > floor_data.grid_size.x:
+			continue
+		if cell.y < 1 or cell.y > floor_data.grid_size.y:
+			continue
+		if room_data_for_floor.has(RoomEntry.make_key(cell)):
+			continue
+		cells.append(cell)
+	return cells
 
 func grant_memory_trophies() -> void:
 	if PlayerData.inventory == null:
@@ -239,15 +343,15 @@ func start_floor_with_data(data: FloorData, reset_player_data: bool = true) -> v
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	floor_data = data
 	test_floor_active = data.floor_name_id == "TEST"
+	if reset_player_data:
+		PlayerData.initialize_player_data()
+	else:
+		PlayerData.room_state.clear()
 	get_floor_data()
 	var start_slot: RoomEntry = _find_starting_slot()
 	current_room_id = RoomEntry.make_key(start_slot.room_coords)
 	scene_ref = start_slot.content.room_scene
 	_configure_frame_rate()
-	if reset_player_data:
-		PlayerData.initialize_player_data()
-	else:
-		PlayerData.room_state.clear()
 	
 
 func _ready() -> void:

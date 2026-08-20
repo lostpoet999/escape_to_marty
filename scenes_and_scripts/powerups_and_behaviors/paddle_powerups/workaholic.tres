@@ -11,5 +11,4 @@ powerup_name = "Workaholic"
 shop_description = "You focus on your work and find it much easier to obtain gold.  Attract and collect nearby gold coins."
 rarity = 1
 inventory_icon = ExtResource("1_cq2bi")
-cost = 20
 metadata/_custom_type_script = "uid://b81b3hhkeuin4"

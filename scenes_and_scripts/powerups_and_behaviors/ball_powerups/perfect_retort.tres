@@ -10,5 +10,4 @@ global_bonus = 1.0
 powerup_name = "Perfect Retort"
 shop_description = "Your snappy comebacks add 1 to total ball damage."
 inventory_icon = ExtResource("1_61pew")
-cost = 10
 metadata/_custom_type_script = "uid://bryv4msdad7wu"

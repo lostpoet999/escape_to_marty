@@ -10,5 +10,4 @@ powerup_name = "Second Chance"
 shop_description = "Shields from damage one time if the ball enters the life force"
 rarity = 1
 inventory_icon = ExtResource("1_5q3cc")
-cost = 65
 metadata/_custom_type_script = "uid://bfi0bx0djqr18"

@@ -245,9 +245,31 @@ func _on_practice_seal_cleared() -> void:
 	room_state.practice_cleared = true
 	_practice_gate_active = false
 	_practice_nudge_timer_s = -1.0
+	if SFX.sound_dict.has(CLEAR_POP_STING):
+		SFX.play_sound(CLEAR_POP_STING)
 	for room_exit: Node in get_tree().get_nodes_in_group(&"exits"):
 		if room_exit.has_method(&"reconcile_exits"):
 			room_exit.call(&"reconcile_exits")
+	_play_exit_tip()
+
+func _play_exit_tip() -> void:
+	while DialogDirector.focused_active:
+		await get_tree().process_frame
+	if not is_inside_tree():
+		return
+	var door: Node2D = _first_open_exit()
+	if door == null:
+		return
+	await DialogDirector.play_and_wait(&"tutorial_exit", door)
+
+func _first_open_exit() -> Node2D:
+	for node: Node in get_tree().get_nodes_in_group(&"exits"):
+		var door: Node2D = node as Node2D
+		if door == null or not door.has_method("is_click_responsive"):
+			continue
+		if door.call("is_click_responsive") == true:
+			return door
+	return null
 
 func flash_play_area(color: Color) -> void:
 	flash_overlay.color = Color(color.r, color.g, color.b, 0.0)
@@ -404,8 +426,6 @@ func _init_memory_room() -> void:
 	bricks_cleared = true
 	gold_cleared = true
 	check_level_cleared()
-	if SaveProgression.is_memory_seen(entry.content.memory_id()):
-		_spawn_free_item_panel()
 
 func _on_enemy_requested(spawn_from: Area2D) -> void: # for brick break enemies
 	if _mercy_pop_pending:

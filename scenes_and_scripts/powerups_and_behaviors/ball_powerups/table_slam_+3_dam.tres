@@ -11,5 +11,4 @@ powerup_name = "Table Slam"
 shop_description = "Adds 3 ball damage (before multipliers)"
 rarity = 2
 inventory_icon = ExtResource("1_vhlsx")
-cost = 65
 metadata/_custom_type_script = "uid://bryv4msdad7wu"

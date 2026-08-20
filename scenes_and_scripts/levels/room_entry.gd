@@ -20,3 +20,10 @@ func has_door(offset: Vector2i) -> bool:
 		Vector2i(1, 0): return east_exit
 		Vector2i(-1, 0): return west_exit
 	return false
+
+func set_door(offset: Vector2i, open: bool) -> void:
+	match offset:
+		Vector2i(0, -1): north_exit = open
+		Vector2i(0, 1): south_exit = open
+		Vector2i(1, 0): east_exit = open
+		Vector2i(-1, 0): west_exit = open

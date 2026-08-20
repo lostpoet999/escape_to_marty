@@ -44,5 +44,4 @@ powerup_name = "Support Group"
 shop_description = "Clears seals in a radius"
 rarity = 2
 inventory_icon = ExtResource("1_8hx5i")
-cost = 65
 metadata/_custom_type_script = "uid://bryv4msdad7wu"

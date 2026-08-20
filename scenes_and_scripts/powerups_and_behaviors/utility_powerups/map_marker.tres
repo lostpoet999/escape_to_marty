@@ -9,7 +9,6 @@ powerup_name = "Map Marker"
 shop_description = "Reveals the floor map, marking the type of each room you've found"
 rarity = 1
 inventory_icon = ExtResource("1_gajqn")
-cost = 4
 enables_minimap = true
 trophy_floor = 1
 metadata/_custom_type_script = "uid://cscanutil01"

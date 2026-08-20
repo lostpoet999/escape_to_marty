@@ -11,5 +11,4 @@ powerup_name = "Self Confidence"
 shop_description = "You can take more hits before you give up.  Increase health by 5."
 rarity = 1
 inventory_icon = ExtResource("1_n4uur")
-cost = 20
 metadata/_custom_type_script = "uid://bfi0bx0djqr18"

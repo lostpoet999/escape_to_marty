@@ -9,6 +9,5 @@ powerup_name = "Room Scanner"
 shop_description = "Displays nearby rooms in the minimap"
 rarity = 1
 inventory_icon = ExtResource("1_1dgxd")
-cost = 4
 reveals_adjacent_rooms = true
 metadata/_custom_type_script = "uid://cscanutil01"
