@@ -15,6 +15,7 @@ requires_live_seals = true
 metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 
 [node name="combat_4_1" unique_id=1335829894 instance=ExtResource("1_sj47l")]
+standalone_floor = 4
 
 [node name="SubViewportContainer" parent="." index="0" unique_id=1513724378]
 metadata/_edit_lock_ = true

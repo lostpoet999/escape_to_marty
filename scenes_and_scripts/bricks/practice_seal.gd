@@ -3,6 +3,8 @@ extends BaseSeal
 
 const LINGER_GRACE: float = 0.15
 const DEFAULT_REVERT_WINDOW: float = 1.0
+const CLICK_PULSE_SCALE: Vector2 = Vector2(0.95, 0.95)
+const CLICK_PULSE_TIME: float = 0.5
 
 @export var respawn_delay: float = 1.5
 ## Starts invisible, uncollidable, and OUT of the practice_seal group until reveal() is called — for rooms where a cutscene owns the early clicks.
@@ -11,6 +13,7 @@ const DEFAULT_REVERT_WINDOW: float = 1.0
 var _practice_stages: Dictionary[GameManager.PhaseType, float]
 var _practice_armed: bool = false
 var _poof_tween: Tween
+var _click_pulse_tween: Tween
 
 @onready var _practice_collision: CollisionShape2D = $CollisionShape2D
 
@@ -23,6 +26,8 @@ func _ready() -> void:
 	if starts_hidden:
 		hide()
 		_practice_collision.set_deferred("disabled", true)
+	else:
+		_start_click_pulse()
 
 func reveal() -> void:
 	if is_in_group(&"practice_seal"):
@@ -30,6 +35,20 @@ func reveal() -> void:
 	add_to_group(&"practice_seal")
 	show()
 	_practice_collision.set_deferred("disabled", false)
+	_start_click_pulse()
+
+func _start_click_pulse() -> void:
+	_stop_click_pulse()
+	_click_pulse_tween = create_tween()
+	_click_pulse_tween.tween_property(self, "scale", CLICK_PULSE_SCALE, CLICK_PULSE_TIME)
+	_click_pulse_tween.tween_property(self, "scale", Vector2.ONE, CLICK_PULSE_TIME)
+	_click_pulse_tween.set_loops(0)
+
+func _stop_click_pulse() -> void:
+	if _click_pulse_tween != null and _click_pulse_tween.is_valid():
+		_click_pulse_tween.kill()
+	_click_pulse_tween = null
+	scale = Vector2.ONE
 
 func pick_random_stage() -> void:
 	super()
@@ -48,6 +67,7 @@ func restore_denial(full_health: float) -> void:
 
 func _begin_practice_linger() -> void:
 	Signalbus.practice_seal_cleared.emit()
+	_stop_click_pulse()
 	_kill_poof_tween()
 	_poof_tween = create_tween()
 	_poof_tween.tween_interval(_revert_window() + LINGER_GRACE)
@@ -108,3 +128,4 @@ func _practice_respawn() -> void:
 	pick_random_stage()
 	_update_stage_label()
 	_start_glow_breathe()
+	_start_click_pulse()

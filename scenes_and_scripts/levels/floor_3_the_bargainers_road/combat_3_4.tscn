@@ -56,6 +56,7 @@ y_offset = 48.0
 metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 
 [node name="combat_2_4" unique_id=565861230 instance=ExtResource("1_8gija")]
+standalone_floor = 3
 
 [node name="RectangleBarrier" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="0" unique_id=415634240 instance=ExtResource("2_p3ta7")]
 position = Vector2(135, 624)

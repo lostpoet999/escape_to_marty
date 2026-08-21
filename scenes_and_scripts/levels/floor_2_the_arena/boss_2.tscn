@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://encprgbar01" path="res://scenes_and_scripts/ui_menus/encounter_progress_bar.tscn" id="8_epbar"]
 
 [node name="BossRoom2" unique_id=565861230 instance=ExtResource("1_u1v84")]
+standalone_floor = 2
 script = ExtResource("7_deonroom")
 post_encounter_tree = null
 

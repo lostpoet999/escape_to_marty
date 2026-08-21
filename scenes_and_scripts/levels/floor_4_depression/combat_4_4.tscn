@@ -15,6 +15,7 @@ requires_live_seals = true
 metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 
 [node name="combat_4_1" instance=ExtResource("1_1ae1x")]
+standalone_floor = 4
 
 [node name="CanvasModulate" type="CanvasModulate" parent="PlayArea"]
 color = Color(0.2, 0.2, 0.27, 1)

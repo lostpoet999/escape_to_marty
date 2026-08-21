@@ -82,7 +82,7 @@ var _practice_nudge_timer_s: float = -1.0
 var _practice_nudge_cooldown_s: float = 0.0
 var _cutscene: Node = null
 
-@export_enum("Floor 1:1", "Floor 2:2", "Floor 3:3", "Floor 4:4") var standalone_floor: int = 1
+@export_enum("Floor 1:1", "Floor 2:2", "Floor 3:3", "Floor 4:4", "Floor 5:5") var standalone_floor: int = 1
 
 var gold_cleared: bool = false
 var bricks_cleared: bool = false
@@ -208,7 +208,8 @@ func _play_combat_entry_dialog() -> void:
 		await DialogDirector.tree_finished
 	if not is_inside_tree():
 		return
-	DialogDirector.play(&"first_combat_room")
+	if not DialogDirector.play(&"fourth_combat_room"):
+		DialogDirector.play(&"first_combat_room")
 
 
 func _run_cutscene_if_present() -> void:

@@ -56,6 +56,7 @@ y_offset = 48.0
 metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 
 [node name="combat_2_5" unique_id=565861230 instance=ExtResource("1_8gija")]
+standalone_floor = 3
 
 [node name="SubViewportContainer" parent="." index="0" unique_id=1513724378]
 metadata/_edit_lock_ = true

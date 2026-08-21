@@ -14,12 +14,6 @@ speaker = 1
 text = "When will you ever learn?"
 metadata/_custom_type_script = "uid://da86xmy7akvas"
 
-[sub_resource type="Resource" id="Resource_2qq5w"]
-script = ExtResource("2_beat")
-speaker = 1
-text = "You should just give up."
-metadata/_custom_type_script = "uid://da86xmy7akvas"
-
 [sub_resource type="Resource" id="Resource_mfg6b"]
 script = ExtResource("2_beat")
 speaker = 1
@@ -28,5 +22,5 @@ metadata/_custom_type_script = "uid://da86xmy7akvas"
 
 [resource]
 script = ExtResource("1_tree")
-beats = Array[ExtResource("2_beat")]([SubResource("Resource_beat_1"), SubResource("Resource_igwkx"), SubResource("Resource_2qq5w"), SubResource("Resource_mfg6b")])
+beats = Array[ExtResource("2_beat")]([SubResource("Resource_beat_1"), SubResource("Resource_igwkx"), SubResource("Resource_mfg6b")])
 pick_random_beat = true
