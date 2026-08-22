@@ -213,16 +213,16 @@ metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 [sub_resource type="Resource" id="Resource_hna8n"]
 script = ExtResource("4_1wfy1")
 super_easy = 30.0
-easy = 30.0
-medium = 20.0
-hard = 20.0
+easy = 35.0
+medium = 25.0
+hard = 10.0
 metadata/_custom_type_script = "uid://ccw8ssedjvd48"
 
 [sub_resource type="Resource" id="Resource_1wfy1"]
 script = ExtResource("4_tjbqt")
 phase_type = 5
-min_health = 10.0
-max_health = 25.0
+min_health = 8.0
+max_health = 16.0
 metadata/_custom_type_script = "uid://cqac2vv2p8oga"
 
 [sub_resource type="Resource" id="Resource_tjbqt"]
@@ -234,15 +234,15 @@ metadata/_custom_type_script = "uid://cqac2vv2p8oga"
 
 [sub_resource type="Resource" id="Resource_o7ibu"]
 script = ExtResource("4_tjbqt")
-min_health = 5.0
-max_health = 15.0
+min_health = 3.0
+max_health = 6.0
 metadata/_custom_type_script = "uid://cqac2vv2p8oga"
 
 [sub_resource type="Resource" id="Resource_bxwwk"]
 script = ExtResource("4_tjbqt")
 phase_type = 2
 min_health = 3.0
-max_health = 15.0
+max_health = 6.0
 metadata/_custom_type_script = "uid://cqac2vv2p8oga"
 
 [sub_resource type="Resource" id="Resource_c5321"]

@@ -44,8 +44,8 @@ static func rarity_tooltip(item: BaseItem) -> String:
 	var title_color: String = rarity_color(item.rarity).to_html(false)
 	return "[color=#%s]%s (%s):[/color] %s" % [title_color, item.powerup_name, rarity_label(item.rarity), item.shop_description]
 
-static func style_button_with_rarity(button: Button, value: RarityType, border_width: int = 4, corner_radius: int = 10, content_margin: float = 8.0, pulse_border: bool = false) -> void:
-	var color: Color = rarity_color(value)
+static func style_button_with_rarity(button: Button, value: RarityType, border_width: int = 4, corner_radius: int = 10, content_margin: float = 8.0, pulse_border: bool = false, color_override: Color = Color(0, 0, 0, 0)) -> void:
+	var color: Color = color_override if color_override.a > 0.0 else rarity_color(value)
 	button.flat = false
 	button.add_theme_stylebox_override(&"normal", _rarity_box(color, 0.12, border_width, corner_radius, content_margin))
 	button.add_theme_stylebox_override(&"hover", _rarity_box(color.lightened(0.2), 0.26, border_width, corner_radius, content_margin))
@@ -112,7 +112,8 @@ static func _rarity_box(color: Color, fill_alpha: float, border_width: int, corn
 @export var rarity: RarityType
 @export var min_floor: int
 @export var inventory_icon: Texture2D
-@export var removable: bool = true 
+@export var removable: bool = true
+@export var emphasis_color: Color = Color(0, 0, 0, 0)
 @export var reveals_adjacent_rooms: bool = false
 @export var enables_minimap: bool = false
 @export var clears_barriers: bool = false

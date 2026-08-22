@@ -6,6 +6,7 @@ const DEPRESSION_LIGHT: PackedScene = preload("res://scenes_and_scripts/actors/p
 const NO_SLOWMO_CLICK_SCALE: float = 2.0
 const WHOOSH_OPEN_SOUND: String = "whoosh_open"
 const WHOOSH_CLOSED_SOUND: String = "whoosh_closed"
+const ANGER_TIER_SOUND: String = "anger_tier"
 const LIGHT_PLACED_SOUND: String = "light_placed"
 const EXIT_CLICK_STATES: Array[GameManager.GameState] = [
 	GameManager.GameState.CLICK_MODE,
@@ -19,13 +20,15 @@ var hold_behavior: HitBehavior
 
 var mouse_down: bool = false
 var mouse_down_time: float = 0.0
+var _anger_tier: int = 0
+var _tier_flash: float = 0.0
 var _click_cursor: ClickModeCursor
 
 @export_category("Click & Hold Config")
 @export var click_vs_hold: float = 0.1
-@export var hold_duration_max: float = 3.0
+@export var hold_duration_max: float = 4.0
 ## Multiplier on how fast the anger hold accrues charge; >1 reaches full charge sooner.
-@export var anger_charge_rate: float = 1.3
+@export var anger_charge_rate: float = 1.95
 ## Seconds after a click clears a seal's DENIAL phase during which clicking that seal again reverts it to a fully healed DENIAL brick.
 @export var denial_revert_window: float = 1.0
 var hold_indicator_radius: float = 0.0
@@ -96,6 +99,7 @@ func _input(event: InputEvent)->void:
 				else:
 					mouse_down = true
 					mouse_down_time = 0.0
+					_anger_tier = 0
 			elif bargain_active:
 				_resolve_bargain()
 			elif mouse_down: #released, detect click vs hold
@@ -380,11 +384,13 @@ func _cancel_anger_hold() -> void:
 		return
 	mouse_down = false
 	mouse_down_time = 0.0
+	_anger_tier = 0
 	_reset_hold_visuals()
 	_stop_anger_whoosh()
 
 func _reset_hold_visuals()->void: #TODO: goal is for this to feel like a taking a deep breathe
 	hold_indicator_radius = 0.0
+	_tier_flash = 0.0
 	queue_redraw()
 
 func _start_anger_whoosh()->void:
@@ -410,7 +416,8 @@ func _draw() -> void:
 		_draw_bargain()
 		return
 	if hold_indicator_radius > 0.0:
-		draw_circle(to_local(_pointer_world_position()), hold_indicator_radius, Color(0.5, 0.85, 1.0, 0.6))
+		var circle_color: Color = Color(0.5, 0.85, 1.0, 0.6).lerp(Color(1.0, 1.0, 1.0, 0.9), _tier_flash)
+		draw_circle(to_local(_pointer_world_position()), hold_indicator_radius, circle_color)
 
 func _process(delta: float) -> void:
 	_tick_darkness(delta)
@@ -432,6 +439,14 @@ func _process(delta: float) -> void:
 		if mouse_down_time > window:
 			var pct : float = minf((mouse_down_time - window) / _anger_charge_duration(), 1.0) #TODO: tie this to powerups for AE and  more anger dmg
 			hold_indicator_radius = ease(pct, 0.4) * 48.0
+			var charge: int = int(roundf(hold_duration_max * minf(mouse_down_time / _anger_charge_duration(), 1.0)))
+			if charge > _anger_tier:
+				_anger_tier = charge
+				_tier_flash = 1.0
+				var tier_player: AudioStreamPlayer = SFX.play_sound(ANGER_TIER_SOUND)
+				if tier_player != null:
+					tier_player.pitch_scale = pow(2.0, float(charge - 1))
+			_tier_flash = maxf(_tier_flash - delta * 4.0, 0.0)
 			queue_redraw()
 	else:
 		if hold_indicator_radius > 0.0:

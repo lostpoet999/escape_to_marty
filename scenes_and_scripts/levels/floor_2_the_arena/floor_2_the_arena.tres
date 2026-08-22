@@ -247,8 +247,8 @@ metadata/_custom_type_script = "uid://ccw8ssedjvd48"
 [sub_resource type="Resource" id="Resource_1wfy1"]
 script = ExtResource("4_tjbqt")
 phase_type = 5
-min_health = 2.0
-max_health = 10.0
+min_health = 3.0
+max_health = 8.0
 metadata/_custom_type_script = "uid://cqac2vv2p8oga"
 
 [sub_resource type="Resource" id="Resource_tjbqt"]
@@ -261,7 +261,7 @@ metadata/_custom_type_script = "uid://cqac2vv2p8oga"
 [sub_resource type="Resource" id="Resource_o7ibu"]
 script = ExtResource("4_tjbqt")
 min_health = 2.0
-max_health = 5.0
+max_health = 4.0
 metadata/_custom_type_script = "uid://cqac2vv2p8oga"
 
 [sub_resource type="Resource" id="Resource_c5321"]

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Meditation" format=3 uid="uid://bmeditation1"]
+
+[ext_resource type="Script" uid="uid://reb6bggs5arb" path="res://scenes_and_scripts/powerups_and_behaviors/ball_active_powerups/meditation.gd" id="1_med"]
+
+[resource]
+script = ExtResource("1_med")
+cool_down_seconds = 12.0
+powerup_name = "Meditation"
+shop_description = "Focus on your breath.  Activate to pause the ball for a moment. Add 1 ball damage."
+rarity = 2
+emphasis_color = Color(0.45098, 0.745098, 0.827451, 1)
+metadata/_custom_type_script = "uid://reb6bggs5arb"

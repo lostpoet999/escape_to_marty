@@ -7,7 +7,7 @@
 [resource]
 script = ExtResource("2_3tmc2")
 powerup_name = "Support System"
-shop_description = "[Paddle Active] Activate to stop the ball from failing and be attracted and attached to the paddle."
+shop_description = "[Paddle Active] Activate to stop the ball from failing and be attracted and attached to the paddle. Add 1 ball damage."
 rarity = 3
 inventory_icon = ExtResource("1_wr6as")
 metadata/_custom_type_script = "uid://csupportsys1"

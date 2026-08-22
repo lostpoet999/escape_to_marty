@@ -13,6 +13,6 @@ speed_modifier = 3.0
 damage = 2
 projectile_dmg_type = Array[int]([0, 5])
 powerup_name = "Quick Truth"
-shop_description = "[Paddle Active] Fires projectile that damages Seals of Denial"
+shop_description = "[Paddle Active] Fires projectile that damages Seals of Denial. Add 1 ball damage."
 inventory_icon = ExtResource("1_skvdi")
 metadata/_custom_type_script = "uid://0q4ogral5cxt"

@@ -148,7 +148,7 @@ func init_button_for(item: Variant) -> Button:
 
 	button.flat = true ## change me if you decide to use a theme
 	if item is BaseItem:
-		BaseItem.style_button_with_rarity(button, item.rarity, 2, 4, 2.0, item is BallActive or item is PaddleActive)
+		BaseItem.style_button_with_rarity(button, item.rarity, 2, 4, 2.0, item is BallActive or item is PaddleActive, item.emphasis_color)
 
 	## essential items (basic ball, single-slot bounce) can't be clicked away — skip the use hook
 	if item.removable:

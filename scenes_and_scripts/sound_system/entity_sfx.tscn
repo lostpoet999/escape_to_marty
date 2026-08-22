@@ -40,6 +40,10 @@
 [ext_resource type="AudioStream" uid="uid://bvkwpbb8lkky" path="res://sound_effects/shield-gained.wav" id="38_shieldgain"]
 [ext_resource type="AudioStream" uid="uid://bjkjc4qxnuhcm" path="res://sound_effects/shield-lost.wav" id="39_shieldlost"]
 [ext_resource type="AudioStream" uid="uid://mxxqgh2cdvmb" path="res://sound_effects/get-rare-drop.wav" id="40_raredrop"]
+[ext_resource type="AudioStream" uid="uid://dpx4pcdpii82c" path="res://sound_effects/pickup-2.wav" id="41_angertier"]
+[ext_resource type="AudioStream" uid="uid://bsb5u03ihoba0" path="res://sound_effects/mouse-hover.wav" id="42_softwhiff"]
+[ext_resource type="AudioStream" uid="uid://bgrsgiugdn80j" path="res://sound_effects/denial-revert-2.wav" id="43_medstart"]
+[ext_resource type="AudioStream" uid="uid://dx06fytjxbyyg" path="res://sound_effects/dry (no reverb)/up-4.ogg" id="44_medwake"]
 
 [sub_resource type="Resource" id="Resource_84rug"]
 script = ExtResource("2_3pagk")
@@ -357,6 +361,35 @@ audio = ExtResource("39_shieldlost")
 max_concurrent = 1
 metadata/_custom_type_script = "uid://2fgoca4drc17"
 
+[sub_resource type="Resource" id="Resource_angertier"]
+script = ExtResource("2_3pagk")
+name = "anger_tier"
+audio = ExtResource("41_angertier")
+metadata/_custom_type_script = "uid://2fgoca4drc17"
+
+[sub_resource type="Resource" id="Resource_softwhiff"]
+script = ExtResource("2_3pagk")
+name = "soft_catch_whiff"
+audio = ExtResource("42_softwhiff")
+max_concurrent = 1
+metadata/_custom_type_script = "uid://2fgoca4drc17"
+
+[sub_resource type="Resource" id="Resource_medstart"]
+script = ExtResource("2_3pagk")
+name = "meditation_start"
+audio = ExtResource("43_medstart")
+pitch_scale = 0.25
+max_concurrent = 1
+metadata/_custom_type_script = "uid://2fgoca4drc17"
+
+[sub_resource type="Resource" id="Resource_medwake"]
+script = ExtResource("2_3pagk")
+name = "meditation_wake"
+audio = ExtResource("44_medwake")
+pitch_scale = 2.26
+max_concurrent = 1
+metadata/_custom_type_script = "uid://2fgoca4drc17"
+
 [node name="EntitySfx" type="Node" unique_id=529254853]
 script = ExtResource("1_mje1w")
-sounds = Array[ExtResource("2_3pagk")]([SubResource("Resource_84rug"), SubResource("Resource_w05wb"), SubResource("Resource_axa1s"), SubResource("Resource_hpigb"), SubResource("Resource_0gpy4"), SubResource("Resource_idfbx"), SubResource("Resource_568ao"), SubResource("Resource_7iehp"), SubResource("Resource_3w05g"), SubResource("Resource_18s1p"), SubResource("Resource_ehurt"), SubResource("Resource_raredrop"), SubResource("Resource_secrettell"), SubResource("Resource_secretreveal"), SubResource("Resource_winsting"), SubResource("Resource_ragespawn"), SubResource("Resource_badsting"), SubResource("Resource_hbrwr"), SubResource("Resource_wlstng"), SubResource("Resource_uisel"), SubResource("Resource_mgstart"), SubResource("Resource_mgloop"), SubResource("Resource_mgstop"), SubResource("Resource_whopen"), SubResource("Resource_whclosed"), SubResource("Resource_bgearly"), SubResource("Resource_bgover"), SubResource("Resource_impdown"), SubResource("Resource_impcry"), SubResource("Resource_impbite"), SubResource("Resource_impbitelight"), SubResource("Resource_impbitestatue"), SubResource("Resource_bossstart"), SubResource("Resource_denialrevert"), SubResource("Resource_deprevert"), SubResource("Resource_homingact"), SubResource("Resource_lightplaced"), SubResource("Resource_lightout"), SubResource("Resource_impflying"), SubResource("Resource_shieldgain"), SubResource("Resource_shieldlost")])
+sounds = Array[ExtResource("2_3pagk")]([SubResource("Resource_84rug"), SubResource("Resource_w05wb"), SubResource("Resource_axa1s"), SubResource("Resource_hpigb"), SubResource("Resource_0gpy4"), SubResource("Resource_idfbx"), SubResource("Resource_568ao"), SubResource("Resource_7iehp"), SubResource("Resource_3w05g"), SubResource("Resource_18s1p"), SubResource("Resource_ehurt"), SubResource("Resource_raredrop"), SubResource("Resource_secrettell"), SubResource("Resource_secretreveal"), SubResource("Resource_winsting"), SubResource("Resource_ragespawn"), SubResource("Resource_badsting"), SubResource("Resource_hbrwr"), SubResource("Resource_wlstng"), SubResource("Resource_uisel"), SubResource("Resource_mgstart"), SubResource("Resource_mgloop"), SubResource("Resource_mgstop"), SubResource("Resource_whopen"), SubResource("Resource_whclosed"), SubResource("Resource_bgearly"), SubResource("Resource_bgover"), SubResource("Resource_impdown"), SubResource("Resource_impcry"), SubResource("Resource_impbite"), SubResource("Resource_impbitelight"), SubResource("Resource_impbitestatue"), SubResource("Resource_bossstart"), SubResource("Resource_denialrevert"), SubResource("Resource_deprevert"), SubResource("Resource_homingact"), SubResource("Resource_lightplaced"), SubResource("Resource_lightout"), SubResource("Resource_impflying"), SubResource("Resource_shieldgain"), SubResource("Resource_shieldlost"), SubResource("Resource_angertier"), SubResource("Resource_softwhiff"), SubResource("Resource_medstart"), SubResource("Resource_medwake")])

@@ -2,11 +2,14 @@
 
 [ext_resource type="Script" uid="uid://c883xeifksqne" path="res://scenes_and_scripts/powerups_and_behaviors/base_item.gd" id="1_8japa"]
 [ext_resource type="Script" uid="uid://d2lueb6p5il1v" path="res://scenes_and_scripts/inventory/item_pool.gd" id="2_upo5x"]
-[ext_resource type="Resource" uid="uid://csplashtst2" path="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/support_group_radius_denial_ae.tres" id="3_spgrp"]
-[ext_resource type="Resource" uid="uid://c7gdauspp2vbh" path="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/table_slam_+3_dam.tres" id="4_tslam"]
-[ext_resource type="Resource" uid="uid://8rrbt0jirryc" path="res://scenes_and_scripts/powerups_and_behaviors/paddle_active_powerups/focused_outburst.tres" id="5_fcout"]
+[ext_resource type="Resource" uid="uid://ctgr6av7wt1l4" path="res://scenes_and_scripts/powerups_and_behaviors/paddle_active_powerups/quick_truth_denial_dam.tres" id="3_qktru"]
+[ext_resource type="Resource" uid="uid://8rrbt0jirryc" path="res://scenes_and_scripts/powerups_and_behaviors/paddle_active_powerups/focused_outburst.tres" id="4_fcout"]
+[ext_resource type="Resource" uid="uid://cweutbexogawp" path="res://scenes_and_scripts/powerups_and_behaviors/paddle_active_powerups/support_system.tres" id="5_spsys"]
+[ext_resource type="Resource" uid="uid://blkfrtrouble1" path="res://scenes_and_scripts/powerups_and_behaviors/ball_active_powerups/looking_for_trouble.tres" id="6_lktrb"]
+[ext_resource type="Resource" uid="uid://bmeditation1" path="res://scenes_and_scripts/powerups_and_behaviors/ball_active_powerups/meditation.tres" id="7_medit"]
+[ext_resource type="Resource" uid="uid://bblendin1" path="res://scenes_and_scripts/powerups_and_behaviors/ball_active_powerups/blend_in.tres" id="8_blndn"]
 
 [resource]
 script = ExtResource("2_upo5x")
-item_pool = Array[ExtResource("1_8japa")]([ExtResource("3_spgrp"), ExtResource("4_tslam"), ExtResource("5_fcout")])
+item_pool = Array[ExtResource("1_8japa")]([ExtResource("3_qktru"), ExtResource("4_fcout"), ExtResource("5_spsys"), ExtResource("6_lktrb"), ExtResource("7_medit"), ExtResource("8_blndn")])
 metadata/_custom_type_script = "uid://d2lueb6p5il1v"

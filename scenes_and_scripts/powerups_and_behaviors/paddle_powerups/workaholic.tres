@@ -5,8 +5,8 @@
 
 [resource]
 script = ExtResource("1_pp")
-gold_magnet_radius = 270.0
-gold_magnet_max_radius = 540.0
+gold_magnet_radius = 250.0
+gold_magnet_max_radius = 500.0
 powerup_name = "Workaholic"
 shop_description = "You focus on your work and find it much easier to obtain gold.  Attract and collect nearby gold coins."
 rarity = 1

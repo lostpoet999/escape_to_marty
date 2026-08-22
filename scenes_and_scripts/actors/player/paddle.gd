@@ -15,6 +15,10 @@ const MAGNET_START_SOUND: String = "magnet_start"
 const MAGNET_LOOP_SOUND: String = "magnet_loop"
 const MAGNET_STOP_SOUND: String = "magnet_stop"
 
+const SOFT_CATCH_WHIFF_SOUND: String = "soft_catch_whiff"
+const SOFT_CATCH_FLASH_COLOR: Color = Color(1.8, 1.8, 1.8)
+const SOFT_CATCH_FLASH_TIME: float = 0.28
+
 const SHIELD_COLOR: Color = Color(0.5, 0.8, 1.0)
 const SHIELD_COLOR_BRIGHT: Color = Color(0.8, 0.95, 1.0)
 const SHIELD_COLOR_STRONG: Color = Color("3c5e8b")
@@ -35,6 +39,20 @@ const DIP_RETURN_TIME: float = 0.12
 @export var david_lean_degrees: float = 16.9
 ## How quickly the lean eases toward its target; higher = snappier.
 @export var lean_responsiveness: float = 10.0
+
+@export_category("Soft Catch Config")
+## Seconds of trailing mouse motion considered when checking for a soft-catch pull.
+@export var soft_catch_window: float = 0.075
+## Net downward mouse pixels required inside the window to arm a soft catch; upward motion inside the window subtracts.
+@export var soft_catch_threshold: float = 56.0
+## Seconds around a paddle contact within which a mistimed flick counts as a near miss and plays the whiff; flicks with no contact this close stay silent.
+@export var soft_catch_miss_grace: float = 0.3
+## Vertical pixels between the falling ball and the paddle within which a flick registers as a catch attempt; flicks with the ball farther out are ignored entirely.
+@export var soft_catch_ball_range: float = 320.0
+## Seconds after a missed catch attempt before a new flick can register another attempt.
+@export var soft_catch_retry_cooldown: float = 0.8
+## Seconds a registered attempt stays valid after the flick crosses the threshold; the ball must contact the paddle inside this fuse or the attempt is a miss.
+@export var soft_catch_attempt_fuse: float = 0.12
 
 @export_category("Death Sequence")
 ## Seconds the killing hit's feedback (red flash, damage number, screen shake) settles before the death sequence starts.
@@ -58,6 +76,8 @@ var _death_running: bool = false
 var _ghost_base_pos: Vector2 = Vector2.ZERO
 var shield_pulse_tween: Tween
 var _dip_tween: Tween
+var _dip_scale_active: float = 0.0
+var _soft_catch_flash_tween: Tween
 var _sprite_base_y: float
 var _david_base_y: float
 var paddle_frozen: bool = false
@@ -91,6 +111,14 @@ var base_shape_size_x: float
 var committed_distance: float = 0.0
 var _last_direction: float = 0.0
 var _distance_accumulator: float = 0.0
+var _pull_samples: Array[Vector2] = []
+var _pull_armed: bool = false
+var _arm_expired_at: float = -1000.0
+var _unarmed_contact_at: float = -1000.0
+var _catch_success_at: float = -1000.0
+var _attempt_live: bool = false
+var _attempt_armed_at: float = -1000.0
+var _attempt_cooldown_until: float = -1000.0
 
 
 
@@ -191,10 +219,13 @@ func _capture_nearby_drops()->void:
 		return
 	for node: Node in get_tree().get_nodes_in_group(BONUS_DROPS_GROUP):
 		var drop: BonusDrop = node as BonusDrop
-		if drop == null or drop.collected or drop.captor != null:
+		if drop == null or drop.collected:
 			continue
-		if drop.global_position.distance_squared_to(global_position) <= _gold_magnet_radius_sq:
+		var in_range: bool = drop.global_position.distance_squared_to(global_position) <= _gold_magnet_radius_sq
+		if drop.captor == null and in_range:
 			drop.captor = self
+		elif drop.captor == self and not in_range:
+			drop.captor = null
 
 func _calculate_bounds() -> void:
 	var half_width: float = _get_scaled_half_width()
@@ -341,11 +372,97 @@ func _input(event: InputEvent) -> void:
 		if mouse_event:
 			accumulated_mouse_movement_x += mouse_event.relative.x * mouse_sensitivity
 			accumulated_mouse_movement_x = clamp(accumulated_mouse_movement_x, left_bound, right_bound)
+			_record_pull_motion(mouse_event.relative.y * mouse_sensitivity)
 	if Input.is_action_just_pressed("paddle_active_powerup") and GameManager.current_state != GameManager.GameState.LEVEL_CLEARED and GameManager.current_state != GameManager.GameState.SPECIAL_ROOM:
 		if active_paddle_powerup and (GameManager.current_state != GameManager.GameState.BALL_ON_PADDLE or active_paddle_powerup.can_activate_on_paddle()):
 			active_paddle_powerup.activate(self, projectiles)
 
-func hit_feedback() -> void:	
+func _record_pull_motion(relative_y: float) -> void:
+	var now: float = float(Time.get_ticks_msec()) / 1000.0
+	_pull_samples.append(Vector2(now, relative_y))
+	_prune_pull_samples(now)
+	if not _pull_armed and _net_pull_down() >= soft_catch_threshold:
+		_pull_armed = true
+		if now >= _attempt_cooldown_until and _ball_in_catch_range():
+			_attempt_live = true
+			_attempt_armed_at = now
+		if now - _unarmed_contact_at <= soft_catch_miss_grace and now - _catch_success_at > soft_catch_miss_grace:
+			_unarmed_contact_at = -1000.0
+			_play_soft_catch_whiff()
+
+func _prune_pull_samples(now: float) -> void:
+	while not _pull_samples.is_empty() and _pull_samples[0].x < now - soft_catch_window:
+		_pull_samples.remove_at(0)
+
+func _net_pull_down() -> float:
+	var net_down: float = 0.0
+	for sample: Vector2 in _pull_samples:
+		net_down += sample.y
+	return net_down
+
+func try_soft_catch() -> bool:
+	var now: float = float(Time.get_ticks_msec()) / 1000.0
+	_prune_pull_samples(now)
+	if not _attempt_live or _net_pull_down() < soft_catch_threshold:
+		if _attempt_live:
+			_miss_attempt(now)
+		if now - _catch_success_at > soft_catch_miss_grace:
+			_unarmed_contact_at = now
+			if now - _arm_expired_at <= soft_catch_miss_grace:
+				_arm_expired_at = -1000.0
+				_play_soft_catch_whiff()
+		return false
+	_attempt_live = false
+	_pull_armed = false
+	_catch_success_at = now
+	_arm_expired_at = -1000.0
+	_unarmed_contact_at = -1000.0
+	_pull_samples.clear()
+	return true
+
+func _miss_attempt(now: float) -> void:
+	_attempt_live = false
+	_attempt_cooldown_until = now + soft_catch_retry_cooldown
+
+func _ball_in_catch_range() -> bool:
+	var ball: Ball = get_tree().get_first_node_in_group("ball") as Ball
+	if ball == null or ball.on_paddle:
+		return false
+	if ball.velocity.y <= 0.0:
+		return false
+	return global_position.y - ball.global_position.y <= soft_catch_ball_range
+
+func _tick_soft_catch_expiry() -> void:
+	var now: float = float(Time.get_ticks_msec()) / 1000.0
+	if _attempt_live and now - _attempt_armed_at > soft_catch_attempt_fuse:
+		_miss_attempt(now)
+	if not _pull_armed:
+		return
+	_prune_pull_samples(now)
+	if _net_pull_down() >= soft_catch_threshold:
+		return
+	_pull_armed = false
+	_arm_expired_at = now
+	if _attempt_live:
+		_miss_attempt(now)
+
+func _play_soft_catch_whiff() -> void:
+	if GameManager.current_state == GameManager.GameState.PLAYING:
+		SFX.play_sound(SOFT_CATCH_WHIFF_SOUND)
+
+func soft_catch_flash() -> void:
+	stop_shield_pulse()
+	if _soft_catch_flash_tween and _soft_catch_flash_tween.is_valid():
+		_soft_catch_flash_tween.kill()
+	sprite.modulate = SOFT_CATCH_FLASH_COLOR
+	david.modulate = SOFT_CATCH_FLASH_COLOR
+	_soft_catch_flash_tween = create_tween()
+	_soft_catch_flash_tween.tween_property(sprite, "modulate", Color.WHITE, SOFT_CATCH_FLASH_TIME)
+	_soft_catch_flash_tween.parallel().tween_property(david, "modulate", _resting_david_color(), SOFT_CATCH_FLASH_TIME)
+	if is_shielded:
+		_soft_catch_flash_tween.finished.connect(start_shield_pulse, CONNECT_ONE_SHOT)
+
+func hit_feedback() -> void:
 	var base_scale: Vector2 = scale
 	var tw_scale: Tween = create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	tw_scale.tween_property(self, "scale", base_scale * 0.9, 0.06)
@@ -359,16 +476,21 @@ func hit_feedback() -> void:
 	if is_shielded:
 		tw_flash.finished.connect(start_shield_pulse, CONNECT_ONE_SHOT)
 
-func bounce_dip() -> void:
+func bounce_dip(depth_scale: float = 1.0) -> void:
+	if _dip_tween and _dip_tween.is_valid() and depth_scale < _dip_scale_active:
+		return
+	_dip_scale_active = depth_scale
 	if _dip_tween and _dip_tween.is_valid():
 		_dip_tween.kill()
 	sprite.position.y = _sprite_base_y
 	david.position.y = _david_base_y
+	var depth: float = DIP_DEPTH * depth_scale
+	var return_time: float = DIP_RETURN_TIME * depth_scale
 	_dip_tween = create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-	_dip_tween.tween_property(sprite, "position:y", _sprite_base_y + DIP_DEPTH, DIP_DOWN_TIME)
-	_dip_tween.parallel().tween_property(david, "position:y", _david_base_y + DIP_DEPTH, DIP_DOWN_TIME)
-	_dip_tween.tween_property(sprite, "position:y", _sprite_base_y, DIP_RETURN_TIME)
-	_dip_tween.parallel().tween_property(david, "position:y", _david_base_y, DIP_RETURN_TIME)
+	_dip_tween.tween_property(sprite, "position:y", _sprite_base_y + depth, DIP_DOWN_TIME)
+	_dip_tween.parallel().tween_property(david, "position:y", _david_base_y + depth, DIP_DOWN_TIME)
+	_dip_tween.tween_property(sprite, "position:y", _sprite_base_y, return_time)
+	_dip_tween.parallel().tween_property(david, "position:y", _david_base_y, return_time)
 
 func _on_reflect_shield_changed(count: int) -> void:
 	_shield_count = count
@@ -507,6 +629,7 @@ func reset_committed_distance() -> void:
 func _process(delta: float) -> void:
 	magnet_refresh.paused = GameManager.current_state != GameManager.GameState.PLAYING
 	_capture_nearby_drops()
+	_tick_soft_catch_expiry()
 	var speed: float = 0.0 if paddle_frozen else current_speed
 	var lean_target: float = 0.0
 	if absf(speed) > lean_speed_threshold:

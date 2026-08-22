@@ -49,7 +49,7 @@ func setup_buttons()->void:
 		old_item_btn.icon = PlayerData.inventory.PLACEHOLDER_TEX
 	old_item_btn.tooltip_text = BaseItem.rarity_tooltip(old_active_ref)
 	if old_active_ref is BaseItem:
-		BaseItem.style_button_with_rarity(old_item_btn, old_active_ref.rarity, 4, 10, 8.0, true)
+		BaseItem.style_button_with_rarity(old_item_btn, old_active_ref.rarity, 4, 10, 8.0, true, old_active_ref.emphasis_color)
 
 	if "inventory_icon" in new_active_ref:
 		new_item_btn.icon = new_active_ref.inventory_icon
@@ -57,7 +57,7 @@ func setup_buttons()->void:
 		new_item_btn.icon = PlayerData.inventory.PLACEHOLDER_TEX
 	new_item_btn.tooltip_text = BaseItem.rarity_tooltip(new_active_ref)
 	if new_active_ref is BaseItem:
-		BaseItem.style_button_with_rarity(new_item_btn, new_active_ref.rarity, 4, 10, 8.0, true)
+		BaseItem.style_button_with_rarity(new_item_btn, new_active_ref.rarity, 4, 10, 8.0, true, new_active_ref.emphasis_color)
 
 func _on_old_item_pressed() -> void:
 	if _open_tween != null and _open_tween.is_valid():

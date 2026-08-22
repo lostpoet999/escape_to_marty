@@ -50,7 +50,7 @@ func _make_slot_button(item: BaseItem) -> Button:
 	button.tooltip_text = item.powerup_name
 	button.set_meta(&"item", item)
 	button.set_meta(&"click_pickable", true)
-	BaseItem.style_button_with_rarity(button, item.rarity, 4, 10, 8.0, item is BallActive or item is PaddleActive)
+	BaseItem.style_button_with_rarity(button, item.rarity, 4, 10, 8.0, item is BallActive or item is PaddleActive, item.emphasis_color)
 	return button
 
 func _icon_for(item: BaseItem) -> Texture2D:

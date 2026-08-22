@@ -202,22 +202,20 @@ room_type = 1
 [sub_resource type="Resource" id="Resource_f4diff"]
 script = ExtResource("3_sd4")
 super_easy = 30.0
-easy = 30.0
-medium = 20.0
-hard = 20.0
+easy = 70.0
 metadata/_custom_type_script = "uid://ccw8ssedjvd48"
 
 [sub_resource type="Resource" id="Resource_f4hp"]
 script = ExtResource("4_spc4")
 phase_type = 5
-min_health = 10.0
-max_health = 25.0
+min_health = 12.0
+max_health = 28.0
 metadata/_custom_type_script = "uid://cqac2vv2p8oga"
 
 [sub_resource type="Resource" id="Resource_f4dep"]
 script = ExtResource("4_spc4")
 phase_type = 3
-min_health = 3.0
+min_health = 4.0
 max_health = 8.0
 metadata/_custom_type_script = "uid://cqac2vv2p8oga"
 

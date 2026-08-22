@@ -3,6 +3,7 @@ class_name PlayerInventory extends Node
 ## A script to do amazing things, and maybe more ...
 
 const DEBUG: bool = true
+const ACTIVE_INNATE_BALL_DAMAGE: float = 1.0
 const PLACEHOLDER_TEX: Texture2D = preload("uid://cn44s8tnj8dg2") #putting here so other interfaces can get it easy
 
 var items: Array[BaseItem] ## Powerups, passives or actives for ball, paddle, or click. One active passive for each type.
@@ -82,10 +83,15 @@ func get_items_for_paddle() -> Array[PaddlePowerup]: ###passives for paddle
 			_items.append(item)
 	return _items
 
-## current ball damage derived from owned ball passives. mirrors Ball.update_base_dmg
-## so the inventory panel can report it without a live Ball in the tree.
+## current ball damage: base, plus an innate bonus per held core active, plus owned
+## ball passives. the single damage source — Ball.update_base_dmg reads it, so the
+## inventory panel can report it without a live Ball in the tree.
 func get_ball_damage() -> float:
 	var dmg: float = Ball.DEFAULT_BALL_DMG
+	if get_paddle_active() != null:
+		dmg += ACTIVE_INNATE_BALL_DAMAGE
+	if get_ball_active() != null:
+		dmg += ACTIVE_INNATE_BALL_DAMAGE
 	var ball_items: Array[BallPassive] = get_items_for_ball()
 	for passive: BallPassive in ball_items:
 		dmg += passive.global_bonus
