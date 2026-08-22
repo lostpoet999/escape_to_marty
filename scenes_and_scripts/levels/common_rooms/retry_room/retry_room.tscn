@@ -8,5 +8,5 @@
 script = ExtResource("2_script")
 
 [node name="FloorPortal" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="6" unique_id=1355726841 instance=ExtResource("3_portal")]
-position = Vector2(804, 540)
+position = Vector2(804, 760)
 advances_floor = false

@@ -442,6 +442,7 @@ func exit_retry_room() -> void:
 	PlayerData.room_state.erase(key)
 	var start_slot: RoomEntry = _find_starting_slot()
 	current_room_id = RoomEntry.make_key(start_slot.room_coords)
+	scene_ref = start_slot.content.room_scene
 	load_current_room()
 
 func restart_run() -> void:
@@ -484,6 +485,7 @@ func init_all_game_stats() -> void:
 	
 
 func load_scene(scene: PackedScene) -> void:
+	scene_ref = scene
 	get_tree().change_scene_to_packed(scene)
 	
 func load_current_room()-> void:

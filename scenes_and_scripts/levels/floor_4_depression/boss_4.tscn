@@ -44,6 +44,7 @@ metadata/_edit_lock_ = true
 [node name="FloorPortal" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="5" unique_id=1860885060 instance=ExtResource("6_portal")]
 z_index = -1
 position = Vector2(807, 544)
+scale = Vector2(3, 2)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="6" unique_id=810000030]
 color = Color(0.2, 0.2, 0.27, 1)

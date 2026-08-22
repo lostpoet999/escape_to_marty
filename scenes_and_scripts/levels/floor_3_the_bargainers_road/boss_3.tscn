@@ -57,7 +57,7 @@ metadata/_edit_lock_ = true
 title = "The Spider's Bargain"
 
 [node name="FloorPortal" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="6" unique_id=1860885060 instance=ExtResource("6_portal")]
-position = Vector2(804, 540)
+position = Vector2(804, 760)
 
 [node name="SpiderSpawnerLeft" parent="No-Respawn/Spawners" parent_id_path=PackedInt32Array(1587044855) index="0" unique_id=991827365 instance=ExtResource("8_spwn")]
 position = Vector2(1088, 32)

@@ -90,8 +90,7 @@ func _spawn_encounter_loot() -> void:
 	loot_items_data = room_state.loot_items_data
 	if loot_items_data.free_pick_exhausted():
 		return
-	var kiosk: RoomKiosk = _spawn_kiosk(FREE_ITEM_KIOSK, _on_free_item_kiosk_activated, BOSS_CHEST_DRAW_SIZE)
-	kiosk.global_position = item_spawn_point.global_position
+	_spawn_kiosk(FREE_ITEM_KIOSK, _on_free_item_kiosk_activated, BOSS_CHEST_DRAW_SIZE)
 
 func _activate_floor_portal() -> void:
 	var portal: FloorPortal = find_child("FloorPortal", true, false) as FloorPortal
