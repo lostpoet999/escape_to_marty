@@ -36,7 +36,6 @@ metadata/_custom_type_script = "uid://cshapedrvfx"
 script = ExtResource("1_r0841")
 targeting = SubResource("Resource_ew74w")
 trigger_groups = Array[StringName]([&"bricks"])
-types = Array[int]([0, 1, 2, 3, 4, 5])
 local_multi = 0.5
 vfx = SubResource("Resource_6qbsl")
 center_on_brick = true

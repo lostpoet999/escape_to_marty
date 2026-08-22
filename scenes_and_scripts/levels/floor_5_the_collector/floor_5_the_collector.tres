@@ -48,6 +48,7 @@ metadata/_custom_type_script = "uid://b1eqt2or38kw6"
 script = ExtResource("2_fd5")
 music = ExtResource("1_mus5")
 spawn_weight = SubResource("Resource_f5sw")
+depression_lights_enabled = true
 seal_difficulty_rates = SubResource("Resource_f5diff")
 seal_health_phase = SubResource("Resource_f5hp")
 max_respawn = 3

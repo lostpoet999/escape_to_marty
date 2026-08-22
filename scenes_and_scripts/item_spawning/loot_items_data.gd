@@ -26,7 +26,15 @@ func shop_exhausted() -> bool:
 func filter_owned_actives()->void:
 	var owned_actives: Array[BaseItem] = PlayerData.inventory.get_core_items()
 	pool = pool.filter(func(i: BaseItem) -> bool:
-		return not owned_actives.has(i))	
+		return not owned_actives.has(i))
+
+func filter_maxed_types()->void:
+	var owned: Array = PlayerData.inventory.get_items()
+	pool = pool.filter(func(i: BaseItem) -> bool:
+		var type_item: BallDamageType = i as BallDamageType
+		if type_item == null:
+			return true
+		return owned.count(type_item) < type_item.max_copies)
 
 func generate_item_box(pool_override: ItemPool = null)->void:
 	items.clear()
@@ -38,6 +46,7 @@ func generate_item_box(pool_override: ItemPool = null)->void:
 		@warning_ignore("unsafe_property_access")
 		pool = ItemSpawner.item_pool_data.item_pool.duplicate()
 	filter_owned_actives()
+	filter_maxed_types()
 	for n:int in max_items:
 		if pool.is_empty(): break
 		var item: BaseItem = draw_one()
@@ -70,6 +79,7 @@ func generate_boss_drop(config: BossLootConfig)->void:
 	items.clear()
 	pool = ItemSpawner.item_pool_data.item_pool.duplicate()
 	filter_owned_actives()
+	filter_maxed_types()
 	# guaranteed items first — bypass weights and owned-active filter
 	for guaranteed:BaseItem in config.guaranteed_items:
 		items.push_back(guaranteed)

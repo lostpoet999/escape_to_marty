@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://f5collectts0"]
+
+[ext_resource type="Script" uid="uid://f5collectgd0" path="res://scenes_and_scripts/actors/enemies/specific_enemies/the_collector/collector.gd" id="1_coll"]
+[ext_resource type="Material" uid="uid://b6u55aep337u5" path="res://scenes_and_scripts/actors/enemies/specific_enemies/no_see_me_demon(Deon)/whiteout_shader.tres" id="2_flash"]
+[ext_resource type="Texture2D" uid="uid://dwrg8jy0fw6gq" path="res://character_design_files/collector_idle_spritesheet.png" id="3_idle"]
+[ext_resource type="PackedScene" uid="uid://f5coffints0" path="res://scenes_and_scripts/actors/enemies/specific_enemies/the_collector/collector_coffin.tscn" id="4_coffin"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_coll"]
+size = Vector2(98.66667, 135.33334)
+
+[node name="Collector" type="CharacterBody2D" unique_id=1856741201 groups=["bounce_enemy"]]
+position = Vector2(0, 13)
+scale = Vector2(2.2, 2.2)
+script = ExtResource("1_coll")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1389364990]
+material = ExtResource("2_flash")
+position = Vector2(-2.3333335, -5)
+texture = ExtResource("3_idle")
+hframes = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1489539601]
+position = Vector2(0, -10.333332)
+shape = SubResource("RectangleShape2D_coll")
+
+[node name="CoffinDenial" parent="." unique_id=1721530001 instance=ExtResource("4_coffin")]
+position = Vector2(-120, -23)
+scale = Vector2(0.4, 0.4)
+stage_health_min = 9
+stage_health_max = 14
+art_rotation_degrees = 32.75
+stages = Dictionary[int, float]({
+0: 12.0,
+5: 20.0
+})
+
+[node name="CoffinAnger" parent="." unique_id=1721530011 instance=ExtResource("4_coffin")]
+position = Vector2(0, -110)
+scale = Vector2(0.4, 0.4)
+stage_health_min = 9
+stage_health_max = 14
+stages = Dictionary[int, float]({
+1: 12.0,
+5: 20.0
+})
+
+[node name="CoffinBargaining" parent="." unique_id=1721530012 instance=ExtResource("4_coffin")]
+position = Vector2(120, -23)
+scale = Vector2(0.4, 0.4)
+bargain_deals_required = 3
+art_rotation_degrees = -32.75
+stages = Dictionary[int, float]({
+2: 45.0,
+5: 20.0
+})
+
+[node name="CoffinDepression" parent="." unique_id=1721530013 instance=ExtResource("4_coffin")]
+position = Vector2(0, 96)
+scale = Vector2(0.4, 0.4)
+stage_health_min = 8
+stage_health_max = 15
+art_rotation_degrees = -32.75
+stages = Dictionary[int, float]({
+3: 12.0,
+5: 20.0
+})

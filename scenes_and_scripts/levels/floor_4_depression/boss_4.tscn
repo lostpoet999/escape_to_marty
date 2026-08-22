@@ -40,6 +40,7 @@ metadata/_edit_lock_ = true
 [node name="Encounter" type="Node" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="4" unique_id=1568655012]
 
 [node name="EncounterProgressBar" parent="PlayArea/Encounter" index="0" unique_id=810000031 instance=ExtResource("9_epbar")]
+title = "Bump in the Night"
 
 [node name="FloorPortal" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="5" unique_id=1860885060 instance=ExtResource("6_portal")]
 z_index = -1

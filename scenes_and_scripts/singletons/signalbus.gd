@@ -51,12 +51,12 @@ signal db_panel_closed
 @warning_ignore("unused_signal")
 signal level_cleared
 
-## Emits: scenes_and_scripts/actors/enemies/specific_enemies/boss_1_denial/boss_deon.gd -> accept_damage(); scenes_and_scripts/levels/floor_2_the_arena/rage_blob_king.gd -> _die()
+## Emits: scenes_and_scripts/actors/enemies/specific_enemies/boss_1_denial/boss_deon.gd -> accept_damage(); scenes_and_scripts/levels/floor_2_the_arena/rage_blob_king.gd -> _die(); scenes_and_scripts/actors/enemies/specific_enemies/the_collector/collector.gd -> _die()
 ## Connects: scenes_and_scripts/levels/deon_encounter_room.gd -> _ready() -> clear_encounter
 @warning_ignore("unused_signal")
 signal boss_defeated
 
-## Emits: scenes_and_scripts/actors/enemies/specific_enemies/boss_1_denial/boss_deon_cage.gd -> _ready(), _on_seal_cleared(); boss_deon.gd -> _emit_progress(); scenes_and_scripts/levels/floor_2_the_arena/rage_blob_king.gd -> _finish_intro(), accept_damage(); scenes_and_scripts/levels/spider_encounter_room.gd -> _ready(), _emit_progress(); scenes_and_scripts/levels/statue_encounter_room.gd -> _ready(), _emit_progress()
+## Emits: scenes_and_scripts/actors/enemies/specific_enemies/boss_1_denial/boss_deon_cage.gd -> _ready(), _on_seal_cleared(); boss_deon.gd -> _emit_progress(); scenes_and_scripts/levels/floor_2_the_arena/rage_blob_king.gd -> _finish_intro(), accept_damage(); scenes_and_scripts/levels/spider_encounter_room.gd -> _ready(), _emit_progress(); scenes_and_scripts/levels/statue_encounter_room.gd -> _ready(), _emit_progress(); scenes_and_scripts/actors/enemies/specific_enemies/the_collector/collector.gd -> _finish_intro(), _on_coffin_cleared(), _drop_bubble(), accept_damage()
 ## Connects: scenes_and_scripts/ui_menus/encounter_progress_bar.gd -> _on_encounter_progress
 @warning_ignore("unused_signal")
 signal encounter_progress(stage: int, stage_count: int, stage_remaining: float, stage_max: float)

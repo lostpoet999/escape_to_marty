@@ -53,6 +53,7 @@ var _vertical_serve_checked: bool = false
 @export var powerup_array: Array[BallPassive]
 
 @export var ball_dmg_type: Array[GameManager.PhaseType]
+var _type_scales: Dictionary[GameManager.PhaseType, float] = {}
 
 @export var active_ball_powerup: BallActive
 
@@ -238,6 +239,7 @@ func repopulate_effects_from_inventory() -> void:
 	var items: Array = PlayerInventory.get_instance().get_items_for_ball()
 	powerup_array.append_array(items)
 	collect_behaviors()
+	collect_type_scales()
 	update_base_dmg()
 
 func collect_behaviors() -> void:
@@ -245,6 +247,24 @@ func collect_behaviors() -> void:
 	for powerup_ref: BallPassive in powerup_array:
 		for behavior: HitBehavior in powerup_ref.on_hit:
 			behaviors.append(behavior)
+
+func collect_type_scales() -> void:
+	_type_scales.clear()
+	var type_copies: Dictionary[GameManager.PhaseType, int] = {}
+	for powerup_ref: BallPassive in powerup_array:
+		var type_item: BallDamageType = powerup_ref as BallDamageType
+		if type_item == null:
+			continue
+		var copies: int = 0
+		if type_copies.has(type_item.phase_type):
+			copies = type_copies[type_item.phase_type]
+		if copies >= type_item.max_copies:
+			continue
+		type_copies[type_item.phase_type] = copies + 1
+		var current_scale: float = 0.0
+		if _type_scales.has(type_item.phase_type):
+			current_scale = _type_scales[type_item.phase_type]
+		_type_scales[type_item.phase_type] = current_scale + type_item.scale_per_copy
 
 func update_base_dmg() -> void:
 	ball_dmg = PlayerInventory.get_instance().get_ball_damage()
@@ -600,6 +620,9 @@ func _make_hit_context() -> HitContext:
 func apply_damage_to(target: Node2D, amount: float, dmg_types: Array) -> void:
 	if target.is_in_group("bricks") or target.is_in_group("bounce_enemy"):
 		target.call("accept_damage", amount, dmg_types)
+		if target is BaseSeal:
+			for phase: GameManager.PhaseType in _type_scales:
+				target.call("accept_damage", amount * _type_scales[phase], [phase])
 	elif target.is_in_group("DeathWalls"):
 		if is_tweening_to_david:
 			return

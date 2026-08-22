@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://kntevrm3ytwb"
-path="res://.godot/imported/collector_coffinwhite.png-e15172410df8640bc0a97bfcf5af3e6c.ctex"
+path="res://.godot/imported/collector_coffinwhite.png-505f95a8ed08c3d0ee4a293aa2fcf920.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://character_design_files/collector_coffinwhite.png"
-dest_files=["res://.godot/imported/collector_coffinwhite.png-e15172410df8640bc0a97bfcf5af3e6c.ctex"]
+source_file="res://scenes_and_scripts/actors/enemies/specific_enemies/the_collector/collector_coffinwhite.png"
+dest_files=["res://.godot/imported/collector_coffinwhite.png-505f95a8ed08c3d0ee4a293aa2fcf920.ctex"]
 
 [params]
 

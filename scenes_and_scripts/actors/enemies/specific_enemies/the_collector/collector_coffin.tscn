@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://f5coffints0"]
+
+[ext_resource type="Script" uid="uid://f5coffingd0" path="res://scenes_and_scripts/actors/enemies/specific_enemies/the_collector/collector_coffin.gd" id="1_cofsc"]
+[ext_resource type="PackedScene" uid="uid://c7bssypnnaqai" path="res://scenes_and_scripts/bricks/brick_vfx/brick_damage_fx.tscn" id="2_dmgfx"]
+[ext_resource type="PackedScene" uid="uid://dwqgc0eorwbcf" path="res://scenes_and_scripts/bricks/brick_vfx/brick_destroy_fx.tscn" id="3_desfx"]
+[ext_resource type="Texture2D" uid="uid://kntevrm3ytwb" path="res://scenes_and_scripts/actors/enemies/specific_enemies/the_collector/collector_coffinwhite.png" id="4_cofpn"]
+[ext_resource type="Texture2D" uid="uid://b2d528eyj6wyb" path="res://scenes_and_scripts/bricks/brick_vfx/damage1.png" id="5_crk1"]
+[ext_resource type="Texture2D" uid="uid://b7n76eqijqu62" path="res://scenes_and_scripts/bricks/brick_vfx/damage2.png" id="6_crk2"]
+[ext_resource type="Texture2D" uid="uid://cj3e173xt6qj6" path="res://scenes_and_scripts/bricks/brick_vfx/damage3.png" id="7_crk3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cofcl"]
+size = Vector2(56, 90)
+
+[node name="CollectorCoffin" type="Area2D" unique_id=1721530001 groups=["bricks"]]
+script = ExtResource("1_cofsc")
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+0: 3.0,
+5: 20.0
+})
+brick_damage_fx = ExtResource("2_dmgfx")
+brick_destroy_fx = ExtResource("3_desfx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1721530002]
+shape = SubResource("RectangleShape2D_cofcl")
+
+[node name="gemstone-facets" type="Sprite2D" parent="." unique_id=1721530003]
+texture = ExtResource("4_cofpn")
+
+[node name="damage_cracks_1" type="Sprite2D" parent="." unique_id=1721530004]
+visible = false
+texture = ExtResource("5_crk1")
+
+[node name="damage_cracks_2" type="Sprite2D" parent="." unique_id=1721530005]
+visible = false
+texture = ExtResource("6_crk2")
+
+[node name="damage_cracks_3" type="Sprite2D" parent="." unique_id=1721530006]
+visible = false
+texture = ExtResource("7_crk3")
+
+[node name="brick_health" type="Label" parent="." unique_id=1721530007]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -5.0
+offset_top = -11.5
+offset_right = 5.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "3"
+metadata/_edit_use_anchors_ = true
