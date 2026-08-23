@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="MultiballChance" format=3 uid="uid://oa6sg4cxdgdr"]
+
+[ext_resource type="Texture2D" uid="uid://dydpjbsw3m6or" path="res://scenes_and_scripts/powerups_and_behaviors/paddle_powerups/multiball_icon_no_damage.png" id="1_we01p"]
+[ext_resource type="Script" uid="uid://g6pek2b4eqep" path="res://scenes_and_scripts/powerups_and_behaviors/paddle_powerups/multiball_chance.gd" id="2_we01p"]
+
+[resource]
+script = ExtResource("2_we01p")
+gold_magnet_stack_bonus = 0.0
+powerup_name = "Multiball Chance (No Damage)"
+shop_description = "Gives you the chance to spawn a few extra miniballs to help you damage seals"
+rarity = 3
+inventory_icon = ExtResource("1_we01p")
+metadata/_custom_type_script = "uid://b81b3hhkeuin4"

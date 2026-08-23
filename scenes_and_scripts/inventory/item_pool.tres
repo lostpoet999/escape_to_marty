@@ -24,13 +24,14 @@
 [ext_resource type="Resource" uid="uid://ragescream1" path="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/rage_scream.tres" id="21_rgscr"]
 [ext_resource type="Resource" uid="uid://chestpoke01" path="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/chest_poke.tres" id="22_chpke"]
 [ext_resource type="Resource" uid="uid://denialthrpy1" path="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/denial_therapy.tres" id="23_dnlth"]
-[ext_resource type="Resource" uid="uid://angerthrpy01" path="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/anger_therapy.tres" id="24_angth"]
+[ext_resource type="Resource" uid="uid://ngerthrpy01" path="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/anger_therapy.tres" id="24_angth"]
 [ext_resource type="Resource" uid="uid://bargthrpy001" path="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/bargaining_therapy.tres" id="25_brgth"]
 [ext_resource type="Resource" uid="uid://deprthrpy001" path="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/depression_therapy.tres" id="26_dprth"]
 [ext_resource type="Resource" uid="uid://bmeditation1" path="res://scenes_and_scripts/powerups_and_behaviors/ball_active_powerups/meditation.tres" id="27_medit"]
 [ext_resource type="Resource" uid="uid://bblendin1" path="res://scenes_and_scripts/powerups_and_behaviors/ball_active_powerups/blend_in.tres" id="28_blndn"]
+[ext_resource type="Resource" uid="uid://oa6sg4cxdgdr" path="res://scenes_and_scripts/powerups_and_behaviors/paddle_powerups/multiball_chance_no_damage.tres" id="29_en18w"]
 
 [resource]
 script = ExtResource("2_upo5x")
-item_pool = Array[ExtResource("1_8japa")]([ExtResource("3_ee38i"), ExtResource("4_ee38i"), ExtResource("3_kfe0u"), ExtResource("5_ee38i"), ExtResource("6_oyjj8"), ExtResource("7_4n03o"), ExtResource("8_spls"), ExtResource("9_phsw"), ExtResource("10_clk"), ExtResource("11_2updi"), ExtResource("12_rtsd2"), ExtResource("13_mlme4"), ExtResource("14_mkbed"), ExtResource("15_mlme4"), ExtResource("16_gqarg"), ExtResource("17_lftrb"), ExtResource("18_prfrt"), ExtResource("19_wrkhl"), ExtResource("20_flpbd"), ExtResource("21_rgscr"), ExtResource("22_chpke"), ExtResource("23_dnlth"), ExtResource("24_angth"), ExtResource("25_brgth"), ExtResource("26_dprth"), ExtResource("27_medit"), ExtResource("28_blndn")])
+item_pool = Array[ExtResource("1_8japa")]([ExtResource("3_ee38i"), ExtResource("4_ee38i"), ExtResource("3_kfe0u"), ExtResource("5_ee38i"), ExtResource("6_oyjj8"), ExtResource("7_4n03o"), ExtResource("8_spls"), ExtResource("9_phsw"), ExtResource("10_clk"), ExtResource("11_2updi"), ExtResource("12_rtsd2"), ExtResource("13_mlme4"), ExtResource("14_mkbed"), ExtResource("15_mlme4"), ExtResource("16_gqarg"), ExtResource("17_lftrb"), ExtResource("18_prfrt"), ExtResource("19_wrkhl"), ExtResource("20_flpbd"), ExtResource("21_rgscr"), ExtResource("22_chpke"), ExtResource("23_dnlth"), ExtResource("24_angth"), ExtResource("25_brgth"), ExtResource("26_dprth"), ExtResource("27_medit"), ExtResource("28_blndn"), ExtResource("29_en18w")])
 metadata/_custom_type_script = "uid://d2lueb6p5il1v"

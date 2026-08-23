@@ -4,6 +4,7 @@ extends CharacterBody2D
 const HEART_DESTROY_FX: PackedScene = preload("res://scenes_and_scripts/actors/player/heart_destroy_fx.tscn")
 const DEATH_SEAL_TEXTURE: Texture2D = preload("res://scenes_and_scripts/bricks/brick-gemstone-facets.png")
 const DEATH_SEAL_COLOR: Color = Color("a23e8c")
+const miniball: PackedScene = preload("res://scenes_and_scripts/ball/miniball.tscn")
 
 const WEB_BOX_COLOR: Color = Color(0.87451, 0.517647, 0.647059, 0.85)
 const WEB_SHAKE_MIN_PIXELS: float = 6.0
@@ -100,10 +101,8 @@ var accumulated_mouse_movement_x: float = 0
 var mouse_sensitivity: float = 1.0
 var is_tweening_to_david: bool = false
 
-
 var base_scale_x: float
 var base_shape_size_x: float
-
 
 @onready var sprite: Sprite2D = $PaddleSprite
 @onready var paddle_collision_shape: CollisionShape2D = $PaddleCollisionShape
@@ -120,8 +119,6 @@ var _attempt_live: bool = false
 var _attempt_armed_at: float = -1000.0
 var _attempt_cooldown_until: float = -1000.0
 
-
-
 @export var paddle_powerups: Array[PaddlePowerup]
 @export var active_paddle_powerup: PaddleActive #will type cast later
 @onready var projectiles: Node = $"../Projectiles"
@@ -134,7 +131,6 @@ var _lean_blend: float = 0.0
 var _gold_magnet_radius_sq: float = 0.0
 
 var blocker_enemies: Array[PlacedEnemy] #hold blocker enemies in paddle path
-
 
 func _ready() -> void:	
 	last_position = global_position
@@ -246,8 +242,7 @@ func add_blocker_enemy(blocker: PlacedEnemy)->void:
 func remove_blocker_enemy(blocker: PlacedEnemy)->void:
 	blocker_enemies.erase(blocker)
 	_calculate_blockers_bounds()
-	
-
+		
 func _calculate_blockers_bounds() -> void:
 	_calculate_bounds()
 	var left_blockers: Array[PlacedEnemy] = blocker_enemies.filter(
@@ -271,7 +266,6 @@ func _calculate_blockers_bounds() -> void:
 func _assign_active_powerup(item: PaddleActive)->void:
 	active_paddle_powerup = item
 	_update_magnet_outline()
-
 
 func _get_scaled_half_width() -> float:	
 	var texture_width: float = sprite.texture.get_width()

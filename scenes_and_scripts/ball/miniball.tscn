@@ -1,0 +1,103 @@
+[gd_scene format=3 uid="uid://b60sitvla23kq"]
+
+[ext_resource type="Script" uid="uid://6pvhcx02jkio" path="res://scenes_and_scripts/ball/miniball.gd" id="1_ro4ss"]
+[ext_resource type="PackedScene" uid="uid://rbv1v5vfqunm" path="res://scenes_and_scripts/ball/vfx/bounce_brick_particles.tscn" id="2_2ysgh"]
+[ext_resource type="PackedScene" uid="uid://csjala42gonuh" path="res://scenes_and_scripts/ball/vfx/bounce_wall_particles.tscn" id="3_gsboy"]
+[ext_resource type="PackedScene" uid="uid://barrierbnce1" path="res://scenes_and_scripts/ball/vfx/bounce_barrier_particles.tscn" id="4_tp0b8"]
+[ext_resource type="PackedScene" uid="uid://cu8odfaqma1aj" path="res://scenes_and_scripts/ball/vfx/bounce_paddle_particles.tscn" id="5_u1rcv"]
+[ext_resource type="Script" uid="uid://cs82vpqerteng" path="res://scenes_and_scripts/ball/vfx/trail.gd" id="6_2554l"]
+[ext_resource type="Texture2D" uid="uid://dlvvjc3vhwh7a" path="res://scenes_and_scripts/ball/miniball.png" id="7_2ysgh"]
+[ext_resource type="Texture2D" uid="uid://befajfg1phsl6" path="res://scenes_and_scripts/actors/player/player_ghost_particles.png" id="8_lkmyc"]
+[ext_resource type="Texture2D" uid="uid://c2jiidt43iqcx" path="res://scenes_and_scripts/ball/vfx/negative-energy.png" id="9_dknjr"]
+
+[sub_resource type="Curve" id="Curve_jlcqq"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_nxvvx"]
+colors = PackedColorArray(1, 0, 0, 0, 1, 0, 0, 0.15686275)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_olawr"]
+radius = 11.0454
+
+[sub_resource type="Gradient" id="Gradient_jlcqq"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_nxvvx"]
+gradient = SubResource("Gradient_jlcqq")
+width = 96
+height = 96
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_0y8e8"]
+offsets = PackedFloat32Array(0, 0.1, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.9, 1, 1, 1, 0)
+metadata/_snap_enabled = true
+
+[sub_resource type="Curve" id="Curve_nxvvx"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="Miniball" type="Area2D" unique_id=1220836699]
+z_index = 100
+script = ExtResource("1_ro4ss")
+brick_bounce_particles = ExtResource("2_2ysgh")
+wall_bounce_particles = ExtResource("3_gsboy")
+barrier_bounce_particles = ExtResource("4_tp0b8")
+paddle_bounce_particles = ExtResource("5_u1rcv")
+
+[node name="Trail" type="Line2D" parent="." unique_id=377429140]
+top_level = true
+width = 22.0
+width_curve = SubResource("Curve_jlcqq")
+gradient = SubResource("Gradient_nxvvx")
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+script = ExtResource("6_2554l")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1756931055]
+texture = ExtResource("7_2ysgh")
+
+[node name="bounce_collision_shape" type="CollisionShape2D" parent="." unique_id=891295799]
+visible = false
+shape = SubResource("CircleShape2D_olawr")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=733232863]
+color = Color(0.00999999, 0.43900007, 1, 1)
+energy = 2.2
+texture = SubResource("GradientTexture2D_nxvvx")
+
+[node name="Sparks" type="CPUParticles2D" parent="." unique_id=109540811]
+z_index = -1
+amount = 100
+texture = ExtResource("8_lkmyc")
+lifetime = 2.0
+emission_shape = 6
+emission_ring_inner_radius = 10.0
+emission_ring_radius = 10.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_max = 8.0
+scale_amount_min = 0.01
+scale_amount_max = 0.02
+color_ramp = SubResource("Gradient_0y8e8")
+
+[node name="Negative Energy" type="CPUParticles2D" parent="." unique_id=479006043]
+amount = 16
+texture = ExtResource("9_dknjr")
+randomness = 1.0
+local_coords = true
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+angular_velocity_min = 45.0
+angular_velocity_max = 45.0
+angle_max = 360.0
+scale_amount_min = 0.3
+scale_amount_max = 0.3
+scale_amount_curve = SubResource("Curve_nxvvx")
+color_ramp = SubResource("Gradient_0y8e8")
