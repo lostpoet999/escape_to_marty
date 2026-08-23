@@ -4,6 +4,8 @@
 [ext_resource type="Material" uid="uid://b6u55aep337u5" path="res://scenes_and_scripts/actors/enemies/specific_enemies/no_see_me_demon(Deon)/whiteout_shader.tres" id="2_flash"]
 [ext_resource type="Texture2D" uid="uid://dwrg8jy0fw6gq" path="res://character_design_files/collector_idle_spritesheet.png" id="3_idle"]
 [ext_resource type="PackedScene" uid="uid://f5coffints0" path="res://scenes_and_scripts/actors/enemies/specific_enemies/the_collector/collector_coffin.tscn" id="4_coffin"]
+[ext_resource type="PackedScene" uid="uid://f5handlts0" path="res://scenes_and_scripts/actors/enemies/specific_enemies/the_collector/collector_hand_left.tscn" id="5_handl"]
+[ext_resource type="PackedScene" uid="uid://f5handrts0" path="res://scenes_and_scripts/actors/enemies/specific_enemies/the_collector/collector_hand_right.tscn" id="6_handr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_coll"]
 size = Vector2(98.66667, 135.33334)
@@ -18,6 +20,14 @@ material = ExtResource("2_flash")
 position = Vector2(-2.3333335, -5)
 texture = ExtResource("3_idle")
 hframes = 6
+
+[node name="HandLeft" parent="." unique_id=1856742011 instance=ExtResource("5_handl")]
+position = Vector2(-80, 0)
+scale = Vector2(0.2, 0.2)
+
+[node name="HandRight" parent="." unique_id=1856742012 instance=ExtResource("6_handr")]
+position = Vector2(80, 0)
+scale = Vector2(0.2, 0.2)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1489539601]
 position = Vector2(0, -10.333332)

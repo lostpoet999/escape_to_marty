@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://f5handrts0"]
+
+[ext_resource type="Script" uid="uid://f5handgd0" path="res://scenes_and_scripts/actors/enemies/specific_enemies/the_collector/collector_hand.gd" id="1_hand"]
+[ext_resource type="Material" uid="uid://b6u55aep337u5" path="res://scenes_and_scripts/actors/enemies/specific_enemies/no_see_me_demon(Deon)/whiteout_shader.tres" id="2_flash"]
+[ext_resource type="Texture2D" uid="uid://ckpa65p6f0glk" path="res://scenes_and_scripts/actors/enemies/specific_enemies/the_collector/collector_hand_idle.png" id="3_tex"]
+
+[node name="CollectorHandRight" type="Sprite2D" unique_id=1856742001]
+material = ExtResource("2_flash")
+texture = ExtResource("3_tex")
+hframes = 11
+script = ExtResource("1_hand")
