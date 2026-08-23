@@ -4,8 +4,23 @@
 [ext_resource type="Material" uid="uid://b6u55aep337u5" path="res://scenes_and_scripts/actors/enemies/specific_enemies/no_see_me_demon(Deon)/whiteout_shader.tres" id="2_flash"]
 [ext_resource type="Texture2D" uid="uid://ckpa65p6f0glk" path="res://scenes_and_scripts/actors/enemies/specific_enemies/the_collector/collector_hand_idle.png" id="3_tex"]
 
-[node name="CollectorHandRight" type="Sprite2D" unique_id=1856742001]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hand"]
+size = Vector2(90, 120)
+
+[node name="CollectorHandRight" type="Area2D" unique_id=1856742001 groups=["bounce_enemy"]]
+script = ExtResource("1_hand")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1856742005]
 material = ExtResource("2_flash")
 texture = ExtResource("3_tex")
 hframes = 11
-script = ExtResource("1_hand")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1856742006]
+shape = SubResource("RectangleShape2D_hand")
+
+[node name="Muzzle" type="Marker2D" parent="." unique_id=1856742009]
+position = Vector2(0, 40)
+
+[node name="PalmMouth" type="Sprite2D" parent="." unique_id=1856742010]
+visible = false
+position = Vector2(0, 40)

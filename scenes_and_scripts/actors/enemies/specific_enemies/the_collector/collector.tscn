@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://f5coffints0" path="res://scenes_and_scripts/actors/enemies/specific_enemies/the_collector/collector_coffin.tscn" id="4_coffin"]
 [ext_resource type="PackedScene" uid="uid://f5handlts0" path="res://scenes_and_scripts/actors/enemies/specific_enemies/the_collector/collector_hand_left.tscn" id="5_handl"]
 [ext_resource type="PackedScene" uid="uid://f5handrts0" path="res://scenes_and_scripts/actors/enemies/specific_enemies/the_collector/collector_hand_right.tscn" id="6_handr"]
+[ext_resource type="PackedScene" uid="uid://rageshot01ts" path="res://scenes_and_scripts/levels/floor_2_the_arena/rage_shot.tscn" id="7_shot"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_coll"]
 size = Vector2(98.66667, 135.33334)
@@ -14,6 +15,7 @@ size = Vector2(98.66667, 135.33334)
 position = Vector2(0, 13)
 scale = Vector2(2.2, 2.2)
 script = ExtResource("1_coll")
+anger_shot_scene = ExtResource("7_shot")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1389364990]
 material = ExtResource("2_flash")
@@ -22,12 +24,18 @@ texture = ExtResource("3_idle")
 hframes = 6
 
 [node name="HandLeft" parent="." unique_id=1856742011 instance=ExtResource("5_handl")]
-position = Vector2(-80, 0)
+position = Vector2(-80.00001, -0.4545454)
 scale = Vector2(0.2, 0.2)
 
 [node name="HandRight" parent="." unique_id=1856742012 instance=ExtResource("6_handr")]
 position = Vector2(80, 0)
 scale = Vector2(0.2, 0.2)
+
+[node name="EyeLeft" type="Marker2D" parent="." unique_id=1856742021]
+position = Vector2(-28.181816, -12.727272)
+
+[node name="EyeRight" type="Marker2D" parent="." unique_id=1856742022]
+position = Vector2(0, -15.454544)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1489539601]
 position = Vector2(0, -10.333332)

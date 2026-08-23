@@ -61,7 +61,7 @@ signal boss_defeated
 @warning_ignore("unused_signal")
 signal encounter_progress(stage: int, stage_count: int, stage_remaining: float, stage_max: float)
 
-## Emits: scenes_and_scripts/bricks/base_seal.gd -> _on_tween_finished(); money_thief_spider.gd -> _on_death(); repayment_spider.gd -> _spit_coin(), _on_death()
+## Emits: scenes_and_scripts/bricks/base_seal.gd -> _on_tween_finished(); money_thief_spider.gd -> _on_death(); repayment_spider.gd -> _spit_coin(), _on_death(); the_collector/collector.gd -> _toss_coin()
 ## Connects: scenes_and_scripts/levels/room_base.gd -> update_gold_in_level
 @warning_ignore("unused_signal")
 signal gold_spawned(amount: int)
