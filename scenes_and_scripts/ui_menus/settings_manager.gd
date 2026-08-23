@@ -21,6 +21,12 @@ func difficulty_mult() -> float:
 		2: return 1.3
 		_: return 1.0
 
+func reflect_base_reduction() -> float:
+	match difficulty:
+		0: return 0.4
+		2: return 0.0
+		_: return 0.2
+
 func save_settings() -> void:
 	settings_file.set_value("audio", "music_volume", music_volume)
 	settings_file.set_value("audio", "sfx_volume", sfx_volume)

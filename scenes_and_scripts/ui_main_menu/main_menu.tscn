@@ -150,14 +150,22 @@ theme_override_fonts/font = ExtResource("2_font")
 theme_override_font_sizes/font_size = 96
 text = "Escape to Marty"
 
-[node name="ButtonContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1755409713]
+[node name="ButtonContainer" type="VBoxContainer" parent="VBoxContainer" unique_id=1755409713]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 3.0
 theme_override_constants/separation = 40
+
+[node name="BallSpacer" type="Control" parent="VBoxContainer/ButtonContainer"]
+custom_minimum_size = Vector2(0, 284)
+layout_mode = 2
+
+[node name="MainButtons" type="HBoxContainer" parent="VBoxContainer/ButtonContainer"]
+layout_mode = 2
+theme_override_constants/separation = 40
 alignment = 1
 
-[node name="Continue Button" type="Button" parent="VBoxContainer/ButtonContainer" unique_id=191054436]
+[node name="Continue Button" type="Button" parent="VBoxContainer/ButtonContainer/MainButtons" unique_id=191054436]
 custom_minimum_size = Vector2(300, 120)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -165,7 +173,7 @@ size_flags_vertical = 4
 theme_override_font_sizes/font_size = 36
 text = "Continue"
 
-[node name="Start Button" type="Button" parent="VBoxContainer/ButtonContainer" unique_id=761796766]
+[node name="Start Button" type="Button" parent="VBoxContainer/ButtonContainer/MainButtons" unique_id=761796766]
 custom_minimum_size = Vector2(300, 120)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -173,35 +181,38 @@ size_flags_vertical = 4
 theme_override_font_sizes/font_size = 36
 text = "Start"
 
-[node name="Settings Button" type="Button" parent="VBoxContainer/ButtonContainer" unique_id=1866832823]
-custom_minimum_size = Vector2(300, 120)
+[node name="SmallButtons" type="HBoxContainer" parent="VBoxContainer/ButtonContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_font_sizes/font_size = 36
-text = "Settings
-"
+theme_override_constants/separation = 40
+alignment = 1
 
-[node name="Fullscreen Button" type="Button" parent="VBoxContainer/ButtonContainer" unique_id=658979718]
-custom_minimum_size = Vector2(300, 120)
+[node name="Settings Button" type="Button" parent="VBoxContainer/ButtonContainer/SmallButtons" unique_id=1866832823]
+custom_minimum_size = Vector2(150, 60)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_font_sizes/font_size = 36
+theme_override_font_sizes/font_size = 16
+text = "Settings"
+
+[node name="Fullscreen Button" type="Button" parent="VBoxContainer/ButtonContainer/SmallButtons" unique_id=658979718]
+custom_minimum_size = Vector2(150, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 16
 text = "Fullscreen"
 script = ExtResource("7_s6e4g")
 update_text = false
 
-[node name="Credits Button" type="Button" parent="VBoxContainer/ButtonContainer" unique_id=588404531]
-custom_minimum_size = Vector2(300, 120)
+[node name="Credits Button" type="Button" parent="VBoxContainer/ButtonContainer/SmallButtons" unique_id=588404531]
+custom_minimum_size = Vector2(150, 60)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_font_sizes/font_size = 36
-text = "Credits
-"
+theme_override_font_sizes/font_size = 16
+text = "Credits"
 
-[node name="Exit Button" type="Button" parent="VBoxContainer/ButtonContainer" unique_id=1093171798]
+[node name="Exit Button" type="Button" parent="VBoxContainer/ButtonContainer/MainButtons" unique_id=1093171798]
 custom_minimum_size = Vector2(300, 120)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -227,20 +238,16 @@ scale = Vector2(16, 16)
 script = null
 metadata/_edit_lock_ = true
 
-[node name="Reset Button" type="Button" parent="." unique_id=1997357397]
+[node name="Reset Button" type="Button" parent="VBoxContainer/ButtonContainer/SmallButtons" unique_id=1997357397]
 custom_minimum_size = Vector2(150, 60)
-layout_mode = 0
-offset_left = 883.0
-offset_top = 833.0
-offset_right = 1033.0
-offset_bottom = 893.0
+layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 16
 text = "Reset Progress"
 
-[connection signal="pressed" from="VBoxContainer/ButtonContainer/Continue Button" to="." method="_on_continue_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/ButtonContainer/Start Button" to="." method="_on_start_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/ButtonContainer/Settings Button" to="." method="_on_settings_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/ButtonContainer/Credits Button" to="." method="_on_credits_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/ButtonContainer/Exit Button" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ButtonContainer/MainButtons/Continue Button" to="." method="_on_continue_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ButtonContainer/MainButtons/Start Button" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ButtonContainer/SmallButtons/Settings Button" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ButtonContainer/SmallButtons/Credits Button" to="." method="_on_credits_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ButtonContainer/MainButtons/Exit Button" to="." method="_on_exit_button_pressed"]

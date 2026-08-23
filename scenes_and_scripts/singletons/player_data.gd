@@ -176,7 +176,7 @@ func accept_reflect_damage(amount: float) -> void:
 		Signalbus.reflect_shield_changed.emit(get_player_shields())
 		return
 	var reduction: float = inventory.get_reflect_reduction() if inventory else 0.0
-	var mitigated: float = amount * (1.0 - reduction)
+	var mitigated: float = amount * (1.0 - SettingsManager.reflect_base_reduction()) * (1.0 - reduction)
 	var capped: float = minf(mitigated, player_max_health * REFLECT_MISS_CAP_RATIO)
 	accept_damage(maxi(1, roundi(capped)))
 

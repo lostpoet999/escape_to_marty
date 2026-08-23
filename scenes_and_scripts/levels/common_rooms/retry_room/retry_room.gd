@@ -8,14 +8,13 @@ func _ready() -> void:
 	await super()
 	paddle.set_paddle_hidden(true, true)
 	_portal.portal_clicked.connect(_on_portal_clicked)
-	_panel = _find_free_item_panel()
-	if _panel == null:
+	var kiosk: RoomKiosk = _find_kiosk()
+	if SettingsManager.difficulty == 2 and kiosk != null:
+		kiosk.queue_free()
+		kiosk = null
+	if kiosk == null:
 		set_process(false)
 		_show_portal()
-		return
-	var title: Label = _panel.get_node("VBoxContainer/PanelLabel") as Label
-	title.text = "You must pick one."
-	_panel.footer_label.hide()
 
 func _process(delta: float) -> void:
 	super(delta)
@@ -26,6 +25,21 @@ func _process(delta: float) -> void:
 		if is_instance_valid(_panel):
 			_panel.queue_free()
 		_show_portal()
+
+func _on_free_item_kiosk_activated(kiosk: RoomKiosk) -> void:
+	super(kiosk)
+	_panel = _find_free_item_panel()
+	if _panel == null:
+		return
+	var title: Label = _panel.get_node("VBoxContainer/PanelLabel") as Label
+	title.text = "You must pick one."
+	_panel.footer_label.hide()
+
+func _find_kiosk() -> RoomKiosk:
+	for child: Node in $PlayArea.get_children():
+		if child is RoomKiosk:
+			return child
+	return null
 
 func _find_free_item_panel() -> FreeItemPanel:
 	for child: Node in $PlayArea.get_children():

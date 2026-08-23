@@ -8,15 +8,19 @@ class_name SealInitializer extends Node
 
 static func determine_rarity()->int:
 	var rates:SealDifficulty = GameManager.floor_data.seal_difficulty_rates
-	var total: float = rates.super_easy + rates.easy + rates.medium + rates.hard
+	var mult: float = SettingsManager.difficulty_mult()
+	var easy_w: float = rates.easy * mult
+	var medium_w: float = rates.medium * mult
+	var hard_w: float = rates.hard * mult
+	var total: float = rates.super_easy + easy_w + medium_w + hard_w
 	var roll: float = randf() * total
 	var cumulative: float = 0.0
-	
+
 	cumulative += rates.super_easy
 	if roll < cumulative: return 0
-	cumulative += rates.easy
+	cumulative += easy_w
 	if roll < cumulative: return 1
-	cumulative += rates.medium
+	cumulative += medium_w
 	if roll < cumulative: return randi_range(2, 3)
 	return randi_range(4, 5)
 

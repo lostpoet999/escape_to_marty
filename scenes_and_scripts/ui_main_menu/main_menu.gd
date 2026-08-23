@@ -17,11 +17,11 @@ const RESET_FILL_COLOR: Color = Color(1.0, 0.3, 0.3, 0.45)
 const RESET_DONE_COLOR: Color = Color(0.4, 1.0, 0.4, 0.5)
 const START_NEW_RUN_TEXT: String = "New Run"
 
-@onready var exit_button: Button = $VBoxContainer/ButtonContainer/"Exit Button"
-@onready var reset_button: Button = $"Reset Button"
+@onready var exit_button: Button = $VBoxContainer/ButtonContainer/MainButtons/"Exit Button"
+@onready var reset_button: Button = $VBoxContainer/ButtonContainer/SmallButtons/"Reset Button"
 @onready var dev_build_label: Label = $Label
-@onready var start_button: Button = $VBoxContainer/ButtonContainer/"Start Button"
-@onready var continue_button: Button = $VBoxContainer/ButtonContainer/"Continue Button"
+@onready var start_button: Button = $VBoxContainer/ButtonContainer/MainButtons/"Start Button"
+@onready var continue_button: Button = $VBoxContainer/ButtonContainer/MainButtons/"Continue Button"
 
 var _reset_fill: ColorRect
 var _reset_holding: bool = false
@@ -114,7 +114,8 @@ func _on_start_button_pressed() -> void:
 	_start_new_run()
 
 func _start_new_run() -> void:
-	GameManager.restart_run()
+	SettingsScene.open_with_start_run = true
+	get_tree().change_scene_to_packed(SETTINGS_SCENE)
 
 func _on_continue_button_pressed() -> void:
 	GameManager.continue_run()
@@ -131,6 +132,7 @@ func _on_start_hold_released() -> void:
 
 func _on_settings_button_pressed() -> void:
 	print("settings button pressed")
+	SettingsScene.open_with_start_run = false
 	get_tree().change_scene_to_packed(SETTINGS_SCENE)
 
 func _on_credits_button_pressed() -> void:

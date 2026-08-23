@@ -424,6 +424,9 @@ func set_ball_in_magnet_range(ball_in_range: bool) -> void:
 func set_paddle_can_attract() -> void:
 	paddle_can_attract = true
 
+func speed_cap() -> float:
+	return max_speed * SettingsManager.difficulty_mult()
+
 func launch_ball() -> void:
 	on_paddle = false
 	_reset_vertical_serve()
@@ -631,7 +634,7 @@ func _maybe_play_soft_catch_tip() -> void:
 	if _soft_catch_tip_played or is_queued_for_deletion():
 		return
 	var launch_speed: float = initial_speed * SettingsManager.difficulty_mult()
-	if current_speed < (launch_speed + max_speed) * 0.5:
+	if current_speed < (launch_speed + speed_cap()) * 0.5:
 		return
 	_soft_catch_tip_played = true
 	DialogDirector.play(&"tutorial_soft_catch", paddle)
