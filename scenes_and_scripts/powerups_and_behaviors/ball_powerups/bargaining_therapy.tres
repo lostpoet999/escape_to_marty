@@ -1,6 +1,8 @@
 [gd_resource type="Resource" script_class="BallDamageType" format=3 uid="uid://bargthrpy001"]
 
 [ext_resource type="Script" uid="uid://balldmgtype1" path="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/ball_damage_type.gd" id="1_bdt"]
+[ext_resource type="Texture2D" uid="uid://cphomhoj32v0y" path="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/bargaining_therapy.png" id="1_xedbo"]
+[ext_resource type="Script" uid="uid://jwtisqgpmqvq" path="res://scenes_and_scripts/powerups_and_behaviors/ball_behaviors/hit_behavior.gd" id="2_o6kxm"]
 
 [resource]
 script = ExtResource("1_bdt")
@@ -8,4 +10,5 @@ phase_type = 2
 powerup_name = "Bargaining Therapy"
 shop_description = "Learn techniques to deal with Bargaining. Applies 50% of ball damage to Seals of Bargaining."
 rarity = 2
+inventory_icon = ExtResource("1_xedbo")
 metadata/_custom_type_script = "uid://balldmgtype1"

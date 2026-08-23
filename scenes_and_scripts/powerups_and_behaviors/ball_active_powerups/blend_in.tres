@@ -1,6 +1,7 @@
 [gd_resource type="Resource" script_class="BlendIn" format=3 uid="uid://bblendin1"]
 
 [ext_resource type="Script" uid="uid://b15fq7gwti6a5" path="res://scenes_and_scripts/powerups_and_behaviors/ball_active_powerups/blend_in.gd" id="1_bli"]
+[ext_resource type="Texture2D" uid="uid://i3ayyy16mrnk" path="res://scenes_and_scripts/powerups_and_behaviors/ball_active_powerups/blend_in.png" id="1_rfkfl"]
 
 [resource]
 script = ExtResource("1_bli")
@@ -8,4 +9,5 @@ cool_down_seconds = 14.0
 powerup_name = "Blend In"
 shop_description = "Become invisible in any setting. Activate to allow the ball to phase through barriers and seals for a short period of time."
 rarity = 3
+inventory_icon = ExtResource("1_rfkfl")
 metadata/_custom_type_script = "uid://b15fq7gwti6a5"
