@@ -21,5 +21,6 @@ on_hit = Array[ExtResource("2_lqspo")]([SubResource("Resource_3ry8e")])
 powerup_name = "Punch a wall"
 shop_description = "Doubles damage dealt by ball"
 rarity = 3
+max_copies_outside_shops = 1
 inventory_icon = ExtResource("1_f83on")
 metadata/_custom_type_script = "uid://bryv4msdad7wu"

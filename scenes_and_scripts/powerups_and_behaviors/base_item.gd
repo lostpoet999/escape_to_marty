@@ -110,6 +110,7 @@ static func _rarity_box(color: Color, fill_alpha: float, border_width: int, corn
 ## The description that appears when you hover over the item in shop or free item screens
 @export var shop_description: String
 @export var rarity: RarityType
+@export var max_copies_outside_shops: int = 2
 @export var min_floor: int
 @export var inventory_icon: Texture2D
 @export var removable: bool = true
@@ -122,4 +123,8 @@ static func _rarity_box(color: Color, fill_alpha: float, border_width: int, corn
 
 var cost: int:
 	get:
-		return RARITY_COSTS.get(rarity, RARITY_COSTS[RarityType.COMMON])
+		var base: int = RARITY_COSTS.get(rarity, RARITY_COSTS[RarityType.COMMON])
+		if PlayerData.inventory == null:
+			return base
+		var owned: int = PlayerData.inventory.get_items().count(self)
+		return base * (1 << owned)

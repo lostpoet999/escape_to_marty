@@ -10,10 +10,10 @@ var revealed_exits: Array[StringName] = [] #directions (e.g. &"north") whose sec
 var  loot_items_data: LootItemsData
 var spawn_rolls: Dictionary[String, bool] = {}
 
-func generate_item_box(pool_override: ItemPool = null)->void:
+func generate_item_box(pool_override: ItemPool = null, for_shop: bool = false)->void:
 	if !loot_items_data:
 		loot_items_data = LootItemsData.new()
-		loot_items_data.generate_item_box(pool_override)
+		loot_items_data.generate_item_box(pool_override, for_shop)
 
 func should_exist(key: String, chance: int) -> bool:
 	if chance >= 100:

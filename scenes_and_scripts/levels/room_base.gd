@@ -368,7 +368,7 @@ func initiate_special_room()->void:
 			_init_memory_room()
 		RoomContent.ROOM_TYPES.shop:
 			if !room_state.loot_items_data:
-				room_state.generate_item_box()
+				room_state.generate_item_box(null, true)
 			if not room_state.loot_items_data.shop_exhausted():
 				loot_items_data = room_state.loot_items_data
 				_spawn_kiosk(SHOP_KIOSK, _on_shop_kiosk_activated)

@@ -98,6 +98,7 @@ func _on_reset_hold_released() -> void:
 func _execute_reset() -> void:
 	_reset_holding = false
 	SaveProgression.reset_progress()
+	GameManager.start_floor()
 	continue_button.visible = false
 	start_button.text = "Start"
 	_start_holding = false
@@ -113,10 +114,7 @@ func _on_start_button_pressed() -> void:
 	_start_new_run()
 
 func _start_new_run() -> void:
-	if not GameManager.change_state(GameManager.GameState.BALL_ON_PADDLE):
-		return
-	GameManager.write_run_checkpoint()
-	GameManager.load_current_room()
+	GameManager.restart_run()
 
 func _on_continue_button_pressed() -> void:
 	GameManager.continue_run()

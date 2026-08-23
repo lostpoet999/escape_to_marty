@@ -101,11 +101,12 @@ func _on_buy_pressed(i: int) -> void:
 	if i >= loot_items_data.items.size():
 		return
 	var item: BaseItem = loot_items_data.items[i]
-	if item.cost > PlayerData.gold_collected:
+	var price: int = item.cost
+	if price > PlayerData.gold_collected:
 		return
 	if not await PlayerData.inventory.add_item(item):
 		return
-	PlayerData.change_player_gold(-item.cost)
+	PlayerData.change_player_gold(-price)
 	loot_items_data.items.erase(item)
 	_refresh()
 

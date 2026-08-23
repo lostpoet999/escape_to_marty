@@ -10,5 +10,6 @@ global_multi = 1.5
 powerup_name = "Rage Scream"
 shop_description = "Charge up the rage. Ball damage is multiplied by 1.5."
 rarity = 1
+max_copies_outside_shops = 1
 inventory_icon = ExtResource("1_btuqc")
 metadata/_custom_type_script = "uid://bryv4msdad7wu"

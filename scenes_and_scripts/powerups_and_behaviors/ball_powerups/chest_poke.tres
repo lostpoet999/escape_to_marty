@@ -10,5 +10,6 @@ global_multi = 1.75
 powerup_name = "Chest Poke"
 shop_description = "Get their attention with a chest poke. Ball damage is multiplied by 1.75."
 rarity = 2
+max_copies_outside_shops = 1
 inventory_icon = ExtResource("1_ukav0")
 metadata/_custom_type_script = "uid://bryv4msdad7wu"

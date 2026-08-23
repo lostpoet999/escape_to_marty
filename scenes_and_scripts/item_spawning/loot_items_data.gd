@@ -36,7 +36,12 @@ func filter_maxed_types()->void:
 			return true
 		return owned.count(type_item) < type_item.max_copies)
 
-func generate_item_box(pool_override: ItemPool = null)->void:
+func filter_capped_outside_shops()->void:
+	var owned: Array = PlayerData.inventory.get_items()
+	pool = pool.filter(func(i: BaseItem) -> bool:
+		return owned.count(i) < i.max_copies_outside_shops)
+
+func generate_item_box(pool_override: ItemPool = null, for_shop: bool = false)->void:
 	items.clear()
 	max_items = ITEMS_PER_ROOM
 	flat_pick = pool_override != null
@@ -47,6 +52,8 @@ func generate_item_box(pool_override: ItemPool = null)->void:
 		pool = ItemSpawner.item_pool_data.item_pool.duplicate()
 	filter_owned_actives()
 	filter_maxed_types()
+	if not for_shop:
+		filter_capped_outside_shops()
 	for n:int in max_items:
 		if pool.is_empty(): break
 		var item: BaseItem = draw_one()
@@ -80,6 +87,7 @@ func generate_boss_drop(config: BossLootConfig)->void:
 	pool = ItemSpawner.item_pool_data.item_pool.duplicate()
 	filter_owned_actives()
 	filter_maxed_types()
+	filter_capped_outside_shops()
 	# guaranteed items first — bypass weights and owned-active filter
 	for guaranteed:BaseItem in config.guaranteed_items:
 		items.push_back(guaranteed)
