@@ -29,6 +29,8 @@ const DAMAGE_NUMBER: PackedScene = preload("uid://bedvoohhfbi03")
 @export var swipe_flash_color: Color = Color(1.7, 0.3, 0.3)
 @export var palm_mouth_texture: Texture2D
 @export var mouth_glow_color: Color = Color(2.0, 0.7, 0.4)
+@export var fist_texture: Texture2D
+@export var fist_hframes: int = 1
 
 var health: float
 var _dead: bool = false
@@ -48,11 +50,15 @@ var _bob_tween: Tween
 var _twist_tween: Tween
 var _death_tween: Tween
 var _mouth_tween: Tween
+var _idle_texture: Texture2D
+var _idle_hframes: int = 1
 var _collector: Collector
 
 func _ready() -> void:
 	var sprite: Sprite2D = $Sprite2D
 	sprite.flip_h = mirrored
+	_idle_texture = sprite.texture
+	_idle_hframes = sprite.hframes
 	health = max_health
 	_base_scale = scale
 	_rest_sprite_y = sprite.position.y
@@ -93,6 +99,19 @@ func set_mouth_open(open: bool) -> void:
 func get_muzzle_position() -> Vector2:
 	var muzzle: Marker2D = get_node_or_null(^"Muzzle") as Marker2D
 	return muzzle.global_position if muzzle != null else global_position
+
+func set_fist(on: bool) -> void:
+	if fist_texture == null:
+		return
+	var sprite: Sprite2D = $Sprite2D
+	if on:
+		sprite.texture = fist_texture
+		sprite.hframes = maxi(fist_hframes, 1)
+	else:
+		sprite.texture = _idle_texture
+		sprite.hframes = _idle_hframes
+	sprite.frame = 0
+	_idle_time = 0.0
 
 func set_idle_enabled(enabled: bool) -> void:
 	_idle_enabled = enabled
@@ -207,6 +226,7 @@ func begin_emerge(rest_local: Vector2) -> void:
 	scale = _base_scale
 	modulate = Color.WHITE
 	$Sprite2D.self_modulate = Color.WHITE
+	set_fist(false)
 	health = max_health
 	var rise_tween: Tween = create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	rise_tween.tween_property(self, "position:y", position.y - emerge_rise_pixels, emerge_rise_time)

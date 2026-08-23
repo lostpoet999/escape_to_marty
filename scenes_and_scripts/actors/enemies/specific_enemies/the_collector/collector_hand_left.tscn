@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://f5handgd0" path="res://scenes_and_scripts/actors/enemies/specific_enemies/the_collector/collector_hand.gd" id="1_hand"]
 [ext_resource type="Material" uid="uid://b6u55aep337u5" path="res://scenes_and_scripts/actors/enemies/specific_enemies/no_see_me_demon(Deon)/whiteout_shader.tres" id="2_flash"]
 [ext_resource type="Texture2D" uid="uid://ckpa65p6f0glk" path="res://scenes_and_scripts/actors/enemies/specific_enemies/the_collector/collector_hand_idle.png" id="3_tex"]
+[ext_resource type="Texture2D" path="res://scenes_and_scripts/actors/enemies/specific_enemies/the_collector/collector_hand_fist.png" id="4_fist"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hand"]
 size = Vector2(90, 120)
@@ -10,6 +11,7 @@ size = Vector2(90, 120)
 [node name="CollectorHandLeft" type="Area2D" unique_id=1856742002 groups=["bounce_enemy"]]
 script = ExtResource("1_hand")
 mirrored = true
+fist_texture = ExtResource("4_fist")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1856742003]
 material = ExtResource("2_flash")

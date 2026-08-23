@@ -86,9 +86,9 @@ func charge_fraction() -> float:
 		return 1.0
 	return clampf(charge / charge_seconds, 0.0, 1.0)
 
-func force_charged(animate: bool = true) -> void:
+func force_charged(animate: bool = true, lock: bool = true) -> void:
 	charge = charge_seconds
-	_locked = true
+	_locked = lock
 	if animate:
 		_update_visuals()
 		return
@@ -100,6 +100,11 @@ func apply_imp_strike() -> void:
 	if _locked:
 		return
 	_add_charge(-drain_per_strike)
+
+func drain(amount: float) -> void:
+	if _locked:
+		return
+	_add_charge(-amount)
 
 func _add_charge(amount: float) -> void:
 	var before: float = charge

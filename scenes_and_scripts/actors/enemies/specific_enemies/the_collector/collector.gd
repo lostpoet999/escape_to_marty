@@ -5,6 +5,7 @@ const DAMAGE_NUMBER: PackedScene = preload("uid://bedvoohhfbi03")
 const SPIT_COIN: PackedScene = preload("res://scenes_and_scripts/actors/enemies/specific_enemies/repayment_spider/spit_coin.tscn")
 const GOLD_PAYLOAD: BonusPayload = preload("res://scenes_and_scripts/collectibles/bonus_drops/currency_payload.tres")
 const DARK_CAGE: PackedScene = preload("res://scenes_and_scripts/actors/enemies/specific_enemies/dark_cage/dark_cage.tscn")
+const SHADOW_IMP: PackedScene = preload("res://scenes_and_scripts/actors/enemies/specific_enemies/shadow_imp/shadow_imp.tscn")
 
 enum AttackKind {
 	SWIPE = 0,
@@ -63,7 +64,8 @@ const FACE_DEADZONE: float = 1.0
 @export var denial_punch_time: float = 0.35
 @export var denial_wall_left_x: float = 352.0
 @export var denial_wall_right_x: float = 1824.0
-@export var denial_wall_inset: float = 120.0
+@export var denial_wall_inset: float = 30.0
+@export var denial_slam_trauma: float = 1.5
 @export var denial_cage_count: int = 3
 @export var denial_cage_lanes: Array[float] = [480.0, 704.0, 928.0, 1152.0, 1376.0, 1600.0]
 @export var denial_cage_spawn_y: float = 111.0
@@ -83,6 +85,15 @@ const FACE_DEADZONE: float = 1.0
 @export var anger_converge_lead: float = 0.35
 @export var anger_raise_offset: Vector2 = Vector2(0, -60)
 @export var anger_recover: float = 0.5
+@export var snuff_windup: float = 1.0
+@export var snuff_seconds_two_hands: float = 4.0
+@export var snuff_seconds_one_hand: float = 8.0
+@export var snuff_clasp_pos: Vector2 = Vector2(0, -40)
+@export var snuff_clasp_gap: float = 50.0
+@export var snuff_recover: float = 0.5
+@export var imps_per_snuff_min: int = 2
+@export var imps_per_snuff_max: int = 3
+@export var imp_respawn_interval: float = 2.5
 
 var health: float
 var dying: bool = false
@@ -121,6 +132,12 @@ var _hand_rests: Dictionary[CollectorHand, Vector2] = {}
 var _hand_respawn_timer: Timer
 var _pending_hand: CollectorHand
 var _anger_pattern_index: int = 0
+var _statues: Array[DepressionStatue] = []
+var _imps: Array[ShadowImp] = []
+var _snuffing: bool = false
+var _depression_event_active: bool = false
+var _imp_timer: Timer
+var _imp_target: int = 0
 
 func _ready() -> void:
 	health = max_health
@@ -148,6 +165,7 @@ func _ready() -> void:
 	tween.tween_property(self, "scale", target_scale, grow_time)
 	tween.tween_callback(_finish_intro)
 	_set_player_frozen.call_deferred(true)
+	_setup_statues.call_deferred()
 
 func _exit_tree() -> void:
 	if _player_frozen:
@@ -504,6 +522,8 @@ func _roll_attack() -> int:
 		pool.append(AttackKind.DENIAL)
 	if _anger_unlocked and hands_alive:
 		pool.append(AttackKind.ANGER)
+	if _depression_unlocked and hands_alive and not _depression_event_active and _any_statue_holding_charge():
+		pool.append(AttackKind.DEPRESSION)
 	if pool.is_empty():
 		return -1
 	var choice: AttackKind = pool.pick_random()
@@ -524,6 +544,8 @@ func _run_attack(kind: int) -> void:
 			await _attack_denial()
 		AttackKind.ANGER:
 			await _attack_anger()
+		AttackKind.DEPRESSION:
+			await _attack_depression()
 	if dying:
 		return
 	_finish_attack()
@@ -625,6 +647,7 @@ func _punch_walls() -> void:
 	var tween: Tween = create_tween().set_parallel(true).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN)
 	for hand: CollectorHand in hands:
 		hand.set_idle_enabled(false)
+		hand.set_fist(true)
 		var rest_local: Vector2 = _hand_rests.get(hand, hand.position)
 		var wall_x: float = denial_wall_left_x + denial_wall_inset if rest_local.x < 0.0 else denial_wall_right_x - denial_wall_inset
 		tween.tween_property(hand, "position", to_local(Vector2(wall_x, global_position.y)), denial_punch_time)
@@ -633,7 +656,7 @@ func _punch_walls() -> void:
 	var camera: Camera2D = get_viewport().get_camera_2d()
 	if camera != null:
 		@warning_ignore("unsafe_method_access")
-		camera.add_trauma(0.7)
+		camera.add_trauma(denial_slam_trauma)
 
 func _drop_cages() -> void:
 	var lanes: Array[float] = denial_cage_lanes.duplicate()
@@ -730,6 +753,183 @@ func _lower_hands() -> void:
 	for hand: CollectorHand in hands:
 		hand.set_idle_enabled(true)
 
+func _setup_statues() -> void:
+	for node: Node in get_tree().get_nodes_in_group(&"depression_statue"):
+		var statue: DepressionStatue = node as DepressionStatue
+		if statue == null:
+			continue
+		_statues.append(statue)
+		statue.visible = true
+		statue.process_mode = Node.PROCESS_MODE_INHERIT
+		statue.force_charged(false, false)
+		statue.charge_changed.connect(_on_statue_charge_changed)
+
+func _any_statue_holding_charge() -> bool:
+	for statue: DepressionStatue in _statues:
+		if is_instance_valid(statue) and statue.charge > 0.0:
+			return true
+	return false
+
+func _all_statues_charged() -> bool:
+	if _statues.is_empty():
+		return false
+	for statue: DepressionStatue in _statues:
+		if is_instance_valid(statue) and not statue.is_charged():
+			return false
+	return true
+
+func _attack_depression() -> void:
+	await _clasp_hands()
+	if dying:
+		return
+	await _channel_snuff()
+	if dying:
+		return
+	await _unclasp_hands()
+
+func _clasp_hands() -> void:
+	var hands: Array[CollectorHand] = _alive_hands()
+	if hands.is_empty():
+		return
+	var tween: Tween = create_tween().set_parallel(true).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	for hand: CollectorHand in hands:
+		hand.set_idle_enabled(false)
+		hand.set_channeling(true)
+		var rest_local: Vector2 = _hand_rests.get(hand, hand.position)
+		var side: float = -1.0 if rest_local.x < 0.0 else 1.0
+		var target: Vector2 = snuff_clasp_pos + Vector2(side * snuff_clasp_gap * 0.5, 0.0)
+		tween.tween_property(hand, "position", target, snuff_windup)
+	await tween.finished
+
+func _channel_snuff() -> void:
+	_snuffing = true
+	var elapsed: float = 0.0
+	var completed: bool = false
+	while true:
+		if dying:
+			return
+		if GameManager.current_state == GameManager.GameState.BALL_ON_PADDLE:
+			await get_tree().physics_frame
+			continue
+		var working: int = _working_hand_count()
+		if working <= 0:
+			break
+		var delta: float = get_physics_process_delta_time()
+		var duration: float = snuff_seconds_two_hands if working >= 2 else snuff_seconds_one_hand
+		var any_left: bool = false
+		for statue: DepressionStatue in _statues:
+			if not is_instance_valid(statue):
+				continue
+			statue.drain(statue.charge_seconds / duration * delta)
+			if statue.charge > 0.0:
+				any_left = true
+		elapsed += delta
+		_tremble_hands(elapsed)
+		if not any_left:
+			_complete_snuff()
+			completed = true
+			break
+		await get_tree().physics_frame
+	_snuffing = false
+	if not completed:
+		_restore_statues()
+
+func _restore_statues() -> void:
+	for statue: DepressionStatue in _statues:
+		if is_instance_valid(statue) and not statue.is_charged():
+			statue.force_charged(false, false)
+
+func _working_hand_count() -> int:
+	var count: int = 0
+	for hand: CollectorHand in _hands():
+		if hand.is_working():
+			count += 1
+	return count
+
+func _tremble_hands(elapsed: float) -> void:
+	for hand: CollectorHand in _alive_hands():
+		hand.rotation = sin(elapsed * 28.0) * 0.05
+
+func _complete_snuff() -> void:
+	_depression_event_active = true
+	var driver: DarknessDriver = get_tree().get_first_node_in_group(&"darkness_driver") as DarknessDriver
+	if driver != null:
+		driver.fade_dark()
+	_imp_target = randi_range(imps_per_snuff_min, imps_per_snuff_max)
+	_spawn_imps_to_target()
+	_start_imp_timer()
+
+func _unclasp_hands() -> void:
+	var hands: Array[CollectorHand] = _alive_hands()
+	for hand: CollectorHand in _hands():
+		hand.set_channeling(false)
+		hand.rotation = 0.0
+	if hands.is_empty():
+		return
+	var tween: Tween = create_tween().set_parallel(true).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	for hand: CollectorHand in hands:
+		var rest_local: Vector2 = _hand_rests.get(hand, hand.position)
+		tween.tween_property(hand, "position", rest_local, snuff_recover)
+	await tween.finished
+	for hand: CollectorHand in hands:
+		hand.set_idle_enabled(true)
+
+func _spawn_imps_to_target() -> void:
+	_prune_imps()
+	while _imps.size() < _imp_target:
+		var imp: ShadowImp = SHADOW_IMP.instantiate()
+		get_parent().add_child(imp)
+		imp.global_position = Vector2(randf_range(600.0, 1500.0), 200.0)
+		_imps.append(imp)
+
+func _start_imp_timer() -> void:
+	if _imp_timer == null:
+		_imp_timer = Timer.new()
+		_imp_timer.one_shot = true
+		_imp_timer.timeout.connect(_on_imp_timer_timeout)
+		add_child(_imp_timer)
+	_imp_timer.start(imp_respawn_interval)
+
+func _on_imp_timer_timeout() -> void:
+	if dying or not _depression_event_active:
+		return
+	_prune_imps()
+	if _imps.size() < _imp_target:
+		var imp: ShadowImp = SHADOW_IMP.instantiate()
+		get_parent().add_child(imp)
+		imp.global_position = Vector2(randf_range(600.0, 1500.0), 200.0)
+		_imps.append(imp)
+	_imp_timer.start(imp_respawn_interval)
+
+func _prune_imps() -> void:
+	for i: int in range(_imps.size() - 1, -1, -1):
+		if not is_instance_valid(_imps[i]):
+			_imps.remove_at(i)
+
+func _on_statue_charge_changed() -> void:
+	if not _depression_event_active or not _all_statues_charged():
+		return
+	_end_depression_event()
+
+func _end_depression_event() -> void:
+	_depression_event_active = false
+	if _imp_timer != null:
+		_imp_timer.stop()
+	var driver: DarknessDriver = get_tree().get_first_node_in_group(&"darkness_driver") as DarknessDriver
+	if driver != null:
+		driver.fade_light()
+	_despawn_imps()
+
+func _despawn_imps() -> void:
+	_prune_imps()
+	var imps: Array[ShadowImp] = _imps.duplicate()
+	_imps.clear()
+	for imp: ShadowImp in imps:
+		if not is_instance_valid(imp):
+			continue
+		imp.die()
+		await get_tree().create_timer(0.12, false).timeout
+
 func _return_hands() -> void:
 	var hands: Array[CollectorHand] = _alive_hands()
 	if hands.is_empty():
@@ -740,6 +940,7 @@ func _return_hands() -> void:
 		tween.tween_property(hand, "position", rest_local, denial_recover)
 	await tween.finished
 	for hand: CollectorHand in hands:
+		hand.set_fist(false)
 		hand.set_idle_enabled(true)
 
 func _start_shield_pulse() -> void:

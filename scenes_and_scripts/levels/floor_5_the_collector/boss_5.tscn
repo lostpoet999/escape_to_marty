@@ -5,11 +5,21 @@
 [ext_resource type="PackedScene" uid="uid://flrportal001" path="res://scenes_and_scripts/exits/floor_portal.tscn" id="6_portal"]
 [ext_resource type="Script" uid="uid://deonencroom0" path="res://scenes_and_scripts/levels/deon_encounter_room.gd" id="7_deonroom"]
 [ext_resource type="PackedScene" uid="uid://encprgbar01" path="res://scenes_and_scripts/ui_menus/encounter_progress_bar.tscn" id="8_epbar"]
+[ext_resource type="PackedScene" uid="uid://dprstatuesc" path="res://scenes_and_scripts/actors/other/depression_statue.tscn" id="9_statue"]
+[ext_resource type="Texture2D" uid="uid://dcssfujywku3e" path="res://scenes_and_scripts/actors/other/denial_statue.png" id="10_dstat"]
+[ext_resource type="Texture2D" uid="uid://k50goy1jxuif" path="res://scenes_and_scripts/actors/other/denial_charged_statue.png" id="11_dchg"]
+[ext_resource type="Texture2D" uid="uid://bv3ylfo65ifvk" path="res://scenes_and_scripts/actors/other/anger_statue.png" id="12_astat"]
+[ext_resource type="Texture2D" uid="uid://qb70hfi3t1q1" path="res://scenes_and_scripts/actors/other/anger_charged_statue.png" id="13_achg"]
+[ext_resource type="Texture2D" uid="uid://dgeld43se0ea" path="res://scenes_and_scripts/actors/other/bargaining_statue.png" id="14_bstat"]
+[ext_resource type="Texture2D" uid="uid://ci4fmdyv361ij" path="res://scenes_and_scripts/actors/other/bargaining_charged_statue.png" id="15_bchg"]
+[ext_resource type="Texture2D" uid="uid://b8jn4leddpow1" path="res://scenes_and_scripts/actors/other/depression_statue.png" id="16_pstat"]
+[ext_resource type="Texture2D" uid="uid://c36762kab8jxm" path="res://scenes_and_scripts/actors/other/depression_charged_statue.png" id="17_pchg"]
+[ext_resource type="Script" uid="uid://c00a7vhjyyiph" path="res://scenes_and_scripts/levels/floor_5_the_collector/darkness_driver.gd" id="18_dark"]
 
 [node name="BossRoom5" unique_id=565861230 instance=ExtResource("1_u1v84")]
-standalone_floor = 5
 script = ExtResource("7_deonroom")
 post_encounter_tree = null
+standalone_floor = 5
 
 [node name="DeathWall" parent="PlayArea/Walls" parent_id_path=PackedInt32Array(76639453) index="0" unique_id=518440941]
 z_index = -100
@@ -26,8 +36,55 @@ position = Vector2(1096, 336)
 [node name="EncounterProgressBar" parent="PlayArea/Encounter" index="1" unique_id=1475231804 instance=ExtResource("8_epbar")]
 title = "The Collector"
 
+[node name="DarknessDriver" type="Node" parent="PlayArea/Encounter" index="2" unique_id=565861301 groups=["darkness_driver"]]
+script = ExtResource("18_dark")
+
 [node name="FloorPortal" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="6" unique_id=1860885060 instance=ExtResource("6_portal")]
 position = Vector2(804, 760)
 
-[node name="item_spawn_point" parent="." index="12" unique_id=51076593]
+[node name="CanvasModulate" type="CanvasModulate" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="7" unique_id=565861302]
+
+[node name="Ritual" type="Node" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="8" unique_id=565861303]
+
+[node name="StatueTopLeft(denial)" parent="PlayArea/Ritual" index="0" unique_id=565861304 instance=ExtResource("9_statue")]
+z_index = -1
+position = Vector2(896, 336)
+scale = Vector2(1.7, 1.7)
+charge_seconds = 5.0
+phase_color = Color(0.635294, 0.243137, 0.54902, 1)
+locks_when_charged = false
+statue_texture = ExtResource("10_dstat")
+charged_texture = ExtResource("11_dchg")
+
+[node name="StatueTopRight(anger)" parent="PlayArea/Ritual" index="1" unique_id=565861305 instance=ExtResource("9_statue")]
+z_index = -1
+position = Vector2(1280, 336)
+scale = Vector2(1.7, 1.7)
+charge_seconds = 7.5
+phase_color = Color(0.647059, 0.188235, 0.188235, 1)
+locks_when_charged = false
+statue_texture = ExtResource("12_astat")
+charged_texture = ExtResource("13_achg")
+
+[node name="StatueBottomLeft(bargaining)" parent="PlayArea/Ritual" index="2" unique_id=565861306 instance=ExtResource("9_statue")]
+z_index = -1
+position = Vector2(896, 752)
+scale = Vector2(1.7, 1.7)
+charge_seconds = 11.0
+phase_color = Color(0.870588, 0.619608, 0.254902, 1)
+locks_when_charged = false
+statue_texture = ExtResource("14_bstat")
+charged_texture = ExtResource("15_bchg")
+
+[node name="StatueBottomRight(depression)" parent="PlayArea/Ritual" index="3" unique_id=565861307 instance=ExtResource("9_statue")]
+z_index = -1
+position = Vector2(1280, 752)
+scale = Vector2(1.7, 1.7)
+charge_seconds = 15.0
+phase_color = Color(0.223529, 0.290196, 0.313725, 1)
+locks_when_charged = false
+statue_texture = ExtResource("16_pstat")
+charged_texture = ExtResource("17_pchg")
+
+[node name="item_spawn_point" parent="." index="11" unique_id=51076593]
 position = Vector2(1085, 800)
