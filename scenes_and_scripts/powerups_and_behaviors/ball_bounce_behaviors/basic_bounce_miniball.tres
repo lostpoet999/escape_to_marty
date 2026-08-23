@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="BaseBounceEffectMini" format=3 uid="uid://cdlx7h1mlm0c4"]
+
+[ext_resource type="Texture2D" uid="uid://bdmcepqlfcyk4" path="res://scenes_and_scripts/powerups_and_behaviors/ball_bounce_behaviors/ball_bounce.png" id="1_wo04n"]
+[ext_resource type="Script" uid="uid://dt0kbq8rabool" path="res://scenes_and_scripts/powerups_and_behaviors/ball_bounce_behaviors/base_bounce_effect_miniball.gd" id="2_wo04n"]
+
+[resource]
+script = ExtResource("2_wo04n")
+powerup_name = "Basic Bounce (Miniball)"
+inventory_icon = ExtResource("1_wo04n")
+removable = false
+metadata/_custom_type_script = "uid://dtnpin7y2xs7o"

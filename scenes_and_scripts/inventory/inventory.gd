@@ -58,7 +58,8 @@ func init_starting_items() ->void:
 	items.append_array(BALL_PASSIVE_POWERUPS)
 	const CORE_ITEMS: Array = [
 		## Add testing inventory items here that will be added in _ready
-	preload("uid://b61d4hm0o24k0") # basic bounce
+	preload("uid://b61d4hm0o24k0"), # basic bounce
+	preload("uid://cdlx7h1mlm0c4") # basic miniball bounce 
 ]
 	core_items.append_array(CORE_ITEMS)
 
@@ -105,6 +106,12 @@ func get_ball_bounce() -> BaseBounceEffect:
 			return item
 	return null
 
+func get_miniball_bounce() -> BaseBounceEffectMini:
+	for item: BaseItem in core_items:
+		if item is BaseBounceEffectMini:
+			return item
+	return null
+
 func get_paddle_active() -> PaddleActive:	#inventory logic prevents more than one, so returning on first one should be good
 	for item:BaseItem in core_items:
 		if item is PaddleActive:
@@ -123,6 +130,18 @@ func get_items_for_click() -> Array[ClickPowerUp]:
 		if item is ClickPowerUp:
 			_items.append(item)
 	return _items
+
+func check_multiball_exist() -> bool:
+	for item: BaseItem in items:
+		if item is MultiballChance:
+			return true
+	return false
+
+func get_multiball_powerup() -> MultiballChance:
+	for item: BaseItem in items:
+		if item is MultiballChance:
+			return item as MultiballChance
+	return null
 
 func get_items_for_defense() -> Array[DefensivePowerup]:
 	var _items: Array[DefensivePowerup] = []
