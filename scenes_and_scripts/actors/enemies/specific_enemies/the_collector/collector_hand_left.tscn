@@ -4,6 +4,7 @@
 [ext_resource type="Material" uid="uid://b6u55aep337u5" path="res://scenes_and_scripts/actors/enemies/specific_enemies/no_see_me_demon(Deon)/whiteout_shader.tres" id="2_flash"]
 [ext_resource type="Texture2D" uid="uid://ckpa65p6f0glk" path="res://scenes_and_scripts/actors/enemies/specific_enemies/the_collector/collector_hand_idle.png" id="3_tex"]
 [ext_resource type="Texture2D" path="res://scenes_and_scripts/actors/enemies/specific_enemies/the_collector/collector_hand_fist.png" id="4_fist"]
+[ext_resource type="Texture2D" path="res://scenes_and_scripts/actors/enemies/specific_enemies/the_collector/collector_hand_mouth.png" id="5_mouth"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hand"]
 size = Vector2(90, 120)
@@ -12,6 +13,7 @@ size = Vector2(90, 120)
 script = ExtResource("1_hand")
 mirrored = true
 fist_texture = ExtResource("4_fist")
+mouth_texture = ExtResource("5_mouth")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1856742003]
 material = ExtResource("2_flash")
@@ -22,8 +24,4 @@ hframes = 11
 shape = SubResource("RectangleShape2D_hand")
 
 [node name="Muzzle" type="Marker2D" parent="." unique_id=1856742007]
-position = Vector2(0, 40)
-
-[node name="PalmMouth" type="Sprite2D" parent="." unique_id=1856742008]
-visible = false
 position = Vector2(0, 40)

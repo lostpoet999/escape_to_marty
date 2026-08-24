@@ -6,6 +6,7 @@ const SPIT_COIN: PackedScene = preload("res://scenes_and_scripts/actors/enemies/
 const GOLD_PAYLOAD: BonusPayload = preload("res://scenes_and_scripts/collectibles/bonus_drops/currency_payload.tres")
 const DARK_CAGE: PackedScene = preload("res://scenes_and_scripts/actors/enemies/specific_enemies/dark_cage/dark_cage.tscn")
 const SHADOW_IMP: PackedScene = preload("res://scenes_and_scripts/actors/enemies/specific_enemies/shadow_imp/shadow_imp.tscn")
+const CODEC_PLAYER: PackedScene = preload("uid://ccodecplayer")
 
 enum AttackKind {
 	SWIPE = 0,
@@ -25,6 +26,7 @@ const COFFIN_STAGE: int = 1
 const HEALTH_STAGE: int = 2
 const MIN_GLIDE_TIME: float = 0.35
 const FACE_DEADZONE: float = 1.0
+const ATTACK_STATION_EPSILON: float = 8.0
 
 @export var max_health: float = 150.0
 @export var start_scale: float = 0.2
@@ -94,6 +96,18 @@ const FACE_DEADZONE: float = 1.0
 @export var imps_per_snuff_min: int = 2
 @export var imps_per_snuff_max: int = 3
 @export var imp_respawn_interval: float = 2.5
+@export var surrender_receptions: int = 4
+@export var surrender_time_scale: float = 0.6
+@export var surrender_reel_time: float = 0.9
+@export var surrender_reel_scale: float = 0.85
+@export var surrender_reel_color: Color = Color(0.35, 0.35, 0.45)
+@export var surrender_hold_time: float = 0.6
+@export var surrender_rise_time: float = 0.8
+@export var surrender_transition_trauma: float = 2.0
+@export var surrender_reject_color: Color = Color(1.0, 0.15, 0.15)
+@export var surrender_reject_trauma: float = 0.25
+@export var surrender_exit_time: float = 1.2
+@export var surrender_beat_trees: Array[DialogTree] = [] ## One reveal beat per reception, in order. Empty or null entries are skipped.
 
 var health: float
 var dying: bool = false
@@ -138,6 +152,10 @@ var _snuffing: bool = false
 var _depression_event_active: bool = false
 var _imp_timer: Timer
 var _imp_target: int = 0
+var _surrendering: bool = false
+var _surrender_ready: bool = false
+var _surrender_done: bool = false
+var _receptions_left: int = 0
 
 func _ready() -> void:
 	health = max_health
@@ -170,6 +188,8 @@ func _ready() -> void:
 func _exit_tree() -> void:
 	if _player_frozen:
 		_set_player_frozen(false)
+	if _surrendering:
+		GameManager.set_time_scale_modifier(1.0)
 
 func _finish_intro() -> void:
 	_grown = true
@@ -373,7 +393,7 @@ func _restart_coin_timer() -> void:
 	_coin_timer.start(randf_range(coin_respawn_min, coin_respawn_max))
 
 func _on_coin_timer_timeout() -> void:
-	if dying:
+	if _halted():
 		return
 	if is_instance_valid(_live_coin) or _pick_filled_eye() == null \
 			or GameManager.current_state == GameManager.GameState.LEVEL_CLEARED:
@@ -500,7 +520,7 @@ func _restart_attack_timer() -> void:
 	_attack_timer.start(randf_range(attack_delay_min, attack_delay_max))
 
 func _on_attack_timer_timeout() -> void:
-	if dying:
+	if _halted():
 		return
 	if _attack_running or _gliding or _free_pauses < min_free_pauses \
 			or GameManager.current_state == GameManager.GameState.LEVEL_CLEARED \
@@ -514,6 +534,8 @@ func _on_attack_timer_timeout() -> void:
 	_run_attack(kind)
 
 func _roll_attack() -> int:
+	if _halted():
+		return -1
 	var pool: Array[AttackKind] = []
 	var hands_alive: bool = not _alive_hands().is_empty()
 	if hands_alive:
@@ -531,10 +553,11 @@ func _roll_attack() -> int:
 
 func _run_attack(kind: int) -> void:
 	_attack_running = true
-	if kind != AttackKind.SWIPE:
-		_start_glide(attack_point, attack_glide_speed)
+	var station: Vector2 = _attack_station(kind)
+	if station.distance_to(global_position) > ATTACK_STATION_EPSILON:
+		_start_glide(station, flee_speed if _retreating else attack_glide_speed)
 		while _gliding:
-			if dying:
+			if _halted():
 				return
 			await get_tree().physics_frame
 	match kind:
@@ -546,9 +569,27 @@ func _run_attack(kind: int) -> void:
 			await _attack_anger()
 		AttackKind.DEPRESSION:
 			await _attack_depression()
-	if dying:
+	if _halted():
 		return
 	_finish_attack()
+
+func _attack_station(kind: int) -> Vector2:
+	if kind == AttackKind.SWIPE:
+		return global_position
+	if not _retreating:
+		return attack_point
+	match kind:
+		AttackKind.DENIAL:
+			return Vector2((denial_wall_left_x + denial_wall_right_x) * 0.5, global_position.y)
+		AttackKind.ANGER:
+			return Vector2(global_position.x, _high_lane_y())
+	return global_position
+
+func _high_lane_y() -> float:
+	var best: float = global_position.y
+	for point: Vector2 in corner_points:
+		best = minf(best, point.y)
+	return best
 
 func _attack_swipe() -> void:
 	var hand: CollectorHand = _swipe_hand()
@@ -611,6 +652,8 @@ func _respawn_hand(hand: CollectorHand) -> void:
 
 func _finish_attack() -> void:
 	_attack_running = false
+	if _surrendering:
+		return
 	_free_pauses = 0
 	_restart_attack_timer()
 	if _retreating:
@@ -621,13 +664,13 @@ func _finish_attack() -> void:
 
 func _attack_denial() -> void:
 	await _pulse_telegraph(denial_windup)
-	if dying:
+	if _halted():
 		return
 	await _punch_walls()
-	if dying:
+	if _halted():
 		return
 	await _drop_cages()
-	if dying:
+	if _halted():
 		return
 	await _return_hands()
 
@@ -663,7 +706,7 @@ func _drop_cages() -> void:
 	lanes.shuffle()
 	var count: int = mini(denial_cage_count, lanes.size())
 	for i: int in count:
-		if dying:
+		if _halted():
 			return
 		var cage: DarkCage = DARK_CAGE.instantiate()
 		cage.add_collision_exception_with(self)
@@ -673,10 +716,10 @@ func _drop_cages() -> void:
 
 func _attack_anger() -> void:
 	await _raise_hands()
-	if dying:
+	if _halted():
 		return
 	await _fire_anger_volley()
-	if dying:
+	if _halted():
 		return
 	await _lower_hands()
 
@@ -697,7 +740,7 @@ func _fire_anger_volley() -> void:
 	_anger_pattern_index += 1
 	var hand_toggle: int = 0
 	for i: int in anger_volley_count:
-		if dying:
+		if _halted():
 			return
 		var hands: Array[CollectorHand] = _alive_hands()
 		if hands.is_empty():
@@ -780,10 +823,10 @@ func _all_statues_charged() -> bool:
 
 func _attack_depression() -> void:
 	await _clasp_hands()
-	if dying:
+	if _halted():
 		return
 	await _channel_snuff()
-	if dying:
+	if _halted():
 		return
 	await _unclasp_hands()
 
@@ -806,7 +849,7 @@ func _channel_snuff() -> void:
 	var elapsed: float = 0.0
 	var completed: bool = false
 	while true:
-		if dying:
+		if _halted():
 			return
 		if GameManager.current_state == GameManager.GameState.BALL_ON_PADDLE:
 			await get_tree().physics_frame
@@ -965,6 +1008,9 @@ func accept_damage(damage: float, dmg_type: Array[GameManager.PhaseType]) -> voi
 		return
 	if not dmg_type.has(GameManager.PhaseType.HEALTH):
 		return
+	if _surrendering:
+		_reject_hit()
+		return
 	if not _coffins.is_empty():
 		_show_denied_number()
 		return
@@ -974,7 +1020,7 @@ func accept_damage(damage: float, dmg_type: Array[GameManager.PhaseType]) -> voi
 	health -= damage
 	Signalbus.encounter_progress.emit(HEALTH_STAGE, STAGE_COUNT, maxf(health, 0.0), max_health)
 	if health <= 0.0:
-		_die()
+		_begin_surrender()
 
 func responding_gestures() -> Array[GameManager.PhaseType]:
 	return []
@@ -1002,6 +1048,170 @@ func _flash_hit() -> void:
 	flash_tween.tween_method(
 		func(v: float) -> void: mat.set_shader_parameter("flash_amount", v),
 		1.0, 0.0, 0.05
+	)
+
+func is_surrendering() -> bool:
+	return _surrendering
+
+func _halted() -> bool:
+	return dying or _surrendering
+
+func _begin_surrender() -> void:
+	if _surrendering:
+		return
+	_surrendering = true
+	health = 0.0
+	_receptions_left = maxi(surrender_receptions, 1)
+	add_to_group(GameManager.SURRENDER)
+	_stop_stage_one_systems()
+	_set_player_frozen(true)
+	await _play_surrender_transition()
+	if not is_inside_tree():
+		return
+	GameManager.set_time_scale_modifier(surrender_time_scale)
+	_emit_surrender_progress()
+	_retreating = false
+	_station_index = _nearest_station_index()
+	_begin_next_glide()
+	_set_player_frozen(false)
+	_surrender_ready = true
+
+func _stop_stage_one_systems() -> void:
+	_attack_running = false
+	_gliding = false
+	_orbit_rate = 0.0
+	if _attack_timer != null:
+		_attack_timer.stop()
+	if _coin_timer != null:
+		_coin_timer.stop()
+	if _hand_respawn_timer != null:
+		_hand_respawn_timer.stop()
+	if _depression_event_active:
+		_end_depression_event()
+	_restore_statues()
+	if is_instance_valid(_live_coin):
+		_live_coin.queue_free()
+	for eye: Marker2D in _eyes():
+		var rest: Sprite2D = _eye_coins.get(eye)
+		if rest != null:
+			_stop_eye_pulse(rest)
+			rest.visible = false
+	for hand: CollectorHand in _hands():
+		hand.set_combat_enabled(false)
+		hand.set_channeling(false)
+		hand.set_fist(false)
+		hand.set_mouth_open(false)
+		hand.rotation = 0.0
+		if hand.is_alive():
+			hand.position = _hand_rests.get(hand, hand.position)
+			hand.set_idle_enabled(true)
+	_clear_stage_one_threats()
+
+func _clear_stage_one_threats() -> void:
+	var parent: Node = get_parent()
+	if parent == null:
+		return
+	for child: Node in parent.get_children():
+		if child == self or child.is_queued_for_deletion():
+			continue
+		if child is DarkCage or child is RageShot or child is ShadowImp:
+			child.queue_free()
+			continue
+		var coin: SpitCoin = child as SpitCoin
+		if coin != null and coin.hurts_on_miss:
+			coin.queue_free()
+
+func _play_surrender_transition() -> void:
+	var sprite: Sprite2D = $Sprite2D
+	if _shield_tween != null:
+		_shield_tween.kill()
+		_shield_tween = null
+	SFX.play_sound("deon_die")
+	_flash_hit()
+	var camera: Camera2D = get_viewport().get_camera_2d()
+	if camera != null:
+		@warning_ignore("unsafe_method_access")
+		camera.add_trauma(surrender_transition_trauma)
+	var full_scale: Vector2 = sprite.scale
+	var reel: Tween = create_tween().set_parallel(true).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	reel.tween_property(sprite, "scale", full_scale * surrender_reel_scale, surrender_reel_time)
+	reel.tween_property(sprite, "modulate", surrender_reel_color, surrender_reel_time)
+	await reel.finished
+	await get_tree().create_timer(surrender_hold_time, false).timeout
+	if not is_inside_tree():
+		return
+	SFX.play_sound("boss_fight_start")
+	Signalbus.screen_flash.emit(Color.GOLD)
+	var rise: Tween = create_tween().set_parallel(true).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	rise.tween_property(sprite, "scale", full_scale, surrender_rise_time)
+	rise.tween_property(sprite, "modulate", Color.WHITE, surrender_rise_time)
+	await rise.finished
+
+func _emit_surrender_progress() -> void:
+	Signalbus.encounter_progress.emit(1, 1, float(maxi(_receptions_left, 0)), float(maxi(surrender_receptions, 1)))
+
+func receive_ball() -> void:
+	if not _surrender_ready or _surrender_done:
+		return
+	_receptions_left -= 1
+	_emit_surrender_progress()
+	if _receptions_left <= 0:
+		_complete_surrender()
+		return
+	Signalbus.screen_flash.emit(Color.GOLD)
+	SFX.play_sound("win_sting")
+	var paddle: Node = get_tree().get_first_node_in_group(GameManager.PADDLE)
+	if paddle != null and paddle.has_method("soft_catch_flash"):
+		@warning_ignore("unsafe_method_access")
+		paddle.soft_catch_flash()
+	_play_surrender_beat(maxi(surrender_receptions, 1) - _receptions_left - 1)
+
+func _play_surrender_beat(index: int) -> void:
+	if index < 0 or index >= surrender_beat_trees.size():
+		return
+	var tree: DialogTree = surrender_beat_trees[index]
+	if tree == null or tree.beats.is_empty():
+		return
+	var player: MemoryCodecPlayer = CODEC_PLAYER.instantiate()
+	player.memory_tree = tree
+	add_child(player)
+	await player.play()
+	if is_instance_valid(player):
+		player.queue_free()
+
+func _complete_surrender() -> void:
+	if _surrender_done:
+		return
+	_surrender_done = true
+	dying = true
+	remove_from_group(GameManager.SURRENDER)
+	GameManager.set_time_scale_modifier(1.0)
+	var fade: Tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	fade.tween_property(self, "modulate:a", 0.0, surrender_exit_time)
+	await fade.finished
+	if not is_inside_tree():
+		return
+	queue_free()
+	Signalbus.boss_defeated.emit()
+
+func _reject_hit() -> void:
+	SFX.play_sound("enemy_hurt")
+	_flash_reject()
+	var camera: Camera2D = get_viewport().get_camera_2d()
+	if camera != null:
+		@warning_ignore("unsafe_method_access")
+		camera.add_trauma(surrender_reject_trauma)
+
+func _flash_reject() -> void:
+	var mat: ShaderMaterial = $Sprite2D.material as ShaderMaterial
+	if mat == null:
+		return
+	mat.set_shader_parameter("flash_color", Vector3(surrender_reject_color.r, surrender_reject_color.g, surrender_reject_color.b))
+	mat.set_shader_parameter("flash_amount", 1.0)
+	var flash_tween: Tween = create_tween()
+	flash_tween.tween_method(
+		func(v: float) -> void: mat.set_shader_parameter("flash_amount", v),
+		1.0, 0.0, 0.18
 	)
 
 func _die() -> void:

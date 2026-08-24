@@ -51,7 +51,7 @@ func load_settings() -> void:
 	apply_settings()
 
 func apply_settings() -> void:
-	Engine.time_scale = game_speed
+	GameManager.apply_time_scale()
 	apply_audio()
 
 func apply_audio() -> void:

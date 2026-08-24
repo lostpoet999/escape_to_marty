@@ -7,12 +7,12 @@ class_name BaseBounceEffect extends BaseItem
 func handle_paddle_collision(ball: Ball, paddle: Paddle) -> void:
 	var hit_pos: float = ball.global_position.x - paddle.global_position.x
 	var new_vel: Vector2 = ball.velocity
-	new_vel.x = hit_pos * paddle.paddle_influence
+	new_vel.x = hit_pos * paddle.paddle_influence * paddle.edge_boost_at(hit_pos)
 	new_vel.y = -abs(new_vel.y)
 	new_vel = new_vel.normalized() * ball.current_speed
 	ball.current_speed = clampf(ball.current_speed * velocity_factor, 0.0, ball.speed_cap())
 	ball.update_velocity(new_vel)
-	ball.enforce_min_bounce_angle()
+	ball.reset_flat_bounce_count()
 
 func handle_x_collision(ball: Ball, collider: Node2D) -> void:
 	if pierce_brick:

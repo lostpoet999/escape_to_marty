@@ -187,7 +187,7 @@ func _ready() -> void:
 	Signalbus.practice_seal_cleared.connect(_on_practice_seal_cleared)
 	Signalbus.practice_exit_blocked.connect(_on_practice_exit_blocked)
 	if GameManager.standalone_room_active:
-		Signalbus.level_cleared.connect(_spawn_standalone_portal)
+		Signalbus.level_cleared.connect(_spawn_standalone_portal, CONNECT_DEFERRED)
 	initiate_special_room()
 	if entry.content.room_type == RoomContent.ROOM_TYPES.combat:
 		_play_combat_entry_dialog()

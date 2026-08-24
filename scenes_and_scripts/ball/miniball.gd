@@ -26,9 +26,13 @@ var flipped_y: bool = false
 
 @export var bounce_effect: BaseBounceEffectMini
 
-## Minimum angle in degrees between the ball's path and the horizontal after any bounce;
+## Minimum angle in degrees between the ball's path and the horizontal;
 ## prevents near-flat trajectories that rattle along walls and stall the rally.
-@export var min_bounce_angle_deg: float = 15.0
+@export var min_bounce_angle_deg: float = 20.0
+## Consecutive non-paddle bounces below min_bounce_angle_deg before the clamp fires;
+## paddle hits and any bounce at or above the angle reset the count.
+@export var flat_bounces_before_clamp: int = 3
+var _flat_bounce_count: int = 0
 
 ## Below this |velocity.x| (px/s) a paddle bounce counts as a vertical serve.
 @export var vertical_serve_epsilon: float = 8.0
@@ -240,12 +244,20 @@ func enforce_min_bounce_angle() -> void:
 		return
 	var min_vy: float = speed * sin(deg_to_rad(min_bounce_angle_deg))
 	if absf(velocity.y) >= min_vy:
+		_flat_bounce_count = 0
 		return
+	_flat_bounce_count += 1
+	if _flat_bounce_count < flat_bounces_before_clamp:
+		return
+	_flat_bounce_count = 0
 	var vy_sign: float = 1.0 if velocity.y == 0.0 else signf(velocity.y)
 	var vx_sign: float = 1.0 if velocity.x == 0.0 else signf(velocity.x)
 	var new_vy: float = min_vy * vy_sign
 	var new_vx: float = sqrt(maxf(speed * speed - new_vy * new_vy, 0.0)) * vx_sign
 	velocity = Vector2(new_vx, new_vy)
+
+func reset_flat_bounce_count() -> void:
+	_flat_bounce_count = 0
 
 func _bounce_axis_is_y(collider: Node2D) -> bool:
 	var half: Vector2 = get_collider_half_size(collider)
@@ -464,6 +476,6 @@ func apply_damage_to(target: Node2D, amount: float, dmg_types: Array) -> void:
 		if is_tweening_to_david:
 			return
 		await tween_to_david(global_position)
-		if can_damage_player:
+		if can_damage_player and not GameManager.surrender_active():
 			PlayerData.accept_reflect_damage(amount)
 		remove_ball()

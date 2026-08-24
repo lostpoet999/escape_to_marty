@@ -150,6 +150,8 @@ func _cover_bankrupt_deal(cost: int) -> void:
 
 
 func change_player_health(amount: int) -> void:
+	if amount < 0 and GameManager.surrender_active():
+		return
 	player_current_health = clampi(player_current_health + amount, 0, player_max_health)
 	Signalbus.player_health_updated.emit()
 
@@ -158,6 +160,8 @@ func heal_to_full() -> void:
 	Signalbus.player_health_updated.emit()
 
 func accept_damage(damage: int) -> void:
+	if GameManager.surrender_active():
+		return
 	change_player_health(-damage)
 	if damage > 0:
 		Signalbus.player_damaged.emit(damage)

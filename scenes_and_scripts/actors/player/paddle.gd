@@ -30,6 +30,10 @@ const DIP_DOWN_TIME: float = 0.05
 const DIP_RETURN_TIME: float = 0.12
 
 @export var paddle_influence: float = 5.0
+## Outer fraction of each paddle half where the horizontal edge boost ramps in (0.2 = outer 20%).
+@export var edge_zone_fraction: float = 0.2
+## Horizontal-influence multiplier at the very tip; ramps linearly from 1.0 across the edge zone.
+@export var edge_influence_boost: float = 1.9
 ## Paddle speed (px/s) below which David and the paddle stay upright — no lean.
 @export var lean_speed_threshold: float = 330.0
 ## Paddle speed (px/s) at which the lean reaches its full angle.
@@ -173,6 +177,20 @@ func adjust_paddle_length(modify_by: float) -> void:
 func reset_paddle_length()->void:
 	sprite.scale.x = base_scale_x
 	paddle_collision_shape.scale.x = base_shape_size_x
+
+func collision_half_width() -> float:
+	var shape: RectangleShape2D = paddle_collision_shape.shape as RectangleShape2D
+	return shape.size.x / 2.0 * paddle_collision_shape.scale.x
+
+func edge_boost_at(hit_pos: float) -> float:
+	var half_width: float = collision_half_width()
+	if half_width <= 0.0 or edge_zone_fraction <= 0.0:
+		return 1.0
+	var fraction: float = clampf(absf(hit_pos) / half_width, 0.0, 1.0)
+	var zone_start: float = 1.0 - edge_zone_fraction
+	if fraction <= zone_start:
+		return 1.0
+	return lerpf(1.0, edge_influence_boost, (fraction - zone_start) / edge_zone_fraction)
 
 func set_paddle_hidden(is_hidden: bool, include_david: bool = false) -> void:
 	sprite.visible = not is_hidden

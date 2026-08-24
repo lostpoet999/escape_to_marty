@@ -44,6 +44,24 @@ var _unpaused_state: GameState
 const DEATH_WALLS: String = "DeathWalls"
 const BRICKS: String = "Brick"
 const PADDLE: String = "paddle"
+const SURRENDER: String = "surrender"
+
+var time_scale_modifier: float = 1.0
+var _time_scale_base: float = 1.0
+
+func set_time_scale_base(base: float) -> void:
+	_time_scale_base = base
+	apply_time_scale()
+
+func set_time_scale_modifier(modifier: float) -> void:
+	time_scale_modifier = modifier
+	apply_time_scale()
+
+func apply_time_scale() -> void:
+	Engine.time_scale = _time_scale_base * SettingsManager.game_speed * time_scale_modifier
+
+func surrender_active() -> bool:
+	return get_tree().get_first_node_in_group(SURRENDER) != null
 
 func _unhandled_input(event: InputEvent) -> void:
 	if (event.is_action_pressed("ui_cancel") or event.is_action_pressed("pause")) and current_state != GameState.MAIN_MENU:
@@ -292,7 +310,7 @@ func enter_state(change_to_state: GameState) -> void:
 			Signalbus.game_state_game_over.emit()
 			pause_game()
 		GameState.CLICK_MODE:
-			Engine.time_scale = 0.5 * SettingsManager.game_speed
+			set_time_scale_base(0.5)
 			Signalbus.game_state_click_mode.emit()
 		GameState.LEVEL_CLEARED:
 			Signalbus.game_state_click_mode.emit()
@@ -317,7 +335,7 @@ func exit_state(close_state: GameState) -> void:
 		GameState.DEBUG_PANEL:			
 			unpause_game()
 		GameState.CLICK_MODE:
-			Engine.time_scale = 1.0 * SettingsManager.game_speed
+			set_time_scale_base(1.0)
 
 func pause_game() -> void:
 	get_tree().paused = true

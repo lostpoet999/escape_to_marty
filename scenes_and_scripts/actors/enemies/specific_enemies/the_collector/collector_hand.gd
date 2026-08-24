@@ -27,7 +27,8 @@ const DAMAGE_NUMBER: PackedScene = preload("uid://bedvoohhfbi03")
 @export var emerge_fly_speed: float = 620.0
 @export var spook_vanish_seconds: float = 1.5
 @export var swipe_flash_color: Color = Color(1.7, 0.3, 0.3)
-@export var palm_mouth_texture: Texture2D
+@export var mouth_texture: Texture2D
+@export var mouth_hframes: int = 1
 @export var mouth_glow_color: Color = Color(2.0, 0.7, 0.4)
 @export var fist_texture: Texture2D
 @export var fist_hframes: int = 1
@@ -85,12 +86,17 @@ func set_channeling(channeling: bool) -> void:
 	_channeling = channeling
 
 func set_mouth_open(open: bool) -> void:
-	var mouth: Sprite2D = get_node_or_null(^"PalmMouth") as Sprite2D
-	if palm_mouth_texture != null and mouth != null:
-		mouth.texture = palm_mouth_texture
-		mouth.visible = open
-		return
 	var sprite: Sprite2D = $Sprite2D
+	if mouth_texture != null:
+		if open:
+			sprite.texture = mouth_texture
+			sprite.hframes = maxi(mouth_hframes, 1)
+		else:
+			sprite.texture = _idle_texture
+			sprite.hframes = _idle_hframes
+		sprite.frame = 0
+		_idle_time = 0.0
+		return
 	if _mouth_tween != null:
 		_mouth_tween.kill()
 	_mouth_tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)

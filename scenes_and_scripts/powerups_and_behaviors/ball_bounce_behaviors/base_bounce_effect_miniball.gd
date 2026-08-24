@@ -7,12 +7,12 @@ class_name BaseBounceEffectMini extends BaseItem
 func handle_paddle_collision(miniball: MiniBall, paddle: Paddle) -> void:
 	var hit_pos: float = miniball.global_position.x - paddle.global_position.x
 	var new_vel: Vector2 = miniball.velocity
-	new_vel.x = hit_pos * paddle.paddle_influence
+	new_vel.x = hit_pos * paddle.paddle_influence * paddle.edge_boost_at(hit_pos)
 	new_vel.y = -abs(new_vel.y)
 	new_vel = new_vel.normalized() * miniball.current_speed
 	miniball.current_speed = clampf(miniball.current_speed * velocity_factor, 0.0, miniball.max_speed)
 	miniball.update_velocity(new_vel)
-	miniball.enforce_min_bounce_angle()
+	miniball.reset_flat_bounce_count()
 
 func handle_x_collision(miniball: MiniBall, collider: Node2D) -> void:
 	if pierce_brick:
