@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dydpjbsw3m6or"
-path="res://.godot/imported/multiball_icon_no_damage.png-33f383416e4f07ff8ade5912580b4089.ctex"
+uid="uid://bkflsey2r340f"
+path="res://.godot/imported/multitasking.png-4d5f8daef5dfb4a3fb25d50bb5edf36b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes_and_scripts/powerups_and_behaviors/paddle_powerups/multiball_icon_no_damage.png"
-dest_files=["res://.godot/imported/multiball_icon_no_damage.png-33f383416e4f07ff8ade5912580b4089.ctex"]
+source_file="res://scenes_and_scripts/powerups_and_behaviors/paddle_powerups/multitasking.png"
+dest_files=["res://.godot/imported/multitasking.png-4d5f8daef5dfb4a3fb25d50bb5edf36b.ctex"]
 
 [params]
 
