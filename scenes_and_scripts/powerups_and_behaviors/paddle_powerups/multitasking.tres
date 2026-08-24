@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="MultiballChance" format=3 uid="uid://hc2so2tv8ylg"]
+
+[ext_resource type="Texture2D" uid="uid://bkflsey2r340f" path="res://scenes_and_scripts/powerups_and_behaviors/paddle_powerups/multitasking.png" id="1_6ev0y"]
+[ext_resource type="Script" uid="uid://g6pek2b4eqep" path="res://scenes_and_scripts/powerups_and_behaviors/paddle_powerups/multiball_chance.gd" id="1_dm7tj"]
+
+[resource]
+script = ExtResource("1_dm7tj")
+gold_magnet_stack_bonus = 0.0
+powerup_name = "Multitasking"
+shop_description = "Gives you the chance to spawn a few extra miniballs to help you damage seals (does not damage David)"
+inventory_icon = ExtResource("1_6ev0y")
+metadata/_custom_type_script = "uid://b81b3hhkeuin4"

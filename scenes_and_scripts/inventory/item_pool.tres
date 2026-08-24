@@ -29,7 +29,7 @@
 [ext_resource type="Resource" uid="uid://deprthrpy001" path="res://scenes_and_scripts/powerups_and_behaviors/ball_powerups/depression_therapy.tres" id="26_dprth"]
 [ext_resource type="Resource" uid="uid://bmeditation1" path="res://scenes_and_scripts/powerups_and_behaviors/ball_active_powerups/meditation.tres" id="27_medit"]
 [ext_resource type="Resource" uid="uid://bblendin1" path="res://scenes_and_scripts/powerups_and_behaviors/ball_active_powerups/blend_in.tres" id="28_blndn"]
-[ext_resource type="Resource" uid="uid://oa6sg4cxdgdr" path="res://scenes_and_scripts/powerups_and_behaviors/paddle_powerups/multiball_chance_no_damage.tres" id="29_en18w"]
+[ext_resource type="Resource" uid="uid://hc2so2tv8ylg" path="res://scenes_and_scripts/powerups_and_behaviors/paddle_powerups/multitasking.tres" id="29_en18w"]
 
 [resource]
 script = ExtResource("2_upo5x")
