@@ -45,8 +45,9 @@ var flipped_y: bool = false
 ## Minimum angle in degrees between the ball's path and the horizontal after any bounce;
 ## prevents near-flat trajectories that rattle along walls and stall the rally.
 @export var min_bounce_angle_deg: float = 15.0
-## Wall/brick bounces that leave the ball flatter than this (degrees from horizontal) steepen it by
-## flat_decay_step_deg per bounce until it reaches this angle; paddle hits re-aim and are exempt.
+## Bounces off walls, barriers, and seals that denied the hit steepen a ball flatter than this
+## (degrees from horizontal) by flat_decay_step_deg per bounce until it reaches this angle;
+## damaging hits, enemy bounces, and paddle hits are exempt.
 @export var flat_decay_below_deg: float = 40.0
 @export var flat_decay_step_deg: float = 4.0
 
@@ -290,7 +291,9 @@ func enforce_min_bounce_angle() -> void:
 	var new_vx: float = sqrt(maxf(speed * speed - new_vy * new_vy, 0.0)) * vx_sign
 	velocity = Vector2(new_vx, new_vy)
 
-func apply_flat_decay() -> void:
+func apply_flat_decay(collider: Node2D) -> void:
+	if not _flat_decay_applies(collider):
+		return
 	var speed: float = velocity.length()
 	if speed == 0.0:
 		return
@@ -301,6 +304,14 @@ func apply_flat_decay() -> void:
 	var vx_sign: float = 1.0 if velocity.x == 0.0 else signf(velocity.x)
 	var vy_sign: float = 1.0 if velocity.y == 0.0 else signf(velocity.y)
 	velocity = Vector2(cos(new_angle) * vx_sign, sin(new_angle) * vy_sign) * speed
+
+func _flat_decay_applies(collider: Node2D) -> bool:
+	if collider.is_in_group("walls") or collider.is_in_group("barrier"):
+		return true
+	var seal: BaseSeal = collider as BaseSeal
+	if seal == null:
+		return false
+	return not ball_dmg_type.has(seal.current_stage)
 
 func _bounce_axis_is_y(collider: Node2D) -> bool:
 	var half: Vector2 = get_collider_half_size(collider)

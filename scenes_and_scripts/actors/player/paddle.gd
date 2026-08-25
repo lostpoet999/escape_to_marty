@@ -33,9 +33,11 @@ const DIP_DOWN_TIME: float = 0.05
 const DIP_RETURN_TIME: float = 0.12
 
 @export var paddle_influence: float = 5.0
-## Exit angle from horizontal (degrees) for a ball struck at the very tip of the paddle;
-## dead center exits at 90° and the angle interpolates linearly between them.
+## Exit angle from horizontal (degrees) for a ball struck inside the tip zone at either end
+## of the paddle; hits inboard of the zone use the hit_pos * paddle_influence reflection.
 @export var edge_exit_angle_deg: float = 20.0
+## Width of the tip zone (world px) on each end of the paddle that forces edge_exit_angle_deg.
+@export var edge_zone_px: float = 10.0
 ## Paddle speed (px/s) below which David and the paddle stay upright — no lean.
 @export var lean_speed_threshold: float = 330.0
 ## Paddle speed (px/s) at which the lean reaches its full angle.
@@ -183,7 +185,7 @@ func reset_paddle_length()->void:
 
 func collision_half_width() -> float:
 	var shape: RectangleShape2D = paddle_collision_shape.shape as RectangleShape2D
-	return shape.size.x / 2.0 * paddle_collision_shape.scale.x
+	return shape.size.x / 2.0 * paddle_collision_shape.scale.x * absf(global_scale.x)
 
 func set_paddle_hidden(is_hidden: bool, include_david: bool = false) -> void:
 	sprite.visible = not is_hidden
