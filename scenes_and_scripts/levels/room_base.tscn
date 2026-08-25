@@ -358,7 +358,6 @@ position = Vector2(1056, 0)
 position = Vector2(256, 480)
 
 [node name="DeonPortalLeft" parent="PlayArea/Walls" unique_id=1817203945 instance=ExtResource("17_dprtl")]
-visible = true
 position = Vector2(246, 928)
 
 [node name="DeonPortalRight" parent="PlayArea/Walls" unique_id=1355628467 instance=ExtResource("17_dprtl")]

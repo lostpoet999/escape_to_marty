@@ -10,9 +10,9 @@ func apply_to(tween_parent: Node2D, sprite: Node2D) -> void:
 																																							
 	if active_tween and active_tween.is_valid() and active_tween.is_running():
 			active_tween.kill()                                                                                                                             
-			original_offset = sprite.get_meta("shake_origin", sprite.position)                                                                                
+			original_offset = sprite.get_meta("shake_origin", sprite.get("offset"))                                                                                
 	else:
-			original_offset = sprite.position                                                                                                                 
+			original_offset = sprite.get("offset")                                                                                                                
 			sprite.set_meta("shake_origin", original_offset)
 																																							
 	var shake_tween: Tween = tween_parent.create_tween()

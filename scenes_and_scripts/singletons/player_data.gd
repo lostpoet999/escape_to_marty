@@ -161,6 +161,8 @@ func heal_to_full() -> void:
 
 func accept_damage(damage: int) -> void:
 	if GameManager.surrender_active():
+		if damage > 0:
+			Signalbus.player_damaged.emit(0)
 		return
 	change_player_health(-damage)
 	if damage > 0:

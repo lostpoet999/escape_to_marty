@@ -6,9 +6,10 @@ const DEATH_SEAL_TEXTURE: Texture2D = preload("res://scenes_and_scripts/bricks/b
 const DEATH_SEAL_COLOR: Color = Color("a23e8c")
 const miniball: PackedScene = preload("res://scenes_and_scripts/ball/miniball.tscn")
 
-const WEB_BOX_COLOR: Color = Color(0.87451, 0.517647, 0.647059, 0.85)
+const WEB_TEXTURE: Texture2D = preload("res://scenes_and_scripts/actors/enemies/vfx/spiderweb_over_paddle.png")
 const WEB_SHAKE_MIN_PIXELS: float = 6.0
-const WEB_BOX_MARGIN: Vector2 = Vector2(24.0, 48.0)
+const WEB_WIDTH_MARGIN: float = 24.0
+const WEB_OFFSET_Y: float = -22.0
 
 const BONUS_DROPS_GROUP: StringName = &"bonus_drops"
 
@@ -92,7 +93,7 @@ var _webbed: bool = false
 var _web_shakes_needed: int = 0
 var _web_shakes: int = 0
 var _web_last_dir: float = 0.0
-var _web_box: ColorRect
+var _web_sprite: Sprite2D
 
 var freeze_timer : Timer
 
@@ -372,17 +373,17 @@ func apply_web(shakes_to_break: int) -> void:
 	_web_shakes = 0
 	_web_shakes_needed = maxi(shakes_to_break, 1)
 	_web_last_dir = 0.0
-	_show_web_box()
+	_show_web_sprite()
 
-func _show_web_box() -> void:
-	_web_box = ColorRect.new()
-	_web_box.color = WEB_BOX_COLOR
-	_web_box.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_web_box.size = Vector2(_get_scaled_half_width() * 2.0 + WEB_BOX_MARGIN.x, WEB_BOX_MARGIN.y)
-	_web_box.position = -_web_box.size * 0.5
-	_web_box.pivot_offset = _web_box.size * 0.5
-	_web_box.z_index = 10
-	add_child(_web_box)
+func _show_web_sprite() -> void:
+	_web_sprite = Sprite2D.new()
+	_web_sprite.texture = WEB_TEXTURE
+	var target_width: float = _get_scaled_half_width() * 2.0 + WEB_WIDTH_MARGIN
+	var web_scale: float = target_width / float(WEB_TEXTURE.get_width())
+	_web_sprite.scale = Vector2(web_scale, web_scale)
+	_web_sprite.position = Vector2(0.0, WEB_OFFSET_Y)
+	_web_sprite.z_index = 10
+	add_child(_web_sprite)
 
 func _count_web_shake(relative_x: float) -> void:
 	if absf(relative_x) < WEB_SHAKE_MIN_PIXELS:
@@ -392,27 +393,27 @@ func _count_web_shake(relative_x: float) -> void:
 		return
 	if _web_last_dir != 0.0:
 		_web_shakes += 1
-		_jiggle_web_box()
+		_jiggle_web_sprite()
 		if _web_shakes >= _web_shakes_needed:
 			_release_web()
 			return
 	_web_last_dir = dir
 
-func _jiggle_web_box() -> void:
-	if _web_box == null:
+func _jiggle_web_sprite() -> void:
+	if _web_sprite == null:
 		return
 	var jiggle: Tween = create_tween()
-	jiggle.tween_property(_web_box, "rotation", 0.12, 0.04)
-	jiggle.tween_property(_web_box, "rotation", 0.0, 0.08)
+	jiggle.tween_property(_web_sprite, "rotation", 0.12, 0.04)
+	jiggle.tween_property(_web_sprite, "rotation", 0.0, 0.08)
 
 func _release_web() -> void:
 	if not _webbed:
 		return
 	_webbed = false
 	accumulated_mouse_movement_x = clamp(position.x, left_bound, right_bound)
-	if _web_box != null:
-		_web_box.queue_free()
-		_web_box = null
+	if _web_sprite != null:
+		_web_sprite.queue_free()
+		_web_sprite = null
 
 func _input(event: InputEvent) -> void:
 	if _webbed:

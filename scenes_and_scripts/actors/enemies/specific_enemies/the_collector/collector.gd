@@ -104,8 +104,6 @@ const ATTACK_STATION_EPSILON: float = 8.0
 @export var surrender_hold_time: float = 0.6
 @export var surrender_rise_time: float = 0.8
 @export var surrender_transition_trauma: float = 2.0
-@export var surrender_reject_color: Color = Color(1.0, 0.15, 0.15)
-@export var surrender_reject_trauma: float = 0.25
 @export var surrender_exit_time: float = 1.2
 @export var surrender_beat_trees: Array[DialogTree] = [] ## One reveal beat per reception, in order. Empty or null entries are skipped.
 
@@ -1195,24 +1193,9 @@ func _complete_surrender() -> void:
 	Signalbus.boss_defeated.emit()
 
 func _reject_hit() -> void:
-	SFX.play_sound("enemy_hurt")
-	_flash_reject()
-	var camera: Camera2D = get_viewport().get_camera_2d()
-	if camera != null:
-		@warning_ignore("unsafe_method_access")
-		camera.add_trauma(surrender_reject_trauma)
-
-func _flash_reject() -> void:
-	var mat: ShaderMaterial = $Sprite2D.material as ShaderMaterial
-	if mat == null:
-		return
-	mat.set_shader_parameter("flash_color", Vector3(surrender_reject_color.r, surrender_reject_color.g, surrender_reject_color.b))
-	mat.set_shader_parameter("flash_amount", 1.0)
-	var flash_tween: Tween = create_tween()
-	flash_tween.tween_method(
-		func(v: float) -> void: mat.set_shader_parameter("flash_amount", v),
-		1.0, 0.0, 0.18
-	)
+	_show_denied_number()
+	PlayerData.accept_damage(1)
+	DialogDirector.play(&"collector_surrender_hit", self)
 
 func _die() -> void:
 	dying = true
