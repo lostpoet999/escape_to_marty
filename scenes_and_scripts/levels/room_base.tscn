@@ -19,6 +19,7 @@
 [ext_resource type="Script" uid="uid://b8dmglbl0ckp1" path="res://scenes_and_scripts/ui_menus/ball_damage_label.gd" id="15_bdmlb"]
 [ext_resource type="Script" uid="uid://d2ip0nttvnd5r" path="res://scenes_and_scripts/ui_menus/click_mode_prompt.gd" id="15_ckmpt"]
 [ext_resource type="Script" uid="uid://cle2k8vhlcj7h" path="res://scenes_and_scripts/actors/player/click_mode_cursor.gd" id="16_ckcur"]
+[ext_resource type="PackedScene" uid="uid://deonportal01" path="res://scenes_and_scripts/actors/enemies/specific_enemies/no_see_me_demon(Deon)/deon_portal.tscn" id="17_dprtl"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_57n16"]
 
@@ -355,6 +356,13 @@ position = Vector2(1056, 0)
 
 [node name="WestExit" parent="PlayArea/Walls" unique_id=1024305235 instance=ExtResource("8_2ndtm")]
 position = Vector2(256, 480)
+
+[node name="DeonPortalLeft" parent="PlayArea/Walls" unique_id=1817203945 instance=ExtResource("17_dprtl")]
+visible = true
+position = Vector2(246, 928)
+
+[node name="DeonPortalRight" parent="PlayArea/Walls" unique_id=1355628467 instance=ExtResource("17_dprtl")]
+position = Vector2(1848, 928)
 
 [node name="Background" type="ColorRect" parent="PlayArea" unique_id=306947289]
 visible = false

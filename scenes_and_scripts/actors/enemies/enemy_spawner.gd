@@ -17,15 +17,16 @@ var active_enemies: Array[PlacedEnemy]
 @export var quick_kill_window_s: float = 5.0
 ## Seconds this spawner stays quiet (win sting reward) after a quick Deon kill.
 @export var quick_kill_lockout_s: float = 30.0
-const LOCKOUT_INDICATOR_COLOR: Color = Color(1, 1, 1, 0.25)
-const LOCKOUT_INDICATOR_SIZE: Vector2 = Vector2(64, 128)
-
 var enemy_spawn_timer: Timer
 var _lockout_until_ms: int = -1
 var _first_launch_seen: bool = false
-var _lockout_indicator: ColorRect
+var portal_sprite: AnimatedSprite2D
 
-func _ready()->void:	
+func _ready()->void:
+	if _spawns_deons():
+		portal_sprite = _claim_portal()
+	if portal_sprite != null:
+		portal_sprite.visible = true
 	if enemy_spawn_timer == null:
 		enemy_spawn_timer = Timer.new()
 		self.add_child(enemy_spawn_timer)
@@ -41,7 +42,7 @@ func timer_spawn_enemy() -> void:
 	if _spawns_blocked():
 		enemy_spawn_timer.wait_time = 1.0
 		return
-	_clear_lockout_indicator()
+	_open_portal()
 	var mult: float = SettingsManager.difficulty_mult()
 	if randf_range(0,100) >= spawn_an_enemy_chance * mult or active_enemies.size() >= roundi(max_spawns * mult):
 		enemy_spawn_timer.wait_time = spawn_check_interval
@@ -55,6 +56,8 @@ func timer_spawn_enemy() -> void:
 		enemy.set_meta(&"spawned_at_ms", Time.get_ticks_msec())
 		active_enemies.push_back(enemy)
 		enemy.ready_to_remove.connect(_on_tracked_enemy_died)
+		if portal_sprite != null and enemy is Deon:
+			_emerge_from_portal(enemy)
 	# Space out time between enemies
 	enemy_spawn_timer.wait_time = spawn_check_interval
 
@@ -89,23 +92,58 @@ func _check_quick_kill(enemy: PlacedEnemy) -> void:
 		return
 	SFX.play_sound("win_sting")
 	_lockout_until_ms = Time.get_ticks_msec() + int(quick_kill_lockout_s * 1000.0)
-	_show_lockout_indicator()
+	_close_portal()
 
-func _show_lockout_indicator() -> void:
-	_clear_lockout_indicator()
-	var indicator: ColorRect = ColorRect.new()
-	indicator.color = LOCKOUT_INDICATOR_COLOR
-	indicator.size = LOCKOUT_INDICATOR_SIZE
-	indicator.position = -LOCKOUT_INDICATOR_SIZE * 0.5
-	indicator.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_child(indicator)
-	_lockout_indicator = indicator
-	get_tree().create_timer(quick_kill_lockout_s, true, false, true).timeout.connect(_clear_lockout_indicator)
+func _spawns_deons() -> bool:
+	if spawn_an_enemy_chance <= 0.0 or max_spawns <= 0:
+		return false
+	for config: EnemyConfig in enemies:
+		if config.scene_ref != null and config.scene_ref.resource_path.get_file() == "deon.tscn":
+			return true
+	return false
 
-func _clear_lockout_indicator() -> void:
-	if _lockout_indicator != null and is_instance_valid(_lockout_indicator):
-		_lockout_indicator.queue_free()
-	_lockout_indicator = null
+func _claim_portal() -> AnimatedSprite2D:
+	var nearest: AnimatedSprite2D = null
+	var nearest_distance: float = INF
+	for node: Node in get_tree().get_nodes_in_group("deon_portal"):
+		var portal: AnimatedSprite2D = node as AnimatedSprite2D
+		if portal == null:
+			continue
+		var distance: float = portal.global_position.distance_to(global_position)
+		if distance < nearest_distance:
+			nearest_distance = distance
+			nearest = portal
+	return nearest
+
+func _emerge_from_portal(enemy: PlacedEnemy) -> void:
+	var target: Vector2 = enemy.global_position
+	var sprite: Node2D = enemy.get_node_or_null("AnimatedSprite2D")
+	if sprite == null:
+		sprite = enemy
+	var origin_scale: Vector2 = sprite.scale
+	enemy.global_position = portal_sprite.global_position
+	sprite.scale = origin_scale * 0.2
+	var tween: Tween = enemy.create_tween().set_parallel(true)
+	tween.tween_method(func(pos: Vector2) -> void:
+		enemy.global_position = pos
+		Signalbus.blocker_moved.emit()
+	, enemy.global_position, target, 0.3)\
+		.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+	tween.tween_property(sprite, "scale", origin_scale, 0.3)\
+		.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+
+func _close_portal() -> void:
+	if portal_sprite == null:
+		return
+	portal_sprite.play(&"closed")
+	get_tree().create_timer(quick_kill_lockout_s, true, false, true).timeout.connect(_open_portal)
+
+func _open_portal() -> void:
+	if portal_sprite == null:
+		return
+	if portal_sprite.animation != &"closed":
+		return
+	portal_sprite.play(&"open")
 
 func _spawns_blocked() -> bool:
 	if _in_encounter_room():

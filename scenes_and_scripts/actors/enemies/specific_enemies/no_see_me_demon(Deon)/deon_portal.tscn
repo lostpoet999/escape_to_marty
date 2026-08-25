@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://deonportal01"]
+
+[ext_resource type="Texture2D" uid="uid://devm5pgk55eka" path="res://scenes_and_scripts/actors/enemies/specific_enemies/no_see_me_demon(Deon)/little_deon_portal.png" id="1_pr7tl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pr7t0"]
+atlas = ExtResource("1_pr7tl")
+region = Rect2(0, 0, 84, 126)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pr7t1"]
+atlas = ExtResource("1_pr7tl")
+region = Rect2(84, 0, 84, 126)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pr7t2"]
+atlas = ExtResource("1_pr7tl")
+region = Rect2(168, 0, 84, 126)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pr7t3"]
+atlas = ExtResource("1_pr7tl")
+region = Rect2(252, 0, 84, 126)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pr7t4"]
+atlas = ExtResource("1_pr7tl")
+region = Rect2(336, 0, 84, 126)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pr7tl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pr7t0")
+}],
+"loop": true,
+"name": &"closed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pr7t1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pr7t2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pr7t3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pr7t4")
+}],
+"loop": true,
+"name": &"open",
+"speed": 5.0
+}]
+
+[node name="DeonPortal" type="AnimatedSprite2D" unique_id=1229467301 groups=["deon_portal"]]
+visible = false
+sprite_frames = SubResource("SpriteFrames_pr7tl")
+animation = &"open"
+autoplay = "open"
