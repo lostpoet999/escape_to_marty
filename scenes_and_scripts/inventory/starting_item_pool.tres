@@ -8,7 +8,7 @@
 [ext_resource type="Resource" uid="uid://blkfrtrouble1" path="res://scenes_and_scripts/powerups_and_behaviors/ball_active_powerups/looking_for_trouble.tres" id="6_lktrb"]
 [ext_resource type="Resource" uid="uid://bmeditation1" path="res://scenes_and_scripts/powerups_and_behaviors/ball_active_powerups/meditation.tres" id="7_medit"]
 [ext_resource type="Resource" uid="uid://bblendin1" path="res://scenes_and_scripts/powerups_and_behaviors/ball_active_powerups/blend_in.tres" id="8_blndn"]
-[ext_resource type="Resource" uid="uid://bmultiball1" path="res://scenes_and_scripts/powerups_and_behaviors/ball_active_powerups/multiball.tres" id="9_mlbl"]
+[ext_resource type="Resource" uid="uid://bmultiball1" path="res://scenes_and_scripts/powerups_and_behaviors/ball_active_powerups/multitasking.tres" id="9_mlbl"]
 
 [resource]
 script = ExtResource("2_upo5x")

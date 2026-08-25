@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Multiball" format=3 uid="uid://bmultiball1"]
+
+[ext_resource type="Texture2D" uid="uid://dydpjbsw3m6or" path="res://scenes_and_scripts/powerups_and_behaviors/ball_active_powerups/multitasking.png" id="1_p163n"]
+[ext_resource type="Script" uid="uid://cmultiballgd1" path="res://scenes_and_scripts/powerups_and_behaviors/ball_active_powerups/multiball.gd" id="2_pmkpf"]
+
+[resource]
+script = ExtResource("2_pmkpf")
+cool_down_seconds = 22.0
+powerup_name = "Multitasking"
+shop_description = "Gives you the ability to spawn a few extra miniballs to help you damage seals (miniballs are non-damaging)"
+rarity = 3
+inventory_icon = ExtResource("1_p163n")
+metadata/_custom_type_script = "uid://cmultiballgd1"
