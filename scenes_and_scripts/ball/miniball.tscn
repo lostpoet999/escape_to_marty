@@ -41,7 +41,7 @@ _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [node name="Miniball" type="Area2D" unique_id=1220836699]
-z_index = 100
+z_index = 99
 script = ExtResource("1_ro4ss")
 brick_bounce_particles = ExtResource("2_2ysgh")
 wall_bounce_particles = ExtResource("3_gsboy")

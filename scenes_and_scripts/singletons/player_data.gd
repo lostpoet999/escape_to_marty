@@ -290,11 +290,15 @@ func restore_checkpoint(data: Dictionary) -> void:
 	pending_memories.clear()
 	inventory.items.clear()
 	for path: String in data.get("items", []):
+		if not ResourceLoader.exists(path):
+			continue
 		var item: BaseItem = load(path)
 		if item != null:
 			inventory.items.append(item)
 	inventory.core_items.clear()
 	for path: String in data.get("core_items", []):
+		if not ResourceLoader.exists(path):
+			continue
 		var core_item: BaseItem = load(path)
 		if core_item != null:
 			inventory.core_items.append(core_item)

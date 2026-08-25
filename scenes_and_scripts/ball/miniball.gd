@@ -6,6 +6,11 @@ const DEFAULT_MINIBALL_DMG: float = 0.5
 const LIGHT_BASE_ENERGY: float = 1.0
 const SOFT_CATCH_DIP_SCALE: float = 3.0
 
+## Spawned balls render slightly see-through so the real ball reads through a pile-up.
+const MINIBALL_ALPHA: float = 0.72
+
+const BALL_SEPARATION_DEG: float = 8.0
+
 const EXPIRE_BLINK_ALPHA: float = 0.4
 
 const EXPIRE_BLINK_PERIOD: float = 0.15
@@ -90,6 +95,7 @@ var is_tweening_to_david: bool = false
 
 func _ready() -> void:
 	add_to_group(&"multiball")
+	sprite.modulate.a = MINIBALL_ALPHA
 	DP.track("Ball Velocity: ",self,"current_speed")
 	bounce_effect = null
 	bounce_effect = PlayerData.inventory.get_miniball_bounce()
@@ -144,7 +150,7 @@ func _tick_lifetime(delta: float) -> void:
 		return
 	_blink_time += delta
 	var lit: bool = fmod(_blink_time, EXPIRE_BLINK_PERIOD * 2.0) < EXPIRE_BLINK_PERIOD
-	sprite.modulate.a = 1.0 if lit else EXPIRE_BLINK_ALPHA
+	sprite.modulate.a = MINIBALL_ALPHA if lit else EXPIRE_BLINK_ALPHA
 
 func _process(delta: float) -> void:
 	if not is_inside_tree():
@@ -314,6 +320,7 @@ func move_ball(delta: float) -> void:
 	for _i: int in steps:
 		move_ball_step(step_delta)
 		if on_paddle or flipped_x or flipped_y:
+			_separate_from_real_ball()
 			return
 
 func resolve_frame_start_overlaps() -> void:
@@ -410,6 +417,18 @@ func move_ball_step(delta: float) -> void:
 			elif !flipped_y:
 				bounce_effect.handle_y_collision(self, collider)
 				flipped_y = true
+
+func _separate_from_real_ball() -> void:
+	var real_ball: Ball = get_tree().get_first_node_in_group(&"ball") as Ball
+	if real_ball == null or real_ball.on_paddle:
+		return
+	var gap: Vector2 = global_position - real_ball.global_position
+	var min_gap: float = ball_half_height + real_ball.ball_half_height
+	if gap.length_squared() >= min_gap * min_gap:
+		return
+	var away: float = 1.0 if is_zero_approx(gap.x) else signf(gap.x)
+	velocity = velocity.rotated(deg_to_rad(BALL_SEPARATION_DEG) * away)
+	enforce_min_bounce_angle()
 
 func spawn_collision_feedback(collider: Node2D) -> void:
 	var fx: Node2D = null
