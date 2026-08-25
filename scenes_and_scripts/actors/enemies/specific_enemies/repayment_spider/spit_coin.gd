@@ -50,7 +50,7 @@ func _on_area_entered(area: Area2D) -> void:
 			Signalbus.gold_collected.emit(-1)
 			_notify_resolved()
 			queue_free()
-	elif area.is_in_group("david"):
+	elif area.is_in_group("david") or area.is_in_group(GhostPaddle.GHOST_PADDLE_GROUP):
 		collect()
 
 func collect() -> void:

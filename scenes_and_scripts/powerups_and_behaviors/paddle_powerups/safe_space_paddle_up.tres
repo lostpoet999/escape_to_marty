@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_txn2m")
-paddle_length_mod = 1.2
+ghost_paddle_ratio = 0.25
 powerup_name = "Safe Space"
 shop_description = "Widens the paddle"
 inventory_icon = ExtResource("1_su1ya")

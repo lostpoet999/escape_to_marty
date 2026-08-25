@@ -25,15 +25,16 @@ const SHIELD_COLOR_BRIGHT: Color = Color(0.8, 0.95, 1.0)
 const SHIELD_COLOR_STRONG: Color = Color("3c5e8b")
 const SHIELD_COLOR_STRONG_BRIGHT: Color = Color("4f8fba")
 const SHIELD_PULSE_TIME: float = 0.45
+const GHOST_PADDLE_ALPHA: float = 0.45
+
 const DIP_DEPTH: float = 6.0
 const DIP_DOWN_TIME: float = 0.05
 const DIP_RETURN_TIME: float = 0.12
 
 @export var paddle_influence: float = 5.0
-## Outer fraction of each paddle half where the horizontal edge boost ramps in (0.2 = outer 20%).
-@export var edge_zone_fraction: float = 0.2
-## Horizontal-influence multiplier at the very tip; ramps linearly from 1.0 across the edge zone.
-@export var edge_influence_boost: float = 1.9
+## Exit angle from horizontal (degrees) for a ball struck at the very tip of the paddle;
+## dead center exits at 90° and the angle interpolates linearly between them.
+@export var edge_exit_angle_deg: float = 20.0
 ## Paddle speed (px/s) below which David and the paddle stay upright — no lean.
 @export var lean_speed_threshold: float = 330.0
 ## Paddle speed (px/s) at which the lean reaches its full angle.
@@ -135,6 +136,7 @@ var _lean_blend: float = 0.0
 var _gold_magnet_radius_sq: float = 0.0
 
 var blocker_enemies: Array[PlacedEnemy] #hold blocker enemies in paddle path
+var _ghost_paddles: Array[GhostPaddle] = []
 
 func _ready() -> void:	
 	last_position = global_position
@@ -182,31 +184,69 @@ func collision_half_width() -> float:
 	var shape: RectangleShape2D = paddle_collision_shape.shape as RectangleShape2D
 	return shape.size.x / 2.0 * paddle_collision_shape.scale.x
 
-func edge_boost_at(hit_pos: float) -> float:
-	var half_width: float = collision_half_width()
-	if half_width <= 0.0 or edge_zone_fraction <= 0.0:
-		return 1.0
-	var fraction: float = clampf(absf(hit_pos) / half_width, 0.0, 1.0)
-	var zone_start: float = 1.0 - edge_zone_fraction
-	if fraction <= zone_start:
-		return 1.0
-	return lerpf(1.0, edge_influence_boost, (fraction - zone_start) / edge_zone_fraction)
-
 func set_paddle_hidden(is_hidden: bool, include_david: bool = false) -> void:
 	sprite.visible = not is_hidden
 	paddle_collision_shape.set_deferred("disabled", is_hidden)
+	for ghost: GhostPaddle in _ghost_paddles:
+		if is_instance_valid(ghost):
+			ghost.set_ghost_hidden(is_hidden)
 	if include_david:
 		david.visible = not is_hidden
 
 func set_paddle_length_from_items()->void:
 	paddle_powerups = PlayerData.inventory.get_items_for_paddle()  # refresh first
 	_update_gold_magnet()
+	_refresh_ghost_paddles()
 	if paddle_powerups.is_empty(): return
 	reset_paddle_length()
 	for item: BaseItem in paddle_powerups:
 		var paddle_item: PaddlePowerup = item
 		if paddle_item.paddle_length_mod > 0.0:
 			adjust_paddle_length(paddle_item.paddle_length_mod)
+
+func _ghost_paddle_ratio() -> float:
+	var total: float = 0.0
+	for item: BaseItem in paddle_powerups:
+		var paddle_item: PaddlePowerup = item
+		total += maxf(paddle_item.ghost_paddle_ratio, 0.0)
+	return total
+
+func _refresh_ghost_paddles() -> void:
+	for ghost: GhostPaddle in _ghost_paddles:
+		if is_instance_valid(ghost):
+			ghost.queue_free()
+	_ghost_paddles.clear()
+	var ratio: float = _ghost_paddle_ratio()
+	if ratio <= 0.0:
+		return
+	var shape: RectangleShape2D = paddle_collision_shape.shape as RectangleShape2D
+	if shape == null:
+		return
+	var paddle_width: float = shape.size.x * paddle_collision_shape.scale.x
+	var ghost_width: float = paddle_width * ratio
+	if ghost_width <= 0.0:
+		return
+	var ghost_height: float = shape.size.y * paddle_collision_shape.scale.y
+	var ghost_y: float = paddle_collision_shape.position.y
+	_ghost_paddles.append(_build_ghost_paddle(-1.0, Vector2(ghost_width, ghost_height), paddle_width * 0.5, ghost_y, ratio))
+	_ghost_paddles.append(_build_ghost_paddle(1.0, Vector2(ghost_width, ghost_height), paddle_width * 0.5, ghost_y, ratio))
+
+func _build_ghost_paddle(side: float, size: Vector2, inner_edge: float, ghost_y: float, ratio: float) -> GhostPaddle:
+	var ghost: GhostPaddle = GhostPaddle.new()
+	ghost.setup(self, size)
+	ghost.position = Vector2(side * (inner_edge + size.x * 0.5), ghost_y)
+	add_child(ghost)
+	var ghost_sprite: Sprite2D = Sprite2D.new()
+	ghost_sprite.texture = sprite.texture
+	ghost_sprite.material = sprite.material
+	ghost_sprite.region_enabled = sprite.region_enabled
+	ghost_sprite.region_rect = sprite.region_rect
+	ghost_sprite.scale = Vector2(ratio, 1.0)
+	ghost_sprite.position = Vector2(side * sprite.region_rect.size.x * (1.0 + ratio) * 0.5, 0.0)
+	ghost_sprite.modulate = Color(1.0, 1.0, 1.0, GHOST_PADDLE_ALPHA)
+	sprite.add_child(ghost_sprite)
+	ghost.sprite_node = ghost_sprite
+	return ghost
 
 func _update_gold_magnet()->void:
 	var base_radius: float = 0.0

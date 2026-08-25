@@ -131,18 +131,6 @@ func get_items_for_click() -> Array[ClickPowerUp]:
 			_items.append(item)
 	return _items
 
-func check_multiball_exist() -> bool:
-	for item: BaseItem in items:
-		if item is MultiballChance:
-			return true
-	return false
-
-func get_multiball_powerup() -> MultiballChance:
-	for item: BaseItem in items:
-		if item is MultiballChance:
-			return item as MultiballChance
-	return null
-
 func get_items_for_defense() -> Array[DefensivePowerup]:
 	var _items: Array[DefensivePowerup] = []
 	for item: BaseItem in items:

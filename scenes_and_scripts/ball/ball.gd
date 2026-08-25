@@ -47,13 +47,13 @@ var flipped_y: bool = false
 
 @export var bounce_effect: BaseBounceEffect
 
-## Minimum angle in degrees between the ball's path and the horizontal;
+## Minimum angle in degrees between the ball's path and the horizontal after any bounce;
 ## prevents near-flat trajectories that rattle along walls and stall the rally.
-@export var min_bounce_angle_deg: float = 20.0
-## Consecutive non-paddle bounces below min_bounce_angle_deg before the clamp fires;
-## paddle hits and any bounce at or above the angle reset the count.
-@export var flat_bounces_before_clamp: int = 3
-var _flat_bounce_count: int = 0
+@export var min_bounce_angle_deg: float = 15.0
+## Wall/brick bounces that leave the ball flatter than this (degrees from horizontal) steepen it by
+## flat_decay_step_deg per bounce until it reaches this angle; paddle hits re-aim and are exempt.
+@export var flat_decay_below_deg: float = 40.0
+@export var flat_decay_step_deg: float = 4.0
 
 ## Below this |velocity.x| (px/s) a paddle bounce counts as a vertical serve.
 @export var vertical_serve_epsilon: float = 8.0
@@ -397,8 +397,6 @@ func get_paddle_half_height() -> float:
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("left_mouse") and on_paddle and GameManager.current_state == GameManager.GameState.BALL_ON_PADDLE:
 		launch_ball()
-		if PlayerInventory.instance.check_multiball_exist():
-			PlayerInventory.instance.get_multiball_powerup().try_spawn_balls(get_owner(), paddle)
 	if Input.is_action_just_pressed("ball_activate_powerup"):
 		_try_activate_ball_powerup()
 
@@ -481,20 +479,24 @@ func enforce_min_bounce_angle() -> void:
 		return
 	var min_vy: float = speed * sin(deg_to_rad(min_bounce_angle_deg))
 	if absf(velocity.y) >= min_vy:
-		_flat_bounce_count = 0
 		return
-	_flat_bounce_count += 1
-	if _flat_bounce_count < flat_bounces_before_clamp:
-		return
-	_flat_bounce_count = 0
 	var vy_sign: float = 1.0 if velocity.y == 0.0 else signf(velocity.y)
 	var vx_sign: float = 1.0 if velocity.x == 0.0 else signf(velocity.x)
 	var new_vy: float = min_vy * vy_sign
 	var new_vx: float = sqrt(maxf(speed * speed - new_vy * new_vy, 0.0)) * vx_sign
 	velocity = Vector2(new_vx, new_vy)
 
-func reset_flat_bounce_count() -> void:
-	_flat_bounce_count = 0
+func apply_flat_decay() -> void:
+	var speed: float = velocity.length()
+	if speed == 0.0:
+		return
+	var angle_deg: float = rad_to_deg(atan2(absf(velocity.y), absf(velocity.x)))
+	if angle_deg >= flat_decay_below_deg:
+		return
+	var new_angle: float = deg_to_rad(minf(angle_deg + flat_decay_step_deg, flat_decay_below_deg))
+	var vx_sign: float = 1.0 if velocity.x == 0.0 else signf(velocity.x)
+	var vy_sign: float = 1.0 if velocity.y == 0.0 else signf(velocity.y)
+	velocity = Vector2(cos(new_angle) * vx_sign, sin(new_angle) * vy_sign) * speed
 
 func _push_blocked(collider: Node2D) -> bool:
 	var id: int = collider.get_instance_id()
@@ -596,6 +598,11 @@ func move_ball_step(delta: float) -> void:
 				bounce_effect.handle_paddle_collision(self, collider as Paddle)
 				_check_vertical_serve()
 				flipped_x = true
+		elif collider.is_in_group(GhostPaddle.GHOST_PADDLE_GROUP):
+			if !flipped_x:
+				bounce_effect.handle_paddle_collision(self, paddle)
+				_check_vertical_serve()
+				flipped_x = true
 		elif collider.is_in_group("bricks") or collider.is_in_group("walls") or collider.is_in_group("bounce_enemy") or collider.is_in_group("barrier"):
 			if _phasing and _phase_pierces(collider):
 				continue
@@ -631,6 +638,11 @@ func move_ball_step(delta: float) -> void:
 			if !flipped_y:
 				_apply_soft_catch()
 				bounce_effect.handle_paddle_collision(self, collider as Paddle)
+				_check_vertical_serve()
+				flipped_y = true
+		elif collider.is_in_group(GhostPaddle.GHOST_PADDLE_GROUP):
+			if !flipped_y:
+				bounce_effect.handle_paddle_collision(self, paddle)
 				_check_vertical_serve()
 				flipped_y = true
 		elif collider.is_in_group("bricks") or collider.is_in_group("walls") or collider.is_in_group("bounce_enemy") or collider.is_in_group("barrier"):
@@ -681,6 +693,11 @@ func spawn_collision_feedback(collider: Node2D) -> void:
 		_add_hit_trauma(barrier_hit_trauma)
 	if collider.is_in_group("bounce_enemy") and enemy_bounce_particles != null:
 		fx = enemy_bounce_particles.instantiate()
+	if collider.is_in_group(GhostPaddle.GHOST_PADDLE_GROUP):
+		fx = paddle_bounce_particles.instantiate()
+		SFX.play_sound("hit-paddle")
+		PlayerData.update_player_score(paddle_hit_score_value)
+		paddle.bounce_dip()
 	if collider.is_in_group("paddle"):
 		var hit_paddle: Paddle = collider as Paddle
 		_soft_catch_pending = hit_paddle.try_soft_catch()

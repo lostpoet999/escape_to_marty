@@ -7,7 +7,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_o86yc"]
 radius = 24.020824
 
-[node name="RageBlob" type="CharacterBody2D" unique_id=1856740976]
+[node name="RageBlob" type="CharacterBody2D" unique_id=1856740976 groups=["ghost_catchable"]]
 script = ExtResource("1_o86yc")
 gravity = 30.0
 destroy_fx = ExtResource("2_dfx")

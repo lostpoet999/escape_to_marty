@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="Multiball" format=3 uid="uid://bmultiball1"]
+
+[ext_resource type="Script" uid="uid://cmultiballgd1" path="res://scenes_and_scripts/powerups_and_behaviors/ball_active_powerups/multiball.gd" id="1_mlbl"]
+[ext_resource type="Texture2D" uid="uid://dydpjbsw3m6or" path="res://scenes_and_scripts/powerups_and_behaviors/ball_active_powerups/multiball.png" id="2_mlbl"]
+
+[resource]
+script = ExtResource("1_mlbl")
+cool_down_seconds = 22.0
+min_balls = 2
+max_balls = 4
+spread_deg = 20.0
+life_min_seconds = 5.0
+life_max_seconds = 8.0
+blink_seconds = 1.0
+damage_scale = 0.5
+powerup_name = "Multiball"
+shop_description = "Gives you the chance to spawn a few extra miniballs to help you damage seals"
+rarity = 3
+inventory_icon = ExtResource("2_mlbl")
+metadata/_custom_type_script = "uid://cmultiballgd1"
