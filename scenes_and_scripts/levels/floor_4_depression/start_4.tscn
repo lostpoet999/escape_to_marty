@@ -1,9 +1,13 @@
 [gd_scene format=3 uid="uid://f4start0001"]
 
 [ext_resource type="PackedScene" uid="uid://bea1h3570swpu" path="res://scenes_and_scripts/levels/room_base.tscn" id="1_rb4s"]
+[ext_resource type="Texture2D" uid="uid://cxyraqmjw6a3m" path="res://scenes_and_scripts/backgrounds/tutorial backgrounds/basic_tutorial_one.png" id="2_f8iyh"]
 [ext_resource type="FontFile" uid="uid://ce5jk1ok7f4r5" path="res://label_settings_and_fonts/fonts/PressStart2P-Regular.ttf" id="2_fnt4"]
 [ext_resource type="PackedScene" uid="uid://cm1kspxv86400" path="res://scenes_and_scripts/bricks/open_seal.tscn" id="3_seal4"]
+[ext_resource type="Texture2D" uid="uid://c37qljrwvotog" path="res://scenes_and_scripts/backgrounds/tutorial backgrounds/basic_tutorial_two.png" id="3_xxd65"]
+[ext_resource type="Texture2D" uid="uid://dvarfunpabkic" path="res://scenes_and_scripts/backgrounds/tutorial backgrounds/basic_tutorial_three.png" id="4_58pip"]
 [ext_resource type="Script" uid="uid://practseal0gd" path="res://scenes_and_scripts/bricks/practice_seal.gd" id="4_prac"]
+[ext_resource type="Texture2D" uid="uid://cu5wkiik4w8sk" path="res://scenes_and_scripts/backgrounds/tutorial backgrounds/floor4_tutorial.png" id="5_7ntkv"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_f4st"]
 font = ExtResource("2_fnt4")
@@ -12,9 +16,30 @@ font = ExtResource("2_fnt4")
 font = ExtResource("2_fnt4")
 font_color = Color(0, 0.59170103, 0.5938744, 1)
 
-[node name="start_4" instance=ExtResource("1_rb4s")]
+[node name="start_4" unique_id=666041159 instance=ExtResource("1_rb4s")]
 
-[node name="Label" type="Label" parent="PlayArea"]
+[node name="basic_tutorial1" type="Sprite2D" parent="." index="0" unique_id=791027249]
+position = Vector2(696.00006, 229)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("2_f8iyh")
+
+[node name="basic_tutorial2" type="Sprite2D" parent="." index="1" unique_id=1514070475]
+position = Vector2(1096, 231.00002)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("3_xxd65")
+
+[node name="basic_tutorial3" type="Sprite2D" parent="." index="2" unique_id=1225585128]
+position = Vector2(1500.0001, 228.00002)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("4_58pip")
+
+[node name="floor4_tutorial" type="Sprite2D" parent="." index="3" unique_id=982083642]
+position = Vector2(1057, 741)
+scale = Vector2(2.0799954, 2)
+texture = ExtResource("5_7ntkv")
+
+[node name="Label" type="Label" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="5" unique_id=1996817653]
+visible = false
 layout_mode = 0
 offset_left = 391.0
 offset_top = 288.0
@@ -32,15 +57,17 @@ text = "1. Click the green barrier to move to the first room.
 label_settings = SubResource("LabelSettings_f4st")
 autowrap_mode = 3
 
-[node name="OpenSeal2" parent="PlayArea" instance=ExtResource("3_seal4")]
-script = ExtResource("4_prac")
+[node name="OpenSeal2" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="6" unique_id=1705613230 instance=ExtResource("3_seal4")]
 position = Vector2(679, 736)
+script = ExtResource("4_prac")
+respawn_delay = 1.5
+starts_hidden = false
 initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({
 3: 5.0
 })
 
-[node name="Label2" type="Label" parent="." index="6"]
+[node name="Label2" type="Label" parent="." index="10" unique_id=1504046708]
 offset_left = 1024.0
 offset_top = 704.0
 offset_right = 1280.0
