@@ -12,9 +12,19 @@ signal _advanced
 @export var collector_text_color: Color = Color(1, 0.9, 0.4)
 @export var spirit_text_color: Color = Color(0.75, 1, 0.8)
 @export var boss_text_color: Color = Color(1, 0.6, 0.6)
+@export var jessica_text_color: Color = Color("df84a5")
+@export var adoption_officer_text_color: Color = Color("e7d5b3")
+@export var grandpa_richard_text_color: Color = Color("de9e41")
+@export var doctor_metcalf_text_color: Color = Color("c7cfcc")
+@export var nurse_susan_text_color: Color = Color("d0da91")
+@export var scuba_instructor_text_color: Color = Color("a4dddb")
+@export var stranger_text_color: Color = Color("a8b5b2")
 
 ## Modulate on the portrait side that is not speaking.
 @export var inactive_portrait_dim: Color = Color(0.45, 0.45, 0.45)
+
+@export var speaker_bob_pixels: float = 5.0
+@export var speaker_bob_seconds: float = 1.8
 
 @onready var root_control: Control = $Root
 @onready var central_image: TextureRect = $Root/CentralImage
@@ -31,12 +41,17 @@ var _playing: bool = false
 var _reveal_tween: Tween
 var _animation_time: float = 0.0
 var _indicator_base_position: Vector2
+var _portrait_left_base: Vector2
+var _portrait_right_base: Vector2
+var _active_side: DialogBeat.PortraitSide = DialogBeat.PortraitSide.LEFT
 var _fade_rect: ColorRect
 
 
 func _ready() -> void:
 	beat_text.label_settings = beat_text.label_settings.duplicate()
 	_indicator_base_position = advance_indicator.position
+	_portrait_left_base = portrait_left.position
+	_portrait_right_base = portrait_right.position
 	_fade_rect = ColorRect.new()
 	_fade_rect.color = Color(0, 0, 0, 0)
 	_fade_rect.set_anchors_preset(Control.PRESET_FULL_RECT)
@@ -52,6 +67,11 @@ func _process(delta: float) -> void:
 	if advance_indicator.visible:
 		var bob: float = sin(TAU * _animation_time / DialogBubble.ADVANCE_BOB_SECONDS) * DialogBubble.ADVANCE_BOB_PIXELS
 		advance_indicator.position = _indicator_base_position + Vector2(0.0, bob)
+	var speaker_bob: float = 0.0
+	if _playing and speaker_bob_seconds > 0.0:
+		speaker_bob = sin(TAU * _animation_time / speaker_bob_seconds) * speaker_bob_pixels
+	_apply_speaker_bob(DialogBeat.PortraitSide.LEFT, speaker_bob)
+	_apply_speaker_bob(DialogBeat.PortraitSide.RIGHT, speaker_bob)
 
 
 func play() -> void:
@@ -136,9 +156,17 @@ func _present_beat(beat: DialogBeat) -> void:
 		_name_label(beat.portrait_side).text = beat.speaker_name
 		if _portrait_slot(beat.portrait_side).texture == null:
 			push_warning("MemoryCodecPlayer: speaker_name '%s' is on a side with no portrait--name labels only show under a face" % beat.speaker_name)
+	_active_side = beat.portrait_side
 	_style_portrait_side(DialogBeat.PortraitSide.LEFT, beat.portrait_side)
 	_style_portrait_side(DialogBeat.PortraitSide.RIGHT, beat.portrait_side)
 	_reveal_text(beat)
+
+
+func _apply_speaker_bob(side: DialogBeat.PortraitSide, bob: float) -> void:
+	var slot: TextureRect = _portrait_slot(side)
+	var base: Vector2 = _portrait_left_base if side == DialogBeat.PortraitSide.LEFT else _portrait_right_base
+	var offset: Vector2 = Vector2(0.0, bob) if side == _active_side and slot.visible else Vector2.ZERO
+	slot.position = base + offset
 
 
 func _style_portrait_side(side: DialogBeat.PortraitSide, active_side: DialogBeat.PortraitSide) -> void:
@@ -181,6 +209,20 @@ func _speaker_color(speaker: DialogBeat.Speaker) -> Color:
 			return spirit_text_color
 		DialogBeat.Speaker.BOSS:
 			return boss_text_color
+		DialogBeat.Speaker.JESSICA:
+			return jessica_text_color
+		DialogBeat.Speaker.ADOPTION_OFFICER:
+			return adoption_officer_text_color
+		DialogBeat.Speaker.GRANDPA_RICHARD:
+			return grandpa_richard_text_color
+		DialogBeat.Speaker.DOCTOR_METCALF:
+			return doctor_metcalf_text_color
+		DialogBeat.Speaker.NURSE_SUSAN:
+			return nurse_susan_text_color
+		DialogBeat.Speaker.SCUBA_INSTRUCTOR:
+			return scuba_instructor_text_color
+		DialogBeat.Speaker.STRANGER:
+			return stranger_text_color
 		_:
 			return david_text_color
 

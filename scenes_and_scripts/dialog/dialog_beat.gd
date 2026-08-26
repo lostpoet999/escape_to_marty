@@ -1,6 +1,6 @@
 class_name DialogBeat extends Resource
 
-enum Speaker { DAVID = 0, COLLECTOR = 1, LINGERING_SPIRIT = 2, BOSS = 3 }
+enum Speaker { DAVID = 0, COLLECTOR = 1, LINGERING_SPIRIT = 2, BOSS = 3, JESSICA = 4, ADOPTION_OFFICER = 5, GRANDPA_RICHARD = 6, DOCTOR_METCALF = 7, NURSE_SUSAN = 8, SCUBA_INSTRUCTOR = 9, STRANGER = 10 }
 enum PortraitSide { LEFT = 0, RIGHT = 1 }
 
 ## Who is saying the line--positions box accordingly.

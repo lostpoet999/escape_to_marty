@@ -2,14 +2,73 @@
 
 [ext_resource type="Script" uid="uid://bkgp0oq7lrafl" path="res://scenes_and_scripts/dialog/dialog_tree.gd" id="1_tree"]
 [ext_resource type="Script" uid="uid://da86xmy7akvas" path="res://scenes_and_scripts/dialog/dialog_beat.gd" id="2_beat"]
-[ext_resource type="Texture2D" uid="uid://dm3urvtumavrd" path="res://scenes_and_scripts/levels/common_rooms/memory room/memory_1_1_adoption_placeholder.png" id="3_img"]
+[ext_resource type="Texture2D" uid="uid://dolbh5epxic73" path="res://scenes_and_scripts/dialog/story icons/adoption.png" id="3_icon"]
+[ext_resource type="Texture2D" uid="uid://b4g0os6q6xuwm" path="res://scenes_and_scripts/dialog/story portraits/MARTYDAVID.png" id="4_md"]
+[ext_resource type="Texture2D" uid="uid://bau6b5huhps3y" path="res://scenes_and_scripts/dialog/story portraits/JESSICA.png" id="5_jess"]
+[ext_resource type="Texture2D" uid="uid://xm66qikrg6k6" path="res://scenes_and_scripts/dialog/story portraits/ADOPTION_OFFICER.png" id="6_officer"]
 
 [sub_resource type="Resource" id="Resource_beat_1"]
 script = ExtResource("2_beat")
-text = "\"The day of the adoption was probably one of the happiest days of my life.\""
-central_image = ExtResource("3_img")
+text = "Lots of adoptions today.
+I'm just nervous about one."
+portrait = ExtResource("4_md")
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_2"]
+script = ExtResource("2_beat")
+speaker = 4
+text = "Settle down sweetheart, he'll love you."
+portrait = ExtResource("5_jess")
+portrait_side = 1
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_3"]
+script = ExtResource("2_beat")
+text = "I'm your teddy bear."
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_4"]
+script = ExtResource("2_beat")
+speaker = 4
+text = "Our teddy bear needs a hug on this big day."
+portrait_side = 1
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_5"]
+script = ExtResource("2_beat")
+text = "What if he changes his mind about me?
+I know the fastest way out of here."
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_6"]
+script = ExtResource("2_beat")
+speaker = 4
+text = "Were you a teddy bear or a gummy bear?"
+portrait_side = 1
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_7"]
+script = ExtResource("2_beat")
+speaker = 5
+text = "Thanks for all of your patience, here we are with the paperwork, it's official--you're a family! Congratulations!"
+portrait = ExtResource("6_officer")
+portrait_side = 1
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_8"]
+script = ExtResource("2_beat")
+speaker = 4
+text = "It's been a long day. The sooner we get home the sooner everything will gel. Sound good?"
+portrait = ExtResource("5_jess")
+portrait_side = 1
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_9"]
+script = ExtResource("2_beat")
+text = "Yep."
+central_image = ExtResource("3_icon")
 
 [resource]
 script = ExtResource("1_tree")
-beats = Array[ExtResource("2_beat")]([SubResource("Resource_beat_1")])
+beats = Array[ExtResource("2_beat")]([SubResource("Resource_beat_1"), SubResource("Resource_beat_2"), SubResource("Resource_beat_3"), SubResource("Resource_beat_4"), SubResource("Resource_beat_5"), SubResource("Resource_beat_6"), SubResource("Resource_beat_7"), SubResource("Resource_beat_8"), SubResource("Resource_beat_9")])
 once_per_run = false
