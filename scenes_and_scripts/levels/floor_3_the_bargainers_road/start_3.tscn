@@ -1,9 +1,13 @@
 [gd_scene format=3 uid="uid://ds323mh1ch3fa"]
 
 [ext_resource type="PackedScene" uid="uid://bea1h3570swpu" path="res://scenes_and_scripts/levels/room_base.tscn" id="1_ydske"]
+[ext_resource type="Texture2D" uid="uid://cxyraqmjw6a3m" path="res://scenes_and_scripts/backgrounds/tutorial backgrounds/basic_tutorial_one.png" id="2_1ca45"]
 [ext_resource type="FontFile" uid="uid://ce5jk1ok7f4r5" path="res://label_settings_and_fonts/fonts/PressStart2P-Regular.ttf" id="2_4xu00"]
 [ext_resource type="PackedScene" uid="uid://cm1kspxv86400" path="res://scenes_and_scripts/bricks/open_seal.tscn" id="3_m2r8p"]
+[ext_resource type="Texture2D" uid="uid://c37qljrwvotog" path="res://scenes_and_scripts/backgrounds/tutorial backgrounds/basic_tutorial_two.png" id="3_p007t"]
+[ext_resource type="Texture2D" uid="uid://dvarfunpabkic" path="res://scenes_and_scripts/backgrounds/tutorial backgrounds/basic_tutorial_three.png" id="4_8nxsw"]
 [ext_resource type="Script" uid="uid://practseal0gd" path="res://scenes_and_scripts/bricks/practice_seal.gd" id="4_prac"]
+[ext_resource type="Texture2D" uid="uid://b27l3trtmm12n" path="res://scenes_and_scripts/backgrounds/tutorial backgrounds/floor3_tutorial.png" id="5_0cn1f"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_oufug"]
 font = ExtResource("2_4xu00")
@@ -14,9 +18,28 @@ font_color = Color(0, 0.59170103, 0.5938744, 1)
 
 [node name="common_room" unique_id=565861230 instance=ExtResource("1_ydske")]
 
-[node name="SubViewport" parent="SubViewportContainer" parent_id_path=PackedInt32Array(1513724378) index="0" unique_id=1272984319]
+[node name="basic_tutorial1" type="Sprite2D" parent="." index="0" unique_id=275719791]
+position = Vector2(696.00006, 229)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("2_1ca45")
+
+[node name="basic_tutorial2" type="Sprite2D" parent="." index="1" unique_id=1032262304]
+position = Vector2(1096, 231.00002)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("3_p007t")
+
+[node name="basic_tutorial3" type="Sprite2D" parent="." index="2" unique_id=126906716]
+position = Vector2(1500.0001, 228.00002)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("4_8nxsw")
+
+[node name="floor3_tutorial" type="Sprite2D" parent="." index="3" unique_id=782912277]
+position = Vector2(1048, 737)
+scale = Vector2(2, 2)
+texture = ExtResource("5_0cn1f")
 
 [node name="Label" type="Label" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="3" unique_id=2097916128]
+visible = false
 layout_mode = 0
 offset_left = 391.0
 offset_top = 288.0
@@ -48,7 +71,7 @@ bargain_deal_reward = 0
 [node name="FlashOverlay" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="5" unique_id=443116914]
 metadata/_edit_lock_ = true
 
-[node name="Label2" type="Label" parent="." index="6" unique_id=1932243363]
+[node name="Label2" type="Label" parent="." index="10" unique_id=1932243363]
 offset_left = 1023.0
 offset_top = 691.0
 offset_right = 1279.0
