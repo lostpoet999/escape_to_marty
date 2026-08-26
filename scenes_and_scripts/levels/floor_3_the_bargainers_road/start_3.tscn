@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dvarfunpabkic" path="res://scenes_and_scripts/backgrounds/tutorial backgrounds/basic_tutorial_three.png" id="4_8nxsw"]
 [ext_resource type="Script" uid="uid://practseal0gd" path="res://scenes_and_scripts/bricks/practice_seal.gd" id="4_prac"]
 [ext_resource type="Texture2D" uid="uid://b27l3trtmm12n" path="res://scenes_and_scripts/backgrounds/tutorial backgrounds/floor3_tutorial.png" id="5_0cn1f"]
+[ext_resource type="Texture2D" uid="uid://d2rl65i2ygeql" path="res://scenes_and_scripts/backgrounds/tutorial backgrounds/bargaining_board.png" id="6_p007t"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_oufug"]
 font = ExtResource("2_4xu00")
@@ -37,6 +38,11 @@ texture = ExtResource("4_8nxsw")
 position = Vector2(1048, 737)
 scale = Vector2(2, 2)
 texture = ExtResource("5_0cn1f")
+
+[node name="floor3_tutorial2" type="Sprite2D" parent="." index="4" unique_id=1246926380]
+position = Vector2(1048, 539)
+scale = Vector2(2, 2)
+texture = ExtResource("6_p007t")
 
 [node name="Label" type="Label" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="3" unique_id=2097916128]
 visible = false
@@ -71,7 +77,8 @@ bargain_deal_reward = 0
 [node name="FlashOverlay" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="5" unique_id=443116914]
 metadata/_edit_lock_ = true
 
-[node name="Label2" type="Label" parent="." index="10" unique_id=1932243363]
+[node name="Label2" type="Label" parent="." index="11" unique_id=1932243363]
+visible = false
 offset_left = 1023.0
 offset_top = 691.0
 offset_right = 1279.0

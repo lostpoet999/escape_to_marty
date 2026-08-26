@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dvarfunpabkic" path="res://scenes_and_scripts/backgrounds/tutorial backgrounds/basic_tutorial_three.png" id="4_58pip"]
 [ext_resource type="Script" uid="uid://practseal0gd" path="res://scenes_and_scripts/bricks/practice_seal.gd" id="4_prac"]
 [ext_resource type="Texture2D" uid="uid://cu5wkiik4w8sk" path="res://scenes_and_scripts/backgrounds/tutorial backgrounds/floor4_tutorial.png" id="5_7ntkv"]
+[ext_resource type="Texture2D" uid="uid://betbvp7ly5o36" path="res://scenes_and_scripts/backgrounds/tutorial backgrounds/depression_board.png" id="6_xxd65"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_f4st"]
 font = ExtResource("2_fnt4")
@@ -38,6 +39,11 @@ position = Vector2(1057, 741)
 scale = Vector2(2.0799954, 2)
 texture = ExtResource("5_7ntkv")
 
+[node name="floor4_tutorial2" type="Sprite2D" parent="." index="4" unique_id=1057605646]
+position = Vector2(1057, 545)
+scale = Vector2(2.0799954, 2)
+texture = ExtResource("6_xxd65")
+
 [node name="Label" type="Label" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="5" unique_id=1996817653]
 visible = false
 layout_mode = 0
@@ -67,7 +73,8 @@ stages = Dictionary[int, float]({
 3: 5.0
 })
 
-[node name="Label2" type="Label" parent="." index="10" unique_id=1504046708]
+[node name="Label2" type="Label" parent="." index="11" unique_id=1504046708]
+visible = false
 offset_left = 1024.0
 offset_top = 704.0
 offset_right = 1280.0
