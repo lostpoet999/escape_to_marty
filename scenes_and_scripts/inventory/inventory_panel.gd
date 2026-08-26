@@ -14,7 +14,7 @@ const PICK2_TICKET: BaseItem = preload("uid://cpick2tkt01")
 const SHOP_RESTOCK_TICKET: BaseItem = preload("uid://cshoprstkt1")
 const TICKET_SLOT_START: int = 1 ## index 0 is the base-ball anchor; tickets follow it
 
-const MEMORY_TROPHY_SLOTS: int = 5
+const MEMORY_TROPHY_SLOTS: int = 4
 const TROPHY_DIM: Color = Color(0.35, 0.35, 0.35)
 const TROPHY_RARITY: BaseItem.RarityType = BaseItem.RarityType.VERY_RARE
 

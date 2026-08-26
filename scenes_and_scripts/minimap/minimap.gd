@@ -14,6 +14,7 @@ func _ready() -> void:
 
 	var labels_enabled: bool = PlayerData.inventory != null and PlayerData.inventory.has_map_marker()
 	var scanner: bool = PlayerData.inventory != null and PlayerData.inventory.has_room_scanner()
+	var compass: bool = PlayerData.inventory != null and PlayerData.inventory.has_boss_compass()
 	var idx_by_id: Dictionary = {}
 	var revealed_ids: Dictionary = {}
 
@@ -32,6 +33,8 @@ func _ready() -> void:
 		idx_by_id[room_key] = idx
 		if room_key == GameManager.current_room_id:
 			rooms[idx].is_current = true
+		if compass and room_entry.content != null and room_entry.content.room_type == RoomContent.ROOM_TYPES.boss:
+			revealed_ids[room_key] = true
 		if scanner and room_key == GameManager.current_room_id:
 			for offset: Vector2i in [Vector2i(0, -1), Vector2i(0, 1), Vector2i(1, 0), Vector2i(-1, 0)]:
 				if room_entry.has_door(offset):

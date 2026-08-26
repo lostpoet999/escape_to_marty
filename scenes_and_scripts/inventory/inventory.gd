@@ -165,6 +165,15 @@ func has_room_scanner() -> bool:
 			return true
 	return false
 
+func has_boss_compass() -> bool:
+	for item: BaseItem in items:
+		if item.reveals_boss_room:
+			return true
+	for item: BaseItem in core_items:
+		if item.reveals_boss_room:
+			return true
+	return false
+
 func has_map_marker() -> bool:
 	for item: BaseItem in items:
 		if item.enables_minimap:
@@ -175,13 +184,14 @@ func has_map_marker() -> bool:
 	return false
 
 func get_barrier_clear() -> UtilityPowerup:
-	for item: BaseItem in items:
-		if item.clears_barriers:
-			return item as UtilityPowerup
-	for item: BaseItem in core_items:
-		if item.clears_barriers:
-			return item as UtilityPowerup
-	return null
+	var best: UtilityPowerup = null
+	for item: BaseItem in items + core_items:
+		if not item.clears_barriers:
+			continue
+		var utility: UtilityPowerup = item as UtilityPowerup
+		if utility != null and (best == null or utility.barrier_clear_charges > best.barrier_clear_charges):
+			best = utility
+	return best
 
 func get_gesture_damage() -> float:
 	var dmg: float = MouseGestures.DEFAULT_CLICK_DMG

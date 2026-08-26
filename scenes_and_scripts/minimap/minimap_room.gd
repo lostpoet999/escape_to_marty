@@ -66,7 +66,7 @@ const BLINK_MIN_ALPHA: float = 0.3
 		revealed_exits = v
 		_refresh()
 
-@export var labels_enabled: bool = true : # room-type glyphs gated behind the Map Marker item
+@export var labels_enabled: bool = true : # map marker gates these for discovered rooms; scanned cells always show theirs
 	set(v):
 		labels_enabled = v
 		_refresh()
@@ -81,7 +81,8 @@ func _ready() -> void:
 func _refresh() -> void:
 	if room_entry:
 		var discovered: bool = is_visited or is_current
-		var letter: String = TYPE_LETTERS.get(room_entry.content.room_type, "") if labels_enabled else ""
+		var scanned: bool = is_revealed and not discovered
+		var letter: String = TYPE_LETTERS.get(room_entry.content.room_type, "") if labels_enabled or scanned else ""
 		var title: String = TYPE_TITLES.get(room_entry.content.room_type, "") if labels_enabled and discovered else ""
 		background.visible = discovered
 		player_indicator.visible = is_current
@@ -93,7 +94,7 @@ func _refresh() -> void:
 		east_exit.visible = discovered and _exit_tick_visible(&"east", Vector2i(1, 0))
 		west_exit.visible = discovered and _exit_tick_visible(&"west", Vector2i(-1, 0))
 		var glyph: String = letter
-		if is_revealed and not discovered and glyph == "":
+		if scanned and glyph == "":
 			glyph = REVEALED_BLANK_GLYPH
 		type_label.visible = (discovered or is_revealed) and glyph != ""
 		type_label.text = glyph

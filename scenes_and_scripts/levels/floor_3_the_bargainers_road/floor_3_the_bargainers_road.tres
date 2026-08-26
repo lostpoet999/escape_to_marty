@@ -26,6 +26,8 @@
 [ext_resource type="Texture2D" uid="uid://cqn6snt1p5bby" path="res://scenes_and_scripts/walls/1x1_wall_gray_avg.png" id="20_wwqpq"]
 [ext_resource type="PackedScene" uid="uid://bgdoorf2ab01" path="res://scenes_and_scripts/backgrounds/BG Objects/f2/bg_door.tscn" id="21_bgdor"]
 [ext_resource type="Script" uid="uid://cfvu47iaybkxv" path="res://scenes_and_scripts/item_spawning/boss_loot_config.gd" id="22_bossloot"]
+[ext_resource type="PackedScene" uid="uid://bonusroom01a" path="res://scenes_and_scripts/levels/common_rooms/bonus_room_1.tscn" id="23_bonus"]
+[ext_resource type="Resource" uid="uid://broomscanr1" path="res://scenes_and_scripts/powerups_and_behaviors/utility_powerups/room_scanner.tres" id="24_scanr"]
 
 [sub_resource type="Resource" id="Resource_bossweights3"]
 script = ExtResource("6_tjbqt")
@@ -109,6 +111,7 @@ room_coords = Vector2i(5, 3)
 is_static = false
 north_exit = true
 south_exit = true
+west_exit = true
 
 [sub_resource type="Resource" id="Resource_4snqw"]
 script = ExtResource("1_4xv7i")
@@ -253,6 +256,18 @@ rare = 15.0
 very_rare = 7.0
 metadata/_custom_type_script = "uid://b1eqt2or38kw6"
 
+[sub_resource type="Resource" id="Resource_bonusrc3"]
+script = ExtResource("20_rc")
+room_scene = ExtResource("23_bonus")
+room_type = 6
+bonus_item = ExtResource("24_scanr")
+
+[sub_resource type="Resource" id="Resource_bonusslot3"]
+script = ExtResource("1_4xv7i")
+room_coords = Vector2i(4, 3)
+content = SubResource("Resource_bonusrc3")
+east_exit = true
+
 [resource]
 script = ExtResource("2_yjxva")
 music = ExtResource("5_kdw8p")
@@ -263,7 +278,7 @@ seal_phase_pool = Array[ExtResource("4_tjbqt")]([SubResource("Resource_tjbqt"), 
 seal_health_phase = SubResource("Resource_1wfy1")
 max_respawn = 3
 floor_name_id = "The Bargainer's Road"
-room_entries = Array[ExtResource("1_4xv7i")]([SubResource("Resource_3ap26"), SubResource("Resource_6uq4x"), SubResource("Resource_f0fcd"), SubResource("Resource_pj55k"), SubResource("Resource_stmn7"), SubResource("Resource_0470x"), SubResource("Resource_gdn6j"), SubResource("Resource_4snqw"), SubResource("Resource_eq3fe"), SubResource("Resource_ed0t6"), SubResource("Resource_uda4i"), SubResource("Resource_n42h2")])
+room_entries = Array[ExtResource("1_4xv7i")]([SubResource("Resource_3ap26"), SubResource("Resource_6uq4x"), SubResource("Resource_f0fcd"), SubResource("Resource_pj55k"), SubResource("Resource_stmn7"), SubResource("Resource_0470x"), SubResource("Resource_gdn6j"), SubResource("Resource_4snqw"), SubResource("Resource_eq3fe"), SubResource("Resource_ed0t6"), SubResource("Resource_uda4i"), SubResource("Resource_n42h2"), SubResource("Resource_bonusslot3")])
 room_pool = Array[ExtResource("20_rc")]([SubResource("Resource_uo428"), SubResource("Resource_sp8dx"), SubResource("Resource_15g78"), SubResource("Resource_1nj78"), SubResource("Resource_tdi16")])
 show_mini_map = true
 seal_break_enemies = Array[ExtResource("3_1wfy1")]([SubResource("Resource_1r2xy"), SubResource("Resource_a1chj")])

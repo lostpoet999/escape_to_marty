@@ -36,6 +36,7 @@ const GOLD_STREAK_MAX: int = 12
 var _gold_streak: int = 0
 var _last_gold_pickup_ms: int = -100000
 var _last_barrier_clear_ms: int = -100000
+var _barrier_clears_used: int = 0
 var _last_shield_count: int = 0
 
 
@@ -92,6 +93,7 @@ func initialize_player_data() -> void:
 	bankruptcy_gold_per_life_bonus = 0
 	bankruptcy_damage_per_life_bonus = 0
 	_last_barrier_clear_ms = -100000
+	_barrier_clears_used = 0
 	if inventory: inventory.free()
 	inventory = PlayerInventory.new()
 	add_child(inventory)
@@ -345,10 +347,17 @@ func barrier_clear_ready() -> bool:
 	var item: UtilityPowerup = inventory.get_barrier_clear() if inventory != null else null
 	if item == null:
 		return false
-	return Time.get_ticks_msec() - _last_barrier_clear_ms >= int(item.barrier_clear_cooldown * 1000.0)
+	return _barrier_clears_used < item.barrier_clear_charges or _barrier_cooldown_elapsed(item)
 
 func consume_barrier_clear() -> void:
+	var item: UtilityPowerup = inventory.get_barrier_clear() if inventory != null else null
+	if item != null and _barrier_clears_used >= item.barrier_clear_charges and _barrier_cooldown_elapsed(item):
+		_barrier_clears_used = 0
+	_barrier_clears_used += 1
 	_last_barrier_clear_ms = Time.get_ticks_msec()
+
+func _barrier_cooldown_elapsed(item: UtilityPowerup) -> bool:
+	return Time.get_ticks_msec() - _last_barrier_clear_ms >= int(item.barrier_clear_cooldown * 1000.0)
 
 func get_player_health() -> int:
 	return player_current_health

@@ -24,6 +24,8 @@
 [ext_resource type="Script" uid="uid://dm8qchhbo37mu" path="res://scenes_and_scripts/actors/enemies/enemy_config.gd" id="13_8oxqp"]
 [ext_resource type="PackedScene" uid="uid://ckmyc5m42icnr" path="res://scenes_and_scripts/levels/floor_4_depression/combat_4_6.tscn" id="19_8oxqp"]
 [ext_resource type="Script" uid="uid://cfvu47iaybkxv" path="res://scenes_and_scripts/item_spawning/boss_loot_config.gd" id="22_bossloot"]
+[ext_resource type="PackedScene" uid="uid://bonusroom01a" path="res://scenes_and_scripts/levels/common_rooms/bonus_room_1.tscn" id="23_bonus"]
+[ext_resource type="Resource" uid="uid://bbosscmps01" path="res://scenes_and_scripts/powerups_and_behaviors/utility_powerups/boss_compass.tres" id="24_compass"]
 
 [sub_resource type="Resource" id="Resource_f4bossweights"]
 script = ExtResource("5_sw4")
@@ -73,6 +75,7 @@ west_exit = true
 script = ExtResource("1_re4")
 room_coords = Vector2i(4, 3)
 is_static = false
+north_exit = true
 east_exit = true
 west_exit = true
 
@@ -227,6 +230,18 @@ rare = 21.0
 very_rare = 11.0
 metadata/_custom_type_script = "uid://b1eqt2or38kw6"
 
+[sub_resource type="Resource" id="Resource_f4bonusrc"]
+script = ExtResource("6_rc4")
+room_scene = ExtResource("23_bonus")
+room_type = 6
+bonus_item = ExtResource("24_compass")
+
+[sub_resource type="Resource" id="Resource_f4bonusslot"]
+script = ExtResource("1_re4")
+room_coords = Vector2i(4, 2)
+content = SubResource("Resource_f4bonusrc")
+south_exit = true
+
 [resource]
 script = ExtResource("2_fd4")
 music = ExtResource("1_xtsgx")
@@ -238,7 +253,7 @@ seal_phase_pool = Array[ExtResource("4_spc4")]([SubResource("Resource_f4dep")])
 seal_health_phase = SubResource("Resource_f4hp")
 max_respawn = 3
 floor_name_id = "Depression"
-room_entries = Array[ExtResource("1_re4")]([SubResource("Resource_x6ruf"), SubResource("Resource_kew2q"), SubResource("Resource_lqd5x"), SubResource("Resource_x3rsl"), SubResource("Resource_mwmll"), SubResource("Resource_vy0kp"), SubResource("Resource_cbo82"), SubResource("Resource_srliv"), SubResource("Resource_y661q"), SubResource("Resource_whjs0"), SubResource("Resource_flvm3"), SubResource("Resource_bpkve"), SubResource("Resource_xtsgx")])
+room_entries = Array[ExtResource("1_re4")]([SubResource("Resource_x6ruf"), SubResource("Resource_kew2q"), SubResource("Resource_lqd5x"), SubResource("Resource_x3rsl"), SubResource("Resource_mwmll"), SubResource("Resource_vy0kp"), SubResource("Resource_cbo82"), SubResource("Resource_srliv"), SubResource("Resource_y661q"), SubResource("Resource_whjs0"), SubResource("Resource_flvm3"), SubResource("Resource_bpkve"), SubResource("Resource_xtsgx"), SubResource("Resource_f4bonusslot")])
 room_pool = Array[ExtResource("6_rc4")]([SubResource("Resource_8ywr7"), SubResource("Resource_sg5nb"), SubResource("Resource_uw3ts"), SubResource("Resource_q3ugj"), SubResource("Resource_eyfyo")])
 show_mini_map = true
 wall_texture = ExtResource("7_wt4")

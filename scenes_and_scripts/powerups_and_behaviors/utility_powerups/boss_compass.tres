@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="UtilityPowerup" format=3 uid="uid://bbosscmps01"]
+
+[ext_resource type="Texture2D" uid="uid://dccouoidl564d" path="res://scenes_and_scripts/powerups_and_behaviors/utility_powerups/boss_compass.png" id="1_cmps"]
+[ext_resource type="Script" uid="uid://cscanutil01" path="res://scenes_and_scripts/powerups_and_behaviors/utility_powerups/utility_powerup.gd" id="1_util"]
+
+[resource]
+script = ExtResource("1_util")
+powerup_name = "Boss Compass"
+shop_description = "You know where to find trouble and your way back to Marty!"
+rarity = 1
+inventory_icon = ExtResource("1_cmps")
+reveals_boss_room = true
+trophy_floor = 4
+metadata/_custom_type_script = "uid://cscanutil01"

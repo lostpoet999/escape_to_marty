@@ -6,3 +6,5 @@ class_name UtilityPowerup extends BaseItem
 
 ## seconds between barrier clears; only read when BaseItem.clears_barriers is on
 @export var barrier_clear_cooldown: float = 15.0
+## barrier clears available per cooldown window; only read when BaseItem.clears_barriers is on
+@export var barrier_clear_charges: int = 1
