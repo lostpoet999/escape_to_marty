@@ -2,14 +2,74 @@
 
 [ext_resource type="Script" uid="uid://bkgp0oq7lrafl" path="res://scenes_and_scripts/dialog/dialog_tree.gd" id="1_tree"]
 [ext_resource type="Script" uid="uid://da86xmy7akvas" path="res://scenes_and_scripts/dialog/dialog_beat.gd" id="2_beat"]
-[ext_resource type="Texture2D" uid="uid://dhwpoxtoiyi0e" path="res://scenes_and_scripts/levels/common_rooms/memory room/memory_1_2_crab_dip_placeholder.png" id="3_img"]
+[ext_resource type="Texture2D" uid="uid://1rrdhm7s77no" path="res://scenes_and_scripts/dialog/story icons/grabNdip.png" id="3_icon"]
+[ext_resource type="Texture2D" uid="uid://b4g0os6q6xuwm" path="res://scenes_and_scripts/dialog/story portraits/MARTYDAVID.png" id="4_md"]
+[ext_resource type="Texture2D" uid="uid://bau6b5huhps3y" path="res://scenes_and_scripts/dialog/story portraits/JESSICA.png" id="5_jess"]
 
 [sub_resource type="Resource" id="Resource_beat_1"]
 script = ExtResource("2_beat")
-text = "\"She always made this crab dip at family gatherings -- Marty and I always fought over who got the last bite.\""
-central_image = ExtResource("3_img")
+text = "What a party. Everyone said that we're like clones."
+portrait = ExtResource("4_md")
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_2"]
+script = ExtResource("2_beat")
+speaker = 4
+text = "Well boys looks like my dip was a hit, only one scoop left. Sweety can you start the clean up? I'm going to lay down for a bit."
+portrait = ExtResource("5_jess")
+portrait_side = 1
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_3"]
+script = ExtResource("2_beat")
+text = "I have my clone to help me and I know exactly where to start."
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_4"]
+script = ExtResource("2_beat")
+speaker = 4
+text = "Where's that? Oh no, you two stop running."
+portrait_side = 1
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_5"]
+script = ExtResource("2_beat")
+text = "GRAB DIP!
+I get the last one for putting the party together."
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_6"]
+script = ExtResource("2_beat")
+speaker = 4
+text = "I put this party together."
+portrait_side = 1
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_7"]
+script = ExtResource("2_beat")
+text = "Let it go. The man of the house gets the last crab dip."
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_8"]
+script = ExtResource("2_beat")
+speaker = 4
+text = "Right now I just see two children."
+portrait_side = 1
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_9"]
+script = ExtResource("2_beat")
+text = "Alright, okay, fine. This time it's yours but next time is mine."
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_10"]
+script = ExtResource("2_beat")
+speaker = 4
+text = "Awww. My boys are growing up."
+portrait_side = 1
+central_image = ExtResource("3_icon")
 
 [resource]
 script = ExtResource("1_tree")
-beats = Array[ExtResource("2_beat")]([SubResource("Resource_beat_1")])
+beats = Array[ExtResource("2_beat")]([SubResource("Resource_beat_1"), SubResource("Resource_beat_2"), SubResource("Resource_beat_3"), SubResource("Resource_beat_4"), SubResource("Resource_beat_5"), SubResource("Resource_beat_6"), SubResource("Resource_beat_7"), SubResource("Resource_beat_8"), SubResource("Resource_beat_9"), SubResource("Resource_beat_10")])
 once_per_run = false

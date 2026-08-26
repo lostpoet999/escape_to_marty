@@ -89,4 +89,8 @@ func _animate_flash() -> void:
 	_label.add_theme_constant_override("outline_size", int(round(flash * LABEL_FLASH_GLOW_SIZE)))
 
 func _should_show() -> bool:
-	return PlayerInventory.instance != null and not _death_hidden
+	if PlayerInventory.instance == null or _death_hidden:
+		return false
+	if GameManager.current_state == GameManager.GameState.SPECIAL_ROOM:
+		return false
+	return not DialogDirector.focused_active

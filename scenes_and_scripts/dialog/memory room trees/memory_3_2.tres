@@ -1,14 +1,56 @@
 [gd_resource type="Resource" script_class="DialogTree" format=3 uid="uid://bps81gtmi88hj"]
 
-[ext_resource type="Script" uid="uid://da86xmy7akvas" path="res://scenes_and_scripts/dialog/dialog_beat.gd" id="1_wtkqc"]
-[ext_resource type="Script" uid="uid://bkgp0oq7lrafl" path="res://scenes_and_scripts/dialog/dialog_tree.gd" id="2_x7tvc"]
+[ext_resource type="Script" uid="uid://bkgp0oq7lrafl" path="res://scenes_and_scripts/dialog/dialog_tree.gd" id="1_tree"]
+[ext_resource type="Script" uid="uid://da86xmy7akvas" path="res://scenes_and_scripts/dialog/dialog_beat.gd" id="2_beat"]
+[ext_resource type="Texture2D" uid="uid://co3m5jtpavhq2" path="res://scenes_and_scripts/dialog/story icons/gravestone.png" id="3_icon"]
+[ext_resource type="Texture2D" uid="uid://b4g0os6q6xuwm" path="res://scenes_and_scripts/dialog/story portraits/MARTYDAVID.png" id="4_md"]
+[ext_resource type="Texture2D" uid="uid://bxae32ssg3a6o" path="res://scenes_and_scripts/dialog/story portraits/DOCTOR_METCALF.png" id="5_doctor"]
+[ext_resource type="Texture2D" uid="uid://c3dqbqbq4c6tj" path="res://scenes_and_scripts/dialog/story portraits/NURSE_SUSAN.png" id="6_nurse"]
 
-[sub_resource type="Resource" id="Resource_u5q5f"]
-script = ExtResource("1_wtkqc")
-text = "When she died of cancer I was afraid I lost Marty too--he tried to be strong but I could see the pain in his eyes."
-metadata/_custom_type_script = "uid://da86xmy7akvas"
+[sub_resource type="Resource" id="Resource_beat_1"]
+script = ExtResource("2_beat")
+text = "I couldn't save her."
+portrait = ExtResource("4_md")
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_2"]
+script = ExtResource("2_beat")
+speaker = 7
+text = "The cancer was highly aggressive. She fought until the very end.
+We all did our best.
+I'm so sorry for your loss."
+portrait = ExtResource("5_doctor")
+portrait_side = 1
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_3"]
+script = ExtResource("2_beat")
+speaker = 8
+text = "Is that a letter? I can add it to our outgoing mail."
+portrait = ExtResource("6_nurse")
+portrait_side = 1
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_4"]
+script = ExtResource("2_beat")
+text = "What? ...oh, no that's personal.  It is abou...for her.  Thanks, though."
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_5"]
+script = ExtResource("2_beat")
+speaker = 7
+text = "I see. Please take your time.
+We'll give you some privacy, goodbyes are never easy."
+portrait = ExtResource("5_doctor")
+portrait_side = 1
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_6"]
+script = ExtResource("2_beat")
+text = "I never wanted to say goodbye."
+central_image = ExtResource("3_icon")
 
 [resource]
-script = ExtResource("2_x7tvc")
-beats = Array[ExtResource("1_wtkqc")]([SubResource("Resource_u5q5f")])
-metadata/_custom_type_script = "uid://bkgp0oq7lrafl"
+script = ExtResource("1_tree")
+beats = Array[ExtResource("2_beat")]([SubResource("Resource_beat_1"), SubResource("Resource_beat_2"), SubResource("Resource_beat_3"), SubResource("Resource_beat_4"), SubResource("Resource_beat_5"), SubResource("Resource_beat_6")])
+once_per_run = false

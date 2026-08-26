@@ -1,14 +1,52 @@
 [gd_resource type="Resource" script_class="DialogTree" format=3 uid="uid://dcrcem8twqrj1"]
 
-[ext_resource type="Script" uid="uid://da86xmy7akvas" path="res://scenes_and_scripts/dialog/dialog_beat.gd" id="1_4ck1h"]
-[ext_resource type="Script" uid="uid://bkgp0oq7lrafl" path="res://scenes_and_scripts/dialog/dialog_tree.gd" id="2_skw76"]
+[ext_resource type="Script" uid="uid://bkgp0oq7lrafl" path="res://scenes_and_scripts/dialog/dialog_tree.gd" id="1_tree"]
+[ext_resource type="Script" uid="uid://da86xmy7akvas" path="res://scenes_and_scripts/dialog/dialog_beat.gd" id="2_beat"]
+[ext_resource type="Texture2D" uid="uid://dc4smrmkrxqqv" path="res://scenes_and_scripts/dialog/story icons/heart.png" id="3_icon"]
+[ext_resource type="Texture2D" uid="uid://8bf8d6qcu6f5" path="res://scenes_and_scripts/dialog/story portraits/GRANDPA_RICHARD.png" id="4_grandpa"]
+[ext_resource type="Texture2D" uid="uid://b4g0os6q6xuwm" path="res://scenes_and_scripts/dialog/story portraits/MARTYDAVID.png" id="5_md"]
 
-[sub_resource type="Resource" id="Resource_02oti"]
-script = ExtResource("1_4ck1h")
-text = "\"He had tears in his eyes, but smiled ear to ear when I told him I was proud of how strong he'd been.\""
-metadata/_custom_type_script = "uid://da86xmy7akvas"
+[sub_resource type="Resource" id="Resource_beat_1"]
+script = ExtResource("2_beat")
+speaker = 6
+text = "Why did we park so far away?
+I'm not as young as you guys."
+portrait = ExtResource("4_grandpa")
+portrait_side = 1
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_2"]
+script = ExtResource("2_beat")
+text = "Didn't you always tell us to keep active?  Besides, I like to walk sometimes.  Gives us a chance to talk more."
+portrait = ExtResource("5_md")
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_3"]
+script = ExtResource("2_beat")
+speaker = 6
+text = "Not for my old legs.  Oh, I get it.  Marty, I think David has something he wants to say to you."
+portrait_side = 1
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_4"]
+script = ExtResource("2_beat")
+text = "I know this hasn't been easy...but I am glad we were--I mean are a family.
+I'm so proud of you.  You make me want to be stronger too."
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_5"]
+script = ExtResource("2_beat")
+speaker = 6
+text = "I am proud of both of you.  I miss her too.  Maybe you all should finally beat Glassy Joes and Mitch Tyson in her honor today?"
+portrait_side = 1
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_6"]
+script = ExtResource("2_beat")
+text = "That's not their name...nevermind.  Ya that sounds fun.  Let's do that tonight!"
+central_image = ExtResource("3_icon")
 
 [resource]
-script = ExtResource("2_skw76")
-beats = Array[ExtResource("1_4ck1h")]([SubResource("Resource_02oti")])
-metadata/_custom_type_script = "uid://bkgp0oq7lrafl"
+script = ExtResource("1_tree")
+beats = Array[ExtResource("2_beat")]([SubResource("Resource_beat_1"), SubResource("Resource_beat_2"), SubResource("Resource_beat_3"), SubResource("Resource_beat_4"), SubResource("Resource_beat_5"), SubResource("Resource_beat_6")])
+once_per_run = false

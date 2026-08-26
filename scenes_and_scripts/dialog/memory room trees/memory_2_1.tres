@@ -2,12 +2,59 @@
 
 [ext_resource type="Script" uid="uid://bkgp0oq7lrafl" path="res://scenes_and_scripts/dialog/dialog_tree.gd" id="1_tree"]
 [ext_resource type="Script" uid="uid://da86xmy7akvas" path="res://scenes_and_scripts/dialog/dialog_beat.gd" id="2_beat"]
+[ext_resource type="Texture2D" uid="uid://0gfjlq0h5nab" path="res://scenes_and_scripts/dialog/story icons/mt_punchout.png" id="3_icon"]
+[ext_resource type="Texture2D" uid="uid://b4g0os6q6xuwm" path="res://scenes_and_scripts/dialog/story portraits/MARTYDAVID.png" id="4_md"]
+[ext_resource type="Texture2D" uid="uid://8bf8d6qcu6f5" path="res://scenes_and_scripts/dialog/story portraits/GRANDPA_RICHARD.png" id="5_grandpa"]
+[ext_resource type="Texture2D" uid="uid://bau6b5huhps3y" path="res://scenes_and_scripts/dialog/story portraits/JESSICA.png" id="6_jess"]
 
 [sub_resource type="Resource" id="Resource_beat_1"]
 script = ExtResource("2_beat")
-text = "Marty was so excited to play RC-ProAm and Mike Tyson's Punchout with me that entire afternoon."
+text = "Oh, ow, no, almost oh no. Mike Tyson is a beast.
+I lost again. Back to the beginning."
+portrait = ExtResource("4_md")
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_2"]
+script = ExtResource("2_beat")
+speaker = 6
+text = "I heard one of you had a code to skip all that."
+portrait = ExtResource("5_grandpa")
+portrait_side = 1
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_3"]
+script = ExtResource("2_beat")
+text = "What code? There's a code?"
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_4"]
+script = ExtResource("2_beat")
+speaker = 4
+text = "Grandpa stop trying to start a fuss."
+portrait = ExtResource("6_jess")
+portrait_side = 1
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_5"]
+script = ExtResource("2_beat")
+text = "The code of the warrior to start over and show Mike Tyson what you taught me."
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_6"]
+script = ExtResource("2_beat")
+speaker = 6
+text = "Ladies and gentlemen he needs to get past Glassy Joe, Von Keister, Piston Mondo...how far will he go?"
+portrait = ExtResource("5_grandpa")
+portrait_side = 1
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_7"]
+script = ExtResource("2_beat")
+text = "Those aren't the names, well, close enough grandpa.
+And I'm going all the way. I'll never give up."
+central_image = ExtResource("3_icon")
 
 [resource]
 script = ExtResource("1_tree")
-beats = Array[ExtResource("2_beat")]([SubResource("Resource_beat_1")])
+beats = Array[ExtResource("2_beat")]([SubResource("Resource_beat_1"), SubResource("Resource_beat_2"), SubResource("Resource_beat_3"), SubResource("Resource_beat_4"), SubResource("Resource_beat_5"), SubResource("Resource_beat_6"), SubResource("Resource_beat_7")])
 once_per_run = false

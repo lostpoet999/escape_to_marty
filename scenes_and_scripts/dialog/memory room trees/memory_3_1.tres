@@ -1,14 +1,86 @@
 [gd_resource type="Resource" script_class="DialogTree" format=3 uid="uid://daii4mo84sibp"]
 
-[ext_resource type="Script" uid="uid://da86xmy7akvas" path="res://scenes_and_scripts/dialog/dialog_beat.gd" id="1_pevqq"]
-[ext_resource type="Script" uid="uid://bkgp0oq7lrafl" path="res://scenes_and_scripts/dialog/dialog_tree.gd" id="2_gsdtx"]
+[ext_resource type="Script" uid="uid://bkgp0oq7lrafl" path="res://scenes_and_scripts/dialog/dialog_tree.gd" id="1_tree"]
+[ext_resource type="Script" uid="uid://da86xmy7akvas" path="res://scenes_and_scripts/dialog/dialog_beat.gd" id="2_beat"]
+[ext_resource type="Texture2D" uid="uid://fahj8just2at" path="res://scenes_and_scripts/dialog/story icons/mittens.png" id="3_icon"]
+[ext_resource type="Texture2D" uid="uid://bau6b5huhps3y" path="res://scenes_and_scripts/dialog/story portraits/JESSICA.png" id="4_jess"]
+[ext_resource type="Texture2D" uid="uid://b4g0os6q6xuwm" path="res://scenes_and_scripts/dialog/story portraits/MARTYDAVID.png" id="5_md"]
 
-[sub_resource type="Resource" id="Resource_a30ve"]
-script = ExtResource("1_pevqq")
-text = "I never understood why she had to be crocheting or making jewelry while we watched T.V."
-metadata/_custom_type_script = "uid://da86xmy7akvas"
+[sub_resource type="Resource" id="Resource_beat_1"]
+script = ExtResource("2_beat")
+speaker = 4
+text = "What are you two still doing outside it's freezing."
+portrait = ExtResource("4_jess")
+portrait_side = 1
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_2"]
+script = ExtResource("2_beat")
+text = "We built a snowman that looks like grandpa."
+portrait = ExtResource("5_md")
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_3"]
+script = ExtResource("2_beat")
+speaker = 4
+text = "Dinner is almost ready, get inside and wash up.
+You remembered your key you keep losing... right?"
+portrait_side = 1
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_4"]
+script = ExtResource("2_beat")
+text = "I don't lose it, not all the time. It's right...
+I just h-h-had it..."
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_5"]
+script = ExtResource("2_beat")
+speaker = 4
+text = "G-g-great. Remove your boots, don't melt snow inside."
+portrait_side = 1
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_6"]
+script = ExtResource("2_beat")
+text = "So cold, I can't think straight. Now we're both locked out here.
+Can't let her know I lost it."
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_7"]
+script = ExtResource("2_beat")
+speaker = 4
+text = "Anytime now boys or there's going to be three snowmen out there.
+Don't make me keep shouting through the window.
+Tweedle Dee and tweedle Dum, check both your pockets."
+portrait_side = 1
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_8"]
+script = ExtResource("2_beat")
+text = "I found it! My fingers are f-f-frozen."
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_9"]
+script = ExtResource("2_beat")
+speaker = 4
+text = "I can't imagine what you two would do without me, just turn the handle like this."
+portrait_side = 1
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_10"]
+script = ExtResource("2_beat")
+text = "It was unlocked the whole time? I'm f-f-frozen Jessica."
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_11"]
+script = ExtResource("2_beat")
+speaker = 4
+text = "Hear that? Someone needs to get unfrozen with a hug."
+portrait_side = 1
+central_image = ExtResource("3_icon")
 
 [resource]
-script = ExtResource("2_gsdtx")
-beats = Array[ExtResource("1_pevqq")]([SubResource("Resource_a30ve")])
-metadata/_custom_type_script = "uid://bkgp0oq7lrafl"
+script = ExtResource("1_tree")
+beats = Array[ExtResource("2_beat")]([SubResource("Resource_beat_1"), SubResource("Resource_beat_2"), SubResource("Resource_beat_3"), SubResource("Resource_beat_4"), SubResource("Resource_beat_5"), SubResource("Resource_beat_6"), SubResource("Resource_beat_7"), SubResource("Resource_beat_8"), SubResource("Resource_beat_9"), SubResource("Resource_beat_10"), SubResource("Resource_beat_11")])
+once_per_run = false

@@ -1,14 +1,58 @@
 [gd_resource type="Resource" script_class="DialogTree" format=3 uid="uid://bl5nqu00ox20g"]
 
-[ext_resource type="Script" uid="uid://da86xmy7akvas" path="res://scenes_and_scripts/dialog/dialog_beat.gd" id="1_gvsqn"]
-[ext_resource type="Script" uid="uid://bkgp0oq7lrafl" path="res://scenes_and_scripts/dialog/dialog_tree.gd" id="2_27a3m"]
+[ext_resource type="Script" uid="uid://bkgp0oq7lrafl" path="res://scenes_and_scripts/dialog/dialog_tree.gd" id="1_tree"]
+[ext_resource type="Script" uid="uid://da86xmy7akvas" path="res://scenes_and_scripts/dialog/dialog_beat.gd" id="2_beat"]
+[ext_resource type="Texture2D" uid="uid://udgbbab8jh0q" path="res://scenes_and_scripts/dialog/story icons/rc-proam.png" id="3_icon"]
+[ext_resource type="Texture2D" uid="uid://8bf8d6qcu6f5" path="res://scenes_and_scripts/dialog/story portraits/GRANDPA_RICHARD.png" id="4_grandpa"]
+[ext_resource type="Texture2D" uid="uid://b4g0os6q6xuwm" path="res://scenes_and_scripts/dialog/story portraits/MARTYDAVID.png" id="5_md"]
 
-[sub_resource type="Resource" id="Resource_ofgx3"]
-script = ExtResource("1_gvsqn")
-text = "We never forgot about her, but eventually the pain went away and we started doing things like play Nintendo together again."
-metadata/_custom_type_script = "uid://da86xmy7akvas"
+[sub_resource type="Resource" id="Resource_beat_1"]
+script = ExtResource("2_beat")
+speaker = 6
+text = "Oh look, he finally did it. That makes you the champion of RCProAm. The crowd loves it.
+Uh oh. Someone isn't impressed."
+portrait = ExtResource("4_grandpa")
+portrait_side = 1
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_2"]
+script = ExtResource("2_beat")
+text = "Maybe because someone can do better."
+portrait = ExtResource("5_md")
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_3"]
+script = ExtResource("2_beat")
+speaker = 6
+text = "Well then, pass him the controller. Let's see what he's got."
+portrait_side = 1
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_4"]
+script = ExtResource("2_beat")
+text = "Sometimes you have to slow down to go fast. See? I'm catching up now..."
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_5"]
+script = ExtResource("2_beat")
+speaker = 6
+text = "He's sliding around the corner with the pack trailing him.  What a rare talent!"
+portrait_side = 1
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_6"]
+script = ExtResource("2_beat")
+text = "If you're not first...you're last."
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_7"]
+script = ExtResource("2_beat")
+speaker = 6
+text = "As much as you two crash...I am glad you only race in a video game!"
+portrait_side = 1
+central_image = ExtResource("3_icon")
 
 [resource]
-script = ExtResource("2_27a3m")
-beats = Array[ExtResource("1_gvsqn")]([SubResource("Resource_ofgx3")])
-metadata/_custom_type_script = "uid://bkgp0oq7lrafl"
+script = ExtResource("1_tree")
+beats = Array[ExtResource("2_beat")]([SubResource("Resource_beat_1"), SubResource("Resource_beat_2"), SubResource("Resource_beat_3"), SubResource("Resource_beat_4"), SubResource("Resource_beat_5"), SubResource("Resource_beat_6"), SubResource("Resource_beat_7")])
+once_per_run = false

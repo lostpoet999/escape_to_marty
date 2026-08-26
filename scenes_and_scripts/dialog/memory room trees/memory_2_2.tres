@@ -2,12 +2,50 @@
 
 [ext_resource type="Script" uid="uid://bkgp0oq7lrafl" path="res://scenes_and_scripts/dialog/dialog_tree.gd" id="1_tree"]
 [ext_resource type="Script" uid="uid://da86xmy7akvas" path="res://scenes_and_scripts/dialog/dialog_beat.gd" id="2_beat"]
+[ext_resource type="Texture2D" uid="uid://cjphkont0h2hw" path="res://scenes_and_scripts/dialog/story icons/knitting.png" id="3_icon"]
+[ext_resource type="Texture2D" uid="uid://b4g0os6q6xuwm" path="res://scenes_and_scripts/dialog/story portraits/MARTYDAVID.png" id="4_md"]
+[ext_resource type="Texture2D" uid="uid://bau6b5huhps3y" path="res://scenes_and_scripts/dialog/story portraits/JESSICA.png" id="5_jess"]
 
 [sub_resource type="Resource" id="Resource_beat_1"]
 script = ExtResource("2_beat")
-text = "He loved to squeeze the wind out of me when he gave hugs!"
+text = "I'm changing the channel for our favorite show okay? We've been waiting all week."
+portrait = ExtResource("4_md")
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_2"]
+script = ExtResource("2_beat")
+speaker = 4
+text = "Mmmhmm."
+portrait = ExtResource("5_jess")
+portrait_side = 1
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_3"]
+script = ExtResource("2_beat")
+text = "Almost time. Finally. The epic conclusion. You've kinda watched it too...while crocheting..."
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_4"]
+script = ExtResource("2_beat")
+speaker = 4
+text = "Mmmhmm."
+portrait_side = 1
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_5"]
+script = ExtResource("2_beat")
+text = "You know what I mean? Like a family...together..."
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_6"]
+script = ExtResource("2_beat")
+speaker = 4
+text = "Mmmhmm.
+Did you guys finish cleaning the garage like I asked?"
+portrait_side = 1
+central_image = ExtResource("3_icon")
 
 [resource]
 script = ExtResource("1_tree")
-beats = Array[ExtResource("2_beat")]([SubResource("Resource_beat_1")])
+beats = Array[ExtResource("2_beat")]([SubResource("Resource_beat_1"), SubResource("Resource_beat_2"), SubResource("Resource_beat_3"), SubResource("Resource_beat_4"), SubResource("Resource_beat_5"), SubResource("Resource_beat_6")])
 once_per_run = false

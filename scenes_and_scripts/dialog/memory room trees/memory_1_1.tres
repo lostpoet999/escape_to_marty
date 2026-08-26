@@ -43,7 +43,7 @@ central_image = ExtResource("3_icon")
 [sub_resource type="Resource" id="Resource_beat_6"]
 script = ExtResource("2_beat")
 speaker = 4
-text = "Were you a teddy bear or a gummy bear?"
+text = "Were you a teddy bear or a gummy bear?  This is the best gift ever."
 portrait_side = 1
 central_image = ExtResource("3_icon")
 

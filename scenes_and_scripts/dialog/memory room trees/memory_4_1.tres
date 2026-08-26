@@ -1,14 +1,64 @@
 [gd_resource type="Resource" script_class="DialogTree" format=3 uid="uid://d1rr8dvyk7nfu"]
 
-[ext_resource type="Script" uid="uid://da86xmy7akvas" path="res://scenes_and_scripts/dialog/dialog_beat.gd" id="1_2hubk"]
-[ext_resource type="Script" uid="uid://bkgp0oq7lrafl" path="res://scenes_and_scripts/dialog/dialog_tree.gd" id="2_in12m"]
+[ext_resource type="Script" uid="uid://bkgp0oq7lrafl" path="res://scenes_and_scripts/dialog/dialog_tree.gd" id="1_tree"]
+[ext_resource type="Script" uid="uid://da86xmy7akvas" path="res://scenes_and_scripts/dialog/dialog_beat.gd" id="2_beat"]
+[ext_resource type="Texture2D" uid="uid://dt5naakxwcu8c" path="res://scenes_and_scripts/dialog/story icons/storm.png" id="3_icon"]
+[ext_resource type="Texture2D" uid="uid://cot38kemr1snd" path="res://scenes_and_scripts/dialog/story portraits/STRANGER.png" id="4_stranger"]
+[ext_resource type="Texture2D" uid="uid://b4g0os6q6xuwm" path="res://scenes_and_scripts/dialog/story portraits/MARTYDAVID.png" id="5_md"]
+[ext_resource type="Texture2D" uid="uid://8bf8d6qcu6f5" path="res://scenes_and_scripts/dialog/story portraits/GRANDPA_RICHARD.png" id="6_grandpa"]
 
-[sub_resource type="Resource" id="Resource_gvsqn"]
-script = ExtResource("1_2hubk")
-text = "For a while after she died, Marty would snap at other people...but never at me.  He always seemed so ashamed that I saw him do that."
-metadata/_custom_type_script = "uid://da86xmy7akvas"
+[sub_resource type="Resource" id="Resource_beat_1"]
+script = ExtResource("2_beat")
+speaker = 10
+text = "Sorry to rush past you my guy. I have to get flowers for Mother's Day."
+portrait = ExtResource("4_stranger")
+portrait_side = 1
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_2"]
+script = ExtResource("2_beat")
+text = "HEY!  I don't CARE what you are in a rush for.  Watch where you are going and think about what you say in front of people!"
+portrait = ExtResource("5_md")
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_3"]
+script = ExtResource("2_beat")
+speaker = 6
+text = "Marty. He can't hear you with those headphones. You can't just yell at everyone like that."
+portrait = ExtResource("6_grandpa")
+portrait_side = 1
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_4"]
+script = ExtResource("2_beat")
+text = "They're just walking around like nothing is wrong.  He is a jerk."
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_5"]
+script = ExtResource("2_beat")
+speaker = 6
+text = "I know you miss her. We all do."
+portrait_side = 1
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_6"]
+script = ExtResource("2_beat")
+text = "It still hurts so much."
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_7"]
+script = ExtResource("2_beat")
+speaker = 6
+text = "She's in a better place now."
+portrait_side = 1
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_8"]
+script = ExtResource("2_beat")
+text = "A better place?! What's better than being with us?"
+central_image = ExtResource("3_icon")
 
 [resource]
-script = ExtResource("2_in12m")
-beats = Array[ExtResource("1_2hubk")]([SubResource("Resource_gvsqn")])
-metadata/_custom_type_script = "uid://bkgp0oq7lrafl"
+script = ExtResource("1_tree")
+beats = Array[ExtResource("2_beat")]([SubResource("Resource_beat_1"), SubResource("Resource_beat_2"), SubResource("Resource_beat_3"), SubResource("Resource_beat_4"), SubResource("Resource_beat_5"), SubResource("Resource_beat_6"), SubResource("Resource_beat_7"), SubResource("Resource_beat_8")])
+once_per_run = false

@@ -1,14 +1,91 @@
 [gd_resource type="Resource" script_class="DialogTree" format=3 uid="uid://dhuly0uxich8s"]
 
-[ext_resource type="Script" uid="uid://da86xmy7akvas" path="res://scenes_and_scripts/dialog/dialog_beat.gd" id="1_vmg3b"]
-[ext_resource type="Script" uid="uid://bkgp0oq7lrafl" path="res://scenes_and_scripts/dialog/dialog_tree.gd" id="2_1omt2"]
+[ext_resource type="Script" uid="uid://bkgp0oq7lrafl" path="res://scenes_and_scripts/dialog/dialog_tree.gd" id="1_tree"]
+[ext_resource type="Script" uid="uid://da86xmy7akvas" path="res://scenes_and_scripts/dialog/dialog_beat.gd" id="2_beat"]
+[ext_resource type="Texture2D" uid="uid://dvbr0qtwxbsma" path="res://scenes_and_scripts/dialog/story icons/scuba.png" id="3_icon"]
+[ext_resource type="Texture2D" uid="uid://b4g0os6q6xuwm" path="res://scenes_and_scripts/dialog/story portraits/MARTYDAVID.png" id="4_md"]
+[ext_resource type="Texture2D" uid="uid://bsqcbqnj0d0u2" path="res://scenes_and_scripts/dialog/story portraits/SCUBA_INSTRUCTOR.png" id="5_scuba"]
 
-[sub_resource type="Resource" id="Resource_5vspi"]
-script = ExtResource("1_vmg3b")
-text = "\"We were both proud of getting Scuba certified in the murky waters of Lake Ten Killer.\""
-metadata/_custom_type_script = "uid://da86xmy7akvas"
+[sub_resource type="Resource" id="Resource_beat_1"]
+script = ExtResource("2_beat")
+text = "So far so good.
+This is so cool and scary at the same time.
+I promised Jess I would keep him safe."
+portrait = ExtResource("4_md")
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_2"]
+script = ExtResource("2_beat")
+speaker = 9
+text = "You two are doing well, breathe through the mouthpiece.
+Remember breathing means bubbles. Bubbles are good."
+portrait = ExtResource("5_scuba")
+portrait_side = 1
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_3"]
+script = ExtResource("2_beat")
+text = "Let's go deeper.
+Watch this."
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_4"]
+script = ExtResource("2_beat")
+speaker = 9
+text = "Wait, let's stick to the checklist.
+That's too advanced, hold on, you two stop showboating.
+Where are you swimming...I don't see bubbles..."
+portrait_side = 1
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_5"]
+script = ExtResource("2_beat")
+text = "We're over here."
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_6"]
+script = ExtResource("2_beat")
+speaker = 9
+text = "Oh, my goodness! There you are.
+Ahem, an impressive pair of lungs.
+You two are like peas in a pod.
+Let me guess, Scout leader and Scout?"
+portrait_side = 1
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_7"]
+script = ExtResource("2_beat")
+text = "Father and son."
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_8"]
+script = ExtResource("2_beat")
+speaker = 9
+text = "Funny, you two don't look alike."
+portrait_side = 1
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_9"]
+script = ExtResource("2_beat")
+text = "One hundred percent father and son.
+Scout's honor.
+How was our Bubbles's?
+Did we pass?"
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_10"]
+script = ExtResource("2_beat")
+speaker = 9
+text = "It is my pleasure to congratulate you on taming Lake Ten Killer."
+portrait_side = 1
+central_image = ExtResource("3_icon")
+
+[sub_resource type="Resource" id="Resource_beat_11"]
+script = ExtResource("2_beat")
+text = "Yes!"
+central_image = ExtResource("3_icon")
 
 [resource]
-script = ExtResource("2_1omt2")
-beats = Array[ExtResource("1_vmg3b")]([SubResource("Resource_5vspi")])
-metadata/_custom_type_script = "uid://bkgp0oq7lrafl"
+script = ExtResource("1_tree")
+beats = Array[ExtResource("2_beat")]([SubResource("Resource_beat_1"), SubResource("Resource_beat_2"), SubResource("Resource_beat_3"), SubResource("Resource_beat_4"), SubResource("Resource_beat_5"), SubResource("Resource_beat_6"), SubResource("Resource_beat_7"), SubResource("Resource_beat_8"), SubResource("Resource_beat_9"), SubResource("Resource_beat_10"), SubResource("Resource_beat_11")])
+once_per_run = false
