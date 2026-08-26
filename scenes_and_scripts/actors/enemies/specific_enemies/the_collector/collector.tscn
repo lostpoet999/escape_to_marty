@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://f5handlts0" path="res://scenes_and_scripts/actors/enemies/specific_enemies/the_collector/collector_hand_left.tscn" id="5_handl"]
 [ext_resource type="PackedScene" uid="uid://f5handrts0" path="res://scenes_and_scripts/actors/enemies/specific_enemies/the_collector/collector_hand_right.tscn" id="6_handr"]
 [ext_resource type="PackedScene" uid="uid://rageshot01ts" path="res://scenes_and_scripts/levels/floor_2_the_arena/rage_shot.tscn" id="7_shot"]
+[ext_resource type="Script" uid="uid://bkgp0oq7lrafl" path="res://scenes_and_scripts/dialog/dialog_tree.gd" id="8_tree"]
+[ext_resource type="Resource" uid="uid://f5reveal0trs" path="res://scenes_and_scripts/actors/enemies/specific_enemies/the_collector/surrender_reveal.tres" id="9_reveal"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_coll"]
 size = Vector2(98.66667, 135.33334)
@@ -16,6 +18,7 @@ position = Vector2(0, 13)
 scale = Vector2(2.2, 2.2)
 script = ExtResource("1_coll")
 anger_shot_scene = ExtResource("7_shot")
+surrender_beat_trees = Array[ExtResource("8_tree")]([null, null, null])
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1389364990]
 material = ExtResource("2_flash")

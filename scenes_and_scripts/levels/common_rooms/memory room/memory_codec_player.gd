@@ -26,6 +26,11 @@ signal _advanced
 @export var speaker_bob_pixels: float = 5.0
 @export var speaker_bob_seconds: float = 1.8
 
+## Fade for portrait appear/replace/clear. 0 = instant, matching the pre-fade behavior.
+@export var portrait_fade_seconds: float = 0.35
+
+@export var music_pitch_ramp_seconds: float = 2.0
+
 @onready var root_control: Control = $Root
 @onready var central_image: TextureRect = $Root/CentralImage
 @onready var portrait_left: TextureRect = $Root/PortraitLeft
@@ -37,6 +42,8 @@ signal _advanced
 
 const FADE_SECONDS: float = 0.25
 
+static var active_count: int = 0
+
 var _playing: bool = false
 var _reveal_tween: Tween
 var _animation_time: float = 0.0
@@ -44,6 +51,10 @@ var _indicator_base_position: Vector2
 var _portrait_left_base: Vector2
 var _portrait_right_base: Vector2
 var _active_side: DialogBeat.PortraitSide = DialogBeat.PortraitSide.LEFT
+var _slot_tween_left: Tween
+var _slot_tween_right: Tween
+var _central_tween: Tween
+var _counted: bool = false
 var _fade_rect: ColorRect
 
 
@@ -82,6 +93,9 @@ func play() -> void:
 		finished.emit()
 		return
 	_playing = true
+	active_count += 1
+	_counted = true
+	DialogDirector.cancel_active()
 	_reset_stage()
 	root_control.visible = false
 	visible = true
@@ -98,7 +112,18 @@ func play() -> void:
 	await _fade(0.0)
 	visible = false
 	_playing = false
+	_release_active_count()
 	finished.emit()
+
+
+func _release_active_count() -> void:
+	if _counted:
+		_counted = false
+		active_count = maxi(active_count - 1, 0)
+
+
+func _exit_tree() -> void:
+	_release_active_count()
 
 
 func _fade(target_alpha: float) -> void:
@@ -133,25 +158,41 @@ func _advance() -> void:
 
 
 func _reset_stage() -> void:
+	if _central_tween:
+		_central_tween.kill()
+		_central_tween = null
 	central_image.texture = null
+	central_image.visible = false
+	central_image.modulate.a = 1.0
 	beat_text.text = ""
 	_clear_portraits()
 
 
 func _clear_portraits() -> void:
+	_kill_slot_tween(DialogBeat.PortraitSide.LEFT)
+	_kill_slot_tween(DialogBeat.PortraitSide.RIGHT)
 	portrait_left.texture = null
 	portrait_right.texture = null
+	portrait_left.modulate.a = 1.0
+	portrait_right.modulate.a = 1.0
 	name_left.text = ""
 	name_right.text = ""
+	name_left.modulate.a = 1.0
+	name_right.modulate.a = 1.0
 
 
 func _present_beat(beat: DialogBeat) -> void:
 	if beat.clears_portraits:
-		_clear_portraits()
-	central_image.texture = beat.central_image
-	central_image.visible = beat.central_image != null
+		_fade_out_slot(DialogBeat.PortraitSide.LEFT)
+		_fade_out_slot(DialogBeat.PortraitSide.RIGHT)
+	elif beat.clears_side != DialogBeat.ClearSide.NONE:
+		var cleared: DialogBeat.PortraitSide = DialogBeat.PortraitSide.LEFT if beat.clears_side == DialogBeat.ClearSide.LEFT else DialogBeat.PortraitSide.RIGHT
+		_fade_out_slot(cleared)
+	_set_central(beat.central_image)
 	if beat.portrait != null:
-		_portrait_slot(beat.portrait_side).texture = beat.portrait
+		_show_portrait(beat.portrait_side, beat.portrait)
+	if beat.opposite_portrait != null:
+		_show_portrait(_other_side(beat.portrait_side), beat.opposite_portrait)
 	if not beat.speaker_name.is_empty():
 		_name_label(beat.portrait_side).text = beat.speaker_name
 		if _portrait_slot(beat.portrait_side).texture == null:
@@ -159,7 +200,111 @@ func _present_beat(beat: DialogBeat) -> void:
 	_active_side = beat.portrait_side
 	_style_portrait_side(DialogBeat.PortraitSide.LEFT, beat.portrait_side)
 	_style_portrait_side(DialogBeat.PortraitSide.RIGHT, beat.portrait_side)
+	if beat.music_pitch_scale > 0.0:
+		MusicPlayer.tween_music_pitch(beat.music_pitch_scale, music_pitch_ramp_seconds)
 	_reveal_text(beat)
+
+
+func _set_central(texture: Texture2D) -> void:
+	if _central_tween:
+		_central_tween.kill()
+		_central_tween = null
+	if central_image.texture == texture:
+		if texture != null:
+			central_image.modulate.a = 1.0
+		return
+	if portrait_fade_seconds <= 0.0:
+		central_image.texture = texture
+		central_image.visible = texture != null
+		central_image.modulate.a = 1.0
+		return
+	_central_tween = create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	if texture == null:
+		_central_tween.tween_property(central_image, "modulate:a", 0.0, portrait_fade_seconds)
+		_central_tween.tween_callback(func() -> void:
+			central_image.texture = null
+			central_image.visible = false
+			central_image.modulate.a = 1.0)
+		return
+	if central_image.texture != null and central_image.visible:
+		_central_tween.tween_property(central_image, "modulate:a", 0.0, portrait_fade_seconds * 0.5)
+		_central_tween.tween_callback(func() -> void: central_image.texture = texture)
+		_central_tween.tween_property(central_image, "modulate:a", 1.0, portrait_fade_seconds * 0.5)
+		return
+	central_image.texture = texture
+	central_image.visible = true
+	central_image.modulate.a = 0.0
+	_central_tween.tween_property(central_image, "modulate:a", 1.0, portrait_fade_seconds)
+
+
+func _show_portrait(side: DialogBeat.PortraitSide, texture: Texture2D) -> void:
+	var slot: TextureRect = _portrait_slot(side)
+	_kill_slot_tween(side)
+	if slot.texture == texture:
+		slot.modulate.a = 1.0
+		return
+	if portrait_fade_seconds <= 0.0:
+		slot.texture = texture
+		slot.modulate.a = 1.0
+		return
+	var tween: Tween = create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	if slot.texture != null and slot.visible:
+		tween.tween_property(slot, "modulate:a", 0.0, portrait_fade_seconds * 0.5)
+		tween.tween_callback(func() -> void: slot.texture = texture)
+		tween.tween_property(slot, "modulate:a", 1.0, portrait_fade_seconds * 0.5)
+	else:
+		slot.texture = texture
+		slot.modulate.a = 0.0
+		tween.tween_property(slot, "modulate:a", 1.0, portrait_fade_seconds)
+	_set_slot_tween(side, tween)
+
+
+func _fade_out_slot(side: DialogBeat.PortraitSide) -> void:
+	var slot: TextureRect = _portrait_slot(side)
+	var name_label: Label = _name_label(side)
+	_kill_slot_tween(side)
+	if slot.texture == null:
+		return
+	if portrait_fade_seconds <= 0.0:
+		_finish_slot_clear(slot, name_label)
+		return
+	var tween: Tween = create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	tween.set_parallel(true)
+	tween.tween_property(slot, "modulate:a", 0.0, portrait_fade_seconds)
+	tween.tween_property(name_label, "modulate:a", 0.0, portrait_fade_seconds)
+	tween.chain().tween_callback(_finish_slot_clear.bind(slot, name_label))
+	_set_slot_tween(side, tween)
+
+
+func _finish_slot_clear(slot: TextureRect, name_label: Label) -> void:
+	slot.texture = null
+	slot.visible = false
+	slot.modulate.a = 1.0
+	name_label.text = ""
+	name_label.visible = false
+	name_label.modulate.a = 1.0
+
+
+func _other_side(side: DialogBeat.PortraitSide) -> DialogBeat.PortraitSide:
+	return DialogBeat.PortraitSide.RIGHT if side == DialogBeat.PortraitSide.LEFT else DialogBeat.PortraitSide.LEFT
+
+
+func _kill_slot_tween(side: DialogBeat.PortraitSide) -> void:
+	var tween: Tween = _get_slot_tween(side)
+	if tween != null:
+		tween.kill()
+	_set_slot_tween(side, null)
+
+
+func _get_slot_tween(side: DialogBeat.PortraitSide) -> Tween:
+	return _slot_tween_left if side == DialogBeat.PortraitSide.LEFT else _slot_tween_right
+
+
+func _set_slot_tween(side: DialogBeat.PortraitSide, tween: Tween) -> void:
+	if side == DialogBeat.PortraitSide.LEFT:
+		_slot_tween_left = tween
+	else:
+		_slot_tween_right = tween
 
 
 func _apply_speaker_bob(side: DialogBeat.PortraitSide, bob: float) -> void:
@@ -174,9 +319,9 @@ func _style_portrait_side(side: DialogBeat.PortraitSide, active_side: DialogBeat
 	var name_label: Label = _name_label(side)
 	var tint: Color = Color.WHITE if side == active_side else inactive_portrait_dim
 	slot.visible = slot.texture != null
-	slot.modulate = tint
+	slot.modulate = Color(tint.r, tint.g, tint.b, slot.modulate.a)
 	name_label.visible = slot.visible and not name_label.text.is_empty()
-	name_label.modulate = tint
+	name_label.modulate = Color(tint.r, tint.g, tint.b, name_label.modulate.a)
 
 
 func _reveal_text(beat: DialogBeat) -> void:
@@ -187,7 +332,8 @@ func _reveal_text(beat: DialogBeat) -> void:
 		_reveal_tween.kill()
 	_reveal_tween = create_tween()
 	_reveal_tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
-	var reveal_seconds: float = maxf(beat.text.length() / DialogBubble.REVEAL_CHARACTERS_PER_SECOND, 0.1)
+	var speed_scale: float = beat.reveal_speed_scale if beat.reveal_speed_scale > 0.0 else 1.0
+	var reveal_seconds: float = maxf(beat.text.length() / (DialogBubble.REVEAL_CHARACTERS_PER_SECOND * speed_scale), 0.1)
 	_reveal_tween.tween_property(beat_text, "visible_ratio", 1.0, reveal_seconds)
 
 

@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bea1h3570swpu" path="res://scenes_and_scripts/levels/room_base.tscn" id="1_u1v84"]
 [ext_resource type="PackedScene" uid="uid://f5collectts0" path="res://scenes_and_scripts/actors/enemies/specific_enemies/the_collector/collector.tscn" id="3_coll"]
 [ext_resource type="PackedScene" uid="uid://flrportal001" path="res://scenes_and_scripts/exits/floor_portal.tscn" id="6_portal"]
+[ext_resource type="Resource" uid="uid://f5reveal0trs" path="res://scenes_and_scripts/actors/enemies/specific_enemies/the_collector/surrender_reveal.tres" id="6_reveal"]
 [ext_resource type="Script" uid="uid://deonencroom0" path="res://scenes_and_scripts/levels/deon_encounter_room.gd" id="7_deonroom"]
 [ext_resource type="PackedScene" uid="uid://encprgbar01" path="res://scenes_and_scripts/ui_menus/encounter_progress_bar.tscn" id="8_epbar"]
 [ext_resource type="PackedScene" uid="uid://dprstatuesc" path="res://scenes_and_scripts/actors/other/depression_statue.tscn" id="9_statue"]
@@ -43,6 +44,7 @@ script = ExtResource("18_dark")
 z_index = -1
 position = Vector2(807, 544)
 scale = Vector2(3, 2)
+farewell_tree = ExtResource("6_reveal")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="7" unique_id=565861302]
 

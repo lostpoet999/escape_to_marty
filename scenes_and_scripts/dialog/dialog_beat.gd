@@ -2,6 +2,7 @@ class_name DialogBeat extends Resource
 
 enum Speaker { DAVID = 0, COLLECTOR = 1, LINGERING_SPIRIT = 2, BOSS = 3, JESSICA = 4, ADOPTION_OFFICER = 5, GRANDPA_RICHARD = 6, DOCTOR_METCALF = 7, NURSE_SUSAN = 8, SCUBA_INSTRUCTOR = 9, STRANGER = 10 }
 enum PortraitSide { LEFT = 0, RIGHT = 1 }
+enum ClearSide { NONE = 0, LEFT = 1, RIGHT = 2 }
 
 ## Who is saying the line--positions box accordingly.
 @export var speaker: Speaker = Speaker.DAVID
@@ -20,6 +21,18 @@ enum PortraitSide { LEFT = 0, RIGHT = 1 }
 
 ## Codec player only. Memory image shown center stage for THIS beat.
 @export var central_image: Texture2D
+
+## Codec player only. A second face placed on the side opposite portrait_side, dimmed as the non-speaking side.
+@export var opposite_portrait: Texture2D
+
+## Codec player only. Fade out ONE side's face and name before this beat applies; clears_portraits wipes both instead.
+@export var clears_side: ClearSide = ClearSide.NONE
+
+## Codec player only. Multiplies the typewriter reveal rate; 0.5 = letters land at half speed.
+@export var reveal_speed_scale: float = 1.0
+
+## Codec player only. Above 0 ramps the music player's pitch to this value as the beat lands; 0 = leave the music alone.
+@export var music_pitch_scale: float = 0.0
 
 ## Codec player only. ON = wipe both faces and name labels before applying this beat. Use to introduce a new/unknown speaker on a fresh stage, or to return to pure voice mid-tree.
 @export var clears_portraits: bool = false

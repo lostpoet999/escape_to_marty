@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://ci502qqgi27k5" path="res://scenes_and_scripts/sound_system/music_song_entry.gd" id="3_1j6id"]
 [ext_resource type="AudioStream" uid="uid://sm0q0fhnjkws" path="res://music_and_ambient/happy.wav" id="4_div0h"]
 [ext_resource type="AudioStream" uid="uid://bedh6t5f3r3l1" path="res://sound_effects/first_song_test.wav" id="4_r24dt"]
+[ext_resource type="AudioStream" uid="uid://dd406abmhhpo4" path="res://music_and_ambient/menu_song.wav" id="5_memsong"]
 [ext_resource type="Script" uid="uid://chiygou8blc0v" path="res://scenes_and_scripts/sound_system/ambience_set_entry.gd" id="7_5toyy"]
 [ext_resource type="Script" uid="uid://cgx4nwjmpwn45" path="res://scenes_and_scripts/sound_system/ambient_playlist_entry.gd" id="8_5sb5x"]
 
@@ -35,6 +36,7 @@ metadata/_custom_type_script = "uid://chiygou8blc0v"
 script = ExtResource("1_qdxtt")
 music_playlists = Array[ExtResource("2_2hmt8")]([SubResource("Resource_fmkea")])
 ambient_sets = Array[ExtResource("7_5toyy")]([SubResource("Resource_vuiio")])
+memory_song = ExtResource("5_memsong")
 
 [node name="music_player" type="AudioStreamPlayer" parent="." unique_id=1593158861]
 process_mode = 3

@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cra2lcyy34b1x" path="res://scenes_and_scripts/ui_menus/edge_patch.png" id="2_patch"]
 [ext_resource type="LabelSettings" uid="uid://ccodectextls" path="res://label_settings_and_fonts/memory_codec_text.tres" id="3_text"]
 [ext_resource type="FontFile" uid="uid://ce5jk1ok7f4r5" path="res://label_settings_and_fonts/fonts/PressStart2P-Regular.ttf" id="4_font"]
+[ext_resource type="PackedScene" uid="uid://dwc118v25nv0r" path="res://scenes_and_scripts/backgrounds/misty_background.tscn" id="5_mist"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_names"]
 font = ExtResource("4_font")
@@ -33,6 +34,10 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0.05, 0.05, 0.08, 1)
+
+[node name="Mist" parent="Root" unique_id=1842991120 instance=ExtResource("5_mist")]
+position = Vector2(960, 540)
+z_index = 1
 
 [node name="CentralImage" type="TextureRect" parent="Root" unique_id=1842991110]
 layout_mode = 0

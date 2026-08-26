@@ -54,6 +54,7 @@ func _on_texture_button_pressed() -> void:
 	_collecting = true
 	texture_button.disabled = true
 	modulate = hover
+	MusicPlayer.enter_memory_music()
 	DialogDirector.cancel_active()
 	await _tween_to_david()
 	codec_player.screen_covered.connect(_on_screen_covered)
@@ -97,3 +98,6 @@ func close_memory() -> void:
 
 func collect_flame() -> void:
 	hide()
+
+func _exit_tree() -> void:
+	MusicPlayer.exit_memory_music()

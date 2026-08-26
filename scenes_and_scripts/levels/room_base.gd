@@ -756,11 +756,14 @@ func _apply_floor_wall_visuals() -> void:
 					sprite.flip_h = flip_h
 					sprite.flip_v = flip_v
 	play_background.color = fd.background_color
-	misty_background.visible = fd.misty_background_enabled
+	var misty_on: bool = fd.misty_background_enabled
+	if entry != null and entry.content != null and entry.content.room_type == RoomContent.ROOM_TYPES.memory:
+		misty_on = true
+	misty_background.visible = misty_on
 	for child: Node in misty_background.get_children():
 		var particles: CPUParticles2D = child as CPUParticles2D
 		if particles != null:
-			particles.emitting = fd.misty_background_enabled
+			particles.emitting = misty_on
 
 func _jittered(base: Color, amount: float, rng: RandomNumberGenerator) -> Color:
 	if amount <= 0.0:

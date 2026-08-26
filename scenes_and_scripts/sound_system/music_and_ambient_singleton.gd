@@ -11,6 +11,12 @@ class AmbientPlayerData:
 @export var game_over_music_db: float = -18.0
 ## Seconds to fade the music down on game over (and back up when leaving it).
 @export var game_over_duck_time: float = 0.5
+## Song crossfaded in while a memory plays (flame click -> room exit).
+@export var memory_song: AudioStream
+@export var memory_song_volume_db: float = -12.0
+## Playback speed of the memory song; below 1.0 slows and deepens it.
+@export var memory_song_pitch: float = 0.6
+@export var memory_fade_seconds: float = 1.5
 var music_system: Dictionary = {}
 var ambient_system: Dictionary = {}
 var active_ambient_players: Dictionary = {}
@@ -23,6 +29,12 @@ var current_ambient_set: AmbienceSet = null
 var _duck_tween: Tween
 var _pre_game_over_db: float = 0.0
 var _music_ducked: bool = false
+var _memory_tween: Tween
+var _pitch_tween: Tween
+var _memory_active: bool = false
+var _pre_memory_stream: AudioStream
+var _pre_memory_db: float = 0.0
+var _pre_memory_position: float = 0.0
 
 func _ready() -> void:
 	for playlist: MusicPlaylist in music_playlists:
@@ -57,6 +69,63 @@ func _cancel_music_duck() -> void:
 		_duck_tween.kill()
 	_duck_tween = null
 	_music_ducked = false
+
+func enter_memory_music(volume_db_override: float = NAN) -> void:
+	if _memory_active or memory_song == null:
+		return
+	_memory_active = true
+	_pre_memory_stream = music_player.stream
+	_pre_memory_db = music_player.volume_db
+	_pre_memory_position = music_player.get_playback_position() if music_player.playing else 0.0
+	var target_db: float = memory_song_volume_db if is_nan(volume_db_override) else volume_db_override
+	_memory_fade_to(memory_song, target_db, memory_song_pitch, 0.0)
+
+func exit_memory_music() -> void:
+	if not _memory_active:
+		return
+	_memory_active = false
+	_memory_fade_to(_pre_memory_stream, _pre_memory_db, 1.0, _pre_memory_position)
+
+func _memory_fade_to(stream: AudioStream, target_db: float, pitch: float, from_position: float) -> void:
+	_cancel_pitch_tween()
+	if _memory_tween != null and _memory_tween.is_valid():
+		_memory_tween.kill()
+	_memory_tween = create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	if music_player.playing:
+		_memory_tween.tween_property(music_player, "volume_db", -60.0, memory_fade_seconds * 0.5)
+	_memory_tween.tween_callback(_memory_swap_stream.bind(stream, pitch, from_position))
+	_memory_tween.tween_property(music_player, "volume_db", target_db, memory_fade_seconds * 0.5)
+
+func _memory_swap_stream(stream: AudioStream, pitch: float, from_position: float) -> void:
+	if stream == null:
+		music_player.stop()
+		return
+	music_player.stream = stream
+	music_player.pitch_scale = pitch
+	music_player.volume_db = -60.0
+	music_player.play(from_position)
+	if not music_player.finished.is_connected(_on_song_finished):
+		music_player.finished.connect(_on_song_finished)
+
+func _cancel_memory_music() -> void:
+	if _memory_tween != null and _memory_tween.is_valid():
+		_memory_tween.kill()
+	_memory_tween = null
+	_memory_active = false
+	_cancel_pitch_tween()
+
+func tween_music_pitch(target: float, seconds: float) -> void:
+	_cancel_pitch_tween()
+	if seconds <= 0.0:
+		music_player.pitch_scale = target
+		return
+	_pitch_tween = create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	_pitch_tween.tween_property(music_player, "pitch_scale", target, seconds)
+
+func _cancel_pitch_tween() -> void:
+	if _pitch_tween != null and _pitch_tween.is_valid():
+		_pitch_tween.kill()
+	_pitch_tween = null
 
 func execute_playlist(playlist_name: String) -> void:
 	if not music_system.has(playlist_name):
@@ -135,6 +204,7 @@ func _on_track_finished() -> void:
 ## null stream = silence whatever is playing
 func play_song(stream: AudioStream, volume_db: float = -5.0) -> void:
 	_cancel_music_duck()
+	_cancel_memory_music()
 	if stream == null:
 		stop_playlist()
 		stop_song()

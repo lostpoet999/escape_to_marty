@@ -40,6 +40,8 @@ func _ready() -> void:
 
 
 func play(tree_id: StringName, anchor: Node2D = null) -> bool:
+	if MemoryCodecPlayer.active_count > 0:
+		return false
 	if focused_active:
 		return false
 	var tree: DialogTree = _load_tree(tree_id)
