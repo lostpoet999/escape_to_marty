@@ -44,7 +44,7 @@ layout_mode = 2
 
 [node name="Score_label" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=1238751976]
 layout_mode = 2
-text = "Score: "
+text = "SCORE: "
 label_settings = ExtResource("2_c76ar")
 
 [node name="Score" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=812595105]
@@ -60,7 +60,7 @@ layout_mode = 2
 
 [node name="Gold_label" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=1425838457]
 layout_mode = 2
-text = "Gold: "
+text = "GOLD: "
 label_settings = SubResource("LabelSettings_5qwjd")
 
 [node name="Gold" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=358128666]
@@ -76,7 +76,7 @@ layout_mode = 2
 
 [node name="Player_Health" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=1165732847]
 layout_mode = 2
-text = "Health: "
+text = "HEALTH: "
 label_settings = ExtResource("2_c76ar")
 
 [node name="health" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=1380871399]
@@ -90,7 +90,7 @@ layout_mode = 2
 
 [node name="Shields_label" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=929632570]
 layout_mode = 2
-text = "Shields: "
+text = "SHIELD: "
 label_settings = ExtResource("2_c76ar")
 
 [node name="shields" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=984500254]
