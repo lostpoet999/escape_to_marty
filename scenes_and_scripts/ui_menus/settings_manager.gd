@@ -8,6 +8,7 @@ const MUSIC_TRIM_DB: float = -3.1
 var music_volume: float = 0.5
 var sfx_volume: float = 0.5
 var game_speed: float = 1.0
+var ball_speed_scale: float = 1.0
 var difficulty: int = 1
 var mouse_sensitivity: float = 1.0
 var show_tutorial_tips: bool = true
@@ -21,6 +22,9 @@ func difficulty_mult() -> float:
 		2: return 1.3
 		_: return 1.0
 
+func ball_speed_mult() -> float:
+	return difficulty_mult() * ball_speed_scale
+
 func reflect_base_reduction() -> float:
 	match difficulty:
 		0: return 0.4
@@ -31,6 +35,7 @@ func save_settings() -> void:
 	settings_file.set_value("audio", "music_volume", music_volume)
 	settings_file.set_value("audio", "sfx_volume", sfx_volume)
 	settings_file.set_value("game", "game_speed", game_speed)
+	settings_file.set_value("game", "ball_speed_scale", ball_speed_scale)
 	settings_file.set_value("game", "difficulty", difficulty)
 	settings_file.set_value("game", "mouse_sensitivity", mouse_sensitivity)
 	settings_file.set_value("game", "show_tutorial_tips", show_tutorial_tips)
@@ -44,7 +49,12 @@ func load_settings() -> void:
 		music_volume = settings_file.get_value("audio", "music_volume", music_volume)
 		sfx_volume = settings_file.get_value("audio", "sfx_volume", sfx_volume)
 		game_speed = settings_file.get_value("game", "game_speed", game_speed)
+		ball_speed_scale = settings_file.get_value("game", "ball_speed_scale", ball_speed_scale)
 		difficulty = settings_file.get_value("game", "difficulty", difficulty)
+		if game_speed > 1.0:
+			# migrate pre-2026-08-27 brutal saves: engine 2x became ball 2x
+			game_speed = 1.0
+			ball_speed_scale = 2.0
 		mouse_sensitivity = settings_file.get_value("game", "mouse_sensitivity", mouse_sensitivity)
 		show_tutorial_tips = settings_file.get_value("game", "show_tutorial_tips", show_tutorial_tips)
 	else:

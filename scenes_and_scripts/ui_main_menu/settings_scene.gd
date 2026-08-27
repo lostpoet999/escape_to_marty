@@ -2,9 +2,11 @@ class_name SettingsScene
 extends Control
 
 const TIPS_CHECK_ICON_SCALE: int = 3
+const CASUAL_TOOLTIP: String = "Easy at half the speed"
 const EASY_TOOLTIP: String = "Slower ball speed. Missed balls hurt less. Gentler seals."
 const NORMAL_TOOLTIP: String = "Standard ball speed, seal mix, and damage."
 const HARD_TOOLTIP: String = "Faster ball speed. Full damage from missed balls. Tougher seals. No bonus item when retrying a floor."
+const BRUTAL_TOOLTIP: String = "Hard at double the speed"
 
 static var open_with_start_run: bool = false
 
@@ -13,9 +15,11 @@ static var open_with_start_run: bool = false
 @onready var sfx_slider: HSlider = $"VBoxContainer/Settings Container/SettingsBox/SfxRow/SfxSlider"
 @onready var mouse_slider: HSlider = $"VBoxContainer/Settings Container/SettingsBox/MouseRow/MouseSlider"
 @onready var tips_check: CheckBox = $"VBoxContainer/Settings Container/SettingsBox/TipsRow/TipsCheck"
-@onready var easy_button: Button = $"VBoxContainer/Settings Container/SettingsBox/DifficultyRow/DifficultyButtons/EasyButton"
-@onready var normal_button: Button = $"VBoxContainer/Settings Container/SettingsBox/DifficultyRow/DifficultyButtons/NormalButton"
-@onready var hard_button: Button = $"VBoxContainer/Settings Container/SettingsBox/DifficultyRow/DifficultyButtons/HardButton"
+@onready var casual_button: Button = $"VBoxContainer/Settings Container/SettingsBox/DifficultyRowMORE/DifficultyButtons/CasualButton"
+@onready var easy_button: Button = $"VBoxContainer/Settings Container/SettingsBox/DifficultyRowMORE/DifficultyButtons/EasyButton"
+@onready var normal_button: Button = $"VBoxContainer/Settings Container/SettingsBox/DifficultyRowMORE/DifficultyButtons/NormalButton"
+@onready var hard_button: Button = $"VBoxContainer/Settings Container/SettingsBox/DifficultyRowMORE/DifficultyButtons/HardButton"
+@onready var brutal_button: Button = $"VBoxContainer/Settings Container/SettingsBox/DifficultyRowMORE/DifficultyButtons/BrutalButton"
 
 func _ready() -> void:
 	start_run_button.visible = open_with_start_run
@@ -25,12 +29,22 @@ func _ready() -> void:
 	sfx_slider.value = SettingsManager.sfx_volume
 	mouse_slider.value = SettingsManager.mouse_sensitivity
 	tips_check.button_pressed = SettingsManager.show_tutorial_tips
+	casual_button.tooltip_text = CASUAL_TOOLTIP
 	easy_button.tooltip_text = EASY_TOOLTIP
 	normal_button.tooltip_text = NORMAL_TOOLTIP
 	hard_button.tooltip_text = HARD_TOOLTIP
+	brutal_button.tooltip_text = BRUTAL_TOOLTIP
 	match SettingsManager.difficulty:
-		0: easy_button.button_pressed = true
-		2: hard_button.button_pressed = true
+		0:
+			if is_equal_approx(SettingsManager.game_speed, 0.5):
+				casual_button.button_pressed = true
+			else:
+				easy_button.button_pressed = true
+		2:
+			if is_equal_approx(SettingsManager.ball_speed_scale, 2.0):
+				brutal_button.button_pressed = true
+			else:
+				hard_button.button_pressed = true
 		_: normal_button.button_pressed = true
 
 func _on_music_slider_value_changed(value: float) -> void:
@@ -48,26 +62,29 @@ func _on_tips_check_toggled(toggled_on: bool) -> void:
 	SettingsManager.show_tutorial_tips = toggled_on
 
 func _on_casual_button_pressed() -> void:
-	print("CASUAL MODE! easy at half speed")
 	SettingsManager.difficulty = 0
 	SettingsManager.game_speed = 0.5
+	SettingsManager.ball_speed_scale = 1.0
 
 func _on_easy_button_pressed() -> void:
 	SettingsManager.difficulty = 0
 	SettingsManager.game_speed = 1
+	SettingsManager.ball_speed_scale = 1.0
 
 func _on_normal_button_pressed() -> void:
 	SettingsManager.difficulty = 1
 	SettingsManager.game_speed = 1
+	SettingsManager.ball_speed_scale = 1.0
 
 func _on_hard_button_pressed() -> void:
 	SettingsManager.difficulty = 2
 	SettingsManager.game_speed = 1
+	SettingsManager.ball_speed_scale = 1.0
 
 func _on_brutal_button_pressed() -> void:
-	print("BRUTAL MODE! hard at 2x speed")
 	SettingsManager.difficulty = 2
-	SettingsManager.game_speed = 2
+	SettingsManager.game_speed = 1
+	SettingsManager.ball_speed_scale = 2.0
 
 func _scale_tips_check_icon(icon_name: StringName) -> void:
 	var icon: Texture2D = tips_check.get_theme_icon(icon_name)

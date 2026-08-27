@@ -127,7 +127,7 @@ func remove_ball() -> void:
 func launch_ball() -> void:
 	on_paddle = false
 	_reset_vertical_serve()
-	var launch_speed: float = initial_speed * SettingsManager.difficulty_mult()
+	var launch_speed: float = initial_speed * SettingsManager.ball_speed_mult()
 	current_speed = launch_speed
 	GameManager.change_state(GameManager.GameState.PLAYING)
 	set_process(true)

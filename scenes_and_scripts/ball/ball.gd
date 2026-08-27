@@ -430,12 +430,12 @@ func set_paddle_can_attract() -> void:
 	paddle_can_attract = true
 
 func speed_cap() -> float:
-	return max_speed * SettingsManager.difficulty_mult()
+	return max_speed * SettingsManager.ball_speed_mult()
 
 func launch_ball() -> void:
 	on_paddle = false
 	_reset_vertical_serve()
-	var launch_speed: float = initial_speed * SettingsManager.difficulty_mult()
+	var launch_speed: float = initial_speed * SettingsManager.ball_speed_mult()
 	current_speed = launch_speed
 	GameManager.change_state(GameManager.GameState.PLAYING)
 	set_process(true)
@@ -670,7 +670,7 @@ func move_ball_step(delta: float) -> void:
 func _maybe_play_soft_catch_tip() -> void:
 	if _soft_catch_tip_played or is_queued_for_deletion():
 		return
-	var launch_speed: float = initial_speed * SettingsManager.difficulty_mult()
+	var launch_speed: float = initial_speed * SettingsManager.ball_speed_mult()
 	if current_speed < (launch_speed + speed_cap()) * 0.5:
 		return
 	_soft_catch_tip_played = true
@@ -680,7 +680,7 @@ func _apply_soft_catch() -> void:
 	if not _soft_catch_pending:
 		return
 	_soft_catch_pending = false
-	var launch_speed: float = initial_speed * SettingsManager.difficulty_mult()
+	var launch_speed: float = initial_speed * SettingsManager.ball_speed_mult()
 	current_speed = maxf(current_speed * soft_catch_factor, launch_speed)
 
 func spawn_collision_feedback(collider: Node2D) -> void:
