@@ -71,7 +71,12 @@ func _unhandled_input(event: InputEvent) -> void:
 			if state_changed:
 				_unpaused_state = _current_state
 		else:
-			change_state(_unpaused_state)
+			resume_from_pause()
+
+
+func resume_from_pause() -> void:
+	if current_state == GameState.PAUSED:
+		change_state(_unpaused_state)
 
 #region gamestate functions
 func change_state(to_state: GameState) -> bool:

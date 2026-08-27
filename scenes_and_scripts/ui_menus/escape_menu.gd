@@ -1,8 +1,11 @@
 extends Control
 
+const EXIT_HOLD_SECONDS: float = 1.5
+
 @onready var fullscreen_button: Button = $ColorRect/VBoxContainer/HBoxContainer/FullscreenButton
 @onready var restart_button: Button = $ColorRect/VBoxContainer/HBoxContainer/"Restart Button"
 @onready var main_menu_button: Button = $ColorRect/VBoxContainer/HBoxContainer/MainMenu
+@onready var return_button: Button = $ColorRect/VBoxContainer/HBoxContainer/ReturnButton
 @onready var exit_button: Button = $ColorRect/VBoxContainer/HBoxContainer/"Exit Button"
 @onready var music_slider: HSlider = $ColorRect/VBoxContainer/SettingsBox/MusicRow/MusicSlider
 @onready var sfx_slider: HSlider = $ColorRect/VBoxContainer/SettingsBox/SfxRow/SfxSlider
@@ -11,13 +14,22 @@ extends Control
 var _open_tween: Tween
 var _breathe_tween: Tween
 var _settings_dirty: bool = false
+var _exit_hold_seconds: float = 0.0
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	set_process(false)
 	ApolloPalette.style_menu_button(fullscreen_button)
 	ApolloPalette.style_menu_button(restart_button)
 	ApolloPalette.style_menu_button(main_menu_button)
 	ApolloPalette.style_menu_button(exit_button)
+	exit_button.add_theme_color_override(&"font_color", ApolloPalette.TEXT_DANGER)
+	exit_button.add_theme_color_override(&"font_pressed_color", ApolloPalette.TEXT_DANGER)
+	exit_button.add_theme_color_override(&"font_focus_color", ApolloPalette.TEXT_DANGER)
+	exit_button.button_down.connect(_on_exit_button_down)
+	exit_button.button_up.connect(_on_exit_button_up)
+	ApolloPalette.style_menu_button(return_button)
+	return_button.pressed.connect(_on_return_button_pressed)
 	restart_button.hide()
 	_seed_sliders()
 	hide_menu()
@@ -49,6 +61,7 @@ func hide_menu() -> void:
 	if _breathe_tween != null and _breathe_tween.is_valid():
 		_breathe_tween.kill()
 	ApolloPalette.reset_popup(self)
+	_reset_exit_hold()
 	hide()
 	if _settings_dirty:
 		_settings_dirty = false
@@ -84,5 +97,21 @@ func _on_main_menu_pressed() -> void:
 	GameManager.change_state(GameManager.GameState.MAIN_MENU)
 	GameManager.load_scene(GameManager.MAIN_MENU)
 
-func _on_button_pressed() -> void:
-	get_tree().quit()
+func _on_return_button_pressed() -> void:
+	GameManager.resume_from_pause()
+
+func _process(delta: float) -> void:
+	_exit_hold_seconds += delta
+	if _exit_hold_seconds >= EXIT_HOLD_SECONDS:
+		get_tree().quit()
+
+func _on_exit_button_down() -> void:
+	_exit_hold_seconds = 0.0
+	set_process(true)
+
+func _on_exit_button_up() -> void:
+	_reset_exit_hold()
+
+func _reset_exit_hold() -> void:
+	set_process(false)
+	_exit_hold_seconds = 0.0

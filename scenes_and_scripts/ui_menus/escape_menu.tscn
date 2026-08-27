@@ -154,14 +154,18 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Main Menu"
 
+[node name="ReturnButton" type="Button" parent="ColorRect/VBoxContainer/HBoxContainer" unique_id=1327751904]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Return to Game"
+
 [node name="Exit Button" type="Button" parent="ColorRect/VBoxContainer/HBoxContainer" unique_id=1326564837]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Exit"
+text = "Exit Game"
 
 [connection signal="value_changed" from="ColorRect/VBoxContainer/SettingsBox/MusicRow/MusicSlider" to="." method="_on_music_slider_value_changed"]
 [connection signal="value_changed" from="ColorRect/VBoxContainer/SettingsBox/SfxRow/SfxSlider" to="." method="_on_sfx_slider_value_changed"]
 [connection signal="value_changed" from="ColorRect/VBoxContainer/SettingsBox/MouseRow/MouseSlider" to="." method="_on_mouse_slider_value_changed"]
 [connection signal="pressed" from="ColorRect/VBoxContainer/HBoxContainer/Restart Button" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="ColorRect/VBoxContainer/HBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]
-[connection signal="pressed" from="ColorRect/VBoxContainer/HBoxContainer/Exit Button" to="." method="_on_button_pressed"]
