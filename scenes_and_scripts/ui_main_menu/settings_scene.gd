@@ -2,6 +2,9 @@ class_name SettingsScene
 extends Control
 
 const TIPS_CHECK_ICON_SCALE: int = 3
+const EASY_TOOLTIP: String = "Slower ball speed. Missed balls hurt less. Gentler seals."
+const NORMAL_TOOLTIP: String = "Standard ball speed, seal mix, and damage."
+const HARD_TOOLTIP: String = "Faster ball speed. Full damage from missed balls. Tougher seals. No bonus item when retrying a floor."
 
 static var open_with_start_run: bool = false
 
@@ -22,6 +25,9 @@ func _ready() -> void:
 	sfx_slider.value = SettingsManager.sfx_volume
 	mouse_slider.value = SettingsManager.mouse_sensitivity
 	tips_check.button_pressed = SettingsManager.show_tutorial_tips
+	easy_button.tooltip_text = EASY_TOOLTIP
+	normal_button.tooltip_text = NORMAL_TOOLTIP
+	hard_button.tooltip_text = HARD_TOOLTIP
 	match SettingsManager.difficulty:
 		0: easy_button.button_pressed = true
 		2: hard_button.button_pressed = true
