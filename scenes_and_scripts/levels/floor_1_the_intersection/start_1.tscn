@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://c3j3pe8lurgrc" path="res://scenes_and_scripts/levels/floor_1_the_intersection/opening_cutscene.gd" id="4_opcut"]
 [ext_resource type="Script" uid="uid://practseal0gd" path="res://scenes_and_scripts/bricks/practice_seal.gd" id="5_prac"]
 [ext_resource type="Texture2D" uid="uid://csscrsq5heoab" path="res://scenes_and_scripts/backgrounds/tutorial backgrounds/floor1_tutorial.png" id="5_u0k1h"]
+[ext_resource type="Texture2D" uid="uid://eyy14qdoiogp" path="res://scenes_and_scripts/backgrounds/tutorial backgrounds/denial_board.png" id="6_l13rn"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_f1tip"]
 font = ExtResource("2_45lsl")
@@ -17,17 +18,19 @@ font_color = Color(0, 0.59170103, 0.5938744, 1)
 [node name="common_room" unique_id=565861230 instance=ExtResource("1_cckqh")]
 
 [node name="basic_tutorial1" type="Sprite2D" parent="." index="0" unique_id=19294649]
+visible = false
 position = Vector2(696.00006, 229)
 scale = Vector2(2.5, 2.5)
 texture = ExtResource("2_wely4")
 
 [node name="basic_tutorial2" type="Sprite2D" parent="." index="1" unique_id=1647578284]
+visible = false
 position = Vector2(1096, 231.00002)
 scale = Vector2(2.5, 2.5)
 texture = ExtResource("3_l13rn")
 
 [node name="basic_tutorial3" type="Sprite2D" parent="." index="2" unique_id=1257580004]
-position = Vector2(1500.0001, 228.00002)
+position = Vector2(1063, 269)
 scale = Vector2(2.5, 2.5)
 texture = ExtResource("4_6ma3u")
 
@@ -35,6 +38,11 @@ texture = ExtResource("4_6ma3u")
 position = Vector2(1053, 738)
 scale = Vector2(2, 2)
 texture = ExtResource("5_u0k1h")
+
+[node name="floor1_tutorial2" type="Sprite2D" parent="." index="4" unique_id=764906015]
+position = Vector2(1053, 537)
+scale = Vector2(2, 2)
+texture = ExtResource("6_l13rn")
 
 [node name="Label" type="RichTextLabel" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="3" unique_id=2097916128 groups=["opening_tutorial"]]
 visible = false
@@ -69,7 +77,8 @@ respawn_delay = 1.5
 starts_hidden = true
 initialize_brick_on_leveldata = false
 
-[node name="Label2" type="Label" parent="." index="10" unique_id=676553029 groups=["opening_tutorial"]]
+[node name="Label2" type="Label" parent="." index="11" unique_id=676553029 groups=["opening_tutorial"]]
+visible = false
 offset_left = 1024.0
 offset_top = 704.0
 offset_right = 1280.0
@@ -78,7 +87,7 @@ text = "Practice: Click to break the \"Shells of Denial\""
 label_settings = SubResource("LabelSettings_f1tip")
 autowrap_mode = 3
 
-[node name="OpeningCutscene" type="Node" parent="." index="11" unique_id=1873350912 node_paths=PackedStringArray("seal", "practice_seal") groups=["cutscene"]]
+[node name="OpeningCutscene" type="Node" parent="." index="12" unique_id=1873350912 node_paths=PackedStringArray("seal", "practice_seal") groups=["cutscene"]]
 script = ExtResource("4_opcut")
 seal = NodePath("../PlayArea/OpenSeal2")
 practice_seal = NodePath("../PlayArea/PracticeSeal")

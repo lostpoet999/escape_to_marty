@@ -6,8 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://cm1kspxv86400" path="res://scenes_and_scripts/bricks/open_seal.tscn" id="3_m2r8p"]
 [ext_resource type="Texture2D" uid="uid://c37qljrwvotog" path="res://scenes_and_scripts/backgrounds/tutorial backgrounds/basic_tutorial_two.png" id="3_tx2r6"]
 [ext_resource type="Texture2D" uid="uid://dvarfunpabkic" path="res://scenes_and_scripts/backgrounds/tutorial backgrounds/basic_tutorial_three.png" id="4_8lfh2"]
+[ext_resource type="Texture2D" uid="uid://b3bqp017akk24" path="res://scenes_and_scripts/backgrounds/tutorial backgrounds/basic_tutorial_four.png" id="4_d1xtt"]
 [ext_resource type="Script" uid="uid://practseal0gd" path="res://scenes_and_scripts/bricks/practice_seal.gd" id="4_prac"]
 [ext_resource type="Texture2D" uid="uid://dh370wu6naakb" path="res://scenes_and_scripts/backgrounds/tutorial backgrounds/floor2_tutorial.png" id="5_d1xtt"]
+[ext_resource type="Texture2D" uid="uid://bpg87lsukuk6y" path="res://scenes_and_scripts/backgrounds/tutorial backgrounds/anger_board.png" id="6_tx2r6"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_oufug"]
 font = ExtResource("2_4xu00")
@@ -28,15 +30,26 @@ position = Vector2(1096, 231.00002)
 scale = Vector2(2.5, 2.5)
 texture = ExtResource("3_tx2r6")
 
-[node name="basic_tutorial3" type="Sprite2D" parent="." index="2" unique_id=1212373079]
+[node name="basic_tutorial4" type="Sprite2D" parent="." index="2" unique_id=979687188]
+position = Vector2(1500, 231)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("4_d1xtt")
+
+[node name="basic_tutorial3" type="Sprite2D" parent="." index="3" unique_id=1212373079]
+visible = false
 position = Vector2(1500.0001, 228.00002)
 scale = Vector2(2.5, 2.5)
 texture = ExtResource("4_8lfh2")
 
-[node name="floor2_tutorial" type="Sprite2D" parent="." index="3" unique_id=224102213]
+[node name="floor2_tutorial" type="Sprite2D" parent="." index="4" unique_id=224102213]
 position = Vector2(1052, 742)
 scale = Vector2(2, 2)
 texture = ExtResource("5_d1xtt")
+
+[node name="floor2_tutorial2" type="Sprite2D" parent="." index="5" unique_id=797858244]
+position = Vector2(1052, 545)
+scale = Vector2(2, 2)
+texture = ExtResource("6_tx2r6")
 
 [node name="Label" type="Label" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="3" unique_id=2097916128]
 visible = false
@@ -70,7 +83,8 @@ stages = Dictionary[int, float]({
 [node name="FlashOverlay" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="5" unique_id=443116914]
 metadata/_edit_lock_ = true
 
-[node name="Label2" type="Label" parent="." index="10" unique_id=1932243363]
+[node name="Label2" type="Label" parent="." index="12" unique_id=1932243363]
+visible = false
 offset_left = 1024.0
 offset_top = 704.0
 offset_right = 1280.0

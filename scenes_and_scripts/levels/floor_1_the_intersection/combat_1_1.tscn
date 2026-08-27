@@ -5,6 +5,9 @@
 [ext_resource type="PackedScene" uid="uid://b7m8vn6kumwyg" path="res://scenes_and_scripts/actors/enemies/enemy_spawner.tscn" id="3_dfsbl"]
 [ext_resource type="Script" uid="uid://dm8qchhbo37mu" path="res://scenes_and_scripts/actors/enemies/enemy_config.gd" id="3_lsl0q"]
 [ext_resource type="PackedScene" uid="uid://c3bjgu70hca17" path="res://scenes_and_scripts/actors/enemies/specific_enemies/no_see_me_demon(Deon)/deon.tscn" id="4_8n0fq"]
+[ext_resource type="Texture2D" uid="uid://cxyraqmjw6a3m" path="res://scenes_and_scripts/backgrounds/tutorial backgrounds/basic_tutorial_one.png" id="6_sumbd"]
+[ext_resource type="Texture2D" uid="uid://c37qljrwvotog" path="res://scenes_and_scripts/backgrounds/tutorial backgrounds/basic_tutorial_two.png" id="7_3i552"]
+[ext_resource type="Texture2D" uid="uid://b3bqp017akk24" path="res://scenes_and_scripts/backgrounds/tutorial backgrounds/basic_tutorial_four.png" id="8_crngg"]
 
 [sub_resource type="Resource" id="Resource_lsl0q"]
 script = ExtResource("3_lsl0q")
@@ -23,8 +26,6 @@ x_offset = -96.0
 metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 
 [node name="combat_1_1" unique_id=565861230 instance=ExtResource("1_eysly")]
-
-[node name="SubViewport" parent="SubViewportContainer" parent_id_path=PackedInt32Array(1513724378) index="0" unique_id=1272984319]
 
 [node name="Main_UI" parent="HUDLayer/UIArea" parent_id_path=PackedInt32Array(2088925402) index="0" unique_id=563493114]
 anchor_right = 1.0791916
@@ -96,3 +97,18 @@ enemies = Array[ExtResource("3_lsl0q")]([SubResource("Resource_8n0fq")])
 spawn_check_interval = 10.0
 first_spawn_delay = 2.0
 max_spawns = 1
+
+[node name="basic_tutorial1" type="Sprite2D" parent="." index="14" unique_id=402021595]
+position = Vector2(696.00006, 229)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("6_sumbd")
+
+[node name="basic_tutorial2" type="Sprite2D" parent="." index="15" unique_id=260392113]
+position = Vector2(1096, 231.00002)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("7_3i552")
+
+[node name="basic_tutorial4" type="Sprite2D" parent="." index="16" unique_id=115957878]
+position = Vector2(1499, 231)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("8_crngg")
