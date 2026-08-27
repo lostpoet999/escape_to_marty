@@ -28,6 +28,10 @@ const ADVANCE_LABEL_TEXT: String = "CLICK"
 @export var collector_text_color: Color = Color(1, 0.9, 0.4)
 @export var spirit_text_color: Color = Color(0.75, 1, 0.8)
 @export var boss_text_color: Color = Color(1, 0.6, 0.6)
+@export var david_voice: DialogVoice = preload("res://sound_effects/voice/david_voice.tres")
+@export var collector_voice: DialogVoice = preload("res://sound_effects/voice/collector_voice.tres")
+@export var spirit_voice: DialogVoice = preload("res://sound_effects/voice/spirit_voice.tres")
+@export var boss_voice: DialogVoice = preload("res://sound_effects/voice/boss_voice.tres")
 ## Body text of a tutorial tip, which speaks as the game rather than as a character.
 @export var tutorial_text_color: Color = Color("ebede9")
 ## The "TUTORIAL:" prefix, matching the HUD gold of yellow_48.tres.
@@ -48,6 +52,7 @@ const ADVANCE_LABEL_TEXT: String = "CLICK"
 @onready var tail_line: Line2D = $TailLine
 @onready var advance_indicator: Polygon2D = $BubblePanel/AdvanceIndicator
 @onready var advance_label: RichTextLabel = $BubblePanel/AdvanceLabel
+@onready var voice_player: DialogVoicePlayer = $VoicePlayer
 
 var focused: bool = false
 
@@ -112,12 +117,14 @@ func _process(delta: float) -> void:
 	_update_side()
 	_animate_idle_motion()
 	_update_advance_indicator()
+	voice_player.update_reveal(dialog_text.visible_characters)
 
 
 func show_beat(beat: DialogBeat, is_tutorial: bool = false) -> void:
 	_apply_speaker_style(beat.speaker, is_tutorial)
 	dialog_text.text = _beat_markup(beat, is_tutorial)
 	dialog_text.visible_ratio = 0.0
+	voice_player.begin_line(_speaker_voice(beat.speaker), dialog_text.get_parsed_text())
 	if _reveal_tween:
 		_reveal_tween.kill()
 	_reveal_tween = create_tween()
@@ -155,6 +162,7 @@ func complete_reveal() -> void:
 	if _reveal_tween:
 		_reveal_tween.kill()
 	dialog_text.visible_ratio = 1.0
+	voice_player.snap_reveal()
 
 
 func _update_advance_indicator() -> void:
@@ -186,6 +194,18 @@ func _speaker_color(speaker: DialogBeat.Speaker) -> Color:
 			return boss_text_color
 		_:
 			return david_text_color
+
+
+func _speaker_voice(speaker: DialogBeat.Speaker) -> DialogVoice:
+	match speaker:
+		DialogBeat.Speaker.COLLECTOR:
+			return collector_voice
+		DialogBeat.Speaker.LINGERING_SPIRIT:
+			return spirit_voice
+		DialogBeat.Speaker.BOSS:
+			return boss_voice
+		_:
+			return david_voice
 
 
 func _configure_collector_layout() -> void:

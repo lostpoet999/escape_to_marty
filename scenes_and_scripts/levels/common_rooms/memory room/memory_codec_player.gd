@@ -20,6 +20,19 @@ signal _advanced
 @export var scuba_instructor_text_color: Color = Color("a4dddb")
 @export var stranger_text_color: Color = Color("a8b5b2")
 
+## Blip voices per speaker--shared .tres banks with dialog_bubble.tscn, so a tune lands in both.
+@export var david_voice: DialogVoice = preload("res://sound_effects/voice/david_voice.tres")
+@export var collector_voice: DialogVoice = preload("res://sound_effects/voice/collector_voice.tres")
+@export var spirit_voice: DialogVoice = preload("res://sound_effects/voice/spirit_voice.tres")
+@export var boss_voice: DialogVoice = preload("res://sound_effects/voice/boss_voice.tres")
+@export var jessica_voice: DialogVoice = preload("res://sound_effects/voice/jessica_voice.tres")
+@export var adoption_officer_voice: DialogVoice = preload("res://sound_effects/voice/adoption_officer_voice.tres")
+@export var grandpa_richard_voice: DialogVoice = preload("res://sound_effects/voice/grandpa_richard_voice.tres")
+@export var doctor_metcalf_voice: DialogVoice = preload("res://sound_effects/voice/doctor_metcalf_voice.tres")
+@export var nurse_susan_voice: DialogVoice = preload("res://sound_effects/voice/nurse_susan_voice.tres")
+@export var scuba_instructor_voice: DialogVoice = preload("res://sound_effects/voice/scuba_instructor_voice.tres")
+@export var stranger_voice: DialogVoice = preload("res://sound_effects/voice/stranger_voice.tres")
+
 ## Modulate on the portrait side that is not speaking.
 @export var inactive_portrait_dim: Color = Color(0.45, 0.45, 0.45)
 
@@ -39,6 +52,7 @@ signal _advanced
 @onready var name_right: Label = $Root/NameRight
 @onready var beat_text: Label = $Root/TextPanel/MarginContainer/BeatText
 @onready var advance_indicator: Polygon2D = $Root/AdvanceIndicator
+@onready var voice_player: DialogVoicePlayer = $VoicePlayer
 
 const FADE_SECONDS: float = 0.25
 
@@ -83,6 +97,7 @@ func _process(delta: float) -> void:
 		speaker_bob = sin(TAU * _animation_time / speaker_bob_seconds) * speaker_bob_pixels
 	_apply_speaker_bob(DialogBeat.PortraitSide.LEFT, speaker_bob)
 	_apply_speaker_bob(DialogBeat.PortraitSide.RIGHT, speaker_bob)
+	voice_player.update_reveal(beat_text.visible_characters)
 
 
 func play() -> void:
@@ -328,6 +343,7 @@ func _reveal_text(beat: DialogBeat) -> void:
 	beat_text.label_settings.font_color = _speaker_color(beat.speaker)
 	beat_text.text = beat.text
 	beat_text.visible_ratio = 0.0
+	voice_player.begin_line(_speaker_voice(beat.speaker), beat.text)
 	if _reveal_tween:
 		_reveal_tween.kill()
 	_reveal_tween = create_tween()
@@ -345,6 +361,7 @@ func _complete_reveal() -> void:
 	if _reveal_tween:
 		_reveal_tween.kill()
 	beat_text.visible_ratio = 1.0
+	voice_player.snap_reveal()
 
 
 func _speaker_color(speaker: DialogBeat.Speaker) -> Color:
@@ -371,6 +388,32 @@ func _speaker_color(speaker: DialogBeat.Speaker) -> Color:
 			return stranger_text_color
 		_:
 			return david_text_color
+
+
+func _speaker_voice(speaker: DialogBeat.Speaker) -> DialogVoice:
+	match speaker:
+		DialogBeat.Speaker.COLLECTOR:
+			return collector_voice
+		DialogBeat.Speaker.LINGERING_SPIRIT:
+			return spirit_voice
+		DialogBeat.Speaker.BOSS:
+			return boss_voice
+		DialogBeat.Speaker.JESSICA:
+			return jessica_voice
+		DialogBeat.Speaker.ADOPTION_OFFICER:
+			return adoption_officer_voice
+		DialogBeat.Speaker.GRANDPA_RICHARD:
+			return grandpa_richard_voice
+		DialogBeat.Speaker.DOCTOR_METCALF:
+			return doctor_metcalf_voice
+		DialogBeat.Speaker.NURSE_SUSAN:
+			return nurse_susan_voice
+		DialogBeat.Speaker.SCUBA_INSTRUCTOR:
+			return scuba_instructor_voice
+		DialogBeat.Speaker.STRANGER:
+			return stranger_voice
+		_:
+			return david_voice
 
 
 func _portrait_slot(side: DialogBeat.PortraitSide) -> TextureRect:

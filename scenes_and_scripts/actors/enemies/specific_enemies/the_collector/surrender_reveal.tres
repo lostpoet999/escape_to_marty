@@ -31,9 +31,9 @@ text = "We ARE a family.  I understand now..."
 script = ExtResource("2_beat")
 text = "Be strong daddy, I will keep her safe."
 central_image = ExtResource("4_david")
-clears_portraits = true
 reveal_speed_scale = 0.5
 music_pitch_scale = 1.0
+clears_portraits = true
 
 [resource]
 script = ExtResource("1_tree")

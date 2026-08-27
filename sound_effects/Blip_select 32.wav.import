@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://xb31enrb72ka"
+path="res://.godot/imported/Blip_select 32.wav-64c64c3a4a0965c7be3117b1f52274e1.sample"
+
+[deps]
+
+source_file="res://sound_effects/Blip_select 32.wav"
+dest_files=["res://.godot/imported/Blip_select 32.wav-64c64c3a4a0965c7be3117b1f52274e1.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

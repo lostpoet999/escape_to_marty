@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="DialogVoice" format=3 uid="uid://voxmetcalf"]
+
+[ext_resource type="Script" uid="uid://dlgvoiceres1" path="res://scenes_and_scripts/dialog/dialog_voice.gd" id="1_voice"]
+[ext_resource type="AudioStream" uid="uid://dpq4yxaw77jsb" path="res://sound_effects/Blip_select 39.wav" id="2_rdcuv"]
+
+[resource]
+script = ExtResource("1_voice")
+stream = ExtResource("2_rdcuv")
+base_pitch = 0.3
+pitch_multipliers = Array[float]([1.0, 1.125, 1.25])
+chars_per_blip = 5
+volume_db = -5.0

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="DialogVoice" format=3 uid="uid://voxdavid"]
+
+[ext_resource type="Script" uid="uid://dlgvoiceres1" path="res://scenes_and_scripts/dialog/dialog_voice.gd" id="1_voice"]
+[ext_resource type="AudioStream" uid="uid://cehgjkbeqhhe1" path="res://sound_effects/Blip_select 9.wav" id="2_3tisl"]
+
+[resource]
+script = ExtResource("1_voice")
+stream = ExtResource("2_3tisl")
+base_pitch = 1.4

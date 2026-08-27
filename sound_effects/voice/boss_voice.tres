@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="DialogVoice" format=3 uid="uid://voxboss"]
+
+[ext_resource type="Script" uid="uid://dlgvoiceres1" path="res://scenes_and_scripts/dialog/dialog_voice.gd" id="1_voice"]
+[ext_resource type="AudioStream" uid="uid://djqbypneorr1n" path="res://sound_effects/dry (no reverb)/ball-bounce-subtle.wav" id="2_blip"]
+
+[resource]
+script = ExtResource("1_voice")
+stream = ExtResource("2_blip")
+base_pitch = 0.6
+pitch_multipliers = Array[float]([1.0, 1.125, 1.5])
+chars_per_blip = 3
+volume_db = 0.0

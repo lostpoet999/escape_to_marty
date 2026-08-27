@@ -58,6 +58,7 @@ func apply_audio() -> void:
 	set_bus_volume("Music", music_volume, MUSIC_TRIM_DB)
 	set_bus_volume("SFX", sfx_volume, SFX_BOOST_DB)
 	set_bus_volume("Ambience", sfx_volume, SFX_BOOST_DB)
+	set_bus_volume("Dialog", sfx_volume, SFX_BOOST_DB)
 
 func set_bus_volume(bus_name: String, linear: float, boost_db: float) -> void:
 	var bus_index: int = AudioServer.get_bus_index(bus_name)

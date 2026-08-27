@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://mi3766wvx8nf" path="res://scenes_and_scripts/dialog/dialog_bubble.gd" id="1_dlgbb"]
 [ext_resource type="Texture2D" uid="uid://cra2lcyy34b1x" path="res://scenes_and_scripts/ui_menus/edge_patch.png" id="2_dlgbb"]
 [ext_resource type="FontFile" uid="uid://ce5jk1ok7f4r5" path="res://label_settings_and_fonts/fonts/PressStart2P-Regular.ttf" id="3_dlgbb"]
+[ext_resource type="Script" uid="uid://dlgvoiceplr1" path="res://scenes_and_scripts/dialog/dialog_voice_player.gd" id="4_dlgbb"]
 
 [sub_resource type="Curve" id="Curve_dlgbb"]
 _data = [Vector2(0, 0.05), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -75,3 +76,8 @@ rotation = -3.1401598
 points = PackedVector2Array(-67.972725, 19.097416, -44.991364, 6.064476, -14.987106, 9.021484, 4.007187, 4.9942627)
 width = 5.0
 width_curve = SubResource("Curve_dlgbb")
+
+[node name="VoicePlayer" type="AudioStreamPlayer" parent="." unique_id=950464301]
+bus = &"Dialog"
+max_polyphony = 4
+script = ExtResource("4_dlgbb")

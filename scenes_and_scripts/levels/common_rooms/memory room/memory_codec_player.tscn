@@ -5,6 +5,7 @@
 [ext_resource type="LabelSettings" uid="uid://ccodectextls" path="res://label_settings_and_fonts/memory_codec_text.tres" id="3_text"]
 [ext_resource type="FontFile" uid="uid://ce5jk1ok7f4r5" path="res://label_settings_and_fonts/fonts/PressStart2P-Regular.ttf" id="4_font"]
 [ext_resource type="PackedScene" uid="uid://dwc118v25nv0r" path="res://scenes_and_scripts/backgrounds/misty_background.tscn" id="5_mist"]
+[ext_resource type="Script" uid="uid://dlgvoiceplr1" path="res://scenes_and_scripts/dialog/dialog_voice_player.gd" id="6_voice"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_names"]
 font = ExtResource("4_font")
@@ -130,5 +131,10 @@ visible = false
 position = Vector2(1630, 1012)
 color = Color(1, 1, 1, 0.85)
 polygon = PackedVector2Array(-8, -5, 8, -5, 0, 5)
+
+[node name="VoicePlayer" type="AudioStreamPlayer" parent="." unique_id=1842991121]
+bus = &"Dialog"
+max_polyphony = 4
+script = ExtResource("6_voice")
 
 [connection signal="gui_input" from="Root" to="." method="_on_root_gui_input"]
