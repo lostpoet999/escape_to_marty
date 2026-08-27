@@ -17,7 +17,6 @@ const MAGNET_START_SOUND: String = "magnet_start"
 const MAGNET_LOOP_SOUND: String = "magnet_loop"
 const MAGNET_STOP_SOUND: String = "magnet_stop"
 
-const SOFT_CATCH_WHIFF_SOUND: String = "soft_catch_whiff"
 const SOFT_CATCH_FLASH_COLOR: Color = Color(1.8, 1.8, 1.8)
 const SOFT_CATCH_FLASH_TIME: float = 0.28
 
@@ -54,8 +53,6 @@ const DIP_RETURN_TIME: float = 0.12
 @export var soft_catch_window: float = 0.075
 ## Net downward mouse pixels required inside the window to arm a soft catch; upward motion inside the window subtracts.
 @export var soft_catch_threshold: float = 56.0
-## Seconds around a paddle contact within which a mistimed flick counts as a near miss and plays the whiff; flicks with no contact this close stay silent.
-@export var soft_catch_miss_grace: float = 0.3
 ## Vertical pixels between the falling ball and the paddle within which a flick registers as a catch attempt; flicks with the ball farther out are ignored entirely.
 @export var soft_catch_ball_range: float = 320.0
 ## Seconds after a missed catch attempt before a new flick can register another attempt.
@@ -120,9 +117,6 @@ var _last_direction: float = 0.0
 var _distance_accumulator: float = 0.0
 var _pull_samples: Array[Vector2] = []
 var _pull_armed: bool = false
-var _arm_expired_at: float = -1000.0
-var _unarmed_contact_at: float = -1000.0
-var _catch_success_at: float = -1000.0
 var _attempt_live: bool = false
 var _attempt_armed_at: float = -1000.0
 var _attempt_cooldown_until: float = -1000.0
@@ -323,6 +317,9 @@ func _calculate_blockers_bounds() -> void:
 			if blocker_edge < temp_edge: temp_edge = blocker_edge
 		right_bound = temp_edge
 	accumulated_mouse_movement_x = clamp(accumulated_mouse_movement_x, left_bound, right_bound)
+	if paddle_frozen and GameManager.current_state == GameManager.GameState.CLICK_MODE:
+		position.x = accumulated_mouse_movement_x
+		last_position = global_position
 
 func _assign_active_powerup(item: PaddleActive)->void:
 	active_paddle_powerup = item
@@ -441,9 +438,6 @@ func _record_pull_motion(relative_y: float) -> void:
 		if now >= _attempt_cooldown_until and _ball_in_catch_range():
 			_attempt_live = true
 			_attempt_armed_at = now
-		if now - _unarmed_contact_at <= soft_catch_miss_grace and now - _catch_success_at > soft_catch_miss_grace:
-			_unarmed_contact_at = -1000.0
-			_play_soft_catch_whiff()
 
 func _prune_pull_samples(now: float) -> void:
 	while not _pull_samples.is_empty() and _pull_samples[0].x < now - soft_catch_window:
@@ -461,17 +455,9 @@ func try_soft_catch() -> bool:
 	if not _attempt_live or _net_pull_down() < soft_catch_threshold:
 		if _attempt_live:
 			_miss_attempt(now)
-		if now - _catch_success_at > soft_catch_miss_grace:
-			_unarmed_contact_at = now
-			if now - _arm_expired_at <= soft_catch_miss_grace:
-				_arm_expired_at = -1000.0
-				_play_soft_catch_whiff()
 		return false
 	_attempt_live = false
 	_pull_armed = false
-	_catch_success_at = now
-	_arm_expired_at = -1000.0
-	_unarmed_contact_at = -1000.0
 	_pull_samples.clear()
 	return true
 
@@ -497,13 +483,8 @@ func _tick_soft_catch_expiry() -> void:
 	if _net_pull_down() >= soft_catch_threshold:
 		return
 	_pull_armed = false
-	_arm_expired_at = now
 	if _attempt_live:
 		_miss_attempt(now)
-
-func _play_soft_catch_whiff() -> void:
-	if GameManager.current_state == GameManager.GameState.PLAYING:
-		SFX.play_sound(SOFT_CATCH_WHIFF_SOUND)
 
 func soft_catch_flash() -> void:
 	stop_shield_pulse()

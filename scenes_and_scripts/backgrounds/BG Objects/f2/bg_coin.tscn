@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://bgcoinf3ab01"]
+
+[ext_resource type="Script" path="res://scenes_and_scripts/backgrounds/BG Objects/f2/bg_coin.gd" id="1_coin"]
+[ext_resource type="Texture2D" path="res://scenes_and_scripts/backgrounds/BG Objects/big_coin_64x64.png" id="2_coin"]
+[ext_resource type="Material" uid="uid://bgmatcoinf3a1" path="res://scenes_and_scripts/backgrounds/BG Objects/f2/mat_prop_coin.tres" id="3_coin"]
+
+[node name="BgCoin" type="Node3D"]
+script = ExtResource("1_coin")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+texture = ExtResource("2_coin")
+texture_filter = 0
+material_override = ExtResource("3_coin")

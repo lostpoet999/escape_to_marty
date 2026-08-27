@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://bgmatcoinf3a1"]
+
+[ext_resource type="Shader" uid="uid://1w6qea0e61sa" path="res://scenes_and_scripts/backgrounds/BG Objects/f1/mat_cloud_sprite.gdshader" id="1_shdr"]
+[ext_resource type="Texture2D" uid="uid://cfhti5oh6b4af" path="res://scenes_and_scripts/backgrounds/BG Objects/big_coin_64x64.png" id="2_tex"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_shdr")
+shader_parameter/cloud_texture = ExtResource("2_tex")
+shader_parameter/cloud_tint = Color(1, 1, 1, 1)
+shader_parameter/base_glow = 0.25
