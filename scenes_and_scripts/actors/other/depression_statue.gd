@@ -14,7 +14,7 @@ const _TEXTURE_HALF_PX: float = 128.0
 @export var charge_radius: float = 0.0
 ## Charge seconds an imp tears off per strike. Three strikes land per drain run, and only one imp at a time may work a statue, so this is the whole drain budget against charge_rate. Above ~1.6 the imps out-drain the player and the encounter cannot be finished.
 @export var drain_per_strike: float = 1.0
-## Once full, the statue locks and can no longer be drained. Off makes finished statues drainable again, which four imps make unwinnable.
+## Once full, the statue locks and can no longer be drained. Off keeps finished statues drainable, so imps can un-win a charged statue — the shipped boss_4 tuning: stressful but winnable.
 @export var locks_when_charged: bool = true
 ## Contributor art for the dormant statue. Empty = the placeholder box shows instead.
 @export var statue_texture: Texture2D

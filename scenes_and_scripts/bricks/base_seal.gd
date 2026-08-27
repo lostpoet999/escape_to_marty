@@ -191,12 +191,15 @@ func accept_damage(damage: float, damage_types: Array) -> void:
 		_feedback_pending = true
 		_resolve_damage_feedback.call_deferred()
 
+func show_denied_number() -> void:
+	var damage_number: DamageNumber = DAMAGE_NUMBER.instantiate()
+	damage_number.position = global_position
+	damage_number.show_damage("denied", DamageNumber.COLOR_DEALT)
+	get_tree().current_scene.add_child(damage_number)
+
 func _resolve_damage_feedback() -> void:
 	if not _feedback_damaged:
-		var damage_number: DamageNumber = DAMAGE_NUMBER.instantiate()
-		damage_number.position = global_position
-		damage_number.show_damage("denied", DamageNumber.COLOR_DEALT)
-		get_tree().current_scene.add_child(damage_number)
+		show_denied_number()
 		if current_stage == GameManager.PhaseType.DENIAL:
 			DialogDirector.play(&"tutorial_click_mode", self)
 	_feedback_damaged = false

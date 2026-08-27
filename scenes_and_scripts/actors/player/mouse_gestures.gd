@@ -8,6 +8,9 @@ const WHOOSH_OPEN_SOUND: String = "whoosh_open"
 const WHOOSH_CLOSED_SOUND: String = "whoosh_closed"
 const ANGER_TIER_SOUND: String = "anger_tier"
 const LIGHT_PLACED_SOUND: String = "light_placed"
+const DENIED_CLICK_SOUND: String = "bounce_1"
+const DENIED_CLICK_PITCH: float = 0.65
+const DENIED_CLICK_VOLUME_BOOST_DB: float = 4.0
 const EXIT_CLICK_STATES: Array[GameManager.GameState] = [
 	GameManager.GameState.CLICK_MODE,
 	GameManager.GameState.LEVEL_CLEARED,
@@ -112,16 +115,37 @@ func _input(event: InputEvent)->void:
 func _handle_clicks_and_hold()->void:
 	var target: Node = _get_target_under_mouse()
 	if target == null:
+		if _denied_click_on_plain_seal():
+			return
 		_place_depression_light(_pointer_world_position())
 		return
 	var seal: BaseSeal = target as BaseSeal
 	var was_denial: bool = seal != null and seal.current_stage == GameManager.PhaseType.DENIAL
 	var denial_max: float = seal.health_max if was_denial else 0.0
 	if seal != null:
-		SFX.play_sound("hit-brick")
+		if was_denial:
+			SFX.play_sound("hit-brick")
+		else:
+			_play_denied_click()
 	click_behavior.apply(_gesture_context(GameManager.PhaseType.DENIAL, _gesture_damage()), target as Node2D)
 	if was_denial and is_instance_valid(seal) and not seal.dying and seal.current_stage != GameManager.PhaseType.DENIAL:
 		seal.arm_denial_revert(denial_max)
+
+func _denied_click_on_plain_seal() -> bool:
+	for result: Dictionary in _point_query_under_mouse():
+		var seal: BaseSeal = result.collider as BaseSeal
+		if seal != null and not seal.dying and seal.current_stage == GameManager.PhaseType.HEALTH:
+			seal.show_denied_number()
+			_play_denied_click()
+			return true
+	return false
+
+func _play_denied_click() -> void:
+	var denied_player: AudioStreamPlayer = SFX.play_sound(DENIED_CLICK_SOUND)
+	if denied_player != null:
+		denied_player.pitch_scale = DENIED_CLICK_PITCH
+		denied_player.volume_db += DENIED_CLICK_VOLUME_BOOST_DB
+		denied_player.seek(0.0)
 
 func _try_revert_denial(target: Node) -> bool:
 	var seal: BaseSeal = target as BaseSeal
