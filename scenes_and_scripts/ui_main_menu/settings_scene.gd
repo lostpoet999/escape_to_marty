@@ -47,14 +47,27 @@ func _on_mouse_slider_value_changed(value: float) -> void:
 func _on_tips_check_toggled(toggled_on: bool) -> void:
 	SettingsManager.show_tutorial_tips = toggled_on
 
+func _on_casual_button_pressed() -> void:
+	print("CASUAL MODE! easy at half speed")
+	SettingsManager.difficulty = 0
+	SettingsManager.game_speed = 0.5
+
 func _on_easy_button_pressed() -> void:
 	SettingsManager.difficulty = 0
+	SettingsManager.game_speed = 1
 
 func _on_normal_button_pressed() -> void:
 	SettingsManager.difficulty = 1
+	SettingsManager.game_speed = 1
 
 func _on_hard_button_pressed() -> void:
 	SettingsManager.difficulty = 2
+	SettingsManager.game_speed = 1
+
+func _on_brutal_button_pressed() -> void:
+	print("BRUTAL MODE! hard at 2x speed")
+	SettingsManager.difficulty = 2
+	SettingsManager.game_speed = 2
 
 func _scale_tips_check_icon(icon_name: StringName) -> void:
 	var icon: Texture2D = tips_check.get_theme_icon(icon_name)
