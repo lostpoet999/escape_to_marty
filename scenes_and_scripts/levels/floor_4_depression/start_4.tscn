@@ -21,22 +21,22 @@ font_color = Color(0, 0.59170103, 0.5938744, 1)
 [node name="start_4" unique_id=666041159 instance=ExtResource("1_rb4s")]
 
 [node name="basic_tutorial1" type="Sprite2D" parent="." index="0" unique_id=791027249]
-position = Vector2(480, 281)
+position = Vector2(648, 272)
 scale = Vector2(2, 2)
 texture = ExtResource("2_f8iyh")
 
 [node name="basic_tutorial2" type="Sprite2D" parent="." index="1" unique_id=1514070475]
-position = Vector2(480, 800)
+position = Vector2(1064, 272)
 scale = Vector2(2, 2)
 texture = ExtResource("3_xxd65")
 
 [node name="basic_tutorial3" type="Sprite2D" parent="." index="2" unique_id=1225585128]
-visible = false
-position = Vector2(481, 895)
+position = Vector2(1480, 272)
 scale = Vector2(2, 2)
 texture = ExtResource("4_58pip")
 
 [node name="basic_tutorial4" type="Sprite2D" parent="." index="3" unique_id=305321184]
+visible = false
 position = Vector2(480, 540)
 scale = Vector2(2, 2)
 texture = ExtResource("5_58pip")

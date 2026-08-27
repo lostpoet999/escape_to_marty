@@ -21,24 +21,24 @@ font_color = Color(0, 0.59170103, 0.5938744, 1)
 [node name="common_room" unique_id=565861230 instance=ExtResource("1_ydske")]
 
 [node name="basic_tutorial1" type="Sprite2D" parent="." index="0" unique_id=275719791]
-position = Vector2(696.00006, 229)
-scale = Vector2(2.5, 2.5)
+position = Vector2(648, 272)
+scale = Vector2(2, 2)
 texture = ExtResource("2_1ca45")
 
 [node name="basic_tutorial2" type="Sprite2D" parent="." index="1" unique_id=1032262304]
-position = Vector2(1096, 231.00002)
-scale = Vector2(2.5, 2.5)
+position = Vector2(1064, 272)
+scale = Vector2(2, 2)
 texture = ExtResource("3_p007t")
 
 [node name="basic_tutorial3" type="Sprite2D" parent="." index="2" unique_id=126906716]
-visible = false
-position = Vector2(1500.0001, 228.00002)
-scale = Vector2(2.5, 2.5)
+position = Vector2(1480, 272)
+scale = Vector2(2, 2)
 texture = ExtResource("4_8nxsw")
 
 [node name="basic_tutorial4" type="Sprite2D" parent="." index="3" unique_id=75175457]
+visible = false
 position = Vector2(1500.0001, 228.00002)
-scale = Vector2(2.5, 2.5)
+scale = Vector2(2, 2)
 texture = ExtResource("5_8nxsw")
 
 [node name="floor3_tutorial" type="Sprite2D" parent="." index="4" unique_id=782912277]

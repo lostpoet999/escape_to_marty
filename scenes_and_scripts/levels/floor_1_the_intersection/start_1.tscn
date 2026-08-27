@@ -14,17 +14,17 @@
 
 [node name="basic_tutorial1" type="Sprite2D" parent="." index="0" unique_id=19294649]
 position = Vector2(648, 272)
-scale = Vector2(2.5, 2.5)
+scale = Vector2(2, 2)
 texture = ExtResource("2_wely4")
 
 [node name="basic_tutorial2" type="Sprite2D" parent="." index="1" unique_id=1647578284]
 position = Vector2(1064.0001, 272)
-scale = Vector2(2.5, 2.5)
+scale = Vector2(2, 2)
 texture = ExtResource("3_l13rn")
 
 [node name="basic_tutorial3" type="Sprite2D" parent="." index="2" unique_id=1257580004]
 position = Vector2(1480.0001, 272)
-scale = Vector2(2.5, 2.5)
+scale = Vector2(2, 2)
 texture = ExtResource("4_6ma3u")
 
 [node name="floor1_tutorial" type="Sprite2D" parent="." index="3" unique_id=1298149627]

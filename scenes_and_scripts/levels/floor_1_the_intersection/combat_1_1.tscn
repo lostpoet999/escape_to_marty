@@ -99,16 +99,19 @@ first_spawn_delay = 2.0
 max_spawns = 1
 
 [node name="basic_tutorial1" type="Sprite2D" parent="." index="14" unique_id=402021595]
+visible = false
 position = Vector2(696.00006, 229)
 scale = Vector2(2.5, 2.5)
 texture = ExtResource("6_sumbd")
 
 [node name="basic_tutorial2" type="Sprite2D" parent="." index="15" unique_id=260392113]
+visible = false
 position = Vector2(1096, 231.00002)
 scale = Vector2(2.5, 2.5)
 texture = ExtResource("7_3i552")
 
 [node name="basic_tutorial4" type="Sprite2D" parent="." index="16" unique_id=115957878]
+visible = false
 position = Vector2(1499, 231)
 scale = Vector2(2.5, 2.5)
 texture = ExtResource("8_crngg")
