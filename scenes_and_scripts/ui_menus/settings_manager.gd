@@ -36,6 +36,7 @@ func save_settings() -> void:
 	settings_file.set_value("game", "show_tutorial_tips", show_tutorial_tips)
 	var error: int = settings_file.save(SETTINGS_PATH)
 	if error != OK: print("Disk error saving settings: ", error)
+	apply_settings() # to ensure we call apply_time_scale at start of a new run
 
 func load_settings() -> void:
 	var error: int = settings_file.load(SETTINGS_PATH)

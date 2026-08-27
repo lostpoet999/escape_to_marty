@@ -251,6 +251,7 @@ text = "DIFFICULTY"
 vertical_alignment = 1
 
 [node name="DifficultyButtons" type="HBoxContainer" parent="VBoxContainer/Settings Container/SettingsBox/DifficultyRow" unique_id=1257798458]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 20
 
@@ -280,6 +281,69 @@ theme_override_font_sizes/font_size = 24
 toggle_mode = true
 button_group = SubResource("ButtonGroup_difficulty")
 text = "Hard"
+
+[node name="DifficultyRowMORE" type="HBoxContainer" parent="VBoxContainer/Settings Container/SettingsBox" unique_id=1212466135]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="DifficultyLabel" type="Label" parent="VBoxContainer/Settings Container/SettingsBox/DifficultyRowMORE" unique_id=330710587]
+visible = false
+custom_minimum_size = Vector2(440, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.909804, 0.756863, 0.439216, 1)
+theme_override_fonts/font = ExtResource("5_wuvxa")
+theme_override_font_sizes/font_size = 32
+text = "DIFFICULTY"
+vertical_alignment = 1
+
+[node name="DifficultyButtons" type="HBoxContainer" parent="VBoxContainer/Settings Container/SettingsBox/DifficultyRowMORE" unique_id=485201016]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="CasualButton" type="Button" parent="VBoxContainer/Settings Container/SettingsBox/DifficultyRowMORE/DifficultyButtons" unique_id=923648251]
+custom_minimum_size = Vector2(190, 70)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_wuvxa")
+theme_override_font_sizes/font_size = 24
+toggle_mode = true
+button_group = SubResource("ButtonGroup_difficulty")
+text = "Casual"
+
+[node name="EasyButton" type="Button" parent="VBoxContainer/Settings Container/SettingsBox/DifficultyRowMORE/DifficultyButtons" unique_id=1858715133]
+custom_minimum_size = Vector2(190, 70)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_wuvxa")
+theme_override_font_sizes/font_size = 24
+toggle_mode = true
+button_group = SubResource("ButtonGroup_difficulty")
+text = "Easy"
+
+[node name="NormalButton" type="Button" parent="VBoxContainer/Settings Container/SettingsBox/DifficultyRowMORE/DifficultyButtons" unique_id=1875612098]
+custom_minimum_size = Vector2(190, 70)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_wuvxa")
+theme_override_font_sizes/font_size = 24
+toggle_mode = true
+button_group = SubResource("ButtonGroup_difficulty")
+text = "Normal"
+
+[node name="HardButton" type="Button" parent="VBoxContainer/Settings Container/SettingsBox/DifficultyRowMORE/DifficultyButtons" unique_id=967813106]
+custom_minimum_size = Vector2(190, 70)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_wuvxa")
+theme_override_font_sizes/font_size = 24
+toggle_mode = true
+button_group = SubResource("ButtonGroup_difficulty")
+text = "Hard"
+
+[node name="BrutalButton" type="Button" parent="VBoxContainer/Settings Container/SettingsBox/DifficultyRowMORE/DifficultyButtons" unique_id=1921087396]
+custom_minimum_size = Vector2(190, 70)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_wuvxa")
+theme_override_font_sizes/font_size = 24
+toggle_mode = true
+button_group = SubResource("ButtonGroup_difficulty")
+text = "Brutal"
 
 [node name="ButtonContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1755409713]
 layout_mode = 2
@@ -314,5 +378,10 @@ text = "Start Run"
 [connection signal="pressed" from="VBoxContainer/Settings Container/SettingsBox/DifficultyRow/DifficultyButtons/EasyButton" to="." method="_on_easy_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Settings Container/SettingsBox/DifficultyRow/DifficultyButtons/NormalButton" to="." method="_on_normal_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Settings Container/SettingsBox/DifficultyRow/DifficultyButtons/HardButton" to="." method="_on_hard_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Settings Container/SettingsBox/DifficultyRowMORE/DifficultyButtons/CasualButton" to="." method="_on_casual_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Settings Container/SettingsBox/DifficultyRowMORE/DifficultyButtons/EasyButton" to="." method="_on_easy_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Settings Container/SettingsBox/DifficultyRowMORE/DifficultyButtons/NormalButton" to="." method="_on_normal_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Settings Container/SettingsBox/DifficultyRowMORE/DifficultyButtons/HardButton" to="." method="_on_hard_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Settings Container/SettingsBox/DifficultyRowMORE/DifficultyButtons/BrutalButton" to="." method="_on_brutal_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/ButtonContainer/Main Menu Button" to="." method="_on_main_menu_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/ButtonContainer/Start Run Button" to="." method="_on_start_run_button_pressed"]
