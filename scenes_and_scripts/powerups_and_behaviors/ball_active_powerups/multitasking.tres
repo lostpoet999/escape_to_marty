@@ -7,7 +7,7 @@
 script = ExtResource("2_pmkpf")
 cool_down_seconds = 22.0
 powerup_name = "Multitasking"
-shop_description = "[Ball Active] Gives you the ability to spawn a few extra miniballs to help you damage seals (miniballs are non-damaging)"
+shop_description = "[Ball Active] Gives you the ability to spawn a few extra miniballs to help you damage seals (miniballs deal half damage)"
 rarity = 3
 inventory_icon = ExtResource("1_p163n")
 metadata/_custom_type_script = "uid://cmultiballgd1"

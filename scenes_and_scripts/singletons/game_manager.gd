@@ -39,6 +39,8 @@ enum PhaseType {
 	}
 var current_state: GameState = GameState.MAIN_MENU
 var _unpaused_state: GameState
+var _web_build: bool = OS.has_feature("web")
+var _pointer_lock_seen: bool = false
 
 #const node group constants
 const DEATH_WALLS: String = "DeathWalls"
@@ -65,13 +67,39 @@ func surrender_active() -> bool:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if (event.is_action_pressed("ui_cancel") or event.is_action_pressed("pause")) and current_state != GameState.MAIN_MENU:
-		var _current_state: GameState = current_state
-		if _current_state != GameState.PAUSED:
-			var state_changed: bool = change_state(GameState.PAUSED)
-			if state_changed:
-				_unpaused_state = _current_state
+		if current_state != GameState.PAUSED:
+			request_pause()
 		else:
 			resume_from_pause()
+
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_APPLICATION_FOCUS_OUT:
+		request_pause()
+
+
+func _process(_delta: float) -> void:
+	_watch_pointer_lock()
+
+
+func request_pause() -> void:
+	if current_state in [GameState.MAIN_MENU, GameState.PAUSED]: return
+	var prior_state: GameState = current_state
+	if change_state(GameState.PAUSED):
+		_unpaused_state = prior_state
+
+
+func _watch_pointer_lock() -> void:
+	if not _web_build: return
+	if current_state not in [GameState.BALL_ON_PADDLE, GameState.PLAYING, GameState.CLICK_MODE]:
+		_pointer_lock_seen = false
+		return
+	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+		_pointer_lock_seen = true
+	elif _pointer_lock_seen:
+		# browsers only re-grant pointer lock on a click, so only pause on losing a grab we saw succeed
+		_pointer_lock_seen = false
+		request_pause()
 
 
 func resume_from_pause() -> void:
