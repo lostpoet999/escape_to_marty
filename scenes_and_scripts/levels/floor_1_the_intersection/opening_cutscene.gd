@@ -4,6 +4,7 @@ const CUTSCENE_ID: StringName = &"opening"
 const NAG_INTERVAL_SECONDS: float = 8.0
 const FALL_SECONDS: float = 0.75
 const TUTORIAL_LABEL_GROUP: StringName = &"opening_tutorial"
+const TUTORIAL_BOARD_DIR: String = "res://scenes_and_scripts/backgrounds/tutorial backgrounds/"
 const SKIP_FONT: FontFile = preload("res://label_settings_and_fonts/fonts/PressStart2P-Regular.ttf")
 const SKIP_HOLD_SECONDS: float = 1.0
 const SKIP_MARGIN: float = 24.0
@@ -39,11 +40,23 @@ var _skip_label: Label
 
 func _ready() -> void:
 	set_process(false)
+	_register_tutorial_boards()
+
+
+func _register_tutorial_boards() -> void:
+	for node: Node in get_parent().find_children("*", "Sprite2D", true, false):
+		var board: Sprite2D = node as Sprite2D
+		if board == null or board.texture == null:
+			continue
+		if board.texture.resource_path.begins_with(TUTORIAL_BOARD_DIR):
+			board.add_to_group(TUTORIAL_LABEL_GROUP)
+			board.visible = false
 
 
 func run() -> void:
 	if PlayerData.seen_cutscenes.has(CUTSCENE_ID):
 		_clear_shell()
+		_set_tutorial_visible(true)
 		_reveal_practice_seal()
 		return
 	PlayerData.seen_cutscenes.append(CUTSCENE_ID)

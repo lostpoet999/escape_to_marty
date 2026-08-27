@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://bhyu3nftn678w"]
 
 [ext_resource type="PackedScene" uid="uid://bea1h3570swpu" path="res://scenes_and_scripts/levels/room_base.tscn" id="1_cckqh"]
-[ext_resource type="FontFile" uid="uid://ce5jk1ok7f4r5" path="res://label_settings_and_fonts/fonts/PressStart2P-Regular.ttf" id="2_45lsl"]
 [ext_resource type="Texture2D" uid="uid://cxyraqmjw6a3m" path="res://scenes_and_scripts/backgrounds/tutorial backgrounds/basic_tutorial_one.png" id="2_wely4"]
 [ext_resource type="Texture2D" uid="uid://c37qljrwvotog" path="res://scenes_and_scripts/backgrounds/tutorial backgrounds/basic_tutorial_two.png" id="3_l13rn"]
 [ext_resource type="PackedScene" uid="uid://cm1kspxv86400" path="res://scenes_and_scripts/bricks/open_seal.tscn" id="3_oufug"]
@@ -11,26 +10,20 @@
 [ext_resource type="Texture2D" uid="uid://csscrsq5heoab" path="res://scenes_and_scripts/backgrounds/tutorial backgrounds/floor1_tutorial.png" id="5_u0k1h"]
 [ext_resource type="Texture2D" uid="uid://eyy14qdoiogp" path="res://scenes_and_scripts/backgrounds/tutorial backgrounds/denial_board.png" id="6_l13rn"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_f1tip"]
-font = ExtResource("2_45lsl")
-font_color = Color(0, 0.59170103, 0.5938744, 1)
-
 [node name="common_room" unique_id=565861230 instance=ExtResource("1_cckqh")]
 
 [node name="basic_tutorial1" type="Sprite2D" parent="." index="0" unique_id=19294649]
-visible = false
-position = Vector2(696.00006, 229)
+position = Vector2(648, 272)
 scale = Vector2(2.5, 2.5)
 texture = ExtResource("2_wely4")
 
 [node name="basic_tutorial2" type="Sprite2D" parent="." index="1" unique_id=1647578284]
-visible = false
-position = Vector2(1096, 231.00002)
+position = Vector2(1064.0001, 272)
 scale = Vector2(2.5, 2.5)
 texture = ExtResource("3_l13rn")
 
 [node name="basic_tutorial3" type="Sprite2D" parent="." index="2" unique_id=1257580004]
-position = Vector2(1063, 269)
+position = Vector2(1480.0001, 272)
 scale = Vector2(2.5, 2.5)
 texture = ExtResource("4_6ma3u")
 
@@ -44,50 +37,24 @@ position = Vector2(1053, 537)
 scale = Vector2(2, 2)
 texture = ExtResource("6_l13rn")
 
-[node name="Label" type="RichTextLabel" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="3" unique_id=2097916128 groups=["opening_tutorial"]]
-visible = false
-layout_mode = 0
-offset_left = 391.0
-offset_top = 288.0
-offset_right = 1223.0
-offset_bottom = 585.0
-mouse_filter = 2
-theme_override_fonts/normal_font = ExtResource("2_45lsl")
-bbcode_enabled = true
-text = "1. In combat rooms you will have to clear [color=yellow]seals[/color] to unlock the exits.
+[node name="SubViewportContainer" parent="." index="5" unique_id=1513724378]
+metadata/_edit_lock_ = true
 
-2. On combat levels [color=yellow]click[/color] the mouse to launch the [color=yellow]ball[/color]!
-
-3. Also, try pushing [color=yellow]TAB[/color] on combat levels to release the mouse and click on things!
-
-4. You can push [color=yellow]SPACE[/color] if you have an active paddle ability.
-
-5. [color=yellow]Click[/color] the [color=yellow]green barrier[/color] to move to the first room."
-fit_content = true
-scroll_active = false
-
-[node name="OpenSeal2" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="4" unique_id=1038486442 instance=ExtResource("3_oufug")]
+[node name="OpenSeal2" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="3" unique_id=1038486442 instance=ExtResource("3_oufug")]
 position = Vector2(820, 540)
 initialize_brick_on_leveldata = false
 
-[node name="PracticeSeal" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="5" unique_id=2077716489 instance=ExtResource("3_oufug")]
+[node name="PracticeSeal" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="4" unique_id=2077716489 instance=ExtResource("3_oufug")]
 position = Vector2(679, 736)
 script = ExtResource("5_prac")
 respawn_delay = 1.5
 starts_hidden = true
 initialize_brick_on_leveldata = false
 
-[node name="Label2" type="Label" parent="." index="11" unique_id=676553029 groups=["opening_tutorial"]]
-visible = false
-offset_left = 1024.0
-offset_top = 704.0
-offset_right = 1280.0
-offset_bottom = 763.0
-text = "Practice: Click to break the \"Shells of Denial\""
-label_settings = SubResource("LabelSettings_f1tip")
-autowrap_mode = 3
+[node name="FlashOverlay" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="5" unique_id=443116914]
+metadata/_edit_lock_ = true
 
-[node name="OpeningCutscene" type="Node" parent="." index="12" unique_id=1873350912 node_paths=PackedStringArray("seal", "practice_seal") groups=["cutscene"]]
+[node name="OpeningCutscene" type="Node" parent="." index="11" unique_id=1873350912 node_paths=PackedStringArray("seal", "practice_seal") groups=["cutscene"]]
 script = ExtResource("4_opcut")
 seal = NodePath("../PlayArea/OpenSeal2")
 practice_seal = NodePath("../PlayArea/PracticeSeal")
