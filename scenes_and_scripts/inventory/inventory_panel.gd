@@ -104,7 +104,9 @@ func repopulate_inventory() -> void:
 	clear_buttons()
 	populate_trophies()
 	populate_grid(inv_grid_container, _non_trophy_items())
-	populate_grid(core_grid_container, PlayerData.inventory.get_core_items())
+	populate_grid(core_grid_container, PlayerData.inventory.get_core_items().filter(
+		func(item: BaseItem) -> bool: return item is not BaseBounceEffectMini
+	))
 	add_voucher_tickets()
 
 func add_voucher_tickets() -> void:

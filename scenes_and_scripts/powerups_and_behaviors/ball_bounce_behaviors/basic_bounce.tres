@@ -6,6 +6,7 @@
 [resource]
 script = ExtResource("1_vb8hm")
 powerup_name = "Basic Bounce"
+shop_description = "The default ball bounce behavior."
 inventory_icon = ExtResource("1_tjpxc")
 removable = false
 metadata/_custom_type_script = "uid://dtnpin7y2xs7o"
