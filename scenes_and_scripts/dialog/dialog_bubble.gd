@@ -124,7 +124,8 @@ func show_beat(beat: DialogBeat, is_tutorial: bool = false) -> void:
 	_apply_speaker_style(beat.speaker, is_tutorial)
 	dialog_text.text = _beat_markup(beat, is_tutorial)
 	dialog_text.visible_ratio = 0.0
-	voice_player.begin_line(_speaker_voice(beat.speaker), dialog_text.get_parsed_text())
+	var voice: DialogVoice = david_voice if is_tutorial else _speaker_voice(beat.speaker)
+	voice_player.begin_line(voice, dialog_text.get_parsed_text())
 	if _reveal_tween:
 		_reveal_tween.kill()
 	_reveal_tween = create_tween()

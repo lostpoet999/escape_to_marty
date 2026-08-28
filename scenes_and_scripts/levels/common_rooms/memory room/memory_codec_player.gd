@@ -68,8 +68,13 @@ var _active_side: DialogBeat.PortraitSide = DialogBeat.PortraitSide.LEFT
 var _slot_tween_left: Tween
 var _slot_tween_right: Tween
 var _central_tween: Tween
+var _central_scale_tween: Tween
+var _central_glow_rects: Array[TextureRect] = []
+var _glow_texture: GradientTexture2D
 var _counted: bool = false
 var _fade_rect: ColorRect
+var _skip_requested: bool = false
+var _skip_prompt: SkipPrompt
 
 
 func _ready() -> void:
@@ -112,6 +117,10 @@ func play() -> void:
 	_counted = true
 	DialogDirector.cancel_active()
 	_reset_stage()
+	_skip_requested = false
+	_skip_prompt = SkipPrompt.new()
+	_skip_prompt.skip_committed.connect(_on_skip_committed)
+	add_child(_skip_prompt)
 	root_control.visible = false
 	visible = true
 	await _fade(1.0)
@@ -119,8 +128,13 @@ func play() -> void:
 	root_control.visible = true
 	await _fade(0.0)
 	for beat: DialogBeat in memory_tree.beats:
+		if _skip_requested:
+			break
 		_present_beat(beat)
 		await _advanced
+		if _skip_requested:
+			break
+	_remove_skip_prompt()
 	await _fade(1.0)
 	root_control.visible = false
 	screen_covered.emit(false)
@@ -129,6 +143,19 @@ func play() -> void:
 	_playing = false
 	_release_active_count()
 	finished.emit()
+
+
+func _on_skip_committed() -> void:
+	if not _playing or _skip_requested:
+		return
+	_skip_requested = true
+	_advanced.emit()
+
+
+func _remove_skip_prompt() -> void:
+	if is_instance_valid(_skip_prompt):
+		_skip_prompt.queue_free()
+	_skip_prompt = null
 
 
 func _release_active_count() -> void:
@@ -176,9 +203,15 @@ func _reset_stage() -> void:
 	if _central_tween:
 		_central_tween.kill()
 		_central_tween = null
+	if _central_scale_tween:
+		_central_scale_tween.kill()
+		_central_scale_tween = null
 	central_image.texture = null
 	central_image.visible = false
 	central_image.modulate.a = 1.0
+	central_image.self_modulate = Color.WHITE
+	central_image.scale = Vector2.ONE
+	_clear_central_glows()
 	beat_text.text = ""
 	_clear_portraits()
 
@@ -203,7 +236,12 @@ func _present_beat(beat: DialogBeat) -> void:
 	elif beat.clears_side != DialogBeat.ClearSide.NONE:
 		var cleared: DialogBeat.PortraitSide = DialogBeat.PortraitSide.LEFT if beat.clears_side == DialogBeat.ClearSide.LEFT else DialogBeat.PortraitSide.RIGHT
 		_fade_out_slot(cleared)
-	_set_central(beat.central_image)
+	var central_was_empty: bool = central_image.texture == null
+	_set_central(beat.central_image, beat.central_image_modulate)
+	_apply_central_scale(beat.central_image_scale, central_was_empty)
+	_apply_central_glows(beat)
+	if not beat.beat_sound.is_empty():
+		SFX.play_sound(beat.beat_sound)
 	if beat.portrait != null:
 		_show_portrait(beat.portrait_side, beat.portrait)
 	if beat.opposite_portrait != null:
@@ -220,16 +258,18 @@ func _present_beat(beat: DialogBeat) -> void:
 	_reveal_text(beat)
 
 
-func _set_central(texture: Texture2D) -> void:
+func _set_central(texture: Texture2D, tint: Color = Color.WHITE) -> void:
 	if _central_tween:
 		_central_tween.kill()
 		_central_tween = null
 	if central_image.texture == texture:
 		if texture != null:
 			central_image.modulate.a = 1.0
+			central_image.self_modulate = tint
 		return
 	if portrait_fade_seconds <= 0.0:
 		central_image.texture = texture
+		central_image.self_modulate = tint
 		central_image.visible = texture != null
 		central_image.modulate.a = 1.0
 		return
@@ -239,17 +279,83 @@ func _set_central(texture: Texture2D) -> void:
 		_central_tween.tween_callback(func() -> void:
 			central_image.texture = null
 			central_image.visible = false
-			central_image.modulate.a = 1.0)
+			central_image.modulate.a = 1.0
+			central_image.self_modulate = Color.WHITE)
 		return
 	if central_image.texture != null and central_image.visible:
 		_central_tween.tween_property(central_image, "modulate:a", 0.0, portrait_fade_seconds * 0.5)
-		_central_tween.tween_callback(func() -> void: central_image.texture = texture)
+		_central_tween.tween_callback(func() -> void:
+			central_image.texture = texture
+			central_image.self_modulate = tint)
 		_central_tween.tween_property(central_image, "modulate:a", 1.0, portrait_fade_seconds * 0.5)
 		return
 	central_image.texture = texture
+	central_image.self_modulate = tint
 	central_image.visible = true
 	central_image.modulate.a = 0.0
 	_central_tween.tween_property(central_image, "modulate:a", 1.0, portrait_fade_seconds)
+
+func _apply_central_scale(target: float, snap: bool) -> void:
+	if _central_scale_tween:
+		_central_scale_tween.kill()
+		_central_scale_tween = null
+	central_image.pivot_offset = central_image.size * 0.5
+	var target_scale: Vector2 = Vector2(target, target)
+	if snap or is_equal_approx(central_image.scale.x, target):
+		central_image.scale = target_scale
+		return
+	_central_scale_tween = create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	_central_scale_tween.tween_property(central_image, "scale", target_scale, 0.18)
+
+func _apply_central_glows(beat: DialogBeat) -> void:
+	_clear_central_glows()
+	if beat.central_image == null or beat.central_image_glow_points.is_empty():
+		return
+	var drawn: Rect2 = _central_drawn_rect(beat.central_image)
+	var diameter: float = minf(drawn.size.x, drawn.size.y) * beat.central_image_glow_size
+	for point: Vector2 in beat.central_image_glow_points:
+		var glow: TextureRect = TextureRect.new()
+		glow.texture = _glow_tex()
+		glow.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		glow.stretch_mode = TextureRect.STRETCH_SCALE
+		var glow_material: CanvasItemMaterial = CanvasItemMaterial.new()
+		glow_material.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
+		glow.material = glow_material
+		glow.modulate = beat.central_image_glow_color
+		glow.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		glow.size = Vector2(diameter, diameter)
+		glow.position = drawn.position + point * drawn.size - Vector2(diameter, diameter) * 0.5
+		central_image.add_child(glow)
+		_central_glow_rects.append(glow)
+
+func _clear_central_glows() -> void:
+	for glow: TextureRect in _central_glow_rects:
+		if is_instance_valid(glow):
+			glow.queue_free()
+	_central_glow_rects.clear()
+
+func _central_drawn_rect(texture: Texture2D) -> Rect2:
+	var control_size: Vector2 = central_image.size
+	var tex_size: Vector2 = texture.get_size()
+	if tex_size.x <= 0.0 or tex_size.y <= 0.0:
+		return Rect2(Vector2.ZERO, control_size)
+	var draw_scale: float = minf(control_size.x / tex_size.x, control_size.y / tex_size.y)
+	var drawn_size: Vector2 = tex_size * draw_scale
+	return Rect2((control_size - drawn_size) * 0.5, drawn_size)
+
+func _glow_tex() -> GradientTexture2D:
+	if _glow_texture == null:
+		var gradient: Gradient = Gradient.new()
+		gradient.set_color(0, Color(1, 1, 1, 1))
+		gradient.set_color(1, Color(1, 1, 1, 0))
+		_glow_texture = GradientTexture2D.new()
+		_glow_texture.gradient = gradient
+		_glow_texture.fill = GradientTexture2D.FILL_RADIAL
+		_glow_texture.fill_from = Vector2(0.5, 0.5)
+		_glow_texture.fill_to = Vector2(0.5, 0.0)
+		_glow_texture.width = 64
+		_glow_texture.height = 64
+	return _glow_texture
 
 
 func _show_portrait(side: DialogBeat.PortraitSide, texture: Texture2D) -> void:

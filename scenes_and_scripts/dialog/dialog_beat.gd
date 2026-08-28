@@ -22,6 +22,24 @@ enum ClearSide { NONE = 0, LEFT = 1, RIGHT = 2 }
 ## Codec player only. Memory image shown center stage for THIS beat.
 @export var central_image: Texture2D
 
+## Codec player only. Tint multiplied into the central image for this beat; white = untinted.
+@export var central_image_modulate: Color = Color.WHITE
+
+## Codec player only. Scale of the central image for this beat (1 = full size); changes pop-tween between beats.
+@export var central_image_scale: float = 1.0
+
+## Codec player only. Normalized (0-1) points on the central image that get an additive glow this beat (e.g. headlights); empty = none.
+@export var central_image_glow_points: PackedVector2Array = PackedVector2Array()
+
+## Codec player only. Tint of the additive glows.
+@export var central_image_glow_color: Color = Color(1.0, 0.95, 0.75, 0.85)
+
+## Codec player only. Glow diameter as a fraction of the drawn image's smaller side.
+@export var central_image_glow_size: float = 0.3
+
+## Codec player only. SFX name played the moment this beat lands; blank = silent.
+@export var beat_sound: String = ""
+
 ## Codec player only. A second face placed on the side opposite portrait_side, dimmed as the non-speaking side.
 @export var opposite_portrait: Texture2D
 

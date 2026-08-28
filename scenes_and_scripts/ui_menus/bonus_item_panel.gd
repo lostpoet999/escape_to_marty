@@ -21,4 +21,4 @@ func _on_slot_pressed(item: BaseItem) -> void:
 		return
 	loot_items_data.items.erase(item)
 	item_taken.emit(item)
-	_refresh()
+	queue_free()

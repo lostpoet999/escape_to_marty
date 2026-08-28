@@ -2,34 +2,54 @@
 
 [ext_resource type="Script" uid="uid://bkgp0oq7lrafl" path="res://scenes_and_scripts/dialog/dialog_tree.gd" id="1_tree"]
 [ext_resource type="Script" uid="uid://da86xmy7akvas" path="res://scenes_and_scripts/dialog/dialog_beat.gd" id="2_beat"]
+[ext_resource type="Texture2D" uid="uid://bnptiwc72uoaw" path="res://scenes_and_scripts/dialog/story icons/car.png" id="3_car"]
 
 [sub_resource type="Resource" id="Resource_beat_1"]
 script = ExtResource("2_beat")
 text = "Wait..I remember now.  I couln't be asleep--we were driving then there were headlights..."
+central_image = ExtResource("3_car")
+central_image_scale = 0.4
+central_image_glow_points = PackedVector2Array(0.25, 0.66, 0.73, 0.66)
 
 [sub_resource type="Resource" id="Resource_4rce3"]
 script = ExtResource("2_beat")
 text = "I"
+central_image = ExtResource("3_car")
+central_image_scale = 0.55
+central_image_glow_points = PackedVector2Array(0.25, 0.66, 0.73, 0.66)
 metadata/_custom_type_script = "uid://da86xmy7akvas"
 
 [sub_resource type="Resource" id="Resource_4c6x1"]
 script = ExtResource("2_beat")
 text = "THINK"
+central_image = ExtResource("3_car")
+central_image_scale = 0.7
+central_image_glow_points = PackedVector2Array(0.25, 0.66, 0.73, 0.66)
 metadata/_custom_type_script = "uid://da86xmy7akvas"
 
 [sub_resource type="Resource" id="Resource_ma4b5"]
 script = ExtResource("2_beat")
 text = "I'M"
+central_image = ExtResource("3_car")
+central_image_scale = 0.85
+central_image_glow_points = PackedVector2Array(0.25, 0.66, 0.73, 0.66)
 metadata/_custom_type_script = "uid://da86xmy7akvas"
 
 [sub_resource type="Resource" id="Resource_dk7jb"]
 script = ExtResource("2_beat")
 text = "DEAD!"
+central_image = ExtResource("3_car")
+central_image_modulate = Color(1, 0.2, 0.2, 1)
+central_image_glow_points = PackedVector2Array(0.25, 0.66, 0.73, 0.66)
+beat_sound = "player_hurt"
 metadata/_custom_type_script = "uid://da86xmy7akvas"
 
 [sub_resource type="Resource" id="Resource_beat_2"]
 script = ExtResource("2_beat")
 text = "Nooooooooooo...what about Marty?  I'm so ANGRY--I HAVE TO ESCAPE TO MARTY!"
+central_image = ExtResource("3_car")
+central_image_modulate = Color(1, 0.2, 0.2, 1)
+central_image_glow_points = PackedVector2Array(0.25, 0.66, 0.73, 0.66)
 
 [resource]
 script = ExtResource("1_tree")

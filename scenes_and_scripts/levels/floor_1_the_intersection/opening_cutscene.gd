@@ -5,20 +5,6 @@ const NAG_INTERVAL_SECONDS: float = 8.0
 const FALL_SECONDS: float = 0.75
 const TUTORIAL_LABEL_GROUP: StringName = &"opening_tutorial"
 const TUTORIAL_BOARD_DIR: String = "res://scenes_and_scripts/backgrounds/tutorial backgrounds/"
-const SKIP_FONT: FontFile = preload("res://label_settings_and_fonts/fonts/PressStart2P-Regular.ttf")
-const SKIP_HOLD_SECONDS: float = 1.0
-const SKIP_MARGIN: float = 24.0
-const SKIP_BAR_HEIGHT: float = 6.0
-const SKIP_FONT_SIZE: int = 12
-const SKIP_IDLE_ALPHA: float = 0.6
-const SKIP_COLOR: Color = Color(1, 0.9, 0.4)
-const SKIP_PULSE_AMPLITUDE: float = 0.03
-const SKIP_PULSE_SECONDS: float = 2.6
-const SKIP_WOBBLE_RADIANS: float = 0.03
-const SKIP_WOBBLE_SECONDS: float = 1.7
-const SKIP_FLASH_INTERVAL: float = 8.0
-const SKIP_FLASH_SECONDS: float = 0.35
-const SKIP_FLASH_GLOW_SIZE: int = 8
 
 ## The seal used in the opening scene.
 @export var seal: BaseSeal
@@ -28,18 +14,10 @@ const SKIP_FLASH_GLOW_SIZE: int = 8
 var active: bool = false
 var _break_position: Vector2
 var _skipped: bool = false
-var _animation_time: float = 0.0
-var _hold_seconds: float = 0.0
-var _prompt_held: bool = false
-var _skip_layer: CanvasLayer
-var _skip_box: VBoxContainer
-var _skip_bar: ColorRect
-var _skip_fill: ColorRect
-var _skip_label: Label
+var _skip_prompt: SkipPrompt
 
 
 func _ready() -> void:
-	set_process(false)
 	_register_tutorial_boards()
 
 
@@ -63,7 +41,6 @@ func run() -> void:
 	active = true
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_spawn_skip_prompt()
-	set_process(true)
 	_set_tutorial_visible(false)
 	_set_exits_locked(true)
 	var paddle: Paddle = get_tree().get_first_node_in_group("paddle") as Paddle
@@ -89,20 +66,6 @@ func run() -> void:
 	_reveal_practice_seal()
 	_remove_skip_prompt()
 	active = false
-
-
-func _process(delta: float) -> void:
-	_animation_time += delta
-	if _prompt_held and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		_prompt_held = false
-	if Input.is_physical_key_pressed(KEY_E) or _prompt_held: #hold to skip
-		_hold_seconds += delta
-	else:
-		_hold_seconds = 0.0
-	_update_skip_fill()
-	_animate_skip_prompt()
-	if _hold_seconds >= SKIP_HOLD_SECONDS:
-		_skip_to_end()
 
 
 func _skip_to_end() -> void:
@@ -190,80 +153,12 @@ func _set_tutorial_visible(shown: bool) -> void:
 
 
 func _spawn_skip_prompt() -> void:
-	_skip_layer = CanvasLayer.new()
-	_skip_layer.layer = 100
-	add_child(_skip_layer)
-	_skip_box = VBoxContainer.new()
-	_skip_box.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
-	_skip_box.grow_horizontal = Control.GROW_DIRECTION_BEGIN
-	_skip_box.grow_vertical = Control.GROW_DIRECTION_BEGIN
-	_skip_box.offset_right = -SKIP_MARGIN
-	_skip_box.offset_bottom = -SKIP_MARGIN
-	_skip_box.modulate.a = SKIP_IDLE_ALPHA
-	_skip_box.add_to_group(&"skip_prompt")
-	_skip_box.mouse_filter = Control.MOUSE_FILTER_STOP
-	_skip_box.gui_input.connect(_on_prompt_gui_input)
-	_skip_layer.add_child(_skip_box)
-	var label: Label = Label.new()
-	label.text = "HOLD TO SKIP [E]"
-	label.add_theme_font_override("font", SKIP_FONT)
-	label.add_theme_font_size_override("font_size", SKIP_FONT_SIZE)
-	label.add_theme_color_override("font_color", SKIP_COLOR)
-	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_skip_box.add_child(label)
-	_skip_label = label
-	_skip_bar = ColorRect.new()
-	_skip_bar.color = Color(SKIP_COLOR, 0.25)
-	_skip_bar.custom_minimum_size = Vector2(0, SKIP_BAR_HEIGHT)
-	_skip_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_skip_box.add_child(_skip_bar)
-	_skip_fill = ColorRect.new()
-	_skip_fill.color = SKIP_COLOR	
-	_skip_fill.size = Vector2(0, SKIP_BAR_HEIGHT)
-	_skip_fill.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_skip_bar.add_child(_skip_fill)
-
-
-func _on_prompt_gui_input(event: InputEvent) -> void:
-	var click: InputEventMouseButton = event as InputEventMouseButton
-	if click != null and click.button_index == MOUSE_BUTTON_LEFT:
-		_prompt_held = click.pressed
-
-
-func _update_skip_fill() -> void:
-	if not is_instance_valid(_skip_fill):
-		return
-	var progress: float = clampf(_hold_seconds / SKIP_HOLD_SECONDS, 0.0, 1.0)
-	_skip_fill.size = Vector2(_skip_bar.size.x * progress, SKIP_BAR_HEIGHT)
-	_skip_box.modulate.a = lerpf(SKIP_IDLE_ALPHA, 1.0, progress)
-
-
-func _animate_skip_prompt() -> void:
-	if not is_instance_valid(_skip_box):
-		return
-	_skip_box.pivot_offset = _skip_box.size / 2.0
-	var pulse: float = 1.0 + sin(TAU * _animation_time / SKIP_PULSE_SECONDS) * SKIP_PULSE_AMPLITUDE
-	_skip_box.scale = Vector2.ONE * pulse
-	_skip_box.rotation = sin(TAU * _animation_time / SKIP_WOBBLE_SECONDS) * SKIP_WOBBLE_RADIANS
-	_animate_skip_flash()
-
-
-func _animate_skip_flash() -> void:
-	if not is_instance_valid(_skip_label):
-		return
-	var time_into_flash: float = fmod(_animation_time, SKIP_FLASH_INTERVAL)
-	if time_into_flash >= SKIP_FLASH_SECONDS:
-		_skip_label.add_theme_color_override("font_color", SKIP_COLOR)
-		_skip_label.add_theme_constant_override("outline_size", 0)
-		return
-	var flash: float = sin(PI * time_into_flash / SKIP_FLASH_SECONDS)
-	_skip_label.add_theme_color_override("font_color", SKIP_COLOR.lerp(Color.WHITE, flash))
-	_skip_label.add_theme_color_override("font_outline_color", Color(1, 1, 1, flash))
-	_skip_label.add_theme_constant_override("outline_size", int(round(flash * SKIP_FLASH_GLOW_SIZE)))
+	_skip_prompt = SkipPrompt.new()
+	_skip_prompt.skip_committed.connect(_skip_to_end)
+	add_child(_skip_prompt)
 
 
 func _remove_skip_prompt() -> void:
-	set_process(false)
-	if is_instance_valid(_skip_layer):
-		_skip_layer.queue_free()
-	_skip_layer = null
+	if is_instance_valid(_skip_prompt):
+		_skip_prompt.queue_free()
+	_skip_prompt = null
