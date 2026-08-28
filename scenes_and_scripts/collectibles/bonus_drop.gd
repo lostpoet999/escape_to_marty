@@ -94,6 +94,7 @@ func collect() -> void:
 	Signalbus.gold_collected.emit(-1)
 	PlayerData.play_gold_pickup_sfx()
 	if payload:
+		PlayerData.update_player_score(PlayerData.SCORE_RARE_DROP_COLLECTED if payload.is_rare else PlayerData.SCORE_COIN_COLLECTED)
 		payload.apply()
 	visible = false
 	call_deferred("queue_free")

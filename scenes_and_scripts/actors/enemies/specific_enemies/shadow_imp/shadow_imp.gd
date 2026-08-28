@@ -549,7 +549,7 @@ func _kill_behavior_tweens() -> void:
 	_sprite.self_modulate = _resting_tint()
 	modulate = Color(1.0, 1.0, 1.0, modulate.a)
 
-func accept_damage(damage: float, dmg_type: Array[GameManager.PhaseType]) -> void:
+func accept_damage(damage: float, dmg_type: Array[GameManager.PhaseType], score_mult: float = 1.0) -> void:
 	if not dmg_type.has(GameManager.PhaseType.HEALTH):
 		if _dive_committed:
 			return
@@ -562,8 +562,10 @@ func accept_damage(damage: float, dmg_type: Array[GameManager.PhaseType]) -> voi
 	SFX.play_sound("enemy_hurt")
 	show_damage_number(damage)
 	_flash_hit()
+	PlayerData.update_player_score(minf(damage, maxf(health, 0.0)), score_mult)
 	health -= damage
 	if health <= 0.0:
+		PlayerData.score_enemy_kill(self, score_mult)
 		die()
 
 func die() -> void:

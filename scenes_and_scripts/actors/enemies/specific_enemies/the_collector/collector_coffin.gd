@@ -47,13 +47,13 @@ func responding_gestures(revert_window_seconds: float) -> Array[GameManager.Phas
 		return [] as Array[GameManager.PhaseType]
 	return super(revert_window_seconds)
 
-func accept_damage(damage: float, damage_types: Array) -> void:
+func accept_damage(damage: float, damage_types: Array, score_mult: float = 1.0, via_click: bool = false) -> void:
 	if damage_types.has(GameManager.PhaseType.HEALTH):
 		var now: int = Time.get_ticks_msec()
 		if now - _last_health_hit_ms < int(health_hit_cooldown * 1000.0):
 			return
 		_last_health_hit_ms = now
-	super(damage, damage_types)
+	super(damage, damage_types, score_mult, via_click)
 
 func _process(delta: float) -> void:
 	if current_stage == GameManager.PhaseType.DEPRESSION and not _regen_allowed():
@@ -82,12 +82,14 @@ func _set_sway(value: float) -> void:
 	for sprite: Sprite2D in _juice_sprites:
 		sprite.rotation_degrees = art_rotation_degrees + value
 
-func _damage_current_stage(damage: float) -> void:
+func _damage_current_stage(damage: float, score_mult: float = 1.0, via_click: bool = false) -> void:
 	if current_stage == GameManager.PhaseType.HEALTH and health_temp - damage <= 0.0:
 		dying = true
 		if _sway_tween != null:
 			_sway_tween.kill()
-		_grant_score(GameManager.PhaseType.HEALTH)
+		_score_stage_damage(damage, score_mult)
+		_grant_phase_score(score_mult, via_click)
+		PlayerData.update_player_score(PlayerData.SCORE_SEAL_DESTROYED, score_mult)
 		var fx: Node2D = brick_destroy_fx.instantiate()
 		if fx != null:
 			fx.position = global_position
@@ -96,12 +98,12 @@ func _damage_current_stage(damage: float) -> void:
 		cleared.emit(self)
 		queue_free()
 		return
-	super(damage)
+	super(damage, score_mult, via_click)
 
 func _settle_deal(cost: int, allow_damage: bool = true) -> void:
 	if current_stage == GameManager.PhaseType.BARGAINING and _deals_settled + 1 < bargain_deals_required:
 		PlayerData.pay_bargain_cost(cost, allow_damage)
-		_grant_score(GameManager.PhaseType.BARGAINING)
+		_grant_phase_score(1.0, true)
 		var fx: Node2D = brick_damage_fx.instantiate()
 		if fx != null:
 			fx.position = global_position

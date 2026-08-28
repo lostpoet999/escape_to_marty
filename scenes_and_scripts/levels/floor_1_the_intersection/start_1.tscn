@@ -9,33 +9,39 @@
 [ext_resource type="Script" uid="uid://practseal0gd" path="res://scenes_and_scripts/bricks/practice_seal.gd" id="5_prac"]
 [ext_resource type="Texture2D" uid="uid://csscrsq5heoab" path="res://scenes_and_scripts/backgrounds/tutorial backgrounds/floor1_tutorial.png" id="5_u0k1h"]
 [ext_resource type="Texture2D" uid="uid://eyy14qdoiogp" path="res://scenes_and_scripts/backgrounds/tutorial backgrounds/denial_board.png" id="6_l13rn"]
+[ext_resource type="Script" uid="uid://floatyboard1" path="res://scenes_and_scripts/backgrounds/floaty_sprite.gd" id="7_float"]
 
 [node name="common_room" unique_id=565861230 instance=ExtResource("1_cckqh")]
 
 [node name="basic_tutorial1" type="Sprite2D" parent="." index="0" unique_id=19294649]
-position = Vector2(648, 272)
+position = Vector2(624, 272)
 scale = Vector2(2, 2)
 texture = ExtResource("2_wely4")
+script = ExtResource("7_float")
 
 [node name="basic_tutorial2" type="Sprite2D" parent="." index="1" unique_id=1647578284]
-position = Vector2(1064.0001, 272)
+position = Vector2(1088, 272)
 scale = Vector2(2, 2)
 texture = ExtResource("3_l13rn")
+script = ExtResource("7_float")
 
 [node name="basic_tutorial3" type="Sprite2D" parent="." index="2" unique_id=1257580004]
-position = Vector2(1480.0001, 272)
+position = Vector2(1552, 272)
 scale = Vector2(2, 2)
 texture = ExtResource("4_6ma3u")
+script = ExtResource("7_float")
 
 [node name="floor1_tutorial" type="Sprite2D" parent="." index="3" unique_id=1298149627]
-position = Vector2(1053, 738)
+position = Vector2(1088, 736)
 scale = Vector2(2, 2)
 texture = ExtResource("5_u0k1h")
+script = ExtResource("7_float")
 
 [node name="floor1_tutorial2" type="Sprite2D" parent="." index="4" unique_id=764906015]
-position = Vector2(1053, 537)
+position = Vector2(1088, 528)
 scale = Vector2(2, 2)
 texture = ExtResource("6_l13rn")
+script = ExtResource("7_float")
 
 [node name="SubViewportContainer" parent="." index="5" unique_id=1513724378]
 metadata/_edit_lock_ = true
@@ -44,11 +50,12 @@ metadata/_edit_lock_ = true
 position = Vector2(820, 540)
 initialize_brick_on_leveldata = false
 
-[node name="PracticeSeal" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="4" unique_id=2077716489 instance=ExtResource("3_oufug")]
-position = Vector2(679, 736)
+[node name="PracticeSeal" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="4" unique_id=2077716489 node_paths=PackedStringArray("bob_follow") instance=ExtResource("3_oufug")]
+position = Vector2(711, 736)
 script = ExtResource("5_prac")
 respawn_delay = 1.5
 starts_hidden = true
+bob_follow = NodePath("../../floor1_tutorial")
 initialize_brick_on_leveldata = false
 
 [node name="FlashOverlay" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="5" unique_id=443116914]
@@ -58,3 +65,6 @@ metadata/_edit_lock_ = true
 script = ExtResource("4_opcut")
 seal = NodePath("../PlayArea/OpenSeal2")
 practice_seal = NodePath("../PlayArea/PracticeSeal")
+
+[node name="Paddle" parent="." index="13" unique_id=146319671]
+visible = false

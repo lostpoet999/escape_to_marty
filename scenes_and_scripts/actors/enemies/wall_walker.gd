@@ -82,14 +82,16 @@ func _play_emerge() -> void:
 		.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 	emerge_tween.tween_callback(start_action_timer)
 
-func accept_damage(damage: float, dmg_type: Array[GameManager.PhaseType]) -> void:
+func accept_damage(damage: float, dmg_type: Array[GameManager.PhaseType], score_mult: float = 1.0) -> void:
 	if not dmg_type.has(GameManager.PhaseType.HEALTH):
 		return
 	SFX.play_sound("enemy_hurt")
 	show_damage_number(damage)
 	_flash_hit()
+	PlayerData.update_player_score(minf(damage, maxf(health, 0.0)), score_mult)
 	health -= damage
 	if health <= 0.0:
+		PlayerData.score_enemy_kill(self, score_mult)
 		die()
 
 func _flash_hit() -> void:

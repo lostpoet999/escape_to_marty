@@ -4,7 +4,6 @@ extends FallingEnemy
 @export var can_damage: bool = true
 @export var damage: int = 1
 @export var stun_time: float = 1.0
-@export var stun_score: int = 5000
 
 func _ready() -> void:
 	super()
@@ -45,11 +44,10 @@ func on_hit_enemy(enemy: Node) -> void:
 		enemy.stun_for_time(stun_time)
 	if enemy.has_method("take_damage_fx"):
 		enemy.take_damage_fx()
-	PlayerData.update_player_score(stun_score)
 	SFX.play_sound("cage_hit")
 	on_fall_landed()
 
-func accept_damage(_damage: float, _dmg_types: Array[GameManager.PhaseType]) -> void:
+func accept_damage(_damage: float, _dmg_types: Array[GameManager.PhaseType], _score_mult: float = 1.0) -> void:
 	on_hit_ball(null)
 
 func on_hit_ball(_ball: Node) -> void:

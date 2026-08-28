@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://cu5wkiik4w8sk" path="res://scenes_and_scripts/backgrounds/tutorial backgrounds/floor4_tutorial.png" id="5_7ntkv"]
 [ext_resource type="Texture2D" uid="uid://b3bqp017akk24" path="res://scenes_and_scripts/backgrounds/tutorial backgrounds/basic_tutorial_four.png" id="5_58pip"]
 [ext_resource type="Texture2D" uid="uid://betbvp7ly5o36" path="res://scenes_and_scripts/backgrounds/tutorial backgrounds/depression_board.png" id="6_xxd65"]
+[ext_resource type="Script" uid="uid://floatyboard1" path="res://scenes_and_scripts/backgrounds/floaty_sprite.gd" id="7_float"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_f4st"]
 font = ExtResource("2_fnt4")
@@ -21,19 +22,22 @@ font_color = Color(0, 0.59170103, 0.5938744, 1)
 [node name="start_4" unique_id=666041159 instance=ExtResource("1_rb4s")]
 
 [node name="basic_tutorial1" type="Sprite2D" parent="." index="0" unique_id=791027249]
-position = Vector2(648, 272)
+position = Vector2(624, 272)
 scale = Vector2(2, 2)
 texture = ExtResource("2_f8iyh")
+script = ExtResource("7_float")
 
 [node name="basic_tutorial2" type="Sprite2D" parent="." index="1" unique_id=1514070475]
-position = Vector2(1064, 272)
+position = Vector2(1088, 272)
 scale = Vector2(2, 2)
 texture = ExtResource("3_xxd65")
+script = ExtResource("7_float")
 
 [node name="basic_tutorial3" type="Sprite2D" parent="." index="2" unique_id=1225585128]
-position = Vector2(1480, 272)
+position = Vector2(1552, 272)
 scale = Vector2(2, 2)
 texture = ExtResource("4_58pip")
+script = ExtResource("7_float")
 
 [node name="basic_tutorial4" type="Sprite2D" parent="." index="3" unique_id=305321184]
 visible = false
@@ -42,14 +46,16 @@ scale = Vector2(2, 2)
 texture = ExtResource("5_58pip")
 
 [node name="floor4_tutorial" type="Sprite2D" parent="." index="4" unique_id=982083642]
-position = Vector2(1057, 741)
-scale = Vector2(2.0799954, 2)
+position = Vector2(1088, 736)
+scale = Vector2(2, 2)
 texture = ExtResource("5_7ntkv")
+script = ExtResource("7_float")
 
 [node name="floor4_tutorial2" type="Sprite2D" parent="." index="5" unique_id=1057605646]
-position = Vector2(1057, 545)
-scale = Vector2(2.0799954, 2)
+position = Vector2(1088, 528)
+scale = Vector2(2, 2)
 texture = ExtResource("6_xxd65")
+script = ExtResource("7_float")
 
 [node name="Label" type="Label" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="5" unique_id=1996817653]
 visible = false
@@ -70,11 +76,12 @@ text = "1. Click the green barrier to move to the first room.
 label_settings = SubResource("LabelSettings_f4st")
 autowrap_mode = 3
 
-[node name="OpenSeal2" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="6" unique_id=1705613230 instance=ExtResource("3_seal4")]
-position = Vector2(679, 736)
+[node name="OpenSeal2" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="6" unique_id=1705613230 node_paths=PackedStringArray("bob_follow") instance=ExtResource("3_seal4")]
+position = Vector2(711, 736)
 script = ExtResource("4_prac")
 respawn_delay = 1.5
 starts_hidden = false
+bob_follow = NodePath("../../floor4_tutorial")
 initialize_brick_on_leveldata = false
 stages = Dictionary[int, float]({
 3: 5.0

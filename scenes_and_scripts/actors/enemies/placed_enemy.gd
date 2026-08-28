@@ -39,14 +39,17 @@ func _register_blocker() -> void:
 	if not is_queued_for_deletion():
 		Signalbus.blocker_added.emit(self)
 
-func accept_damage(_damage: float, _dmg_type: Array[GameManager.PhaseType])->void:
+func accept_damage(_damage: float, _dmg_type: Array[GameManager.PhaseType], score_mult: float = 1.0)->void:
 	SFX.play_sound("enemy_hurt")
 	show_damage_number(1)
+	PlayerData.update_player_score(1.0, score_mult)
 	denial_health -= 1
 	if denial_health == 0:
 		self.modulate = Color.WHITE
 		self.modulate.a = 1.0
-	elif denial_health <= -1: die()
+	elif denial_health <= -1:
+		PlayerData.score_enemy_kill(self, score_mult)
+		die()
 
 func show_damage_number(amount: float) -> void:
 	var dn: DamageNumber = DAMAGE_NUMBER.instantiate()

@@ -36,7 +36,7 @@ func fill_spawn_points()->void:
 	for spawnpoint: Node2D in cage_spawn_points.get_children():
 		darkcage_spawnpoints.append(spawnpoint)
 
-func accept_damage(damage: float, _dmg_type: Array[GameManager.PhaseType])->void:
+func accept_damage(damage: float, _dmg_type: Array[GameManager.PhaseType], score_mult: float = 1.0)->void:
 	match stage:
 		1: return
 		2:
@@ -44,6 +44,7 @@ func accept_damage(damage: float, _dmg_type: Array[GameManager.PhaseType])->void
 				SFX.play_sound("enemy_hurt")
 				show_damage_number(1)
 				take_damage_fx()
+				PlayerData.update_player_score(1.0, score_mult)
 				denial_health -= 1
 				if denial_health == 0:
 					self.modulate = Color.WHITE
@@ -53,6 +54,7 @@ func accept_damage(damage: float, _dmg_type: Array[GameManager.PhaseType])->void
 		3:
 			if _dmg_type.has(GameManager.PhaseType.HEALTH) and not dying:
 				SFX.play_sound("enemy_hurt")
+				PlayerData.update_player_score(minf(damage, maxf(core_health, 0.0)), score_mult)
 				core_health -= damage
 				show_damage_number(damage)
 				take_damage_fx()

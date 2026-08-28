@@ -169,7 +169,7 @@ func _start_twist() -> void:
 	_twist_tween.tween_property(sprite, "rotation", target, twist_time * 0.5)
 	_twist_tween.tween_property(sprite, "rotation", _rest_sprite_rotation, twist_time * 0.5)
 
-func accept_damage(damage: float, dmg_type: Array[GameManager.PhaseType]) -> void:
+func accept_damage(damage: float, dmg_type: Array[GameManager.PhaseType], score_mult: float = 1.0) -> void:
 	if _dead or _emerging:
 		return
 	if not dmg_type.has(GameManager.PhaseType.HEALTH):
@@ -182,8 +182,10 @@ func accept_damage(damage: float, dmg_type: Array[GameManager.PhaseType]) -> voi
 	SFX.play_sound("enemy_hurt")
 	_show_damage_number(damage)
 	_flash_hit()
+	PlayerData.update_player_score(minf(damage, maxf(health, 0.0)), score_mult)
 	health -= damage
 	if health <= 0.0:
+		PlayerData.score_enemy_kill(self, score_mult)
 		_die_hand()
 
 func responding_gestures() -> Array[GameManager.PhaseType]:

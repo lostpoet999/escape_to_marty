@@ -155,6 +155,7 @@ func _ready() -> void:
 	visible = false
 	entry = GameManager.get_current_floor_entry(GameManager.current_room_id)
 	room_state = PlayerData.get_room_state(entry)
+	PlayerData.begin_room_score_tracking()
 	_init_practice_gate()
 	DialogDirector.reset_clear_queue()
 	if room_state.cleared:
@@ -442,6 +443,7 @@ func _play_trophy_taken_dialog() -> void:
 func _on_bonus_item_taken(item: BaseItem) -> void:
 	var trophy_floor: int = item.trophy_floor if item.trophy_floor > 0 else GameManager.current_floor
 	SaveProgression.set_memory_trophy(trophy_floor, item.resource_path)
+	PlayerData.update_player_score(PlayerData.SCORE_TROPHY_FOUND)
 
 func _spawn_free_item_panel() -> void:
 	if !room_state.loot_items_data:
@@ -558,6 +560,8 @@ func check_level_cleared() -> void: #let gamemanager know level is cleared
 		if _room_had_bricks and entry.content.room_type == RoomContent.ROOM_TYPES.combat:
 			_play_clear_pop()
 		room_state.clear_count +=1
+		if room_state.clear_count == 1 and entry.content.room_type == RoomContent.ROOM_TYPES.combat:
+			PlayerData.score_room_clear()
 		if entry.content.max_clears == -1: return
 		if room_state.clear_count >= max_clear: room_state.cleared = true
 
@@ -700,7 +704,7 @@ func _fire_mercy_clear() -> void:
 	DialogDirector.play(&"last_seal_mercy")
 	flash_play_area(MERCY_FLASH_COLOR)
 	_mercy_pop_pending = true
-	seal.force_clear()
+	seal.force_clear(0.0)
 
 func _get_live_seals() -> Array[BaseSeal]:
 	var live: Array[BaseSeal] = []

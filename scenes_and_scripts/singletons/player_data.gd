@@ -1,5 +1,24 @@
 extends Node
 
+const SCORE_PHASE_COMPLETE: float = 5.0
+const SCORE_PHASE_CLICK_BONUS: float = 5.0
+const SCORE_SEAL_DESTROYED: float = 10.0
+const SCORE_ENEMY_KILL: float = 15.0
+const SCORE_ENEMY_KILL_ROOM_CAP: int = 5
+const SCORE_COIN_COLLECTED: float = 10.0
+const SCORE_RARE_DROP_COLLECTED: float = 100.0
+const SCORE_SECRET_FOUND: float = 50.0
+const SCORE_TROPHY_FOUND: float = 100.0
+const SCORE_MEMORY_FOUND: float = 100.0
+const SCORE_LAST_SEAL_CLEARED: float = 300.0
+const SCORE_ROOM_CLEAR: float = 500.0
+const SCORE_FLOOR_CLEAR: float = 1000.0
+const SCORE_BOSS_PER_FLOOR: float = 250.0
+const ROOM_CLEAR_NO_RETRY_MULT: float = 1.25
+const ROOM_CLEAR_NO_DAMAGE_MULT: float = 1.5
+const FLOOR_CLEAR_NO_RETRY_MULT: float = 1.5
+const FLOOR_CLEAR_NO_DAMAGE_MULT: float = 2.0
+
 const MAX_REFLECT_REDUCTION: float = 0.5
 const REFLECT_MISS_CAP_RATIO: float = 0.85
 const BASE_MAX_HEALTH: int = 10
@@ -10,6 +29,12 @@ const SHIELD_LOST_SOUND: String = "shield_lost"
 
 var score: int = 0
 var gold_collected: int = 0
+var _score_difficulty_mult: float = 1.0
+var _floor_retried: bool = false
+var _floor_damage_taken: bool = false
+var _room_damage_taken: bool = false
+var _room_boss_scored: bool = false
+var _room_kill_counts: Dictionary[String, int] = {}
 var player_current_health: int = BASE_MAX_HEALTH
 var player_max_health: int = BASE_MAX_HEALTH
 var free_miss_shields: int = 0
@@ -44,6 +69,7 @@ func _ready() -> void:
 	Signalbus.inventory_changed.connect(recompute_max_health)
 	Signalbus.floor_cleared.connect(_on_floor_cleared)
 	Signalbus.reflect_shield_changed.connect(_on_reflect_shield_changed)
+	Signalbus.boss_defeated.connect(_on_boss_defeated)
 
 func _on_reflect_shield_changed(count: int) -> void:
 	if count > _last_shield_count:
@@ -60,9 +86,37 @@ func recompute_max_health() -> void:
 	Signalbus.player_health_updated.emit()
 	Signalbus.reflect_shield_changed.emit(get_player_shields())
 
-func update_player_score(amount: int) -> void:
-	score += amount
+func update_player_score(amount: float, multiplier: float = 1.0) -> void:
+	score += roundi(amount * multiplier * _score_difficulty_mult)
 	Signalbus.score_updated.emit()
+
+func begin_room_score_tracking() -> void:
+	_room_damage_taken = false
+	_room_boss_scored = false
+	_room_kill_counts.clear()
+
+func score_enemy_kill(enemy: Node, multiplier: float = 1.0) -> void:
+	if not (enemy is FallingEnemy):
+		var kind: String = (enemy.get_script() as Script).resource_path
+		var count: int = _room_kill_counts.get(kind, 0)
+		if count >= SCORE_ENEMY_KILL_ROOM_CAP:
+			return
+		_room_kill_counts[kind] = count + 1
+	update_player_score(SCORE_ENEMY_KILL, multiplier)
+
+func score_room_clear() -> void:
+	update_player_score(SCORE_ROOM_CLEAR, _clear_mult(_room_damage_taken, ROOM_CLEAR_NO_RETRY_MULT, ROOM_CLEAR_NO_DAMAGE_MULT))
+
+func _clear_mult(damage_taken: bool, no_retry_mult: float, no_damage_mult: float) -> float:
+	if _floor_retried:
+		return 1.0
+	return no_retry_mult if damage_taken else no_damage_mult
+
+func _on_boss_defeated() -> void:
+	if _room_boss_scored:
+		return
+	_room_boss_scored = true
+	update_player_score(SCORE_BOSS_PER_FLOOR * GameManager.current_floor)
 
 func get_player_score() -> int:
 	return score
@@ -76,6 +130,10 @@ func get_room_state(entry: RoomEntry)->RoomState:
 func initialize_player_data() -> void:
 	score = 0
 	gold_collected = 0
+	_score_difficulty_mult = SettingsManager.score_difficulty_mult()
+	_floor_retried = false
+	_floor_damage_taken = false
+	begin_room_score_tracking()
 	player_current_health = BASE_MAX_HEALTH
 	player_max_health = BASE_MAX_HEALTH
 	free_miss_shields = 0
@@ -168,6 +226,8 @@ func accept_damage(damage: int) -> void:
 		return
 	change_player_health(-damage)
 	if damage > 0:
+		_room_damage_taken = true
+		_floor_damage_taken = true
 		Signalbus.player_damaged.emit(damage)
 	if player_current_health <= 0:
 		Signalbus.player_died.emit()
@@ -193,6 +253,9 @@ func grant_free_miss_shield(count: int = 1) -> void:
 	Signalbus.reflect_shield_changed.emit(get_player_shields())
 
 func _on_floor_cleared() -> void:
+	update_player_score(SCORE_FLOOR_CLEAR, _clear_mult(_floor_damage_taken, FLOOR_CLEAR_NO_RETRY_MULT, FLOOR_CLEAR_NO_DAMAGE_MULT))
+	_floor_damage_taken = false
+	_floor_retried = false
 	commit_pending_memories()
 	if item_shields_spent == 0:
 		return
@@ -212,6 +275,8 @@ func commit_pending_memories() -> void:
 	pending_memories.clear()
 
 func refresh_for_retry() -> void:
+	_floor_retried = true
+	_floor_damage_taken = false
 	pending_memories.clear()
 	item_shields_spent = 0
 	heal_to_full()
@@ -232,6 +297,9 @@ func build_checkpoint() -> Dictionary:
 		alcove_picks[str(floor_index)] = [host.x, host.y, cell.x, cell.y]
 	return {
 		"score": score,
+		"score_mult": _score_difficulty_mult,
+		"floor_retried": _floor_retried,
+		"floor_damage_taken": _floor_damage_taken,
 		"gold": gold_collected,
 		"health": player_current_health,
 		"free_miss_shields": free_miss_shields,
@@ -260,6 +328,9 @@ func _item_paths(source: Array[BaseItem]) -> Array:
 
 func restore_checkpoint(data: Dictionary) -> void:
 	score = _saved_int(data, "score", 0)
+	_score_difficulty_mult = _saved_float(data, "score_mult", 1.0)
+	_floor_retried = bool(data.get("floor_retried", false))
+	_floor_damage_taken = bool(data.get("floor_damage_taken", false))
 	gold_collected = _saved_int(data, "gold", 0)
 	free_miss_shields = _saved_int(data, "free_miss_shields", 0)
 	item_shields_spent = _saved_int(data, "item_shields_spent", 0)
@@ -319,6 +390,13 @@ func _saved_int(source: Dictionary, key: String, fallback: int) -> int:
 	if value is String:
 		var text: String = value
 		return text.to_int()
+	return fallback
+
+func _saved_float(source: Dictionary, key: String, fallback: float) -> float:
+	var value: Variant = source.get(key, fallback)
+	if value is int or value is float:
+		var number: float = value
+		return number
 	return fallback
 
 func grant_pick2_voucher(count: int = 1) -> void:

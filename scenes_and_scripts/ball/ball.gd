@@ -21,12 +21,15 @@ const MEDITATION_BLINK_PERIOD: float = 0.2
 
 const BLEND_IN_ALPHA: float = 0.4
 
+const CHAIN_MULT_MAX: float = 10.0
+
 @export var initial_speed: float = 500.0
 ## Speed multiplier applied when the paddle soft-catches the ball; the result is floored at launch speed.
 @export var soft_catch_factor: float = 0.85
 var current_speed: float = 500.0
 var max_speed: float = 1050.0
 @export var ball_dmg: float = DEFAULT_BALL_DMG
+var chain_mult: float = 1.0
 var behaviors: Array[HitBehavior]
 
 var flipped_x: bool = false
@@ -37,10 +40,6 @@ var flipped_y: bool = false
 @export var barrier_bounce_particles: PackedScene
 @export var paddle_bounce_particles: PackedScene
 @export var enemy_bounce_particles: PackedScene
-
-@export var brick_hit_score_value:int = 50
-@export var wall_hit_score_value:int = 1
-@export var paddle_hit_score_value:int = 1
 
 @export var seal_hit_trauma: float = 0.2
 @export var barrier_hit_trauma: float = 0.26
@@ -211,6 +210,7 @@ func _update_ball_light() -> void:
 func position_ball_on_paddle() -> void:
 	_end_meditation()
 	_end_blend_in()
+	reset_chain()
 	var offset: float = ball_half_height + get_paddle_half_height() + 1
 	position = paddle.global_position + Vector2(0, -offset)
 	on_paddle = true
@@ -688,14 +688,12 @@ func spawn_collision_feedback(collider: Node2D) -> void:
 	if collider.is_in_group("bricks"):
 		fx = brick_bounce_particles.instantiate()
 		SFX.play_sound("hit-brick")
-		PlayerData.update_player_score(brick_hit_score_value)
 		if collider.has_method("hit_knockback"):
 			collider.call("hit_knockback", velocity.normalized())
 		_add_hit_trauma(seal_hit_trauma)
 	if collider.is_in_group("walls"):
 		fx = wall_bounce_particles.instantiate()
 		SFX.play_sound("bounce_1")
-		PlayerData.update_player_score(wall_hit_score_value)
 		Signalbus.wall_hit.emit(self, collider, ball_dmg, ball_dmg_type)
 		TileShake.shake(collider, 0.0, TileShake.DIRECT_HIT_SCALE)
 	if collider.is_in_group("barrier"):
@@ -707,20 +705,29 @@ func spawn_collision_feedback(collider: Node2D) -> void:
 	if collider.is_in_group(GhostPaddle.GHOST_PADDLE_GROUP):
 		fx = paddle_bounce_particles.instantiate()
 		SFX.play_sound("hit-paddle")
-		PlayerData.update_player_score(paddle_hit_score_value)
+		reset_chain()
 		paddle.bounce_dip()
 	if collider.is_in_group("paddle"):
 		var hit_paddle: Paddle = collider as Paddle
 		_soft_catch_pending = hit_paddle.try_soft_catch()
 		fx = paddle_bounce_particles.instantiate()
 		SFX.play_sound("win_sting" if _soft_catch_pending else "hit-paddle")
-		PlayerData.update_player_score(paddle_hit_score_value)
+		reset_chain()
 		if _soft_catch_pending:
 			hit_paddle.soft_catch_flash()
 		hit_paddle.bounce_dip(SOFT_CATCH_DIP_SCALE if _soft_catch_pending else 1.0)
 	if fx != null:
 		fx.position = global_position
 		get_tree().current_scene.add_child(fx)
+
+func reset_chain() -> void:
+	chain_mult = 1.0
+
+func _update_chain(damaged: bool) -> void:
+	if damaged:
+		chain_mult = minf(chain_mult + 1.0, CHAIN_MULT_MAX)
+	else:
+		chain_mult = 1.0
 
 func _add_hit_trauma(amount: float) -> void:
 	if amount <= 0.0:
@@ -838,10 +845,17 @@ func _make_hit_context() -> HitContext:
 # per-target application; group decides the reaction
 func apply_damage_to(target: Node2D, amount: float, dmg_types: Array) -> void:
 	if target.is_in_group("bricks") or target.is_in_group("bounce_enemy"):
-		target.call("accept_damage", amount, dmg_types)
 		if target is BaseSeal:
+			var seal: BaseSeal = target
+			var pre_stage: GameManager.PhaseType = seal.current_stage
+			var damaged: bool = dmg_types.has(pre_stage) or _type_scales.has(pre_stage)
+			seal.accept_damage(amount, dmg_types, chain_mult)
 			for phase: GameManager.PhaseType in _type_scales:
-				target.call("accept_damage", amount * _type_scales[phase], [phase])
+				seal.accept_damage(amount * _type_scales[phase], [phase], chain_mult)
+			_update_chain(damaged)
+		else:
+			target.call("accept_damage", amount, dmg_types, chain_mult)
+			_update_chain(true)
 	elif target.is_in_group("DeathWalls"):
 		if is_tweening_to_david:
 			return

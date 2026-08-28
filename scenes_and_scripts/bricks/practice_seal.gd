@@ -9,11 +9,15 @@ const CLICK_PULSE_TIME: float = 0.5
 @export var respawn_delay: float = 1.5
 ## Starts invisible, uncollidable, and OUT of the practice_seal group until reveal() is called — for rooms where a cutscene owns the early clicks.
 @export var starts_hidden: bool = false
+## Tutorial board this seal sits on; the seal copies its float so the two stay aligned. Empty = no bob.
+@export var bob_follow: Sprite2D
 
 var _practice_stages: Dictionary[GameManager.PhaseType, float]
 var _practice_armed: bool = false
 var _poof_tween: Tween
 var _click_pulse_tween: Tween
+var _bob_base_y: float
+var _follow_base_y: float
 
 @onready var _practice_collision: CollisionShape2D = $CollisionShape2D
 
@@ -23,6 +27,9 @@ func _ready() -> void:
 	super()
 	_practice_stages = stages.duplicate()
 	_practice_armed = true
+	_bob_base_y = position.y
+	if bob_follow != null:
+		_follow_base_y = bob_follow.position.y
 	if starts_hidden:
 		hide()
 		_practice_collision.set_deferred("disabled", true)
@@ -36,6 +43,11 @@ func reveal() -> void:
 	show()
 	_practice_collision.set_deferred("disabled", false)
 	_start_click_pulse()
+
+func _process(delta: float) -> void:
+	super(delta)
+	if bob_follow != null:
+		position.y = _bob_base_y + bob_follow.position.y - _follow_base_y
 
 func _start_click_pulse() -> void:
 	_stop_click_pulse()
@@ -55,11 +67,11 @@ func pick_random_stage() -> void:
 	if _practice_armed and stages.is_empty():
 		_begin_practice_linger()
 
-func accept_damage(damage: float, damage_types: Array) -> void:
+func accept_damage(damage: float, damage_types: Array, _score_mult: float = 1.0, via_click: bool = false) -> void:
 	if _poof_pending() and damage_types.has(GameManager.PhaseType.HEALTH):
-		super(damage, [])
+		super(damage, [], 0.0, via_click)
 		return
-	super(damage, damage_types)
+	super(damage, damage_types, 0.0, via_click)
 
 func restore_denial(full_health: float) -> void:
 	_kill_poof_tween()
@@ -87,7 +99,7 @@ func _kill_poof_tween() -> void:
 		_poof_tween.kill()
 	_poof_tween = null
 
-func _grant_score(_stage: GameManager.PhaseType) -> void:
+func _grant_phase_score(_score_mult: float, _via_click: bool) -> void:
 	pass
 
 func _settle_deal(cost: int, _allow_damage: bool = true) -> void:

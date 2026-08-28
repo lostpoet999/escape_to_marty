@@ -19,6 +19,7 @@ const EXPIRE_BLINK_PERIOD: float = 0.15
 var current_speed: float = 500.0
 var max_speed: float = 1050.0
 @export var ball_dmg: float = DEFAULT_MINIBALL_DMG
+var chain_mult: float = 1.0
 var behaviors: Array[HitBehavior]
 
 var spawn_velocity: Vector2 = Vector2.ZERO
@@ -35,10 +36,6 @@ var flipped_y: bool = false
 @export var wall_bounce_particles: PackedScene
 @export var barrier_bounce_particles: PackedScene
 @export var paddle_bounce_particles: PackedScene
-
-@export var brick_hit_score_value:int = 50
-@export var wall_hit_score_value:int = 1
-@export var paddle_hit_score_value:int = 1
 
 @export var bounce_effect: BaseBounceEffectMini
 
@@ -446,13 +443,11 @@ func spawn_collision_feedback(collider: Node2D) -> void:
 	if collider.is_in_group("bricks"):
 		fx = brick_bounce_particles.instantiate()
 		SFX.play_sound("hit-brick")
-		PlayerData.update_player_score(brick_hit_score_value)
 		if collider.has_method("hit_knockback"):
 			collider.call("hit_knockback", velocity.normalized())
 	if collider.is_in_group("walls"):
 		fx = wall_bounce_particles.instantiate()
 		SFX.play_sound("bounce_1")
-		PlayerData.update_player_score(wall_hit_score_value)
 		Signalbus.wall_hit.emit(self, collider, ball_dmg, ball_dmg_type)
 		TileShake.shake(collider, 0.0, TileShake.DIRECT_HIT_SCALE)
 	if collider.is_in_group("barrier"):
@@ -461,14 +456,14 @@ func spawn_collision_feedback(collider: Node2D) -> void:
 	if collider.is_in_group(GhostPaddle.GHOST_PADDLE_GROUP):
 		fx = paddle_bounce_particles.instantiate()
 		SFX.play_sound("hit-paddle")
-		PlayerData.update_player_score(paddle_hit_score_value)
+		chain_mult = 1.0
 		paddle.bounce_dip()
 	if collider.is_in_group("paddle"):
 		var hit_paddle: Paddle = collider as Paddle
 		_soft_catch_pending = hit_paddle.try_soft_catch()
 		fx = paddle_bounce_particles.instantiate()
 		SFX.play_sound("win_sting" if _soft_catch_pending else "hit-paddle")
-		PlayerData.update_player_score(paddle_hit_score_value)
+		chain_mult = 1.0
 		if _soft_catch_pending:
 			hit_paddle.soft_catch_flash()
 		hit_paddle.bounce_dip(SOFT_CATCH_DIP_SCALE if _soft_catch_pending else 1.0)
@@ -553,5 +548,12 @@ func _make_hit_context() -> HitContext:
 # per-target application; group decides the reaction
 func apply_damage_to(target: Node2D, amount: float, dmg_types: Array) -> void:
 	if target.is_in_group("bricks") or target.is_in_group("bounce_enemy"):
-		target.call("accept_damage", amount, dmg_types)
+		var damaged: bool = true
+		if target is BaseSeal:
+			damaged = dmg_types.has((target as BaseSeal).current_stage)
+		target.call("accept_damage", amount, dmg_types, chain_mult)
+		if damaged:
+			chain_mult = minf(chain_mult + 1.0, Ball.CHAIN_MULT_MAX)
+		else:
+			chain_mult = 1.0
 

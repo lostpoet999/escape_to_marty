@@ -94,6 +94,7 @@ func close_memory() -> void:
 	collect_flame()
 	memory_room_state().cleared = true
 	PlayerData.collect_memory(_memory_id())
+	PlayerData.update_player_score(PlayerData.SCORE_MEMORY_FOUND)
 	Signalbus.level_cleared.emit()
 
 func collect_flame() -> void:

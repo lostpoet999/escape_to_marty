@@ -25,6 +25,12 @@ func difficulty_mult() -> float:
 func ball_speed_mult() -> float:
 	return difficulty_mult() * ball_speed_scale
 
+func score_difficulty_mult() -> float:
+	match difficulty:
+		0: return 0.5 if game_speed < 1.0 else 0.75
+		2: return 2.0 if ball_speed_scale > 1.0 else 1.5
+		_: return 1.0
+
 func reflect_base_reduction() -> float:
 	match difficulty:
 		0: return 0.4

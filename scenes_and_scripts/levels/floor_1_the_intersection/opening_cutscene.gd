@@ -142,7 +142,7 @@ func _on_seal_input(_viewport: Node, event: InputEvent, _shape_idx: int) -> void
 		return
 	SFX.play_sound("hit-brick")
 	var click_types: Array[GameManager.PhaseType] = [GameManager.PhaseType.DENIAL]
-	seal.accept_damage(PlayerInventory.get_instance().get_gesture_damage(), click_types)
+	seal.accept_damage(PlayerInventory.get_instance().get_gesture_damage(), click_types, 0.0)
 
 
 func _shell_break() -> void:

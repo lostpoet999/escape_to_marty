@@ -191,6 +191,7 @@ func reveal_secret()-> void:
 	var dir: StringName = _direction_key()
 	if dir not in state.revealed_exits:
 		state.revealed_exits.append(dir)
+		PlayerData.update_player_score(PlayerData.SCORE_SECRET_FOUND)
 	if SFX.sound_dict.has("secret_reveal"):
 		var reveal_sound: AudioStreamPlayer = SFX.play_sound("secret_reveal")
 		if reveal_sound != null:

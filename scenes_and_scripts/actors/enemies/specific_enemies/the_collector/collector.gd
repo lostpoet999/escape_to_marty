@@ -1001,7 +1001,7 @@ func _drop_bubble() -> void:
 	if not _attack_running:
 		_flee()
 
-func accept_damage(damage: float, dmg_type: Array[GameManager.PhaseType]) -> void:
+func accept_damage(damage: float, dmg_type: Array[GameManager.PhaseType], score_mult: float = 1.0) -> void:
 	if dying or not _grown:
 		return
 	if not dmg_type.has(GameManager.PhaseType.HEALTH):
@@ -1015,6 +1015,7 @@ func accept_damage(damage: float, dmg_type: Array[GameManager.PhaseType]) -> voi
 	SFX.play_sound("enemy_hurt")
 	_show_damage_number(damage)
 	_flash_hit()
+	PlayerData.update_player_score(minf(damage, maxf(health, 0.0)), score_mult)
 	health -= damage
 	Signalbus.encounter_progress.emit(HEALTH_STAGE, STAGE_COUNT, maxf(health, 0.0), max_health)
 	if health <= 0.0:

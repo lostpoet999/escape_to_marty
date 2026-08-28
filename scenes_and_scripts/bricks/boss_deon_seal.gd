@@ -1,13 +1,13 @@
 class_name  BossDeonSeal
 extends BaseSeal
 const DEON_BOSS_WALL: PackedScene = preload("uid://nx78k65twjxc")
-const BOSS_SEAL_SCORE: int = 250
 @onready var boss_deon_cage: Node = $".."
 
-func _damage_current_stage(damage: float) -> void:
+func _damage_current_stage(damage: float, score_mult: float = 1.0, via_click: bool = false) -> void:
+	_score_stage_damage(damage, score_mult)
 	if health_temp - damage <= 0: #override base behavior to turn denial brick into a 'deon wall'
 		dying = true
-		PlayerData.update_player_score(BOSS_SEAL_SCORE)
+		_grant_phase_score(score_mult, via_click)
 		var deon_wall: Node2D = DEON_BOSS_WALL.instantiate()
 		var fx: Node2D = brick_damage_fx.instantiate()
 		if fx != null:

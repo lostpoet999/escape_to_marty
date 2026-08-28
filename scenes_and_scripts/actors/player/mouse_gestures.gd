@@ -237,7 +237,9 @@ func _gesture_context(verb_type: GameManager.PhaseType, base: float) -> HitConte
 	var verb_types: Array[GameManager.PhaseType] = [verb_type]
 	ctx.dmg_types = verb_types
 	ctx.apply = func(target: Node2D, amount: float, _types: Array) -> void:
-		if target != null and target.has_method("accept_damage"):
+		if target is BaseSeal:
+			(target as BaseSeal).accept_damage(amount, verb_types, 1.0, true)
+		elif target != null and target.has_method("accept_damage"):
 			target.accept_damage(amount, verb_types)
 	return ctx
 

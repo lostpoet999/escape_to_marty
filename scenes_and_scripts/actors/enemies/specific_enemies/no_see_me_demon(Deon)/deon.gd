@@ -3,16 +3,19 @@ extends PlacedEnemy
 
 @export var destroy_fx: PackedScene
 
-func accept_damage(_damage: float, _dmg_type: Array[GameManager.PhaseType])->void:
+func accept_damage(_damage: float, _dmg_type: Array[GameManager.PhaseType], score_mult: float = 1.0)->void:
 	# while covered, only DENIAL reveals; once revealed, any damage kills
 	if denial_health > 0 and not _dmg_type.has(GameManager.PhaseType.DENIAL):
 		return
 	SFX.play_sound("enemy_hurt")
 	show_damage_number(1)
 	take_damage_fx()
+	PlayerData.update_player_score(1.0, score_mult)
 	denial_health -= 1
 	if denial_health == 0: self.modulate = Color.WHITE
-	elif denial_health <= -1: die()
+	elif denial_health <= -1:
+		PlayerData.score_enemy_kill(self, score_mult)
+		die()
 		
 
 func die()->void:

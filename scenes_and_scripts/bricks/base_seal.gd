@@ -13,16 +13,6 @@ const COIN_WINDFALL_CHANCE: float = 0.05
 const COIN_WINDFALL_COUNT: int = 3
 const COIN_WINDFALL_SCATTER: float = 14.0
 
-
-const PHASE_SCORES: Dictionary[GameManager.PhaseType, int] = {
-	GameManager.PhaseType.DENIAL: 100,
-	GameManager.PhaseType.ANGER: 150,
-	GameManager.PhaseType.BARGAINING: 200,
-	GameManager.PhaseType.DEPRESSION: 250,
-	GameManager.PhaseType.ACCEPTANCE: 300,
-	GameManager.PhaseType.HEALTH: 500,
-}
-
 enum BargainOutcome { OVERPAY = 0, DEAL = 1, WHIFF = 2, INSULT = 3 }
 
 @onready var brick_health_label: Label = $brick_health
@@ -93,6 +83,7 @@ var _interrupted_stage: GameManager.PhaseType = GameManager.PhaseType.HEALTH
 var _interrupted_hp: float = 0.0
 var _interrupted_max: float = 0.0
 var _has_interrupted_stage: bool = false
+var _score_low_water: Dictionary[GameManager.PhaseType, float] = {}
 
 func pick_random_stage() -> void:
 	if stages.is_empty():
@@ -181,11 +172,11 @@ func _set_visual_offset(value: Vector2) -> void:
 	for sprite: Sprite2D in _juice_sprites:
 		sprite.position = value
 
-func accept_damage(damage: float, damage_types: Array) -> void:
+func accept_damage(damage: float, damage_types: Array, score_mult: float = 1.0, via_click: bool = false) -> void:
 	if dying:
 		return
 	if damage_types.has(current_stage):
-		_damage_current_stage(damage)
+		_damage_current_stage(damage, score_mult, via_click)
 		_feedback_damaged = true
 	if not _feedback_pending:
 		_feedback_pending = true
@@ -268,7 +259,8 @@ func restore_denial(full_health: float) -> void:
 	setup_visuals()
 	_update_stage_label()
 
-func _damage_current_stage(damage: float) -> void:
+func _damage_current_stage(damage: float, score_mult: float = 1.0, via_click: bool = false) -> void:
+	_score_stage_damage(damage, score_mult)
 	if health_temp - damage <= 0:
 		# took damage and was destroyed
 		var fx: Node2D
@@ -278,8 +270,11 @@ func _damage_current_stage(damage: float) -> void:
 		if fx != null:
 			fx.position = global_position
 			get_tree().current_scene.add_child(fx)
-		_grant_score(current_stage)
+		_grant_phase_score(score_mult, via_click)
 		if current_stage == GameManager.PhaseType.HEALTH:
+			PlayerData.update_player_score(PlayerData.SCORE_SEAL_DESTROYED, score_mult)
+			if _is_last_live_seal():
+				PlayerData.update_player_score(PlayerData.SCORE_LAST_SEAL_CLEARED, score_mult)
 			dying = true
 			pop_tween()
 		else:
@@ -301,11 +296,11 @@ func _damage_current_stage(damage: float) -> void:
 
 	_spawn_damage_number(damage)
 
-func force_clear() -> void:
+func force_clear(score_mult: float = 1.0) -> void:
 	if dying:
 		return
 	_collapse_stages_to_health()
-	accept_damage(health_temp, [GameManager.PhaseType.HEALTH])
+	accept_damage(health_temp, [GameManager.PhaseType.HEALTH], score_mult)
 
 func _collapse_stages_to_health() -> void:
 	for stage: GameManager.PhaseType in stages.keys():
@@ -314,8 +309,26 @@ func _collapse_stages_to_health() -> void:
 	pick_random_stage()
 	_update_stage_label()
 
-func _grant_score(stage: GameManager.PhaseType) -> void:
-	PlayerData.update_player_score(PHASE_SCORES[stage])
+func _grant_phase_score(score_mult: float, via_click: bool) -> void:
+	var amount: float = PlayerData.SCORE_PHASE_COMPLETE
+	if via_click:
+		amount += PlayerData.SCORE_PHASE_CLICK_BONUS
+	PlayerData.update_player_score(amount, score_mult)
+
+func _is_last_live_seal() -> bool:
+	for node: Node in get_tree().get_nodes_in_group("bricks"):
+		var seal: BaseSeal = node as BaseSeal
+		if seal != null and seal != self and is_instance_valid(seal) and not seal.dying:
+			return false
+	return true
+
+func _score_stage_damage(damage: float, score_mult: float) -> void:
+	var new_hp: float = maxf(health_temp - damage, 0.0)
+	var low: float = _score_low_water.get(current_stage, health_max)
+	var scoreable: float = maxf(minf(low, health_temp) - new_hp, 0.0)
+	_score_low_water[current_stage] = minf(low, new_hp)
+	if scoreable > 0.0:
+		PlayerData.update_player_score(scoreable, score_mult)
 
 func _spawn_damage_number(damage: float) -> void:
 	var damage_number: DamageNumber = DAMAGE_NUMBER.instantiate()
@@ -423,7 +436,7 @@ func _resolve_undercut(bid: float, sweet_low: float, price: int) -> BargainOutco
 
 func _settle_deal(cost: int, allow_damage: bool = true) -> void:
 	PlayerData.pay_bargain_cost(cost, allow_damage)
-	_grant_score(GameManager.PhaseType.BARGAINING)
+	_grant_phase_score(1.0, true)
 	var fx: Node2D = brick_damage_fx.instantiate()
 	if fx != null:
 		fx.position = global_position

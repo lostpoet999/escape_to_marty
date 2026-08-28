@@ -104,7 +104,7 @@ func _process(delta: float) -> void:
 			var accum: float = (_tick_accum[id] if _tick_accum.has(id) else 0.0) + delta
 			if accum >= interval:
 				accum -= interval
-				node.accept_damage(damage_per_tick, DEPRESSION_TYPES)
+				(node as BaseSeal).accept_damage(damage_per_tick, DEPRESSION_TYPES, 1.0, true)
 			_tick_accum[id] = accum
 	for id: int in _tick_accum.keys():
 		if not live_ids.has(id):
