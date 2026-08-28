@@ -34,7 +34,6 @@ var _pitch_tween: Tween
 var _memory_active: bool = false
 var _pre_memory_stream: AudioStream
 var _pre_memory_db: float = 0.0
-var _pre_memory_position: float = 0.0
 
 func _ready() -> void:
 	for playlist: MusicPlaylist in music_playlists:
@@ -76,34 +75,33 @@ func enter_memory_music(volume_db_override: float = NAN) -> void:
 	_memory_active = true
 	_pre_memory_stream = music_player.stream
 	_pre_memory_db = music_player.volume_db
-	_pre_memory_position = music_player.get_playback_position() if music_player.playing else 0.0
 	var target_db: float = memory_song_volume_db if is_nan(volume_db_override) else volume_db_override
-	_memory_fade_to(memory_song, target_db, memory_song_pitch, 0.0)
+	_memory_fade_to(memory_song, target_db, memory_song_pitch)
 
 func exit_memory_music() -> void:
 	if not _memory_active:
 		return
 	_memory_active = false
-	_memory_fade_to(_pre_memory_stream, _pre_memory_db, 1.0, _pre_memory_position)
+	_memory_fade_to(_pre_memory_stream, _pre_memory_db, 1.0)
 
-func _memory_fade_to(stream: AudioStream, target_db: float, pitch: float, from_position: float) -> void:
+func _memory_fade_to(stream: AudioStream, target_db: float, pitch: float) -> void:
 	_cancel_pitch_tween()
 	if _memory_tween != null and _memory_tween.is_valid():
 		_memory_tween.kill()
 	_memory_tween = create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	if music_player.playing:
 		_memory_tween.tween_property(music_player, "volume_db", -60.0, memory_fade_seconds * 0.5)
-	_memory_tween.tween_callback(_memory_swap_stream.bind(stream, pitch, from_position))
+	_memory_tween.tween_callback(_memory_swap_stream.bind(stream, pitch))
 	_memory_tween.tween_property(music_player, "volume_db", target_db, memory_fade_seconds * 0.5)
 
-func _memory_swap_stream(stream: AudioStream, pitch: float, from_position: float) -> void:
+func _memory_swap_stream(stream: AudioStream, pitch: float) -> void:
 	if stream == null:
 		music_player.stop()
 		return
 	music_player.stream = stream
 	music_player.pitch_scale = pitch
 	music_player.volume_db = -60.0
-	music_player.play(from_position)
+	music_player.play()
 	if not music_player.finished.is_connected(_on_song_finished):
 		music_player.finished.connect(_on_song_finished)
 
