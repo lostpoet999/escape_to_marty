@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="DialogTree" format=3 uid="uid://collsurpass1"]
+
+[ext_resource type="Script" uid="uid://da86xmy7akvas" path="res://scenes_and_scripts/dialog/dialog_beat.gd" id="1_0l7fe"]
+[ext_resource type="Script" uid="uid://bkgp0oq7lrafl" path="res://scenes_and_scripts/dialog/dialog_tree.gd" id="1_tree"]
+
+[sub_resource type="Resource" id="Resource_ovec3"]
+script = ExtResource("1_0l7fe")
+speaker = 1
+text = "Wait...what are you doing?"
+central_image_glow_points = null
+metadata/_custom_type_script = "uid://da86xmy7akvas"
+
+[sub_resource type="Resource" id="Resource_vc2ys"]
+script = ExtResource("1_0l7fe")
+speaker = 1
+text = "Stop it!  Fight me!!! I will put you back in a box!"
+central_image_glow_points = null
+metadata/_custom_type_script = "uid://da86xmy7akvas"
+
+[sub_resource type="Resource" id="Resource_qdi46"]
+script = ExtResource("1_0l7fe")
+speaker = 1
+text = "Hmph...maybe I underestimated you.  Oh well--my collection won't even miss you."
+central_image_glow_points = null
+metadata/_custom_type_script = "uid://da86xmy7akvas"
+
+[resource]
+script = ExtResource("1_tree")
+beats = Array[ExtResource("1_0l7fe")]([SubResource("Resource_ovec3"), SubResource("Resource_vc2ys"), SubResource("Resource_qdi46")])
+once_per_run = false
+pick_next_beat = true
+no_override = true
+takes_over = true

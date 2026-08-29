@@ -1,8 +1,67 @@
 [gd_resource type="Resource" script_class="DialogTree" format=3 uid="uid://collsurhit01"]
 
+[ext_resource type="Script" uid="uid://da86xmy7akvas" path="res://scenes_and_scripts/dialog/dialog_beat.gd" id="1_gqrx6"]
 [ext_resource type="Script" uid="uid://bkgp0oq7lrafl" path="res://scenes_and_scripts/dialog/dialog_tree.gd" id="1_tree"]
+
+[sub_resource type="Resource" id="Resource_yy0qq"]
+script = ExtResource("1_gqrx6")
+speaker = 1
+text = "Hahaha, you thought you won--didn't you?"
+central_image_glow_points = null
+metadata/_custom_type_script = "uid://da86xmy7akvas"
+
+[sub_resource type="Resource" id="Resource_kx5gr"]
+script = ExtResource("1_gqrx6")
+speaker = 1
+text = "Try harder--you might just finish me off and escape!"
+central_image_glow_points = null
+metadata/_custom_type_script = "uid://da86xmy7akvas"
+
+[sub_resource type="Resource" id="Resource_fp1aj"]
+script = ExtResource("1_gqrx6")
+speaker = 1
+text = "I don't think you're angry enough!"
+central_image_glow_points = null
+metadata/_custom_type_script = "uid://da86xmy7akvas"
+
+[sub_resource type="Resource" id="Resource_3mo7q"]
+script = ExtResource("1_gqrx6")
+speaker = 1
+text = "Let's make a deal--pay me more gold and maybe I will let you leave!"
+central_image_glow_points = null
+metadata/_custom_type_script = "uid://da86xmy7akvas"
+
+[sub_resource type="Resource" id="Resource_q0rro"]
+script = ExtResource("1_gqrx6")
+speaker = 1
+text = "Face it!  You can't win!"
+central_image_glow_points = null
+metadata/_custom_type_script = "uid://da86xmy7akvas"
+
+[sub_resource type="Resource" id="Resource_epwtn"]
+script = ExtResource("1_gqrx6")
+speaker = 1
+text = "You did better in the darkness--maybe you should revisit it."
+central_image_glow_points = null
+metadata/_custom_type_script = "uid://da86xmy7akvas"
+
+[sub_resource type="Resource" id="Resource_d5tij"]
+script = ExtResource("1_gqrx6")
+speaker = 1
+text = "Marty is all alone...don't you want to keep him safe?"
+central_image_glow_points = null
+metadata/_custom_type_script = "uid://da86xmy7akvas"
+
+[sub_resource type="Resource" id="Resource_wtxp0"]
+script = ExtResource("1_gqrx6")
+speaker = 1
+text = "Your failure is depressing."
+central_image_glow_points = null
+metadata/_custom_type_script = "uid://da86xmy7akvas"
 
 [resource]
 script = ExtResource("1_tree")
+beats = Array[ExtResource("1_gqrx6")]([SubResource("Resource_yy0qq"), SubResource("Resource_kx5gr"), SubResource("Resource_fp1aj"), SubResource("Resource_3mo7q"), SubResource("Resource_q0rro"), SubResource("Resource_epwtn"), SubResource("Resource_d5tij"), SubResource("Resource_wtxp0")])
 once_per_run = false
 pick_random_beat = true
+no_override = true

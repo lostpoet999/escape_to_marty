@@ -7,26 +7,31 @@
 script = ExtResource("2_beat")
 speaker = 1
 text = "You going to cry now?"
+central_image_glow_points = null
 
 [sub_resource type="Resource" id="Resource_beat_2"]
 script = ExtResource("2_beat")
 speaker = 1
 text = "You will forget as quick as you remember!"
+central_image_glow_points = null
 
 [sub_resource type="Resource" id="Resource_beat_3"]
 script = ExtResource("2_beat")
 speaker = 1
 text = "You had a really boring life."
+central_image_glow_points = null
 
 [sub_resource type="Resource" id="Resource_beat_4"]
 script = ExtResource("2_beat")
 speaker = 1
 text = "They are probably better off without you..."
+central_image_glow_points = null
 
 [sub_resource type="Resource" id="Resource_beat_5"]
 script = ExtResource("2_beat")
 speaker = 1
 text = "Well--this one is sweet...NOT! HaHaHa!"
+central_image_glow_points = null
 
 [resource]
 script = ExtResource("1_tree")

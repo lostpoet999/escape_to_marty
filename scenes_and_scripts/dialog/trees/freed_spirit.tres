@@ -6,15 +6,18 @@
 [sub_resource type="Resource" id="Resource_beat_1"]
 script = ExtResource("2_beat")
 text = "Hey--where did they go?"
+central_image_glow_points = null
 
 [sub_resource type="Resource" id="Resource_wtmx1"]
 script = ExtResource("2_beat")
 text = "I wish one of them would stick around."
+central_image_glow_points = null
 metadata/_custom_type_script = "uid://da86xmy7akvas"
 
 [sub_resource type="Resource" id="Resource_36tgn"]
 script = ExtResource("2_beat")
 text = "What are they doing in there?"
+central_image_glow_points = null
 metadata/_custom_type_script = "uid://da86xmy7akvas"
 
 [resource]

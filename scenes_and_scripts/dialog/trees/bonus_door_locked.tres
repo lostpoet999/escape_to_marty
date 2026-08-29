@@ -7,6 +7,7 @@
 script = ExtResource("2_beat")
 speaker = 1
 text = "Ha--you don't have the memory to open this door!"
+central_image_glow_points = null
 
 [resource]
 script = ExtResource("1_tree")

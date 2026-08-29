@@ -49,7 +49,7 @@ func play(tree_id: StringName, anchor: Node2D = null) -> bool:
 		return false
 	if tree.tutorial_tip and not SettingsManager.show_tutorial_tips:
 		return false
-	if not tree.pauses_game and _no_override_active():
+	if not tree.pauses_game and _no_override_active() and not tree.takes_over:
 		return false
 	if not _passes_trigger_threshold(tree_id, tree):
 		return false
@@ -147,7 +147,7 @@ func _passes_trigger_threshold(tree_id: StringName, tree: DialogTree) -> bool:
 
 func _play_timed(tree_id: StringName, tree: DialogTree, anchor: Node2D, serial: int) -> void:
 	_dismiss_active_bubble()
-	for beat: DialogBeat in _beats_to_play(tree):
+	for beat: DialogBeat in _beats_to_play(tree_id, tree):
 		if not _present_beat(beat, anchor, tree.tutorial_tip):
 			break
 		_active_no_override = tree.no_override
@@ -172,7 +172,7 @@ func _play_focused(tree_id: StringName, tree: DialogTree, anchor: Node2D) -> voi
 	_active_catcher = catcher
 	_cancel_requested = false
 	_begin_focus_frame()
-	for beat: DialogBeat in _beats_to_play(tree):
+	for beat: DialogBeat in _beats_to_play(tree_id, tree):
 		if _cancel_requested:
 			break
 		if not _present_beat(beat, anchor, tree.tutorial_tip):
@@ -280,7 +280,13 @@ func _spawn_click_catcher() -> ClickCatcher:
 	return catcher
 
 
-func _beats_to_play(tree: DialogTree) -> Array[DialogBeat]:
+func _beats_to_play(tree_id: StringName, tree: DialogTree) -> Array[DialogBeat]:
+	if tree.pick_next_beat:
+		var cursor: int = PlayerData.dialog_beat_cursors.get(tree_id, 0)
+		var index: int = mini(cursor, tree.beats.size() - 1)
+		PlayerData.dialog_beat_cursors[tree_id] = index + 1
+		var next: Array[DialogBeat] = [tree.beats[index]]
+		return next
 	if tree.pick_random_beat:
 		var picked: Array[DialogBeat] = [tree.beats.pick_random() as DialogBeat]
 		return picked
@@ -288,7 +294,7 @@ func _beats_to_play(tree: DialogTree) -> Array[DialogBeat]:
 
 
 func _present_beat(beat: DialogBeat, anchor: Node2D, is_tutorial: bool = false) -> bool:
-	if beat.speaker == DialogBeat.Speaker.COLLECTOR and not (is_tutorial and is_instance_valid(anchor)):
+	if beat.speaker == DialogBeat.Speaker.COLLECTOR and not is_instance_valid(anchor):
 		_show_collector(beat, is_tutorial)
 		return true
 	var beat_anchor: Node2D = _resolve_anchor(beat, anchor)

@@ -49,6 +49,7 @@ var item_box: Node2D
 var seen_dialog_trees: Array[StringName] = []
 var seen_cutscenes: Array[StringName] = []
 var dialog_trigger_counts: Dictionary[StringName, int] = {}
+var dialog_beat_cursors: Dictionary[StringName, int] = {}
 var pending_memories: Array[StringName] = []
 var retry_counts: Dictionary[int, int] = {}
 
@@ -146,6 +147,7 @@ func initialize_player_data() -> void:
 	seen_dialog_trees.clear()
 	seen_cutscenes.clear()
 	dialog_trigger_counts.clear()
+	dialog_beat_cursors.clear()
 	pending_memories.clear()
 	retry_counts.clear()
 	bankruptcy_gold_per_life_bonus = 0
@@ -348,6 +350,7 @@ func restore_checkpoint(data: Dictionary) -> void:
 	var trigger_counts: Dictionary = data.get("dialog_trigger_counts", {})
 	for key: String in trigger_counts:
 		dialog_trigger_counts[StringName(key)] = _saved_int(trigger_counts, key, 0)
+	dialog_beat_cursors.clear()
 	retry_counts.clear()
 	var retries: Dictionary = data.get("retry_counts", {})
 	for key: String in retries:

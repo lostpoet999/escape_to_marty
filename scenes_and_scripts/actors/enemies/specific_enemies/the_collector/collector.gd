@@ -6,7 +6,6 @@ const SPIT_COIN: PackedScene = preload("res://scenes_and_scripts/actors/enemies/
 const GOLD_PAYLOAD: BonusPayload = preload("res://scenes_and_scripts/collectibles/bonus_drops/currency_payload.tres")
 const DARK_CAGE: PackedScene = preload("res://scenes_and_scripts/actors/enemies/specific_enemies/dark_cage/dark_cage.tscn")
 const SHADOW_IMP: PackedScene = preload("res://scenes_and_scripts/actors/enemies/specific_enemies/shadow_imp/shadow_imp.tscn")
-const CODEC_PLAYER: PackedScene = preload("uid://ccodecplayer")
 
 enum AttackKind {
 	SWIPE = 0,
@@ -105,7 +104,6 @@ const ATTACK_STATION_EPSILON: float = 8.0
 @export var surrender_rise_time: float = 0.8
 @export var surrender_transition_trauma: float = 2.0
 @export var surrender_exit_time: float = 1.2
-@export var surrender_beat_trees: Array[DialogTree] = [] ## One reveal beat per reception, in order. Empty or null entries are skipped.
 
 var health: float
 var dying: bool = false
@@ -1163,20 +1161,7 @@ func receive_ball() -> void:
 	if paddle != null and paddle.has_method("soft_catch_flash"):
 		@warning_ignore("unsafe_method_access")
 		paddle.soft_catch_flash()
-	_play_surrender_beat(maxi(surrender_receptions, 1) - _receptions_left - 1)
-
-func _play_surrender_beat(index: int) -> void:
-	if index < 0 or index >= surrender_beat_trees.size():
-		return
-	var tree: DialogTree = surrender_beat_trees[index]
-	if tree == null or tree.beats.is_empty():
-		return
-	var player: MemoryCodecPlayer = CODEC_PLAYER.instantiate()
-	player.memory_tree = tree
-	add_child(player)
-	await player.play()
-	if is_instance_valid(player):
-		player.queue_free()
+	DialogDirector.play(&"collector_surrender_pass", self)
 
 func _complete_surrender() -> void:
 	if _surrender_done:

@@ -22,6 +22,10 @@ boot_splash/use_filter=false
 boot_splash/image="res://scenes_and_scripts/ui_main_menu/splash.png"
 config/icon="uid://ceqjt876orrnp"
 
+[audio]
+
+buses/default_bus_layout="uid://bikgd627q0ggn"
+
 [autoload]
 
 Signalbus="*uid://dmpotobwyljm1"

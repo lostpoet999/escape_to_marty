@@ -45,8 +45,7 @@ central_image_glow_points = null
 [sub_resource type="Resource" id="Resource_beat_6"]
 script = ExtResource("2_beat")
 speaker = 4
-text = "Mmmhmm.
-Did you guys finish cleaning the garage like I asked?"
+text = "Mmmhmm.  Did you guys finish cleaning the garage like I asked?"
 portrait_side = 1
 central_image = ExtResource("3_icon")
 central_image_glow_points = null

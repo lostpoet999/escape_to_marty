@@ -7,6 +7,7 @@
 script = ExtResource("2_beat")
 speaker = 1
 text = "Fine, take the paddle---your LIFE FORCE is tied to it anyway! Hahaha..."
+central_image_glow_points = null
 
 [resource]
 script = ExtResource("1_tree")

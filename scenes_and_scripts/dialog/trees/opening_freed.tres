@@ -6,14 +6,17 @@
 [sub_resource type="Resource" id="Resource_beat_1"]
 script = ExtResource("2_beat")
 text = "Thanks, whoever you are! Not the creepy voice...that guy--erm thing sucks!"
+central_image_glow_points = null
 
 [sub_resource type="Resource" id="Resource_beat_2"]
 script = ExtResource("2_beat")
 text = "Alright---time to play this silly little game again."
+central_image_glow_points = null
 
 [sub_resource type="Resource" id="Resource_beat_3"]
 script = ExtResource("2_beat")
 text = "I gotta escape this dream to Marty."
+central_image_glow_points = null
 
 [resource]
 script = ExtResource("1_tree")

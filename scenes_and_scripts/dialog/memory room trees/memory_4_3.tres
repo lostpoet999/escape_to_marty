@@ -9,8 +9,7 @@
 [sub_resource type="Resource" id="Resource_beat_1"]
 script = ExtResource("2_beat")
 speaker = 6
-text = "Why did we park so far away?
-I'm not as young as you guys."
+text = "Why did we park so far away?  I'm not as young as you guys."
 portrait = ExtResource("4_grandpa")
 portrait_side = 1
 central_image = ExtResource("3_icon")
@@ -33,8 +32,7 @@ central_image_glow_points = null
 
 [sub_resource type="Resource" id="Resource_beat_4"]
 script = ExtResource("2_beat")
-text = "I know this hasn't been easy...but I am glad we were--I mean are a family.
-I'm so proud of you.  You make me want to be stronger too."
+text = "I know this hasn't been easy...but I am glad we were--I mean are a family.  I'm so proud of you.  You make me want to be stronger too."
 central_image = ExtResource("3_icon")
 central_image_glow_points = null
 

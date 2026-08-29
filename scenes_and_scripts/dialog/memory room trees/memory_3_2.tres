@@ -17,9 +17,7 @@ central_image_glow_points = null
 [sub_resource type="Resource" id="Resource_beat_2"]
 script = ExtResource("2_beat")
 speaker = 7
-text = "The cancer was highly aggressive. She fought until the very end.
-We all did our best.
-I'm so sorry for your loss."
+text = "The cancer was highly aggressive. She fought until the very end.  We all did our best.  I'm so sorry for your loss."
 portrait = ExtResource("5_doctor")
 portrait_side = 1
 central_image = ExtResource("3_icon")
@@ -43,8 +41,7 @@ central_image_glow_points = null
 [sub_resource type="Resource" id="Resource_beat_5"]
 script = ExtResource("2_beat")
 speaker = 7
-text = "I see. Please take your time.
-We'll give you some privacy, goodbyes are never easy."
+text = "I see. Please take your time.  We'll give you some privacy, goodbyes are never easy."
 portrait = ExtResource("5_doctor")
 portrait_side = 1
 central_image = ExtResource("3_icon")

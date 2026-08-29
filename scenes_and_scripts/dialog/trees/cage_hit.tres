@@ -6,6 +6,7 @@
 [sub_resource type="Resource" id="Resource_beat_1"]
 script = ExtResource("2_beat")
 text = "Maybe I should avoid those..."
+central_image_glow_points = null
 
 [resource]
 script = ExtResource("1_tree")

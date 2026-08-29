@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bea1h3570swpu" path="res://scenes_and_scripts/levels/room_base.tscn" id="1_u1v84"]
 [ext_resource type="PackedScene" uid="uid://f5collectts0" path="res://scenes_and_scripts/actors/enemies/specific_enemies/the_collector/collector.tscn" id="3_coll"]
 [ext_resource type="PackedScene" uid="uid://flrportal001" path="res://scenes_and_scripts/exits/floor_portal.tscn" id="6_portal"]
-[ext_resource type="Resource" uid="uid://f5reveal0trs" path="res://scenes_and_scripts/actors/enemies/specific_enemies/the_collector/surrender_reveal.tres" id="6_reveal"]
+[ext_resource type="Resource" uid="uid://f5reveal0trs" path="res://scenes_and_scripts/dialog/trees/surrender_reveal.tres" id="6_reveal"]
 [ext_resource type="Script" uid="uid://deonencroom0" path="res://scenes_and_scripts/levels/deon_encounter_room.gd" id="7_deonroom"]
 [ext_resource type="PackedScene" uid="uid://encprgbar01" path="res://scenes_and_scripts/ui_menus/encounter_progress_bar.tscn" id="8_epbar"]
 [ext_resource type="PackedScene" uid="uid://dprstatuesc" path="res://scenes_and_scripts/actors/other/depression_statue.tscn" id="9_statue"]
@@ -55,44 +55,44 @@ z_index = -1
 position = Vector2(896, 336)
 scale = Vector2(1.7, 1.7)
 charge_seconds = 5.0
-light_energy = 0.45
 phase_color = Color(0.635294, 0.243137, 0.54902, 1)
 locks_when_charged = false
 statue_texture = ExtResource("10_dstat")
 charged_texture = ExtResource("11_dchg")
+light_energy = 0.45
 
 [node name="StatueTopRight(anger)" parent="PlayArea/Ritual" index="1" unique_id=565861305 instance=ExtResource("9_statue")]
 z_index = -1
 position = Vector2(1280, 336)
 scale = Vector2(1.7, 1.7)
 charge_seconds = 7.5
-light_energy = 0.45
 phase_color = Color(0.647059, 0.188235, 0.188235, 1)
 locks_when_charged = false
 statue_texture = ExtResource("12_astat")
 charged_texture = ExtResource("13_achg")
+light_energy = 0.45
 
 [node name="StatueBottomLeft(bargaining)" parent="PlayArea/Ritual" index="2" unique_id=565861306 instance=ExtResource("9_statue")]
 z_index = -1
 position = Vector2(896, 752)
 scale = Vector2(1.7, 1.7)
 charge_seconds = 11.0
-light_energy = 0.45
 phase_color = Color(0.870588, 0.619608, 0.254902, 1)
 locks_when_charged = false
 statue_texture = ExtResource("14_bstat")
 charged_texture = ExtResource("15_bchg")
+light_energy = 0.45
 
 [node name="StatueBottomRight(depression)" parent="PlayArea/Ritual" index="3" unique_id=565861307 instance=ExtResource("9_statue")]
 z_index = -1
 position = Vector2(1280, 752)
 scale = Vector2(1.7, 1.7)
 charge_seconds = 15.0
-light_energy = 0.45
 phase_color = Color(0.223529, 0.290196, 0.313725, 1)
 locks_when_charged = false
 statue_texture = ExtResource("16_pstat")
 charged_texture = ExtResource("17_pchg")
+light_energy = 0.45
 
 [node name="item_spawn_point" parent="." index="11" unique_id=51076593]
 position = Vector2(1085, 800)
