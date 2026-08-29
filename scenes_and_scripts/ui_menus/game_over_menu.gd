@@ -7,6 +7,7 @@ const RESTART_FILL_COLOR: Color = Color(1.0, 0.3, 0.3, 0.45)
 @onready var exit_button: Button = $ColorRect/VBoxContainer/HBoxContainer/"Exit Button"
 @onready var retry_button: Button = $ColorRect/VBoxContainer/HBoxContainer/Retry
 @onready var restart_button: Button = $ColorRect/VBoxContainer/HBoxContainer/RestartRun
+@onready var score_value: Label = %ScoreValue
 
 var _open_tween: Tween
 var _breathe_tween: Tween
@@ -62,6 +63,7 @@ func show_menu() -> void:
 		_open_tween.kill()
 	if _breathe_tween != null and _breathe_tween.is_valid():
 		_breathe_tween.kill()
+	score_value.text = str(PlayerData.get_player_score())
 	retry_button.visible = not GameManager.test_floor_active
 	restart_button.visible = not GameManager.test_floor_active
 	show()

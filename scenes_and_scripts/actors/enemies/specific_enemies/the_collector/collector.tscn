@@ -47,8 +47,8 @@ shape = SubResource("RectangleShape2D_coll")
 [node name="CoffinDenial" parent="." unique_id=1721530001 instance=ExtResource("4_coffin")]
 position = Vector2(-120, -23)
 scale = Vector2(0.4, 0.4)
-stage_health_min = 9
-stage_health_max = 14
+stage_health_min = 18
+stage_health_max = 28
 art_rotation_degrees = 32.75
 stages = Dictionary[int, float]({
 0: 12.0,
@@ -58,8 +58,8 @@ stages = Dictionary[int, float]({
 [node name="CoffinAnger" parent="." unique_id=1721530011 instance=ExtResource("4_coffin")]
 position = Vector2(0, -110)
 scale = Vector2(0.4, 0.4)
-stage_health_min = 9
-stage_health_max = 14
+stage_health_min = 18
+stage_health_max = 28
 stages = Dictionary[int, float]({
 1: 12.0,
 5: 20.0
@@ -78,8 +78,8 @@ stages = Dictionary[int, float]({
 [node name="CoffinDepression" parent="." unique_id=1721530013 instance=ExtResource("4_coffin")]
 position = Vector2(0, 96)
 scale = Vector2(0.4, 0.4)
-stage_health_min = 8
-stage_health_max = 15
+stage_health_min = 16
+stage_health_max = 30
 art_rotation_degrees = -32.75
 stages = Dictionary[int, float]({
 3: 12.0,

@@ -64,7 +64,12 @@ var flipped_y: bool = false
 ## Random rotation in degrees (random sign) applied to break a vertical serve loop.
 @export var vertical_nudge_min_deg: float = 4.0
 @export var vertical_nudge_max_deg: float = 9.0
+## A bounce leaving the ball within this many degrees of straight vertical counts toward the stuck-vertical nudge.
+@export var extreme_vertical_deg: float = 8.0
+## Consecutive extreme-vertical bounces before the horizontal nudge fires (rotation reuses the serve-nudge range).
+@export var extreme_vertical_hits: int = 3
 var _vertical_serve_hits: int = 0
+var _extreme_vertical_bounces: int = 0
 var _vertical_serve_threshold: int = 0
 var _vertical_serve_checked: bool = false
 
@@ -435,6 +440,7 @@ func speed_cap() -> float:
 func launch_ball() -> void:
 	on_paddle = false
 	_reset_vertical_serve()
+	_extreme_vertical_bounces = 0
 	var launch_speed: float = initial_speed * SettingsManager.ball_speed_mult()
 	current_speed = launch_speed
 	GameManager.change_state(GameManager.GameState.PLAYING)
@@ -473,6 +479,22 @@ func _check_vertical_serve() -> void:
 	velocity = velocity.rotated(nudge_sign * nudge_rad)
 	enforce_min_bounce_angle()
 	_reset_vertical_serve()
+
+func _check_extreme_vertical() -> void:
+	var speed: float = velocity.length()
+	if speed == 0.0:
+		return
+	if absf(velocity.x) >= speed * sin(deg_to_rad(extreme_vertical_deg)):
+		_extreme_vertical_bounces = 0
+		return
+	_extreme_vertical_bounces += 1
+	if _extreme_vertical_bounces < extreme_vertical_hits:
+		return
+	var nudge_sign: float = -1.0 if randf() < 0.5 else 1.0
+	if velocity.x != 0.0 and velocity.y != 0.0:
+		nudge_sign = -signf(velocity.x * velocity.y)
+	velocity = velocity.rotated(nudge_sign * deg_to_rad(randf_range(vertical_nudge_min_deg, vertical_nudge_max_deg)))
+	_extreme_vertical_bounces = 0
 
 func enforce_min_bounce_angle() -> void:
 	var speed: float = velocity.length()
@@ -544,7 +566,10 @@ func move_ball(delta: float) -> void:
 	var step_delta: float = delta / float(steps)
 	for _i: int in steps:
 		move_ball_step(step_delta)
-		if on_paddle or flipped_x or flipped_y:
+		if on_paddle:
+			return
+		if flipped_x or flipped_y:
+			_check_extreme_vertical()
 			return
 
 func resolve_frame_start_overlaps() -> void:

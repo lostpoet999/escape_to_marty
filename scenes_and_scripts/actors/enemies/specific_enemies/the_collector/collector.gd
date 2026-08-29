@@ -28,7 +28,7 @@ const MIN_GLIDE_TIME: float = 0.35
 const FACE_DEADZONE: float = 1.0
 const ATTACK_STATION_EPSILON: float = 8.0
 
-@export var max_health: float = 150.0
+@export var max_health: float = 225.0
 @export var start_scale: float = 0.2
 @export var grow_time: float = 2.5
 @export var idle_fps: float = 6.0

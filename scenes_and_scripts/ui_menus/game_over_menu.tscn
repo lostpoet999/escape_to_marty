@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://chs4vfkn7cmgt"]
+[gd_scene load_steps=6 format=3 uid="uid://chs4vfkn7cmgt"]
 
 [ext_resource type="Script" uid="uid://d01coo5nu6uyw" path="res://scenes_and_scripts/ui_menus/game_over_menu.gd" id="1_brkfe"]
 [ext_resource type="Texture2D" uid="uid://cra2lcyy34b1x" path="res://scenes_and_scripts/ui_menus/edge_patch.png" id="2_htpki"]
 [ext_resource type="LabelSettings" uid="uid://cpopuptitle0" path="res://label_settings_and_fonts/popup_title_32.tres" id="3_title"]
+[ext_resource type="LabelSettings" uid="uid://dx3lg2g7p81op" path="res://label_settings_and_fonts/yellow_48.tres" id="4_score"]
+[ext_resource type="LabelSettings" uid="uid://dnb1y3i4cf2ln" path="res://label_settings_and_fonts/basic_white_38.tres" id="5_score"]
 
 [node name="GameOverMenu" type="Control" unique_id=1064137318]
 top_level = true
@@ -49,6 +51,22 @@ layout_mode = 2
 text = "Game Over"
 label_settings = ExtResource("3_title")
 horizontal_alignment = 1
+
+[node name="ScoreRow" type="HBoxContainer" parent="ColorRect/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="ScoreLabel" type="Label" parent="ColorRect/VBoxContainer/ScoreRow"]
+layout_mode = 2
+text = "SCORE: "
+label_settings = ExtResource("4_score")
+
+[node name="ScoreValue" type="Label" parent="ColorRect/VBoxContainer/ScoreRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+text = "0"
+label_settings = ExtResource("5_score")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/VBoxContainer" unique_id=1141022542]
 layout_mode = 2

@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1")
 label = "Gold"
-weight = 245.0
+weight = 380.0
 is_rare = false
 drop_texture = ExtResource("1_0f8ar")
 drop_modulate = Color(1, 1, 1, 1)
