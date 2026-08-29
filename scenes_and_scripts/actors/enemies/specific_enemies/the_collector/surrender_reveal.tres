@@ -11,26 +11,31 @@
 script = ExtResource("2_beat")
 text = "Jess...Marty"
 portrait = ExtResource("3_dark")
+central_image_glow_points = null
 
 [sub_resource type="Resource" id="Resource_beat_2"]
 script = ExtResource("2_beat")
 text = "Mommy..."
 portrait = ExtResource("4_david")
+central_image_glow_points = null
 opposite_portrait = ExtResource("5_jess")
 
 [sub_resource type="Resource" id="Resource_beat_3"]
 script = ExtResource("2_beat")
 text = "Daddy..."
+central_image_glow_points = null
 opposite_portrait = ExtResource("6_marty")
 
 [sub_resource type="Resource" id="Resource_beat_4"]
 script = ExtResource("2_beat")
 text = "We ARE a family.  I understand now..."
+central_image_glow_points = null
 
 [sub_resource type="Resource" id="Resource_beat_5"]
 script = ExtResource("2_beat")
 text = "Be strong daddy, I will keep her safe."
 central_image = ExtResource("4_david")
+central_image_glow_points = null
 reveal_speed_scale = 0.5
 music_pitch_scale = 1.0
 clears_portraits = true

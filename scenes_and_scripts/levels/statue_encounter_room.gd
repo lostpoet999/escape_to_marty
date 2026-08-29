@@ -65,8 +65,12 @@ func _run_win_sequence() -> void:
 		tween.tween_interval(DESPAWN_STAGGER_S)
 	tween.tween_callback(clear_encounter)
 
-func _kill_imp(imp: PlacedEnemy) -> void:
-	if is_instance_valid(imp) and not imp.is_queued_for_deletion():
+func _kill_imp(imp_variant: Variant) -> void:
+	if not is_instance_valid(imp_variant):
+		return
+	var node: Node = imp_variant
+	var imp: PlacedEnemy = node as PlacedEnemy
+	if imp != null and not imp.is_queued_for_deletion():
 		imp.die()
 
 func _imp_spawner() -> StatueImpSpawner:

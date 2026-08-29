@@ -13,12 +13,14 @@ text = "You guys look like you've got ants in your pants."
 portrait = ExtResource("4_jess")
 portrait_side = 1
 central_image = ExtResource("3_icon")
+central_image_glow_points = null
 
 [sub_resource type="Resource" id="Resource_beat_2"]
 script = ExtResource("2_beat")
 text = "There's an important email coming."
 portrait = ExtResource("5_md")
 central_image = ExtResource("3_icon")
+central_image_glow_points = null
 
 [sub_resource type="Resource" id="Resource_beat_3"]
 script = ExtResource("2_beat")
@@ -27,11 +29,13 @@ text = "Because the last two were so important.
 A cat staring in a mirror, a cat drinking from a baby bottle."
 portrait_side = 1
 central_image = ExtResource("3_icon")
+central_image_glow_points = null
 
 [sub_resource type="Resource" id="Resource_beat_4"]
 script = ExtResource("2_beat")
 text = "I've been expecting this one for a while."
 central_image = ExtResource("3_icon")
+central_image_glow_points = null
 
 [sub_resource type="Resource" id="Resource_beat_5"]
 script = ExtResource("2_beat")
@@ -39,11 +43,13 @@ speaker = 4
 text = "I'll have spent nine lives by the time something important arrives."
 portrait_side = 1
 central_image = ExtResource("3_icon")
+central_image_glow_points = null
 
 [sub_resource type="Resource" id="Resource_beat_6"]
 script = ExtResource("2_beat")
 text = "You'll see, wait, I just got it, and it's..."
 central_image = ExtResource("3_icon")
+central_image_glow_points = null
 
 [sub_resource type="Resource" id="Resource_beat_7"]
 script = ExtResource("2_beat")
@@ -52,11 +58,13 @@ text = "Another cat video.
 My goodness you two balls of yarn deserve each other."
 portrait_side = 1
 central_image = ExtResource("3_icon")
+central_image_glow_points = null
 
 [sub_resource type="Resource" id="Resource_beat_8"]
 script = ExtResource("2_beat")
 text = "Hssssssssss."
 central_image = ExtResource("3_icon")
+central_image_glow_points = null
 
 [resource]
 script = ExtResource("1_tree")

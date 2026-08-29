@@ -13,12 +13,14 @@ text = "What are you two still doing outside it's freezing."
 portrait = ExtResource("4_jess")
 portrait_side = 1
 central_image = ExtResource("3_icon")
+central_image_glow_points = null
 
 [sub_resource type="Resource" id="Resource_beat_2"]
 script = ExtResource("2_beat")
 text = "We built a snowman that looks like grandpa."
 portrait = ExtResource("5_md")
 central_image = ExtResource("3_icon")
+central_image_glow_points = null
 
 [sub_resource type="Resource" id="Resource_beat_3"]
 script = ExtResource("2_beat")
@@ -27,12 +29,14 @@ text = "Dinner is almost ready, get inside and wash up.
 You remembered your key you keep losing... right?"
 portrait_side = 1
 central_image = ExtResource("3_icon")
+central_image_glow_points = null
 
 [sub_resource type="Resource" id="Resource_beat_4"]
 script = ExtResource("2_beat")
 text = "I don't lose it, not all the time. It's right...
 I just h-h-had it..."
 central_image = ExtResource("3_icon")
+central_image_glow_points = null
 
 [sub_resource type="Resource" id="Resource_beat_5"]
 script = ExtResource("2_beat")
@@ -40,12 +44,14 @@ speaker = 4
 text = "G-g-great. Remove your boots, don't melt snow inside."
 portrait_side = 1
 central_image = ExtResource("3_icon")
+central_image_glow_points = null
 
 [sub_resource type="Resource" id="Resource_beat_6"]
 script = ExtResource("2_beat")
 text = "So cold, I can't think straight. Now we're both locked out here.
 Can't let her know I lost it."
 central_image = ExtResource("3_icon")
+central_image_glow_points = null
 
 [sub_resource type="Resource" id="Resource_beat_7"]
 script = ExtResource("2_beat")
@@ -55,11 +61,13 @@ Don't make me keep shouting through the window.
 Tweedle Dee and tweedle Dum, check both your pockets."
 portrait_side = 1
 central_image = ExtResource("3_icon")
+central_image_glow_points = null
 
 [sub_resource type="Resource" id="Resource_beat_8"]
 script = ExtResource("2_beat")
 text = "I found it! My fingers are f-f-frozen."
 central_image = ExtResource("3_icon")
+central_image_glow_points = null
 
 [sub_resource type="Resource" id="Resource_beat_9"]
 script = ExtResource("2_beat")
@@ -67,11 +75,13 @@ speaker = 4
 text = "I can't imagine what you two would do without me, just turn the handle like this."
 portrait_side = 1
 central_image = ExtResource("3_icon")
+central_image_glow_points = null
 
 [sub_resource type="Resource" id="Resource_beat_10"]
 script = ExtResource("2_beat")
 text = "It was unlocked the whole time? I'm f-f-frozen Jessica."
 central_image = ExtResource("3_icon")
+central_image_glow_points = null
 
 [sub_resource type="Resource" id="Resource_beat_11"]
 script = ExtResource("2_beat")
@@ -79,6 +89,7 @@ speaker = 4
 text = "Hear that? Someone needs to get unfrozen with a hug."
 portrait_side = 1
 central_image = ExtResource("3_icon")
+central_image_glow_points = null
 
 [resource]
 script = ExtResource("1_tree")

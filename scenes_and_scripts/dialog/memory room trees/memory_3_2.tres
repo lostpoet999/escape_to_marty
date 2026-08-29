@@ -12,6 +12,7 @@ script = ExtResource("2_beat")
 text = "I couldn't save her."
 portrait = ExtResource("4_md")
 central_image = ExtResource("3_icon")
+central_image_glow_points = null
 
 [sub_resource type="Resource" id="Resource_beat_2"]
 script = ExtResource("2_beat")
@@ -22,6 +23,7 @@ I'm so sorry for your loss."
 portrait = ExtResource("5_doctor")
 portrait_side = 1
 central_image = ExtResource("3_icon")
+central_image_glow_points = null
 
 [sub_resource type="Resource" id="Resource_beat_3"]
 script = ExtResource("2_beat")
@@ -30,11 +32,13 @@ text = "Is that a letter? I can add it to our outgoing mail."
 portrait = ExtResource("6_nurse")
 portrait_side = 1
 central_image = ExtResource("3_icon")
+central_image_glow_points = null
 
 [sub_resource type="Resource" id="Resource_beat_4"]
 script = ExtResource("2_beat")
 text = "What? ...oh, no that's personal.  It is abou...for her.  Thanks, though."
 central_image = ExtResource("3_icon")
+central_image_glow_points = null
 
 [sub_resource type="Resource" id="Resource_beat_5"]
 script = ExtResource("2_beat")
@@ -44,11 +48,13 @@ We'll give you some privacy, goodbyes are never easy."
 portrait = ExtResource("5_doctor")
 portrait_side = 1
 central_image = ExtResource("3_icon")
+central_image_glow_points = null
 
 [sub_resource type="Resource" id="Resource_beat_6"]
 script = ExtResource("2_beat")
 text = "I never wanted to say goodbye."
 central_image = ExtResource("3_icon")
+central_image_glow_points = null
 
 [resource]
 script = ExtResource("1_tree")

@@ -11,6 +11,7 @@ script = ExtResource("2_beat")
 text = "I'm changing the channel for our favorite show okay? We've been waiting all week."
 portrait = ExtResource("4_md")
 central_image = ExtResource("3_icon")
+central_image_glow_points = null
 
 [sub_resource type="Resource" id="Resource_beat_2"]
 script = ExtResource("2_beat")
@@ -19,11 +20,13 @@ text = "Mmmhmm."
 portrait = ExtResource("5_jess")
 portrait_side = 1
 central_image = ExtResource("3_icon")
+central_image_glow_points = null
 
 [sub_resource type="Resource" id="Resource_beat_3"]
 script = ExtResource("2_beat")
 text = "Almost time. Finally. The epic conclusion. You've kinda watched it too...while crocheting..."
 central_image = ExtResource("3_icon")
+central_image_glow_points = null
 
 [sub_resource type="Resource" id="Resource_beat_4"]
 script = ExtResource("2_beat")
@@ -31,11 +34,13 @@ speaker = 4
 text = "Mmmhmm."
 portrait_side = 1
 central_image = ExtResource("3_icon")
+central_image_glow_points = null
 
 [sub_resource type="Resource" id="Resource_beat_5"]
 script = ExtResource("2_beat")
 text = "You know what I mean? Like a family...together..."
 central_image = ExtResource("3_icon")
+central_image_glow_points = null
 
 [sub_resource type="Resource" id="Resource_beat_6"]
 script = ExtResource("2_beat")
@@ -44,6 +49,7 @@ text = "Mmmhmm.
 Did you guys finish cleaning the garage like I asked?"
 portrait_side = 1
 central_image = ExtResource("3_icon")
+central_image_glow_points = null
 
 [resource]
 script = ExtResource("1_tree")

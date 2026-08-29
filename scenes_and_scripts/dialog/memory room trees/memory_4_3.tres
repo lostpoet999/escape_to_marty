@@ -14,12 +14,14 @@ I'm not as young as you guys."
 portrait = ExtResource("4_grandpa")
 portrait_side = 1
 central_image = ExtResource("3_icon")
+central_image_glow_points = null
 
 [sub_resource type="Resource" id="Resource_beat_2"]
 script = ExtResource("2_beat")
 text = "Didn't you always tell us to keep active?  Besides, I like to walk sometimes.  Gives us a chance to talk more."
 portrait = ExtResource("5_md")
 central_image = ExtResource("3_icon")
+central_image_glow_points = null
 
 [sub_resource type="Resource" id="Resource_beat_3"]
 script = ExtResource("2_beat")
@@ -27,12 +29,14 @@ speaker = 6
 text = "Not for my old legs.  Oh, I get it.  Marty, I think David has something he wants to say to you."
 portrait_side = 1
 central_image = ExtResource("3_icon")
+central_image_glow_points = null
 
 [sub_resource type="Resource" id="Resource_beat_4"]
 script = ExtResource("2_beat")
 text = "I know this hasn't been easy...but I am glad we were--I mean are a family.
 I'm so proud of you.  You make me want to be stronger too."
 central_image = ExtResource("3_icon")
+central_image_glow_points = null
 
 [sub_resource type="Resource" id="Resource_beat_5"]
 script = ExtResource("2_beat")
@@ -40,11 +44,13 @@ speaker = 6
 text = "I am proud of both of you.  I miss her too.  Maybe you all should finally beat Glassy Joes and Mitch Tyson in her honor today?"
 portrait_side = 1
 central_image = ExtResource("3_icon")
+central_image_glow_points = null
 
 [sub_resource type="Resource" id="Resource_beat_6"]
 script = ExtResource("2_beat")
 text = "That's not their name...nevermind.  Ya that sounds fun.  Let's do that tonight!"
 central_image = ExtResource("3_icon")
+central_image_glow_points = null
 
 [resource]
 script = ExtResource("1_tree")
