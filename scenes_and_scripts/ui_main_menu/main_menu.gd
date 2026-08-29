@@ -45,7 +45,11 @@ func _ready() -> void:
 		dev_build_label.mouse_entered.connect(_on_dev_build_label_hover.bind(true))
 		dev_build_label.mouse_exited.connect(_on_dev_build_label_hover.bind(false))
 	else:
-		dev_build_label.hide()
+		var version: String = str(ProjectSettings.get_setting("application/config/version", ""))
+		if version.is_empty():
+			dev_build_label.hide()
+		else:
+			dev_build_label.text = "v %s" % version
 	_reset_fill = ColorRect.new()
 	_reset_fill.color = RESET_FILL_COLOR
 	_reset_fill.mouse_filter = Control.MOUSE_FILTER_IGNORE
