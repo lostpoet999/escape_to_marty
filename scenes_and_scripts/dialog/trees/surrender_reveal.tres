@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://bau6b5huhps3y" path="res://scenes_and_scripts/dialog/story portraits/JESSICA.png" id="4_5f6jq"]
 [ext_resource type="Script" uid="uid://bkgp0oq7lrafl" path="res://scenes_and_scripts/dialog/dialog_tree.gd" id="5_f0aok"]
 [ext_resource type="Texture2D" uid="uid://dalichhj1x6jc" path="res://scenes_and_scripts/dialog/story portraits/MARTY.png" id="6_marty"]
+[ext_resource type="Texture2D" uid="uid://chc2wj2a1yn78" path="res://scenes_and_scripts/dialog/story portraits/FAMILY.png" id="7_family"]
 
 [sub_resource type="Resource" id="Resource_beat_1"]
 script = ExtResource("1_thhwg")
@@ -84,7 +85,16 @@ reveal_speed_scale = 0.3
 music_pitch_scale = 1.0
 clears_portraits = true
 
+[sub_resource type="Resource" id="Resource_beat_13"]
+script = ExtResource("1_thhwg")
+text = "End."
+central_image = ExtResource("7_family")
+central_image_entrance_seconds = 0.6
+central_image_entrance_rotation_deg = -7.0
+central_image_entrance_scale = 0.8
+central_image_glow_points = null
+
 [resource]
 script = ExtResource("5_f0aok")
-beats = Array[ExtResource("1_thhwg")]([SubResource("Resource_beat_1"), SubResource("Resource_beat_2"), SubResource("Resource_beat_3"), SubResource("Resource_beat_4"), SubResource("Resource_beat_5"), SubResource("Resource_beat_6"), SubResource("Resource_beat_7"), SubResource("Resource_beat_8"), SubResource("Resource_beat_9"), SubResource("Resource_beat_10"), SubResource("Resource_beat_11"), SubResource("Resource_beat_12")])
+beats = Array[ExtResource("1_thhwg")]([SubResource("Resource_beat_1"), SubResource("Resource_beat_2"), SubResource("Resource_beat_3"), SubResource("Resource_beat_4"), SubResource("Resource_beat_5"), SubResource("Resource_beat_6"), SubResource("Resource_beat_7"), SubResource("Resource_beat_8"), SubResource("Resource_beat_9"), SubResource("Resource_beat_10"), SubResource("Resource_beat_11"), SubResource("Resource_beat_12"), SubResource("Resource_beat_13")])
 once_per_run = false

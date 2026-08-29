@@ -4,7 +4,7 @@ Jalent (Jason W):
 Project lead, core gameplay, ball and paddle, level design, story, shop feature, most powerup and enemy/boss functionality, music (all), cutscenes, tuning, dungeon rooms system, tutorial, click abilities, menu system, brick types, trophy implementation, typewriter effect, audio system, internal debug features, build/deployment configuration, assorted integration and bug fixes, additional dialog
 
 Juan Luiz R:
-Money spider, spiders, rage blob boss, background sprites, clouds (art and effects), statues (anger, bargaining, denial, depression) and implementation, spider webs and web prison art, memory sprite and memory room center art, spiky sprites, improved border walls, icons for powerups / behaviors / story, sprites for drops and memory trophies, shop icon, coin animation, Deon portal animation, tutorial backgrounds
+Money spider, spiders, rage blob boss, background sprites, clouds (art and effects), statues (anger, bargaining, denial, depression) and implementation, spider webs and web prison art, memory sprite and memory room center art, spiky sprites, improved border walls, icons for powerups / behaviors / story, sprites for drops and memory trophies, shop icon, coin animation, Deon portal animation, tutorial backgrounds, itch cover art
 
 Christer Kaitila:
 Player sprite and separation support, visual effects (brick damage and destroy, hit shine, ball particles and trail, gem features, light rays, enemy destroy, fireworks), background fog, vortex, impact flash, GUI animations, assorted sounds (events related to ball, cage, powerups, player, shield, spirit, bosses, drops, web, wall, mouse and enemies), settings and credits menus, difficulty options, brick cracks, title screen decoration, project icon, random level feature
@@ -34,7 +34,7 @@ Mo Shah:
 VFX portal art and animation
 
 APV:
-Narrative design, Character design, Character Concept Development
+Narrative design, Character design, Character Concept Development, Family Portrait
 
 Cannon Lewis:
 Pop-up menu panels

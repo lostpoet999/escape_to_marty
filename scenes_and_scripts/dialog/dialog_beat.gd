@@ -28,6 +28,15 @@ enum ClearSide { NONE = 0, LEFT = 1, RIGHT = 2 }
 ## Codec player only. Scale of the central image for this beat (1 = full size); changes pop-tween between beats.
 @export var central_image_scale: float = 1.0
 
+## Codec player only. Above 0 the central image enters with a settle tween lasting this many seconds; 0 = appear as usual.
+@export var central_image_entrance_seconds: float = 0.0
+
+## Codec player only. Entrance start rotation in degrees; the image settles to upright.
+@export var central_image_entrance_rotation_deg: float = 0.0
+
+## Codec player only. Entrance start scale as a fraction of this beat's central_image_scale.
+@export var central_image_entrance_scale: float = 0.8
+
 ## Codec player only. Normalized (0-1) points on the central image that get an additive glow this beat (e.g. headlights); empty = none.
 @export var central_image_glow_points: PackedVector2Array = PackedVector2Array()
 

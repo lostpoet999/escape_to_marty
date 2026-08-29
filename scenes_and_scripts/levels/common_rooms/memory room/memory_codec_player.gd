@@ -69,6 +69,7 @@ var _slot_tween_left: Tween
 var _slot_tween_right: Tween
 var _central_tween: Tween
 var _central_scale_tween: Tween
+var _central_entrance_tween: Tween
 var _central_glow_rects: Array[TextureRect] = []
 var _glow_texture: GradientTexture2D
 var _counted: bool = false
@@ -206,11 +207,15 @@ func _reset_stage() -> void:
 	if _central_scale_tween:
 		_central_scale_tween.kill()
 		_central_scale_tween = null
+	if _central_entrance_tween:
+		_central_entrance_tween.kill()
+		_central_entrance_tween = null
 	central_image.texture = null
 	central_image.visible = false
 	central_image.modulate.a = 1.0
 	central_image.self_modulate = Color.WHITE
 	central_image.scale = Vector2.ONE
+	central_image.rotation_degrees = 0.0
 	_clear_central_glows()
 	beat_text.text = ""
 	_clear_portraits()
@@ -239,6 +244,7 @@ func _present_beat(beat: DialogBeat) -> void:
 	var central_was_empty: bool = central_image.texture == null
 	_set_central(beat.central_image, beat.central_image_modulate)
 	_apply_central_scale(beat.central_image_scale, central_was_empty)
+	_apply_central_entrance(beat)
 	_apply_central_glows(beat)
 	if not beat.beat_sound.is_empty():
 		SFX.play_sound(beat.beat_sound)
@@ -306,6 +312,24 @@ func _apply_central_scale(target: float, snap: bool) -> void:
 		return
 	_central_scale_tween = create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	_central_scale_tween.tween_property(central_image, "scale", target_scale, 0.18)
+
+func _apply_central_entrance(beat: DialogBeat) -> void:
+	if _central_entrance_tween:
+		_central_entrance_tween.kill()
+		_central_entrance_tween = null
+	if beat.central_image == null or beat.central_image_entrance_seconds <= 0.0:
+		central_image.rotation_degrees = 0.0
+		return
+	if _central_scale_tween:
+		_central_scale_tween.kill()
+		_central_scale_tween = null
+	central_image.pivot_offset = central_image.size * 0.5
+	var target_scale: Vector2 = Vector2(beat.central_image_scale, beat.central_image_scale)
+	central_image.scale = target_scale * beat.central_image_entrance_scale
+	central_image.rotation_degrees = beat.central_image_entrance_rotation_deg
+	_central_entrance_tween = create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT).set_parallel(true)
+	_central_entrance_tween.tween_property(central_image, "scale", target_scale, beat.central_image_entrance_seconds)
+	_central_entrance_tween.tween_property(central_image, "rotation_degrees", 0.0, beat.central_image_entrance_seconds)
 
 func _apply_central_glows(beat: DialogBeat) -> void:
 	_clear_central_glows()
