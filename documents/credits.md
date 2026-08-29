@@ -33,8 +33,8 @@ Character design files (modular, front-facing)
 Mo Shah:
 VFX portal art and animation
 
-apv:
-Memory room character art, memory room concept art, dialog scripts, and additional story
+APV:
+Narrative design, Character design, Character Concept Development
 
 Cannon Lewis:
 Pop-up menu panels
