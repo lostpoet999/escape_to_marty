@@ -54,7 +54,7 @@ requires_live_seals = true
 y_offset = 48.0
 metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 
-[node name="combat_2_2" unique_id=565861230 instance=ExtResource("1_8gija")]
+[node name="combat_3_2" unique_id=565861230 instance=ExtResource("1_8gija")]
 standalone_floor = 3
 
 [node name="Background" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="1" unique_id=306947289]

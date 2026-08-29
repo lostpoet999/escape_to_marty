@@ -15,7 +15,7 @@ spawn_chance = 100.0
 requires_live_seals = true
 metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 
-[node name="combat_4_1" unique_id=2064464605 instance=ExtResource("1_ut01f")]
+[node name="combat_4_3" unique_id=2064464605 instance=ExtResource("1_ut01f")]
 standalone_floor = 4
 
 [node name="CanvasModulate" type="CanvasModulate" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="4" unique_id=1961100407]

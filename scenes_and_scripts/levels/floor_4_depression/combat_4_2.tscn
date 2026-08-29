@@ -14,7 +14,7 @@ spawn_chance = 100.0
 requires_live_seals = true
 metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 
-[node name="combat_4_1" unique_id=1335829894 instance=ExtResource("1_sj47l")]
+[node name="combat_4_2" unique_id=1335829894 instance=ExtResource("1_sj47l")]
 standalone_floor = 4
 
 [node name="SubViewportContainer" parent="." index="0" unique_id=1513724378]
@@ -22,6 +22,282 @@ metadata/_edit_lock_ = true
 
 [node name="CanvasModulate" type="CanvasModulate" parent="PlayArea" parent_id_path=PackedInt32Array(87831636) index="5" unique_id=948305531]
 color = Color(0.2, 0.2, 0.27, 1)
+
+[node name="OpenSeal" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="0" unique_id=887021685 instance=ExtResource("2_4o0bc")]
+position = Vector2(768, 560)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+3: 3.0
+})
+brick_health = 10
+depression_reseeds_when_dark = true
+
+[node name="OpenSeal2" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="1" unique_id=1840471963 instance=ExtResource("2_4o0bc")]
+position = Vector2(832, 496)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+3: 5.0
+})
+brick_health = 10
+depression_reseeds_when_dark = true
+
+[node name="OpenSeal3" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="2" unique_id=2032905646 instance=ExtResource("2_4o0bc")]
+position = Vector2(896, 496)
+stages = Dictionary[int, float]({
+3: 3.0
+})
+brick_health = 10
+depression_reseeds_when_dark = true
+
+[node name="OpenSeal4" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="3" unique_id=278951909 instance=ExtResource("2_4o0bc")]
+position = Vector2(768, 496)
+stages = Dictionary[int, float]({
+3: 3.0
+})
+brick_health = 10
+depression_reseeds_when_dark = true
+
+[node name="OpenSeal5" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="4" unique_id=861692634 instance=ExtResource("2_4o0bc")]
+position = Vector2(896, 560)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+3: 5.0
+})
+brick_health = 10
+depression_reseeds_when_dark = true
+
+[node name="OpenSeal6" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="5" unique_id=1716889631 instance=ExtResource("2_4o0bc")]
+position = Vector2(896, 624)
+stages = Dictionary[int, float]({
+3: 3.0
+})
+brick_health = 10
+depression_reseeds_when_dark = true
+
+[node name="OpenSeal7" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="6" unique_id=2119157701 instance=ExtResource("2_4o0bc")]
+position = Vector2(832, 624)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+3: 3.0
+})
+brick_health = 10
+depression_reseeds_when_dark = true
+
+[node name="OpenSeal8" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="7" unique_id=923363960 instance=ExtResource("2_4o0bc")]
+position = Vector2(768, 624)
+stages = Dictionary[int, float]({
+3: 3.0
+})
+brick_health = 10
+depression_reseeds_when_dark = true
+
+[node name="OpenSeal9" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="8" unique_id=1317478974 instance=ExtResource("2_4o0bc")]
+position = Vector2(1280, 560)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+3: 3.0
+})
+brick_health = 10
+depression_reseeds_when_dark = true
+
+[node name="OpenSeal10" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="9" unique_id=606326861 instance=ExtResource("2_4o0bc")]
+position = Vector2(1344, 496)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+3: 5.0
+})
+brick_health = 10
+depression_reseeds_when_dark = true
+
+[node name="OpenSeal11" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="10" unique_id=394923412 instance=ExtResource("2_4o0bc")]
+position = Vector2(1408, 496)
+stages = Dictionary[int, float]({
+3: 3.0
+})
+brick_health = 10
+depression_reseeds_when_dark = true
+
+[node name="OpenSeal12" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="11" unique_id=552755387 instance=ExtResource("2_4o0bc")]
+position = Vector2(1280, 496)
+stages = Dictionary[int, float]({
+3: 3.0
+})
+brick_health = 10
+depression_reseeds_when_dark = true
+
+[node name="OpenSeal13" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="12" unique_id=885445031 instance=ExtResource("2_4o0bc")]
+position = Vector2(1408, 560)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+3: 5.0
+})
+brick_health = 10
+depression_reseeds_when_dark = true
+
+[node name="OpenSeal14" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="13" unique_id=508196178 instance=ExtResource("2_4o0bc")]
+position = Vector2(1408, 624)
+stages = Dictionary[int, float]({
+3: 3.0
+})
+brick_health = 10
+depression_reseeds_when_dark = true
+
+[node name="OpenSeal15" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="14" unique_id=935257295 instance=ExtResource("2_4o0bc")]
+position = Vector2(1344, 624)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+3: 3.0
+})
+brick_health = 10
+depression_reseeds_when_dark = true
+
+[node name="OpenSeal16" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="15" unique_id=1847128952 instance=ExtResource("2_4o0bc")]
+position = Vector2(1280, 624)
+stages = Dictionary[int, float]({
+3: 3.0
+})
+brick_health = 10
+depression_reseeds_when_dark = true
+
+[node name="OpenSeal17" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="16" unique_id=500642496 instance=ExtResource("2_4o0bc")]
+position = Vector2(1024, 336)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+3: 3.0
+})
+brick_health = 10
+depression_reseeds_when_dark = true
+
+[node name="OpenSeal18" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="17" unique_id=1266769164 instance=ExtResource("2_4o0bc")]
+position = Vector2(1088, 272)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+3: 5.0
+})
+brick_health = 10
+depression_reseeds_when_dark = true
+
+[node name="OpenSeal19" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="18" unique_id=769238113 instance=ExtResource("2_4o0bc")]
+position = Vector2(1152, 272)
+stages = Dictionary[int, float]({
+3: 3.0
+})
+brick_health = 10
+depression_reseeds_when_dark = true
+
+[node name="OpenSeal20" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="19" unique_id=393717298 instance=ExtResource("2_4o0bc")]
+position = Vector2(1024, 272)
+stages = Dictionary[int, float]({
+3: 3.0
+})
+brick_health = 10
+depression_reseeds_when_dark = true
+
+[node name="OpenSeal21" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="20" unique_id=298849492 instance=ExtResource("2_4o0bc")]
+position = Vector2(1152, 336)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+3: 5.0
+})
+brick_health = 10
+depression_reseeds_when_dark = true
+
+[node name="OpenSeal22" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="21" unique_id=1858531964 instance=ExtResource("2_4o0bc")]
+position = Vector2(1152, 400)
+stages = Dictionary[int, float]({
+3: 3.0
+})
+brick_health = 10
+depression_reseeds_when_dark = true
+
+[node name="OpenSeal23" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="22" unique_id=1119554925 instance=ExtResource("2_4o0bc")]
+position = Vector2(1088, 400)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+3: 3.0
+})
+brick_health = 10
+depression_reseeds_when_dark = true
+
+[node name="OpenSeal24" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="23" unique_id=705608489 instance=ExtResource("2_4o0bc")]
+position = Vector2(1024, 400)
+stages = Dictionary[int, float]({
+3: 3.0
+})
+brick_health = 10
+depression_reseeds_when_dark = true
+
+[node name="OpenSeal25" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="24" unique_id=106131486 instance=ExtResource("2_4o0bc")]
+position = Vector2(1024, 784)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+3: 3.0
+})
+brick_health = 10
+depression_reseeds_when_dark = true
+
+[node name="OpenSeal26" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="25" unique_id=1938396787 instance=ExtResource("2_4o0bc")]
+position = Vector2(1088, 720)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+3: 5.0
+})
+brick_health = 10
+depression_reseeds_when_dark = true
+
+[node name="OpenSeal27" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="26" unique_id=505020921 instance=ExtResource("2_4o0bc")]
+position = Vector2(1152, 720)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+3: 3.0
+})
+brick_health = 10
+depression_reseeds_when_dark = true
+
+[node name="OpenSeal28" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="27" unique_id=1131213282 instance=ExtResource("2_4o0bc")]
+position = Vector2(1024, 720)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+3: 3.0
+})
+brick_health = 10
+depression_reseeds_when_dark = true
+
+[node name="OpenSeal29" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="28" unique_id=769542880 instance=ExtResource("2_4o0bc")]
+position = Vector2(1152, 784)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+3: 5.0
+})
+brick_health = 10
+depression_reseeds_when_dark = true
+
+[node name="OpenSeal30" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="29" unique_id=17240052 instance=ExtResource("2_4o0bc")]
+position = Vector2(1152, 848)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+3: 3.0
+})
+brick_health = 10
+depression_reseeds_when_dark = true
+
+[node name="OpenSeal31" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="30" unique_id=162260820 instance=ExtResource("2_4o0bc")]
+position = Vector2(1088, 848)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+3: 3.0
+})
+brick_health = 10
+depression_reseeds_when_dark = true
+
+[node name="OpenSeal32" parent="No-Respawn/Bricks" parent_id_path=PackedInt32Array(424513038) index="31" unique_id=1684103943 instance=ExtResource("2_4o0bc")]
+position = Vector2(1024, 848)
+initialize_brick_on_leveldata = false
+stages = Dictionary[int, float]({
+3: 3.0
+})
+brick_health = 10
+depression_reseeds_when_dark = true
 
 [node name="ImpSpawner" parent="No-Respawn/Spawners" parent_id_path=PackedInt32Array(1587044855) index="0" unique_id=1495481611 instance=ExtResource("90_impsp")]
 position = Vector2(1088, 512)
@@ -32,279 +308,3 @@ first_spawn_delay = 3.0
 respawn_delay_after_kill_min = 9.0
 respawn_delay_after_kill_max = 12.0
 max_spawns = 2
-
-[node name="OpenSeal" parent="." index="14" unique_id=887021685 instance=ExtResource("2_4o0bc")]
-position = Vector2(704, 432)
-initialize_brick_on_leveldata = false
-stages = Dictionary[int, float]({
-3: 3.0
-})
-brick_health = 10
-depression_reseeds_when_dark = true
-
-[node name="OpenSeal2" parent="." index="15" unique_id=1840471963 instance=ExtResource("2_4o0bc")]
-position = Vector2(768, 368)
-initialize_brick_on_leveldata = false
-stages = Dictionary[int, float]({
-3: 5.0
-})
-brick_health = 10
-depression_reseeds_when_dark = true
-
-[node name="OpenSeal3" parent="." index="16" unique_id=2032905646 instance=ExtResource("2_4o0bc")]
-position = Vector2(832, 368)
-stages = Dictionary[int, float]({
-3: 3.0
-})
-brick_health = 10
-depression_reseeds_when_dark = true
-
-[node name="OpenSeal4" parent="." index="17" unique_id=278951909 instance=ExtResource("2_4o0bc")]
-position = Vector2(704, 368)
-stages = Dictionary[int, float]({
-3: 3.0
-})
-brick_health = 10
-depression_reseeds_when_dark = true
-
-[node name="OpenSeal5" parent="." index="18" unique_id=861692634 instance=ExtResource("2_4o0bc")]
-position = Vector2(832, 432)
-initialize_brick_on_leveldata = false
-stages = Dictionary[int, float]({
-3: 5.0
-})
-brick_health = 10
-depression_reseeds_when_dark = true
-
-[node name="OpenSeal6" parent="." index="19" unique_id=1716889631 instance=ExtResource("2_4o0bc")]
-position = Vector2(832, 496)
-stages = Dictionary[int, float]({
-3: 3.0
-})
-brick_health = 10
-depression_reseeds_when_dark = true
-
-[node name="OpenSeal7" parent="." index="20" unique_id=2119157701 instance=ExtResource("2_4o0bc")]
-position = Vector2(768, 496)
-initialize_brick_on_leveldata = false
-stages = Dictionary[int, float]({
-3: 3.0
-})
-brick_health = 10
-depression_reseeds_when_dark = true
-
-[node name="OpenSeal8" parent="." index="21" unique_id=923363960 instance=ExtResource("2_4o0bc")]
-position = Vector2(704, 496)
-stages = Dictionary[int, float]({
-3: 3.0
-})
-brick_health = 10
-depression_reseeds_when_dark = true
-
-[node name="OpenSeal9" parent="." index="22" unique_id=1317478974 instance=ExtResource("2_4o0bc")]
-position = Vector2(1216, 432)
-initialize_brick_on_leveldata = false
-stages = Dictionary[int, float]({
-3: 3.0
-})
-brick_health = 10
-depression_reseeds_when_dark = true
-
-[node name="OpenSeal10" parent="." index="23" unique_id=606326861 instance=ExtResource("2_4o0bc")]
-position = Vector2(1280, 368)
-initialize_brick_on_leveldata = false
-stages = Dictionary[int, float]({
-3: 5.0
-})
-brick_health = 10
-depression_reseeds_when_dark = true
-
-[node name="OpenSeal11" parent="." index="24" unique_id=394923412 instance=ExtResource("2_4o0bc")]
-position = Vector2(1344, 368)
-stages = Dictionary[int, float]({
-3: 3.0
-})
-brick_health = 10
-depression_reseeds_when_dark = true
-
-[node name="OpenSeal12" parent="." index="25" unique_id=552755387 instance=ExtResource("2_4o0bc")]
-position = Vector2(1216, 368)
-stages = Dictionary[int, float]({
-3: 3.0
-})
-brick_health = 10
-depression_reseeds_when_dark = true
-
-[node name="OpenSeal13" parent="." index="26" unique_id=885445031 instance=ExtResource("2_4o0bc")]
-position = Vector2(1344, 432)
-initialize_brick_on_leveldata = false
-stages = Dictionary[int, float]({
-3: 5.0
-})
-brick_health = 10
-depression_reseeds_when_dark = true
-
-[node name="OpenSeal14" parent="." index="27" unique_id=508196178 instance=ExtResource("2_4o0bc")]
-position = Vector2(1344, 496)
-stages = Dictionary[int, float]({
-3: 3.0
-})
-brick_health = 10
-depression_reseeds_when_dark = true
-
-[node name="OpenSeal15" parent="." index="28" unique_id=935257295 instance=ExtResource("2_4o0bc")]
-position = Vector2(1280, 496)
-initialize_brick_on_leveldata = false
-stages = Dictionary[int, float]({
-3: 3.0
-})
-brick_health = 10
-depression_reseeds_when_dark = true
-
-[node name="OpenSeal16" parent="." index="29" unique_id=1847128952 instance=ExtResource("2_4o0bc")]
-position = Vector2(1216, 496)
-stages = Dictionary[int, float]({
-3: 3.0
-})
-brick_health = 10
-depression_reseeds_when_dark = true
-
-[node name="OpenSeal17" parent="." index="30" unique_id=500642496 instance=ExtResource("2_4o0bc")]
-position = Vector2(960, 208)
-initialize_brick_on_leveldata = false
-stages = Dictionary[int, float]({
-3: 3.0
-})
-brick_health = 10
-depression_reseeds_when_dark = true
-
-[node name="OpenSeal18" parent="." index="31" unique_id=1266769164 instance=ExtResource("2_4o0bc")]
-position = Vector2(1024, 144)
-initialize_brick_on_leveldata = false
-stages = Dictionary[int, float]({
-3: 5.0
-})
-brick_health = 10
-depression_reseeds_when_dark = true
-
-[node name="OpenSeal19" parent="." index="32" unique_id=769238113 instance=ExtResource("2_4o0bc")]
-position = Vector2(1088, 144)
-stages = Dictionary[int, float]({
-3: 3.0
-})
-brick_health = 10
-depression_reseeds_when_dark = true
-
-[node name="OpenSeal20" parent="." index="33" unique_id=393717298 instance=ExtResource("2_4o0bc")]
-position = Vector2(960, 144)
-stages = Dictionary[int, float]({
-3: 3.0
-})
-brick_health = 10
-depression_reseeds_when_dark = true
-
-[node name="OpenSeal21" parent="." index="34" unique_id=298849492 instance=ExtResource("2_4o0bc")]
-position = Vector2(1088, 208)
-initialize_brick_on_leveldata = false
-stages = Dictionary[int, float]({
-3: 5.0
-})
-brick_health = 10
-depression_reseeds_when_dark = true
-
-[node name="OpenSeal22" parent="." index="35" unique_id=1858531964 instance=ExtResource("2_4o0bc")]
-position = Vector2(1088, 272)
-stages = Dictionary[int, float]({
-3: 3.0
-})
-brick_health = 10
-depression_reseeds_when_dark = true
-
-[node name="OpenSeal23" parent="." index="36" unique_id=1119554925 instance=ExtResource("2_4o0bc")]
-position = Vector2(1024, 272)
-initialize_brick_on_leveldata = false
-stages = Dictionary[int, float]({
-3: 3.0
-})
-brick_health = 10
-depression_reseeds_when_dark = true
-
-[node name="OpenSeal24" parent="." index="37" unique_id=705608489 instance=ExtResource("2_4o0bc")]
-position = Vector2(960, 272)
-stages = Dictionary[int, float]({
-3: 3.0
-})
-brick_health = 10
-depression_reseeds_when_dark = true
-
-[node name="OpenSeal25" parent="." index="38" unique_id=106131486 instance=ExtResource("2_4o0bc")]
-position = Vector2(960, 656)
-initialize_brick_on_leveldata = false
-stages = Dictionary[int, float]({
-3: 3.0
-})
-brick_health = 10
-depression_reseeds_when_dark = true
-
-[node name="OpenSeal26" parent="." index="39" unique_id=1938396787 instance=ExtResource("2_4o0bc")]
-position = Vector2(1024, 592)
-initialize_brick_on_leveldata = false
-stages = Dictionary[int, float]({
-3: 5.0
-})
-brick_health = 10
-depression_reseeds_when_dark = true
-
-[node name="OpenSeal27" parent="." index="40" unique_id=505020921 instance=ExtResource("2_4o0bc")]
-position = Vector2(1088, 592)
-initialize_brick_on_leveldata = false
-stages = Dictionary[int, float]({
-3: 3.0
-})
-brick_health = 10
-depression_reseeds_when_dark = true
-
-[node name="OpenSeal28" parent="." index="41" unique_id=1131213282 instance=ExtResource("2_4o0bc")]
-position = Vector2(960, 592)
-initialize_brick_on_leveldata = false
-stages = Dictionary[int, float]({
-3: 3.0
-})
-brick_health = 10
-depression_reseeds_when_dark = true
-
-[node name="OpenSeal29" parent="." index="42" unique_id=769542880 instance=ExtResource("2_4o0bc")]
-position = Vector2(1088, 656)
-initialize_brick_on_leveldata = false
-stages = Dictionary[int, float]({
-3: 5.0
-})
-brick_health = 10
-depression_reseeds_when_dark = true
-
-[node name="OpenSeal30" parent="." index="43" unique_id=17240052 instance=ExtResource("2_4o0bc")]
-position = Vector2(1088, 720)
-initialize_brick_on_leveldata = false
-stages = Dictionary[int, float]({
-3: 3.0
-})
-brick_health = 10
-depression_reseeds_when_dark = true
-
-[node name="OpenSeal31" parent="." index="44" unique_id=162260820 instance=ExtResource("2_4o0bc")]
-position = Vector2(1024, 720)
-initialize_brick_on_leveldata = false
-stages = Dictionary[int, float]({
-3: 3.0
-})
-brick_health = 10
-depression_reseeds_when_dark = true
-
-[node name="OpenSeal32" parent="." index="45" unique_id=1684103943 instance=ExtResource("2_4o0bc")]
-position = Vector2(960, 720)
-initialize_brick_on_leveldata = false
-stages = Dictionary[int, float]({
-3: 3.0
-})
-brick_health = 10
-depression_reseeds_when_dark = true

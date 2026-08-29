@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://b4g0os6q6xuwm" path="res://scenes_and_scripts/dialog/story portraits/MARTYDAVID.png" id="2_1ox6p"]
 [ext_resource type="Texture2D" uid="uid://detcnixcvhx8y" path="res://scenes_and_scripts/dialog/story portraits/DAVID.png" id="3_8451t"]
 [ext_resource type="Texture2D" uid="uid://bau6b5huhps3y" path="res://scenes_and_scripts/dialog/story portraits/JESSICA.png" id="4_5f6jq"]
-[ext_resource type="Texture2D" uid="uid://dalichhj1x6jc" path="res://scenes_and_scripts/dialog/story portraits/MARTY.png" id="6_marty"]
 [ext_resource type="Script" uid="uid://bkgp0oq7lrafl" path="res://scenes_and_scripts/dialog/dialog_tree.gd" id="5_f0aok"]
+[ext_resource type="Texture2D" uid="uid://dalichhj1x6jc" path="res://scenes_and_scripts/dialog/story portraits/MARTY.png" id="6_marty"]
 
 [sub_resource type="Resource" id="Resource_beat_1"]
 script = ExtResource("1_thhwg")

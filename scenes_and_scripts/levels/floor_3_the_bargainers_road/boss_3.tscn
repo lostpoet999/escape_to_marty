@@ -37,7 +37,7 @@ spawn_chance = 100.0
 y_offset = 48.0
 metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 
-[node name="BossRoom2" unique_id=565861230 instance=ExtResource("1_u1v84")]
+[node name="BossRoom3" unique_id=565861230 instance=ExtResource("1_u1v84")]
 standalone_floor = 3
 script = ExtResource("7_room")
 max_live_red_coins = 3

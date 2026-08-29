@@ -123,7 +123,6 @@ grow_vertical = 2
 [node name="TitleContainer" type="CenterContainer" parent="VBoxContainer" unique_id=1448660253]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 2.0
 
 [node name="Yellow Title" type="Label" parent="VBoxContainer/TitleContainer" unique_id=640680555]
 layout_mode = 2
@@ -148,27 +147,68 @@ text = "Credits"
 [node name="CreditsContainer" type="CenterContainer" parent="VBoxContainer" unique_id=379274786]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 2.0
+size_flags_stretch_ratio = 4.0
 
-[node name="Credits Text" type="Label" parent="VBoxContainer/CreditsContainer" unique_id=585689302]
+[node name="Credits Text" type="RichTextLabel" parent="VBoxContainer/CreditsContainer" unique_id=585689302]
+custom_minimum_size = Vector2(1600, 600)
 layout_mode = 2
-size_flags_vertical = 8
-theme_override_colors/font_color = Color(0.909804, 0.756863, 0.439216, 1)
-theme_override_fonts/font = ExtResource("5_e1l8h")
-theme_override_font_sizes/font_size = 32
-text = "Name ................ Contributions
-Name ................ Contributions
-Name ................ Contributions
-Name ................ Contributions
-Name ................ Contributions
-Name ................ Contributions
-Name ................ Contributions
-Name ................ Contributions"
+theme_override_colors/default_color = Color(0.780392, 0.811765, 0.8, 1)
+theme_override_constants/line_separation = 10
+theme_override_fonts/normal_font = ExtResource("5_e1l8h")
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
+text = "[center][font_size=24][color=#fff3d6][pulse freq=0.8 color=#e8cb85 ease=-2.0]Jalent (Jason W)[/pulse][/color][/font_size]
+Project lead, core gameplay, ball and paddle, level design, story, shop feature, most powerup and enemy/boss functionality, music (all), cutscenes, tuning, dungeon rooms system, tutorial, click abilities, menu system, brick types, trophy implementation, typewriter effect, audio system, internal debug features, build/deployment configuration, assorted integration and bug fixes, additional dialog
+
+[font_size=24][color=#fff3d6][pulse freq=0.8 color=#e8cb85 ease=-2.0]Juan Luiz R[/pulse][/color][/font_size]
+Money spider, spiders, rage blob boss, background sprites, clouds (art and effects), statues (anger, bargaining, denial, depression) and implementation, spider webs and web prison art, memory sprite and memory room center art, spiky sprites, improved border walls, icons for powerups / behaviors / story, sprites for drops and memory trophies, shop icon, coin animation, Deon portal animation, tutorial backgrounds
+
+[font_size=24][color=#fff3d6][pulse freq=0.8 color=#e8cb85 ease=-2.0]Christer Kaitila[/pulse][/color][/font_size]
+Player sprite and separation support, visual effects (brick damage and destroy, hit shine, ball particles and trail, gem features, light rays, enemy destroy, fireworks), background fog, vortex, impact flash, GUI animations, assorted sounds (events related to ball, cage, powerups, player, shield, spirit, bosses, drops, web, wall, mouse and enemies), settings and credits menus, difficulty options, brick cracks, title screen decoration, project icon, random level feature
+
+[font_size=24][color=#fff3d6][pulse freq=0.8 color=#e8cb85 ease=-2.0]Dan Dela Rosa[/pulse][/color][/font_size]
+Dark cage and doors (sprite and functionality), enemy spawning improvements, seal break enemy spawns, Deon spawning, cage screenshake events, damage number popups, feedback for ineffective hits, item descriptions, make your bed icon, second chance shield powerup
+
+[font_size=24][color=#fff3d6][pulse freq=0.8 color=#e8cb85 ease=-2.0]Michael Avrie[/pulse][/color][/font_size]
+Inventory system (with scroll), hint tool with trigger, backgrounds (3d, dark brick), improved pauseable contexts, full screen toggle, sounds with variations (magnet, cry, bite, scary, whoosh, upward and downward)
+
+[font_size=24][color=#fff3d6][pulse freq=0.8 color=#e8cb85 ease=-2.0]Richard Clark[/pulse][/color][/font_size]
+Sprites (Shadow Imp, Collector, incl. idle hand / fist / mouth hand)
+
+[font_size=24][color=#fff3d6][pulse freq=0.8 color=#e8cb85 ease=-2.0]Kind Hammond[/pulse][/color][/font_size]
+Homing powerup
+
+[font_size=24][color=#fff3d6][pulse freq=0.8 color=#e8cb85 ease=-2.0]Raymond Zegles[/pulse][/color][/font_size]
+Magnet powerup, multitasking (multiball) chance powerup, support system refresh timer
+
+[font_size=24][color=#fff3d6][pulse freq=0.8 color=#e8cb85 ease=-2.0]Mark Guinn[/pulse][/color][/font_size]
+Minimap (core, unvisited room options, showing exits)
+
+[font_size=24][color=#fff3d6][pulse freq=0.8 color=#e8cb85 ease=-2.0]Amanda Stanley[/pulse][/color][/font_size]
+Character design files (modular, front-facing)
+
+[font_size=24][color=#fff3d6][pulse freq=0.8 color=#e8cb85 ease=-2.0]Mo Shah[/pulse][/color][/font_size]
+VFX portal art and animation
+
+[font_size=24][color=#fff3d6][pulse freq=0.8 color=#e8cb85 ease=-2.0]apv[/pulse][/color][/font_size]
+Memory room character art, memory room concept art, dialog scripts, and additional story
+
+[font_size=24][color=#fff3d6][pulse freq=0.8 color=#e8cb85 ease=-2.0]Cannon Lewis[/pulse][/color][/font_size]
+Pop-up menu panels
+
+[font_size=24][color=#fff3d6][pulse freq=0.8 color=#e8cb85 ease=-2.0]Isael Elena[/pulse][/color][/font_size]
+Corrected typo in opening dialog
+
+[font_size=24][color=#fff3d6][pulse freq=0.8 color=#e8cb85 ease=-2.0]Playtesting[/pulse][/color][/font_size]
+Gavin Williams and Sawyer Williams, Davids91 (Dávid Tóth), Dax Kincannon, Brady Jax, Tim Ruswick
+
+[font_size=24][color=#fff3d6][pulse freq=0.8 color=#e8cb85 ease=-2.0]Devpods Community Leaders[/pulse][/color][/font_size]
+Chris DeLeon and Tim Ruswick[/center]"
 
 [node name="ButtonContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1755409713]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 3.0
+size_flags_stretch_ratio = 1.5
 theme_override_constants/separation = 40
 alignment = 1
 

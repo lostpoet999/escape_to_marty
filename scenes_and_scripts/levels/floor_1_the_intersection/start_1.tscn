@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://eyy14qdoiogp" path="res://scenes_and_scripts/backgrounds/tutorial backgrounds/denial_board.png" id="6_l13rn"]
 [ext_resource type="Script" uid="uid://floatyboard1" path="res://scenes_and_scripts/backgrounds/floaty_sprite.gd" id="7_float"]
 
-[node name="common_room" unique_id=565861230 instance=ExtResource("1_cckqh")]
+[node name="start_1" unique_id=565861230 instance=ExtResource("1_cckqh")]
 
 [node name="basic_tutorial1" type="Sprite2D" parent="." index="0" unique_id=19294649]
 position = Vector2(624, 272)

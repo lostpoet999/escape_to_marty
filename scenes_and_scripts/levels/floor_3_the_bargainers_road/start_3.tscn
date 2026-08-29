@@ -19,7 +19,7 @@ font = ExtResource("2_4xu00")
 font = ExtResource("2_4xu00")
 font_color = Color(0, 0.59170103, 0.5938744, 1)
 
-[node name="common_room" unique_id=565861230 instance=ExtResource("1_ydske")]
+[node name="start_3" unique_id=565861230 instance=ExtResource("1_ydske")]
 
 [node name="basic_tutorial1" type="Sprite2D" parent="." index="0" unique_id=275719791]
 position = Vector2(624, 272)

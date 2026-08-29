@@ -15,7 +15,7 @@ spawn_chance = 100.0
 requires_live_seals = true
 metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 
-[node name="combat_4_1" unique_id=1581363846 instance=ExtResource("1_1ae1x")]
+[node name="combat_4_4" unique_id=1581363846 instance=ExtResource("1_1ae1x")]
 standalone_floor = 4
 
 [node name="RectangleBarrier" parent="PlayArea/Barriers" parent_id_path=PackedInt32Array(1575555286) index="0" unique_id=415634240 instance=ExtResource("6_bb2dj")]

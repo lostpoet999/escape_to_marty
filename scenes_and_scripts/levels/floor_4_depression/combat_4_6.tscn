@@ -15,7 +15,7 @@ spawn_chance = 100.0
 requires_live_seals = true
 metadata/_custom_type_script = "uid://dm8qchhbo37mu"
 
-[node name="combat_4_1" unique_id=1536387470 instance=ExtResource("1_tel84")]
+[node name="combat_4_6" unique_id=1536387470 instance=ExtResource("1_tel84")]
 standalone_floor = 4
 
 [node name="SubViewportContainer" parent="." index="0" unique_id=1513724378]
