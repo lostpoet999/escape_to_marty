@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="DialogTree" format=3 uid="uid://csnufftell01"]
+
+[ext_resource type="Script" uid="uid://da86xmy7akvas" path="res://scenes_and_scripts/dialog/dialog_beat.gd" id="1_gqrx6"]
+[ext_resource type="Script" uid="uid://bkgp0oq7lrafl" path="res://scenes_and_scripts/dialog/dialog_tree.gd" id="1_tree"]
+
+[sub_resource type="Resource" id="Resource_snuff1"]
+script = ExtResource("1_gqrx6")
+speaker = 1
+text = "Don't click my hands--let me summon some imps!"
+central_image_glow_points = null
+metadata/_custom_type_script = "uid://da86xmy7akvas"
+
+[resource]
+script = ExtResource("1_tree")
+beats = Array[ExtResource("1_gqrx6")]([SubResource("Resource_snuff1")])
+once_per_run = false
+no_override = true
+takes_over = true

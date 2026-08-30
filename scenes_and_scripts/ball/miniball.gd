@@ -65,6 +65,7 @@ var _soft_catch_pending: bool = false
 @export var powerup_array: Array[BallPassive]
 
 @export var ball_dmg_type: Array[GameManager.PhaseType]
+var _type_scales: Dictionary[GameManager.PhaseType, float] = {}
 
 ## Seconds per full white-swap cycle of the armed tell; the sprite spends half of it solid white.
 @export var active_pulse_period: float = 0.9
@@ -235,6 +236,7 @@ func repopulate_effects_from_inventory() -> void:
 	var items: Array = PlayerInventory.get_instance().get_items_for_ball()
 	powerup_array.append_array(items)
 	collect_behaviors()
+	collect_type_scales()
 	update_base_dmg()
 
 func collect_behaviors() -> void:
@@ -242,6 +244,24 @@ func collect_behaviors() -> void:
 	for powerup_ref: BallPassive in powerup_array:
 		for behavior: HitBehavior in powerup_ref.on_hit:
 			behaviors.append(behavior)
+
+func collect_type_scales() -> void:
+	_type_scales.clear()
+	var type_copies: Dictionary[GameManager.PhaseType, int] = {}
+	for powerup_ref: BallPassive in powerup_array:
+		var type_item: BallDamageType = powerup_ref as BallDamageType
+		if type_item == null:
+			continue
+		var copies: int = 0
+		if type_copies.has(type_item.phase_type):
+			copies = type_copies[type_item.phase_type]
+		if copies >= type_item.max_copies:
+			continue
+		type_copies[type_item.phase_type] = copies + 1
+		var current_scale: float = 0.0
+		if _type_scales.has(type_item.phase_type):
+			current_scale = _type_scales[type_item.phase_type]
+		_type_scales[type_item.phase_type] = current_scale + type_item.scale_per_copy
 
 func update_base_dmg() -> void:
 	ball_dmg = PlayerInventory.get_instance().get_ball_damage() * damage_scale
@@ -308,7 +328,7 @@ func _flat_decay_applies(collider: Node2D) -> bool:
 	var seal: BaseSeal = collider as BaseSeal
 	if seal == null:
 		return false
-	return not ball_dmg_type.has(seal.current_stage)
+	return not ball_dmg_type.has(seal.current_stage) and not _type_scales.has(seal.current_stage)
 
 func _bounce_axis_is_y(collider: Node2D) -> bool:
 	var half: Vector2 = get_collider_half_size(collider)
@@ -550,8 +570,14 @@ func apply_damage_to(target: Node2D, amount: float, dmg_types: Array) -> void:
 	if target.is_in_group("bricks") or target.is_in_group("bounce_enemy"):
 		var damaged: bool = true
 		if target is BaseSeal:
-			damaged = dmg_types.has((target as BaseSeal).current_stage)
-		target.call("accept_damage", amount, dmg_types, chain_mult)
+			var seal: BaseSeal = target
+			var pre_stage: GameManager.PhaseType = seal.current_stage
+			damaged = dmg_types.has(pre_stage) or _type_scales.has(pre_stage)
+			seal.accept_damage(amount, dmg_types, chain_mult)
+			for phase: GameManager.PhaseType in _type_scales:
+				seal.accept_damage(amount * _type_scales[phase], [phase], chain_mult)
+		else:
+			target.call("accept_damage", amount, dmg_types, chain_mult)
 		if damaged:
 			chain_mult = minf(chain_mult + 1.0, Ball.CHAIN_MULT_MAX)
 		else:

@@ -91,7 +91,6 @@ text = "End."
 central_image = ExtResource("7_family")
 central_image_entrance_seconds = 0.6
 central_image_entrance_rotation_deg = -7.0
-central_image_entrance_scale = 0.8
 central_image_glow_points = null
 
 [resource]

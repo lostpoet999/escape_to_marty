@@ -84,9 +84,12 @@ var shield_pulse_tween: Tween
 var _dip_tween: Tween
 var _dip_scale_active: float = 0.0
 var _soft_catch_flash_tween: Tween
+var _hit_feedback_tween: Tween
+var _root_base_scale: Vector2 = Vector2.ONE
 var _sprite_base_y: float
 var _david_base_y: float
-var paddle_frozen: bool = false
+var _state_frozen: bool = false
+var _stun_frozen: bool = false
 var paddle_click_dmg: float = 1.0
 var _webbed: bool = false
 var _web_shakes_needed: int = 0
@@ -141,7 +144,8 @@ func _ready() -> void:
 	_sprite_base_y = sprite.position.y
 	_david_base_y = david.position.y
 	base_scale_x = sprite.scale.x
-	base_shape_size_x = paddle_collision_shape.scale.x	
+	base_shape_size_x = paddle_collision_shape.scale.x
+	_root_base_scale = scale
 	paddle_powerups = PlayerData.inventory.get_items_for_paddle()	
 	set_paddle_length_from_items()
 	
@@ -317,7 +321,7 @@ func _calculate_blockers_bounds() -> void:
 			if blocker_edge < temp_edge: temp_edge = blocker_edge
 		right_bound = temp_edge
 	accumulated_mouse_movement_x = clamp(accumulated_mouse_movement_x, left_bound, right_bound)
-	if paddle_frozen and GameManager.current_state == GameManager.GameState.CLICK_MODE:
+	if _is_frozen() and GameManager.current_state == GameManager.GameState.CLICK_MODE:
 		position.x = accumulated_mouse_movement_x
 		last_position = global_position
 
@@ -332,12 +336,15 @@ func _get_scaled_half_width() -> float:
 func _on_game_state_playing() -> void:
 	if _death_running:
 		return
-	paddle_frozen = false
+	_state_frozen = false
 	_set_desaturate(0.0)
 
 func _on_game_state_click_mode() -> void:
-	paddle_frozen = true
+	_state_frozen = true
 	_set_desaturate(1.0)
+
+func _is_frozen() -> bool:
+	return _state_frozen or _stun_frozen or _death_running
 
 func _set_desaturate(amount: float) -> void:
 	var mat: ShaderMaterial = sprite.material as ShaderMaterial
@@ -345,7 +352,7 @@ func _set_desaturate(amount: float) -> void:
 		mat.set_shader_parameter("desaturate_amount", amount)
 
 func freeze_paddle_for_time(time: float)->void:
-	if paddle_frozen:
+	if _stun_frozen:
 		return
 	if freeze_timer == null:
 		freeze_timer = Timer.new()
@@ -359,11 +366,10 @@ func freeze_paddle_for_time(time: float)->void:
 		
 	freeze_timer.wait_time = time
 	freeze_timer.start()
-	paddle_frozen = true	
-	
+	_stun_frozen = true
+
 func _on_freeze_timer_expire()->void:
-	if GameManager.current_state != GameManager.GameState.LEVEL_CLEARED and not _death_running:
-		paddle_frozen=false
+	_stun_frozen = false
 
 func apply_web(shakes_to_break: int) -> void:
 	if _webbed or _death_running:
@@ -419,7 +425,7 @@ func _input(event: InputEvent) -> void:
 		var web_motion: InputEventMouseMotion = event as InputEventMouseMotion
 		if web_motion:
 			_count_web_shake(web_motion.relative.x)
-	elif !paddle_frozen:
+	elif !_is_frozen():
 		var mouse_event: InputEventMouseMotion = event as InputEventMouseMotion
 		if mouse_event:
 			accumulated_mouse_movement_x += mouse_event.relative.x * mouse_sensitivity
@@ -499,10 +505,11 @@ func soft_catch_flash() -> void:
 		_soft_catch_flash_tween.finished.connect(start_shield_pulse, CONNECT_ONE_SHOT)
 
 func hit_feedback() -> void:
-	var base_scale: Vector2 = scale
-	var tw_scale: Tween = create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-	tw_scale.tween_property(self, "scale", base_scale * 0.9, 0.06)
-	tw_scale.tween_property(self, "scale", base_scale, 0.18)
+	if _hit_feedback_tween and _hit_feedback_tween.is_valid():
+		_hit_feedback_tween.kill()
+	_hit_feedback_tween = create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	_hit_feedback_tween.tween_property(self, "scale", _root_base_scale * 0.9, 0.06)
+	_hit_feedback_tween.tween_property(self, "scale", _root_base_scale, 0.18)
 
 	# red flash on David only
 	stop_shield_pulse()
@@ -564,7 +571,6 @@ func _run_death_sequence() -> void:
 	_death_running = true
 	SFX.stop_looping_sound(MAGNET_LOOP_SOUND)
 	_release_web()
-	paddle_frozen = true
 	_zoom_camera_on_david()
 	var ball: Node = get_tree().get_first_node_in_group("ball")
 	if ball != null:
@@ -666,7 +672,7 @@ func _process(delta: float) -> void:
 	magnet_refresh.paused = GameManager.current_state != GameManager.GameState.PLAYING
 	_capture_nearby_drops()
 	_tick_soft_catch_expiry()
-	var speed: float = 0.0 if paddle_frozen else current_speed
+	var speed: float = 0.0 if _is_frozen() else current_speed
 	var lean_target: float = 0.0
 	if absf(speed) > lean_speed_threshold:
 		var ramp: float = (absf(speed) - lean_speed_threshold) / maxf(lean_full_speed - lean_speed_threshold, 1.0)
@@ -677,7 +683,7 @@ func _process(delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	if abs(current_speed) <= 1500.0: reset_committed_distance()
-	if !paddle_frozen and !_webbed:
+	if !_is_frozen() and !_webbed:
 		var prev_x: float = position.x
 		position.x = accumulated_mouse_movement_x
 		current_speed = (global_position.x - last_position.x) / delta
