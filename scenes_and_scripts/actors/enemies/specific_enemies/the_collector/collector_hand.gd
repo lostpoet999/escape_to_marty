@@ -17,7 +17,8 @@ const DAMAGE_NUMBER: PackedScene = preload("uid://bedvoohhfbi03")
 @export var twist_degrees: float = 12.0
 @export var twist_time: float = 1.0
 @export var max_health: float = 30.0
-@export var swipe_damage: int = 1
+@export var swipe_damage_min: int = 3
+@export var swipe_damage_max: int = 5
 @export var swipe_stun: float = 0.6
 @export var swipe_raise_pixels: float = 40.0
 @export var swipe_overshoot_pixels: float = 90.0
@@ -287,7 +288,7 @@ func _on_body_entered(body: Node2D) -> void:
 	_swipe_hit = true
 	if body.has_method("freeze_paddle_for_time"):
 		body.freeze_paddle_for_time(swipe_stun)
-	PlayerData.accept_damage(swipe_damage)
+	PlayerData.accept_damage(randi_range(swipe_damage_min, swipe_damage_max))
 	SFX.play_sound("cage_hit")
 
 func _show_damage_number(amount: float) -> void:

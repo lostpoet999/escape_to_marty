@@ -818,6 +818,7 @@ func _all_statues_charged() -> bool:
 	return true
 
 func _attack_depression() -> void:
+	DialogDirector.play(&"collector_snuff_tell", self)
 	await _clasp_hands()
 	if _halted():
 		return

@@ -102,8 +102,8 @@ func _on_death(killed_by_damage: bool) -> void:
 	for payload: BonusPayload in hoard:
 		var drop: BonusDrop = BONUS_DROP.instantiate()
 		drop.payload = payload
-		get_parent().add_child(drop)
-		drop.global_position = global_position + _scatter_offset()
+		get_parent().add_child.call_deferred(drop)
+		drop.set_deferred("global_position", global_position + _scatter_offset())
 		Signalbus.gold_spawned.emit(1)
 	hoard.clear()
 
