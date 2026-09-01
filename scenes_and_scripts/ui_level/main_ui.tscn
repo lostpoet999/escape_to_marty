@@ -12,6 +12,11 @@ font = ExtResource("2_8r8j7")
 font_size = 24
 font_color = Color(0.9098039, 0.75686276, 0.4392157, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_floor"]
+font = ExtResource("2_8r8j7")
+font_size = 12
+font_color = Color(0.9098039, 0.75686276, 0.4392157, 1)
+
 [node name="Main_UI" type="Control" unique_id=1289514780]
 layout_mode = 3
 anchors_preset = 15
@@ -103,10 +108,23 @@ label_settings = ExtResource("1_utoos")
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MinimapMargins" type="MarginContainer" parent="VBoxContainer" unique_id=882673217]
+[node name="FloorHeader" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 0
+
+[node name="Floor" type="Label" parent="VBoxContainer/FloorHeader"]
+unique_name_in_owner = true
+layout_mode = 2
+text = ""
+label_settings = SubResource("LabelSettings_floor")
+
+[node name="MinimapMargins" type="MarginContainer" parent="VBoxContainer" unique_id=882673217]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 

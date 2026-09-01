@@ -37,7 +37,7 @@ func run() -> void:
 		_set_tutorial_visible(true)
 		_reveal_practice_seal()
 		return
-	PlayerData.seen_cutscenes.append(CUTSCENE_ID)
+	GameManager.mark_cutscene_seen(CUTSCENE_ID)
 	active = true
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_spawn_skip_prompt()

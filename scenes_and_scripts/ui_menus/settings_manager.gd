@@ -13,6 +13,8 @@ var difficulty: int = 1
 var mouse_sensitivity: float = 1.0
 var show_tutorial_tips: bool = true
 
+const TIER_NAMES: Array[String] = ["Casual", "Easy", "Normal", "Hard", "Brutal"]
+
 func _ready() -> void:
 	load_settings()
 
@@ -30,6 +32,31 @@ func score_difficulty_mult() -> float:
 		0: return 0.5 if game_speed < 1.0 else 0.75
 		2: return 2.0 if ball_speed_scale > 1.0 else 1.5
 		_: return 1.0
+
+func tier_index() -> int:
+	match difficulty:
+		0: return 0 if game_speed < 1.0 else 1
+		2: return 4 if ball_speed_scale > 1.0 else 3
+		_: return 2
+
+func tier_name() -> String:
+	return TIER_NAMES[tier_index()]
+
+func apply_tier(index: int) -> void:
+	var tier: int = clampi(index, 0, TIER_NAMES.size() - 1)
+	match tier:
+		0, 1: difficulty = 0
+		3, 4: difficulty = 2
+		_: difficulty = 1
+	game_speed = 0.5 if tier == 0 else 1.0
+	ball_speed_scale = 2.0 if tier == 4 else 1.0
+
+static func tier_name_for_score_mult(mult: float) -> String:
+	if mult <= 0.5: return TIER_NAMES[0]
+	if mult <= 0.75: return TIER_NAMES[1]
+	if mult <= 1.0: return TIER_NAMES[2]
+	if mult <= 1.5: return TIER_NAMES[3]
+	return TIER_NAMES[4]
 
 func reflect_base_reduction() -> float:
 	match difficulty:

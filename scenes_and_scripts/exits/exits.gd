@@ -129,9 +129,12 @@ func _on_exit_clicked()-> void:
 		return
 
 	if !room_cleared:
+		MouseGestures.play_denied_click()
 		return
 
 	if _memory_lock_active() and not _targets_uncollected_memory():
+		MouseGestures.play_denied_click()
+		_nudge_memory_exits()
 		return
 
 	var target_id: String = _target_id()
@@ -241,6 +244,15 @@ func _start_secret_flash()-> void:
 		_chain_flash_steps()
 	else:
 		_queue_secret_flash()
+
+func _nudge_memory_exits()-> void:
+	for node: Node in get_tree().get_nodes_in_group(&"exits"):
+		if node != self and node.has_method(&"nudge_if_memory_target"):
+			node.call(&"nudge_if_memory_target")
+
+func nudge_if_memory_target()-> void:
+	if room_cleared and _targets_uncollected_memory():
+		reconcile_exits()
 
 func _in_no_combat_room()-> bool:
 	var here: RoomEntry = room_ref[GameManager.current_room_id]

@@ -17,8 +17,17 @@ extends Line2D
 ## A single-frame jump larger than this means the ball teleported (room reset,
 ## warp) — clear the trail so it doesn't streak across the screen.
 @export var teleport_threshold: float = 200.0
+## Seconds for a stopped owner's trail to draw fully into its head. 0 = never
+## (the ball, which keeps moving); David's ghost sets this so the trail catches up.
+@export var retract_time: float = 0.0
+## Per-frame movement below this counts as stopped for retraction.
+@export var retract_still_threshold: float = 0.5
 
-func _process(_delta: float) -> void:
+var _last_pos: Vector2
+var _has_last_pos: bool = false
+var _still_time: float = 0.0
+
+func _process(delta: float) -> void:
 	var ball: Node2D = get_parent() as Node2D
 	var pos: Vector2 = ball.global_position
 
@@ -41,11 +50,23 @@ func _process(_delta: float) -> void:
 	var vel: Variant = ball.get("velocity")
 	var speed: float = (vel as Vector2).length() if vel is Vector2 else 0.0
 	var t: float = clampf((speed - min_speed) / (max_speed - min_speed), 0.0, 1.0)
-	_trim_to_length(lerpf(min_length, max_length, t))
+	_trim_to_length(lerpf(min_length, max_length, t) * _retract_factor(pos, delta))
 
 	# Safety cap.
 	while points.size() > max_points:
 		remove_point(0)
+
+func _retract_factor(pos: Vector2, delta: float) -> float:
+	if retract_time <= 0.0:
+		return 1.0
+	var moved: float = pos.distance_to(_last_pos) if _has_last_pos else INF
+	_last_pos = pos
+	_has_last_pos = true
+	if moved > retract_still_threshold:
+		_still_time = 0.0
+		return 1.0
+	_still_time += delta
+	return clampf(1.0 - _still_time / retract_time, 0.0, 1.0)
 
 ## Drop points from the tail (oldest, index 0) until the polyline measured back
 ## from the head fits within max_len world units.

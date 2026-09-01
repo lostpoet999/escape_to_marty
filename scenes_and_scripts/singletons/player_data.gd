@@ -122,6 +122,25 @@ func _on_boss_defeated() -> void:
 func get_player_score() -> int:
 	return score
 
+func difficulty_tier_name() -> String:
+	return SettingsManager.tier_name_for_score_mult(_score_difficulty_mult)
+
+func resnapshot_difficulty() -> void:
+	_score_difficulty_mult = SettingsManager.score_difficulty_mult()
+
+func build_run_summary(won: bool) -> Dictionary:
+	var retries: int = 0
+	for floor_index: int in retry_counts:
+		retries += retry_counts[floor_index]
+	return {
+		"score": score,
+		"floor": GameManager.current_floor,
+		"floor_name": GameManager.floor_data.floor_name_id if GameManager.floor_data != null else "",
+		"tier": difficulty_tier_name(),
+		"retries": retries,
+		"won": won,
+	}
+
 func get_room_state(entry: RoomEntry)->RoomState:
 	var id: String = RoomEntry.make_key(entry.room_coords)
 	if !room_state.has(id):

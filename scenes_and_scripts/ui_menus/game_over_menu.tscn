@@ -23,10 +23,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -488.0
-offset_top = -211.0
-offset_right = 488.0
-offset_bottom = 104.0
+offset_left = -600.0
+offset_top = -250.0
+offset_right = 600.0
+offset_bottom = 130.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_htpki")
@@ -68,6 +68,14 @@ size_flags_vertical = 4
 text = "0"
 label_settings = ExtResource("5_score")
 
+[node name="RunContext" type="Label" parent="ColorRect/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = ""
+label_settings = ExtResource("3_title")
+horizontal_alignment = 1
+
 [node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/VBoxContainer" unique_id=1141022542]
 layout_mode = 2
 size_flags_horizontal = 4
@@ -78,6 +86,11 @@ theme_override_constants/separation = 16
 custom_minimum_size = Vector2(200, 65)
 layout_mode = 2
 text = "Retry Floor"
+
+[node name="EasierRetry" type="Button" parent="ColorRect/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 65)
+layout_mode = 2
+text = "Retry on Normal"
 
 [node name="RestartRun" type="Button" parent="ColorRect/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(200, 65)

@@ -150,7 +150,15 @@ func _on_skip_committed() -> void:
 	if not _playing or _skip_requested:
 		return
 	_skip_requested = true
+	_silence_reveal()
 	_advanced.emit()
+
+
+func _silence_reveal() -> void:
+	if _reveal_tween:
+		_reveal_tween.kill()
+	voice_player.begin_line(null, "")
+	voice_player.stop()
 
 
 func _remove_skip_prompt() -> void:

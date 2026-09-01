@@ -210,6 +210,7 @@ func play_song(stream: AudioStream, volume_db: float = -5.0) -> void:
 
 	if music_player.stream == stream and music_player.playing:
 		music_player.volume_db = volume_db
+		music_player.pitch_scale = 1.0
 		return
 
 	stop_playlist()

@@ -8,6 +8,8 @@ const RESTART_FILL_COLOR: Color = Color(1.0, 0.3, 0.3, 0.45)
 @onready var retry_button: Button = $ColorRect/VBoxContainer/HBoxContainer/Retry
 @onready var restart_button: Button = $ColorRect/VBoxContainer/HBoxContainer/RestartRun
 @onready var score_value: Label = %ScoreValue
+@onready var run_context: Label = %RunContext
+@onready var easier_button: Button = $ColorRect/VBoxContainer/HBoxContainer/EasierRetry
 
 var _open_tween: Tween
 var _breathe_tween: Tween
@@ -21,6 +23,8 @@ func _ready() -> void:
 	ApolloPalette.style_menu_button(exit_button)
 	ApolloPalette.style_menu_button(retry_button)
 	ApolloPalette.style_menu_button(restart_button)
+	ApolloPalette.style_menu_button(easier_button)
+	easier_button.pressed.connect(_on_easier_pressed)
 	_restart_fill = ColorRect.new()
 	_restart_fill.color = RESTART_FILL_COLOR
 	_restart_fill.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -58,14 +62,24 @@ func _on_restart_hold_released() -> void:
 func _on_retry_pressed() -> void:
 	GameManager.retry_floor()
 
+func _on_easier_pressed() -> void:
+	GameManager.retry_floor_easier()
+
 func show_menu() -> void:
 	if _open_tween != null and _open_tween.is_valid():
 		_open_tween.kill()
 	if _breathe_tween != null and _breathe_tween.is_valid():
 		_breathe_tween.kill()
 	score_value.text = str(PlayerData.get_player_score())
+	var summary: Dictionary = PlayerData.build_run_summary(false)
+	run_context.text = "%s  -  %s" % [summary["floor_name"], summary["tier"]]
+	SaveProgression.record_run_score(summary["tier"], PlayerData.get_player_score())
 	retry_button.visible = not GameManager.test_floor_active
 	restart_button.visible = not GameManager.test_floor_active
+	var tier: int = SettingsManager.tier_index()
+	easier_button.visible = tier > 0 and not GameManager.test_floor_active
+	if tier > 0:
+		easier_button.text = "Retry on %s" % SettingsManager.TIER_NAMES[tier - 1]
 	show()
 	_open_tween = ApolloPalette.make_open_tween(self, true)
 	_open_tween.finished.connect(_start_breathe)

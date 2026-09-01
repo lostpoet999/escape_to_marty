@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://befajfg1phsl6" path="res://scenes_and_scripts/actors/player/player_ghost_particles.png" id="4_jl0n4"]
 [ext_resource type="PackedScene" uid="uid://ld8u6g3nsn62" path="res://scenes_and_scripts/ball/ball.tscn" id="5_78bc0"]
 [ext_resource type="Script" uid="uid://dsi4srcwglrh1" path="res://scenes_and_scripts/ui_main_menu/fullscreen_button.gd" id="7_s6e4g"]
+[ext_resource type="LabelSettings" uid="uid://dnb1y3i4cf2ln" path="res://label_settings_and_fonts/basic_white_38.tres" id="8_best"]
 
 [sub_resource type="Gradient" id="Gradient_nf3nx"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
@@ -245,6 +246,14 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 16
 text = "Reset Progress"
+
+[node name="BestScore" type="Label" parent="VBoxContainer/ButtonContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+text = "BEST: 0"
+label_settings = ExtResource("8_best")
+horizontal_alignment = 1
 
 [connection signal="pressed" from="VBoxContainer/ButtonContainer/MainButtons/Continue Button" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/ButtonContainer/MainButtons/Start Button" to="." method="_on_start_button_pressed"]

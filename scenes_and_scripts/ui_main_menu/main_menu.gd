@@ -22,6 +22,7 @@ const START_NEW_RUN_TEXT: String = "New Run"
 @onready var dev_build_label: Label = $Label
 @onready var start_button: Button = $VBoxContainer/ButtonContainer/MainButtons/"Start Button"
 @onready var continue_button: Button = $VBoxContainer/ButtonContainer/MainButtons/"Continue Button"
+@onready var best_label: Label = $VBoxContainer/ButtonContainer/BestScore
 
 var _reset_fill: ColorRect
 var _reset_holding: bool = false
@@ -59,6 +60,7 @@ func _ready() -> void:
 	reset_button.button_down.connect(_on_reset_hold_started)
 	reset_button.button_up.connect(_on_reset_hold_released)
 	continue_button.visible = SaveProgression.has_run_checkpoint()
+	_refresh_best_label()
 	if SaveProgression.has_run_checkpoint():
 		start_button.text = START_NEW_RUN_TEXT
 		_start_fill = ColorRect.new()
@@ -99,11 +101,18 @@ func _on_reset_hold_released() -> void:
 	_reset_holding = false
 	_reset_fill.scale.x = 0.0
 
+func _refresh_best_label() -> void:
+	var best: Dictionary = SaveProgression.best_score_any()
+	best_label.visible = not best.is_empty()
+	if not best.is_empty():
+		best_label.text = "BEST: %d  (%s)" % [int(best["score"]), String(best["tier"])]
+
 func _execute_reset() -> void:
 	_reset_holding = false
 	SaveProgression.reset_progress()
 	GameManager.start_floor()
 	continue_button.visible = false
+	_refresh_best_label()
 	start_button.text = "Start"
 	_start_holding = false
 	if _start_fill != null:

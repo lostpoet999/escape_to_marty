@@ -39,9 +39,17 @@ func _ready() -> void:
 			for offset: Vector2i in [Vector2i(0, -1), Vector2i(0, 1), Vector2i(1, 0), Vector2i(-1, 0)]:
 				if room_entry.has_door(offset):
 					revealed_ids[RoomEntry.make_key(room_entry.room_coords + offset)] = true
+	Signalbus.inventory_changed.connect(_refresh_labels)
 
 	for exit_id: String in revealed_ids:
 		if idx_by_id.has(exit_id):
 			var target: MinimapRoom = rooms[idx_by_id[exit_id]]
 			if not target.room_entry.content.is_secret: # secret rooms wait for a higher-tier scouting item
 				target.is_revealed = true
+
+func _refresh_labels() -> void:
+	var labels_enabled: bool = PlayerData.inventory != null and PlayerData.inventory.has_map_marker()
+	for child: Node in get_children():
+		var room: MinimapRoom = child as MinimapRoom
+		if room != null:
+			room.labels_enabled = labels_enabled

@@ -17,6 +17,7 @@ var scene_ref: PackedScene
 var current_room_id: String
 var test_floor_active: bool = false
 var standalone_room_active: bool = false
+var last_run_summary: Dictionary = {}
 
 enum GameState {
 	MAIN_MENU = 0,
@@ -74,8 +75,20 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _notification(what: int) -> void:
-	if what == NOTIFICATION_APPLICATION_FOCUS_OUT:
+	if what == NOTIFICATION_APPLICATION_FOCUS_OUT or what == NOTIFICATION_WM_WINDOW_FOCUS_OUT:
 		request_pause()
+
+
+func _input(event: InputEvent) -> void:
+	if not _web_build:
+		return
+	if current_state not in [GameState.BALL_ON_PADDLE, GameState.PLAYING]:
+		return
+	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+		return
+	var click: InputEventMouseButton = event as InputEventMouseButton
+	if click != null and click.pressed:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 
 func _process(_delta: float) -> void:
@@ -459,6 +472,9 @@ func _return_to_test_room() -> void:
 	get_tree().change_scene_to_packed(scene_ref)
 
 func win_game()->void:
+	last_run_summary = PlayerData.build_run_summary(true)
+	SaveProgression.record_run_score(PlayerData.difficulty_tier_name(), PlayerData.get_player_score())
+	SaveProgression.record_run_clear(PlayerData.difficulty_tier_name())
 	SaveProgression.clear_run_checkpoint()
 	change_state(GameState.MAIN_MENU)
 	load_scene(CREDITS_SCENE)
@@ -466,12 +482,20 @@ func win_game()->void:
 func write_run_checkpoint() -> void:
 	SaveProgression.save_run_checkpoint(current_floor, PlayerData.build_checkpoint())
 
+func mark_cutscene_seen(cutscene_id: StringName) -> void:
+	if not PlayerData.seen_cutscenes.has(cutscene_id):
+		PlayerData.seen_cutscenes.append(cutscene_id)
+	if standalone_room_active or test_floor_active:
+		return
+	write_run_checkpoint()
+
 func retry_floor() -> void:
 	if not change_state(GameState.BALL_ON_PADDLE):
 		return
 	var player_state: Dictionary = SaveProgression.run_checkpoint_player()
 	if SaveProgression.has_run_checkpoint() and not player_state.is_empty():
 		PlayerData.restore_checkpoint(player_state)
+	PlayerData.resnapshot_difficulty()
 	PlayerData.retry_counts[current_floor] = PlayerData.retry_counts.get(current_floor, 0) + 1
 	PlayerData.refresh_for_retry()
 	start_floor(false)
@@ -484,6 +508,11 @@ func retry_floor() -> void:
 	room_data_for_floor[RoomEntry.make_key(RETRY_ROOM_COORDS)] = entry
 	current_room_id = RoomEntry.make_key(RETRY_ROOM_COORDS)
 	load_scene(RETRY_ROOM)
+
+func retry_floor_easier() -> void:
+	SettingsManager.apply_tier(SettingsManager.tier_index() - 1)
+	SettingsManager.save_settings()
+	retry_floor()
 
 func exit_retry_room() -> void:
 	if not change_state(GameState.BALL_ON_PADDLE):
@@ -500,6 +529,7 @@ func restart_run() -> void:
 	if not change_state(GameState.BALL_ON_PADDLE):
 		return
 	current_floor = 1
+	last_run_summary = {}
 	start_floor()
 	write_run_checkpoint()
 	load_current_room()
@@ -514,7 +544,9 @@ func continue_run() -> void:
 		return
 	current_floor = clampi(SaveProgression.run_checkpoint_floor(), 1, FLOOR_REGISTRY.floors.size())
 	PlayerData.restore_checkpoint(player_state)
+	PlayerData.resnapshot_difficulty()
 	grant_memory_trophies()
+	last_run_summary = {}
 	start_floor(false)
 	load_current_room()
 

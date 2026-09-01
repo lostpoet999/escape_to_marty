@@ -141,6 +141,9 @@ func _denied_click_on_plain_seal() -> bool:
 	return false
 
 func _play_denied_click() -> void:
+	play_denied_click()
+
+static func play_denied_click() -> void:
 	var denied_player: AudioStreamPlayer = SFX.play_sound(DENIED_CLICK_SOUND)
 	if denied_player != null:
 		denied_player.pitch_scale = DENIED_CLICK_PITCH

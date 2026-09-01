@@ -92,6 +92,33 @@ func clear_run_checkpoint() -> void:
 			_store.erase_section_key(ACTIVE_PROFILE, key)
 	_save_store()
 
+func record_run_score(tier: String, run_score: int) -> void:
+	_ensure_loaded()
+	var key: String = "best/" + tier
+	if run_score <= int(_store.get_value(ACTIVE_PROFILE, key, 0)):
+		return
+	_store.set_value(ACTIVE_PROFILE, key, run_score)
+	_save_store()
+
+func record_run_clear(tier: String) -> void:
+	_ensure_loaded()
+	var key: String = "clears/" + tier
+	_store.set_value(ACTIVE_PROFILE, key, int(_store.get_value(ACTIVE_PROFILE, key, 0)) + 1)
+	_save_store()
+
+func best_score(tier: String) -> int:
+	_ensure_loaded()
+	return int(_store.get_value(ACTIVE_PROFILE, "best/" + tier, 0))
+
+func best_score_any() -> Dictionary:
+	_ensure_loaded()
+	var best: Dictionary = {}
+	for tier: String in SettingsManager.TIER_NAMES:
+		var value: int = best_score(tier)
+		if value > int(best.get("score", 0)):
+			best = {"tier": tier, "score": value}
+	return best
+
 func reset_progress() -> void:
 	_ensure_loaded()
 	if _store.has_section(ACTIVE_PROFILE):

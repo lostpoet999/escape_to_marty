@@ -27,6 +27,7 @@ func clear_encounter() -> void:
 		return
 	encounter_cleared = true
 	room_state.cleared = true
+	_set_exits_travel_locked(true)
 	Signalbus.level_cleared.emit()
 	_clear_threats()
 	await _play_room_celebrate()
@@ -34,8 +35,14 @@ func clear_encounter() -> void:
 	await _play_post_encounter_beat()
 	if not is_inside_tree():
 		return
+	_set_exits_travel_locked(false)
 	_spawn_encounter_loot()
 	_activate_floor_portal()
+
+func _set_exits_travel_locked(locked: bool) -> void:
+	for exit_node: Node in get_tree().get_nodes_in_group(&"exits"):
+		if exit_node.has_method(&"set_travel_locked"):
+			exit_node.call(&"set_travel_locked", locked)
 
 func _restore_cleared_encounter() -> void:
 	_sweep_encounter()

@@ -50,6 +50,7 @@ gradient = SubResource("Gradient_jrxcm")
 texture = SubResource("GradientTexture2D_naoyk")
 texture_mode = 2
 script = ExtResource("2_jui38")
+retract_time = 0.35
 
 [node name="GhostFog" type="CPUParticles2D" parent="." unique_id=639358482]
 position = Vector2(2.2000008, 63)
