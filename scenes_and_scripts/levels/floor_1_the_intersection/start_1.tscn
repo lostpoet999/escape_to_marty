@@ -65,6 +65,3 @@ metadata/_edit_lock_ = true
 script = ExtResource("4_opcut")
 seal = NodePath("../PlayArea/OpenSeal2")
 practice_seal = NodePath("../PlayArea/PracticeSeal")
-
-[node name="Paddle" parent="." index="13" unique_id=146319671]
-visible = false
