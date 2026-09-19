@@ -101,6 +101,13 @@ max_length = 12
 context_menu_enabled = false
 caret_blink = true
 
+[node name="PostButton" type="Button" parent="ColorRect/VBoxContainer/NameRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 40)
+layout_mode = 2
+size_flags_vertical = 4
+text = "Post Score"
+
 [node name="NameHint" type="Label" parent="ColorRect/VBoxContainer/NameRow"]
 unique_name_in_owner = true
 visible = false
@@ -108,6 +115,14 @@ layout_mode = 2
 size_flags_vertical = 4
 text = ""
 label_settings = ExtResource("8_accent")
+
+[node name="PostedToast" type="Label" parent="ColorRect/VBoxContainer/NameRow"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_vertical = 4
+text = "score posted"
+label_settings = ExtResource("6_body")
 
 [node name="BoardTitle" type="Label" parent="ColorRect/VBoxContainer"]
 unique_name_in_owner = true

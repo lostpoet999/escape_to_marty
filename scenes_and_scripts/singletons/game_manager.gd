@@ -475,7 +475,6 @@ func win_game()->void:
 	Telemetry.track("win")
 	last_run_summary = PlayerData.build_run_summary(true)
 	SaveProgression.record_run_score(PlayerData.difficulty_tier_name(), PlayerData.get_player_score())
-	Telemetry.submit_score(PlayerData.difficulty_tier_name(), PlayerData.get_player_score(), SaveProgression.profile_name())
 	SaveProgression.record_run_clear(PlayerData.difficulty_tier_name())
 	SaveProgression.clear_run_checkpoint()
 	change_state(GameState.MAIN_MENU)
