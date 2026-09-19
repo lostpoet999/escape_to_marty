@@ -1,13 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://bgdoorf2ab01"]
+[gd_scene format=3 uid="uid://bgdoorf2ab01"]
 
-[ext_resource type="Script" path="res://scenes_and_scripts/backgrounds/BG Objects/f2/bg_door.gd" id="1_door"]
-[ext_resource type="Texture2D" path="res://scenes_and_scripts/backgrounds/BG Objects/door_test_64x64.png" id="2_door"]
+[ext_resource type="Script" uid="uid://5qjy40vjrpsi" path="res://scenes_and_scripts/backgrounds/BG Objects/f2/bg_door.gd" id="1_door"]
+[ext_resource type="Texture2D" uid="uid://dqqgyppu7cw72" path="res://scenes_and_scripts/backgrounds/BG Objects/door_test_64x64.png" id="2_door"]
 [ext_resource type="Material" uid="uid://bgmatdorf2a1" path="res://scenes_and_scripts/backgrounds/BG Objects/f2/mat_prop_door.tres" id="3_door"]
 
-[node name="BgDoor" type="Node3D"]
+[node name="BgDoor" type="Node3D" unique_id=1328090038]
 script = ExtResource("1_door")
 
-[node name="Sprite3D" type="Sprite3D" parent="."]
-texture = ExtResource("2_door")
-texture_filter = 0
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=2081852442]
 material_override = ExtResource("3_door")
+texture_filter = 0
+texture = ExtResource("2_door")

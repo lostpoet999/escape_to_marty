@@ -30,6 +30,7 @@ const SHIELD_LOST_SOUND: String = "shield_lost"
 var score: int = 0
 var gold_collected: int = 0
 var _score_difficulty_mult: float = 1.0
+var _lowest_score_mult: float = 1.0
 var _floor_retried: bool = false
 var _floor_damage_taken: bool = false
 var _room_damage_taken: bool = false
@@ -123,10 +124,11 @@ func get_player_score() -> int:
 	return score
 
 func difficulty_tier_name() -> String:
-	return SettingsManager.tier_name_for_score_mult(_score_difficulty_mult)
+	return SettingsManager.tier_name_for_score_mult(_lowest_score_mult)
 
 func resnapshot_difficulty() -> void:
 	_score_difficulty_mult = SettingsManager.score_difficulty_mult()
+	_lowest_score_mult = minf(_lowest_score_mult, _score_difficulty_mult)
 
 func build_run_summary(won: bool) -> Dictionary:
 	var retries: int = 0
@@ -151,6 +153,7 @@ func initialize_player_data() -> void:
 	score = 0
 	gold_collected = 0
 	_score_difficulty_mult = SettingsManager.score_difficulty_mult()
+	_lowest_score_mult = _score_difficulty_mult
 	_floor_retried = false
 	_floor_damage_taken = false
 	begin_room_score_tracking()
@@ -319,6 +322,7 @@ func build_checkpoint() -> Dictionary:
 	return {
 		"score": score,
 		"score_mult": _score_difficulty_mult,
+		"lowest_score_mult": _lowest_score_mult,
 		"floor_retried": _floor_retried,
 		"floor_damage_taken": _floor_damage_taken,
 		"gold": gold_collected,
@@ -350,6 +354,7 @@ func _item_paths(source: Array[BaseItem]) -> Array:
 func restore_checkpoint(data: Dictionary) -> void:
 	score = _saved_int(data, "score", 0)
 	_score_difficulty_mult = _saved_float(data, "score_mult", 1.0)
+	_lowest_score_mult = minf(_score_difficulty_mult, _saved_float(data, "lowest_score_mult", _score_difficulty_mult))
 	_floor_retried = bool(data.get("floor_retried", false))
 	_floor_damage_taken = bool(data.get("floor_damage_taken", false))
 	gold_collected = _saved_int(data, "gold", 0)

@@ -213,6 +213,14 @@ size_flags_vertical = 4
 theme_override_font_sizes/font_size = 16
 text = "Credits"
 
+[node name="High Scores Button" type="Button" parent="VBoxContainer/ButtonContainer/SmallButtons"]
+custom_minimum_size = Vector2(150, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 16
+text = "High Scores"
+
 [node name="Exit Button" type="Button" parent="VBoxContainer/ButtonContainer/MainButtons" unique_id=1093171798]
 custom_minimum_size = Vector2(300, 120)
 layout_mode = 2
@@ -259,4 +267,5 @@ horizontal_alignment = 1
 [connection signal="pressed" from="VBoxContainer/ButtonContainer/MainButtons/Start Button" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/ButtonContainer/SmallButtons/Settings Button" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/ButtonContainer/SmallButtons/Credits Button" to="." method="_on_credits_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ButtonContainer/SmallButtons/High Scores Button" to="." method="_on_high_scores_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/ButtonContainer/MainButtons/Exit Button" to="." method="_on_exit_button_pressed"]

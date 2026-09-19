@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://chs4vfkn7cmgt"]
+[gd_scene load_steps=9 format=3 uid="uid://chs4vfkn7cmgt"]
 
 [ext_resource type="Script" uid="uid://d01coo5nu6uyw" path="res://scenes_and_scripts/ui_menus/game_over_menu.gd" id="1_brkfe"]
 [ext_resource type="Texture2D" uid="uid://cra2lcyy34b1x" path="res://scenes_and_scripts/ui_menus/edge_patch.png" id="2_htpki"]
 [ext_resource type="LabelSettings" uid="uid://cpopuptitle0" path="res://label_settings_and_fonts/popup_title_32.tres" id="3_title"]
 [ext_resource type="LabelSettings" uid="uid://dx3lg2g7p81op" path="res://label_settings_and_fonts/yellow_48.tres" id="4_score"]
 [ext_resource type="LabelSettings" uid="uid://dnb1y3i4cf2ln" path="res://label_settings_and_fonts/basic_white_38.tres" id="5_score"]
+[ext_resource type="LabelSettings" uid="uid://cpopupbody16" path="res://label_settings_and_fonts/popup_body_16.tres" id="6_body"]
+[ext_resource type="FontFile" uid="uid://ce5jk1ok7f4r5" path="res://label_settings_and_fonts/fonts/PressStart2P-Regular.ttf" id="7_font"]
+[ext_resource type="LabelSettings" uid="uid://cpopupaccent" path="res://label_settings_and_fonts/popup_accent_16.tres" id="8_accent"]
 
 [node name="GameOverMenu" type="Control" unique_id=1064137318]
 top_level = true
@@ -24,9 +27,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -600.0
-offset_top = -250.0
+offset_top = -330.0
 offset_right = 600.0
-offset_bottom = 130.0
+offset_bottom = 330.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_htpki")
@@ -75,6 +78,56 @@ size_flags_horizontal = 4
 text = ""
 label_settings = ExtResource("3_title")
 horizontal_alignment = 1
+
+[node name="NameRow" type="HBoxContainer" parent="ColorRect/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 16
+
+[node name="NameLabel" type="Label" parent="ColorRect/VBoxContainer/NameRow"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "NAME:"
+label_settings = ExtResource("6_body")
+
+[node name="NameEdit" type="LineEdit" parent="ColorRect/VBoxContainer/NameRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(320, 40)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_font")
+theme_override_font_sizes/font_size = 16
+placeholder_text = "type + Enter to post"
+max_length = 12
+context_menu_enabled = false
+caret_blink = true
+
+[node name="NameHint" type="Label" parent="ColorRect/VBoxContainer/NameRow"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_vertical = 4
+text = ""
+label_settings = ExtResource("8_accent")
+
+[node name="BoardTitle" type="Label" parent="ColorRect/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "TOP RUNS"
+label_settings = ExtResource("6_body")
+horizontal_alignment = 1
+
+[node name="BoardRows" type="RichTextLabel" parent="ColorRect/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/default_color = Color(0.909804, 0.756863, 0.439216, 1)
+theme_override_fonts/normal_font = ExtResource("7_font")
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/VBoxContainer" unique_id=1141022542]
 layout_mode = 2

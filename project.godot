@@ -40,6 +40,8 @@ SettingsManager="*uid://bci7epy5sf36y"
 DialogDirector="*res://scenes_and_scripts/dialog/dialog_director.gd"
 SaveProgression="*res://scenes_and_scripts/singletons/save_progression.gd"
 LoadingScreen="*res://scenes_and_scripts/singletons/loading_screen.gd"
+Talo="*uid://bpmdn8oc34pg7"
+Telemetry="*res://scenes_and_scripts/singletons/telemetry.gd"
 
 [debug]
 
@@ -65,7 +67,7 @@ project/assembly_name="Escape to Marty"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/etm_tools/plugin.cfg")
+enabled=PackedStringArray("res://addons/etm_tools/plugin.cfg", "res://addons/talo/plugin.cfg")
 
 [godot_idea_board]
 

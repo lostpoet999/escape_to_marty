@@ -1,0 +1,7 @@
+access_key=""
+api_url="https://api.heeyagames.com"
+auto_connect_socket=false
+handle_tree_quit=false
+
+[player_auth]
+auto_start_session=false

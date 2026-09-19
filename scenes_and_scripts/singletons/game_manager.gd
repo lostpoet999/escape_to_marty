@@ -472,8 +472,10 @@ func _return_to_test_room() -> void:
 	get_tree().change_scene_to_packed(scene_ref)
 
 func win_game()->void:
+	Telemetry.track("win")
 	last_run_summary = PlayerData.build_run_summary(true)
 	SaveProgression.record_run_score(PlayerData.difficulty_tier_name(), PlayerData.get_player_score())
+	Telemetry.submit_score(PlayerData.difficulty_tier_name(), PlayerData.get_player_score(), SaveProgression.profile_name())
 	SaveProgression.record_run_clear(PlayerData.difficulty_tier_name())
 	SaveProgression.clear_run_checkpoint()
 	change_state(GameState.MAIN_MENU)
@@ -530,6 +532,7 @@ func restart_run() -> void:
 		return
 	current_floor = 1
 	last_run_summary = {}
+	Telemetry.track("menu_start")
 	start_floor()
 	write_run_checkpoint()
 	load_current_room()
@@ -547,6 +550,7 @@ func continue_run() -> void:
 	PlayerData.resnapshot_difficulty()
 	grant_memory_trophies()
 	last_run_summary = {}
+	Telemetry.track("continue")
 	start_floor(false)
 	load_current_room()
 

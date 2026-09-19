@@ -8,6 +8,7 @@ extends Control
 const MAIN_MENU: PackedScene = preload("uid://djuj72c4lcukn")
 const CREDITS_SCENE: PackedScene = preload("res://scenes_and_scripts/ui_main_menu/credits_scene.tscn")
 const SETTINGS_SCENE: PackedScene = preload("res://scenes_and_scripts/ui_main_menu/settings_scene.tscn")
+const HIGH_SCORES_SCENE: PackedScene = preload("res://scenes_and_scripts/ui_main_menu/high_scores_scene.tscn")
 
 const DEV_LABEL_HOVER_COLOR: Color = Color(1.0, 1.0, 1.0)
 
@@ -151,6 +152,9 @@ func _on_settings_button_pressed() -> void:
 func _on_credits_button_pressed() -> void:
 	print("credits button pressed")
 	get_tree().change_scene_to_packed(CREDITS_SCENE)
+
+func _on_high_scores_button_pressed() -> void:
+	get_tree().change_scene_to_packed(HIGH_SCORES_SCENE)
 
 func _on_exit_button_pressed() -> void:
 	print("exit button pressed")

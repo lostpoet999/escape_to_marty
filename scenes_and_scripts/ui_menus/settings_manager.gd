@@ -12,6 +12,7 @@ var ball_speed_scale: float = 1.0
 var difficulty: int = 1
 var mouse_sensitivity: float = 1.0
 var show_tutorial_tips: bool = true
+var share_gameplay_data: bool = true
 
 const TIER_NAMES: Array[String] = ["Casual", "Easy", "Normal", "Hard", "Brutal"]
 
@@ -72,6 +73,7 @@ func save_settings() -> void:
 	settings_file.set_value("game", "difficulty", difficulty)
 	settings_file.set_value("game", "mouse_sensitivity", mouse_sensitivity)
 	settings_file.set_value("game", "show_tutorial_tips", show_tutorial_tips)
+	settings_file.set_value("game", "share_gameplay_data", share_gameplay_data)
 	var error: int = settings_file.save(SETTINGS_PATH)
 	if error != OK: print("Disk error saving settings: ", error)
 	apply_settings() # to ensure we call apply_time_scale at start of a new run
@@ -90,6 +92,7 @@ func load_settings() -> void:
 			ball_speed_scale = 2.0
 		mouse_sensitivity = settings_file.get_value("game", "mouse_sensitivity", mouse_sensitivity)
 		show_tutorial_tips = settings_file.get_value("game", "show_tutorial_tips", show_tutorial_tips)
+		share_gameplay_data = settings_file.get_value("game", "share_gameplay_data", share_gameplay_data)
 	else:
 		save_settings()
 	apply_settings()

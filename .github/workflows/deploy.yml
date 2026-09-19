@@ -23,6 +23,18 @@ jobs:
         env:
           HOME: /root
 
+      - name: Write Talo settings
+        run: |
+          cat > addons/talo/settings.cfg <<'EOF'
+          access_key="${{ secrets.TALO_ACCESS_KEY }}"
+          api_url="https://api.heeyagames.com"
+          auto_connect_socket=false
+          handle_tree_quit=false
+
+          [player_auth]
+          auto_start_session=false
+          EOF
+
       - name: Web build
         run: |
           mkdir -v -p build/web

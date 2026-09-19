@@ -65,11 +65,13 @@ func run() -> void:
 	_set_exits_locked(false)
 	_reveal_practice_seal()
 	_remove_skip_prompt()
+	Telemetry.track("cutscene_finish")
 	active = false
 
 
 func _skip_to_end() -> void:
 	_skipped = true
+	Telemetry.track("cutscene_skip")
 	active = false
 	_remove_skip_prompt()
 	DialogDirector.cancel_active()

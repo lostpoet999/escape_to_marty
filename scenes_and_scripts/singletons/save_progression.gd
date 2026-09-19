@@ -106,6 +106,15 @@ func record_run_clear(tier: String) -> void:
 	_store.set_value(ACTIVE_PROFILE, key, int(_store.get_value(ACTIVE_PROFILE, key, 0)) + 1)
 	_save_store()
 
+func profile_name() -> String:
+	_ensure_loaded()
+	return String(_store.get_value(ACTIVE_PROFILE, "profile/name", ""))
+
+func set_profile_name(player_name: String) -> void:
+	_ensure_loaded()
+	_store.set_value(ACTIVE_PROFILE, "profile/name", player_name)
+	_save_store()
+
 func best_score(tier: String) -> int:
 	_ensure_loaded()
 	return int(_store.get_value(ACTIVE_PROFILE, "best/" + tier, 0))

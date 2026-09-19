@@ -10,12 +10,20 @@ const RESTART_FILL_COLOR: Color = Color(1.0, 0.3, 0.3, 0.45)
 @onready var score_value: Label = %ScoreValue
 @onready var run_context: Label = %RunContext
 @onready var easier_button: Button = $ColorRect/VBoxContainer/HBoxContainer/EasierRetry
+@onready var name_edit: LineEdit = %NameEdit
+@onready var board_title: Label = %BoardTitle
+@onready var board_rows: RichTextLabel = %BoardRows
+@onready var name_hint: Label = %NameHint
 
 var _open_tween: Tween
 var _breathe_tween: Tween
 var _restart_fill: ColorRect
 var _restart_holding: bool = false
 var _restart_hold_time: float = 0.0
+var _run_tier: String = ""
+var _run_score: int = 0
+var _board_request: int = 0
+var _name_checking: bool = false
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -33,6 +41,8 @@ func _ready() -> void:
 	restart_button.add_child(_restart_fill)
 	restart_button.button_down.connect(_on_restart_hold_started)
 	restart_button.button_up.connect(_on_restart_hold_released)
+	name_edit.text_submitted.connect(_on_name_submitted)
+	name_edit.max_length = Telemetry.NAME_MAX_LENGTH
 	hide_menu()
 	Signalbus.game_state_game_over.connect(show_menu)
 	Signalbus.game_state_main_menu.connect(hide_menu)
@@ -63,6 +73,7 @@ func _on_retry_pressed() -> void:
 	GameManager.retry_floor()
 
 func _on_easier_pressed() -> void:
+	Telemetry.track("retry_easier")
 	GameManager.retry_floor_easier()
 
 func show_menu() -> void:
@@ -74,6 +85,16 @@ func show_menu() -> void:
 	var summary: Dictionary = PlayerData.build_run_summary(false)
 	run_context.text = "%s  -  %s" % [summary["floor_name"], summary["tier"]]
 	SaveProgression.record_run_score(summary["tier"], PlayerData.get_player_score())
+	_run_tier = summary["tier"]
+	_run_score = PlayerData.get_player_score()
+	name_edit.text = SaveProgression.profile_name()
+	name_edit.editable = Telemetry.enabled()
+	board_title.text = "TOP RUNS  -  %s" % _run_tier
+	name_hint.hide()
+	board_rows.text = ""
+	_refresh_board(SaveProgression.profile_name())
+	if name_edit.editable and name_edit.text.is_empty():
+		name_edit.grab_focus()
 	retry_button.visible = not GameManager.test_floor_active
 	restart_button.visible = not GameManager.test_floor_active
 	var tier: int = SettingsManager.tier_index()
@@ -91,6 +112,42 @@ func hide_menu() -> void:
 		_breathe_tween.kill()
 	ApolloPalette.reset_popup(self)
 	hide()
+
+func _on_name_submitted(raw_name: String) -> void:
+	if _name_checking:
+		return
+	var clean_name: String = Telemetry.sanitize_name(raw_name)
+	name_edit.text = clean_name
+	_name_checking = true
+	var claimed: String = await Telemetry.claim_name(clean_name)
+	_name_checking = false
+	if not visible:
+		return
+	if claimed != clean_name:
+		name_edit.text = claimed
+		name_hint.text = "%s is taken" % clean_name
+		name_hint.show()
+		name_edit.grab_focus()
+		name_edit.caret_column = claimed.length()
+		return
+	name_hint.hide()
+	if clean_name != SaveProgression.profile_name():
+		SaveProgression.set_profile_name(clean_name)
+	_refresh_board(clean_name)
+	name_edit.release_focus()
+
+func _refresh_board(player_name: String) -> void:
+	if not Telemetry.enabled():
+		board_rows.text = "offline"
+		return
+	_board_request += 1
+	var request: int = _board_request
+	if not player_name.is_empty():
+		await Telemetry.submit_score(_run_tier, _run_score, player_name)
+	var rows: Array[Dictionary] = await Telemetry.fetch_top(_run_tier)
+	if request != _board_request or not visible:
+		return
+	board_rows.text = Telemetry.format_rows(rows)
 
 func _start_breathe() -> void:
 	_breathe_tween = ApolloPalette.make_breathe_tween(self, true)

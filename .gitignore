@@ -9,7 +9,9 @@ export.cfg
 # Mono-specific ignores
 .mono/
 data_*/
-/addons
+/addons/*
+!/addons/talo/
+/addons/talo/settings.cfg
 
 # AI tool configs
 .claude/

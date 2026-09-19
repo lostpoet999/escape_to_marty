@@ -15,6 +15,9 @@ static var open_with_start_run: bool = false
 @onready var sfx_slider: HSlider = $"VBoxContainer/Settings Container/SettingsBox/SfxRow/SfxSlider"
 @onready var mouse_slider: HSlider = $"VBoxContainer/Settings Container/SettingsBox/MouseRow/MouseSlider"
 @onready var tips_check: CheckBox = $"VBoxContainer/Settings Container/SettingsBox/TipsRow/TipsCheck"
+@onready var gameplay_data_check: CheckBox = $"VBoxContainer/Settings Container/SettingsBox/GameplayDataRow/GameplayDataCheck"
+@onready var player_name_edit: LineEdit = $"VBoxContainer/Settings Container/SettingsBox/PlayerNameRow/PlayerNameEdit"
+@onready var player_name_hint: Label = $"VBoxContainer/Settings Container/SettingsBox/PlayerNameRow/PlayerNameHint"
 @onready var casual_button: Button = $"VBoxContainer/Settings Container/SettingsBox/DifficultyRowMORE/DifficultyButtons/CasualButton"
 @onready var easy_button: Button = $"VBoxContainer/Settings Container/SettingsBox/DifficultyRowMORE/DifficultyButtons/EasyButton"
 @onready var normal_button: Button = $"VBoxContainer/Settings Container/SettingsBox/DifficultyRowMORE/DifficultyButtons/NormalButton"
@@ -23,12 +26,16 @@ static var open_with_start_run: bool = false
 
 func _ready() -> void:
 	start_run_button.visible = open_with_start_run
-	_scale_tips_check_icon(&"checked")
-	_scale_tips_check_icon(&"unchecked")
+	_scale_check_icon(tips_check, &"checked")
+	_scale_check_icon(tips_check, &"unchecked")
+	_scale_check_icon(gameplay_data_check, &"checked")
+	_scale_check_icon(gameplay_data_check, &"unchecked")
 	music_slider.value = SettingsManager.music_volume
 	sfx_slider.value = SettingsManager.sfx_volume
 	mouse_slider.value = SettingsManager.mouse_sensitivity
 	tips_check.button_pressed = SettingsManager.show_tutorial_tips
+	gameplay_data_check.button_pressed = SettingsManager.share_gameplay_data
+	player_name_edit.text = SaveProgression.profile_name()
 	casual_button.tooltip_text = CASUAL_TOOLTIP
 	easy_button.tooltip_text = EASY_TOOLTIP
 	normal_button.tooltip_text = NORMAL_TOOLTIP
@@ -61,6 +68,28 @@ func _on_mouse_slider_value_changed(value: float) -> void:
 func _on_tips_check_toggled(toggled_on: bool) -> void:
 	SettingsManager.show_tutorial_tips = toggled_on
 
+func _on_gameplay_data_check_toggled(toggled_on: bool) -> void:
+	SettingsManager.share_gameplay_data = toggled_on
+
+func _on_player_name_edit_text_submitted(_raw_name: String) -> void:
+	player_name_edit.release_focus()
+
+func _on_player_name_edit_focus_exited() -> void:
+	var clean_name: String = Telemetry.sanitize_name(player_name_edit.text)
+	player_name_edit.text = clean_name
+	if clean_name == SaveProgression.profile_name():
+		return
+	var claimed: String = await Telemetry.claim_name(clean_name)
+	if not is_inside_tree():
+		return
+	if claimed != clean_name:
+		player_name_edit.text = claimed
+		player_name_hint.text = "%s is taken" % clean_name
+		player_name_hint.show()
+		return
+	player_name_hint.hide()
+	SaveProgression.set_profile_name(clean_name)
+
 func _on_casual_button_pressed() -> void:
 	SettingsManager.difficulty = 0
 	SettingsManager.game_speed = 0.5
@@ -86,11 +115,11 @@ func _on_brutal_button_pressed() -> void:
 	SettingsManager.game_speed = 1
 	SettingsManager.ball_speed_scale = 2.0
 
-func _scale_tips_check_icon(icon_name: StringName) -> void:
-	var icon: Texture2D = tips_check.get_theme_icon(icon_name)
+func _scale_check_icon(check: CheckBox, icon_name: StringName) -> void:
+	var icon: Texture2D = check.get_theme_icon(icon_name)
 	var image: Image = icon.get_image()
 	image.resize(image.get_width() * TIPS_CHECK_ICON_SCALE, image.get_height() * TIPS_CHECK_ICON_SCALE, Image.INTERPOLATE_NEAREST)
-	tips_check.add_theme_icon_override(icon_name, ImageTexture.create_from_image(image))
+	check.add_theme_icon_override(icon_name, ImageTexture.create_from_image(image))
 
 func _on_start_run_button_pressed() -> void:
 	SettingsManager.save_settings()
