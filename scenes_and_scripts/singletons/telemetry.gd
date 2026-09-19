@@ -12,6 +12,7 @@ var _pending: Array[PendingEvent] = []
 var _first_launch_sent: bool = false
 var _first_clear_sent: bool = false
 var _last_entry_id: int = -1
+var last_fetch_failed: bool = false
 
 
 class PendingEvent:
@@ -139,6 +140,7 @@ func _is_name_taken(player_name: String) -> bool:
 func _fetch(tier: String) -> Array[Dictionary]:
 	var rows: Array[Dictionary] = []
 	var page: LeaderboardsAPI.EntriesPage = await Talo.leaderboards.get_entries(board_name(tier))
+	last_fetch_failed = page == null
 	if page == null:
 		return rows
 	for entry: TaloLeaderboardEntry in page.entries:

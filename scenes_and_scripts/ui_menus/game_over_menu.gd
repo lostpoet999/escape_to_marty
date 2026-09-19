@@ -147,6 +147,9 @@ func _refresh_board(player_name: String) -> void:
 	var rows: Array[Dictionary] = await Telemetry.fetch_top(_run_tier)
 	if request != _board_request or not visible:
 		return
+	if Telemetry.last_fetch_failed:
+		board_rows.text = "server unreachable"
+		return
 	board_rows.text = Telemetry.format_rows(rows)
 
 func _start_breathe() -> void:

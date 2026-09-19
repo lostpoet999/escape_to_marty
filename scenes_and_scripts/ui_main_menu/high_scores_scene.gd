@@ -30,6 +30,9 @@ func _show_tier(tier: String) -> void:
 	var rows: Array[Dictionary] = await Telemetry.fetch_top(tier)
 	if request != _board_request or not is_inside_tree():
 		return
+	if Telemetry.last_fetch_failed:
+		board_rows.text = "server unreachable"
+		return
 	board_rows.text = Telemetry.format_rows(rows)
 
 
