@@ -1,7 +1,8 @@
 access_key=""
 api_url="https://api.heeyagames.com"
-auto_connect_socket=false
-handle_tree_quit=false
+socket_url="wss://api.heeyagames.com"
+auto_connect_socket=true
+handle_tree_quit=true
 
 [player_auth]
 auto_start_session=false
